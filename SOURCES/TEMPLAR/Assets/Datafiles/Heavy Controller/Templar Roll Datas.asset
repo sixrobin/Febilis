@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b734645c989941e4c894c40cbd109c06, type: 3}
+  m_Name: Templar Roll Datas
+  m_EditorClassIdentifier: 
+  _dur: 0.65
+  _speed: 5.6
+  _speedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.009862656
+      outSlope: 0.009862656
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.322397
+    - serializedVersion: 3
+      time: 0.4879728
+      value: 0.6365794
+      inSlope: -2.2008634
+      outSlope: -2.2008634
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.11015238
+      outWeight: 0.39772415
+    - serializedVersion: 3
+      time: 0.60905784
+      value: 0.24255776
+      inSlope: -0.3923958
+      outSlope: -0.3923958
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8978082
+      value: 0.5765173
+      inSlope: 0.055742554
+      outSlope: 0.055742554
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.36819103
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _cooldown: 0.1
+  _gravityMult: 0.7
