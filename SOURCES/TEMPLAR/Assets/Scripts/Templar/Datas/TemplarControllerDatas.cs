@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Templar Controller Datas", menuName = "Datas/Templar Controller")]
+[CreateAssetMenu(fileName = "New Templar Controller Datas", menuName = "Datas/Templar/Controller")]
 public class TemplarControllerDatas : ScriptableObject
 {
     [Header("INPUT")]
@@ -26,6 +26,12 @@ public class TemplarControllerDatas : ScriptableObject
     [Tooltip("Instantly grounds the controller on awake without triggering any event, just for visual purpose.")]
     [SerializeField] private bool _groundOnAwake = true;
 
+    [Tooltip("Full hurt motion duration.")]
+    [SerializeField, Min(0f)] private float _hurtDur = 1f;
+
+    [Tooltip("Recoil applied to controller when getting hurt.")]
+    [SerializeField] private Recoil.RecoilSettings _hurtRecoilSettings = null;
+
     public TemplarInputDatas Input => _templarInputDatas;
     public TemplarJumpDatas Jump => _templarJumpDatas;
     public TemplarRollDatas Roll => _templarRollDatas;
@@ -35,4 +41,6 @@ public class TemplarControllerDatas : ScriptableObject
     public float RunSpeed => _runSpeed;
     public float GroundedDamping => _groundedDamping;
     public bool GroundOnAwake => _groundOnAwake;
+    public float HurtDur => _hurtDur;
+    public Recoil.RecoilSettings HurtRecoilSettings => _hurtRecoilSettings;
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TemplarController : MonoBehaviour
+public class TemplarController : MonoBehaviour, IHittable
 {
     [SerializeField] private TemplarView _templarView = null;
     [SerializeField] private CameraController _cameraController = null;
@@ -9,10 +9,15 @@ public class TemplarController : MonoBehaviour
     [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
     [SerializeField] private LayerMask _collisionMask = 0;
 
+    private Recoil _currentRecoil;
+    private System.Collections.IEnumerator _hurtCoroutine;
+
     private Vector3 _currVel;
     private Vector3 _prevVel;
     private float _refVelX;
     private float _jumpVel;
+
+    public HitLayer HitLayer => HitLayer.Player;
 
     public TemplarView TemplarView => _templarView;
     public CameraController CameraController => _cameraController;
@@ -29,6 +34,23 @@ public class TemplarController : MonoBehaviour
     public float Gravity { get; private set; }
 
     public bool JumpAllowedThisFrame { get; private set; }
+
+    public void OnHit(AttackDatas attackDatas, float dir)
+    {
+        if (RollCtrl.IsRolling)
+            return;
+
+        CProLogger.Log(this, "Templar hurt.", gameObject);
+
+        ResetVelocity();
+
+        _templarView.PlayHurtAnimation(dir);
+        CameraController.Shake.SetTrauma(0.75f);
+        _hurtCoroutine = HurtCoroutine();
+        StartCoroutine(_hurtCoroutine);
+
+        _currentRecoil = new Recoil(ControllerDatas.HurtRecoilSettings, dir);
+    }
 
     public void Jump()
     {
@@ -83,7 +105,8 @@ public class TemplarController : MonoBehaviour
             || AttackCtrl.IsAttacking
             || !InputCtrl.CheckInput(TemplarInputController.ButtonCategory.ROLL)
             || !CollisionsCtrl.Below
-            || JumpCtrl.IsInLandImpact)
+            || JumpCtrl.IsInLandImpact
+            || _hurtCoroutine != null)
             return;
 
         _currVel = Vector3.zero;
@@ -96,23 +119,24 @@ public class TemplarController : MonoBehaviour
         if (RollCtrl.IsRolling
             || AttackCtrl.IsAttacking
             || !InputCtrl.CheckInput(TemplarInputController.ButtonCategory.ATTACK)
-            || JumpCtrl.IsInLandImpact)
+            || JumpCtrl.IsInLandImpact
+            || _hurtCoroutine != null)
             return;
 
         InputCtrl.ResetDelayedInput(TemplarInputController.ButtonCategory.ATTACK);
 
         if (CollisionsCtrl.Below)
         {
-            AttackCtrl.Attack((comboFinalDir) =>
+            AttackCtrl.Attack((attackOverArgs) =>
             {
-                CurrDir = comboFinalDir;
+                CurrDir = attackOverArgs.Dir;
                 if (AttackCtrl.CurrentAttackDatas.ControlVelocity)
                     ResetVelocity();
             });
         }
         else if (AttackCtrl.CanAttackAirborne)
         {
-            AttackCtrl.AttackAirborne(() =>
+            AttackCtrl.AttackAirborne((attackOverArgs) =>
             {
                 if (AttackCtrl.CurrentAttackDatas.ControlVelocity)
                     ResetVelocity();
@@ -142,7 +166,8 @@ public class TemplarController : MonoBehaviour
         if (JumpCtrl.JumpsLeft > 0
             && InputCtrl.CheckInput(TemplarInputController.ButtonCategory.JUMP)
             && !JumpCtrl.IsInLandImpact && !JumpCtrl.IsAnticipatingJump
-            && (AttackCtrl.CurrentAttackDatas == null || AttackCtrl.CanChainAttack))
+            && (AttackCtrl.CurrentAttackDatas == null || AttackCtrl.CanChainAttack)
+            && _hurtCoroutine == null)
         {
             JumpAllowedThisFrame = true;
             InputCtrl.ResetDelayedInput(TemplarInputController.ButtonCategory.JUMP);
@@ -173,11 +198,18 @@ public class TemplarController : MonoBehaviour
         }
 
         float targetVelX = _controllerDatas.RunSpeed;
-        targetVelX *= InputCtrl.Horizontal;
-        if (JumpCtrl.IsAnticipatingJump)
-            targetVelX *= _controllerDatas.Jump.JumpAnticipationSpeedMult;
-        if (JumpCtrl.IsInLandImpact)
-            targetVelX *= JumpCtrl.LandImpactSpeedMult;
+        if (_hurtCoroutine == null)
+        {
+            targetVelX *= InputCtrl.Horizontal;
+            if (JumpCtrl.IsAnticipatingJump)
+                targetVelX *= _controllerDatas.Jump.JumpAnticipationSpeedMult;
+            if (JumpCtrl.IsInLandImpact)
+                targetVelX *= JumpCtrl.LandImpactSpeedMult;
+        }
+        else
+        {
+            targetVelX = 0f;
+        }
 
         float grav = Gravity * Time.deltaTime;
         if (_currVel.y < 0f)
@@ -203,6 +235,13 @@ public class TemplarController : MonoBehaviour
     {
         InputCtrl.Reset();
         JumpAllowedThisFrame = false;
+    }
+
+    private System.Collections.IEnumerator HurtCoroutine()
+    {
+        yield return RSLib.Yield.SharedYields.WaitForSeconds(ControllerDatas.HurtDur);
+        _hurtCoroutine = null;
+        _templarView.PlayIdleAnimation();
     }
 
     private void Awake()
@@ -233,6 +272,14 @@ public class TemplarController : MonoBehaviour
         TryRoll();
         TryAttack();
         Move();
+
+        if (_currentRecoil != null)
+        {
+            Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f));
+            _currentRecoil.Update();
+            if (_currentRecoil.IsComplete)
+                _currentRecoil = null;
+        }
 
         CollisionsCtrl.TriggerDetectedCollisionsEvents();
 

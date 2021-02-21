@@ -10,7 +10,7 @@ public class RaycastsController
         public Vector2 TopRight { get; set; }
     }
 
-    public const float SKIN_WIDTH = 0.01f;
+    public const float SKIN_WIDTH = 0.005f;
     public const float RAYCASTS_SPACING = 0.1f;
 
     private BoxCollider2D _boxCollider2D;

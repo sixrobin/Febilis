@@ -1,66 +1,50 @@
 ﻿using UnityEngine;
 
-public class TemplarAttackController
+public class TemplarAttackController : AttackController
 {
-    private TemplarAttackDatas[] _attacksDatas;
+    private TemplarAttackDatas[] _baseComboDatas;
     private TemplarAttackDatas _airborneAttackDatas;
     private TemplarController _templarController;
 
-    private System.Collections.Generic.Dictionary<string, AttackHitbox> _attackHitboxesById;
-
-    private System.Collections.IEnumerator _attackCoroutine;
-
     public TemplarAttackController(TemplarController templarController)
+        : base(templarController, templarController.AttackHitboxesContainer)
     {
         _templarController = templarController;
-        _attacksDatas = _templarController.ControllerDatas.BaseCombo;
+        _baseComboDatas = _templarController.ControllerDatas.BaseCombo;
         _airborneAttackDatas = _templarController.ControllerDatas.AirborneAttack;
-
-        _attackHitboxesById = new System.Collections.Generic.Dictionary<string, AttackHitbox>();
-        for (int i = _templarController.AttackHitboxesContainer.AttackHitboxes.Length - 1; i >= 0; --i)
-        {
-            UnityEngine.Assertions.Assert.IsFalse(
-                _attackHitboxesById.ContainsKey(_templarController.AttackHitboxesContainer.AttackHitboxes[i].Id),
-                $"Duplicate Id {_templarController.AttackHitboxesContainer.AttackHitboxes[i].Id} found for attack hitboxes.");
-
-            _attackHitboxesById.Add(_templarController.AttackHitboxesContainer.AttackHitboxes[i].Id, _templarController.AttackHitboxesContainer.AttackHitboxes[i]);
-            _templarController.AttackHitboxesContainer.AttackHitboxes[i].Hit += OnHit;
-        }
     }
 
     public TemplarInputController InputController => _templarController.InputCtrl;
 
-    public float AttackDir { get; private set; }
     public TemplarAttackDatas CurrentAttackDatas { get; private set; }
     public bool CanAttackAirborne { get; private set; }
     public bool CanChainAttack { get; private set; }
-    public bool IsAttacking => _attackCoroutine != null;
 
     public void ResetAirborneAttack()
     {
         CanAttackAirborne = true;
     }
 
-    public void Attack(System.Action<float> comboOverCallback = null)
+    public void Attack(AttackOverEventHandler comboOverCallback = null)
     {
         _attackCoroutine = ComboCoroutine(comboOverCallback);
-        _templarController.StartCoroutine(_attackCoroutine);
+        _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
     }
 
-    public void AttackAirborne(System.Action attackOverCallback = null)
+    public void AttackAirborne(AttackOverEventHandler attackOverCallback = null)
     {
         _attackCoroutine = AirborneAttackCoroutine(attackOverCallback);
-        _templarController.StartCoroutine(_attackCoroutine);
+        _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
         CanAttackAirborne = false;
     }
 
-    private void OnHit(AttackHitbox.HitEventArgs hitArgs)
+    protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
     {
         _templarController.TemplarView.PlayHitVFX(hitArgs.Dir);
         _templarController.CameraController.Shake.SetTrauma(0.25f);
     }
 
-    private void ComputeAttackDirection()
+    protected override void ComputeAttackDirection()
     {
         AttackDir = Mathf.Sign(InputController.Horizontal != 0f ? InputController.Horizontal : _templarController.CurrDir);
     }
@@ -71,30 +55,20 @@ public class TemplarAttackController
         vel.y -= CurrentAttackDatas.Gravity * Time.deltaTime;
     }
 
-    private void TriggerHit()
-    {
-        _templarController.AttackHitboxesContainer.SetDirection(AttackDir);
-
-        if (_attackHitboxesById.TryGetValue(CurrentAttackDatas.Id, out AttackHitbox hitbox))
-            hitbox.Trigger(AttackDir, CurrentAttackDatas);
-        else
-            CProLogger.LogError(this, $"Could not find hitbox with Id {CurrentAttackDatas.Id}.");
-    }
-
-    private System.Collections.IEnumerator ComboCoroutine(System.Action<float> comboOverCallback = null)
+    private System.Collections.IEnumerator ComboCoroutine(AttackOverEventHandler comboOverCallback = null)
     {
         ComputeAttackDirection();
         Vector3 attackVel = new Vector3(0f, 0f);
 
-        CurrentAttackDatas = _attacksDatas[0]; // Done for attack view.
+        CurrentAttackDatas = _baseComboDatas[0]; // Done for attack view.
         _templarController.TemplarView.PlayAttackAnimation(AttackDir);
         if (_templarController.CollisionsCtrl.Below)
             _templarController.TemplarView.PlayAttackVFX(AttackDir, 0.25f);
 
-        for (int i = 0; i < _attacksDatas.Length; ++i)
+        for (int i = 0; i < _baseComboDatas.Length; ++i)
         {
-            CurrentAttackDatas = _attacksDatas[i];
-            TriggerHit();
+            CurrentAttackDatas = _baseComboDatas[i];
+            TriggerHit(CurrentAttackDatas);
 
             // Attack motion.
             for (float t = 0f; t < 1f; t += Time.deltaTime / CurrentAttackDatas.Dur)
@@ -105,7 +79,7 @@ public class TemplarAttackController
                     if (InputController.CheckInput(TemplarInputController.ButtonCategory.ROLL) || InputController.CheckInput(TemplarInputController.ButtonCategory.JUMP))
                         break;
 
-                    if (InputController.CheckInput(TemplarInputController.ButtonCategory.ATTACK) && i < _attacksDatas.Length - 1)
+                    if (InputController.CheckInput(TemplarInputController.ButtonCategory.ATTACK) && i < _baseComboDatas.Length - 1)
                         break;
                 }
 
@@ -124,7 +98,7 @@ public class TemplarAttackController
                 break;
             }
 
-            if (InputController.CheckInput(TemplarInputController.ButtonCategory.ATTACK) && i < _attacksDatas.Length - 1)
+            if (InputController.CheckInput(TemplarInputController.ButtonCategory.ATTACK) && i < _baseComboDatas.Length - 1)
             {
                 // Chained attack.
                 InputController.ResetDelayedInput(TemplarInputController.ButtonCategory.ATTACK);
@@ -143,17 +117,17 @@ public class TemplarAttackController
         CProLogger.Log(this, $"Combo end with a direction of {AttackDir}.", _templarController.gameObject);
 
         _attackCoroutine = null;
-        comboOverCallback?.Invoke(AttackDir);
+        comboOverCallback?.Invoke(new AttackOverEventArgs(AttackDir));
         _templarController.TemplarView.PlayIdleAnimation();
     }
 
-    private System.Collections.IEnumerator AirborneAttackCoroutine(System.Action attackOverCallback = null)
+    private System.Collections.IEnumerator AirborneAttackCoroutine(AttackOverEventHandler attackOverCallback = null)
     {
         ComputeAttackDirection();
         Vector3 attackVel = new Vector3(0f, 0f);
 
         CurrentAttackDatas = _airborneAttackDatas;
-        TriggerHit();
+        TriggerHit(CurrentAttackDatas);
 
         _templarController.TemplarView.PlayAttackAirborneAnimation();
 
@@ -171,7 +145,7 @@ public class TemplarAttackController
         }
 
         _attackCoroutine = null;
-        attackOverCallback?.Invoke();
+        attackOverCallback?.Invoke(new AttackOverEventArgs(AttackDir));
 
         // This will lead to fall animation instantly, but this is done to exit the attack animation.
         _templarController.TemplarView.PlayIdleAnimation();

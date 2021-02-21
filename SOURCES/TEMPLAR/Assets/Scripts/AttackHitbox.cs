@@ -15,7 +15,9 @@ public class AttackHitbox : MonoBehaviour
     [SerializeField] private string _id = string.Empty;
 
     private static System.Collections.Generic.Dictionary<Collider2D, IHittable> s_sharedKnownHittables = new System.Collections.Generic.Dictionary<Collider2D, IHittable>();
+
     private System.Collections.Generic.List<IHittable> _hitThisTime = new System.Collections.Generic.List<IHittable>();
+    private AttackDatas _attackDatas;
 
     private Collider2D _hitbox = null;
     private System.Collections.IEnumerator _hitCoroutine;
@@ -26,12 +28,14 @@ public class AttackHitbox : MonoBehaviour
     public string Id => _id;
     public float Dir { get; private set; }
 
-    public void Trigger(float dir, TemplarAttackDatas attackDatas)
+    public void Trigger(float dir, AttackDatas attackDatas)
     {
         UnityEngine.Assertions.Assert.IsNull(_hitCoroutine, $"Triggering hit on {transform.name} hitbox that seems to already run a coroutine.");
 
+        _attackDatas = attackDatas;
         Dir = dir;
-        _hitCoroutine = HitCoroutine(attackDatas.HitDur);
+
+        _hitCoroutine = HitCoroutine(_attackDatas.HitDur);
         StartCoroutine(_hitCoroutine);
     }
 
@@ -57,11 +61,11 @@ public class AttackHitbox : MonoBehaviour
             if (collision.TryGetComponent(out hittable))
                 s_sharedKnownHittables.Add(collision, hittable);
 
-        if (hittable == null || _hitThisTime.Contains(hittable))
+        if (hittable == null || (_attackDatas.HitLayer & hittable.HitLayer) == 0 || _hitThisTime.Contains(hittable))
             return;
 
         _hitThisTime.Add(hittable);
-        hittable.OnHit();
+        hittable.OnHit(_attackDatas, Dir);
 
         Hit(new HitEventArgs(Dir));
     }

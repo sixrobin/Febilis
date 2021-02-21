@@ -12,6 +12,7 @@ public class TemplarView : MonoBehaviour
     private const string ATTACK = "Attack";
     private const string ATTACK_CHAIN = "AttackChain";
     private const string ATTACK_AIRBORNE = "AttackAirborne";
+    private const string HURT = "Hurt";
     private const string MULT_ROLL = "Mult_Roll";
     private const string MULT_ATTACK = "Mult_Attack";
 
@@ -25,10 +26,11 @@ public class TemplarView : MonoBehaviour
     [SerializeField] private GameObject _rollPuffPrefab = null;
     [SerializeField, Min(0f)] private float _landPuffMinVel = 5f;
 
-    [Header("ATTACK")]
+    [Header("FIGHT")]
     [SerializeField] private GameObject _hitPrefab = null;
     [SerializeField] private Transform _hitVFXPivot = null;
     [SerializeField] private GameObject _attackPuffPrefab = null;
+    [SerializeField] private GameObject _hurtPrefab = null;
 
     public TemplarController TemplarController { get; private set; }
 
@@ -134,6 +136,16 @@ public class TemplarView : MonoBehaviour
     {
         GameObject hitInstance = Instantiate(_hitPrefab, _hitVFXPivot.position, _hitPrefab.transform.rotation);
         hitInstance.transform.SetScaleX(dir);
+    }
+
+    public void PlayHurtAnimation(float dir)
+    {
+        _animator.SetTrigger(HURT);
+        Instantiate(_hurtPrefab, transform.position, _hurtPrefab.transform.rotation);
+
+        // [TMP]
+        GameObject jumpPuffInstance = Instantiate(_jumpPuffPrefab, transform.position, _jumpPuffPrefab.transform.rotation);
+        jumpPuffInstance.transform.SetScaleX(dir);
     }
 
     public void DBG_Color(Color col)

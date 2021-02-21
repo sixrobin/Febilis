@@ -1,4 +1,6 @@
 ﻿public interface IHittable
 {
-    void OnHit();
+    HitLayer HitLayer { get; }
+
+    void OnHit(AttackDatas attackDatas, float dir);
 }

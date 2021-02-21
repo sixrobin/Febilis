@@ -11,12 +11,6 @@ public class CameraController : MonoBehaviour
         Shake = new CameraShake(transform, _shakeSettings);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-            Shake.SetTrauma(1f, 1f);
-    }
-
     private void LateUpdate()
     {
         Shake.Apply();

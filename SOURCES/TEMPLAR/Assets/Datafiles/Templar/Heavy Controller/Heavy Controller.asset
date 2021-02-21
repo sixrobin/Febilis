@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a528eeda60807419c3e8db7da34ef9, type: 3}
+  m_Name: Heavy Controller
+  m_EditorClassIdentifier: 
+  _templarInputDatas: {fileID: 11400000, guid: b8891c13da103ed47824953e1c47f9cc, type: 2}
+  _templarJumpDatas: {fileID: 11400000, guid: d683ef106e79287408fd98eb10980d11, type: 2}
+  _templarRollDatas: {fileID: 11400000, guid: ba4b17a2230f57d44a435ae8cd5b0afc, type: 2}
+  _baseCombo:
+  - {fileID: 11400000, guid: 52909302877d19142ba169dd81b91eb5, type: 2}
+  - {fileID: 11400000, guid: a908b2279370ebe42949c66bf721afb6, type: 2}
+  - {fileID: 11400000, guid: 0bcb07c8e1424d645979478f5ab75722, type: 2}
+  _airborneAttack: {fileID: 11400000, guid: 33d4bd6256d9a1d48ae4d89045b2b8ca, type: 2}
+  _runSpeed: 3.7
+  _groundedDamping: 0
+  _groundOnAwake: 1
+  _hurtDur: 0.5
+  _hurtRecoilSettings:
+    _force: 9
+    _dur: 0.15

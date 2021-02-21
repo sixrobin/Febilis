@@ -1,17 +1,8 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Templar Attack Datas", menuName = "Datas/Templar Attack")]
-public class TemplarAttackDatas : ScriptableObject
+[CreateAssetMenu(fileName = "New Templar Attack Datas", menuName = "Datas/Templar/Attack")]
+public class TemplarAttackDatas : AttackDatas
 {
-    [Tooltip("Identifier used to retrieve the attack hitbox.")]
-    [SerializeField] private string _id = string.Empty;
-
-    [Tooltip("Full attack motion duration.")]
-    [SerializeField] private float _dur = 0.8f;
-
-    [Tooltip("Duration during which the attack hitbox is enabled")]
-    [SerializeField, Min(0f)] private float _hitDur = 0.1f;
-
     [Tooltip("Duration from which the next attack, if it exists, can be triggered. Must then be less than full duration.")]
     [SerializeField] private float _chainAllowedTime = 0.4f;
 
@@ -27,21 +18,14 @@ public class TemplarAttackDatas : ScriptableObject
     [Tooltip("Curve that will be applied to attack speed over the attack duration. Values should be between 0 and 1.")]
     [SerializeField] private AnimationCurve _moveSpeedCurve = null;
 
-    [Tooltip("Multiplier applied to roll animation speed.")]
-    [SerializeField] private float _animMult = 1f;
-
-    public string Id => _id;
-    public float Dur => _dur;
-    public float HitDur => _hitDur;
     public float ChainAllowedTime => _chainAllowedTime;
     public bool ControlVelocity => _controlVelocity;
     public float MoveSpeed => _moveSpeed;
     public float Gravity => _gravity;
     public AnimationCurve MoveSpeedCurve => _moveSpeedCurve;
-    public float AnimMult => _animMult;
 
-    private void OnValidate()
+    protected override void OnValidate()
     {
-        _chainAllowedTime = Mathf.Min(_chainAllowedTime, _dur);
+        _chainAllowedTime = Mathf.Min(_chainAllowedTime, Dur);
     }
 }

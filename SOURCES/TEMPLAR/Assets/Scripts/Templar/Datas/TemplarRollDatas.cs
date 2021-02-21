@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Templar Roll Datas", menuName = "Datas/Templar Roll")]
+[CreateAssetMenu(fileName = "New Templar Roll Datas", menuName = "Datas/Templar/Roll")]
 public class TemplarRollDatas : ScriptableObject
 {
     [Header("ROLL")]

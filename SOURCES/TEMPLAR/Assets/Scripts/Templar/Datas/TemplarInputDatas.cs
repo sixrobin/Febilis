@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Templar Input Datas", menuName = "Datas/Templar Input")]
+[CreateAssetMenu(fileName = "New Templar Input Datas", menuName = "Datas/Templar/Input")]
 public class TemplarInputDatas : ScriptableObject
 {
     [Tooltip("Maximum value below which left stick inclinaison is ignored.")]

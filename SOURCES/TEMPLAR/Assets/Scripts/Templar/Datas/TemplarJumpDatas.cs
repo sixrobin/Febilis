@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Templar Jump Datas", menuName = "Datas/Templar Jump")]
+[CreateAssetMenu(fileName = "New Templar Jump Datas", menuName = "Datas/Templar/Jump")]
 public class TemplarJumpDatas : ScriptableObject
 {
     [Header("JUMP")]
