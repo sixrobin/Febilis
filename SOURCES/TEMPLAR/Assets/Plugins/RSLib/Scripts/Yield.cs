@@ -1,12 +1,12 @@
 ﻿namespace RSLib.Yield
 {
-    using UnityEngine;
     using System.Collections.Generic;
+    using UnityEngine;
 
     public static class SharedYields
     {
         private static Dictionary<int, WaitForFrames> s_waitForFramesCollection = new Dictionary<int, WaitForFrames>(100, new Framework.CustomComparers.IntComparer());
-
+        private static Dictionary<float, WaitForSecondsRealtime> s_waitForFramesRealtimeCollection = new Dictionary<float, WaitForSecondsRealtime>(100, new Framework.CustomComparers.FloatComparer());
         private static Dictionary<float, WaitForSeconds> s_waitsForSeconds = new Dictionary<float, WaitForSeconds>(100, new Framework.CustomComparers.FloatComparer());
 
         public static WaitForEndOfFrame WaitForEndOfFrame { get; } = new WaitForEndOfFrame();
@@ -30,6 +30,17 @@
         {
             if (!s_waitsForSeconds.TryGetValue(duration, out WaitForSeconds wait))
                 s_waitsForSeconds.Add(duration, wait = new WaitForSeconds(duration));
+
+            return wait;
+        }
+
+        /// <summary>Returns an existing WaitForSecondsRealtime if one with the given duration has already been pooled, else a new one and pools it.</summary>
+        /// <param name="duration">Seconds to wait.</param>
+        /// <returns>WaitForSecondsRealtime instance.</returns>
+        public static WaitForSecondsRealtime WaitForSecondsRealtime(float duration)
+        {
+            if (!s_waitForFramesRealtimeCollection.TryGetValue(duration, out WaitForSecondsRealtime wait))
+                s_waitForFramesRealtimeCollection.Add(duration, wait = new WaitForSecondsRealtime(duration));
 
             return wait;
         }

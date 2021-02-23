@@ -35,6 +35,14 @@
             return System.Enum.GetValues(typeof(T)) as T[];
         }
 
+        /// <summary>Computes all values of a given Enum type into an array of their integer values.</summary>
+        /// <typeparam name="T">Enum type.</typeparam>
+        /// <returns>Array with all integer values.</returns>
+        public static int[] GetEnumIntValues<T>() where T : System.Enum
+        {
+            return System.Enum.GetValues(typeof(T)) as int[];
+        }
+
         #endregion ENUM
 
         #region MISC

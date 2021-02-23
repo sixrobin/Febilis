@@ -46,6 +46,17 @@ Idées 15/02/2021 - Histoire de rêves, de folie, tout ça.
 	
 	
 	
+- Pouvoir utiliser les armes des ennemis tués. Pouvoir utiliser les armes pour atteindre des choses, par exemple utiliser un arc pour tirer sur une corde.
+	- Usure des armes, ou alors les armes se brisent quand le joueur meurt et il faut les réparer.
+	- Ennemis sans arme pour équilibrer.
+	- Jouer sur les différences entre les armes, leurs poids, leurs tailles, etc.
+	- Utiliser une arme augmente la maîtrise du templier et permet de débloquer des trucs sur cette arme (systèmes des slots de Bravely Default qu'on peut augmenter).
+	- Avoir des slots ou un poids pour le stuff, et pouvoir mettre n'importe quoi, donc potentiellement équiper 3 armes, ou une seule arme et plein de boosts.
+	- Système des pierres gardiennes de Skyrim pour influencer les slots, les poids, les malus, etc.
+	- Trouver une façon de forcer à changer d'arme (les briser, devoir les réparer ?).
+	- La sainte poêle pourrait renvoyer les projectiles.
+	
+	
 	
 
 Idées générales
@@ -57,12 +68,6 @@ Idées générales
 - Boss qui réapparait et disparait pour montrer la confusion entre les deux univers.
 - Quête qui demande d'aller chercher 3 parties d'une même relique (une épée ?), chacune donnant des powerups, mais rendant de plus en plus fou. Peut-être que les détenteurs de ces fragments seraient des gardiens, qui ont pleinement conscience de la dangerosité de la relique. L'un pourrait être devenu complètement fou, par exemple.
 
-- Pouvoir utiliser les armes des ennemis tués. Pouvoir utiliser les armes pour atteindre des choses, par exemple utiliser un arc pour tirer sur une corde.
-	- Usure des armes, ou alors les armes se brisent quand le joueur meurt et il faut les réparer.
-	- Ennemis sans arme pour équilibrer.
-	- Jouer sur les différences entre les armes, leurs poids, leurs tailles, etc.
-	- Utiliser une arme augmente la maîtrise du templier et permet de débloquer des trucs sur cette arme (systèmes des slots de Bravely Default qu'on peut augmenter).
-	- Avoir des slots ou un poids pour le stuff, et pouvoir mettre n'importe quoi, donc potentiellement équiper 3 armes, ou une seule arme et plein de boosts.
-	- Système des pierres gardiennes de Skyrim pour influencer les slots, les poids, les malus, etc.
-	- Trouver une façon de forcer à changer d'arme (les briser, devoir les réparer ?).
-	- La sainte poêle pourrait renvoyer les projectiles.
+- Village qui se plaint d'être abandonné, alors qu'en réalité, ils ne le voient pas mais tout le royaume est déjà perdu.
+
+- "Pour qu'un mensonge passe, il faut le mettre au milieu de 1000 vérités."

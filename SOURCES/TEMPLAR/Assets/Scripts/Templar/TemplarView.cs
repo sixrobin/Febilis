@@ -30,7 +30,7 @@ public class TemplarView : MonoBehaviour
     [SerializeField] private GameObject _hitPrefab = null;
     [SerializeField] private Transform _hitVFXPivot = null;
     [SerializeField] private GameObject _attackPuffPrefab = null;
-    [SerializeField] private GameObject _hurtPrefab = null;
+    [SerializeField] private GameObject[] _hurtPrefabs = null;
 
     public TemplarController TemplarController { get; private set; }
 
@@ -141,7 +141,9 @@ public class TemplarView : MonoBehaviour
     public void PlayHurtAnimation(float dir)
     {
         _animator.SetTrigger(HURT);
-        Instantiate(_hurtPrefab, transform.position, _hurtPrefab.transform.rotation);
+
+        for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
+            Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
         // [TMP]
         GameObject jumpPuffInstance = Instantiate(_jumpPuffPrefab, transform.position, _jumpPuffPrefab.transform.rotation);

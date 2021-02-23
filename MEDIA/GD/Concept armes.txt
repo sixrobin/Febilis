@@ -1,0 +1,46 @@
+Le templier peut, à la mort de ses ennemis, récupérer les armes qu'ils ont sur eux. S'ils peut récupérer des armes classiques (épées, haches, arcs), il a accès à des armes autrement plus intéressantes/fun, l'idée étant d'utiliser les variétés d'armes pour servir l'exploration :
+	- les armes de boss, même les plus grandes, lui seront accessibles.
+	- Orbes de magie, plus rares mais qui apportent un tout nouveau gameplay.
+	- Une poêle, pour renvoyer les projectiles, et accessoirement cuire des oeufs.
+	- Une arme qui fait 4 fois sa taille, trèèèès lente mais qui one shot tout à l'impact.
+	- Une arme magique qui permet de frapper les fantômes et autres ennemis immatériels.
+
+L'idée serait de favoriser la diversité dans l'utilisation des armes et ne pas permettre au joueur d'utiliser une seule arme trop puissante à volonté. Ainsi, les armes s'usent et peuvent être détruites si elles ont subi trop de coups et parades. Une arme détruite reste dans l'inventaire mais n'est plus utilisable, et il est possible de les réparer à une forge dans un village.
+
+Mais le facteur le plus important pour cette diversité est la gestion de l'inventaire :
+- Le joueur a un inventaire limité par la capacité de port (kilos ? points ?).
+- Chaque arme a un poids, et elles sont rangées avec les autres objets qui ont eux aussi leur poids, il faudra donc que le joueur fasse des sacrifices.
+	- Exemple : Le joueur possède une épée et une potion, et trouve un marteau. Celui-ci est trop lourd, il peut donc soit ne rien faire, soit sacrifier son épée ou sa potion pour utiliser le marteau, ou utiliser sa potion même si l'usage n'est pas optimisé pour libérer de la place.
+	- On suppose que les armes/objets de quête n'ont pas de poids tant que la quête n'est pas terminée, à la Skyrim.
+	
+La gestion de l'inventaire se fait à des points particuliers, comme les feux de camps des Souls. Une fois une arme ramassée pour la première fois, le joueur l'obtient, et peut ensuite la laisser dans son inventaire ou la laisser de côté et la récupérer au prochain "feu de camp".
+	
+- Au delà des stats de base (dégâts et poids), les armes ont également d'autres capacités :
+	- Capacité à la parade. Une épée pourra parer des attaques faibles mais pas des coups de marteau. L'inverse n'est pas forcément vrai, par exemple, un marteau trop lourd ne permet pas la parade (mais fait d'énormes dégâts en contrepartie). Chaque parade, selon la capacité à parer de l'arme et le coup subit, affecte l'usure de l'arme.
+	- Les armes les plus grandes/lourdes ont une influence négative sur la vitesse d'attaque et de déplacement (et peuvent même empêcher la roulade), mais sont les seules à pouvoir péter des murs, ou à détruire le sol si le joueur porte une attaque en piqué en les utilisant.
+	- Les armes à distance pourraient permettre de tirer dans des cordes/lianes pour faire tomber une plateforme.
+	- Une arme qui renvoie les projectiles pourrait être la seule capable de vaincre un boss inatteignable auquel il faut renvoyer ses tirs.
+	- Les armes uniques (armes de boss par exemple) peuvent être inusables, ou à placer sur des autels pour déclencher un truc (idée : un autel sur lequel placer une arme stylée pour ouvrir une porte, et un event particulier si on essaie de récupérer l'arme ensuite).
+	
+A côté des armes, le joueur peut équiper des talismans pour influencer l'usage des armes. Ainsi, il sera peut-être préférable d'équiper une simple épée avec des powerups qu'une hache plus puissante de base, mais qui ne bénéficie pas des powerups.
+
+Les armes principales ou aux pouvoirs très précis peuvent être récupérées sur les boss :
+	- Durant un boss fight, des fantômes viennent faire chier. Le joueur ne peut pas les tuer mais l'arme du boss peut, ce qu'il fait. En récupérant son arme, le joueur gagne la capacité à tuer les fantômes.
+	- Boss qui utilise l'arme la plus lourde du jeu, et qui peut aussi le faire car il possède un talisman augmentant sa maîtrise des armes lourdes.
+	- Boss qui a une arme magique, qui serait la première du jeu et permettrait l'accès à une nouvelle zone.
+
+Le concept pourrait être poussé loin et le templier pourrait utiliser tout et n'importe quoi en tant qu'arme :
+	- Une fourche de paysan.
+	- Un couteau ou une fourchette, ou les deux, une par main.
+	- Son propre bouclier, avec un effet qui stun les ennemis touchés.
+	- Utiliser une poule comme machine gun pour tirer des oeufs, avec une turbo synergie avec la poêle (plus troll qu'autre chose).
+	- Aiguille à tricoter.
+	
+
+Idées générales :
+	- Visualiser les armes dans l'inventaire, avec des éléments visibles sur le graph pour donner des indices au joueur.
+	- Système des pierres dressées de Skyrim pour profiter d'une bénédiction (une seule à la fois) du style "être moins affecté par le poids des armes", "plus de capacité de portage".
+	- Porter un objet qui excède la capacité de port pourrait être autorisé mais affecter considérablement le joueur (comme quand on est overcharm dans Hollow Knight).
+	- Apprendre à réparer ses armes soi-même.
+	- Si une arme unique/magique est détruite, alors il faut récupérer des matériaux particuliers pour la réparation.
+	- Plus le joueur utilise une arme, plus il augmente sa capacité de maîtrise de celle-ci. Atteindre des paliers pourrait débloquer des attaques spéciales ou autre. Ou alors, une jauge globale de maîtrise pourrait donner envie au joueur de tester les autres armes une fois un palier atteint ?

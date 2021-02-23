@@ -9,6 +9,9 @@ public class TemplarController : MonoBehaviour, IHittable
     [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
     [SerializeField] private LayerMask _collisionMask = 0;
 
+    [Header("TMP")]
+    [SerializeField] private float _freezeFrameDur = 0.1f;
+
     private Recoil _currentRecoil;
     private System.Collections.IEnumerator _hurtCoroutine;
 
@@ -40,14 +43,14 @@ public class TemplarController : MonoBehaviour, IHittable
         if (RollCtrl.IsRolling)
             return;
 
-        CProLogger.Log(this, "Templar hurt.", gameObject);
-
         ResetVelocity();
 
         _templarView.PlayHurtAnimation(dir);
         CameraController.Shake.SetTrauma(0.75f);
         _hurtCoroutine = HurtCoroutine();
         StartCoroutine(_hurtCoroutine);
+
+        FreezeFrameController.FreezeFrame(0, _freezeFrameDur);
 
         _currentRecoil = new Recoil(ControllerDatas.HurtRecoilSettings, dir);
     }

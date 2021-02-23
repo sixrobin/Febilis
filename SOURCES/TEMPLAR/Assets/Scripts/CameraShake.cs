@@ -65,7 +65,7 @@ public class CameraShake
 
     public void Apply()
     {
-        if (_trauma.sqrMagnitude == 0f)
+        if (_trauma.sqrMagnitude == 0f || FreezeFrameController.IsFroze)
             return;
 
         _trauma = _trauma.AddAll(-_shakeSettings.Speed * Time.deltaTime);

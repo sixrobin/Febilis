@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RSLib.Framework.InputSystem;
+using UnityEngine;
 
 public class TemplarInputController
 {
@@ -85,9 +86,13 @@ public class TemplarInputController
         _inputGetters = new System.Collections.Generic.Dictionary<ButtonCategory, InputGetterHandler>(
              new RSLib.Framework.CustomComparers.EnumComparer<ButtonCategory>())
         {
-            { ButtonCategory.JUMP, () => Input.GetButtonDown(JUMP) },
-            { ButtonCategory.ROLL, () => Input.GetButtonDown(ROLL) },
-            { ButtonCategory.ATTACK, () => Input.GetButtonDown(ATTACK) }
+            { ButtonCategory.JUMP, () => InputManager.GetInputDown(InputAction.JUMP) },
+            { ButtonCategory.ROLL, () => InputManager.GetInputDown(InputAction.ROLL) },
+            { ButtonCategory.ATTACK, () => InputManager.GetInputDown(InputAction.ATTACK) },
+
+            //{ ButtonCategory.JUMP, () => Input.GetButtonDown(JUMP) },
+            //{ ButtonCategory.ROLL, () => Input.GetButtonDown(ROLL) },
+            //{ ButtonCategory.ATTACK, () => Input.GetButtonDown(ATTACK) }
         };
 
         _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(
