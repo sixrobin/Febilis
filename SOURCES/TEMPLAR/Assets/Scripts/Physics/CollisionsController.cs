@@ -8,7 +8,7 @@ public class CollisionsController : RaycastsController
 
         public CollisionsStates()
         {
-            _states = new System.Collections.Generic.Dictionary<CollisionOrigin, bool>(new RSLib.Framework.CustomComparers.EnumComparer<CollisionOrigin>())
+            _states = new System.Collections.Generic.Dictionary<CollisionOrigin, bool>(new RSLib.Framework.Comparers.EnumComparer<CollisionOrigin>())
                 {
                     { CollisionOrigin.ABOVE, false },
                     { CollisionOrigin.BELOW, false },

@@ -1,4 +1,4 @@
-﻿namespace RSLib.RomanNumerals
+﻿namespace RSLib
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;

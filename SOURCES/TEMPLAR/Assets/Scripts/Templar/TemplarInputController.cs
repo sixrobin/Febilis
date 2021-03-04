@@ -84,7 +84,7 @@ public class TemplarInputController
     private void Init()
     {
         _inputGetters = new System.Collections.Generic.Dictionary<ButtonCategory, InputGetterHandler>(
-             new RSLib.Framework.CustomComparers.EnumComparer<ButtonCategory>())
+             new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
         {
             { ButtonCategory.JUMP, () => InputManager.GetInputDown(InputAction.JUMP) },
             { ButtonCategory.ROLL, () => InputManager.GetInputDown(InputAction.ROLL) },
@@ -96,7 +96,7 @@ public class TemplarInputController
         };
 
         _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(
-            new RSLib.Framework.CustomComparers.EnumComparer<ButtonCategory>())
+            new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
         {
             { ButtonCategory.JUMP, _inputDatas.JumpInputDelay },
             { ButtonCategory.ROLL, _inputDatas.RollInputDelay },
@@ -104,7 +104,7 @@ public class TemplarInputController
         };
 
         _inputStoreCoroutines = new System.Collections.Generic.Dictionary<ButtonCategory, System.Collections.IEnumerator>(
-            new RSLib.Framework.CustomComparers.EnumComparer<ButtonCategory>())
+            new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
         {
             { ButtonCategory.JUMP, null },
             { ButtonCategory.ROLL, null },

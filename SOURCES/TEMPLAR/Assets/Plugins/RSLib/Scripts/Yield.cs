@@ -5,9 +5,9 @@
 
     public static class SharedYields
     {
-        private static Dictionary<int, WaitForFrames> s_waitForFramesCollection = new Dictionary<int, WaitForFrames>(100, new Framework.CustomComparers.IntComparer());
-        private static Dictionary<float, WaitForSecondsRealtime> s_waitForFramesRealtimeCollection = new Dictionary<float, WaitForSecondsRealtime>(100, new Framework.CustomComparers.FloatComparer());
-        private static Dictionary<float, WaitForSeconds> s_waitsForSeconds = new Dictionary<float, WaitForSeconds>(100, new Framework.CustomComparers.FloatComparer());
+        private static Dictionary<int, WaitForFrames> s_waitForFramesCollection = new Dictionary<int, WaitForFrames>(100, new Framework.Comparers.IntComparer());
+        private static Dictionary<float, WaitForSecondsRealtime> s_waitForFramesRealtimeCollection = new Dictionary<float, WaitForSecondsRealtime>(100, new Framework.Comparers.FloatComparer());
+        private static Dictionary<float, WaitForSeconds> s_waitsForSeconds = new Dictionary<float, WaitForSeconds>(100, new Framework.Comparers.FloatComparer());
 
         public static WaitForEndOfFrame WaitForEndOfFrame { get; } = new WaitForEndOfFrame();
         public static WaitForFixedUpdate WaitForFixedUpdate { get; } = new WaitForFixedUpdate();
