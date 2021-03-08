@@ -1,9 +1,9 @@
 ﻿namespace RSLib.Framework.GUI
 {
     using UnityEngine;
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     using UnityEditor;
-    #endif
+#endif
 
     /// <summary>
     /// Enhancements for native Unity Button component, mostly useful to add events for pointer enter
@@ -98,7 +98,7 @@
         }
     }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     [CustomEditor(typeof(EnhancedButton)), CanEditMultipleObjects]
     public class BetterButtonEditor : UnityEditor.UI.ButtonEditor
     {
@@ -141,5 +141,5 @@
             _nonInteractableTextColorProperty = serializedObject.FindProperty("_nonInteractableTextColor");
         }
     }
-    #endif
+#endif
 }

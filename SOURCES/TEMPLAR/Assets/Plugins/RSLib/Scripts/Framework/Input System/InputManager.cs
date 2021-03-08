@@ -96,14 +96,11 @@
             s_allActions = RSLib.Helpers.GetEnumValues<InputAction>();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-                SaveCurrentMap();
-
-            if (Input.GetKeyDown(KeyCode.A))
-                AssignKey(InputAction.ATTACK, true);
-        }
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.S))
+        //        SaveCurrentMap();
+        //}
     }
 
     public partial class InputManager : Singleton<InputManager>

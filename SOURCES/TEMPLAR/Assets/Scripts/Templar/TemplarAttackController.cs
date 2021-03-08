@@ -42,6 +42,7 @@ public class TemplarAttackController : AttackController
     {
         _templarController.TemplarView.PlayHitVFX(hitArgs.Dir);
         _templarController.CameraController.Shake.SetTrauma(0.25f);
+        FreezeFrameController.FreezeFrame(0, 0.05f);
     }
 
     protected override void ComputeAttackDirection()

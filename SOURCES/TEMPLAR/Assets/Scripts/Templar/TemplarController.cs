@@ -3,7 +3,7 @@
 public class TemplarController : MonoBehaviour, IHittable
 {
     [SerializeField] private TemplarView _templarView = null;
-    [SerializeField] private CameraController _cameraController = null;
+    [SerializeField] private TemplarCameraController _cameraController = null;
     [SerializeField] private BoxCollider2D _boxCollider2D = null;
     [SerializeField] private TemplarControllerDatas _controllerDatas = null;
     [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
@@ -23,7 +23,7 @@ public class TemplarController : MonoBehaviour, IHittable
     public HitLayer HitLayer => HitLayer.Player;
 
     public TemplarView TemplarView => _templarView;
-    public CameraController CameraController => _cameraController;
+    public TemplarCameraController CameraController => _cameraController;
     public TemplarControllerDatas ControllerDatas => _controllerDatas;
     public AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
 
