@@ -14,7 +14,6 @@
         private float _top;
         private float _bottom;
 
-        private Vector2 _vel = Vector2.zero;
         private BoxCollider2D _targetBox = null;
 
         public FocusArea(BoxCollider2D targetBox, Vector2 size)
@@ -26,6 +25,8 @@
         public Vector2 Center { get; private set; }
 
         public Vector2 Size { get; private set; }
+
+        public Vector2 Velocity { get; private set; }
 
         /// <summary>
         /// Sets the area size and refreshes the values according to new size.
@@ -65,7 +66,7 @@
             _bottom += shiftY;
 
             UpdateCenter();
-            _vel = new Vector2(shiftX, shiftY);
+            Velocity = new Vector2(shiftX, shiftY);
         }
 
         private void RefreshValues()

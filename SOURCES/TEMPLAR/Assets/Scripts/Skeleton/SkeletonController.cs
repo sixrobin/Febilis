@@ -32,7 +32,7 @@ public class SkeletonController : MonoBehaviour, IHittable
         if (AttackCtrl.IsAttacking)
             return;
 
-        _currentRecoil = new Recoil(-1f, force: 2.5f, dur: 0.15f);
+        _currentRecoil = new Recoil(dir, force: 2.5f, dur: 0.15f);
         StartCoroutine(HurtCoroutine());
     }
 
@@ -57,6 +57,7 @@ public class SkeletonController : MonoBehaviour, IHittable
 
     private void Update()
     {
+        // [TMP]
         if (!AttackCtrl.IsAttacking && Input.GetKeyDown(KeyCode.M))
             AttackCtrl.Attack();
 
@@ -68,7 +69,9 @@ public class SkeletonController : MonoBehaviour, IHittable
                 _currentRecoil = null;
         }
 
-        Dir = Mathf.Sign(_target.position.x - transform.position.x);
+        if (!AttackCtrl.IsAttacking)
+            Dir = Mathf.Sign(_target.position.x - transform.position.x);
+
         _skeletonView.UpdateView(Dir < 0f);
     }
 }

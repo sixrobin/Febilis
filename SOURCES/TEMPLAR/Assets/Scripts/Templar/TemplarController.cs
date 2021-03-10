@@ -22,6 +22,7 @@ public class TemplarController : MonoBehaviour, IHittable
 
     public HitLayer HitLayer => HitLayer.Player;
 
+    public BoxCollider2D BoxCollider2D => _boxCollider2D;
     public TemplarView TemplarView => _templarView;
     public TemplarCameraController CameraController => _cameraController;
     public TemplarControllerDatas ControllerDatas => _controllerDatas;
@@ -220,6 +221,7 @@ public class TemplarController : MonoBehaviour, IHittable
 
         _currVel.x = Mathf.SmoothDamp(_currVel.x, targetVelX, ref _refVelX, CollisionsCtrl.Below ? _controllerDatas.GroundedDamping : _controllerDatas.Jump.AirborneDamping);
         _currVel.y += grav;
+        _currVel.y = Mathf.Max(_currVel.y, -_controllerDatas.MaxFallVelocity);
 
         Translate(_currVel);
 

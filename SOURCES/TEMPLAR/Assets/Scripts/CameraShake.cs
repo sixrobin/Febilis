@@ -61,10 +61,15 @@ public class CameraShake
         _trauma.y = Mathf.Clamp01(y);
     }
 
-    public void Apply(Transform transform)
+    public void ApplyOnTransform(Transform transform)
+    {
+        transform.position += GetShake();
+    }
+
+    public Vector3 GetShake()
     {
         if (_trauma.sqrMagnitude == 0f || FreezeFrameController.IsFroze)
-            return;
+            return Vector3.zero;
 
         _trauma = _trauma.AddAll(-_shakeSettings.Speed * Time.deltaTime);
         _trauma = _trauma.ClampAll01();
@@ -72,6 +77,6 @@ public class CameraShake
         Vector2 rndDir = Random.insideUnitCircle.normalized;
         rndDir *= _trauma;
 
-        transform.position += (Vector3)(rndDir * _shakeSettings.Radius);
+        return (Vector3)(rndDir * _shakeSettings.Radius);
     }
 }

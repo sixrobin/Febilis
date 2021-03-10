@@ -29,6 +29,9 @@ public class TemplarControllerDatas : ScriptableObject
     [Tooltip("Full hurt motion duration.")]
     [SerializeField, Min(0f)] private float _hurtDur = 1f;
 
+    [Tooltip("Maximum fall velocity.")]
+    [SerializeField, Min(0f)] private float _maxFallVelocity = 1000f;
+
     [Tooltip("Recoil applied to controller when getting hurt.")]
     [SerializeField] private Recoil.RecoilSettings _hurtRecoilSettings = null;
 
@@ -42,5 +45,6 @@ public class TemplarControllerDatas : ScriptableObject
     public float GroundedDamping => _groundedDamping;
     public bool GroundOnAwake => _groundOnAwake;
     public float HurtDur => _hurtDur;
+    public float MaxFallVelocity => _maxFallVelocity;
     public Recoil.RecoilSettings HurtRecoilSettings => _hurtRecoilSettings;
 }
