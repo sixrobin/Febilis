@@ -13,6 +13,11 @@ public class SkeletonView : MonoBehaviour
     [SerializeField] private Transform _vfxScaler = null;
     [SerializeField] private ParticleSystem _hitVFX = null;
 
+    public bool GetSpriteRendererFlipX()
+    {
+        return _spriteRenderer.flipX;
+    }
+
     public void UpdateView(bool flip)
     {
         _spriteRenderer.flipX = flip;

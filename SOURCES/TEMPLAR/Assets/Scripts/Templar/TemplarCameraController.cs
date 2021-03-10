@@ -9,7 +9,7 @@ public class TemplarCameraController : MonoBehaviour
 
     [Header("DEBUG")]
     [SerializeField] private bool _debugOnSelectedOnly = true;
-    [SerializeField] private Color _debugColor = Color.red;
+    [SerializeField] private RSLib.DataColor _debugColor = null;
 
     private RSLib.FocusArea _focusArea;
 
@@ -99,7 +99,7 @@ public class TemplarCameraController : MonoBehaviour
         if (_debugOnSelectedOnly)
             return;
 
-        _focusArea?.DrawArea(_debugColor);
+        _focusArea?.DrawArea(_debugColor.Color);
     }
 
     private void OnDrawGizmosSelected()
@@ -107,7 +107,7 @@ public class TemplarCameraController : MonoBehaviour
         if (!_debugOnSelectedOnly)
             return;
 
-        _focusArea?.DrawArea(_debugColor);
+        _focusArea?.DrawArea(_debugColor.Color);
     }
 
     private void OnValidate()

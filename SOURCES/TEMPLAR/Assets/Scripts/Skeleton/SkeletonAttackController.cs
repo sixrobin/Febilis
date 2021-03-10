@@ -22,7 +22,7 @@
 
     protected override void ComputeAttackDirection()
     {
-        AttackDir = _skeletonController.Dir;
+        AttackDir = _skeletonController.CurrDir;
     }
 
     private System.Collections.IEnumerator AttackCoroutine(AttackOverEventHandler attackOverCallback = null)
