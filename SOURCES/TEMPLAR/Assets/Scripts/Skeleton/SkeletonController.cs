@@ -16,9 +16,11 @@ public class SkeletonController : MonoBehaviour, IHittable
     [SerializeField] private float _backAndForthPause = 0.5f;
 
     [Header("FIGHT")]
-    [SerializeField, Min(0f)] private float _playerDetectionRange = 4f;
+    [SerializeField, Min(0f)] private float _targetDetectionRange = 4f;
+    [SerializeField, Min(0f)] private float _targetAttackRange = 1.5f;
     [SerializeField, Min(0f)] private float _attackAnticipationDur = 0.5f;
     [SerializeField, Min(0f)] private float _attackDur = 0.5f;
+    [SerializeField, Min(0f)] private float _beforeAttackDur = 0.3f;
     [SerializeField, Min(0f)] private float _hurtDur = 0.25f;
 
     [Header("DEBUG")]
@@ -26,6 +28,7 @@ public class SkeletonController : MonoBehaviour, IHittable
 
     private System.Collections.IEnumerator _hurtCoroutine;
     private System.Collections.IEnumerator _backAndForthPauseCoroutine;
+    private System.Collections.IEnumerator _pauseBeforeAttackCoroutine;
 
     private Recoil _currentRecoil;
     private float _initX;
@@ -55,9 +58,14 @@ public class SkeletonController : MonoBehaviour, IHittable
         StartCoroutine(_hurtCoroutine);
     }
 
-    private bool IsTargetInRange()
+    private bool IsTargetDetected()
     {
-        return (_target.position - transform.position).sqrMagnitude <= _playerDetectionRange * _playerDetectionRange;
+        return (_target.position - transform.position).sqrMagnitude <= _targetDetectionRange * _targetDetectionRange;
+    }
+
+    private bool IsTargetInAttackRange()
+    {
+        return (_target.position - transform.position).sqrMagnitude <= _targetAttackRange * _targetAttackRange;
     }
 
     private void MoveBackAndForth()
@@ -90,8 +98,10 @@ public class SkeletonController : MonoBehaviour, IHittable
     {
         _skeletonView.PlayHurtAnimation();
         yield return RSLib.Yield.SharedYields.WaitForSeconds(_hurtDur);
-        _skeletonView.PlayIdleAnimation();
+
         _hurtCoroutine = null;
+        if (!AttackCtrl.IsAttacking)
+            _skeletonView.PlayIdleAnimation();
     }
 
     private System.Collections.IEnumerator BackAndForthPauseCoroutine()
@@ -99,6 +109,17 @@ public class SkeletonController : MonoBehaviour, IHittable
         yield return RSLib.Yield.SharedYields.WaitForSeconds(_backAndForthPause);
         yield return new WaitUntil(() => !AttackCtrl.IsAttacking);
         _backAndForthPauseCoroutine = null;
+    }
+
+    private System.Collections.IEnumerator PauseBeforeAttackCoroutine()
+    {
+        yield return RSLib.Yield.SharedYields.WaitForSeconds(_beforeAttackDur);
+        yield return new WaitUntil(() => _hurtCoroutine == null);
+        _pauseBeforeAttackCoroutine = null;
+
+        // Callback on attack and is a security to avoid attack animator parameter being offset from view.
+        if (IsTargetDetected())
+            AttackCtrl.Attack((attackOverDir) => _skeletonView.ResetAttackTrigger());
     }
 
     private void Awake()
@@ -118,10 +139,6 @@ public class SkeletonController : MonoBehaviour, IHittable
         // Si FSM, alors chaque état devrait avoir une telle méthode pour pouvoir
         // faire un truc du style _fsm.CurrentState.GetDir().
 
-        // [TMP]
-        if (!AttackCtrl.IsAttacking && Input.GetKeyDown(KeyCode.M))
-            AttackCtrl.Attack();
-
         if (_currentRecoil != null)
         {
             Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f));
@@ -132,10 +149,35 @@ public class SkeletonController : MonoBehaviour, IHittable
 
         if (!AttackCtrl.IsAttacking)
         {
-            if (IsTargetInRange())
+            if (IsTargetDetected())
+            {
+                if (_backAndForthPauseCoroutine != null)
+                {
+                    StopCoroutine(_backAndForthPauseCoroutine);
+                    _backAndForthPauseCoroutine = null;
+                }
+
                 CurrDir = Mathf.Sign(_target.position.x - transform.position.x);
+
+                if (IsTargetInAttackRange())
+                {
+                    if (_pauseBeforeAttackCoroutine == null)
+                    {
+                        _pauseBeforeAttackCoroutine = PauseBeforeAttackCoroutine();
+                        StartCoroutine(_pauseBeforeAttackCoroutine);
+                    }
+                }
+                else
+                {
+                    if (_currentRecoil == null)
+                        Translate(new Vector3(CurrDir * _moveSpeed, 0f));
+                }
+            }
             else
-                MoveBackAndForth();
+            {
+                if (_pauseBeforeAttackCoroutine == null)
+                    MoveBackAndForth();
+            }
         }
 
         _skeletonView.UpdateView(_backAndForthPauseCoroutine != null ? _backAndForthPauseDir < 0f : CurrDir < 0f);
@@ -145,7 +187,8 @@ public class SkeletonController : MonoBehaviour, IHittable
     {
         Gizmos.color = _debugColor != null ? _debugColor.Color : Color.red;
 
-        Gizmos.DrawWireSphere(transform.position, _playerDetectionRange);
+        Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
+        Gizmos.DrawWireSphere(transform.position, _targetAttackRange);
 
         if (UnityEditor.EditorApplication.isPlaying)
         {

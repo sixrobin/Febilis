@@ -67,6 +67,7 @@ public class AttackHitbox : MonoBehaviour
         _hitThisTime.Add(hittable);
         hittable.OnHit(_attackDatas, Dir);
 
+        // [TODO] HitEventArgs pooling ?
         Hit(new HitEventArgs(Dir));
     }
 }

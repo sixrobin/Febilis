@@ -9,53 +9,61 @@
     /// </summary>
     public class HealthSystem
     {
-        #region FIELDS
+        public class HealthChangedEventArgs : System.EventArgs
+        {
+            public HealthChangedEventArgs(int previous, int current)
+            {
+                Previous = previous;
+                Current = current;
+            }
 
-        private int _health;
+            public HealthChangedEventArgs(HealthChangedEventArgs template)
+            {
+                Previous = template.Previous;
+                Current = template.Current;
+            }
 
-        #endregion FIELDS
+            public int Previous { get; private set; }
+            public int Current { get; private set; }
 
-        #region CONSTRUCTORS
+            public bool IsLoss => Previous < Current;
+        }
+
 
         public HealthSystem(int initHealth)
         {
             MaxHealth = initHealth;
-            Health = initHealth;
+            CurrentHealth = initHealth;
         }
 
-        #endregion CONSTRUCTORS
-
-        #region EVENTS
-
+        public delegate void HealthChangedEventHandler(HealthChangedEventArgs args);
         public delegate void KilledEventHandler();
 
+        public event HealthChangedEventHandler HealthChanged;
         public event KilledEventHandler Killed;
 
-        #endregion EVENTS
-
-        #region PROPERTIES
-
-        public int Health
+        private int _currentHealth;
+        public int CurrentHealth
         {
-            get => _health;
+            get => _currentHealth;
             set
             {
-                _health = value.Clamp(0, MaxHealth);
+                int previousHealth = _currentHealth;
+                _currentHealth = value.Clamp(0, MaxHealth);
+
                 if (IsDead)
                     Killed?.Invoke();
+                else if (previousHealth != _currentHealth)
+                    HealthChanged?.Invoke(new HealthChangedEventArgs(previousHealth, _currentHealth));
             }
         }
 
         /// <summary>Current health percentage as a value from 0 to 1.</summary>
-        public float HealthPercentage => (float)Health / MaxHealth;
+        public float HealthPercentage => (float)CurrentHealth / MaxHealth;
 
-        public bool IsDead => Health == 0;
+        public bool IsDead => CurrentHealth == 0;
 
         public int MaxHealth { get; private set; }
-
-        #endregion PROPERTIES
-
-        #region METHODS
 
         /// <summary>Instantly changes the maximum health. Health is reduced if new maximum health is less than health value.</summary>
         /// <param name="newValue">New maximum health value.</param>
@@ -66,16 +74,16 @@
             MaxHealth = newValue;
 
             if (MaxHealth > previousMaxHealth && increaseHealth)
-                Health += MaxHealth - previousMaxHealth;
-            else if (MaxHealth < Health)
-                Health = MaxHealth;
+                CurrentHealth += MaxHealth - previousMaxHealth;
+            else if (MaxHealth < CurrentHealth)
+                CurrentHealth = MaxHealth;
         }
 
         /// <summary>Removes a given amount of health points.</summary>
         /// <param name="amount">Amount to remove.</param>
         public void Damage(int amount)
         {
-            Health -= amount;
+            CurrentHealth -= amount;
         }
 
         /// <summary>Restores a given amount of health points.</summary>
@@ -86,7 +94,7 @@
             if (IsDead && ignoreIfDead)
                 return;
 
-            Health += amount;
+            CurrentHealth += amount;
         }
 
         /// <summary>Sets health value to maximum health value.</summary>
@@ -96,7 +104,7 @@
             if (IsDead && ignoreIfDead)
                 return;
 
-            Health = MaxHealth;
+            CurrentHealth = MaxHealth;
         }
 
         /// <summary>Sets health value to 0, and then kills the unit and triggers the Killed event.</summary>
@@ -108,9 +116,7 @@
                 return;
             }
 
-            Health = 0;
+            CurrentHealth = 0;
         }
-
-        #endregion METHODS
     }
 }

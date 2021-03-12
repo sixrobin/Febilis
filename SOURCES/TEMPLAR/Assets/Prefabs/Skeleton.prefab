@@ -174,7 +174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4435082998775027698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7571104342228531562}
@@ -222,7 +222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4552199822778112484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7945379405891607187}
@@ -378,9 +378,11 @@ MonoBehaviour:
   _moveSpeed: 1.3
   _backAndForthRange: 5
   _backAndForthPause: 0.5
-  _playerDetectionRange: 4
+  _targetDetectionRange: 3
+  _targetAttackRange: 2
   _attackAnticipationDur: 0.5
   _attackDur: 0.5
+  _beforeAttackDur: 0.6
   _hurtDur: 0.25
   _debugColor: {fileID: 0}
 --- !u!1001 &1924194383716164228

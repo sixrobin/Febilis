@@ -16,7 +16,7 @@
     private AttackHitboxesContainer _hitboxesContainer;
     private System.Collections.Generic.Dictionary<string, AttackHitbox> _hitboxesById;
 
-    public delegate void AttackOverEventHandler(AttackOverEventArgs attackOverArgs);
+    public delegate void AttackOverEventHandler(AttackOverEventArgs args);
 
     public AttackController(UnityEngine.MonoBehaviour attackCoroutineRunner, AttackHitboxesContainer hitboxesContainer)
     {

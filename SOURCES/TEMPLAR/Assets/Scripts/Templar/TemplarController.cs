@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
-public class TemplarController : MonoBehaviour, IHittable
+public class TemplarController : MonoBehaviour
 {
     [SerializeField] private TemplarView _templarView = null;
     [SerializeField] private TemplarCameraController _cameraController = null;
     [SerializeField] private BoxCollider2D _boxCollider2D = null;
     [SerializeField] private TemplarControllerDatas _controllerDatas = null;
     [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
+    [SerializeField] private TemplarHealthController _healthController = null;
     [SerializeField] private LayerMask _collisionMask = 0;
-
-    [Header("TMP")]
-    [SerializeField] private float _freezeFrameDur = 0.1f;
+    [SerializeField] private LayerMask _rollCollisionMask = 0;
 
     private Recoil _currentRecoil;
     private System.Collections.IEnumerator _hurtCoroutine;
@@ -19,8 +18,6 @@ public class TemplarController : MonoBehaviour, IHittable
     private Vector3 _prevVel;
     private float _refVelX;
     private float _jumpVel;
-
-    public HitLayer HitLayer => HitLayer.Player;
 
     public BoxCollider2D BoxCollider2D => _boxCollider2D;
     public TemplarView TemplarView => _templarView;
@@ -32,29 +29,12 @@ public class TemplarController : MonoBehaviour, IHittable
     public TemplarJumpController JumpCtrl { get; private set; }
     public TemplarRollController RollCtrl { get; private set; }
     public TemplarAttackController AttackCtrl { get; private set; }
-    public CollisionsController CollisionsCtrl { get; private set; }
+    public TemplarCollisionsController CollisionsCtrl { get; private set; }
 
     public float CurrDir { get; private set; }
     public float Gravity { get; private set; }
 
     public bool JumpAllowedThisFrame { get; private set; }
-
-    public void OnHit(AttackDatas attackDatas, float dir)
-    {
-        if (RollCtrl.IsRolling)
-            return;
-
-        ResetVelocity();
-
-        _templarView.PlayHurtAnimation(dir);
-        CameraController.Shake.SetTrauma(0.75f);
-        _hurtCoroutine = HurtCoroutine();
-        StartCoroutine(_hurtCoroutine);
-
-        FreezeFrameController.FreezeFrame(0, _freezeFrameDur);
-
-        _currentRecoil = new Recoil(ControllerDatas.HurtRecoilSettings, dir);
-    }
 
     public void Jump()
     {
@@ -89,6 +69,34 @@ public class TemplarController : MonoBehaviour, IHittable
             default:
                 break;
         }
+    }
+
+    private void OnUnitHealthChanged(UnitHealthController.UnitHealthChangedEventArgs args)
+    {
+        ResetVelocity();
+
+        _templarView.PlayHurtAnimation(args.Dir);
+        _hurtCoroutine = HurtCoroutine();
+        StartCoroutine(_hurtCoroutine);
+
+        CameraController.Shake.SetTrauma(args.AttackDatas.TraumaOnHit);
+        if (args.AttackDatas.FreezeFrameDurOnHit > 0f)
+            FreezeFrameController.FreezeFrame(0, args.AttackDatas.FreezeFrameDurOnHit);
+
+        _currentRecoil = new Recoil(ControllerDatas.HurtRecoilSettings, args.Dir);
+    }
+
+    private void OnKilled()
+    {
+        ResetVelocity();
+
+        // [TMP] Need some death animation.
+        _templarView.PlayHurtAnimation(CurrDir);
+        _hurtCoroutine = HurtCoroutine();
+        StartCoroutine(_hurtCoroutine);
+
+        CameraController.Shake.SetTrauma(0.5f);
+        _currentRecoil = null;
     }
 
     [ContextMenu("Compute Jump Physics")]
@@ -255,8 +263,19 @@ public class TemplarController : MonoBehaviour, IHittable
         JumpCtrl = new TemplarJumpController(this);
         RollCtrl = new TemplarRollController(this);
         AttackCtrl = new TemplarAttackController(this);
-        CollisionsCtrl = new CollisionsController(_boxCollider2D, _collisionMask);
+
+        CollisionsCtrl = new TemplarCollisionsController(_boxCollider2D, _collisionMask, _rollCollisionMask, this);
         CollisionsCtrl.CollisionDetected += OnCollisionDetected;
+
+        if (_healthController != null)
+        {
+            _healthController.Init();
+
+            _healthController.TemplarCtrl = this;
+            _healthController.UnitHealthChanged += OnUnitHealthChanged;
+            _healthController.HealthSystem.Killed += OnKilled;
+        }
+
         _templarView.SetTemplarController(this);
 
         ComputeJumpPhysics();
@@ -294,5 +313,16 @@ public class TemplarController : MonoBehaviour, IHittable
             attacking: AttackCtrl.IsAttacking,
             currVel: _currVel,
             prevVel: _prevVel);
+    }
+
+    private void OnDestroy()
+    {
+        CollisionsCtrl.CollisionDetected -= OnCollisionDetected;
+
+        if (_healthController != null)
+        {
+            _healthController.UnitHealthChanged -= OnUnitHealthChanged;
+            _healthController.HealthSystem.Killed -= OnKilled;
+        }
     }
 }

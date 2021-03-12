@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: Skeleton Base Attack
   m_EditorClassIdentifier: 
   _id: skeleton_atk_00
+  _dmg: 20
   _dur: 0.8
   _hitDur: 0.1
   _hitLayer: 1
   _animMult: 1
+  _traumaOnHit: {x: 0.75, y: 0.75}
+  _freezeFrameDurOnHit: 0.1
+  _attackAnticipationDur: 0.5
+  _attackDur: 0.5

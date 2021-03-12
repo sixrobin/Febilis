@@ -94,6 +94,11 @@ public class CollisionsController : RaycastsController
     public bool Vertical => CurrentStates.GetVerticalCollisionsState();
     public bool Any => CurrentStates.GetAnyCollisionsState();
 
+    public virtual LayerMask ComputeCollisionMask()
+    {
+        return _collisionMask;
+    }
+
     public Vector3 ComputeCollisions(Vector3 vel)
     {
         ComputeRaycastOrigins();
@@ -124,7 +129,7 @@ public class CollisionsController : RaycastsController
         for (int i = 0; i < VerticalRaycastsCount; ++i)
         {
             Vector2 rayOrigin = RaycastsOrigins.BottomLeft + Vector2.right * i * VerticalRaycastsSpacing;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, _collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, ComputeCollisionMask());
 
             if (hit)
             {
@@ -153,7 +158,7 @@ public class CollisionsController : RaycastsController
         for (int i = 0; i < HorizontalRaycastsCount; ++i)
         {
             Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.BottomRight : RaycastsOrigins.BottomLeft) + Vector2.up * i * HorizontalRaycastsSpacing;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * sign, rayLength, _collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * sign, rayLength, ComputeCollisionMask());
 
             if (hit)
             {
@@ -189,7 +194,7 @@ public class CollisionsController : RaycastsController
         for (int i = 0; i < VerticalRaycastsCount; ++i)
         {
             Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.TopLeft : RaycastsOrigins.BottomLeft) + Vector2.right * i * VerticalRaycastsSpacing;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * sign, length, _collisionMask);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * sign, length, ComputeCollisionMask());
 
             if (hit)
             {
