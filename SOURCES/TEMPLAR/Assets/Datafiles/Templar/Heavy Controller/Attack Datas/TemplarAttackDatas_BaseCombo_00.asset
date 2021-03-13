@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: TemplarAttackDatas_BaseCombo_00
   m_EditorClassIdentifier: 
   _id: atk_base_00
+  _dmg: 25
   _dur: 0.7
   _hitDur: 0.25
   _hitLayer: 2
   _animMult: 1
+  _traumaOnHit: {x: 0, y: 0}
+  _freezeFrameDurOnHit: 0.1
   _chainAllowedTime: 0.55
   _controlVelocity: 1
   _moveSpeed: 1.2

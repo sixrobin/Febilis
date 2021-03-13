@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: TemplarAttackDatas_Airborne
   m_EditorClassIdentifier: 
   _id: atk_airborne_00
+  _dmg: 25
   _dur: 0.4
   _hitDur: 0.25
   _hitLayer: 2
   _animMult: 1.2
+  _traumaOnHit: {x: 0, y: 0}
+  _freezeFrameDurOnHit: 0.1
   _chainAllowedTime: 0.4
   _controlVelocity: 0
   _moveSpeed: 2.5

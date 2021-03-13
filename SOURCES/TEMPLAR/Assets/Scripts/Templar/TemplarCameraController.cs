@@ -74,6 +74,9 @@ public class TemplarCameraController : MonoBehaviour
     {
         _focusArea = new RSLib.FocusArea(_templarController.BoxCollider2D, _cameraDatas.FocusAreaSize);
         Shake = new CameraShake(_shakeSettings);
+
+        // Instantly position camera on first frame.
+        transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
     }
 
     private void LateUpdate()

@@ -58,6 +58,11 @@ public class SkeletonController : MonoBehaviour, IHittable
         StartCoroutine(_hurtCoroutine);
     }
 
+    private bool IsTargetValid()
+    {
+        return !_target.GetComponent<TemplarController>().IsDead; // [TMP] GetComponent!
+    }
+
     private bool IsTargetDetected()
     {
         return (_target.position - transform.position).sqrMagnitude <= _targetDetectionRange * _targetDetectionRange;
@@ -149,7 +154,7 @@ public class SkeletonController : MonoBehaviour, IHittable
 
         if (!AttackCtrl.IsAttacking)
         {
-            if (IsTargetDetected())
+            if (IsTargetDetected() && IsTargetValid())
             {
                 if (_backAndForthPauseCoroutine != null)
                 {

@@ -26,6 +26,8 @@ public class UnitHealthController : MonoBehaviour, IHittable
 
     private bool _init;
 
+    // [TMP] This is probably not ideal : in case we receive damage not coming with AttackDatas,
+    // this variable will still be used. It is reset to fix it, but it's more a workaround than a good solution.
     private AttackDatas _lastHitAttackDatas;
     private float _lastHitDir;
 
@@ -38,6 +40,9 @@ public class UnitHealthController : MonoBehaviour, IHittable
 
     public virtual void OnHit(AttackDatas attackDatas, float dir)
     {
+        if (HealthSystem.IsDead)
+            return;
+
         _lastHitAttackDatas = attackDatas;
         _lastHitDir = dir;
 
@@ -56,6 +61,7 @@ public class UnitHealthController : MonoBehaviour, IHittable
     protected virtual void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
     {
         UnitHealthChanged?.Invoke(new UnitHealthChangedEventArgs(args, _lastHitAttackDatas, _lastHitDir));
+        _lastHitAttackDatas = null;
     }
 
     protected virtual void OnKilled()
@@ -71,5 +77,6 @@ public class UnitHealthController : MonoBehaviour, IHittable
     protected virtual void OnDestroy()
     {
         HealthSystem.HealthChanged -= OnHealthChanged;
+        HealthSystem.Killed -= OnKilled;
     }
 }

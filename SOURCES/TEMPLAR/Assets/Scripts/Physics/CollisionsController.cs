@@ -96,6 +96,7 @@ public class CollisionsController : RaycastsController
 
     public virtual LayerMask ComputeCollisionMask()
     {
+        // Can be overriden to suit any collisions actor needs.
         return _collisionMask;
     }
 

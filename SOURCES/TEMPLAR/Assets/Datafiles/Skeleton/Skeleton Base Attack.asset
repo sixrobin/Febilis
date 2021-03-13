@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton Base Attack
   m_EditorClassIdentifier: 
   _id: skeleton_atk_00
-  _dmg: 20
+  _dmg: 100
   _dur: 0.8
   _hitDur: 0.1
   _hitLayer: 1

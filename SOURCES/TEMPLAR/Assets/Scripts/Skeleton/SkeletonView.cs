@@ -43,7 +43,7 @@ public class SkeletonView : MonoBehaviour
     public void PlayAttackAnimation()
     {
         _animator.SetTrigger(ATTACK);
-        FindObjectOfType<TemplarCameraController>().Shake.SetTrauma(0.2f, 0.45f); // [TMP]
+        FindObjectOfType<TemplarCameraController>().Shake.SetTrauma(0.2f, 0.45f); // [TMP] GetComponent + hard coded values.
     }
 
     public void ResetAttackTrigger()

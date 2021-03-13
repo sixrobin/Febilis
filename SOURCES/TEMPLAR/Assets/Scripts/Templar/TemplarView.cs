@@ -13,6 +13,7 @@ public class TemplarView : MonoBehaviour
     private const string ATTACK_CHAIN = "AttackChain";
     private const string ATTACK_AIRBORNE = "AttackAirborne";
     private const string HURT = "Hurt";
+    private const string DEATH = "Death";
     private const string MULT_ROLL = "Mult_Roll";
     private const string MULT_ATTACK = "Mult_Attack";
 
@@ -32,28 +33,23 @@ public class TemplarView : MonoBehaviour
     [SerializeField] private GameObject _attackPuffPrefab = null;
     [SerializeField] private GameObject[] _hurtPrefabs = null;
 
-    public TemplarController TemplarController { get; private set; }
-
-    public void SetTemplarController(TemplarController templarController)
-    {
-        TemplarController = templarController;
-    }
+    public TemplarController TemplarController { get; set; }
 
     public bool GetSpriteRendererFlipX()
     {
         return _spriteRenderer.flipX;
     }
 
-    public void UpdateView(bool flip, bool rolling, bool attacking, Vector3 currVel, Vector3 prevVel)
+    public void UpdateView(bool flip, Vector3 currVel, Vector3 prevVel)
     {
-        _animator.SetBool(IS_RUNNING, !rolling && TemplarController.InputCtrl.Horizontal != 0f);
+        _animator.SetBool(IS_RUNNING, !TemplarController.RollCtrl.IsRolling && TemplarController.InputCtrl.Horizontal != 0f);
 
-        if (!rolling && !attacking)
+        if (!TemplarController.RollCtrl.IsRolling && !TemplarController.AttackCtrl.IsAttacking)
             _spriteRenderer.flipX = flip;
 
         if (currVel.y < 0f
-            && (prevVel.y > 0f ||
-            TemplarController.CollisionsCtrl.PreviousStates.GetCollisionState(CollisionsController.CollisionOrigin.BELOW)
+            && (prevVel.y > 0f
+            || TemplarController.CollisionsCtrl.PreviousStates.GetCollisionState(CollisionsController.CollisionOrigin.BELOW)
             && !TemplarController.CollisionsCtrl.Below)
             && !TemplarController.AttackCtrl.IsAttacking)
             _animator.SetTrigger(FALL);
@@ -145,9 +141,17 @@ public class TemplarView : MonoBehaviour
         for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
             Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
-        // [TMP]
+        // [TMP] We probably want a puff VFX made especially for hurt feedback.
         GameObject jumpPuffInstance = Instantiate(_jumpPuffPrefab, transform.position, _jumpPuffPrefab.transform.rotation);
         jumpPuffInstance.transform.SetScaleX(dir);
+    }
+
+    public void PlayDeathAnimation()
+    {
+        _animator.SetTrigger(DEATH);
+
+        for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
+            Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
     }
 
     public void DBG_Color(Color col)

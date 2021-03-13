@@ -34,6 +34,8 @@ public class TemplarController : MonoBehaviour
     public float CurrDir { get; private set; }
     public float Gravity { get; private set; }
 
+    public bool IsDead => _healthController.HealthSystem.IsDead;
+
     public bool JumpAllowedThisFrame { get; private set; }
 
     public void Jump()
@@ -90,12 +92,19 @@ public class TemplarController : MonoBehaviour
     {
         ResetVelocity();
 
-        // [TMP] Need some death animation.
-        _templarView.PlayHurtAnimation(CurrDir);
-        _hurtCoroutine = HurtCoroutine();
-        StartCoroutine(_hurtCoroutine);
+        if (_hurtCoroutine != null)
+        {
+            StopCoroutine(_hurtCoroutine);
+            _hurtCoroutine = null;
+        }
 
-        CameraController.Shake.SetTrauma(0.5f);
+        // [TODO] Check if attack is running and cancel it if it's the case.
+        // (Stop() virtual method in AttackController class probably).
+
+        CollisionsCtrl.Ground(transform);
+        _templarView.PlayDeathAnimation();
+
+        CameraController.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
         _currentRecoil = null;
     }
 
@@ -276,7 +285,7 @@ public class TemplarController : MonoBehaviour
             _healthController.HealthSystem.Killed += OnKilled;
         }
 
-        _templarView.SetTemplarController(this);
+        _templarView.TemplarController = this;
 
         ComputeJumpPhysics();
 
@@ -288,10 +297,16 @@ public class TemplarController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+            _healthController.OnHit(AttackDatas.Default, 1f);
+
         BackupCurrentState();
         ResetCurrentState();
 
         InputCtrl.Update();
+
+        if (IsDead)
+            return;
 
         TryRoll();
         TryAttack();
@@ -306,13 +321,7 @@ public class TemplarController : MonoBehaviour
         }
 
         CollisionsCtrl.TriggerDetectedCollisionsEvents();
-
-        _templarView.UpdateView(
-            flip: CurrDir != 1f,
-            rolling: RollCtrl.IsRolling,
-            attacking: AttackCtrl.IsAttacking,
-            currVel: _currVel,
-            prevVel: _prevVel);
+        _templarView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);
     }
 
     private void OnDestroy()

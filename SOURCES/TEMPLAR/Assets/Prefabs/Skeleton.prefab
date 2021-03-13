@@ -374,7 +374,7 @@ MonoBehaviour:
   _attackHitboxesContainer: {fileID: 8982936511501149897}
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   _moveSpeed: 1.3
   _backAndForthRange: 5
   _backAndForthPause: 0.5
