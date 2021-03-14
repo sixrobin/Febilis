@@ -18,8 +18,6 @@ public class SkeletonController : MonoBehaviour, IHittable
     [Header("FIGHT")]
     [SerializeField, Min(0f)] private float _targetDetectionRange = 4f;
     [SerializeField, Min(0f)] private float _targetAttackRange = 1.5f;
-    [SerializeField, Min(0f)] private float _attackAnticipationDur = 0.5f;
-    [SerializeField, Min(0f)] private float _attackDur = 0.5f;
     [SerializeField, Min(0f)] private float _beforeAttackDur = 0.3f;
     [SerializeField, Min(0f)] private float _hurtDur = 0.25f;
 
@@ -44,11 +42,15 @@ public class SkeletonController : MonoBehaviour, IHittable
     public CollisionsController CollisionsCtrl { get; private set; }
 
     public float CurrDir { get; private set; }
+    public bool IsWalking { get; private set; }
 
     public float HalfBackAndForthRange => _backAndForthRange * 0.5f;
 
     public void OnHit(AttackDatas attackDatas, float dir)
     {
+        // [TODO] Apply damage.
+        _skeletonView.PlayDamageBlink();
+
         if (AttackCtrl.IsAttacking)
             return;
 
@@ -88,9 +90,11 @@ public class SkeletonController : MonoBehaviour, IHittable
             CurrDir *= -1;
             _backAndForthPauseCoroutine = BackAndForthPauseCoroutine();
             StartCoroutine(_backAndForthPauseCoroutine);
+            return;
         }
 
         Translate(new Vector3(CurrDir * _moveSpeed, 0f));
+        IsWalking = true;
     }
 
     private void Translate(Vector3 vel)
@@ -101,6 +105,8 @@ public class SkeletonController : MonoBehaviour, IHittable
 
     private System.Collections.IEnumerator HurtCoroutine()
     {
+        IsWalking = false;
+
         _skeletonView.PlayHurtAnimation();
         yield return RSLib.Yield.SharedYields.WaitForSeconds(_hurtDur);
 
@@ -111,6 +117,8 @@ public class SkeletonController : MonoBehaviour, IHittable
 
     private System.Collections.IEnumerator BackAndForthPauseCoroutine()
     {
+        IsWalking = false;
+
         yield return RSLib.Yield.SharedYields.WaitForSeconds(_backAndForthPause);
         yield return new WaitUntil(() => !AttackCtrl.IsAttacking);
         _backAndForthPauseCoroutine = null;
@@ -118,6 +126,8 @@ public class SkeletonController : MonoBehaviour, IHittable
 
     private System.Collections.IEnumerator PauseBeforeAttackCoroutine()
     {
+        IsWalking = false;
+
         yield return RSLib.Yield.SharedYields.WaitForSeconds(_beforeAttackDur);
         yield return new WaitUntil(() => _hurtCoroutine == null);
         _pauseBeforeAttackCoroutine = null;
@@ -134,6 +144,8 @@ public class SkeletonController : MonoBehaviour, IHittable
 
         _initX = transform.position.x;
         CurrDir = _skeletonView.GetSpriteRendererFlipX() ? -1f : 1f;
+
+        _skeletonView.SkeletonController = this;
     }
 
     private void Update()
@@ -175,7 +187,10 @@ public class SkeletonController : MonoBehaviour, IHittable
                 else
                 {
                     if (_currentRecoil == null)
+                    {
                         Translate(new Vector3(CurrDir * _moveSpeed, 0f));
+                        IsWalking = true;
+                    }
                 }
             }
             else
@@ -195,6 +210,7 @@ public class SkeletonController : MonoBehaviour, IHittable
         Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
         Gizmos.DrawWireSphere(transform.position, _targetAttackRange);
 
+#if UNITY_EDITOR
         if (UnityEditor.EditorApplication.isPlaying)
         {
             Gizmos.DrawWireSphere(new Vector3(_initX - HalfBackAndForthRange, transform.position.y + 0.5f), 0.05f);
@@ -204,10 +220,13 @@ public class SkeletonController : MonoBehaviour, IHittable
         }
         else
         {
+#endif
             Gizmos.DrawWireSphere(transform.position.AddX(-HalfBackAndForthRange).AddY(0.5f), 0.05f);
             Gizmos.DrawWireSphere(transform.position.AddX(HalfBackAndForthRange).AddY(0.5f), 0.05f);
             Gizmos.DrawLine(transform.position.AddX(-HalfBackAndForthRange).AddY(0.5f),
-                transform.position.AddX(HalfBackAndForthRange).AddY(0.5f));
+            transform.position.AddX(HalfBackAndForthRange).AddY(0.5f));
+#if UNITY_EDITOR
         }
+#endif
     }
 }

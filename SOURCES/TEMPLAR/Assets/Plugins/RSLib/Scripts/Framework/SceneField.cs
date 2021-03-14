@@ -1,6 +1,6 @@
 ﻿namespace RSLib.Framework
 {
-	using UnityEngine;
+    using UnityEngine;
 #if UNITY_EDITOR
 	using UnityEditor;
 #endif
@@ -8,8 +8,10 @@
 	[System.Serializable]
 	public sealed class SceneField
 	{
+#pragma warning disable CS0414
         [SerializeField] Object _sceneAsset = null;
-		[SerializeField] string _sceneName = string.Empty;
+#pragma warning restore CS0414
+        [SerializeField] string _sceneName = string.Empty;
 
         public string SceneName => _sceneName;
 

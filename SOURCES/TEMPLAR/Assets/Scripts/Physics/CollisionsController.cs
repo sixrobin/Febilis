@@ -130,7 +130,7 @@ public class CollisionsController : RaycastsController
         for (int i = 0; i < VerticalRaycastsCount; ++i)
         {
             Vector2 rayOrigin = RaycastsOrigins.BottomLeft + Vector2.right * i * VerticalRaycastsSpacing;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, ComputeCollisionMask());
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, _collisionMask);
 
             if (hit)
             {
@@ -139,11 +139,12 @@ public class CollisionsController : RaycastsController
                     CollisionDetected?.Invoke(CollisionOrigin.BELOW);
 
                 transform.Translate(new Vector3(0f, -hit.distance + SKIN_WIDTH));
+                CProLogger.Log(this, $"Ground on {hit.transform.name} (new position : x={transform.position.x}/y={transform.position.y}).", hit.collider.gameObject);
                 return;
             }
         }
 
-        Debug.LogWarning($"No ground has been found to ground {transform.name}.");
+        CProLogger.LogWarning(this, $"No ground has been found to ground {transform.name}.");
     }
 
     public void BackupCurrentState()

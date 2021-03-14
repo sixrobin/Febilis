@@ -65,6 +65,9 @@ public class TemplarJumpController
         LandImpactSpeedMult = Mathf.Max(LandImpactSpeedMult, _jumpDatas.LandImpactSpeedMultMin);
         CProLogger.Log(this, $"Landing at a speed of {fallSpeedAbs.ToString("f2")} => Computed impact duration of {impactDur.ToString("f2")}s and a speed mult of {LandImpactSpeedMult.ToString("f2")}.");
 
+        // [TMP] Shake should scale with impact strength.
+        _templarController.CameraController.Shake.SetTrauma(0f, 0.3f);
+
         yield return RSLib.Yield.SharedYields.WaitForSeconds(impactDur);
         _landImpactCoroutine = null;
 

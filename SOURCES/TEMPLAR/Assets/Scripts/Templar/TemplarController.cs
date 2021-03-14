@@ -98,8 +98,7 @@ public class TemplarController : MonoBehaviour
             _hurtCoroutine = null;
         }
 
-        // [TODO] Check if attack is running and cancel it if it's the case.
-        // (Stop() virtual method in AttackController class probably).
+        AttackCtrl.CancelAttack();
 
         CollisionsCtrl.Ground(transform);
         _templarView.PlayDeathAnimation();
@@ -297,9 +296,6 @@ public class TemplarController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            _healthController.OnHit(AttackDatas.Default, 1f);
-
         BackupCurrentState();
         ResetCurrentState();
 

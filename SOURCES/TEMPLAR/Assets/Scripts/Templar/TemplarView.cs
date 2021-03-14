@@ -19,6 +19,7 @@ public class TemplarView : MonoBehaviour
 
     [SerializeField] private SpriteRenderer _spriteRenderer = null;
     [SerializeField] private Animator _animator = null;
+    [SerializeField] private RSLib.ImageEffects.SpriteBlink _spriteBlink = null;
 
     [Header("MOTION")]
     [SerializeField] private GameObject _jumpPuffPrefab = null;
@@ -137,6 +138,7 @@ public class TemplarView : MonoBehaviour
     public void PlayHurtAnimation(float dir)
     {
         _animator.SetTrigger(HURT);
+        _spriteBlink.BlinkColor();
 
         for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
             Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
@@ -149,6 +151,7 @@ public class TemplarView : MonoBehaviour
     public void PlayDeathAnimation()
     {
         _animator.SetTrigger(DEATH);
+        _spriteBlink.BlinkColor();
 
         for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
             Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);

@@ -39,6 +39,15 @@
 
     public virtual bool IsAttacking => _attackCoroutine != null;
 
+    public virtual void CancelAttack()
+    {
+        if (_attackCoroutine == null)
+            return;
+
+        _attackCoroutineRunner.StopCoroutine(_attackCoroutine);
+        _attackCoroutine = null;
+    }
+
     protected virtual void TriggerHit(AttackDatas attackDatas)
     {
         UnityEngine.Assertions.Assert.IsNotNull(attackDatas, "Triggering hit with null attack datas.");
