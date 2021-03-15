@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Skeleton Controller
   m_EditorClassIdentifier: 
   _baseAttack: {fileID: 11400000, guid: 76dcf6a97f2d9ad499f2f68ce7a919c7, type: 2}
+  _aboveAttack: {fileID: 11400000, guid: 576641acfcd557041b92eab6791fdb3d, type: 2}

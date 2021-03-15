@@ -11,6 +11,8 @@ public class TemplarHealthController : UnitHealthController
 
     public TemplarController TemplarCtrl { get; set; }
 
+    public override HitLayer HitLayer => HitLayer.Player;
+
     public override void OnHit(AttackDatas attackDatas, float dir)
     {
         UnityEngine.Assertions.Assert.IsNotNull(TemplarCtrl, "TemplarController must be referenced to handle TemplarHealthController.");

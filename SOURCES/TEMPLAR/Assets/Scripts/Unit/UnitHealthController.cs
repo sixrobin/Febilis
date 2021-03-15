@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class UnitHealthController : MonoBehaviour, IHittable
+public abstract class UnitHealthController : MonoBehaviour, IHittable
 {
     public class UnitHealthChangedEventArgs : RSLib.HealthSystem.HealthChangedEventArgs
     {
@@ -36,7 +36,7 @@ public class UnitHealthController : MonoBehaviour, IHittable
 
     public RSLib.HealthSystem HealthSystem { get; private set; }
 
-    public HitLayer HitLayer => HitLayer.Player;
+    public abstract HitLayer HitLayer { get; }
 
     public virtual void OnHit(AttackDatas attackDatas, float dir)
     {
@@ -49,7 +49,7 @@ public class UnitHealthController : MonoBehaviour, IHittable
         HealthSystem.Damage(attackDatas.Dmg);
     }
 
-    public void Init()
+    public virtual void Init()
     {
         HealthSystem = new RSLib.HealthSystem(_baseHealth);
         HealthSystem.HealthChanged += OnHealthChanged;

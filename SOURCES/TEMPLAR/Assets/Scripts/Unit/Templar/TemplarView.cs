@@ -43,7 +43,7 @@ public class TemplarView : MonoBehaviour
 
     public void UpdateView(bool flip, Vector3 currVel, Vector3 prevVel)
     {
-        _animator.SetBool(IS_RUNNING, !TemplarController.RollCtrl.IsRolling && TemplarController.InputCtrl.Horizontal != 0f);
+        _animator.SetBool(IS_RUNNING, !TemplarController.IsBeingHurt && !TemplarController.RollCtrl.IsRolling && TemplarController.InputCtrl.Horizontal != 0f);
 
         if (!TemplarController.RollCtrl.IsRolling && !TemplarController.AttackCtrl.IsAttacking)
             _spriteRenderer.flipX = flip;
@@ -52,7 +52,8 @@ public class TemplarView : MonoBehaviour
             && (prevVel.y > 0f
             || TemplarController.CollisionsCtrl.PreviousStates.GetCollisionState(CollisionsController.CollisionOrigin.BELOW)
             && !TemplarController.CollisionsCtrl.Below)
-            && !TemplarController.AttackCtrl.IsAttacking)
+            && !TemplarController.AttackCtrl.IsAttacking
+            && !TemplarController.IsBeingHurt)
             _animator.SetTrigger(FALL);
     }
 

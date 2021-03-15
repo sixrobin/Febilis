@@ -61,6 +61,18 @@ public class CollisionsController : RaycastsController
         }
     }
 
+    public class CollisionInfos
+    {
+        public CollisionInfos(CollisionOrigin origin, RaycastHit2D hit)
+        {
+            Origin = origin;
+            Hit = hit;
+        }
+
+        public CollisionOrigin Origin { get; private set; }
+        public RaycastHit2D Hit { get; private set; }
+    }
+
     private LayerMask _collisionMask;
 
     public CollisionsController(BoxCollider2D boxCollider2D, LayerMask collisionMask) : base(boxCollider2D)
@@ -69,9 +81,9 @@ public class CollisionsController : RaycastsController
     }
 
     // Used to trigger events manually after movement has been applied.
-    private System.Collections.Generic.Queue<CollisionOrigin> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionOrigin>();
+    private System.Collections.Generic.Queue<CollisionInfos> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionInfos>();
 
-    public delegate void CollisionDetectedEventHandler(CollisionOrigin origin);
+    public delegate void CollisionDetectedEventHandler(CollisionInfos collisionInfos);
     public event CollisionDetectedEventHandler CollisionDetected;
 
     public enum CollisionOrigin
@@ -136,7 +148,7 @@ public class CollisionsController : RaycastsController
             {
                 CurrentStates.SetCollision(CollisionOrigin.BELOW);
                 if (triggerEvent)
-                    CollisionDetected?.Invoke(CollisionOrigin.BELOW);
+                    CollisionDetected?.Invoke(new CollisionInfos(CollisionOrigin.BELOW, hit));
 
                 transform.Translate(new Vector3(0f, -hit.distance + SKIN_WIDTH));
                 CProLogger.Log(this, $"Ground on {hit.transform.name} (new position : x={transform.position.x}/y={transform.position.y}).", hit.collider.gameObject);
@@ -164,6 +176,9 @@ public class CollisionsController : RaycastsController
 
             if (hit)
             {
+                if (hit.collider.isTrigger)
+                    continue;
+
                 Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.red);
 
                 if (hit.distance <= Mathf.Epsilon)
@@ -177,7 +192,7 @@ public class CollisionsController : RaycastsController
 
                 CurrentStates.SetCollision(CollisionOrigin.LEFT, sign == -1f);
                 CurrentStates.SetCollision(CollisionOrigin.RIGHT, sign == 1f);
-                RegisterCollisionForEvent(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT);
+                RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
 
                 return;
             }
@@ -200,6 +215,9 @@ public class CollisionsController : RaycastsController
 
             if (hit)
             {
+                if (hit.collider.isTrigger)
+                    continue;
+
                 Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);
 
                 if (hit.distance <= Mathf.Epsilon)
@@ -213,7 +231,7 @@ public class CollisionsController : RaycastsController
 
                 CurrentStates.SetCollision(CollisionOrigin.ABOVE, sign == 1f);
                 CurrentStates.SetCollision(CollisionOrigin.BELOW, sign == -1f);
-                RegisterCollisionForEvent(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW);
+                RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
 
                 return;
             }
@@ -224,8 +242,9 @@ public class CollisionsController : RaycastsController
         }
     }
 
-    private void RegisterCollisionForEvent(CollisionOrigin origin)
+    private void RegisterCollisionForEvent(CollisionInfos collisionInfos)
     {
-        _detectedCollisionsForEvent.Enqueue(origin);
+        // [TODO] CollisionInfos pooling ?
+        _detectedCollisionsForEvent.Enqueue(collisionInfos);
     }
 }

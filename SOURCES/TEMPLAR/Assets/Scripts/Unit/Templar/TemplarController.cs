@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 
-public class TemplarController : MonoBehaviour
+public class TemplarController : UnitController
 {
     [SerializeField] private TemplarView _templarView = null;
     [SerializeField] private TemplarCameraController _cameraController = null;
-    [SerializeField] private BoxCollider2D _boxCollider2D = null;
     [SerializeField] private TemplarControllerDatas _controllerDatas = null;
-    [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
-    [SerializeField] private TemplarHealthController _healthController = null;
-    [SerializeField] private LayerMask _collisionMask = 0;
     [SerializeField] private LayerMask _rollCollisionMask = 0;
 
-    private Recoil _currentRecoil;
     private System.Collections.IEnumerator _hurtCoroutine;
 
     private Vector3 _currVel;
@@ -19,22 +14,18 @@ public class TemplarController : MonoBehaviour
     private float _refVelX;
     private float _jumpVel;
 
-    public BoxCollider2D BoxCollider2D => _boxCollider2D;
     public TemplarView TemplarView => _templarView;
     public TemplarCameraController CameraController => _cameraController;
     public TemplarControllerDatas ControllerDatas => _controllerDatas;
-    public AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
 
     public TemplarInputController InputCtrl { get; private set; }
     public TemplarJumpController JumpCtrl { get; private set; }
     public TemplarRollController RollCtrl { get; private set; }
     public TemplarAttackController AttackCtrl { get; private set; }
-    public TemplarCollisionsController CollisionsCtrl { get; private set; }
 
-    public float CurrDir { get; private set; }
     public float Gravity { get; private set; }
 
-    public bool IsDead => _healthController.HealthSystem.IsDead;
+    public bool IsBeingHurt => _hurtCoroutine != null;
 
     public bool JumpAllowedThisFrame { get; private set; }
 
@@ -43,26 +34,37 @@ public class TemplarController : MonoBehaviour
         _currVel.y = _jumpVel;
     }
 
-    public void Translate(Vector3 vel)
+    private void OnCollisionDetected(CollisionsController.CollisionInfos collisionInfos)
     {
-        vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime);
-        transform.Translate(vel);
-    }
+        // Avoid triggering event if there was a collision from the same origin at the previous frame.
+        if (CollisionsCtrl.PreviousStates.GetCollisionState(collisionInfos.Origin))
+            return;
 
-    private void OnCollisionDetected(CollisionsController.CollisionOrigin origin)
-    {
-        switch (origin)
+        switch (collisionInfos.Origin)
         {
             case CollisionsController.CollisionOrigin.BELOW:
             {
-                if (!InputCtrl.CheckInput(TemplarInputController.ButtonCategory.ROLL) && !RollCtrl.IsRolling && !CollisionsCtrl.PreviousStates.GetCollisionState(origin))
+                // [BUG]
+                // We need to check if templar was not hurt, else, if he got hurt on top of the skeleton's head,
+                // a collision below is detected afterwards, playing the idle animation.
+                // Solution idea : compute below collision each frame even without y negative velocity ?
+
+                if (!InputCtrl.CheckInput(TemplarInputController.ButtonCategory.ROLL)
+                    && !RollCtrl.IsRolling
+                    && !IsBeingHurt)
                 {
                     UnityEngine.Assertions.Assert.IsTrue(_currVel.y < 0f, $"Detected a landing with a positive y velocity ({_currVel.y})!");
-
                     if (_controllerDatas.Jump.MinVelForLandImpact > -1 && -_currVel.y > _controllerDatas.Jump.MinVelForLandImpact)
                         JumpCtrl.TriggerLandImpact(-_currVel.y);
                     else
                         _templarView.PlayIdleAnimation(); // Landing with no speed impact.
+                }
+
+                // [TMP] GetComponent (2 times), maybe a SkeletonController pooling ?
+                if (collisionInfos.Hit.collider.GetComponent<SkeletonController>())
+                {
+                    CProLogger.Log(this, "Fell above a skeleton.", gameObject);
+                    collisionInfos.Hit.collider.GetComponent<SkeletonController>().OnTemplarAbove();
                 }
 
                 break;
@@ -92,7 +94,7 @@ public class TemplarController : MonoBehaviour
     {
         ResetVelocity();
 
-        if (_hurtCoroutine != null)
+        if (IsBeingHurt)
         {
             StopCoroutine(_hurtCoroutine);
             _hurtCoroutine = null;
@@ -100,7 +102,7 @@ public class TemplarController : MonoBehaviour
 
         AttackCtrl.CancelAttack();
 
-        CollisionsCtrl.Ground(transform);
+        CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
         _templarView.PlayDeathAnimation();
 
         CameraController.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
@@ -126,7 +128,7 @@ public class TemplarController : MonoBehaviour
             || !InputCtrl.CheckInput(TemplarInputController.ButtonCategory.ROLL)
             || !CollisionsCtrl.Below
             || JumpCtrl.IsInLandImpact
-            || _hurtCoroutine != null)
+            || IsBeingHurt)
             return;
 
         _currVel = Vector3.zero;
@@ -140,7 +142,7 @@ public class TemplarController : MonoBehaviour
             || AttackCtrl.IsAttacking
             || !InputCtrl.CheckInput(TemplarInputController.ButtonCategory.ATTACK)
             || JumpCtrl.IsInLandImpact
-            || _hurtCoroutine != null)
+            || IsBeingHurt)
             return;
 
         InputCtrl.ResetDelayedInput(TemplarInputController.ButtonCategory.ATTACK);
@@ -187,7 +189,7 @@ public class TemplarController : MonoBehaviour
             && InputCtrl.CheckInput(TemplarInputController.ButtonCategory.JUMP)
             && !JumpCtrl.IsInLandImpact && !JumpCtrl.IsAnticipatingJump
             && (AttackCtrl.CurrentAttackDatas == null || AttackCtrl.CanChainAttack)
-            && _hurtCoroutine == null)
+            && !IsBeingHurt)
         {
             JumpAllowedThisFrame = true;
             InputCtrl.ResetDelayedInput(TemplarInputController.ButtonCategory.JUMP);
@@ -218,7 +220,7 @@ public class TemplarController : MonoBehaviour
         }
 
         float targetVelX = _controllerDatas.RunSpeed;
-        if (_hurtCoroutine == null)
+        if (!IsBeingHurt)
         {
             targetVelX *= InputCtrl.Horizontal;
             if (JumpCtrl.IsAnticipatingJump)
@@ -272,16 +274,15 @@ public class TemplarController : MonoBehaviour
         RollCtrl = new TemplarRollController(this);
         AttackCtrl = new TemplarAttackController(this);
 
-        CollisionsCtrl = new TemplarCollisionsController(_boxCollider2D, _collisionMask, _rollCollisionMask, this);
+        CollisionsCtrl = new TemplarCollisionsController(BoxCollider2D, CollisionMask, _rollCollisionMask, this);
         CollisionsCtrl.CollisionDetected += OnCollisionDetected;
 
-        if (_healthController != null)
+        if (HealthController is TemplarHealthController templarHealthCtrl)
         {
-            _healthController.Init();
-
-            _healthController.TemplarCtrl = this;
-            _healthController.UnitHealthChanged += OnUnitHealthChanged;
-            _healthController.HealthSystem.Killed += OnKilled;
+            templarHealthCtrl.Init();
+            templarHealthCtrl.TemplarCtrl = this;
+            templarHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
+            templarHealthCtrl.HealthSystem.Killed += OnKilled;
         }
 
         _templarView.TemplarController = this;
@@ -324,10 +325,10 @@ public class TemplarController : MonoBehaviour
     {
         CollisionsCtrl.CollisionDetected -= OnCollisionDetected;
 
-        if (_healthController != null)
+        if (HealthController is TemplarHealthController templarHealthCtrl)
         {
-            _healthController.UnitHealthChanged -= OnUnitHealthChanged;
-            _healthController.HealthSystem.Killed -= OnKilled;
+            templarHealthCtrl.UnitHealthChanged -= OnUnitHealthChanged;
+            templarHealthCtrl.HealthSystem.Killed -= OnKilled;
         }
     }
 }

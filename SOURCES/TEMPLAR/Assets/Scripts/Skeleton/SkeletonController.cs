@@ -1,14 +1,13 @@
 ﻿using RSLib.Extensions;
 using UnityEngine;
 
-public class SkeletonController : MonoBehaviour, IHittable
+public class SkeletonController : UnitController
 {
     [SerializeField] private SkeletonView _skeletonView = null;
-    [SerializeField] private BoxCollider2D _boxCollider2D = null;
     [SerializeField] private Transform _target = null;
     [SerializeField] private SkeletonControllerDatas _controllerDatas = null;
-    [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
-    [SerializeField] private LayerMask _collisionMask = 0;
+
+    // [TODO] SkeletonControllerDatas ScriptableObject.
 
     [Header("MOVEMENT")]
     [SerializeField] private float _moveSpeed = 1.3f;
@@ -28,36 +27,52 @@ public class SkeletonController : MonoBehaviour, IHittable
     private System.Collections.IEnumerator _backAndForthPauseCoroutine;
     private System.Collections.IEnumerator _pauseBeforeAttackCoroutine;
 
-    private Recoil _currentRecoil;
     private float _initX;
     private float _backAndForthPauseDir;
 
-    public HitLayer HitLayer => HitLayer.Enemy;
-
     public SkeletonView SkeletonView => _skeletonView;
     public SkeletonControllerDatas ControllerDatas => _controllerDatas;
-    public AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
 
     public SkeletonAttackController AttackCtrl { get; private set; }
-    public CollisionsController CollisionsCtrl { get; private set; }
 
-    public float CurrDir { get; private set; }
     public bool IsWalking { get; private set; }
 
     public float HalfBackAndForthRange => _backAndForthRange * 0.5f;
 
-    public void OnHit(AttackDatas attackDatas, float dir)
+    public void OnTemplarAbove()
     {
-        // [TODO] Apply damage.
+        // [TMP] This method is a bit too "hardcoded". Maybe some ITemplarAboveReceiver interface ?
+        // Also, we might want to keep a "PlayerAbove" boolean so that every attack triggered while true will be an above one.
+
+        if (AttackCtrl.IsAttacking)
+            return;
+
+        if (_pauseBeforeAttackCoroutine != null)
+        {
+            StopCoroutine(_pauseBeforeAttackCoroutine);
+            _pauseBeforeAttackCoroutine = null;
+        }
+
+        AttackCtrl.AttackAbove((attackOverDir) => _skeletonView.ResetAttackTrigger());
+    }
+
+    private void OnUnitHealthChanged(UnitHealthController.UnitHealthChangedEventArgs args)
+    {
         _skeletonView.PlayDamageBlink();
 
         if (AttackCtrl.IsAttacking)
             return;
 
-        _currentRecoil = new Recoil(dir, force: 2.5f, dur: 0.15f);
+        _currentRecoil = new Recoil(args.Dir, force: 2.5f, dur: 0.15f);
 
         _hurtCoroutine = HurtCoroutine();
         StartCoroutine(_hurtCoroutine);
+    }
+
+    private void OnKilled()
+    {
+        AttackCtrl.CancelAttack();
+        gameObject.SetActive(false); // [TMP] Need a death animation.
     }
 
     private bool IsTargetValid()
@@ -97,12 +112,6 @@ public class SkeletonController : MonoBehaviour, IHittable
         IsWalking = true;
     }
 
-    private void Translate(Vector3 vel)
-    {
-        vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime);
-        transform.Translate(vel);
-    }
-
     private System.Collections.IEnumerator HurtCoroutine()
     {
         IsWalking = false;
@@ -140,10 +149,19 @@ public class SkeletonController : MonoBehaviour, IHittable
     private void Awake()
     {
         AttackCtrl = new SkeletonAttackController(this);
-        CollisionsCtrl = new CollisionsController(_boxCollider2D, _collisionMask);
+        CollisionsCtrl = new CollisionsController(BoxCollider2D, CollisionMask);
+
+        if (HealthController is EnemyHealthController enemyHealthCtrl)
+        {
+            enemyHealthCtrl.Init();
+            enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
+            enemyHealthCtrl.HealthSystem.Killed += OnKilled;
+        }
 
         _initX = transform.position.x;
         CurrDir = _skeletonView.GetSpriteRendererFlipX() ? -1f : 1f;
+
+        CollisionsCtrl.Ground(transform);
 
         _skeletonView.SkeletonController = this;
     }

@@ -19,7 +19,7 @@ public class AttackHitbox : MonoBehaviour
     private System.Collections.Generic.List<IHittable> _hitThisTime = new System.Collections.Generic.List<IHittable>();
     private AttackDatas _attackDatas;
 
-    private Collider2D _hitbox = null;
+    private Collider2D _hitbox;
     private System.Collections.IEnumerator _hitCoroutine;
 
     public delegate void HitEventHandler(HitEventArgs hitArgs);
@@ -57,6 +57,8 @@ public class AttackHitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        UnityEngine.Assertions.Assert.IsNotNull(_attackDatas, "Hitbox triggered something even though attack datas have not been set.");
+
         if (!s_sharedKnownHittables.TryGetValue(collision, out IHittable hittable))
             if (collision.TryGetComponent(out hittable))
                 s_sharedKnownHittables.Add(collision, hittable);

@@ -41,14 +41,14 @@ public class SkeletonView : MonoBehaviour
         _hitVFX.Play();
     }
 
-    public void PlayAttackAnticipationAnimation()
+    public void PlayAttackAnticipationAnimation(string suffix = "")
     {
-        _animator.SetTrigger(ATTACK_ANTICIPATION);
+        _animator.SetTrigger($"{ATTACK_ANTICIPATION}{suffix}");
     }
 
-    public void PlayAttackAnimation()
+    public void PlayAttackAnimation(string suffix = "")
     {
-        _animator.SetTrigger(ATTACK);
+        _animator.SetTrigger($"{ATTACK}{suffix}");
         FindObjectOfType<TemplarCameraController>().Shake.SetTrauma(0.2f, 0.45f); // [TMP] GetComponent + hard coded values.
     }
 
