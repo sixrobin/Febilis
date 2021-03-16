@@ -1,31 +1,34 @@
-﻿using RSLib.Extensions;
-using UnityEngine;
-
-public class WorldSpaceHealthBar : MonoBehaviour
+﻿namespace Templar
 {
-    [SerializeField] private GameObject _mainContainer = null;
-    [SerializeField] private Transform _fillScaler = null;
-    [SerializeField] private bool _onlyShowOnHealthMissing = true;
+    using RSLib.Extensions;
+    using UnityEngine;
 
-    public UnitHealthController HealthCtrl { get; set; }
-
-    public void Display(bool show)
+    public class WorldSpaceHealthBar : MonoBehaviour
     {
-        _mainContainer.SetActive(show);
-    }
+        [SerializeField] private GameObject _mainContainer = null;
+        [SerializeField] private Transform _fillScaler = null;
+        [SerializeField] private bool _onlyShowOnHealthMissing = true;
 
-    public void UpdateHealth()
-    {
-        _fillScaler.SetScaleX(HealthCtrl.HealthSystem.HealthPercentage);
+        public Templar.Unit.UnitHealthController HealthCtrl { get; set; }
 
-        if (HealthCtrl.HealthSystem.HealthPercentage < 1f)
-            Display(true);
-        else if (_onlyShowOnHealthMissing)
-            Display(false);
-    }
+        public void Display(bool show)
+        {
+            _mainContainer.SetActive(show);
+        }
 
-    private void Awake()
-    {
-        Display(!_onlyShowOnHealthMissing);
+        public void UpdateHealth()
+        {
+            _fillScaler.SetScaleX(HealthCtrl.HealthSystem.HealthPercentage);
+
+            if (HealthCtrl.HealthSystem.HealthPercentage < 1f)
+                Display(true);
+            else if (_onlyShowOnHealthMissing)
+                Display(false);
+        }
+
+        private void Awake()
+        {
+            Display(!_onlyShowOnHealthMissing);
+        }
     }
 }

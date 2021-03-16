@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4fdcba62eabb340b6c96584568ebbd, type: 3}
+  m_Name: Skeleton Attack Base
+  m_EditorClassIdentifier: 
+  _id: skeleton_atk_base
+  _dmg: 25
+  _dur: 0.8
+  _hitDur: 0.1
+  _hitLayer: 1
+  _hitDirComputationType: 1
+  _animMult: 1
+  _traumaOnHit: {x: 0.75, y: 0.75}
+  _freezeFrameDurOnHit: 0.1
+  _attackAnticipationDur: 0.5
+  _attackDur: 0.5
+  _animatorParamsSuffix: 

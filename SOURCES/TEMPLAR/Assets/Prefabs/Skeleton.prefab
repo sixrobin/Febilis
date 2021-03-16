@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4a9f8fe774e92488048c326ca7eb82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 1066179691414371952}
   _baseHealth: 200
   _healthBar: {fileID: 3307099474516935471}
 --- !u!1 &599390195757669265
@@ -220,9 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 3270913970548402619}
   _animator: {fileID: 2555688979345959126}
+  _spriteBlink: {fileID: 8176204942840300997}
   _vfxScaler: {fileID: 2287506555655739327}
   _hitVFX: {fileID: 5865058479210464952}
-  _spriteBlink: {fileID: 8176204942840300997}
 --- !u!114 &8176204942840300997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,12 +572,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boxCollider2D: {fileID: 5599035004403256827}
   _attackHitboxesContainer: {fileID: 8982936511501149897}
-  _healthController: {fileID: 8383242565150569931}
+  _healthCtrl: {fileID: 8383242565150569931}
   _collisionMask:
     serializedVersion: 2
     m_Bits: 256
   _skeletonView: {fileID: 999132588295242923}
-  _target: {fileID: 0}
+  _target: {fileID: 65071962954997899}
   _controllerDatas: {fileID: 11400000, guid: 3d5d842434aed5b499b0b6a706028e55, type: 2}
   _moveSpeed: 1.3
   _backAndForthRange: 5
@@ -685,6 +686,11 @@ PrefabInstance:
       value: World Space Health Bar
       objectReference: {fileID: 0}
     - target: {fileID: 818851749753724250, guid: 50597d92fffed2e4fb47ab3b3c1bdfec,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032409441779005692, guid: 50597d92fffed2e4fb47ab3b3c1bdfec,
         type: 3}
       propertyPath: m_Layer
       value: 10

@@ -1,29 +1,32 @@
-﻿using UnityEngine;
-
-[DisallowMultipleComponent]
-public class UnitController : MonoBehaviour
+﻿namespace Templar.Unit
 {
-    [SerializeField] private BoxCollider2D _boxCollider2D = null;
-    [SerializeField] private AttackHitboxesContainer _attackHitboxesContainer = null;
-    [SerializeField] private UnitHealthController _healthController = null;
-    [SerializeField] private LayerMask _collisionMask = 0;
+    using UnityEngine;
 
-    protected Recoil _currentRecoil;
-
-    public BoxCollider2D BoxCollider2D => _boxCollider2D;
-    public AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
-    public UnitHealthController HealthController => _healthController;
-    public LayerMask CollisionMask => _collisionMask;
-
-    public CollisionsController CollisionsCtrl { get; protected set; }
-
-    public float CurrDir { get; protected set; }
-
-    public bool IsDead => HealthController.HealthSystem.IsDead;
-
-    public void Translate(Vector3 vel)
+    [DisallowMultipleComponent]
+    public class UnitController : MonoBehaviour
     {
-        vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime);
-        transform.Translate(vel);
+        [SerializeField] private BoxCollider2D _boxCollider2D = null;
+        [SerializeField] private Attack.AttackHitboxesContainer _attackHitboxesContainer = null;
+        [SerializeField] private UnitHealthController _healthCtrl = null;
+        [SerializeField] private LayerMask _collisionMask = 0;
+
+        protected Templar.Physics.Recoil _currentRecoil;
+
+        public BoxCollider2D BoxCollider2D => _boxCollider2D;
+        public Attack.AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
+        public UnitHealthController HealthCtrl => _healthCtrl;
+        public LayerMask CollisionMask => _collisionMask;
+
+        public Templar.Physics.CollisionsController CollisionsCtrl { get; protected set; }
+
+        public float CurrDir { get; protected set; }
+
+        public bool IsDead => HealthCtrl.HealthSystem.IsDead;
+
+        public void Translate(Vector3 vel)
+        {
+            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime);
+            transform.Translate(vel);
+        }
     }
 }

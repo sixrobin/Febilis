@@ -1,82 +1,98 @@
-﻿using UnityEngine;
-
-public abstract class UnitHealthController : MonoBehaviour, IHittable
+﻿namespace Templar.Unit
 {
-    public class UnitHealthChangedEventArgs : RSLib.HealthSystem.HealthChangedEventArgs
+    using UnityEngine;
+
+    public abstract class UnitHealthController : MonoBehaviour, Attack.IHittable
     {
-        public UnitHealthChangedEventArgs(int previous, int current, AttackDatas attackDatas, float dir)
-            : base(previous, current)
+        public class UnitHealthChangedEventArgs : RSLib.HealthSystem.HealthChangedEventArgs
         {
-            AttackDatas = attackDatas;
-            Dir = dir;
+            public UnitHealthChangedEventArgs(int previous, int current, Attack.HitInfos hitDatas)
+                : base(previous, current)
+            {
+                HitDatas = hitDatas;
+            }
+
+            public UnitHealthChangedEventArgs(RSLib.HealthSystem.HealthChangedEventArgs baseArgs, Attack.HitInfos hitDatas)
+                : base(baseArgs)
+            {
+                HitDatas = hitDatas;
+            }
+
+            public Attack.HitInfos HitDatas { get; private set; }
         }
 
-        public UnitHealthChangedEventArgs(RSLib.HealthSystem.HealthChangedEventArgs baseArgs, AttackDatas attackDatas, float dir)
-            : base(baseArgs)
+        public class UnitKilledEventArgs : System.EventArgs
         {
-            AttackDatas = attackDatas;
-            Dir = dir;
+            public UnitKilledEventArgs(Attack.HitInfos hitDatas)
+            {
+                HitDatas = hitDatas;
+            }
+
+            public Attack.HitInfos HitDatas { get; private set; }
         }
 
-        public AttackDatas AttackDatas { get; private set; }
-        public float Dir { get; private set; }
-    }
+        [SerializeField] private Collider2D _collider = null;
+        [SerializeField] private int _baseHealth = 100;
 
-    [SerializeField] private int _baseHealth = 100;
+        private bool _init;
 
-    private bool _init;
+        // [TMP] This is probably not ideal : in case we receive damage not coming with AttackDatas,
+        // this variable will still be used. It is reset to fix it, but it's more a workaround than a good solution.
+        private Attack.HitInfos _lastHitDatas;
 
-    // [TMP] This is probably not ideal : in case we receive damage not coming with AttackDatas,
-    // this variable will still be used. It is reset to fix it, but it's more a workaround than a good solution.
-    private AttackDatas _lastHitAttackDatas;
-    private float _lastHitDir;
+        public delegate void UnitHealthChangedEventHandler(UnitHealthChangedEventArgs args);
+        public delegate void UnitKilledEventHandler(UnitKilledEventArgs args);
 
-    public delegate void UnitHealthChangedEventHandler(UnitHealthChangedEventArgs args);
-    public event UnitHealthChangedEventHandler UnitHealthChanged;
+        public event UnitHealthChangedEventHandler UnitHealthChanged;
+        public event UnitKilledEventHandler UnitKilled;
 
-    public RSLib.HealthSystem HealthSystem { get; private set; }
+        public RSLib.HealthSystem HealthSystem { get; private set; }
 
-    public abstract HitLayer HitLayer { get; }
+        public bool CanBeHit => !HealthSystem.IsDead;
 
-    public virtual void OnHit(AttackDatas attackDatas, float dir)
-    {
-        if (HealthSystem.IsDead)
-            return;
+        public abstract Attack.HitLayer HitLayer { get; }
 
-        _lastHitAttackDatas = attackDatas;
-        _lastHitDir = dir;
+        public virtual void OnHit(Attack.HitInfos hitDatas)
+        {
+            if (HealthSystem.IsDead)
+                return;
 
-        HealthSystem.Damage(attackDatas.Dmg);
-    }
+            _lastHitDatas = hitDatas;
 
-    public virtual void Init()
-    {
-        HealthSystem = new RSLib.HealthSystem(_baseHealth);
-        HealthSystem.HealthChanged += OnHealthChanged;
-        HealthSystem.Killed += OnKilled;
+            HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
+        }
 
-        _init = true;
-    }
+        public virtual void Init()
+        {
+            HealthSystem = new RSLib.HealthSystem(_baseHealth);
+            HealthSystem.HealthChanged += OnHealthChanged;
+            HealthSystem.Killed += OnKilled;
 
-    protected virtual void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
-    {
-        UnitHealthChanged?.Invoke(new UnitHealthChangedEventArgs(args, _lastHitAttackDatas, _lastHitDir));
-        _lastHitAttackDatas = null;
-    }
+            _init = true;
+        }
 
-    protected virtual void OnKilled()
-    {
-    }
+        protected virtual void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
+        {
+            UnitHealthChanged?.Invoke(new UnitHealthChangedEventArgs(args, _lastHitDatas));
+            _lastHitDatas = null;
+        }
 
-    protected virtual void Awake()
-    {
-        if (!_init)
-            Init();
-    }
+        protected virtual void OnKilled()
+        {
+            UnitKilled?.Invoke(new UnitKilledEventArgs(_lastHitDatas));
+            _collider.enabled = false;
+        }
 
-    protected virtual void OnDestroy()
-    {
-        HealthSystem.HealthChanged -= OnHealthChanged;
-        HealthSystem.Killed -= OnKilled;
+        protected virtual void Awake()
+        {
+            if (!_init)
+                Init();
+        }
+
+        protected virtual void OnDestroy()
+        {
+            HealthSystem.HealthChanged -= OnHealthChanged;
+            HealthSystem.Killed -= OnKilled;
+        }
     }
 }

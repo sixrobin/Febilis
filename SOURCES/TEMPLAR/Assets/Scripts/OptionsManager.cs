@@ -1,25 +1,28 @@
-﻿using UnityEngine;
-
-public class OptionsManager : MonoBehaviour
+﻿namespace Templar
 {
-    [SerializeField] private GameObject _optionsPanel = null;
+    using UnityEngine;
 
-    public bool OptionsPanelDisplayed { get; private set; }
-
-    public bool CanToggleOptions()
+    public class OptionsManager : MonoBehaviour
     {
-        return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey;
-    }
+        [SerializeField] private GameObject _optionsPanel = null;
 
-    private void Update()
-    {
-        if (!CanToggleOptions())
-            return;
+        public bool OptionsPanelDisplayed { get; private set; }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public bool CanToggleOptions()
         {
-            OptionsPanelDisplayed = !OptionsPanelDisplayed;
-            _optionsPanel.SetActive(OptionsPanelDisplayed);
+            return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey;
+        }
+
+        private void Update()
+        {
+            if (!CanToggleOptions())
+                return;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OptionsPanelDisplayed = !OptionsPanelDisplayed;
+                _optionsPanel.SetActive(OptionsPanelDisplayed);
+            }
         }
     }
 }

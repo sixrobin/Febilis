@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e996eaec252654e9aa05004aadfd31, type: 3}
+  m_Name: Templar Jump Datas
+  m_EditorClassIdentifier: 
+  _jumpHeight: 1.5
+  _jumpApexDur: 0.3
+  _fallMultiplier: 1.05
+  _airborneDamping: 0.05
+  _jumpAnticipationSpeedMult: 0.9
+  _jumpAnticipationDur: 0.05
+  _airborneJumpAnticipationDur: 0
+  _maxFollowingJumps: 2
+  _minVelForLandImpact: 8
+  _landImpactSpeedMultMin: 0
+  _landImpactDurFactor: 0.01
+  _landImpactDurMinMax: {x: 0.04, y: 0.2}
