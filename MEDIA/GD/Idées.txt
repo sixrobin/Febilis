@@ -73,3 +73,6 @@ Idées générales
 - "Pour qu'un mensonge passe, il faut le mettre au milieu de 1000 vérités."
 
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?
+
+- Permettre de faire croire au joueur qu'il peut modifier une valeur de monnaie dans les fichiers du jeu, le détecter et lui balancer un boss infect.
+	- Le joueur peut être tenté de faire ça soit pour tricher, soit parce qu'il y a un item dans le jeu qui coûte GIGA cher. Le joueur ne gagne pas l'argent de la triche sauf qu'il parvient à no hit le boss.

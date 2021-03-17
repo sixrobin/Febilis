@@ -4,6 +4,7 @@
 
     public class PlayerController : UnitController
     {
+        [Header("PLAYER")]
         [SerializeField] private PlayerView _playerView = null;
         [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
         [SerializeField] private Datas.PlayerControllerDatas _ctrlDatas = null;

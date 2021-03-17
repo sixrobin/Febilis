@@ -578,14 +578,7 @@ MonoBehaviour:
     m_Bits: 256
   _skeletonView: {fileID: 999132588295242923}
   _target: {fileID: 65071962954997899}
-  _controllerDatas: {fileID: 11400000, guid: 3d5d842434aed5b499b0b6a706028e55, type: 2}
-  _moveSpeed: 1.3
-  _backAndForthRange: 5
-  _backAndForthPause: 0.5
-  _targetDetectionRange: 3.5
-  _targetAttackRange: 2.5
-  _beforeAttackDur: 0.6
-  _hurtDur: 0.25
+  _ctrlDatas: {fileID: 11400000, guid: 3d5d842434aed5b499b0b6a706028e55, type: 2}
   _debugColor: {fileID: 11400000, guid: 3bab5850c2aaf95429984cfda76ed899, type: 2}
 --- !u!1001 &1924194383716164228
 PrefabInstance:

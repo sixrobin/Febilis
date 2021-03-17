@@ -1,9 +1,9 @@
-﻿namespace Templar.Unit.Player.Datas
+﻿namespace Templar.Unit.Datas
 {
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "New Player Roll Datas", menuName = "Datas/Player/Roll")]
-    public class PlayerRollDatas : ScriptableObject
+    public class UnitRollDatas : ScriptableObject
     {
         [Header("ROLL")]
         [Tooltip("Full roll motion duration.")]

@@ -32,6 +32,8 @@
         [Tooltip("Freeze frame duration if the attack hits at least one target.")]
         [SerializeField, Min(0f)] private float _freezeFrameDurOnHit = 0.1f;
 
+        // If a "parriable" boolean exists someday, it should be there.
+
         /// <summary>
         /// Instantiates a default datas container that can be used for testing purpose, without having
         /// to create a new asset and reference it in scripts.

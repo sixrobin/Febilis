@@ -14,8 +14,6 @@
         [Tooltip("Suffix added to base animator parameters to play specific clips.")]
         [SerializeField] private string _animatorParamsSuffix = string.Empty;
 
-        // [TODO] bool _parriable
-
         public float AttackAnticipationDur => _attackAnticipationDur;
         public float AttackDur => _attackDur;
         public string AnimatorParamsSuffix => _animatorParamsSuffix;

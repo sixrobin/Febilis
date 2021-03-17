@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0416ab274acb5f4fab88ae148a2143b, type: 3}
+  m_Script: {fileID: 11500000, guid: 85b35d38b0d4df34bb0110e0605c389c, type: 3}
   m_Name: Templar Roll Datas
   m_EditorClassIdentifier: 
   _dur: 0.5
@@ -56,6 +56,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _cooldown: 0.1
+  _cooldown: 0.2
   _gravityMult: 0.7
   _animMult: 1.3

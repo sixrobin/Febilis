@@ -1,5 +1,5 @@
 - Attaque up du templier.
-- Fade in + replay à la mort (reprendre le même fade que Delicious Quest, fade + système de callback).
+- Classe dans RSLib.ImageEffects.Ramp qui prend une ramp en param et la fait fade avec des params (init value, target, dur, etc.).
 - Retaper la gestion des choses sous les pieds d'un CollisionsController, event au landing, etc.
 - Début de niveau tuto platformer (jump, double jump). Des buissons dans l'enviro pour dessiner les courbes de saut ?
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
@@ -7,10 +7,9 @@
 - Variable dans AttackDatas qui correspond au shake quand l'attaque est trigger, même si ne touche rien ?
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
-- EnemyController datas.
-- Généraliser les RollDatas, JumpDatas juste dans les noms car ils ne sont techniquement pas spécifiques au player.
+- Refacto UnitView.
 
 
 RSLib
-- Enter submit input field.
 - AutoDestroy, avec delay, pour anim event.
+- Encryption tool.

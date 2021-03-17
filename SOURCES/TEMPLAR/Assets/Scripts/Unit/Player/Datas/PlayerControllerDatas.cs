@@ -9,10 +9,10 @@
         [SerializeField] private PlayerInputDatas _playerInputDatas = null;
 
         [Header("JUMP")]
-        [SerializeField] private PlayerJumpDatas _playerJumpDatas = null;
+        [SerializeField] private Unit.Datas.UnitJumpDatas _playerJumpDatas = null;
 
         [Header("ROLL")]
-        [SerializeField] private PlayerRollDatas _playerRollDatas = null;
+        [SerializeField] private Unit.Datas.UnitRollDatas _playerRollDatas = null;
 
         [Header("ATTACK")]
         [SerializeField] private Attack.Datas.PlayerAttackDatas[] _baseCombo = null;
@@ -38,8 +38,8 @@
         [SerializeField] private Templar.Physics.Recoil.RecoilSettings _hurtRecoilSettings = null;
 
         public PlayerInputDatas Input => _playerInputDatas;
-        public PlayerJumpDatas Jump => _playerJumpDatas;
-        public PlayerRollDatas Roll => _playerRollDatas;
+        public Unit.Datas.UnitJumpDatas Jump => _playerJumpDatas;
+        public Unit.Datas.UnitRollDatas Roll => _playerRollDatas;
         public Attack.Datas.PlayerAttackDatas[] BaseCombo => _baseCombo;
         public Attack.Datas.PlayerAttackDatas AirborneAttack => _airborneAttack;
 

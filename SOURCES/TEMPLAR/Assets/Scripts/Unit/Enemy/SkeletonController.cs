@@ -5,22 +5,10 @@
 
     public class SkeletonController : UnitController
     {
+        [Header("SKELETON")]
         [SerializeField] private SkeletonView _skeletonView = null;
         [SerializeField] private Transform _target = null;
-        [SerializeField] private Datas.SkeletonControllerDatas _controllerDatas = null;
-
-        // [TODO] SkeletonControllerDatas ScriptableObject.
-
-        [Header("MOVEMENT")]
-        [SerializeField] private float _moveSpeed = 1.3f;
-        [SerializeField] private float _backAndForthRange = 3f;
-        [SerializeField] private float _backAndForthPause = 0.5f;
-
-        [Header("FIGHT")]
-        [SerializeField, Min(0f)] private float _targetDetectionRange = 4f;
-        [SerializeField, Min(0f)] private float _targetAttackRange = 1.5f;
-        [SerializeField, Min(0f)] private float _beforeAttackDur = 0.3f;
-        [SerializeField, Min(0f)] private float _hurtDur = 0.25f;
+        [SerializeField] private Datas.SkeletonControllerDatas _ctrlDatas = null;
 
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
@@ -33,13 +21,12 @@
         private float _backAndForthPauseDir;
 
         public SkeletonView SkeletonView => _skeletonView;
-        public Datas.SkeletonControllerDatas ControllerDatas => _controllerDatas;
+        public Datas.SkeletonControllerDatas CtrlDatas => _ctrlDatas;
+        public Datas.SkeletonFightBehaviourDatas FightBehaviourDatas => CtrlDatas.FightBehaviourDatas;
 
         public Attack.SkeletonAttackController AttackCtrl { get; private set; }
 
         public bool IsWalking { get; private set; }
-
-        public float HalfBackAndForthRange => _backAndForthRange * 0.5f;
 
         public void OnTemplarAbove()
         {
@@ -97,12 +84,12 @@
 
         private bool IsTargetDetected()
         {
-            return (_target.position - transform.position).sqrMagnitude <= _targetDetectionRange * _targetDetectionRange;
+            return (_target.position - transform.position).sqrMagnitude <= FightBehaviourDatas.TargetDetectionRangeSqr;
         }
 
         private bool IsTargetInAttackRange()
         {
-            return (_target.position - transform.position).sqrMagnitude <= _targetAttackRange * _targetAttackRange;
+            return (_target.position - transform.position).sqrMagnitude <= FightBehaviourDatas.TargetAttackRangeSqr;
         }
 
         private void MoveBackAndForth()
@@ -111,8 +98,8 @@
                 return;
 
             bool reachedLimit = CurrDir == 1f
-                ? _initX + HalfBackAndForthRange < transform.position.x
-                : _initX - HalfBackAndForthRange > transform.position.x;
+                ? _initX + _ctrlDatas.HalfBackAndForthRange < transform.position.x
+                : _initX - _ctrlDatas.HalfBackAndForthRange > transform.position.x;
 
             if (reachedLimit)
             {
@@ -123,7 +110,7 @@
                 return;
             }
 
-            Translate(new Vector3(CurrDir * _moveSpeed, 0f));
+            Translate(new Vector3(CurrDir * _ctrlDatas.WalkSpeed, 0f));
             IsWalking = true;
         }
 
@@ -132,7 +119,7 @@
             IsWalking = false;
 
             _skeletonView.PlayHurtAnimation();
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_hurtDur);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.HurtDur);
 
             _hurtCoroutine = null;
             if (!AttackCtrl.IsAttacking)
@@ -143,7 +130,7 @@
         {
             IsWalking = false;
 
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_backAndForthPause);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_ctrlDatas.BackAndForthPause);
             yield return new WaitUntil(() => !AttackCtrl.IsAttacking);
             _backAndForthPauseCoroutine = null;
         }
@@ -152,7 +139,7 @@
         {
             IsWalking = false;
 
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_beforeAttackDur);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(FightBehaviourDatas.BeforeAttackDur);
             yield return new WaitUntil(() => _hurtCoroutine == null);
             _pauseBeforeAttackCoroutine = null;
 
@@ -224,7 +211,7 @@
                     {
                         if (_currentRecoil == null)
                         {
-                            Translate(new Vector3(CurrDir * _moveSpeed, 0f));
+                            Translate(new Vector3(CurrDir * _ctrlDatas.WalkSpeed, 0f));
                             IsWalking = true;
                         }
                     }
@@ -243,24 +230,24 @@
         {
             Gizmos.color = _debugColor != null ? _debugColor.Color : Color.red;
 
-            Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
-            Gizmos.DrawWireSphere(transform.position, _targetAttackRange);
+            Gizmos.DrawWireSphere(transform.position, FightBehaviourDatas.TargetDetectionRange);
+            Gizmos.DrawWireSphere(transform.position, FightBehaviourDatas.TargetAttackRange);
 
 #if UNITY_EDITOR
             if (UnityEditor.EditorApplication.isPlaying)
             {
-                Gizmos.DrawWireSphere(new Vector3(_initX - HalfBackAndForthRange, transform.position.y + 0.5f), 0.05f);
-                Gizmos.DrawWireSphere(new Vector3(_initX + HalfBackAndForthRange, transform.position.y + 0.5f), 0.05f);
-                Gizmos.DrawLine(new Vector3(_initX - HalfBackAndForthRange, transform.position.y + 0.5f),
-                    new Vector3(_initX + HalfBackAndForthRange, transform.position.y + 0.5f));
+                Gizmos.DrawWireSphere(new Vector3(_initX - _ctrlDatas.HalfBackAndForthRange, transform.position.y + 0.5f), 0.05f);
+                Gizmos.DrawWireSphere(new Vector3(_initX + _ctrlDatas.HalfBackAndForthRange, transform.position.y + 0.5f), 0.05f);
+                Gizmos.DrawLine(new Vector3(_initX - _ctrlDatas.HalfBackAndForthRange, transform.position.y + 0.5f),
+                    new Vector3(_initX + _ctrlDatas.HalfBackAndForthRange, transform.position.y + 0.5f));
             }
             else
             {
 #endif
-                Gizmos.DrawWireSphere(transform.position.AddX(-HalfBackAndForthRange).AddY(0.5f), 0.05f);
-                Gizmos.DrawWireSphere(transform.position.AddX(HalfBackAndForthRange).AddY(0.5f), 0.05f);
-                Gizmos.DrawLine(transform.position.AddX(-HalfBackAndForthRange).AddY(0.5f),
-                transform.position.AddX(HalfBackAndForthRange).AddY(0.5f));
+                Gizmos.DrawWireSphere(transform.position.AddX(-_ctrlDatas.HalfBackAndForthRange).AddY(0.5f), 0.05f);
+                Gizmos.DrawWireSphere(transform.position.AddX(_ctrlDatas.HalfBackAndForthRange).AddY(0.5f), 0.05f);
+                Gizmos.DrawLine(transform.position.AddX(-_ctrlDatas.HalfBackAndForthRange).AddY(0.5f),
+                transform.position.AddX(_ctrlDatas.HalfBackAndForthRange).AddY(0.5f));
 #if UNITY_EDITOR
             }
 #endif

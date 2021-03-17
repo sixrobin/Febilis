@@ -1,9 +1,9 @@
-﻿namespace Templar.Unit.Player.Datas
+﻿namespace Templar.Unit.Datas
 {
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "New Player Jump Datas", menuName = "Datas/Player/Jump")]
-    public class PlayerJumpDatas : ScriptableObject
+    public class UnitJumpDatas : ScriptableObject
     {
         [Header("JUMP")]
         [Tooltip("Height reached by the controller's pivot when at his jump apex.")]

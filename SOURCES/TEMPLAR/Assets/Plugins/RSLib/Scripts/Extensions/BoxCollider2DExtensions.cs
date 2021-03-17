@@ -18,7 +18,7 @@
 
         static Vector2[] Corners(this BoxCollider2D box, BoxSide side)
 		{
-			switch (side)
+            switch (side)
 			{
 				case BoxSide.Left: return CornersLeft(box);
 				case BoxSide.Right: return CornersRight(box);
@@ -171,6 +171,17 @@
 
 			return points;
 		}
+
+        /// <summary>Checks if two BoxCollider2D instances are overlapping.</summary>
+        /// <param name="other">Box to check overlap with.</param>
+        /// <returns>True if boxes overlap, else false.</returns>
+        public static bool OverlapsWith(this BoxCollider2D box, BoxCollider2D other)
+        {
+            return !(box.bounds.min.x > other.bounds.max.x
+                || box.bounds.max.x < other.bounds.min.x
+                || box.bounds.min.y > other.bounds.max.y
+                || box.bounds.max.y < other.bounds.min.y);
+        }
 
 		#endregion GENERAL
 	}

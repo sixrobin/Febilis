@@ -1180,7 +1180,7 @@ PrefabInstance:
     - target: {fileID: 5599035004403256826, guid: 3cb868e63039ac948919038355f0bba8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.79
+      value: -11.79
       objectReference: {fileID: 0}
     - target: {fileID: 5599035004403256826, guid: 3cb868e63039ac948919038355f0bba8,
         type: 3}
@@ -2220,6 +2220,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Templar Camera
   m_TagString: MainCamera
@@ -2332,6 +2333,23 @@ MonoBehaviour:
     _speed: 3
   _debugOnSelectedOnly: 0
   _debugColor: {fileID: 11400000, guid: 0bc4dac2a1ed649449d963fee17371c5, type: 2}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9cafa3c042028f4baa8c2a9032b3ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: 7d78cee8cae5c7445a6e184c471d5413, type: 3}
+  _textureRamp: {fileID: 2800000, guid: 8f68db83b84830e48a69917bbbed5ddb, type: 3}
+  _rampOffset: -0.03
+  _weight: 1
+  inverted: 0
 --- !u!1 &574662103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,7 +2934,7 @@ PrefabInstance:
     - target: {fileID: 5599035004403256826, guid: 3cb868e63039ac948919038355f0bba8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.47
+      value: -15.91
       objectReference: {fileID: 0}
     - target: {fileID: 5599035004403256826, guid: 3cb868e63039ac948919038355f0bba8,
         type: 3}

@@ -38,55 +38,55 @@ namespace RSLib.ImageEffects
 
 	    private void OnRenderImage(RenderTexture source, RenderTexture destination)
 	    {		
-		    material.SetFloat("_Intensity", _intensity);
-            material.SetFloat("_ColorIntensity", _colorIntensity);
-		    material.SetTexture("_DispTex", _displacementMap);
+		    Material.SetFloat("_Intensity", _intensity);
+            Material.SetFloat("_ColorIntensity", _colorIntensity);
+		    Material.SetTexture("_DispTex", _displacementMap);
         
             _flicker += Time.deltaTime * _colorIntensity;
             if (_flicker > _flickerTime)
 		    {
-			    material.SetFloat("filterRadius", Random.Range (-3f, 3f) * _colorIntensity);
-                material.SetVector("direction", Quaternion.AngleAxis(Random.Range(0f, 360f) * _colorIntensity, Vector3.forward) * Vector4.one);
+			    Material.SetFloat("filterRadius", Random.Range (-3f, 3f) * _colorIntensity);
+                Material.SetVector("direction", Quaternion.AngleAxis(Random.Range(0f, 360f) * _colorIntensity, Vector3.forward) * Vector4.one);
                 _flicker = 0f;
 			    _flickerTime = Random.value;
 		    }
 
             if (_colorIntensity == 0f)
-                material.SetFloat("filterRadius", 0f);
+                Material.SetFloat("filterRadius", 0f);
         
             _glitchUp += Time.deltaTime * _flipIntensity;
             if (_glitchUp > _glitchUpTime)
 		    {
-				material.SetFloat("flip_up", Random.value < 0.1f * _flipIntensity ? Random.Range(0f, 1f) * _flipIntensity : 0f);
+				Material.SetFloat("flip_up", Random.value < 0.1f * _flipIntensity ? Random.Range(0f, 1f) * _flipIntensity : 0f);
 			    _glitchUp = 0f;
 			    _glitchUpTime = Random.value * 0.1f;
 		    }
 
             if (_flipIntensity == 0f)
-                material.SetFloat("flip_up", 0f);
+                Material.SetFloat("flip_up", 0f);
 
             _glitchDown += Time.deltaTime * _flipIntensity;
             if (_glitchDown > _glitchDownTime)
 		    {
-				material.SetFloat("flip_down", Random.value < _flipIntensity * 0.1f ? 1f - Random.Range(0f, 1f) * _flipIntensity : 1f);
+				Material.SetFloat("flip_down", Random.value < _flipIntensity * 0.1f ? 1f - Random.Range(0f, 1f) * _flipIntensity : 1f);
 			    _glitchDown = 0f;
 			    _glitchDownTime = Random.value * 0.1f;
             }
 
             if (_flipIntensity == 0f)
-                material.SetFloat ("flip_down", 1f);
+                Material.SetFloat ("flip_down", 1f);
 
             if (Random.value < 0.05f * _intensity)
 		    {
-			    material.SetFloat("displace", Random.value * _intensity);
-			    material.SetFloat("scale", 1f - Random.value * _intensity);
+			    Material.SetFloat("displace", Random.value * _intensity);
+			    Material.SetFloat("scale", 1f - Random.value * _intensity);
             }
             else
 		    {
-			    material.SetFloat("displace", 0f);
+			    Material.SetFloat("displace", 0f);
 		    }
 		
-		    Graphics.Blit(source, destination, material);
+		    Graphics.Blit(source, destination, Material);
 	    }
     }
 }

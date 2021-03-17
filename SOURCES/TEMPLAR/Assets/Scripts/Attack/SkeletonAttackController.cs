@@ -13,14 +13,14 @@
 
         public void Attack(AttackOverEventHandler attackOverCallback = null)
         {
-            _currAttackDatas = _skeletonController.ControllerDatas.BaseAttack;
+            _currAttackDatas = _skeletonController.FightBehaviourDatas.BaseAttack;
             _attackCoroutine = AttackCoroutine(attackOverCallback);
             _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
         }
 
         public void AttackAbove(AttackOverEventHandler attackOverCallback = null)
         {
-            _currAttackDatas = _skeletonController.ControllerDatas.AboveAttack;
+            _currAttackDatas = _skeletonController.FightBehaviourDatas.AboveAttack;
             _attackCoroutine = AttackCoroutine(attackOverCallback);
             _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
         }

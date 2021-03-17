@@ -5,6 +5,7 @@
     [DisallowMultipleComponent]
     public class UnitController : MonoBehaviour
     {
+        [Header("UNIT BASE")]
         [SerializeField] private BoxCollider2D _boxCollider2D = null;
         [SerializeField] private Attack.AttackHitboxesContainer _attackHitboxesContainer = null;
         [SerializeField] private UnitHealthController _healthCtrl = null;
