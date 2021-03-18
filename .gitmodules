@@ -1,0 +1,3 @@
+[submodule "SOURCES/TEMPLAR/Assets/Scripts/RSLIB"]
+	path = SOURCES/TEMPLAR/Assets/Scripts/RSLIB
+	url = https://github.com/sixrobin/RSLIB.git

@@ -88,9 +88,9 @@
             _inputGetters = new System.Collections.Generic.Dictionary<ButtonCategory, InputGetterHandler>(
                  new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
         {
-            { ButtonCategory.JUMP, () => InputManager.GetInputDown(InputAction.JUMP) },
-            { ButtonCategory.ROLL, () => InputManager.GetInputDown(InputAction.ROLL) },
-            { ButtonCategory.ATTACK, () => InputManager.GetInputDown(InputAction.ATTACK) },
+            { ButtonCategory.JUMP, () => InputManager.GetInputDown(JUMP) },
+            { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
+            { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
 
             //{ ButtonCategory.JUMP, () => Input.GetButtonDown(JUMP) },
             //{ ButtonCategory.ROLL, () => Input.GetButtonDown(ROLL) },

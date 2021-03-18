@@ -1751,12 +1751,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 317178099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f1108175335e0f47ba7dfa7ff3e279f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ce7bd4cdf7a00d489b8b8a1e248a143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 1
-  _defaultMapDatas: {fileID: 11400000, guid: 225fca2a64b027e42b8588ded6325060, type: 2}
+  _verbose: 0
+  _defaultMapDatas: {fileID: 11400000, guid: edc90de95f7cb8f4f9eaf7084a2a48bd, type: 2}
   _disableMapLoading: 1
 --- !u!4 &317178101
 Transform:
@@ -2345,11 +2345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9cafa3c042028f4baa8c2a9032b3ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shader: {fileID: 4800000, guid: 7d78cee8cae5c7445a6e184c471d5413, type: 3}
-  _textureRamp: {fileID: 2800000, guid: 8f68db83b84830e48a69917bbbed5ddb, type: 3}
-  _rampOffset: -0.03
-  _weight: 1
-  inverted: 0
 --- !u!1 &574662103
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,13 +3112,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 923875623}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017f2f036d5984345b67ce3d56deaf2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 467e9dd0ccd692d439641df9cec68704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blinkShader: {fileID: 4800000, guid: 090a36d6f96cbf944a841d892615d5ff, type: 3}
+  _blinkShader: {fileID: 4800000, guid: 7693dc454b48e6348b86762b43262cac, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorFadeDur: 0
-  _coloredDur: 0.08
+  _coloredDur: 0.1
   _blinkColorAlpha: 1
   _colorEasingCurve: 7
   _colorResetIfBlinking: 1
@@ -3546,7 +3541,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1053444766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b468bae4ed5914aa1239b34da38696, type: 3}
+  m_Script: {fileID: 11500000, guid: d5fabbfecbb9b62438ac853ee44b06a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _reloadKey: 293

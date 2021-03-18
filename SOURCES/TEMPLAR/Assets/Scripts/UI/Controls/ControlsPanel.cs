@@ -13,10 +13,10 @@
 
         public bool Displayed { get; private set; }
 
-        private void OnKeyAssigned(InputAction action, KeyCode btn, bool alt)
+        private void OnKeyAssigned(string actionId, KeyCode btn, bool alt)
         {
             UnityEngine.Assertions.Assert.IsNotNull(_currentlyAssignedPanel, "Trying to assign button to a null panel.");
-            UnityEngine.Assertions.Assert.IsTrue(action == _currentlyAssignedPanel.Action, "Assigned panel action and system assigned action are not the same.");
+            UnityEngine.Assertions.Assert.IsTrue(actionId == _currentlyAssignedPanel.ActionId, "Assigned panel action Id and system assigned action Id are not the same.");
 
             _currentlyAssignedPanel.OverrideKey(btn, alt);
             _currentlyAssignedPanel = null;
@@ -27,8 +27,8 @@
         {
             _currentlyAssignedPanel = bindingPanel;
             _assignKeyScreen.SetActive(true);
-            _assignKeyText.text = $"Assign key to {bindingPanel.Action.ToString()}...";
-            InputManager.AssignKey(_currentlyAssignedPanel.Action, alt, OnKeyAssigned);
+            _assignKeyText.text = $"Assign key to {bindingPanel.ActionId}...";
+            InputManager.AssignKey(_currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
 
         [ContextMenu("Locate binding panels")]
@@ -49,9 +49,9 @@
             }
 
             i = 0;
-            System.Collections.Generic.Dictionary<InputAction, (KeyCode btn, KeyCode altBtn)> allBindings = InputManager.GetMapCopy();
+            System.Collections.Generic.Dictionary<string, (KeyCode btn, KeyCode altBtn)> allBindings = InputManager.GetMapCopy();
 
-            foreach (System.Collections.Generic.KeyValuePair<InputAction, (KeyCode btn, KeyCode altBtn)> binding in allBindings)
+            foreach (System.Collections.Generic.KeyValuePair<string, (KeyCode btn, KeyCode altBtn)> binding in allBindings)
                 _bindingPanels[i++].Init(binding.Key, binding.Value);
 
             for (; i < _bindingPanels.Length; ++i)

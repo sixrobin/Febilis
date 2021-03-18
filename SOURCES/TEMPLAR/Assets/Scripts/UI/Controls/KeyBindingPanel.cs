@@ -1,6 +1,5 @@
 ﻿namespace Templar.UI
 {
-    using RSLib.Framework.InputSystem;
     using UnityEngine;
 
     public class KeyBindingPanel : MonoBehaviour
@@ -14,17 +13,17 @@
 
         private (KeyCode btn, KeyCode altBtn) _btns;
 
-        public InputAction Action { get; private set; }
+        public string ActionId { get; private set; }
 
         public UnityEngine.UI.Button BaseBtnButton => _baseBtnButton;
         public UnityEngine.UI.Button AltBtnButton => _altBtnButton;
 
-        public void Init(InputAction action, (KeyCode btn, KeyCode alt) btns)
+        public void Init(string actionId, (KeyCode btn, KeyCode alt) btns)
         {
-            Action = action;
+            ActionId = actionId;
             _btns = btns;
 
-            _actionName.text = action.ToString();
+            _actionName.text = ActionId.ToString();
             _btnName.text = _btns.btn.ToString();
             _altBtnName.text = _btns.altBtn.ToString();
 

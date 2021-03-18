@@ -1,5 +1,6 @@
 - Attaque up du templier.
-- Classe dans RSLib.ImageEffects.Ramp qui prend une ramp en param et la fait fade avec des params (init value, target, dur, etc.).
+- Classe dans RSLib.ImageEffects.Ramp qui prend une ramp en param et la fait fade avec des params (init value, target, dur, step, etc.).
+	- ScriptableObject FadeDatas ?
 - Retaper la gestion des choses sous les pieds d'un CollisionsController, event au landing, etc.
 - Début de niveau tuto platformer (jump, double jump). Des buissons dans l'enviro pour dessiner les courbes de saut ?
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
@@ -8,6 +9,7 @@
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Refacto UnitView.
+- Ranger tous les scripts datas dans un même dossier.
 
 
 RSLib

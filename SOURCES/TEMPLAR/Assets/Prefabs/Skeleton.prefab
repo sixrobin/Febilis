@@ -233,13 +233,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3846298610544354478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017f2f036d5984345b67ce3d56deaf2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 467e9dd0ccd692d439641df9cec68704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blinkShader: {fileID: 4800000, guid: 090a36d6f96cbf944a841d892615d5ff, type: 3}
+  _blinkShader: {fileID: 4800000, guid: 7693dc454b48e6348b86762b43262cac, type: 3}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorFadeDur: 0
-  _coloredDur: 0.08
+  _coloredDur: 0.1
   _blinkColorAlpha: 1
   _colorEasingCurve: 7
   _colorResetIfBlinking: 1
