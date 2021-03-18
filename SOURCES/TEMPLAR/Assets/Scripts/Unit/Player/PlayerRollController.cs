@@ -4,7 +4,7 @@
 
     public class PlayerRollController
     {
-        private Unit.Datas.UnitRollDatas _rollDatas;
+        private Datas.Unit.UnitRollDatas _rollDatas;
         private PlayerController _playerCtrl;
 
         private System.Collections.IEnumerator _rollCoroutine;

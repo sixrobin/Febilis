@@ -10,8 +10,9 @@
         public const string JUMP = "Jump";
         public const string ROLL = "Roll";
         public const string ATTACK = "Attack";
+        public const string INTERACT = "Interact";
 
-        private Datas.PlayerInputDatas _inputDatas;
+        private Datas.Unit.Player.PlayerInputDatas _inputDatas;
         private MonoBehaviour _coroutinesExecuter;
 
         public delegate bool InputGetterHandler();
@@ -21,7 +22,7 @@
         private System.Collections.Generic.Dictionary<ButtonCategory, float> _inputDelaysByCategory;
         private ButtonCategory _delayedInputs = ButtonCategory.NONE;
 
-        public PlayerInputController(Datas.PlayerInputDatas inputDatas, MonoBehaviour coroutinesExecuter)
+        public PlayerInputController(Datas.Unit.Player.PlayerInputDatas inputDatas, MonoBehaviour coroutinesExecuter)
         {
             _inputDatas = inputDatas;
             _coroutinesExecuter = coroutinesExecuter;
@@ -34,7 +35,8 @@
             JUMP = 1,
             ROLL = 2,
             ATTACK = 4,
-            ANY = JUMP | ROLL | ATTACK
+            INTERACT = 8,
+            ANY = JUMP | ROLL | ATTACK | INTERACT
         }
 
         public float Horizontal { get; private set; }
@@ -74,10 +76,11 @@
 
         public void ResetDelayedInput(ButtonCategory btnCategory)
         {
-            if (_inputStoreCoroutines[btnCategory] != null)
+            if (_inputStoreCoroutines.TryGetValue(btnCategory, out System.Collections.IEnumerator storeCoroutine)
+                && storeCoroutine != null)
             {
-                _coroutinesExecuter.StopCoroutine(_inputStoreCoroutines[btnCategory]);
-                _inputStoreCoroutines[btnCategory] = null;
+                _coroutinesExecuter.StopCoroutine(storeCoroutine);
+                storeCoroutine = null;
             }
 
             _delayedInputs ^= btnCategory;
@@ -87,36 +90,35 @@
         {
             _inputGetters = new System.Collections.Generic.Dictionary<ButtonCategory, InputGetterHandler>(
                  new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
-        {
-            { ButtonCategory.JUMP, () => InputManager.GetInputDown(JUMP) },
-            { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
-            { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
-
-            //{ ButtonCategory.JUMP, () => Input.GetButtonDown(JUMP) },
-            //{ ButtonCategory.ROLL, () => Input.GetButtonDown(ROLL) },
-            //{ ButtonCategory.ATTACK, () => Input.GetButtonDown(ATTACK) }
-        };
+                {
+                    { ButtonCategory.JUMP, () => InputManager.GetInputDown(JUMP) },
+                    { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
+                    { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
+                    { ButtonCategory.INTERACT, () => InputManager.GetInputDown(INTERACT) }
+                };
 
             _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(
                 new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
-        {
-            { ButtonCategory.JUMP, _inputDatas.JumpInputDelay },
-            { ButtonCategory.ROLL, _inputDatas.RollInputDelay },
-            { ButtonCategory.ATTACK, _inputDatas.AttackInputDelay }
-        };
+                {
+                    { ButtonCategory.JUMP, _inputDatas.JumpInputDelay },
+                    { ButtonCategory.ROLL, _inputDatas.RollInputDelay },
+                    { ButtonCategory.ATTACK, _inputDatas.AttackInputDelay }
+                };
 
             _inputStoreCoroutines = new System.Collections.Generic.Dictionary<ButtonCategory, System.Collections.IEnumerator>(
                 new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
-        {
-            { ButtonCategory.JUMP, null },
-            { ButtonCategory.ROLL, null },
-            { ButtonCategory.ATTACK, null }
-        };
+                {
+                    { ButtonCategory.JUMP, null },
+                    { ButtonCategory.ROLL, null },
+                    { ButtonCategory.ATTACK, null }
+                };
         }
 
         private System.Collections.IEnumerator StoreInputCoroutine(ButtonCategory btnCategory)
         {
-            UnityEngine.Assertions.Assert.IsTrue(_inputDelaysByCategory.ContainsKey(btnCategory), $"Storing {btnCategory} input with unknown delay.");
+            if (!_inputDelaysByCategory.ContainsKey(btnCategory))
+                yield break;
+
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_inputDelaysByCategory[btnCategory]);
             _delayedInputs ^= btnCategory;
         }

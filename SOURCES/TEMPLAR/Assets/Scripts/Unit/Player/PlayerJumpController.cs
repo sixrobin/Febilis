@@ -4,7 +4,7 @@
 
     public class PlayerJumpController
     {
-        private Unit.Datas.UnitJumpDatas _jumpDatas;
+        private Datas.Unit.UnitJumpDatas _jumpDatas;
         private PlayerController _playerCtrl;
 
         private System.Collections.IEnumerator _jumpAnticipationCoroutine;

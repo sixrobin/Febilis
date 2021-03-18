@@ -44,7 +44,7 @@
         {
             _playerController.PlayerView.PlayHitVFX(hitArgs.Dir);
             _playerController.CameraCtrl.Shake.AddTrauma(0.25f);
-            FreezeFrameController.FreezeFrame(0, 0.05f);
+            FreezeFrameManager.FreezeFrame(0, 0.05f);
         }
 
         protected override void ComputeAttackDirection()

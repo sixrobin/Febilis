@@ -8,6 +8,7 @@
         [SerializeField] private Datas.CameraDatas _cameraDatas = null;
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private CameraShake.Settings _shakeSettings = CameraShake.Settings.Default;
+        [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
 
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
@@ -23,6 +24,8 @@
         private bool _isLookingAhead;
 
         public CameraShake Shake { get; private set; }
+
+        public RSLib.ImageEffects.CameraGrayscaleRamp GrayscaleRamp => _grayscaleRamp;
 
         private Vector3 ComputeBaseTargetPosition()
         {

@@ -6,8 +6,9 @@
     {
         [Header("PLAYER")]
         [SerializeField] private PlayerView _playerView = null;
-        [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
-        [SerializeField] private Datas.PlayerControllerDatas _ctrlDatas = null;
+        [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null; // Player should not reference the camera.
+        [SerializeField] private Datas.Unit.Player.PlayerControllerDatas _ctrlDatas = null;
+        [SerializeField] private Interaction.Interacter _interacter = null;
         [SerializeField] private LayerMask _rollCollisionMask = 0;
 
         private System.Collections.IEnumerator _hurtCoroutine;
@@ -19,7 +20,7 @@
 
         public PlayerView PlayerView => _playerView;
         public Templar.Camera.CameraController CameraCtrl => _cameraCtrl;
-        public Datas.PlayerControllerDatas CtrlDatas => _ctrlDatas;
+        public Datas.Unit.Player.PlayerControllerDatas CtrlDatas => _ctrlDatas;
 
         public PlayerInputController InputCtrl { get; private set; }
         public PlayerJumpController JumpCtrl { get; private set; }
@@ -90,7 +91,7 @@
 
             CameraCtrl.Shake.SetTrauma(args.HitDatas.AttackDatas.TraumaOnHit);
             if (args.HitDatas.AttackDatas.FreezeFrameDurOnHit > 0f)
-                FreezeFrameController.FreezeFrame(0, args.HitDatas.AttackDatas.FreezeFrameDurOnHit);
+                FreezeFrameManager.FreezeFrame(0, args.HitDatas.AttackDatas.FreezeFrameDurOnHit);
 
             _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HurtRecoilSettings, hitDir);
         }
@@ -111,6 +112,7 @@
             _playerView.PlayDeathAnimation(args.HitDatas.AttackDir);
 
             CameraCtrl.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
+            RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
             _currentRecoil = null;
         }
 
@@ -169,6 +171,20 @@
                         ResetVelocity();
                 });
             }
+        }
+
+        private void TryInteract()
+        {
+            // [TMP] Maybe we'll want conditions to disallow interaction while attacking or something but
+            // this will cause issues since interaction feedback is triggered by physic collisions.
+            // If the player attacks, we need to remove feedback on potential interactable, but there won't be
+            // a collision afterward to show it again. Callback system ?
+
+            if (!InputCtrl.CheckInput(PlayerInputController.ButtonCategory.INTERACT))
+                return;
+
+            _interacter.TryInteract();
+            InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.INTERACT);
         }
 
         private void Move()
@@ -312,6 +328,7 @@
 
             TryRoll();
             TryAttack();
+            TryInteract();
             Move();
 
             if (_currentRecoil != null)

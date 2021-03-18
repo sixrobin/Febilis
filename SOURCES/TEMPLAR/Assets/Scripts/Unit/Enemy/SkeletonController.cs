@@ -8,7 +8,7 @@
         [Header("SKELETON")]
         [SerializeField] private SkeletonView _skeletonView = null;
         [SerializeField] private Transform _target = null;
-        [SerializeField] private Datas.SkeletonControllerDatas _ctrlDatas = null;
+        [SerializeField] private Datas.Unit.Enemy.SkeletonControllerDatas _ctrlDatas = null;
 
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
@@ -21,8 +21,8 @@
         private float _backAndForthPauseDir;
 
         public SkeletonView SkeletonView => _skeletonView;
-        public Datas.SkeletonControllerDatas CtrlDatas => _ctrlDatas;
-        public Datas.SkeletonFightBehaviourDatas FightBehaviourDatas => CtrlDatas.FightBehaviourDatas;
+        public Datas.Unit.Enemy.SkeletonControllerDatas CtrlDatas => _ctrlDatas;
+        public Datas.Unit.Enemy.SkeletonFightBehaviourDatas FightBehaviourDatas => CtrlDatas.FightBehaviourDatas;
 
         public Attack.SkeletonAttackController AttackCtrl { get; private set; }
 
@@ -71,7 +71,7 @@
             }
 
             FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(0.4f); // [TMP] GetComponent + hard coded values.
-            FreezeFrameController.FreezeFrame(0, 0.12f, 0f, true);
+            FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true);
 
             _skeletonView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;

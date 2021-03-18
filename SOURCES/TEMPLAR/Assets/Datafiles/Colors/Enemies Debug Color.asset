@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37a1ef52e0a5f8e4bad2d20333537c25, type: 3}
+  m_Script: {fileID: 11500000, guid: c736878aebdc75d4faf9cdd4b8d6b26e, type: 3}
   m_Name: Enemies Debug Color
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0.15516615, a: 0.7019608}
+  _color: {r: 1, g: 0, b: 0.2162118, a: 1}
