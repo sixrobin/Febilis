@@ -19,3 +19,9 @@ MonoBehaviour:
     _fadeDatas: {fileID: 11400000, guid: 3f5da20de646f194cbe614d768e90af5, type: 2}
   - _id: OutFast
     _fadeDatas: {fileID: 11400000, guid: 4b7cf7ef491b7bb4eb399718084ed450, type: 2}
+  - _id: InSlow
+    _fadeDatas: {fileID: 11400000, guid: ade8868a5cd1e6141b570000c8487008, type: 2}
+  - _id: InBase
+    _fadeDatas: {fileID: 11400000, guid: 8f4d592c645223d4493e20e5b52f6091, type: 2}
+  - _id: InFast
+    _fadeDatas: {fileID: 11400000, guid: f5ebf111ef14eec42949fe4b3d54497c, type: 2}

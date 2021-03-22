@@ -2,7 +2,9 @@
 {
     using UnityEngine;
 
+#if UNITY_EDITOR
     [UnityEditor.CanEditMultipleObjects]
+#endif
     [CreateAssetMenu(fileName = "New Player Controller Datas", menuName = "Datas/Player/Controller")]
     public class PlayerControllerDatas : ScriptableObject
     {

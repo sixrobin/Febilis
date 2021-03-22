@@ -71,7 +71,7 @@
             }
 
             FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(0.4f); // [TMP] GetComponent + hard coded values.
-            FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true);
+            Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true);
 
             _skeletonView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;

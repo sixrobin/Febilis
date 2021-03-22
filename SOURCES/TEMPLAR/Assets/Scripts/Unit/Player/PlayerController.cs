@@ -1,5 +1,6 @@
 ﻿namespace Templar.Unit.Player
 {
+    using RSLib.Extensions;
     using UnityEngine;
 
     public class PlayerController : UnitController
@@ -10,6 +11,9 @@
         [SerializeField] private Datas.Unit.Player.PlayerControllerDatas _ctrlDatas = null;
         [SerializeField] private Interaction.Interacter _interacter = null;
         [SerializeField] private LayerMask _rollCollisionMask = 0;
+
+        private bool _init;
+        private bool _inputsAllowed;
 
         private System.Collections.IEnumerator _hurtCoroutine;
 
@@ -32,6 +36,44 @@
         public bool IsBeingHurt => _hurtCoroutine != null;
 
         public bool JumpAllowedThisFrame { get; private set; }
+
+        public void Init(Interaction.CheckpointController checkpoint = null)
+        {
+            InputCtrl = new PlayerInputController(_ctrlDatas.Input, this);
+            JumpCtrl = new PlayerJumpController(this);
+            RollCtrl = new PlayerRollController(this);
+            AttackCtrl = new Attack.PlayerAttackController(this);
+
+            CollisionsCtrl = new Templar.Physics.PlayerCollisionsController(BoxCollider2D, CollisionMask, _rollCollisionMask, this);
+            CollisionsCtrl.CollisionDetected += OnCollisionDetected;
+
+            if (HealthCtrl is PlayerHealthController templarHealthCtrl)
+            {
+                templarHealthCtrl.Init();
+                templarHealthCtrl.PlayerCtrl = this;
+                templarHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
+                templarHealthCtrl.UnitKilled += OnUnitKilled;
+            }
+
+            _playerView.TemplarController = this;
+
+            ComputeJumpPhysics();
+
+            if (checkpoint != null)
+                transform.position = checkpoint.RespawnPos.AddY(Templar.Physics.RaycastsController.SKIN_WIDTH * 10f);
+
+            if (_ctrlDatas.GroundOnAwake)
+                CollisionsCtrl.Ground(transform);
+
+            CurrDir = _playerView.GetSpriteRendererFlipX() ? -1f : 1f;
+
+            _init = true;
+        }
+
+        public void AllowInputs(bool state)
+        {
+            _inputsAllowed = state;
+        }
 
         public void Jump()
         {
@@ -91,7 +133,7 @@
 
             CameraCtrl.Shake.SetTrauma(args.HitDatas.AttackDatas.TraumaOnHit);
             if (args.HitDatas.AttackDatas.FreezeFrameDurOnHit > 0f)
-                FreezeFrameManager.FreezeFrame(0, args.HitDatas.AttackDatas.FreezeFrameDurOnHit);
+                Manager.FreezeFrameManager.FreezeFrame(0, args.HitDatas.AttackDatas.FreezeFrameDurOnHit);
 
             _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HurtRecoilSettings, hitDir);
         }
@@ -112,7 +154,7 @@
             _playerView.PlayDeathAnimation(args.HitDatas.AttackDir);
 
             CameraCtrl.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
-            RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
+            Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
             _currentRecoil = null;
         }
 
@@ -288,40 +330,16 @@
             _playerView.PlayIdleAnimation();
         }
 
-        private void Awake()
-        {
-            InputCtrl = new PlayerInputController(_ctrlDatas.Input, this);
-            JumpCtrl = new PlayerJumpController(this);
-            RollCtrl = new PlayerRollController(this);
-            AttackCtrl = new Attack.PlayerAttackController(this);
-
-            CollisionsCtrl = new Templar.Physics.PlayerCollisionsController(BoxCollider2D, CollisionMask, _rollCollisionMask, this);
-            CollisionsCtrl.CollisionDetected += OnCollisionDetected;
-
-            if (HealthCtrl is PlayerHealthController templarHealthCtrl)
-            {
-                templarHealthCtrl.Init();
-                templarHealthCtrl.PlayerCtrl = this;
-                templarHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
-                templarHealthCtrl.UnitKilled += OnUnitKilled;
-            }
-
-            _playerView.TemplarController = this;
-
-            ComputeJumpPhysics();
-
-            if (_ctrlDatas.GroundOnAwake)
-                CollisionsCtrl.Ground(transform);
-
-            CurrDir = _playerView.GetSpriteRendererFlipX() ? -1f : 1f;
-        }
-
         private void Update()
         {
+            if (!_init)
+                return;
+
             BackupCurrentState();
             ResetCurrentState();
 
-            InputCtrl.Update();
+            if (_inputsAllowed)
+                InputCtrl.Update();
 
             if (IsDead)
                 return;

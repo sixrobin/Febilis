@@ -11,6 +11,10 @@
 
         [Header("CHECKPOINT DATAS")]
         [SerializeField] private string _id = string.Empty;
+        [SerializeField] private Vector2 _respawnOffset = Vector2.zero;
+
+        [Header("DEBUG COLOR")]
+        [SerializeField] private RSLib.DataColor _debugColor = null;
 
         private Sprite _baseSprite;
 
@@ -18,6 +22,9 @@
         private static BeforeCheckpointChangeEventHandler BeforeCheckpointChange;
 
         public static string CurrCheckpointId { get; private set; }
+        public static CheckpointController CurrCheckpoint { get; private set; }
+
+        public Vector3 RespawnPos => transform.position + (Vector3)_respawnOffset;
 
         public string Id => _id;
 
@@ -50,6 +57,7 @@
             {
                 BeforeCheckpointChange(CurrCheckpointId, Id);
                 CurrCheckpointId = Id;
+                CurrCheckpoint = this;
             }
 
             Manager.SaveManager.Save();
@@ -74,12 +82,21 @@
             _baseSprite = _checkpointView.sprite;
 
             if (CurrCheckpointId == Id)
+            {
+                CurrCheckpoint = this;
                 _checkpointView.sprite = _enabledSprite;
+            }
         }
 
         private void OnDestroy()
         {
             BeforeCheckpointChange -= OnBeforeCheckpointChange;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = _debugColor.Color;
+            Gizmos.DrawWireSphere(RespawnPos, 0.2f);
         }
     }
 }

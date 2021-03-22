@@ -56,6 +56,7 @@ Idées 15/02/2021 - Histoire de rêves, de folie, tout ça.
 	- Trouver une façon de forcer à changer d'arme (les briser, devoir les réparer ?).
 	- La sainte poêle pourrait renvoyer les projectiles.
 	
+	- Tant qu'on a un objet sur soi, en mourant, on le perd mais il reste dans le monde et correspond à un collectible avec l'argent perdu.
 	
 	
 
@@ -74,5 +75,6 @@ Idées générales
 
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?
 
+- Mob au début qui fait office de tuto pour l'attaque, mais qui est inoffensif. En l'ignorant, le joueur peut peut-être secrètement se rendre service, comme Muffet dans Undertale qui est plus simple si on a acheté des trucs aux araignées.
 - Permettre de faire croire au joueur qu'il peut modifier une valeur de monnaie dans les fichiers du jeu, le détecter et lui balancer un boss infect.
 	- Le joueur peut être tenté de faire ça soit pour tricher, soit parce qu'il y a un item dans le jeu qui coûte GIGA cher. Le joueur ne gagne pas l'argent de la triche sauf qu'il parvient à no hit le boss.

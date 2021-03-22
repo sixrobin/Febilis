@@ -85,7 +85,7 @@
 
         public Vector3 GetShake()
         {
-            if (_trauma.sqrMagnitude == 0f || FreezeFrameManager.IsFroze)
+            if (_trauma.sqrMagnitude == 0f || Manager.FreezeFrameManager.IsFroze)
                 return Vector3.zero;
 
             _trauma = _trauma.AddAll(-_shakeSettings.Speed * Time.deltaTime);
