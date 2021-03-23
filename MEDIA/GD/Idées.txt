@@ -69,12 +69,19 @@ Idées générales
 - Boss qui réapparait et disparait pour montrer la confusion entre les deux univers.
 - Quête qui demande d'aller chercher 3 parties d'une même relique (une épée ?), chacune donnant des powerups, mais rendant de plus en plus fou. Peut-être que les détenteurs de ces fragments seraient des gardiens, qui ont pleinement conscience de la dangerosité de la relique. L'un pourrait être devenu complètement fou, par exemple.
 
+- Jauges à la Castle Crashers, avec un unlock spécial à certains paliers.
+	- Exemple : jauge d'attaque, à 25% unlock on a une dernière attaque au combo, à 50% une attaque vers le bas, à 75% on attaque à travers l'armure, à 100% truc abusé du style double dégâts à chaque attaque consécutive.
+- Ces jauges s'augmentent avec une monnaie particulière, et il existe un NPC capable de convertir la monnaie de base du jeu en cette monnaie. On peut l'affronter pour lui voler l'objet qui lui permet de faire ça, mais il est un boss assez hardcore.
+- Retour Elowiz : c'est naze de faire ça avec du fric, ça serait sans doute mieux d'avoir un système du genre : les boss drop des orbes qui peuvent être utilisés pour augmenter une jauge, qui serait plutôt un genre de perk tree. Ces orbes devraient avoir une deuxième utilité pour ne pas correspondre au nombre de boss, par exemple pouvoir servir de réceptable à la monnaie du jeu quand on meurt (façon Dark Souls). On peut donc les utiliser pour se buffer, ou rester plus faible mais avoir la sécurité de ne pas perdre ses thunes.
+
 - Village qui se plaint d'être abandonné, alors qu'en réalité, ils ne le voient pas mais tout le royaume est déjà perdu.
 
 - "Pour qu'un mensonge passe, il faut le mettre au milieu de 1000 vérités."
 
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?
+- Mimic ?
 
-- Mob au début qui fait office de tuto pour l'attaque, mais qui est inoffensif. En l'ignorant, le joueur peut peut-être secrètement se rendre service, comme Muffet dans Undertale qui est plus simple si on a acheté des trucs aux araignées.
+- Feinte au début du jeu, musique épique pour un mob de merde, puis ensuite un vrai boss sorti de nulle part.
+	- Mob au début qui fait office de tuto pour l'attaque, mais qui est inoffensif. En l'ignorant, le joueur peut peut-être secrètement se rendre service, comme Muffet dans Undertale qui est plus simple si on a acheté des trucs aux araignées.
 - Permettre de faire croire au joueur qu'il peut modifier une valeur de monnaie dans les fichiers du jeu, le détecter et lui balancer un boss infect.
 	- Le joueur peut être tenté de faire ça soit pour tricher, soit parce qu'il y a un item dans le jeu qui coûte GIGA cher. Le joueur ne gagne pas l'argent de la triche sauf qu'il parvient à no hit le boss.

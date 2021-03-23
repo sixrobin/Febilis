@@ -19,7 +19,7 @@ MonoBehaviour:
   _jumpAnticipationSpeedMult: 0.9
   _jumpAnticipationDur: 0.05
   _airborneJumpAnticipationDur: 0
-  _maxFollowingJumps: 2
+  _maxFollowingJumps: 1
   _minVelForLandImpact: 8
   _landImpactSpeedMultMin: 0
   _landImpactDurFactor: 0.01
