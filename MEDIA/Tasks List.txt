@@ -7,6 +7,10 @@
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Refacto UnitView.
+- Implémentation du rat en tant que premier ennemi à tuer (2-3 coups). Agressif uniquement après un hit ?
+- Premier checkpoint après le rat.
+- Créer une tileset template après avoir terminé la première.
+- Slopes avec roll à la fin ?
 
 
 RSLib

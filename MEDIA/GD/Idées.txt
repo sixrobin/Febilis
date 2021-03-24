@@ -76,6 +76,8 @@ Idées générales
 
 - Village qui se plaint d'être abandonné, alors qu'en réalité, ils ne le voient pas mais tout le royaume est déjà perdu.
 
+- Premier boss qui sort du haut de l'écran et va tuer le joueur, slow motion comme Celeste où on attend que le joueur fasse une roulade pour esquiver.
+
 - "Pour qu'un mensonge passe, il faut le mettre au milieu de 1000 vérités."
 
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?

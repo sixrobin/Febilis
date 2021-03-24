@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FakeEnemyDefinitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+   <EnemyDefinition Id="Skeleton">
+      <Health>200</Health>
+      <WalkSpeed>2</WalkSpeed>
+      <RunSpeed>5</RunSpeed>
+      <HurtDur>0.25</HurtDur>
+      <PlayerDetectionDist>3.5</PlayerDetectionDist>
+      <PlayerLoseDist>4.5</PlayerLoseDist>
+      
+      <!--Behaviours in order priority.-->
+      
+      <Behaviour Name="Base">
+         
+         <Conditions>
+            <!--Behaviours only run at 10% health or MORE.-->
+            <HealthMin>10</HealthMin>
+         </Conditions>
+         
+         <!--Behaviours in order priority.-->
+         
+         <BackAndForthBehaviour>
+            <Conditions>
+               <PlayerUndetected/>
+            </Conditions>
+            <Range>5</Range>
+            <Pause Min="0.5" Max="1.5"/>
+         </BackAndForthBehaviour>
+
+         <!--Attack up if player is above.-->
+         <Attack Id="skeleton_atk_above">
+            <Conditions>
+               <PlayerAbove/>
+            </Conditions>
+         </Attack>
+
+         <!--25% chance to do a spin attack when under 33% health.-->
+         <Attack Id="skeleton_atk_spin">
+            <Conditions>
+               <HealthMax>32</HealthMax>
+               <RandomChance>0.25</RandomChance>
+               <PlayerInRange>3</PlayerInRange>
+            </Conditions>
+         </Attack>
+
+         <Attack Id="skeleton_atk_base">
+            <Conditions>
+               <WaitForHurtAnim/>
+               <PlayerInRange>2.5</PlayerInRange>
+            </Conditions>
+            <Delay>0.5</Delay>
+         </Attack>
+         
+      </Behaviour>
+      
+      <Behaviour Name="AboutToDie">
+         <!--Some behaviour at less than 10% health. Abandon animation, flee ?-->
+      </Behaviour>
+
+      <EventBehaviours>
+         <!--Just some event ideas.-->
+         <OnHurtOver/>
+         <OnAttackHit/>
+         <OnPlayerDeath/>
+      </EventBehaviours>
+      
+   </EnemyDefinition>
+
+   
+   
+   <EnemyDefinition Id="Rat">
+      <Health>30</Health>
+      <WalkSpeed>3.5</WalkSpeed>
+      <RunSpeed>8</RunSpeed>
+      <HurtDur>0.3</HurtDur>
+      <PlayerDetectionDist>5</PlayerDetectionDist>
+      <PlayerLoseDist>10</PlayerLoseDist>
+      
+      <Behaviour Name="FullHealth">
+         
+         <Conditions>
+            <FullHealth/>
+         </Conditions>
+         
+         <BackAndForthBehaviour>
+            <Range>5</Range>
+            <Pause Min="0.5" Max="1.5"/>
+            <!--Make the range random between 2 and 8, but always from the same origin point.-->
+            <RangeFluctuationOnPause>3</RangeFluctuationOnPause>
+         </BackAndForthBehaviour>
+         
+      </Behaviour>
+      
+      <Behaviour Name="Flee">
+         <FleeFromPlayer/>
+      </Behaviour>
+      
+   </EnemyDefinition>
+   
+</FakeEnemyDefinitions>

@@ -40,14 +40,14 @@
                 }
             }
 
-            if (_fadeOnRespawn)
+            if (_fadeOnRespawn && _playerCtrl.CameraCtrl.GrayscaleRamp.enabled)
                 RampFadeManager.SetRampOffset(_playerCtrl.CameraCtrl.GrayscaleRamp, -1f);
 
             yield return new WaitForEndOfFrame(); // Wait for checkpoints initialization.
 
             SpawnPlayer();
 
-            if (_fadeOnRespawn)
+            if (_fadeOnRespawn && _playerCtrl.CameraCtrl.GrayscaleRamp.enabled)
                 RampFadeManager.Fade(_playerCtrl.CameraCtrl.GrayscaleRamp, "InBase", (0.1f, 0f), () => _playerCtrl.AllowInputs(true));
             else
                 _playerCtrl.AllowInputs(true);
