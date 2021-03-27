@@ -3,30 +3,46 @@
     using RSLib.Extensions;
     using System.Xml.Linq;
 
-    public abstract class EnemyActionDefinition : EnemyConditionsDependentDefinition
+    public abstract class EnemyActionDatas : EnemyConditionsCheckerDatas
     {
-        public EnemyActionDefinition(XContainer container) : base(container)
+        public EnemyActionDatas(XContainer container) : base(container)
         {
         }
     }
 
-    public class AttackActionDefinition : EnemyActionDefinition
+    public class AttackEnemyActionDatas : EnemyActionDatas
     {
         public const string ID = "Attack";
 
-        public AttackActionDefinition(XContainer container) : base(container)
+        public AttackEnemyActionDatas(XContainer container) : base(container)
         {
         }
 
-        // [TODO] AttackId.
-        // [TODO] Delay.
+        public string Id { get; private set; }
+
+        public float Delay { get; private set; }
+
+        protected override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement attackElement = container as XElement;
+
+            XAttribute idAttribute = attackElement.Attribute("Id");
+            UnityEngine.Assertions.Assert.IsNotNull(idAttribute, "Attack element must have an Id attribute.");
+            Id = idAttribute.Value;
+
+            XElement delayElement = attackElement.Element("Delay");
+            if (delayElement != null)
+                Delay = delayElement.ValueToFloat();
+        }
     }
 
-    public class BackAndForthActionDefinition : EnemyActionDefinition
+    public class BackAndForthEnemyActionDatas : EnemyActionDatas
     {
         public const string ID = "BackAndForth";
 
-        public BackAndForthActionDefinition(XContainer container) : base(container)
+        public BackAndForthEnemyActionDatas(XContainer container) : base(container)
         {
         }
 
@@ -51,6 +67,15 @@
             XElement rangeFluctuationOnPauseElement = backAndForthElement.Element("RangeFluctuationOnPause");
             if (rangeFluctuationOnPauseElement != null)
                 RangeFluctuationOnPause = rangeFluctuationOnPauseElement.ValueToFloat();
+        }
+    }
+
+    public class FleeEnemyActionDatas : EnemyActionDatas
+    {
+        public const string ID = "Flee";
+
+        public FleeEnemyActionDatas(XContainer container) : base(container)
+        {
         }
     }
 }

@@ -3,29 +3,54 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public class EnemyDatabase : RSLib.Framework.Singleton<EnemyDatabase>
+    public partial class EnemyDatabase : RSLib.Framework.Singleton<EnemyDatabase>
     {
-        [SerializeField] private TextAsset _enemyDefinitions = null;
+        [SerializeField] private TextAsset _enemiesDatas = null;
 
-        public static System.Collections.Generic.Dictionary<string, EnemyDefinition> EnemyDefinitions { get; private set; }
+        public static System.Collections.Generic.Dictionary<string, EnemyDatas> EnemiesDatas { get; private set; }
 
         private void Deserialize()
         {
-            XDocument enemyDefinitionsDoc = XDocument.Parse(_enemyDefinitions.text, LoadOptions.SetBaseUri);
-            EnemyDefinitions = new System.Collections.Generic.Dictionary<string, EnemyDefinition>();
+            XDocument enemiesDatasDoc = XDocument.Parse(_enemiesDatas.text, LoadOptions.SetBaseUri);
+            EnemiesDatas = new System.Collections.Generic.Dictionary<string, EnemyDatas>();
 
-            XElement enemyDefinitionsElement = enemyDefinitionsDoc.Element("FakeEnemyDefinitions");
-            foreach (XElement enemyDefinitionElement in enemyDefinitionsElement.Elements("EnemyDefinition"))
+            XElement enemiesDatasElement = enemiesDatasDoc.Element("EnemiesDatas");
+            foreach (XElement enemyDatasElement in enemiesDatasElement.Elements("EnemyDatas"))
             {
-                EnemyDefinition enemyDefinition = new EnemyDefinition(enemyDefinitionElement);
-                EnemyDefinitions.Add(enemyDefinition.Id, enemyDefinition);
+                EnemyDatas enemyDatas = new EnemyDatas(enemyDatasElement);
+                EnemiesDatas.Add(enemyDatas.Id, enemyDatas);
             }
+
+            Log($"Deserialized {EnemiesDatas.Count} enemies datas.");
         }
 
         protected override void Awake()
         {
             base.Awake();
             Deserialize();
+        }
+    }
+
+    public partial class EnemyDatabase : RSLib.Framework.Singleton<EnemyDatabase>
+    {
+        public override void Log(string msg)
+        {
+            CProLogger.Log(this, msg, gameObject);
+        }
+
+        public override void Log(string msg, Object context)
+        {
+            CProLogger.Log(this, msg, gameObject);
+        }
+
+        public override void LogError(string msg)
+        {
+            CProLogger.LogError(this, msg, gameObject);
+        }
+
+        public override void LogError(string msg, Object context)
+        {
+            CProLogger.LogError(this, msg, gameObject);
         }
     }
 }

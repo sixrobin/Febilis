@@ -2,11 +2,10 @@
 {
     using RSLib.Extensions;
     using System.Xml.Linq;
-    using UnityEngine;
 
-    public class EnemyDefinition
+    public class EnemyDatas
     {
-        public EnemyDefinition(XContainer container)
+        public EnemyDatas(XContainer container)
         {
             Deserialize(container);
         }
@@ -23,7 +22,7 @@
         public float PlayerDetectionDistSqr => PlayerDetectionDist * PlayerDetectionDist;
         public float PlayerLoseDistSqr => PlayerLoseDist * PlayerLoseDist;
 
-        public System.Collections.Generic.List<EnemyBehaviourDefinition> Behaviours { get; private set; }
+        public System.Collections.Generic.List<EnemyBehaviourDatas> Behaviours { get; private set; }
 
         private void Deserialize(XContainer container)
         {
@@ -36,35 +35,35 @@
             EnemyDatabase.Instance.Log($"Generating definition for enemy <b>{Id}</b>...");
 
             XElement healthElement = enemyElement.Element("Health");
-            UnityEngine.Assertions.Assert.IsNotNull(healthElement, "EnemyDefinition must have a Health element.");
+            UnityEngine.Assertions.Assert.IsNotNull(healthElement, "EnemyDatas must have a Health element.");
             Health = healthElement.ValueToInt();
 
             XElement walkSpeedElement = enemyElement.Element("WalkSpeed");
-            UnityEngine.Assertions.Assert.IsNotNull(walkSpeedElement, "EnemyDefinition must have a WalkSpeed element.");
+            UnityEngine.Assertions.Assert.IsNotNull(walkSpeedElement, "EnemyDatas must have a WalkSpeed element.");
             WalkSpeed = walkSpeedElement.ValueToFloat();
 
             XElement runSpeedElement = enemyElement.Element("RunSpeed");
-            UnityEngine.Assertions.Assert.IsNotNull(runSpeedElement, "EnemyDefinition must have a RunSpeed element.");
+            UnityEngine.Assertions.Assert.IsNotNull(runSpeedElement, "EnemyDatas must have a RunSpeed element.");
             RunSpeed = runSpeedElement.ValueToFloat();
 
             XElement hurtDurElement = enemyElement.Element("HurtDur");
-            UnityEngine.Assertions.Assert.IsNotNull(hurtDurElement, "EnemyDefinition must have a HurtDur element.");
+            UnityEngine.Assertions.Assert.IsNotNull(hurtDurElement, "EnemyDatas must have a HurtDur element.");
             HurtDur = hurtDurElement.ValueToFloat();
 
             XElement playerDetectionDistElement = enemyElement.Element("PlayerDetectionDist");
-            UnityEngine.Assertions.Assert.IsNotNull(playerDetectionDistElement, "EnemyDefinition must have a PlayerDetectionDist element.");
+            UnityEngine.Assertions.Assert.IsNotNull(playerDetectionDistElement, "EnemyDatas must have a PlayerDetectionDist element.");
             PlayerDetectionDist = playerDetectionDistElement.ValueToFloat();
 
             XElement playerLoseDistElement = enemyElement.Element("PlayerLoseDist");
-            UnityEngine.Assertions.Assert.IsNotNull(playerLoseDistElement, "EnemyDefinition must have a PlayerLoseDist element.");
+            UnityEngine.Assertions.Assert.IsNotNull(playerLoseDistElement, "EnemyDatas must have a PlayerLoseDist element.");
             PlayerLoseDist = playerLoseDistElement.ValueToFloat();
 
             XElement behavioursElement = enemyElement.Element("Behaviours");
-            UnityEngine.Assertions.Assert.IsNotNull(behavioursElement, "EnemyDefinition must have a Behaviours element.");
+            UnityEngine.Assertions.Assert.IsNotNull(behavioursElement, "EnemyDatas must have a Behaviours element.");
 
-            Behaviours = new System.Collections.Generic.List<EnemyBehaviourDefinition>();
+            Behaviours = new System.Collections.Generic.List<EnemyBehaviourDatas>();
             foreach (XElement behaviourElement in behavioursElement.Elements("Behaviour"))
-                Behaviours.Add(new EnemyBehaviourDefinition(behaviourElement));
+                Behaviours.Add(new EnemyBehaviourDatas(behaviourElement));
         }
     }
 }

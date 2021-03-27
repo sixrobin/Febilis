@@ -11,6 +11,7 @@
 - Premier checkpoint après le rat.
 - Créer une tileset template après avoir terminé la première.
 - Slopes avec roll à la fin ?
+- Terminer le xsd, faire un xml clean et tester tout ça.
 
 
 RSLib

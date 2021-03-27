@@ -1,7 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<FakeEnemyDefinitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<EnemiesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EnemiesDatas.xsd">
 
-   <EnemyDefinition Id="Skeleton">
+   <EnemyDatas Id="Test">
+      <Health>100</Health>
+      <WalkSpeed>3</WalkSpeed>
+      <RunSpeed>5</RunSpeed>
+      <HurtDur>1</HurtDur>
+      <PlayerDetectionDist>5</PlayerDetectionDist>
+      <PlayerLoseDist>7</PlayerLoseDist>
+      <Behaviours>
+         <Behaviour Name="Oui">
+            <Conditions>
+               <HealthMax Threshold="10"/>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <BackAndForth>
+                  <Conditions>
+                     
+                  </Conditions>
+                  <Range>5</Range>
+               </BackAndForth>
+               <Attack Id="e"></Attack>
+            </Actions>
+         </Behaviour>
+      </Behaviours>
+   </EnemyDatas>
+   
+   <EnemyDatas Id="Skeleton">
       <Health>200</Health>
       <WalkSpeed>2</WalkSpeed>
       <RunSpeed>5</RunSpeed>
@@ -13,13 +39,13 @@
          <Behaviour Name="Base">
             <Conditions>
                <!--Behaviours only run at 10% health or MORE.-->
-               <HealthMin>10</HealthMin>
+               <HealthMin Threshold="10"/>
             </Conditions>
             <!--Actions in order priority.-->
             <Actions>
                <BackAndForth>
                   <Conditions>
-                     <PlayerUndetected/>
+                     <PlayerDetected/>
                   </Conditions>
                   <Range>5</Range>
                   <Pause Min="0.5" Max="1.5"/>
@@ -58,9 +84,9 @@
          <OnAttackHit/>
          <OnPlayerDeath/>
       </EventBehaviours>
-   </EnemyDefinition>
-   
-   <EnemyDefinition Id="Rat">
+   </EnemyDatas>
+
+   <EnemyDatas Id="Rat">
       <Health>30</Health>
       <WalkSpeed>3.5</WalkSpeed>
       <RunSpeed>8</RunSpeed>
@@ -83,10 +109,10 @@
          </Behaviour>
          <Behaviour Name="Flee">
             <Actions>
-               <FleeFromPlayer/>
+               <Flee/>
             </Actions>
          </Behaviour>
       </Behaviours>
-   </EnemyDefinition>
+   </EnemyDatas>
    
-</FakeEnemyDefinitions>
+</EnemiesDatas>
