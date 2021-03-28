@@ -29,5 +29,21 @@
             vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime);
             transform.Translate(vel);
         }
+
+        public void Translate(float x, float y)
+        {
+            Translate(new Vector3(x, y));
+        }
+
+        protected void ApplyCurrentRecoil()
+        {
+            if (_currentRecoil == null)
+                return;
+
+            Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f));
+            _currentRecoil.Update();
+            if (_currentRecoil.IsComplete)
+                _currentRecoil = null;
+        }
     }
 }

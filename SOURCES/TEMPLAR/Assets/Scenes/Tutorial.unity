@@ -2634,6 +2634,8 @@ GameObject:
   - component: {fileID: 1252992834}
   - component: {fileID: 1252992833}
   - component: {fileID: 1252992832}
+  - component: {fileID: 1252992836}
+  - component: {fileID: 1252992835}
   m_Layer: 8
   m_Name: Tilemap Ground
   m_TagString: Untagged
@@ -2667,7 +2669,7 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
@@ -3946,6 +3948,111 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &1252992835
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252992830}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1252992832}
+    m_ColliderPaths:
+    - - X: 220000000
+        Y: -10000000
+      - X: 220000000
+        Y: -20000000
+      - X: 200000000
+        Y: -20000000
+      - X: 200000000
+        Y: -10000000
+      - X: 130000000
+        Y: -10000000
+      - X: 130000000
+        Y: -20000000
+      - X: 10000000
+        Y: -20000000
+      - X: 10000000
+        Y: 40000000
+      - X: 0
+        Y: 40000000
+      - X: 0
+        Y: -30000000
+      - X: 140000000
+        Y: -30000000
+      - X: 140000000
+        Y: -20000000
+      - X: 190000000
+        Y: -20000000
+      - X: 190000000
+        Y: -30000000
+      - X: 230000000
+        Y: -30000000
+      - X: 230000000
+        Y: -20000000
+      - X: 270000000
+        Y: -20000000
+      - X: 270000000
+        Y: 20000000
+      - X: 260000000
+        Y: 20000000
+      - X: 260000000
+        Y: -10000000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 13.999971, y: -3}
+      - {x: 14.000029, y: -2}
+      - {x: 19, y: -2.0000293}
+      - {x: 19.000029, y: -3}
+      - {x: 23, y: -2.999971}
+      - {x: 23.000029, y: -2}
+      - {x: 27, y: -1.9999708}
+      - {x: 26.999971, y: 2}
+      - {x: 26, y: 1.9999708}
+      - {x: 25.999971, y: -1}
+      - {x: 22, y: -1.0000293}
+      - {x: 21.999971, y: -2}
+      - {x: 20, y: -1.9999707}
+      - {x: 19.999971, y: -1}
+      - {x: 13, y: -1.0000293}
+      - {x: 12.99997, y: -2}
+      - {x: 1, y: -1.9999707}
+      - {x: 0.99997073, y: 4}
+      - {x: 0, y: 3.999971}
+      - {x: 0.000029300001, y: -3}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+--- !u!50 &1252992836
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252992830}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1313077244
 GameObject:
   m_ObjectHideFlags: 0
@@ -5680,23 +5787,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.89472204, y: 1.4774767}
   m_EdgeRadius: 0
---- !u!114 &224887261666244588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4297445850481268713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11eea141a65ed4648ab571691a197de8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 2569245190281550588}
-  _animator: {fileID: 3293527261918092177}
-  _spriteBlink: {fileID: 9202229653361702530}
-  _vfxScaler: {fileID: 1260320812393981176}
-  _hitVFX: {fileID: 6892631216223237631}
 --- !u!1 &473478548985112790
 GameObject:
   m_ObjectHideFlags: 0
@@ -6076,7 +6166,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &2532845418313429096
 MonoBehaviour:
@@ -6391,7 +6481,7 @@ GameObject:
   - component: {fileID: 6030246164457872177}
   - component: {fileID: 2569245190281550588}
   - component: {fileID: 3293527261918092177}
-  - component: {fileID: 224887261666244588}
+  - component: {fileID: 4297445850481268714}
   - component: {fileID: 9202229653361702530}
   m_Layer: 10
   m_Name: Skeleton View
@@ -6400,6 +6490,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4297445850481268714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297445850481268713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d4fe880c7663c4d8dc99663c904f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 2569245190281550588}
+  _animator: {fileID: 3293527261918092177}
+  _spriteBlink: {fileID: 9202229653361702530}
 --- !u!1 &4793240526564989832
 GameObject:
   m_ObjectHideFlags: 0
@@ -6454,11 +6559,14 @@ MonoBehaviour:
   _healthCtrl: {fileID: 8832709766347310732}
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 256
-  _player: {fileID: 327885997}
+    m_Bits: 768
+  _player: {fileID: 327885998}
+  _enemyView: {fileID: 4297445850481268714}
   _id: Skeleton
-  _behaviourUpdateRate: 1
+  _behaviourUpdateRate: 0.2
   _currBehaviourName: 
+  _currActionName: 
+  _tmpAttackDatas: {fileID: 11400000, guid: 76dcf6a97f2d9ad499f2f68ce7a919c7, type: 2}
 --- !u!61 &4859543039105154748
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6493,7 +6601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4859543039105154736}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.49, y: -1, z: 0}
+  m_LocalPosition: {x: 16.86, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1019074197239862220}

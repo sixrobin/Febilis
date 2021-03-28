@@ -4,6 +4,7 @@
 
     public class UnitView : MonoBehaviour
     {
+        private const string IDLE = "Idle";
         private const string DEATH = "Death";
         private const string HURT = "Hurt";
 
@@ -17,6 +18,11 @@
             return _spriteRenderer.flipX;
         }
 
+        public void FlipX(bool flip)
+        {
+            _spriteRenderer.flipX = flip;
+        }
+
         public void BlinkSpriteColor(int count = 1)
         {
             _spriteBlink.BlinkColor(count);
@@ -27,7 +33,12 @@
             _spriteBlink.BlinkAlpha(count);
         }
 
-        public virtual void PlayHurtAnimation(float dir)
+        public void PlayIdleAnimation()
+        {
+            _animator.SetTrigger(IDLE);
+        }
+
+        public virtual void PlayHurtAnimation()
         {
             _animator.SetTrigger(HURT);
             BlinkSpriteColor();
@@ -35,7 +46,7 @@
 
         public virtual void PlayDeathAnimation(float dir)
         {
-            _spriteRenderer.flipX = dir > 0f;
+            FlipX(dir > 0f);
             _animator.SetTrigger(DEATH);
         }
     }

@@ -1,11 +1,11 @@
 ﻿namespace Templar.Attack
 {
-    public class SkeletonAttackController : AttackController
+    public class EnemyAttackController : AttackController
     {
         private Unit.Enemy.SkeletonController _skeletonController;
         private Datas.SkeletonAttackDatas _currAttackDatas;
 
-        public SkeletonAttackController(Unit.Enemy.SkeletonController skeletonController)
+        public EnemyAttackController(Unit.Enemy.SkeletonController skeletonController)
             : base(skeletonController, skeletonController.AttackHitboxesContainer, skeletonController.transform)
         {
             _skeletonController = skeletonController;

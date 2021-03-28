@@ -37,12 +37,28 @@
                         Conditions.Add(new FullHealthEnemyConditionDatas(conditionElement));
                         break;
 
+                    case PlayerAboveEnemyConditionDatas.ID:
+                        Conditions.Add(new PlayerAboveEnemyConditionDatas(conditionElement));
+                        break;
+
+                    case PlayerAliveEnemyConditionDatas.ID:
+                        Conditions.Add(new PlayerAliveEnemyConditionDatas(conditionElement));
+                        break;
+
                     case PlayerDetectedEnemyConditionDatas.ID:
                         Conditions.Add(new PlayerDetectedEnemyConditionDatas(conditionElement));
                         break;
 
+                    case PlayerInRangeEnemyConditionDatas.ID:
+                        Conditions.Add(new PlayerInRangeEnemyConditionDatas(conditionElement));
+                        break;
+
                     case RandomChanceConditionDatas.ID:
                         Conditions.Add(new RandomChanceConditionDatas(conditionElement));
+                        break;
+
+                    default:
+                        EnemyDatabase.Instance.LogError($"Unknown condition Id {conditionElement.Name.LocalName}.");
                         break;
                 }
             }

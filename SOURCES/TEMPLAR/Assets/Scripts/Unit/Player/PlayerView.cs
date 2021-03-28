@@ -7,7 +7,6 @@
     {
         private const string IS_RUNNING = "IsRunning";
         private const string FALL = "Fall";
-        private const string IDLE = "Idle";
         private const string JUMP = "Jump";
         private const string LAND = "Land";
         private const string ROLL = "Roll";
@@ -38,7 +37,7 @@
             _animator.SetBool(IS_RUNNING, !TemplarController.IsBeingHurt && !TemplarController.RollCtrl.IsRolling && TemplarController.InputCtrl.Horizontal != 0f);
 
             if (!TemplarController.RollCtrl.IsRolling && !TemplarController.AttackCtrl.IsAttacking)
-                _spriteRenderer.flipX = flip;
+                FlipX(flip);
 
             if (currVel.y < 0f
                 && (prevVel.y > 0f
@@ -47,11 +46,6 @@
                 && !TemplarController.AttackCtrl.IsAttacking
                 && !TemplarController.IsBeingHurt)
                 _animator.SetTrigger(FALL);
-        }
-
-        public void PlayIdleAnimation()
-        {
-            _animator.SetTrigger(IDLE);
         }
 
         public void PlayJumpAnimation(float dir)
@@ -90,7 +84,7 @@
 
         public void PlayRollAnimation(float dir)
         {
-            _spriteRenderer.flipX = dir < 0f;
+            FlipX(dir < 0f);
             _animator.SetTrigger(ROLL);
             _animator.SetFloat(MULT_ROLL, TemplarController.CtrlDatas.Roll.AnimMult);
 
@@ -128,9 +122,9 @@
             hitInstance.transform.SetScaleX(dir);
         }
 
-        public override void PlayHurtAnimation(float dir)
+        public void PlayHurtAnimation(float dir)
         {
-            base.PlayHurtAnimation(dir);
+            PlayHurtAnimation();
 
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
@@ -152,7 +146,7 @@
         {
             _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrentAttackDatas.AnimMult);
             if (dir != 0f)
-                _spriteRenderer.flipX = dir < 0f;
+                FlipX(dir < 0f);
         }
     }
 }

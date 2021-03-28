@@ -24,7 +24,7 @@
         public Datas.Unit.Enemy.SkeletonControllerDatas CtrlDatas => _ctrlDatas;
         public Datas.Unit.Enemy.SkeletonFightBehaviourDatas FightBehaviourDatas => CtrlDatas.FightBehaviourDatas;
 
-        public Attack.SkeletonAttackController AttackCtrl { get; private set; }
+        public Attack.EnemyAttackController AttackCtrl { get; private set; }
 
         public bool IsWalking { get; private set; }
 
@@ -150,7 +150,7 @@
 
         private void Awake()
         {
-            AttackCtrl = new Attack.SkeletonAttackController(this);
+            AttackCtrl = new Attack.EnemyAttackController(this);
             CollisionsCtrl = new Templar.Physics.CollisionsController(BoxCollider2D, CollisionMask);
 
             if (HealthCtrl is EnemyHealthController enemyHealthCtrl)

@@ -348,14 +348,7 @@
             TryAttack();
             TryInteract();
             Move();
-
-            if (_currentRecoil != null)
-            {
-                Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f));
-                _currentRecoil.Update();
-                if (_currentRecoil.IsComplete)
-                    _currentRecoil = null;
-            }
+            ApplyCurrentRecoil();
 
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
             _playerView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);

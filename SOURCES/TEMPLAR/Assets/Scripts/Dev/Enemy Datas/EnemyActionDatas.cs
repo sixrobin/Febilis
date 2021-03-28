@@ -10,6 +10,7 @@
         }
     }
 
+
     public class AttackEnemyActionDatas : EnemyActionDatas
     {
         public const string ID = "Attack";
@@ -20,7 +21,7 @@
 
         public string Id { get; private set; }
 
-        public float Delay { get; private set; }
+        public (float min, float max) Delay { get; private set; }
 
         protected override void Deserialize(XContainer container)
         {
@@ -34,9 +35,10 @@
 
             XElement delayElement = attackElement.Element("Delay");
             if (delayElement != null)
-                Delay = delayElement.ValueToFloat();
+                Delay = delayElement.MinMaxAttributesToFloats();
         }
     }
+
 
     public class BackAndForthEnemyActionDatas : EnemyActionDatas
     {
@@ -60,7 +62,7 @@
             UnityEngine.Assertions.Assert.IsNotNull(rangeElement, "BackAndForth element must have a Range element.");
             Range = rangeElement.ValueToFloat();
 
-            XElement pauseDur = backAndForthElement.Element("PauseDur");
+            XElement pauseDur = backAndForthElement.Element("Pause");
             if (pauseDur != null)
                 PauseDur = pauseDur.MinMaxAttributesToFloats();
 
@@ -69,6 +71,7 @@
                 RangeFluctuationOnPause = rangeFluctuationOnPauseElement.ValueToFloat();
         }
     }
+
 
     public class FleeEnemyActionDatas : EnemyActionDatas
     {

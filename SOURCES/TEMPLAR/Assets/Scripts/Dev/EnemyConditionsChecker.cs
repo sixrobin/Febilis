@@ -31,8 +31,14 @@
                     Conditions[i] = new HealthMinEnemyCondition(EnemyCtrl, healthMinCondition);
                 else if (ConditionsCheckerDatas.Conditions[i] is FullHealthEnemyConditionDatas fullHealthCondition)
                     Conditions[i] = new FullHealthEnemyCondition(EnemyCtrl, fullHealthCondition);
-                else if (ConditionsCheckerDatas.Conditions[i] is PlayerDetectedEnemyConditionDatas playerUndetectedCondition)
-                    Conditions[i] = new PlayerDetectedEnemyCondition(EnemyCtrl, playerUndetectedCondition);
+                else if (ConditionsCheckerDatas.Conditions[i] is PlayerAboveEnemyConditionDatas playerAboveCondition)
+                    Conditions[i] = new PlayerAboveEnemyCondition(EnemyCtrl, playerAboveCondition);
+                else if (ConditionsCheckerDatas.Conditions[i] is PlayerAliveEnemyConditionDatas playerAliveCondition)
+                    Conditions[i] = new PlayerAliveEnemyCondition(EnemyCtrl, playerAliveCondition);
+                else if (ConditionsCheckerDatas.Conditions[i] is PlayerDetectedEnemyConditionDatas playerDetectedCondition)
+                    Conditions[i] = new PlayerDetectedEnemyCondition(EnemyCtrl, playerDetectedCondition);
+                else if (ConditionsCheckerDatas.Conditions[i] is PlayerInRangeEnemyConditionDatas playerInRangeCondition)
+                    Conditions[i] = new PlayerInRangeEnemyCondition(EnemyCtrl, playerInRangeCondition);
                 else if (ConditionsCheckerDatas.Conditions[i] is RandomChanceConditionDatas rndChanceCondition)
                     Conditions[i] = new RandomChanceEnemyCondition(EnemyCtrl, rndChanceCondition);
                 else
@@ -42,9 +48,8 @@
 
         public bool CheckConditions()
         {
-            // No condition.
             if (Conditions == null)
-                return true;
+                return true; // No condition.
 
             for (int i = Conditions.Length - 1; i >= 0; --i)
                 if (!Conditions[i].Check())

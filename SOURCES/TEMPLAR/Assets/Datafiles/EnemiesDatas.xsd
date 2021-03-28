@@ -28,6 +28,7 @@
                            </xs:sequence>
                         </xs:complexType>
                      </xs:element>
+                     <xs:element name="OnKilledTrauma" type="xs:float" minOccurs="0" maxOccurs="1"/>
                   </xs:sequence>
                   <xs:attribute name="Id" type="xs:token" use="required"/>
                </xs:complexType>
@@ -37,7 +38,7 @@
    </xs:element>
 
 
-   
+
    <!-- ████████████ -->
    <!--  CONDITIONS  -->
    <!-- ████████████ -->
@@ -47,15 +48,18 @@
          <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="HealthMax" type="HealthMaxCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="HealthMin" type="HealthMinCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="PlayerAbove" type="PlayerAboveCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="PlayerAlive" type="PlayerAliveCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="PlayerDetected" type="PlayerDetectedCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="PlayerInRange" type="PlayerInRangeCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="RandomChance" type="RandomChanceCondition" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
-   
+
    <xs:complexType name="Condition">
       <xs:attribute name="Negate" type="xs:boolean" use="optional"/>
    </xs:complexType>
-   
+
    <xs:complexType name="FullHealthCondition">
       <xs:complexContent>
          <xs:extension base="Condition"/>
@@ -78,9 +82,29 @@
       </xs:complexContent>
    </xs:complexType>
 
+   <xs:complexType name="PlayerAboveCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition"/>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="PlayerAliveCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition"/>
+      </xs:complexContent>
+   </xs:complexType>
+
    <xs:complexType name="PlayerDetectedCondition">
       <xs:complexContent>
          <xs:extension base="Condition"/>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="PlayerInRangeCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition">
+            <xs:attribute name="Range" type="xs:float" use="required"/>
+         </xs:extension>
       </xs:complexContent>
    </xs:complexType>
 
@@ -115,16 +139,31 @@
    <xs:complexType name="AttackAction">
       <xs:complexContent>
          <xs:extension base="Action">
+            <xs:sequence>
+               <xs:element name="Delay" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                     <xs:attribute name="Min" type="xs:float" use="required"/>
+                     <xs:attribute name="Max" type="xs:float" use="required"/>
+                  </xs:complexType>
+               </xs:element>
+            </xs:sequence>
             <xs:attribute name="Id" type="xs:token" use="required"/>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
-   
+
    <xs:complexType name="BackAndForthAction">
       <xs:complexContent>
          <xs:extension base="Action">
             <xs:sequence>
                <xs:element name="Range" type="xs:float" minOccurs="1" maxOccurs="1"/>
+               <xs:element name="Pause" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                     <xs:attribute name="Min" type="xs:float" use="required"/>
+                     <xs:attribute name="Max" type="xs:float" use="required"/>
+                  </xs:complexType>
+               </xs:element>
+               <xs:element name="RangeFluctuationOnPause" type="xs:float" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
@@ -135,5 +174,5 @@
          <xs:extension base="Action"/>
       </xs:complexContent>
    </xs:complexType>
-   
+
 </xs:schema>

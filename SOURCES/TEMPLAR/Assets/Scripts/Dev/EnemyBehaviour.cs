@@ -20,7 +20,7 @@
             for (int i = 0; i < Actions.Length; ++i)
             {
                 if (BehaviourDatas.Actions[i] is AttackEnemyActionDatas attackDatas)
-                    Actions[i] = new AttackAction(EnemyCtrl, attackDatas);
+                    Actions[i] = new AttackEnemyAction(EnemyCtrl, attackDatas);
                 else if (BehaviourDatas.Actions[i] is BackAndForthEnemyActionDatas backAndForthDatas)
                     Actions[i] = new BackAndForthEnemyAction(EnemyCtrl, backAndForthDatas);
                 else if (BehaviourDatas.Actions[i] is FleeEnemyActionDatas fleeDatas)

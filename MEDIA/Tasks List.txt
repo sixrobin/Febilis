@@ -11,7 +11,9 @@
 - Premier checkpoint après le rat.
 - Créer une tileset template après avoir terminé la première.
 - Slopes avec roll à la fin ?
-- Terminer le xsd, faire un xml clean et tester tout ça.
+
+- Enemy actions : réfléchir à des paramètres pour pouvoir changer d'action ou non ? (Par exemple, on ne voudra pas changer d'action tant qu'une attaque n'est pas finie).
+- Setup un animator controller commun aux ennemis et voir pour les animations spécifiques à chacun.
 
 
 RSLib

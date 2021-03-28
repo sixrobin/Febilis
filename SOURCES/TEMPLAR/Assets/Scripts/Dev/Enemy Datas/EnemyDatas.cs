@@ -22,6 +22,8 @@
         public float PlayerDetectionDistSqr => PlayerDetectionDist * PlayerDetectionDist;
         public float PlayerLoseDistSqr => PlayerLoseDist * PlayerLoseDist;
 
+        public float OnKilledTrauma { get; private set; }
+
         public System.Collections.Generic.List<EnemyBehaviourDatas> Behaviours { get; private set; }
 
         private void Deserialize(XContainer container)
@@ -64,6 +66,10 @@
             Behaviours = new System.Collections.Generic.List<EnemyBehaviourDatas>();
             foreach (XElement behaviourElement in behavioursElement.Elements("Behaviour"))
                 Behaviours.Add(new EnemyBehaviourDatas(behaviourElement));
+
+            XElement onKilledTraumaElement = enemyElement.Element("OnKilledTrauma");
+            if (onKilledTraumaElement != null)
+                OnKilledTrauma = onKilledTraumaElement.ValueToFloat();
         }
     }
 }

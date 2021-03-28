@@ -24,14 +24,9 @@
             _vfxScaler.SetScaleX(flip ? -1f : 1f);
         }
 
-        public void PlayIdleAnimation()
+        public override void PlayHurtAnimation()
         {
-            _animator.SetTrigger(IDLE);
-        }
-
-        public void PlayHurtAnimation()
-        {
-            _animator.SetTrigger(HURT);
+            base.PlayHurtAnimation();
             _hitVFX.Play();
         }
 

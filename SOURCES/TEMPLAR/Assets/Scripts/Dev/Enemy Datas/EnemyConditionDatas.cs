@@ -30,6 +30,7 @@
         }
     }
 
+
     public class HealthMaxEnemyConditionDatas : EnemyConditionDatas
     {
         public const string ID = "HealthMax";
@@ -53,6 +54,7 @@
             UnityEngine.Assertions.Assert.IsTrue(Threshold > 0, "HealthMax condition threshold must be higher than 0.");
         }
     }
+
 
     public class HealthMinEnemyConditionDatas : EnemyConditionDatas
     {
@@ -78,6 +80,7 @@
         }
     }
 
+
     public class FullHealthEnemyConditionDatas : EnemyConditionDatas
     {
         public const string ID = "FullHealth";
@@ -87,6 +90,27 @@
         }
     }
 
+    
+    public class PlayerAboveEnemyConditionDatas : EnemyConditionDatas
+    {
+        public const string ID = "PlayerAbove";
+
+        public PlayerAboveEnemyConditionDatas(XContainer container) : base(container)
+        {
+        }
+    }
+
+
+    public class PlayerAliveEnemyConditionDatas : EnemyConditionDatas
+    {
+        public const string ID = "PlayerAlive";
+
+        public PlayerAliveEnemyConditionDatas(XContainer container) : base(container)
+        {
+        }
+    }
+
+
     public class PlayerDetectedEnemyConditionDatas : EnemyConditionDatas
     {
         public const string ID = "PlayerDetected";
@@ -95,6 +119,32 @@
         {
         }
     }
+
+
+    public class PlayerInRangeEnemyConditionDatas : EnemyConditionDatas
+    {
+        public const string ID = "PlayerInRange";
+
+        public PlayerInRangeEnemyConditionDatas(XContainer container) : base(container)
+        {
+        }
+
+        public float Range { get; private set; }
+
+        protected override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement rangeElement = container as XElement;
+
+            XAttribute rangeAttribute = rangeElement.Attribute("Range");
+            UnityEngine.Assertions.Assert.IsFalse(rangeAttribute.IsNullOrEmpty(), "PlayerInRange element needs a Range attribute.");
+
+            Range = rangeAttribute.ValueToFloat();
+            UnityEngine.Assertions.Assert.IsTrue(Range > 0f, "PlayerInRange condition range must be higher than 0.");
+        }
+    }
+
 
     public class RandomChanceConditionDatas : EnemyConditionDatas
     {
