@@ -4,8 +4,8 @@
 
     public class PlayerAttackController : AttackController
     {
-        private Datas.PlayerAttackDatas[] _baseComboDatas;
-        private Datas.PlayerAttackDatas _airborneAttackDatas;
+        private Datas.Attack.PlayerAttackDatas[] _baseComboDatas;
+        private Datas.Attack.PlayerAttackDatas _airborneAttackDatas;
         private Unit.Player.PlayerController _playerController;
 
         public PlayerAttackController(Unit.Player.PlayerController templarController)
@@ -18,7 +18,7 @@
 
         public Unit.Player.PlayerInputController InputController => _playerController.InputCtrl;
 
-        public Datas.PlayerAttackDatas CurrentAttackDatas { get; private set; }
+        public Datas.Attack.PlayerAttackDatas CurrentAttackDatas { get; private set; }
         public bool CanAttackAirborne { get; private set; }
         public bool CanChainAttack { get; private set; }
 
@@ -71,7 +71,7 @@
             for (int i = 0; i < _baseComboDatas.Length; ++i)
             {
                 CurrentAttackDatas = _baseComboDatas[i];
-                TriggerHit(CurrentAttackDatas);
+                TriggerHit(CurrentAttackDatas, CurrentAttackDatas.Id);
 
                 // Attack motion.
                 for (float t = 0f; t < 1f; t += Time.deltaTime / CurrentAttackDatas.Dur)
@@ -130,7 +130,7 @@
             Vector3 attackVel = new Vector3(0f, 0f);
 
             CurrentAttackDatas = _airborneAttackDatas;
-            TriggerHit(CurrentAttackDatas);
+            TriggerHit(CurrentAttackDatas, CurrentAttackDatas.Id);
 
             _playerController.PlayerView.PlayAttackAirborneAnimation();
 

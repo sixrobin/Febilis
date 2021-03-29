@@ -51,13 +51,13 @@
             _attackCoroutine = null;
         }
 
-        protected virtual void TriggerHit(Datas.AttackDatas attackDatas)
+        protected virtual void TriggerHit(Datas.Attack.AttackDatas attackDatas, string id)
         {
             UnityEngine.Assertions.Assert.IsNotNull(attackDatas, "Triggering hit with null attack datas.");
-            UnityEngine.Assertions.Assert.IsTrue(_hitboxesById.ContainsKey(attackDatas.Id), $"Could not find hitbox with Id {attackDatas.Id}.");
+            UnityEngine.Assertions.Assert.IsTrue(_hitboxesById.ContainsKey(id), $"Could not find hitbox with Id {id}.");
 
             _hitboxesContainer.SetDirection(AttackDir);
-            _hitboxesById[attackDatas.Id].Trigger(AttackDir, attackDatas);
+            _hitboxesById[id].Trigger(AttackDir, attackDatas);
         }
 
         protected abstract void ComputeAttackDirection();

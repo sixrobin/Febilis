@@ -10,6 +10,7 @@
         [SerializeField] private Attack.AttackHitboxesContainer _attackHitboxesContainer = null;
         [SerializeField] private UnitHealthController _healthCtrl = null;
         [SerializeField] private LayerMask _collisionMask = 0;
+        [SerializeField] private string _debugCollisionsState = string.Empty;
 
         protected Templar.Physics.Recoil _currentRecoil;
 
@@ -44,6 +45,13 @@
             _currentRecoil.Update();
             if (_currentRecoil.IsComplete)
                 _currentRecoil = null;
+        }
+
+        protected virtual void Update()
+        {
+#if UNITY_EDITOR
+            _debugCollisionsState = CollisionsCtrl.CurrentStates.ToString();
+#endif
         }
     }
 }

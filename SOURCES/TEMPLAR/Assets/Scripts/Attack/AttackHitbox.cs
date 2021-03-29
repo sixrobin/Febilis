@@ -19,7 +19,7 @@
         private static System.Collections.Generic.Dictionary<Collider2D, IHittable> s_sharedKnownHittables = new System.Collections.Generic.Dictionary<Collider2D, IHittable>();
 
         private System.Collections.Generic.List<IHittable> _hitThisTime = new System.Collections.Generic.List<IHittable>();
-        private Datas.AttackDatas _attackDatas;
+        private Datas.Attack.AttackDatas _attackDatas;
 
         private Collider2D _hitbox;
         private Transform _source;
@@ -36,7 +36,7 @@
             _source = source;
         }
 
-        public void Trigger(float dir, Datas.AttackDatas attackDatas)
+        public void Trigger(float dir, Datas.Attack.AttackDatas attackDatas)
         {
             UnityEngine.Assertions.Assert.IsNull(_hitCoroutine, $"Triggering hit on {transform.name} hitbox that seems to already run a coroutine.");
 

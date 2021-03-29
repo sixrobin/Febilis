@@ -1,5 +1,6 @@
 ﻿namespace Templar.Physics
 {
+    using RSLib.Extensions;
     using UnityEngine;
 
     public class CollisionsController : RaycastsController
@@ -60,6 +61,23 @@
             public bool GetAnyCollisionsState()
             {
                 return GetHorizontalCollisionsState() || GetVerticalCollisionsState();
+            }
+
+            public override string ToString()
+            {
+                string collisionsStr = string.Empty;
+
+                if (_states[CollisionOrigin.ABOVE])
+                    collisionsStr += "ABOVE | ";
+                if (_states[CollisionOrigin.BELOW])
+                    collisionsStr += "BELOW | ";
+                if (_states[CollisionOrigin.LEFT])
+                    collisionsStr += "LEFT | ";
+                if (_states[CollisionOrigin.RIGHT])
+                    collisionsStr += "RIGHT | ";
+
+                collisionsStr = collisionsStr.RemoveLast(3);
+                return collisionsStr;
             }
         }
 
@@ -128,15 +146,14 @@
             return vel;
         }
 
-        public void ComputeCollisions(ref Vector3 vel)
-        {
-            vel = ComputeCollisions(vel);
-        }
-
         public void TriggerDetectedCollisionsEvents()
         {
             while (_detectedCollisionsForEvent.Count > 0)
-                CollisionDetected?.Invoke(_detectedCollisionsForEvent.Dequeue());
+            {
+                // Need to do this in two lines, else loop will be infinite if event has no listener.
+                CollisionInfos collision = _detectedCollisionsForEvent.Dequeue();
+                CollisionDetected?.Invoke(collision);
+            }
         }
 
         public void Ground(Transform transform, bool triggerEvent = false)
@@ -161,12 +178,12 @@
             CProLogger.LogWarning(this, $"No ground has been found to ground {transform.name}.");
         }
 
-        public void BackupCurrentState()
+        public void ComputeCollisions(ref Vector3 vel)
         {
-            PreviousStates.Copy(CurrentStates);
+            vel = ComputeCollisions(vel);
         }
 
-        private void ComputeHorizontalCollisions(ref Vector3 vel)
+        public void ComputeHorizontalCollisions(ref Vector3 vel)
         {
             float sign = Mathf.Sign(vel.x);
             float rayLength = vel.x * sign + SKIN_WIDTH;
@@ -205,7 +222,7 @@
             }
         }
 
-        private void ComputeVerticalCollisions(ref Vector3 vel)
+        public void ComputeVerticalCollisions(ref Vector3 vel)
         {
             float sign = Mathf.Sign(vel.y);
             float length = vel.y * sign + SKIN_WIDTH;
@@ -242,6 +259,11 @@
                     Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.yellow);
                 }
             }
+        }
+
+        public void BackupCurrentState()
+        {
+            PreviousStates.Copy(CurrentStates);
         }
 
         private void RegisterCollisionForEvent(CollisionInfos collisionInfos)

@@ -17,20 +17,21 @@
             </Conditions>-->
             <!--Actions in order priority : the first being validated will be used.-->
             <Actions>
+               <Attack Id="skeleton_atk_above">
+                  <Conditions>
+                     <PlayerAbove/>
+                     <PlayerAlive/>
+                  </Conditions>
+                  <AnimatorSuffix>_Above</AnimatorSuffix>
+               </Attack>
+
                <Attack Id="skeleton_atk_base">
                   <Conditions>
                      <PlayerAlive/>
                      <PlayerInRange Range="2.5"/>
                   </Conditions>
                   <Delay Min="0.5" Max="0.6"/>
-                  <!--<AnimatorSuffix> ??-->
                </Attack>
-
-               <!--<Attack Id="skeleton_atk_above">
-                  <Conditions>
-                     <PlayerAbove/>
-                  </Conditions>
-               </Attack>-->
 
                <BackAndForth>
                   <Range>2.5</Range>

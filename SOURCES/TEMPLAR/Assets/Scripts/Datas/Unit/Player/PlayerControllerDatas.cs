@@ -18,8 +18,8 @@
         [SerializeField] private UnitRollDatas _playerRollDatas = null;
 
         [Header("ATTACK")]
-        [SerializeField] private Attack.Datas.PlayerAttackDatas[] _baseCombo = null;
-        [SerializeField] private Attack.Datas.PlayerAttackDatas _airborneAttack = null;
+        [SerializeField] private Attack.PlayerAttackDatas[] _baseCombo = null;
+        [SerializeField] private Attack.PlayerAttackDatas _airborneAttack = null;
 
         [Header("BASE MOVEMENT")]
         [Tooltip("Base run speed of the controller.")]
@@ -43,8 +43,8 @@
         public PlayerInputDatas Input => _playerInputDatas;
         public UnitJumpDatas Jump => _playerJumpDatas;
         public UnitRollDatas Roll => _playerRollDatas;
-        public Attack.Datas.PlayerAttackDatas[] BaseCombo => _baseCombo;
-        public Attack.Datas.PlayerAttackDatas AirborneAttack => _airborneAttack;
+        public Attack.PlayerAttackDatas[] BaseCombo => _baseCombo;
+        public Attack.PlayerAttackDatas AirborneAttack => _airborneAttack;
 
         public float RunSpeed => _runSpeed;
         public float GroundedDamping => _groundedDamping;

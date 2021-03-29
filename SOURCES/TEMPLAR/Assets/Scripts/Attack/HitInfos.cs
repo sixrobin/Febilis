@@ -4,14 +4,14 @@
 
     public class HitInfos
     {
-        public HitInfos(Datas.AttackDatas attackDatas, float attackDir, Transform source)
+        public HitInfos(Datas.Attack.AttackDatas attackDatas, float attackDir, Transform source)
         {
             AttackDatas = attackDatas;
             AttackDir = attackDir;
             Source = source;
         }
 
-        public Datas.AttackDatas AttackDatas { get; private set; }
+        public Datas.Attack.AttackDatas AttackDatas { get; private set; }
         public float AttackDir { get; private set; }
         public Transform Source { get; private set; }
 

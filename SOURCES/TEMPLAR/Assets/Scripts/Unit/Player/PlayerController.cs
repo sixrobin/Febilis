@@ -106,13 +106,6 @@
                             _playerView.PlayIdleAnimation(); // Landing with no speed impact.
                     }
 
-                    // [TMP] GetComponent (2 times), maybe a SkeletonController pooling ?
-                    if (collisionInfos.Hit.collider.GetComponent<Enemy.SkeletonController>())
-                    {
-                        CProLogger.Log(this, "Fell above a skeleton.", gameObject);
-                        collisionInfos.Hit.collider.GetComponent<Enemy.SkeletonController>().OnTemplarAbove();
-                    }
-
                     break;
                 }
 
@@ -182,7 +175,7 @@
 
             _currVel = Vector3.zero;
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.ROLL);
-            RollCtrl.Roll(InputCtrl.Horizontal != 0f ? InputCtrl.Horizontal : CurrDir);
+            RollCtrl.Roll(InputCtrl.Horizontal != 0f ? Mathf.Sign(InputCtrl.Horizontal) : CurrDir);
         }
 
         private void TryAttack()
@@ -330,10 +323,12 @@
             _playerView.PlayIdleAnimation();
         }
 
-        private void Update()
+        protected override void Update()
         {
             if (!_init)
                 return;
+
+            base.Update();
 
             BackupCurrentState();
             ResetCurrentState();
