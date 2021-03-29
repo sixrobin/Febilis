@@ -22,9 +22,9 @@ MonoBehaviour:
   _traumaOnHit: {x: 0, y: 0}
   _freezeFrameDurOnHit: 0.1
   _chainAllowedTime: 0.4
-  _controlVelocity: 0
-  _moveSpeed: 2.5
-  _gravity: 0.2
+  _controlVelocity: 1
+  _moveSpeed: 5
+  _gravity: 0.05
   _moveSpeedCurve:
     serializedVersion: 2
     m_Curve:

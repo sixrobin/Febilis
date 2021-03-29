@@ -1,19 +1,21 @@
 - Attaque up du templier.
-- Retaper la gestion des choses sous les pieds d'un CollisionsController, event au landing, etc.
 - Début de niveau tuto platformer (jump, double jump). Des buissons dans l'enviro pour dessiner les courbes de saut ?
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
 - Animations des checkpoints, et manager de sauvegarde.
 - Variable dans AttackDatas qui correspond au shake quand l'attaque est trigger, même si ne touche rien ?
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
-- Refacto UnitView.
 - Implémentation du rat en tant que premier ennemi à tuer (2-3 coups). Agressif uniquement après un hit ?
 - Premier checkpoint après le rat.
 - Créer une tileset template après avoir terminé la première.
 - Slopes avec roll à la fin ?
-
-- Enemy actions : réfléchir à des paramètres pour pouvoir changer d'action ou non ? (Par exemple, on ne voudra pas changer d'action tant qu'une attaque n'est pas finie).
 - Setup un animator controller commun aux ennemis et voir pour les animations spécifiques à chacun.
+- Chutes mortelles.
+- Enviro :
+	- Buissons.
+	- Cailloux.
+	- Nuages.
+	- Background.
 
 
 RSLib

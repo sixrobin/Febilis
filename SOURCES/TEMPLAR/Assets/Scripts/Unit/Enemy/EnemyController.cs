@@ -103,6 +103,8 @@
 
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
         {
+            AttackCtrl.CancelAttack();
+
             FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true);
 
