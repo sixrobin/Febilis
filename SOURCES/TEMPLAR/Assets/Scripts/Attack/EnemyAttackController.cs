@@ -1,11 +1,11 @@
 ﻿namespace Templar.Attack
 {
-    public class GenericEnemyAttackController : AttackController
+    public class EnemyAttackController : AttackController
     {
         private Unit.Enemy.EnemyController _enemyCtrl;
         private Datas.Attack.SkeletonAttackDatas _currAttackDatas;
 
-        public GenericEnemyAttackController(Unit.Enemy.EnemyController enemyCtrl)
+        public EnemyAttackController(Unit.Enemy.EnemyController enemyCtrl)
             : base(enemyCtrl, enemyCtrl.AttackHitboxesContainer, enemyCtrl.transform)
         {
             _currAttackDatas = enemyCtrl._tmpAttackDatas;
@@ -18,7 +18,7 @@
             _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
         }
 
-        protected override void OnAttackHit(Attack.AttackHitbox.HitEventArgs hitArgs)
+        protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
         {
         }
 

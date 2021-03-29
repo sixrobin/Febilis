@@ -7,7 +7,7 @@
     {
         [Header("REFERENCES")]
         [SerializeField] private Player.PlayerController _player = null;
-        [SerializeField] private GenericEnemyView _enemyView = null;
+        [SerializeField] private EnemyView _enemyView = null;
 
         [Header("BEHAVIOUR")]
         [SerializeField] private string _id = string.Empty;
@@ -50,12 +50,12 @@
 
         public Datas.Unit.Enemy.EnemyDatas EnemyDatas { get; private set; }
         public EnemyBehaviour[] Behaviours { get; private set; }
-        public Attack.GenericEnemyAttackController AttackCtrl { get; private set; }
+        public Attack.EnemyAttackController AttackCtrl { get; private set; }
 
         public bool IsPlayerAbove { get; private set; }
 
         public Player.PlayerController Player => _player;
-        public GenericEnemyView EnemyView => _enemyView;
+        public EnemyView EnemyView => _enemyView;
         
         public bool BeingHurt => _hurtCoroutine != null;
 
@@ -150,7 +150,7 @@
 
         private void Awake()
         {
-            AttackCtrl = new Attack.GenericEnemyAttackController(this);
+            AttackCtrl = new Attack.EnemyAttackController(this);
             CollisionsCtrl = new Templar.Physics.CollisionsController(BoxCollider2D, CollisionMask);
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
             CollisionsCtrl.Ground(transform);

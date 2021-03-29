@@ -1,6 +1,6 @@
 ﻿namespace Templar.Unit.Enemy
 {
-    public class GenericEnemyView : Unit.UnitView
+    public class EnemyView : UnitView
     {
         private const string HURT = "Hurt";
         private const string ATTACK = "Attack";
