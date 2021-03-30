@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae59f837d748a740a9a9f36106fe231, type: 3}
   m_Name: Templar Camera Datas
   m_EditorClassIdentifier: 
-  _focusAreaSize: {x: 1.8, y: 4}
+  _focusAreaSize: {x: 1.8, y: 2.3}
   _horizontalLookAheadDamping: 0.2
   _horizontalLookAheadDist: 0.7
   _verticalDamping: 0.08
-  _heightOffset: 0.25
+  _heightOffset: 0.4

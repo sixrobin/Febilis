@@ -80,8 +80,13 @@
             _currVel.y = _jumpVel;
         }
 
-        private void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
+        protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
+            base.OnCollisionDetected(collisionInfos);
+
+            if (IsDead)
+                return;
+
             // Avoid triggering event if there was a collision from the same origin at the previous frame.
             if (CollisionsCtrl.PreviousStates.GetCollisionState(collisionInfos.Origin))
                 return;
@@ -144,7 +149,7 @@
             AttackCtrl.CancelAttack();
 
             CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
-            _playerView.PlayDeathAnimation(args.HitDatas.AttackDir);
+            _playerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
             CameraCtrl.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
             Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);

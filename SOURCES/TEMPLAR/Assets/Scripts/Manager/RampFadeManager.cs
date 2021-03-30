@@ -69,6 +69,11 @@
             {
                 _ramp.Offset += _fadeDatas.StepValue * sign;
 
+                if (sign == 1f)
+                    _ramp.Offset = Mathf.Min(_ramp.Offset, _fadeDatas.TargetOffset);
+                else
+                    _ramp.Offset = Mathf.Max(_ramp.Offset, _fadeDatas.TargetOffset);
+
                 if (TimeScaleDependent)
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(_fadeDatas.StepDur);
                 else

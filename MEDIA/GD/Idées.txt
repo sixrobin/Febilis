@@ -83,6 +83,8 @@ Idées générales
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?
 - Mimic ?
 
+- Boss troll qui a un dialogue du style "ah bah le setup est pas mal pour un combat, ah, les barrières viennent de se fermer. Bon, allons-y".
+
 - Feinte au début du jeu, musique épique pour un mob de merde, puis ensuite un vrai boss sorti de nulle part.
 	- Mob au début qui fait office de tuto pour l'attaque, mais qui est inoffensif. En l'ignorant, le joueur peut peut-être secrètement se rendre service, comme Muffet dans Undertale qui est plus simple si on a acheté des trucs aux araignées.
 - Permettre de faire croire au joueur qu'il peut modifier une valeur de monnaie dans les fichiers du jeu, le détecter et lui balancer un boss infect.

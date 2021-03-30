@@ -36,6 +36,12 @@
             Translate(new Vector3(x, y));
         }
 
+        protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
+        {
+            if (KillTrigger.SharedKillTriggers.ContainsKey(collisionInfos.Hit.collider))
+                HealthCtrl.HealthSystem.Kill();
+        }
+        
         protected void ApplyCurrentRecoil()
         {
             if (_currentRecoil == null)

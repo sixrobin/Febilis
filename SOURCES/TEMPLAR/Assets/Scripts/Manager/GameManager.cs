@@ -18,6 +18,11 @@
             StartCoroutine(SpawnPlayerCoroutine());
         }
 
+        private void Start()
+        {
+            KillTrigger.ResetSharedTriggers();
+        }
+
         private void SpawnPlayer()
         {
             if (OverrideCheckpoint != null)

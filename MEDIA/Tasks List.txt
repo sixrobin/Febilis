@@ -1,21 +1,24 @@
 - Attaque up du templier.
-- Début de niveau tuto platformer (jump, double jump). Des buissons dans l'enviro pour dessiner les courbes de saut ?
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
 - Animations des checkpoints, et manager de sauvegarde.
 - Variable dans AttackDatas qui correspond au shake quand l'attaque est trigger, même si ne touche rien ?
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Implémentation du rat en tant que premier ennemi à tuer (2-3 coups). Agressif uniquement après un hit ?
-- Premier checkpoint après le rat.
 - Créer une tileset template après avoir terminé la première.
 - Slopes avec roll à la fin ?
 - Setup un animator controller commun aux ennemis et voir pour les animations spécifiques à chacun.
-- Chutes mortelles.
+- Cacher le HUD à la mort/avant le fade.
+- State chase pour les ennemis.
+- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Enviro :
-	- Buissons.
-	- Cailloux.
 	- Nuages.
 	- Background.
+- XML :
+	- Attack datas.
+	- Player datas.
+	- Roll datas.
+	- Jump datas.
 
 
 RSLib

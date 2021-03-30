@@ -28,6 +28,7 @@
                 HitDatas = hitDatas;
             }
 
+            // If this is null, death comes from another source than an attack.
             public Attack.HitInfos HitDatas { get; private set; }
         }
 
@@ -58,7 +59,6 @@
                 return;
 
             _lastHitDatas = hitDatas;
-
             HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
         }
 
@@ -80,6 +80,7 @@
         protected virtual void OnKilled()
         {
             UnitKilled?.Invoke(new UnitKilledEventArgs(_lastHitDatas));
+            _lastHitDatas = null;
             _collider.enabled = false;
         }
 

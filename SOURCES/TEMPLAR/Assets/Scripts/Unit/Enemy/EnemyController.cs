@@ -11,7 +11,7 @@
 
         [Header("BEHAVIOUR")]
         [SerializeField] private string _id = string.Empty;
-        [SerializeField] private float _behaviourUpdateRate = 1f;
+        [SerializeField] private float _behaviourUpdateRate = 0.5f;
 
         [Header("DEBUG")]
         [SerializeField] private string _currBehaviourName = string.Empty;
@@ -70,8 +70,13 @@
             UpdateCurrentAction();
         }
 
-        private void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
+        protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
+            base.OnCollisionDetected(collisionInfos);
+
+            if (IsDead)
+                return;
+
             // Avoid triggering event if there was a collision from the same origin at the previous frame.
             if (CollisionsCtrl.PreviousStates.GetCollisionState(collisionInfos.Origin))
                 return;
@@ -150,7 +155,7 @@
                 _enemyView.PlayIdleAnimation();
         }
 
-        private void Awake()
+        private void Start()
         {
             AttackCtrl = new Attack.EnemyAttackController(this);
             CollisionsCtrl = new Templar.Physics.CollisionsController(BoxCollider2D, CollisionMask);

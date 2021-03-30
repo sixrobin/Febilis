@@ -23,4 +23,4 @@ MonoBehaviour:
   _minVelForLandImpact: 8
   _landImpactSpeedMultMin: 0
   _landImpactDurFactor: 0.01
-  _landImpactDurMinMax: {x: 0.04, y: 0.2}
+  _landImpactDurMinMax: {x: 0.04, y: 0.14}
