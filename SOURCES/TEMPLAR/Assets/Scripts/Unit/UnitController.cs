@@ -23,7 +23,7 @@
 
         public float CurrDir { get; protected set; }
 
-        public bool IsDead => HealthCtrl.HealthSystem.IsDead;
+        public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
         public void Translate(Vector3 vel)
         {

@@ -8,9 +8,9 @@
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.ENEMY;
 
-        public override void Init()
+        public override void Init(int health)
         {
-            base.Init();
+            base.Init(health);
             _healthBar.HealthCtrl = this;
         }
 

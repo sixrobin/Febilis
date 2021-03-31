@@ -162,6 +162,7 @@ MonoBehaviour:
   _collisionMask:
     serializedVersion: 2
     m_Bits: 1280
+  _debugCollisionsState: 
   _playerView: {fileID: 2727861838613788317}
   _cameraCtrl: {fileID: 0}
   _ctrlDatas: {fileID: 11400000, guid: 3b3f60e9f46d8e24b8396b0070567726, type: 2}
@@ -653,6 +654,11 @@ MonoBehaviour:
   _healthBarBlink: {fileID: 0}
   _healthBarBlinkPauseDur: 0.15
   _healthBarBlinkUpdateSpeed: 4
+  _shineRectTransform: {fileID: 0}
+  _shineDelay: 15
+  _shineDist: 270
+  _shineDur: 0.6
+  _shineCurve: 18
 --- !u!1 &2727861839411020231
 GameObject:
   m_ObjectHideFlags: 0

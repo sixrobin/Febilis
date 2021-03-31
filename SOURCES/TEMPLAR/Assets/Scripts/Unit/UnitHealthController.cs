@@ -33,7 +33,6 @@
         }
 
         [SerializeField] private Collider2D _collider = null;
-        [SerializeField] private int _baseHealth = 100;
 
         private bool _init;
 
@@ -62,9 +61,9 @@
             HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
         }
 
-        public virtual void Init()
+        public virtual void Init(int health)
         {
-            HealthSystem = new RSLib.HealthSystem(_baseHealth);
+            HealthSystem = new RSLib.HealthSystem(health);
             HealthSystem.HealthChanged += OnHealthChanged;
             HealthSystem.Killed += OnKilled;
 
@@ -82,12 +81,6 @@
             UnitKilled?.Invoke(new UnitKilledEventArgs(_lastHitDatas));
             _lastHitDatas = null;
             _collider.enabled = false;
-        }
-
-        protected virtual void Awake()
-        {
-            if (!_init)
-                Init();
         }
 
         protected virtual void OnDestroy()

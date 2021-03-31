@@ -25,6 +25,8 @@
                     Actions[i] = new AttackEnemyAction(EnemyCtrl, attackDatas);
                 else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.BackAndForthEnemyActionDatas backAndForthDatas)
                     Actions[i] = new BackAndForthEnemyAction(EnemyCtrl, backAndForthDatas);
+                else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.ChaseEnemyActionDatas chaseDatas)
+                    Actions[i] = new ChaseEnemyAction(EnemyCtrl, chaseDatas);
                 else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.FleeEnemyActionDatas fleeDatas)
                     Actions[i] = new FleeEnemyAction(EnemyCtrl, fleeDatas);
                 else

@@ -53,6 +53,7 @@
         public Attack.EnemyAttackController AttackCtrl { get; private set; }
 
         public bool IsPlayerAbove { get; private set; }
+        public bool IsPlayerDetected { get; set; }
 
         public Player.PlayerController Player => _player;
         public EnemyView EnemyView => _enemyView;
@@ -157,6 +158,9 @@
 
         private void Start()
         {
+            UnityEngine.Assertions.Assert.IsTrue(Datas.Unit.Enemy.EnemyDatabase.EnemiesDatas.ContainsKey(_id), $"Unknown enemy Id {_id}.");
+            EnemyDatas = Datas.Unit.Enemy.EnemyDatabase.EnemiesDatas[_id];
+
             AttackCtrl = new Attack.EnemyAttackController(this);
             CollisionsCtrl = new Templar.Physics.CollisionsController(BoxCollider2D, CollisionMask);
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
@@ -164,15 +168,12 @@
 
             if (HealthCtrl is EnemyHealthController enemyHealthCtrl)
             {
-                enemyHealthCtrl.Init();
+                enemyHealthCtrl.Init(EnemyDatas.Health);
                 enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
                 enemyHealthCtrl.UnitKilled += OnUnitKilled;
             }
 
             CurrDir = _enemyView.GetSpriteRendererFlipX() ? -1f : 1f;
-
-            UnityEngine.Assertions.Assert.IsTrue(Datas.Unit.Enemy.EnemyDatabase.EnemiesDatas.ContainsKey(_id), $"Unknown enemy Id {_id}.");
-            EnemyDatas = Datas.Unit.Enemy.EnemyDatabase.EnemiesDatas[_id];
 
             Behaviours = new EnemyBehaviour[EnemyDatas.Behaviours.Count];
             for (int i = 0; i < Behaviours.Length; ++i)
@@ -203,6 +204,7 @@
             if (_behaviourUpdateTimer > _behaviourUpdateRate)
             {
                 _behaviourUpdateTimer = 0f;
+                //IsPlayerDetected = (Player.transform.position - transform.position).sqrMagnitude <= EnemyDatas.PlayerDetectionDistSqr;
 
                 if (CurrAction.CanExit())
                 {

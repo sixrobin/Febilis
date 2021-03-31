@@ -9,7 +9,7 @@
         [SerializeField] private Transform _fillScaler = null;
         [SerializeField] private bool _onlyShowOnHealthMissing = true;
 
-        public Templar.Unit.UnitHealthController HealthCtrl { get; set; }
+        public Unit.UnitHealthController HealthCtrl { get; set; }
 
         public void Display(bool show)
         {

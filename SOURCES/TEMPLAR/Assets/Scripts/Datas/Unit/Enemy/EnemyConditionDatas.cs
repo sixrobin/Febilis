@@ -130,6 +130,7 @@
         }
 
         public float Range { get; private set; }
+        public float RangeSqr => Range * Range;
 
         protected override void Deserialize(XContainer container)
         {

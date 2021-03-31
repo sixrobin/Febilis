@@ -16,12 +16,19 @@
 
         private RSLib.FocusArea _focusArea;
 
-        private float _currLookAheadX;
-        private float _targetLookAheadX;
+        private float _currLookAhead;
+        private float _targetLookAhead;
         private float _lookAheadDir;
+        private bool _isLookingAhead;
+
+        private float _currLookVerticalDir;
+        private float _nonNullLookVerticalTimer;
+        private float _currLookVertical;
+        private float _targetLookVertical;
+
         private float _refX;
         private float _refY;
-        private bool _isLookingAhead;
+        private float _refLookAheadVertical;
 
         public CameraShake Shake { get; private set; }
 
@@ -39,28 +46,51 @@
                 if (_isLookingAhead)
                 {
                     _isLookingAhead = false;
-                    _targetLookAheadX = _currLookAheadX + (_lookAheadDir * _cameraDatas.HorizontalLookAheadDist - _currLookAheadX) * 0.25f;
+                    _targetLookAhead = _currLookAhead + (_lookAheadDir * _cameraDatas.HorizontalLookAheadDist - _currLookAhead) * 0.25f;
                 }
             }
             else
             {
                 _lookAheadDir = Mathf.Sign(_focusArea.Velocity.x);
-                if (_playerCtrl.InputCtrl.CurrentInputDir == _lookAheadDir
+                if (_playerCtrl.InputCtrl.CurrentHorizontalDir == _lookAheadDir
                     && _playerCtrl.InputCtrl.Horizontal != 0f
                     || _playerCtrl.RollCtrl.IsRolling)
                 {
                     _isLookingAhead = true;
-                    _targetLookAheadX = _lookAheadDir * _cameraDatas.HorizontalLookAheadDist;
+                    _targetLookAhead = _lookAheadDir * _cameraDatas.HorizontalLookAheadDist;
                 }
                 else if (_isLookingAhead)
                 {
                     _isLookingAhead = false;
-                    _targetLookAheadX = _currLookAheadX + (_lookAheadDir * _cameraDatas.HorizontalLookAheadDist - _currLookAheadX) * 0.25f;
+                    _targetLookAhead = _currLookAhead + (_lookAheadDir * _cameraDatas.HorizontalLookAheadDist - _currLookAhead) * 0.25f;
                 }
             }
 
-            _currLookAheadX = Mathf.SmoothDamp(_currLookAheadX, _targetLookAheadX, ref _refX, _cameraDatas.HorizontalLookAheadDamping);
-            pos += Vector3.right * _currLookAheadX;
+            _currLookAhead = Mathf.SmoothDamp(_currLookAhead, _targetLookAhead, ref _refX, _cameraDatas.HorizontalLookAheadDamping);
+            pos += Vector3.right * _currLookAhead;
+        }
+
+        private void ComputeLookVerticalPosition(ref Vector3 pos)
+        {
+            if (!_playerCtrl.Initialized)
+                return;
+
+            _currLookVerticalDir = _playerCtrl.InputCtrl.Vertical;
+
+            if (_currLookVerticalDir != 0f)
+            {
+                _nonNullLookVerticalTimer += Time.deltaTime;
+                if (_nonNullLookVerticalTimer > _cameraDatas.VerticalLookAheadDelay)
+                    _targetLookVertical = _playerCtrl.InputCtrl.CurrentVerticalDir * _cameraDatas.VerticalLookAheadDist;
+            }
+            else
+            {
+                _targetLookVertical = 0f;
+                _nonNullLookVerticalTimer = 0f;
+            }
+
+            _currLookVertical = Mathf.SmoothDamp(_currLookVertical, _targetLookVertical, ref _refLookAheadVertical, _cameraDatas.VerticalLookAheadDamping);
+            pos.y += _currLookVertical;
         }
 
         private void ComputeDampedPosition(ref Vector3 pos)
@@ -96,6 +126,7 @@
             Vector3 targetPosition = ComputeBaseTargetPosition();
 
             ComputeLookAheadPosition(ref targetPosition);
+            ComputeLookVerticalPosition(ref targetPosition);
             ComputeShakePosition(ref targetPosition);
             ComputeDampedPosition(ref targetPosition);
 

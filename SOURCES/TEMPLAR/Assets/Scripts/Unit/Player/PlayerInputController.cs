@@ -7,6 +7,8 @@
     {
         public const string HORIZONTAL_KEYBOARD = "Horizontal";
         public const string HORIZONTAL_CONTROLLER = "HorizontalLeftStick";
+        public const string VERTICAL_KEYBOARD = "Vertical";
+        public const string VERTICAL_CONTROLLER = "VerticalLeftStick";
         public const string JUMP = "Jump";
         public const string ROLL = "Roll";
         public const string ATTACK = "Attack";
@@ -40,8 +42,10 @@
         }
 
         public float Horizontal { get; private set; }
+        public float Vertical { get; private set; }
 
-        public float CurrentInputDir => Mathf.Sign(Horizontal);
+        public float CurrentHorizontalDir => Mathf.Sign(Horizontal);
+        public float CurrentVerticalDir => Mathf.Sign(Vertical);
 
         public bool CheckInput(ButtonCategory btnCategory)
         {
@@ -56,6 +60,11 @@
             float leftStickHorizontal = Input.GetAxis(HORIZONTAL_CONTROLLER);
             if (leftStickHorizontal * leftStickHorizontal > _inputDatas.LeftJoystickDeadZoneSqr)
                 Horizontal = leftStickHorizontal;
+
+            Vertical = Input.GetAxisRaw(VERTICAL_KEYBOARD);
+            float leftStickVertical = Input.GetAxis(VERTICAL_CONTROLLER);
+            if (leftStickVertical * leftStickVertical > _inputDatas.LeftJoystickDeadZoneSqr)
+                Vertical = leftStickVertical;
 
             foreach (System.Collections.Generic.KeyValuePair<ButtonCategory, InputGetterHandler> input in _inputGetters)
             {
@@ -72,6 +81,7 @@
         public void Reset()
         {
             Horizontal = 0f;
+            Vertical = 0f;
         }
 
         public void ResetDelayedInput(ButtonCategory btnCategory)

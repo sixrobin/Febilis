@@ -46,7 +46,10 @@
             }
 
             if (_fadeOnRespawn && _playerCtrl.CameraCtrl.GrayscaleRamp.enabled)
+            {
                 RampFadeManager.SetRampOffset(_playerCtrl.CameraCtrl.GrayscaleRamp, -1f);
+                // [TODO] Hide player HUD.
+            }
 
             yield return new WaitForEndOfFrame(); // Wait for checkpoints initialization.
 

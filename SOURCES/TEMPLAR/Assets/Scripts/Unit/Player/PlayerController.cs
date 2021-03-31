@@ -11,8 +11,8 @@
         [SerializeField] private Datas.Unit.Player.PlayerControllerDatas _ctrlDatas = null;
         [SerializeField] private Interaction.Interacter _interacter = null;
         [SerializeField] private LayerMask _rollCollisionMask = 0;
+        [SerializeField] private int _baseHealth = 100;
 
-        private bool _init;
         private bool _inputsAllowed;
 
         private System.Collections.IEnumerator _hurtCoroutine;
@@ -21,6 +21,8 @@
         private Vector3 _prevVel;
         private float _refVelX;
         private float _jumpVel;
+
+        public bool Initialized { get; private set; }
 
         public PlayerView PlayerView => _playerView;
         public Templar.Camera.CameraController CameraCtrl => _cameraCtrl;
@@ -49,7 +51,7 @@
 
             if (HealthCtrl is PlayerHealthController templarHealthCtrl)
             {
-                templarHealthCtrl.Init();
+                templarHealthCtrl.Init(_baseHealth);
                 templarHealthCtrl.PlayerCtrl = this;
                 templarHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
                 templarHealthCtrl.UnitKilled += OnUnitKilled;
@@ -67,7 +69,7 @@
 
             CurrDir = _playerView.GetSpriteRendererFlipX() ? -1f : 1f;
 
-            _init = true;
+            Initialized = true;
         }
 
         public void AllowInputs(bool state)
@@ -147,6 +149,7 @@
             }
 
             AttackCtrl.CancelAttack();
+            RollCtrl.Interrupt();
 
             CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
             _playerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
@@ -243,7 +246,7 @@
             }
 
             if (InputCtrl.Horizontal != 0f)
-                CurrDir = InputCtrl.CurrentInputDir;
+                CurrDir = InputCtrl.CurrentHorizontalDir;
 
             // Jump.
             if (JumpCtrl.JumpsLeft > 0
@@ -330,7 +333,7 @@
 
         protected override void Update()
         {
-            if (!_init)
+            if (!Initialized)
                 return;
 
             base.Update();

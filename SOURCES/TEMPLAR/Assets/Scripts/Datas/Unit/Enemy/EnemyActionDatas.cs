@@ -78,6 +78,16 @@
     }
 
 
+    public class ChaseEnemyActionDatas : EnemyActionDatas
+    {
+        public const string ID = "Chase";
+
+        public ChaseEnemyActionDatas(XContainer container) : base(container)
+        {
+        }
+    }
+
+
     public class FleeEnemyActionDatas : EnemyActionDatas
     {
         public const string ID = "Flee";

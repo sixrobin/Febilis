@@ -39,6 +39,10 @@
                         Actions.Add(new BackAndForthEnemyActionDatas(actionElement));
                         break;
 
+                    case ChaseEnemyActionDatas.ID:
+                        Actions.Add(new ChaseEnemyActionDatas(actionElement));
+                        break;
+
                     case FleeEnemyActionDatas.ID:
                         Actions.Add(new FleeEnemyActionDatas(actionElement));
                         break;

@@ -10,11 +10,14 @@
 
         private RSLib.ImageEffects.CameraGrayscaleRamp _ramp;
         private Datas.RampFadeDatas _fadeDatas;
-        private FadeOverEventHandler _callback;
+        private FadeEventHandler _callback;
 
         private System.Collections.IEnumerator _fadeCoroutine;
 
-        public delegate void FadeOverEventHandler();
+        public delegate void FadeEventHandler();
+
+        public event FadeEventHandler FadeBegan;
+        public event FadeEventHandler FadeOver;
 
         public static bool TimeScaleDependent
         {
@@ -22,7 +25,7 @@
             set => Instance._timeScaleDependent = value;
         }
 
-        public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, Datas.RampFadeDatas fadeDatas, (float, float) delays, FadeOverEventHandler callback = null)
+        public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, Datas.RampFadeDatas fadeDatas, (float, float) delays, FadeEventHandler callback = null)
         {
             UnityEngine.Assertions.Assert.IsTrue(fadeDatas.StepValue > 0f, "Fade step value is set to 0 or less, meaning fade effect would never move on.");
 
@@ -40,13 +43,13 @@
             Instance.StartCoroutine(Instance._fadeCoroutine);
         }
 
-        public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, float targetOffset, float stepDur, float stepValue, (float, float) delays, FadeOverEventHandler callback = null)
+        public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, float targetOffset, float stepDur, float stepValue, (float, float) delays, FadeEventHandler callback = null)
         {
             Datas.RampFadeDatas fadeDatas = Datas.RampFadeDatas.CreateInstance(targetOffset, stepDur, stepValue);
             Fade(ramp, fadeDatas, delays, callback);
         }
 
-        public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, string fadeDatasId, (float, float) delays, FadeOverEventHandler callback = null)
+        public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, string fadeDatasId, (float, float) delays, FadeEventHandler callback = null)
         {
             Datas.RampFadeDatas fadeDatas = Instance._rampFadesDatabase.GetRampFade(fadeDatasId);
             Fade(ramp, fadeDatas, delays, callback);
@@ -61,6 +64,8 @@
         {
             if (delays.Item1 > 0f)
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(delays.Item1);
+
+            FadeBegan?.Invoke();
 
             _ramp.Offset = _fadeDatas.InitOffset;
             float sign = Mathf.Sign(_fadeDatas.TargetOffset - _ramp.Offset);
@@ -85,7 +90,9 @@
             if (delays.Item2 > 0f)
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(delays.Item2);
 
+            FadeOver?.Invoke();
             _callback?.Invoke();
+
             Instance._fadeCoroutine = null;
         }
     }

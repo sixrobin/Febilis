@@ -27,7 +27,8 @@
             _playerCtrl.StopCoroutine(_rollCoroutine);
             _rollCoroutine = null;
 
-            _playerCtrl.PlayerView.PlayIdleAnimation();
+            if (!_playerCtrl.IsDead)
+                _playerCtrl.PlayerView.PlayIdleAnimation();
         }
 
         public void Roll(float dir)
