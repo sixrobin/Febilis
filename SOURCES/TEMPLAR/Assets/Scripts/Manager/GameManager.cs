@@ -1,5 +1,7 @@
 ﻿namespace Templar.Manager
 {
+    using System;
+    using System.Linq;
     using UnityEngine;
 
     public class GameManager : RSLib.Framework.Singleton<GameManager>
@@ -10,7 +12,16 @@
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private bool _fadeOnRespawn = false;
 
+        private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
+
+        public static Unit.Player.PlayerController PlayerCtrl => Instance._playerCtrl;
         public static Interaction.CheckpointController OverrideCheckpoint => Instance._overrideCheckpoint;
+
+        public static void OnCheckpointInteracted(Interaction.CheckpointController checkpoint)
+        {
+            foreach (ICheckpointListener listener in Instance._checkpointListeners)
+                listener.OnCheckpointInteracted(checkpoint);
+        }
 
         protected override void Awake()
         {
@@ -21,6 +32,16 @@
         private void Start()
         {
             KillTrigger.ResetSharedTriggers();
+            _checkpointListeners = FindObjectsOfType<MonoBehaviour>().OfType<ICheckpointListener>();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                SaveManager.EraseSave();
+                Interaction.CheckpointController.ForceRemoveCurrentCheckpoint();
+            }
         }
 
         private void SpawnPlayer()

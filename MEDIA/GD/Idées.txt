@@ -76,6 +76,8 @@ Idées générales
 
 - Village qui se plaint d'être abandonné, alors qu'en réalité, ils ne le voient pas mais tout le royaume est déjà perdu.
 
+- La palette du jeu change quand le joueur meurt. En retrouvant son cadavre, façon souls, la palette revient à la normale. On peut imaginer que plus le joueur meurt sans récupérer ses souls, au plus la palette se "dégrade", jusqu'à une limite qui peut être influencée par des points, ou autre. Il faut juste un intérêt à plonger loin dans les palettes et à les débloquer.
+
 - Premier boss qui sort du haut de l'écran et va tuer le joueur, slow motion comme Celeste où on attend que le joueur fasse une roulade pour esquiver.
 
 - "Pour qu'un mensonge passe, il faut le mettre au milieu de 1000 vérités."

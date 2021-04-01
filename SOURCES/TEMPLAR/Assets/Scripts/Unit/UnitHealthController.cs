@@ -54,8 +54,7 @@
 
         public virtual void OnHit(Attack.HitInfos hitDatas)
         {
-            if (HealthSystem.IsDead)
-                return;
+            UnityEngine.Assertions.Assert.IsFalse(HealthSystem.IsDead, "Hitting an unit that is already dead.");
 
             _lastHitDatas = hitDatas;
             HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
@@ -63,11 +62,20 @@
 
         public virtual void Init(int health)
         {
+            if (_init)
+                return;
+
             HealthSystem = new RSLib.HealthSystem(health);
             HealthSystem.HealthChanged += OnHealthChanged;
             HealthSystem.Killed += OnKilled;
 
             _init = true;
+        }
+
+        public virtual void ResetController()
+        {
+            HealthSystem.HealFull(false);
+            _collider.enabled = true;
         }
 
         protected virtual void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
@@ -81,6 +89,11 @@
             UnitKilled?.Invoke(new UnitKilledEventArgs(_lastHitDatas));
             _lastHitDatas = null;
             _collider.enabled = false;
+        }
+
+        public void HealFull()
+        {
+            HealthSystem.HealFull();
         }
 
         protected virtual void OnDestroy()

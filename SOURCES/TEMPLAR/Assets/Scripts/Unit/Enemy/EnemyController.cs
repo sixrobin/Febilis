@@ -3,8 +3,11 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public class EnemyController : UnitController
+    public class EnemyController : UnitController, ICheckpointListener
     {
+        private const float SLEEP_DIST = 25f;
+        private const float SLEEP_UPDATE_RATE = 3f;
+
         [Header("REFERENCES")]
         [SerializeField] private Player.PlayerController _player = null;
         [SerializeField] private EnemyView _enemyView = null;
@@ -18,7 +21,10 @@
         [SerializeField] private string _currActionName = string.Empty;
         [SerializeField] public Datas.Attack.SkeletonAttackDatas _tmpAttackDatas = null;
 
+        private float _sleepUpdateTimer;
         private float _behaviourUpdateTimer;
+
+        private Vector3 _initPos;
 
         private System.Collections.IEnumerator _hurtCoroutine;
 
@@ -48,17 +54,29 @@
             }
         }
 
+        public bool IsSleeping { get; private set; }
+
         public Datas.Unit.Enemy.EnemyDatas EnemyDatas { get; private set; }
         public EnemyBehaviour[] Behaviours { get; private set; }
         public Attack.EnemyAttackController AttackCtrl { get; private set; }
 
         public bool IsPlayerAbove { get; private set; }
-        public bool IsPlayerDetected { get; set; }
 
         public Player.PlayerController Player => _player;
         public EnemyView EnemyView => _enemyView;
         
         public bool BeingHurt => _hurtCoroutine != null;
+
+        public void OnCheckpointInteracted(Interaction.CheckpointController checkpointCtrl)
+        {
+            EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
+            enemyHealthCtrl.ResetController();
+            AttackCtrl.CancelAttack();
+
+            EnemyView.PlayIdleAnimation();
+            transform.position = _initPos;
+            BoxCollider2D.enabled = true;
+        }
 
         public void SetDirection(float dir)
         {
@@ -98,6 +116,9 @@
 
         private void OnUnitHealthChanged(UnitHealthController.UnitHealthChangedEventArgs args)
         {
+            if (!args.IsLoss)
+                return;
+
             if (AttackCtrl.IsAttacking)
                 return;
 
@@ -146,6 +167,15 @@
             CProLogger.LogError(this, $"No action has validated its conditions for enemy {_id} (current behaviour: {CurrBehaviour.BehaviourDatas.Name}).", gameObject);
         }
 
+        private System.Collections.IEnumerator UpdateSleepCoroutine()
+        {
+            while (true)
+            {
+                yield return RSLib.Yield.SharedYields.WaitForSeconds(SLEEP_UPDATE_RATE);
+                IsSleeping = (transform.position - Player.transform.position).sqrMagnitude > SLEEP_DIST * SLEEP_DIST;
+            }
+        }
+
         private System.Collections.IEnumerator HurtCoroutine()
         {
             _enemyView.PlayHurtAnimation();
@@ -154,6 +184,11 @@
             _hurtCoroutine = null;
             if (!IsDead && !AttackCtrl.IsAttacking)
                 _enemyView.PlayIdleAnimation();
+        }
+
+        private void Awake()
+        {
+            StartCoroutine(UpdateSleepCoroutine());
         }
 
         private void Start()
@@ -166,13 +201,12 @@
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
             CollisionsCtrl.Ground(transform);
 
-            if (HealthCtrl is EnemyHealthController enemyHealthCtrl)
-            {
-                enemyHealthCtrl.Init(EnemyDatas.Health);
-                enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
-                enemyHealthCtrl.UnitKilled += OnUnitKilled;
-            }
+            EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
+            enemyHealthCtrl.Init(EnemyDatas.Health);
+            enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
+            enemyHealthCtrl.UnitKilled += OnUnitKilled;
 
+            _initPos = transform.position;
             CurrDir = _enemyView.GetSpriteRendererFlipX() ? -1f : 1f;
 
             Behaviours = new EnemyBehaviour[EnemyDatas.Behaviours.Count];
@@ -185,6 +219,9 @@
 
         protected override void Update()
         {
+            if (IsSleeping)
+                return;
+
             base.Update();
 
             if (IsDead)
@@ -204,7 +241,6 @@
             if (_behaviourUpdateTimer > _behaviourUpdateRate)
             {
                 _behaviourUpdateTimer = 0f;
-                //IsPlayerDetected = (Player.transform.position - transform.position).sqrMagnitude <= EnemyDatas.PlayerDetectionDistSqr;
 
                 if (CurrAction.CanExit())
                 {

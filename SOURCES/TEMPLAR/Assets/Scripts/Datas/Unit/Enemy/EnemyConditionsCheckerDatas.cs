@@ -37,6 +37,10 @@
                         Conditions.Add(new FullHealthEnemyConditionDatas(conditionElement));
                         break;
 
+                    case MaxHeightOffsetConditionDatas.ID:
+                        Conditions.Add(new MaxHeightOffsetConditionDatas(conditionElement));
+                        break;
+
                     case PlayerAboveEnemyConditionDatas.ID:
                         Conditions.Add(new PlayerAboveEnemyConditionDatas(conditionElement));
                         break;

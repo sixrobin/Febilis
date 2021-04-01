@@ -28,6 +28,13 @@
 
         public string Id => _id;
 
+        // [TMP] We might want to keep this for some uses, but for now it's only for debug.
+        public static void ForceRemoveCurrentCheckpoint()
+        {
+            CurrCheckpoint = null;
+            CurrCheckpointId = null;
+        }
+
         /// <summary>
         /// Used to set the current checkpoint Id from save file.
         /// Should only be called by a save manager of some sort.
@@ -61,6 +68,9 @@
             }
 
             Manager.SaveManager.Save();
+
+            Manager.GameManager.PlayerCtrl.HealthCtrl.HealFull();
+            Manager.GameManager.OnCheckpointInteracted(this);
 
             // [TODO] VFX to show something happened even if it is the current checkpoint.
             _checkpointView.sprite = _enabledSprite;

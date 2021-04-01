@@ -2,16 +2,17 @@
 <EnemiesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EnemiesDatas.xsd">
    
    <EnemyDatas Id="Skeleton">
-      <Health>200</Health>
+      <Health>150</Health>
       <WalkSpeed>1.3</WalkSpeed>
       <RunSpeed>3</RunSpeed>
       <HurtDur>0.25</HurtDur>
-      <PlayerDetectionDist>3</PlayerDetectionDist>
+      <PlayerDetectionDist>3.5</PlayerDetectionDist>
       <PlayerLoseDist>5</PlayerLoseDist>
       <Behaviours>
-         <!--<Behaviour Name="AboutToDie">
+         <!--<Behaviour Name="Flee">
             <Conditions>
-               <HealthMax Threshold="25"/>
+               <HealthMax Threshold="30"/>
+               <PlayerDetected/>
             </Conditions>
             <Actions>
                <Flee/>
@@ -29,7 +30,7 @@
                <Attack Id="skeleton_atk_base">
                   <Conditions>
                      <PlayerAlive/>
-                     <PlayerInRange Range="2"/>
+                     <PlayerInRange Range="2.5"/>
                   </Conditions>
                   <Delay Min="0.45" Max="0.55"/>
                </Attack>
@@ -57,7 +58,7 @@
 
    <EnemyDatas Id="Rat">
       <Health>60</Health>
-      <WalkSpeed>2.5</WalkSpeed>
+      <WalkSpeed>3.5</WalkSpeed>
       <RunSpeed>6</RunSpeed>
       <HurtDur>0.15</HurtDur>
       <PlayerDetectionDist>4</PlayerDetectionDist>

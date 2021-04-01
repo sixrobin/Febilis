@@ -77,6 +77,24 @@
             return true;
         }
 
+        public static bool EraseSave()
+        {
+            if (!System.IO.File.Exists(SavePath))
+                return false;
+
+            try
+            {
+                System.IO.File.Delete(SavePath);
+            }
+            catch (System.Exception e)
+            {
+                Instance.LogError($"Could not delete game save ! Exception message:\n{e.ToString()}");
+                return false;
+            }
+
+            return true;
+        }
+
         protected override void Awake()
         {
             base.Awake();

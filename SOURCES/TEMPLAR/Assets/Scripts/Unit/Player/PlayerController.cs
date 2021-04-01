@@ -123,6 +123,9 @@
 
         private void OnUnitHealthChanged(UnitHealthController.UnitHealthChangedEventArgs args)
         {
+            if (!args.IsLoss)
+                return;
+
             float hitDir = args.HitDatas.ComputeHitDir(transform);
 
             ResetVelocity();

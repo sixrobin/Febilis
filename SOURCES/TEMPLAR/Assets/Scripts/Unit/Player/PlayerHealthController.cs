@@ -52,9 +52,12 @@
             if (_healthBarUpdateCoroutine != null)
                 SkipHealthBarUpdateCoroutine();
 
-            _healthBar.fillAmount = HealthSystem.HealthPercentage;
+            if (args.IsLoss)
+                _healthBar.fillAmount = HealthSystem.HealthPercentage;
+            else
+                _healthBarBlink.fillAmount = HealthSystem.HealthPercentage;
 
-            _healthBarUpdateCoroutine = BlinkHealthBarCoroutine();
+            _healthBarUpdateCoroutine = BlinkHealthBarCoroutine(args.IsLoss);
             StartCoroutine(_healthBarUpdateCoroutine);
         }
 
@@ -64,7 +67,7 @@
 
             // [TMP] We may want to do something special on the HUD on death.
             _healthBar.fillAmount = 0;
-            StartCoroutine(BlinkHealthBarCoroutine());
+            StartCoroutine(BlinkHealthBarCoroutine(true));
             StopCoroutine(_shineCoroutine);
         }
 
@@ -87,20 +90,22 @@
             _healthBarBlink.fillAmount = _healthBar.fillAmount;
         }
 
-        private System.Collections.IEnumerator BlinkHealthBarCoroutine()
+        private System.Collections.IEnumerator BlinkHealthBarCoroutine(bool isLoss)
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_healthBarBlinkPauseDur);
 
-            float targetValue = HealthSystem.HealthPercentage;
-            float sign = Mathf.Sign(targetValue - _healthBarBlink.fillAmount);
+            UnityEngine.UI.Image barToFill = isLoss ? _healthBarBlink : _healthBar;
 
-            while (sign > 0f ? _healthBarBlink.fillAmount < targetValue : _healthBarBlink.fillAmount > targetValue)
+            float targetValue = HealthSystem.HealthPercentage;
+            float sign = Mathf.Sign(targetValue - (isLoss ? _healthBarBlink.fillAmount : _healthBar.fillAmount));
+
+            while (sign > 0f ? barToFill.fillAmount < targetValue : barToFill.fillAmount > targetValue)
             {
-                _healthBarBlink.fillAmount += _healthBarBlinkUpdateSpeed * Time.deltaTime * sign;
+                barToFill.fillAmount += _healthBarBlinkUpdateSpeed * Time.deltaTime * sign;
                 yield return null;
             }
 
-            _healthBarBlink.fillAmount = targetValue;
+            barToFill.fillAmount = targetValue;
             _healthBarUpdateCoroutine = null;
         }
 

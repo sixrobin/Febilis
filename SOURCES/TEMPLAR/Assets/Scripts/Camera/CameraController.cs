@@ -114,6 +114,13 @@
             transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
         }
 
+        private void Update()
+        {
+            // [TMP] Should be in an option panel.
+            if (Input.GetKeyDown(KeyCode.F3))
+                GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled = !GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled;
+        }
+
         private void LateUpdate()
         {
 #if UNITY_EDITOR

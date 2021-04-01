@@ -48,6 +48,7 @@
          <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="HealthMax" type="HealthMaxCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="HealthMin" type="HealthMinCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="MaxHeightOffset" type="MaxHeightOffsetCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="PlayerAbove" type="PlayerAboveCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="PlayerAlive" type="PlayerAliveCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="PlayerDetected" type="PlayerDetectedCondition" minOccurs="0" maxOccurs="1"/>
@@ -78,6 +79,14 @@
       <xs:complexContent>
          <xs:extension base="Condition">
             <xs:attribute name="Threshold" type="xs:positiveInteger" use="required"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="MaxHeightOffsetCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition">
+            <xs:attribute name="Offset" type="xs:float" use="required"/>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
