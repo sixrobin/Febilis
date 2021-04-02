@@ -41,7 +41,6 @@
         public virtual void PlayHurtAnimation()
         {
             _animator.SetTrigger(HURT);
-            BlinkSpriteColor();
         }
 
         public virtual void PlayDeathAnimation(float dir)

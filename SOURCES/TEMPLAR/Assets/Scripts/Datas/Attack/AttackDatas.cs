@@ -44,7 +44,7 @@
             {
                 AttackDatas defaultDatas = CreateInstance<AttackDatas>();
                 defaultDatas._id = "Default";
-                defaultDatas._dmg = 10;
+                defaultDatas._dmg = 25;
                 defaultDatas._dur = 0f;
                 defaultDatas._hitLayer = Templar.Attack.HitLayer.ALL;
                 defaultDatas._traumaOnHit = Vector2.zero;

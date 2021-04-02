@@ -5,8 +5,7 @@
     public class CheckpointController : Interactable
     {
         [Header("REFS")]
-        [SerializeField] private SpriteRenderer _checkpointView = null;
-        [SerializeField] private Sprite _enabledSprite = null;
+        [SerializeField] private CheckpointView _checkpointView = null;
         [SerializeField] private GameObject _highlight = null;
 
         [Header("CHECKPOINT DATAS")]
@@ -15,8 +14,6 @@
 
         [Header("DEBUG COLOR")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
-
-        private Sprite _baseSprite;
 
         private delegate void BeforeCheckpointChangeEventHandler(string currId, string nextId);
         private static BeforeCheckpointChangeEventHandler BeforeCheckpointChange;
@@ -60,20 +57,24 @@
         {
             base.Interact();
 
+            Manager.SaveManager.Save();
+
+            Manager.GameManager.OnCheckpointInteracted(this);
+
             if (CurrCheckpointId != Id)
             {
                 BeforeCheckpointChange(CurrCheckpointId, Id);
                 CurrCheckpointId = Id;
                 CurrCheckpoint = this;
+
+                Manager.GameManager.PlayerCtrl.AllowInputs(false);
+                _checkpointView.PlayInteractedAnimation(OnCheckpointViewEnabled);
             }
-
-            Manager.SaveManager.Save();
-
-            Manager.GameManager.PlayerCtrl.HealthCtrl.HealFull();
-            Manager.GameManager.OnCheckpointInteracted(this);
-
-            // [TODO] VFX to show something happened even if it is the current checkpoint.
-            _checkpointView.sprite = _enabledSprite;
+            else
+            {
+                // [TODO] VFX to show something happened even if it is the current checkpoint.
+                OnCheckpointViewEnabled();
+            }
         }
 
         private void OnBeforeCheckpointChange(string currId, string nextId)
@@ -83,18 +84,25 @@
 
             // Turn off last checkpoint if it's in the scene.
             if (currId == Id)
-                _checkpointView.sprite = _baseSprite;
+                _checkpointView.PlayOffAnimation();
+        }
+
+        private void OnCheckpointViewEnabled()
+        {
+            // Logic that should happen on interaction, but delayed to fit the game view.
+
+            Manager.GameManager.PlayerCtrl.HealthCtrl.HealFull();
+            Manager.GameManager.PlayerCtrl.AllowInputs(true);
         }
 
         private void Start()
         {
             BeforeCheckpointChange += OnBeforeCheckpointChange;
-            _baseSprite = _checkpointView.sprite;
 
             if (CurrCheckpointId == Id)
             {
                 CurrCheckpoint = this;
-                _checkpointView.sprite = _enabledSprite;
+                _checkpointView.PlayOnAnimation();
             }
         }
 

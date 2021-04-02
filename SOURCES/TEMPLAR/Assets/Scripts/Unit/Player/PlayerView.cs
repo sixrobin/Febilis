@@ -125,6 +125,7 @@
         public void PlayHurtAnimation(float dir)
         {
             PlayHurtAnimation();
+            BlinkSpriteColor();
 
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);

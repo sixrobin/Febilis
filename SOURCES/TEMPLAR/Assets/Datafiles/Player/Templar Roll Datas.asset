@@ -56,6 +56,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _cooldown: 0.2
+  _cooldown: 0.33
   _gravityMult: 0.7
   _animMult: 1.3

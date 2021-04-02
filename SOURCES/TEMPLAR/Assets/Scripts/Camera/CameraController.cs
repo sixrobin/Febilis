@@ -77,7 +77,7 @@
 
             _currLookVerticalDir = _playerCtrl.InputCtrl.Vertical;
 
-            if (_currLookVerticalDir != 0f)
+            if (_currLookVerticalDir != 0f && _playerCtrl.InputCtrl.Horizontal == 0f)
             {
                 _nonNullLookVerticalTimer += Time.deltaTime;
                 if (_nonNullLookVerticalTimer > _cameraDatas.VerticalLookAheadDelay)

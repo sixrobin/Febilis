@@ -119,6 +119,8 @@
             if (!args.IsLoss)
                 return;
 
+            EnemyView.BlinkSpriteColor();
+
             if (AttackCtrl.IsAttacking)
                 return;
 
@@ -135,7 +137,7 @@
             FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true);
 
-            _enemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
+            EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;
         }
 
@@ -178,12 +180,12 @@
 
         private System.Collections.IEnumerator HurtCoroutine()
         {
-            _enemyView.PlayHurtAnimation();
+            EnemyView.PlayHurtAnimation();
             yield return RSLib.Yield.SharedYields.WaitForSeconds(EnemyDatas.HurtDur);
 
             _hurtCoroutine = null;
             if (!IsDead && !AttackCtrl.IsAttacking)
-                _enemyView.PlayIdleAnimation();
+                EnemyView.PlayIdleAnimation();
         }
 
         private void Awake()
@@ -207,7 +209,7 @@
             enemyHealthCtrl.UnitKilled += OnUnitKilled;
 
             _initPos = transform.position;
-            CurrDir = _enemyView.GetSpriteRendererFlipX() ? -1f : 1f;
+            CurrDir = EnemyView.GetSpriteRendererFlipX() ? -1f : 1f;
 
             Behaviours = new EnemyBehaviour[EnemyDatas.Behaviours.Count];
             for (int i = 0; i < Behaviours.Length; ++i)

@@ -41,7 +41,7 @@
 
         public void Init(Interaction.CheckpointController checkpoint = null)
         {
-            InputCtrl = new PlayerInputController(_ctrlDatas.Input, this);
+            InputCtrl = new PlayerInputController(CtrlDatas.Input, this);
             JumpCtrl = new PlayerJumpController(this);
             RollCtrl = new PlayerRollController(this);
             AttackCtrl = new Attack.PlayerAttackController(this);
@@ -57,17 +57,17 @@
                 templarHealthCtrl.UnitKilled += OnUnitKilled;
             }
 
-            _playerView.TemplarController = this;
+            PlayerView.TemplarController = this;
 
             ComputeJumpPhysics();
 
             if (checkpoint != null)
                 transform.position = checkpoint.RespawnPos.AddY(Templar.Physics.RaycastsController.SKIN_WIDTH * 10f);
 
-            if (_ctrlDatas.GroundOnAwake)
+            if (CtrlDatas.GroundOnAwake)
                 CollisionsCtrl.Ground(transform);
 
-            CurrDir = _playerView.GetSpriteRendererFlipX() ? -1f : 1f;
+            CurrDir = PlayerView.GetSpriteRendererFlipX() ? -1f : 1f;
 
             Initialized = true;
         }
@@ -107,10 +107,10 @@
                         && !IsBeingHurt)
                     {
                         UnityEngine.Assertions.Assert.IsTrue(_currVel.y < 0f, $"Detected a landing with a positive y velocity ({_currVel.y})!");
-                        if (_ctrlDatas.Jump.MinVelForLandImpact > -1 && -_currVel.y > _ctrlDatas.Jump.MinVelForLandImpact)
+                        if (CtrlDatas.Jump.MinVelForLandImpact > -1 && -_currVel.y > CtrlDatas.Jump.MinVelForLandImpact)
                             JumpCtrl.TriggerLandImpact(-_currVel.y);
                         else
-                            _playerView.PlayIdleAnimation(); // Landing with no speed impact.
+                            PlayerView.PlayIdleAnimation(); // Landing with no speed impact.
                     }
 
                     break;
@@ -123,6 +123,8 @@
 
         private void OnUnitHealthChanged(UnitHealthController.UnitHealthChangedEventArgs args)
         {
+            // [TODO] Think of a better way to handle all possible damage sources (fall, debug, hits, poison, traps).
+
             if (!args.IsLoss)
                 return;
 
@@ -130,7 +132,7 @@
 
             ResetVelocity();
 
-            _playerView.PlayHurtAnimation(hitDir);
+            PlayerView.PlayHurtAnimation(hitDir);
             _hurtCoroutine = HurtCoroutine();
             StartCoroutine(_hurtCoroutine);
 
@@ -155,7 +157,7 @@
             RollCtrl.Interrupt();
 
             CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
-            _playerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
+            PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
             CameraCtrl.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
             Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
@@ -165,8 +167,8 @@
         [ContextMenu("Compute Jump Physics")]
         private void ComputeJumpPhysics()
         {
-            Gravity = -(2f * _ctrlDatas.Jump.JumpHeight) / _ctrlDatas.Jump.JumpApexDurSqr;
-            _jumpVel = Mathf.Abs(Gravity) * _ctrlDatas.Jump.JumpApexDur;
+            Gravity = -(2f * CtrlDatas.Jump.JumpHeight) / CtrlDatas.Jump.JumpApexDurSqr;
+            _jumpVel = Mathf.Abs(Gravity) * CtrlDatas.Jump.JumpApexDur;
         }
 
         private void ResetVelocity()
@@ -263,7 +265,7 @@
 
                 if (CollisionsCtrl.Below)
                 {
-                    if (_ctrlDatas.Jump.JumpAnticipationDur > 0)
+                    if (CtrlDatas.Jump.JumpAnticipationDur > 0)
                         JumpCtrl.JumpAfterAnticipation();
                     else
                         Jump();
@@ -274,24 +276,24 @@
                     JumpCtrl.JumpsLeft--;
 
                     // Airborne jump.
-                    if (_ctrlDatas.Jump.AirborneJumpAnticipationDur > 0)
+                    if (CtrlDatas.Jump.AirborneJumpAnticipationDur > 0)
                     {
                         JumpCtrl.JumpAfterAnticipation(true);
                     }
                     else
                     {
                         Jump();
-                        _playerView.PlayDoubleJumpAnimation();
+                        PlayerView.PlayDoubleJumpAnimation();
                     }
                 }
             }
 
-            float targetVelX = _ctrlDatas.RunSpeed;
+            float targetVelX = CtrlDatas.RunSpeed;
             if (!IsBeingHurt)
             {
                 targetVelX *= InputCtrl.Horizontal;
                 if (JumpCtrl.IsAnticipatingJump)
-                    targetVelX *= _ctrlDatas.Jump.JumpAnticipationSpeedMult;
+                    targetVelX *= CtrlDatas.Jump.JumpAnticipationSpeedMult;
                 if (JumpCtrl.IsInLandImpact)
                     targetVelX *= JumpCtrl.LandImpactSpeedMult;
             }
@@ -302,11 +304,11 @@
 
             float grav = Gravity * Time.deltaTime;
             if (_currVel.y < 0f)
-                grav *= _ctrlDatas.Jump.FallMultiplier;
+                grav *= CtrlDatas.Jump.FallMultiplier;
 
-            _currVel.x = Mathf.SmoothDamp(_currVel.x, targetVelX, ref _refVelX, CollisionsCtrl.Below ? _ctrlDatas.GroundedDamping : _ctrlDatas.Jump.AirborneDamping);
+            _currVel.x = Mathf.SmoothDamp(_currVel.x, targetVelX, ref _refVelX, CollisionsCtrl.Below ? CtrlDatas.GroundedDamping : CtrlDatas.Jump.AirborneDamping);
             _currVel.y += grav;
-            _currVel.y = Mathf.Max(_currVel.y, -_ctrlDatas.MaxFallVelocity);
+            _currVel.y = Mathf.Max(_currVel.y, -CtrlDatas.MaxFallVelocity);
 
             Translate(_currVel);
 
@@ -331,7 +333,7 @@
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.HurtDur);
             _hurtCoroutine = null;
-            _playerView.PlayIdleAnimation();
+            PlayerView.PlayIdleAnimation();
         }
 
         protected override void Update()
@@ -357,7 +359,7 @@
             ApplyCurrentRecoil();
 
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
-            _playerView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);
+            PlayerView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);
         }
 
         private void OnDestroy()
