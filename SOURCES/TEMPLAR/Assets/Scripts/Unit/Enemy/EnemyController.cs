@@ -9,7 +9,7 @@
         private const float SLEEP_UPDATE_RATE = 3f;
 
         [Header("REFERENCES")]
-        [SerializeField] private Player.PlayerController _player = null;
+        [SerializeField] private Player.PlayerController _playerCtrl = null;
         [SerializeField] private EnemyView _enemyView = null;
 
         [Header("BEHAVIOUR")]
@@ -62,7 +62,7 @@
 
         public bool IsPlayerAbove { get; private set; }
 
-        public Player.PlayerController Player => _player;
+        public Player.PlayerController PlayerCtrl => _playerCtrl;
         public EnemyView EnemyView => _enemyView;
         
         public bool BeingHurt => _hurtCoroutine != null;
@@ -174,7 +174,7 @@
             while (true)
             {
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(SLEEP_UPDATE_RATE);
-                IsSleeping = (transform.position - Player.transform.position).sqrMagnitude > SLEEP_DIST * SLEEP_DIST;
+                IsSleeping = (transform.position - PlayerCtrl.transform.position).sqrMagnitude > SLEEP_DIST * SLEEP_DIST;
             }
         }
 
@@ -190,6 +190,18 @@
 
         private void Awake()
         {
+            if (_playerCtrl == null)
+            {
+                CProLogger.LogWarning(this, "Reference to PlayerController is missing, trying to find it using FindObjectOfType.");
+                _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+
+                if (_playerCtrl == null)
+                {
+                    CProLogger.LogError(this, "No PlayerController seems to be in the scene.");
+                    return;
+                }
+            }
+
             StartCoroutine(UpdateSleepCoroutine());
         }
 

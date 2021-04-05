@@ -1,27 +1,21 @@
 - Attaque up du templier.
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
 - Code pour stopper les unités au bord d'une edge (pour les ennemis et pour le roll du perso, avec un seuil à partir duquel il ne peut plus tomber ?).
-- Animations des checkpoints quand on interagit avec le current, et éclairs sur le faisceau.
+- Animations des checkpoints quand on interagit avec le current.
 - Meilleur manager de sauvegarde.
-- Variable dans AttackDatas qui correspond au shake quand l'attaque est trigger, même si ne touche rien ?
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Implémentation attaque du rat.
 - Slopes avec roll à la fin ?
 - Setup un animator controller commun aux ennemis et voir pour les animations spécifiques à chacun.
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
-- Bug : le perso a une vitesse de chute de porc en tombant à la fin d'une roulade.
 - Bug : collisions avec les coins.
+- Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
 
-- Log à l'awake qui prévient si 2 checkpoints de la scène ont le même Id !
-
-- IA :
-	- Prefab base avec des variantes pour tous les ennemis de base.
 - Enviro :
-	- Retaper les ground, highlight plus clairement le sol.
-	- Tileset "ground darken" à appliquer sur une tilemap au dessus du ground, et virer les darken déjà présents sur le ground.
-	- Nuages.
 	- Background.
+	- Nuages.
+	- Petites variations par dessus la couche "darken".
 	- Branches/lianes à accrocher aux grounds up.
 - XML :
 	- Attack datas.
@@ -31,13 +25,13 @@
 
 
 Plus tard :
-	- Anim de health bar qui se remplit au reload.
+	- Anim de health bar qui se remplit au reload et anim de respawn du joueur.
 	- Effet de shine sur les spikes.
 	- Anim de mort pour les pics (où le perso n'est pas groundé).
 	- Créer une tileset template après avoir terminé la première.
+	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
 	
 Level Editor ?
-
 
 
 

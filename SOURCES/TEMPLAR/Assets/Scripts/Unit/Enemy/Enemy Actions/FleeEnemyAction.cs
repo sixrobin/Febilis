@@ -14,7 +14,7 @@
 
         public override void Execute()
         {
-            EnemyCtrl.SetDirection(UnityEngine.Mathf.Sign(EnemyCtrl.transform.position.x - EnemyCtrl.Player.transform.position.x));
+            EnemyCtrl.SetDirection(UnityEngine.Mathf.Sign(EnemyCtrl.transform.position.x - EnemyCtrl.PlayerCtrl.transform.position.x));
 
             EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f);
             EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);

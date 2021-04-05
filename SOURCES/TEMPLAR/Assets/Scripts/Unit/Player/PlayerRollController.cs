@@ -4,6 +4,16 @@
 
     public class PlayerRollController
     {
+        public class RollOverEventArgs : System.EventArgs
+        {
+            public RollOverEventArgs(Vector3 vel)
+            {
+                Vel = vel;
+            }
+
+            public Vector3 Vel { get; private set; }
+        }
+
         private Datas.Unit.UnitRollDatas _rollDatas;
         private PlayerController _playerCtrl;
 
@@ -16,6 +26,8 @@
             _rollDatas = _playerCtrl.CtrlDatas.Roll;
         }
 
+        public delegate void RollOverEventHandler(RollOverEventArgs args);
+        
         public bool IsRolling => _rollCoroutine != null;
         public bool IsRollingOrInCooldown => IsRolling || _rollCooldownCoroutine != null;
 
@@ -31,13 +43,13 @@
                 _playerCtrl.PlayerView.PlayIdleAnimation();
         }
 
-        public void Roll(float dir)
+        public void Roll(float dir, RollOverEventHandler rollOverCallback = null)
         {
-            _rollCoroutine = RollCoroutine(dir);
+            _rollCoroutine = RollCoroutine(dir, rollOverCallback);
             _playerCtrl.StartCoroutine(_rollCoroutine);
         }
 
-        private System.Collections.IEnumerator RollCoroutine(float dir)
+        private System.Collections.IEnumerator RollCoroutine(float dir, RollOverEventHandler rollOverCallback = null)
         {
             _playerCtrl.PlayerView.PlayRollAnimation(dir);
 
@@ -58,6 +70,8 @@
                 _rollCooldownCoroutine = RollCooldownCoroutine();
                 _playerCtrl.StartCoroutine(_rollCooldownCoroutine);
             }
+
+            rollOverCallback?.Invoke(new RollOverEventArgs(rollVel));
 
             _rollCoroutine = null;
             _playerCtrl.PlayerView.PlayIdleAnimation();

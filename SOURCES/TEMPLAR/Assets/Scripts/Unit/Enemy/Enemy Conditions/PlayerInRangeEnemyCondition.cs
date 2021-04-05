@@ -9,7 +9,7 @@
 
         public override bool Check()
         {
-            return ApplyNegation((EnemyCtrl.Player.transform.position - EnemyCtrl.transform.position).sqrMagnitude
+            return ApplyNegation((EnemyCtrl.PlayerCtrl.transform.position - EnemyCtrl.transform.position).sqrMagnitude
                 <= ConditionsDatas.RangeSqr);
         }
     }

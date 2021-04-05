@@ -18,8 +18,6 @@
         private AttackHitboxesContainer _hitboxesContainer;
         private System.Collections.Generic.Dictionary<string, AttackHitbox> _hitboxesById;
 
-        public delegate void AttackOverEventHandler(AttackOverEventArgs args);
-
         public AttackController(UnityEngine.MonoBehaviour attackCoroutineRunner, AttackHitboxesContainer hitboxesContainer, UnityEngine.Transform attacksSource)
         {
             _attackCoroutineRunner = attackCoroutineRunner;
@@ -37,6 +35,8 @@
                 _hitboxesContainer.AttackHitboxes[i].SetAttackSource(attacksSource);
             }
         }
+
+        public delegate void AttackOverEventHandler(AttackOverEventArgs args);
 
         public float AttackDir { get; protected set; }
 
@@ -58,6 +58,8 @@
 
             _hitboxesContainer.SetDirection(AttackDir);
             _hitboxesById[id].Trigger(AttackDir, attackDatas);
+
+            UnityEngine.Object.FindObjectOfType<Camera.CameraController>().Shake.AddTrauma(attackDatas.TraumaOnAttackFrame); // [TMP] Find.
         }
 
         protected abstract void ComputeAttackDirection();

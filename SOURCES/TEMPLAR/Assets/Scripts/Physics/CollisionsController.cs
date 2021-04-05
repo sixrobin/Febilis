@@ -132,20 +132,6 @@
             return _collisionMask;
         }
 
-        public Vector3 ComputeCollisions(Vector3 vel)
-        {
-            ComputeRaycastOrigins();
-            CurrentStates.Reset();
-
-            if (vel.x != 0f)
-                ComputeHorizontalCollisions(ref vel);
-
-            if (vel.y != 0f)
-                ComputeVerticalCollisions(ref vel);
-
-            return vel;
-        }
-
         public void TriggerDetectedCollisionsEvents()
         {
             while (_detectedCollisionsForEvent.Count > 0)
@@ -183,15 +169,29 @@
             vel = ComputeCollisions(vel);
         }
 
+        public Vector3 ComputeCollisions(Vector3 vel)
+        {
+            ComputeRaycastOrigins();
+            CurrentStates.Reset();
+
+            if (vel.x != 0f)
+                ComputeHorizontalCollisions(ref vel);
+
+            if (vel.y != 0f)
+                ComputeVerticalCollisions(ref vel);
+
+            return vel;
+        }
+
         public void ComputeHorizontalCollisions(ref Vector3 vel)
         {
             float sign = Mathf.Sign(vel.x);
-            float rayLength = vel.x * sign + SKIN_WIDTH;
+            float length = vel.x * sign + SKIN_WIDTH;
 
             for (int i = 0; i < HorizontalRaycastsCount; ++i)
             {
                 Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.BottomRight : RaycastsOrigins.BottomLeft) + Vector2.up * i * HorizontalRaycastsSpacing;
-                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * sign, rayLength, ComputeCollisionMask());
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * sign, length, ComputeCollisionMask());
 
                 if (hit)
                 {
@@ -203,11 +203,8 @@
                     if (hit.distance <= Mathf.Epsilon)
                         continue;
 
-                    if (hit.collider.isTrigger)
-                        continue;
-
-                    rayLength = hit.distance;
-                    vel.x = (rayLength - SKIN_WIDTH) * sign;
+                    length = hit.distance;
+                    vel.x = (length - SKIN_WIDTH) * sign;
 
                     CurrentStates.SetCollision(CollisionOrigin.LEFT, sign == -1f);
                     CurrentStates.SetCollision(CollisionOrigin.RIGHT, sign == 1f);
@@ -240,9 +237,6 @@
                     Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);
 
                     if (hit.distance <= Mathf.Epsilon)
-                        continue;
-
-                    if (hit.collider.isTrigger)
                         continue;
 
                     length = hit.distance;

@@ -38,6 +38,7 @@
         /// </summary>
         public static void LoadCurrentCheckpointId(string id)
         {
+            // [TODO] Check if id is found in the scene to log a warning if not.
             CurrCheckpointId = id;
         }
 
@@ -57,10 +58,6 @@
         {
             base.Interact();
 
-            Manager.SaveManager.Save();
-
-            Manager.GameManager.OnCheckpointInteracted(this);
-
             if (CurrCheckpointId != Id)
             {
                 BeforeCheckpointChange(CurrCheckpointId, Id);
@@ -75,6 +72,9 @@
                 // [TODO] VFX to show something happened even if it is the current checkpoint.
                 OnCheckpointViewEnabled();
             }
+
+            Manager.SaveManager.Save();
+            Manager.GameManager.OnCheckpointInteracted(this);
         }
 
         private void OnBeforeCheckpointChange(string currId, string nextId)

@@ -19,6 +19,7 @@ MonoBehaviour:
   _hitLayer: 2
   _hitDirComputationType: 1
   _animMult: 1
+  _traumaOnAttackFrame: {x: 0, y: 0}
   _traumaOnHit: {x: 0, y: 0}
   _freezeFrameDurOnHit: 0.1
   _chainAllowedTime: 0.48

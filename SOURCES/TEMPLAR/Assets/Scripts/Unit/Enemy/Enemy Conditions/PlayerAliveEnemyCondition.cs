@@ -9,7 +9,7 @@
 
         public override bool Check()
         {
-            return ApplyNegation(!EnemyCtrl.Player.IsDead);
+            return ApplyNegation(!EnemyCtrl.PlayerCtrl.IsDead);
         }
     }
 }

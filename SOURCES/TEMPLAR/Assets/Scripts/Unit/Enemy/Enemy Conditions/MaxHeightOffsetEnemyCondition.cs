@@ -9,7 +9,7 @@
 
         public override bool Check()
         {
-            return ApplyNegation(UnityEngine.Mathf.Abs(EnemyCtrl.transform.position.y - EnemyCtrl.Player.transform.position.y) < ConditionsDatas.Offset);
+            return ApplyNegation(UnityEngine.Mathf.Abs(EnemyCtrl.transform.position.y - EnemyCtrl.PlayerCtrl.transform.position.y) < ConditionsDatas.Offset);
         }
     }
 }

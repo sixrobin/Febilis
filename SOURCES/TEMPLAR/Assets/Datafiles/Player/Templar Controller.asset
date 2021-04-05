@@ -24,7 +24,7 @@ MonoBehaviour:
   _groundedDamping: 0
   _groundOnAwake: 1
   _hurtDur: 0.33
-  _maxFallVelocity: 25
+  _maxFallVelocity: 20
   _hurtRecoilSettings:
     _force: 8.2
     _dur: 0.15

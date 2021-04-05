@@ -188,7 +188,10 @@
 
             _currVel = Vector3.zero;
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.ROLL);
-            RollCtrl.Roll(InputCtrl.Horizontal != 0f ? Mathf.Sign(InputCtrl.Horizontal) : CurrDir);
+
+            RollCtrl.Roll(
+                InputCtrl.Horizontal != 0f ? Mathf.Sign(InputCtrl.Horizontal) : CurrDir,
+                (args) => _currVel = args.Vel);
         }
 
         private void TryAttack()

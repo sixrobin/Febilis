@@ -21,7 +21,7 @@
             if (EnemyCtrl.AttackCtrl.IsAttacking)
                 return;
 
-            EnemyCtrl.EnemyView.FlipX(EnemyCtrl.Player.transform.position.x - EnemyCtrl.transform.position.x < 0f);
+            EnemyCtrl.EnemyView.FlipX(EnemyCtrl.PlayerCtrl.transform.position.x - EnemyCtrl.transform.position.x < 0f);
 
             _delayTimer += UnityEngine.Time.deltaTime;
             if (_delayTimer < _nextDelay || EnemyCtrl.BeingHurt)
@@ -29,7 +29,7 @@
 
             _delayTimer = 0f;
 
-            EnemyCtrl.SetDirection(UnityEngine.Mathf.Sign(EnemyCtrl.Player.transform.position.x - EnemyCtrl.transform.position.x));
+            EnemyCtrl.SetDirection(UnityEngine.Mathf.Sign(EnemyCtrl.PlayerCtrl.transform.position.x - EnemyCtrl.transform.position.x));
             EnemyCtrl.AttackCtrl.Attack(this, (dir) => EnemyCtrl.ForceUpdateCurrentAction());
         }
 

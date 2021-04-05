@@ -26,6 +26,9 @@
         [Tooltip("Multiplier applied to attack animation speed.")]
         [SerializeField] private float _animMult = 1f;
 
+        [Tooltip("Shake trauma applied on the attack frame, no matter the attack hits or not.")]
+        [SerializeField] private Vector2 _traumaOnAttackFrame = Vector2.zero;
+
         [Tooltip("Shake trauma applied if the attack hits at least one target.")]
         [SerializeField] private Vector2 _traumaOnHit = Vector2.zero;
 
@@ -61,9 +64,10 @@
         public Templar.Attack.HitLayer HitLayer => _hitLayer;
         public Templar.Attack.HitDirComputationType HitDirComputationType => _hitDirComputationType;
         public float AnimMult => _animMult;
+        public Vector2 TraumaOnAttackFrame => _traumaOnAttackFrame;
         public Vector2 TraumaOnHit => _traumaOnHit;
         public float FreezeFrameDurOnHit => _freezeFrameDurOnHit;
-
+        
         protected virtual void OnValidate()
         {
             _traumaOnHit = _traumaOnHit.ClampAll01();

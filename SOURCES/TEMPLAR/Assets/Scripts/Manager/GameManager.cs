@@ -23,26 +23,25 @@
                 listener.OnCheckpointInteracted(checkpoint);
         }
 
-        protected override void Awake()
+        private void CheckDuplicateCheckpointIds()
         {
-            base.Awake();
-            StartCoroutine(SpawnPlayerCoroutine());
-        }
+            Interaction.CheckpointController[] checkpoints = FindObjectsOfType<Interaction.CheckpointController>();
+            if (checkpoints.Length == 0)
+                return;
 
-        private void Start()
-        {
-            KillTrigger.ResetSharedTriggers();
-            _checkpointListeners = FindObjectsOfType<MonoBehaviour>().OfType<ICheckpointListener>();
-        }
+            System.Collections.Generic.Dictionary<string, int> idCounters = new System.Collections.Generic.Dictionary<string, int>();
 
-        private void Update()
-        {
-            // [TMP]
-            if (Input.GetKeyDown(KeyCode.F2))
+            for (int i = checkpoints.Length - 1; i >= 0; --i)
             {
-                SaveManager.EraseSave();
-                Interaction.CheckpointController.ForceRemoveCurrentCheckpoint();
+                if (!idCounters.ContainsKey(checkpoints[i].Id))
+                    idCounters.Add(checkpoints[i].Id, 0);
+
+                idCounters[checkpoints[i].Id]++;
             }
+
+            foreach (System.Collections.Generic.KeyValuePair<string, int> idCounter in idCounters)
+                if (idCounter.Value > 1)
+                    LogError($"There are {idCounter.Value} checkpoints with the same Id \"{idCounter.Key}\" in the scene.");
         }
 
         private void SpawnPlayer()
@@ -81,6 +80,33 @@
                 RampFadeManager.Fade(_playerCtrl.CameraCtrl.GrayscaleRamp, "InBase", (0.1f, 0f), () => _playerCtrl.AllowInputs(true));
             else
                 _playerCtrl.AllowInputs(true);
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+#if UNITY_EDITOR
+            CheckDuplicateCheckpointIds();
+#endif
+
+            StartCoroutine(SpawnPlayerCoroutine());
+        }
+
+        private void Start()
+        {
+            KillTrigger.ResetSharedTriggers();
+            _checkpointListeners = FindObjectsOfType<MonoBehaviour>().OfType<ICheckpointListener>();
+        }
+
+        private void Update()
+        {
+            // [TMP]
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                SaveManager.EraseSave();
+                Interaction.CheckpointController.ForceRemoveCurrentCheckpoint();
+            }
         }
     }
 }
