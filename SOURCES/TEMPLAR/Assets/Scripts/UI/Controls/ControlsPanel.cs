@@ -31,13 +31,6 @@
             InputManager.AssignKey(_currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
 
-        [ContextMenu("Locate binding panels")]
-        private void LocateBindingPanels()
-        {
-            _bindingPanels = FindObjectsOfType<KeyBindingPanel>();
-            System.Array.Reverse(_bindingPanels);
-        }
-
         private void Start()
         {
             int i = 0;
@@ -56,6 +49,13 @@
 
             for (; i < _bindingPanels.Length; ++i)
                 _bindingPanels[i].Hide();
+        }
+
+        [ContextMenu("Locate binding panels")]
+        private void LocateBindingPanels()
+        {
+            _bindingPanels = FindObjectsOfType<KeyBindingPanel>();
+            System.Array.Reverse(_bindingPanels);
         }
     }
 }

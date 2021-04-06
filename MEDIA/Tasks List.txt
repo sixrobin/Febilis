@@ -6,17 +6,23 @@
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Implémentation attaque du rat.
+	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 - Slopes avec roll à la fin ?
 - Setup un animator controller commun aux ennemis et voir pour les animations spécifiques à chacun.
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
+- Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
 - Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
 
+- Première passe de sound design.
+
 - Enviro :
+	- Parallax.
 	- Background.
-	- Nuages.
 	- Petites variations par dessus la couche "darken".
+	- Variantes des spikes.
 	- Branches/lianes à accrocher aux grounds up.
+	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
 - XML :
 	- Attack datas.
 	- Player datas.
@@ -28,7 +34,7 @@ Plus tard :
 	- Anim de health bar qui se remplit au reload et anim de respawn du joueur.
 	- Effet de shine sur les spikes.
 	- Anim de mort pour les pics (où le perso n'est pas groundé).
-	- Créer une tileset template après avoir terminé la première.
+	- Créer une tileset template après avoir terminé la première pour setup le workflow des suivantes.
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
 	
 Level Editor ?

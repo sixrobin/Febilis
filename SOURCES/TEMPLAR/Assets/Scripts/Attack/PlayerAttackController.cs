@@ -119,8 +119,10 @@
 
             CProLogger.Log(this, $"Combo end with a direction of {AttackDir}.", _playerController.gameObject);
 
+            comboOverCallback?.Invoke(new AttackOverEventArgs(CurrentAttackDatas, AttackDir));
             _attackCoroutine = null;
-            comboOverCallback?.Invoke(new AttackOverEventArgs(AttackDir));
+            CurrentAttackDatas = null;
+
             _playerController.PlayerView.PlayIdleAnimation();
         }
 
@@ -144,11 +146,15 @@
                     _playerController.Translate(attackVel);
                 }
 
+                if (_playerController.CollisionsCtrl.CurrentStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW))
+                    break;
+
                 yield return null;
             }
 
+            attackOverCallback?.Invoke(new AttackOverEventArgs(CurrentAttackDatas, AttackDir));
             _attackCoroutine = null;
-            attackOverCallback?.Invoke(new AttackOverEventArgs(AttackDir));
+            CurrentAttackDatas = null;
 
             // This will lead to fall animation instantly, but this is done to exit the attack animation.
             _playerController.PlayerView.PlayIdleAnimation();

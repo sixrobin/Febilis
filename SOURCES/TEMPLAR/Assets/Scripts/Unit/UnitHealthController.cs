@@ -96,16 +96,16 @@
             HealthSystem.HealFull();
         }
 
-        [ContextMenu("Damage with default AttackDatas")]
-        private void DamageHalfLife()
-        {
-            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform));
-        }
-
         protected virtual void OnDestroy()
         {
             HealthSystem.HealthChanged -= OnHealthChanged;
             HealthSystem.Killed -= OnKilled;
+        }
+
+        [ContextMenu("Damage with default AttackDatas")]
+        private void DamageHalfLife()
+        {
+            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform));
         }
     }
 }

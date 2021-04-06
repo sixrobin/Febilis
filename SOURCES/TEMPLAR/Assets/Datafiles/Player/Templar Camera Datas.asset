@@ -15,8 +15,8 @@ MonoBehaviour:
   _focusAreaSize: {x: 1.6, y: 1.5}
   _horizontalLookAheadDamping: 0.2
   _horizontalLookAheadDist: 0.5
-  _verticalLookAheadDamping: 0.2
+  _verticalLookAheadDamping: 0.1
   _verticalLookAheadDist: 2
-  _verticalLookAheadDelay: 0.25
+  _verticalLookAheadDelay: 0.2
   _verticalDamping: 0.08
   _heightOffset: 1

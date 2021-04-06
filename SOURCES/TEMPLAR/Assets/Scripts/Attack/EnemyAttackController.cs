@@ -39,8 +39,8 @@
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AttackDur);
 
+            attackOverCallback?.Invoke(new AttackOverEventArgs(_currAttackDatas, AttackDir));
             _attackCoroutine = null;
-            attackOverCallback?.Invoke(new AttackOverEventArgs(AttackDir));
 
             _enemyCtrl.EnemyView.PlayIdleAnimation();
         }

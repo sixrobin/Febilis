@@ -13,7 +13,6 @@
 
         [Header("HEALTH BAR SHINE")]
         [SerializeField] private RectTransform _shineRectTransform = null;
-        [SerializeField] private float _shineDelay = 3f;
         [SerializeField] private float _shineDist = 250f;
         [SerializeField] private float _shineDur = 0.2f;
         [SerializeField] private RSLib.Maths.Curve _shineCurve = RSLib.Maths.Curve.Linear;
@@ -31,9 +30,6 @@
 
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
             Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
-
-            _shineCoroutine = ShineCoroutine();
-            StartCoroutine(_shineCoroutine);
         }
 
         public override void OnHit(Attack.HitInfos hitDatas)
@@ -53,9 +49,16 @@
                 SkipHealthBarUpdateCoroutine();
 
             if (args.IsLoss)
+            {
                 _healthBar.fillAmount = HealthSystem.HealthPercentage;
+            }
             else
+            {
                 _healthBarBlink.fillAmount = HealthSystem.HealthPercentage;
+
+                //_shineCoroutine = ShineCoroutine();
+                //StartCoroutine(_shineCoroutine);
+            }
 
             _healthBarUpdateCoroutine = BlinkHealthBarCoroutine(args.IsLoss);
             StartCoroutine(_healthBarUpdateCoroutine);
@@ -68,7 +71,7 @@
             // [TMP] We may want to do something special on the HUD on death.
             _healthBar.fillAmount = 0;
             StartCoroutine(BlinkHealthBarCoroutine(true));
-            StopCoroutine(_shineCoroutine);
+            //StopCoroutine(_shineCoroutine);
         }
 
         private void OnFadeBegan()
@@ -111,20 +114,15 @@
 
         private System.Collections.IEnumerator ShineCoroutine()
         {
-            while (HealthSystem.HealthPercentage > 0f)
+            _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(0f);
+
+            for (float t = 0f; t < 1f; t += Time.deltaTime / _shineDur)
             {
-                yield return RSLib.Yield.SharedYields.WaitForSeconds(_shineDelay);
-
-                _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(0f);
-
-                for (float t = 0f; t < 1f; t += Time.deltaTime / _shineDur)
-                {
-                    _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(_shineDist * RSLib.Maths.Easing.Ease(t, _shineCurve));
-                    yield return null;
-                }
-
-                _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(_shineDist);
+                _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(_shineDist * RSLib.Maths.Easing.Ease(t, _shineCurve));
+                yield return null;
             }
+
+            _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(_shineDist);
         }
 
         protected override void OnDestroy()

@@ -218,7 +218,7 @@
             {
                 AttackCtrl.AttackAirborne((attackOverArgs) =>
                 {
-                    if (AttackCtrl.CurrentAttackDatas.ControlVelocity)
+                    if (((Datas.Attack.PlayerAttackDatas)attackOverArgs.AttackDatas).ControlVelocity)
                         ResetVelocity();
                 });
             }

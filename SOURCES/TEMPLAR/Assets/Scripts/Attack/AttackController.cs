@@ -4,11 +4,13 @@
     {
         public class AttackOverEventArgs : System.EventArgs
         {
-            public AttackOverEventArgs(float dir)
+            public AttackOverEventArgs(Datas.Attack.AttackDatas attackDatas, float dir)
             {
+                AttackDatas = attackDatas;
                 Dir = dir;
             }
 
+            public Datas.Attack.AttackDatas AttackDatas { get; private set; }
             public float Dir { get; private set; }
         }
 
