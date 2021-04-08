@@ -27,6 +27,7 @@
         private Vector3 _initPos;
 
         private System.Collections.IEnumerator _hurtCoroutine;
+        private System.Collections.IEnumerator _deadFadeCoroutine;
 
         private EnemyBehaviour _currBehaviour;
         public EnemyBehaviour CurrBehaviour
@@ -139,6 +140,9 @@
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;
+
+            _deadFadeCoroutine = DeadFadeCoroutine();
+            StartCoroutine(_deadFadeCoroutine);
         }
 
         private void UpdateCurrentBehaviour()
@@ -186,6 +190,15 @@
             _hurtCoroutine = null;
             if (!IsDead && !AttackCtrl.IsAttacking)
                 EnemyView.PlayIdleAnimation();
+        }
+
+        private System.Collections.IEnumerator DeadFadeCoroutine()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(EnemyView.DEAD_FADE_DELAY);
+
+            _deadFadeCoroutine = null;
+            if (IsDead)
+                EnemyView.PlayDeadFadeAnimation();
         }
 
         private void Awake()

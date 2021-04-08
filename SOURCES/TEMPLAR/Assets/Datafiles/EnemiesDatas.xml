@@ -36,6 +36,7 @@
                </Attack>
                <Chase>
                   <Conditions>
+                     <PlayerAlive/>
                      <PlayerDetected/>
                   </Conditions>
                </Chase>

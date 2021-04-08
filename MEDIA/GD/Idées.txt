@@ -78,17 +78,14 @@ Idées générales
 
 - La palette du jeu change quand le joueur meurt. En retrouvant son cadavre, façon souls, la palette revient à la normale. On peut imaginer que plus le joueur meurt sans récupérer ses souls, au plus la palette se "dégrade", jusqu'à une limite qui peut être influencée par des points, ou autre. Il faut juste un intérêt à plonger loin dans les palettes et à les débloquer.
 
-- "Pour qu'un mensonge passe, il faut le mettre au milieu de 1000 vérités."
-
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?
 - Mimic ?
 
 - Quand on attaque un rat, tous les autres aux alentours attaquent.
 
-- Boss troll qui a un dialogue du style "ah bah le setup est pas mal pour un combat, ah, les barrières viennent de se fermer. Bon, allons-y".
+- Boss au caractère un peu troll qui a un dialogue du style "ah bah le setup est pas mal pour un combat, ah, les barrières viennent de se fermer. Bon, allons-y".
 
-- Salle dans une église/cathédrale dans laquelle le templier peut jouer de l'orgue. Avec, dans l'idéal, un truc spécial si le joueur joue une certaine mélodie, comme dans Undertale.
-	- De quoi exporter le son ?
+- Salle dans une église/cathédrale dans laquelle le templier peut jouer de l'orgue. Osef mais marrant.
 
 - Feinte au début du jeu, musique épique pour un mob de merde, puis ensuite un vrai boss sorti de nulle part.
 	- Mob au début qui fait office de tuto pour l'attaque, mais qui est inoffensif. En l'ignorant, le joueur peut peut-être secrètement se rendre service, comme Muffet dans Undertale qui est plus simple si on a acheté des trucs aux araignées.

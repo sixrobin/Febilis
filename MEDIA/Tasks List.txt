@@ -21,8 +21,10 @@
 	- Background.
 	- Petites variations par dessus la couche "darken".
 	- Variantes des spikes.
+	- Variantes des tiles de l'enviro qui n'en ont pas encore.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
+		- Clouds : bouton pour automatiquement détecter le min et le max en tailles.
 - XML :
 	- Attack datas.
 	- Player datas.

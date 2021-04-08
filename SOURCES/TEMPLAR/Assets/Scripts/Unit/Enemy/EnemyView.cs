@@ -2,6 +2,8 @@
 {
     public class EnemyView : UnitView
     {
+        public const float DEAD_FADE_DELAY = 1.5f;
+
         private const string HURT = "Hurt";
         private const string ATTACK = "Attack";
         private const string ATTACK_ANTICIPATION = "Attack_Anticipation";

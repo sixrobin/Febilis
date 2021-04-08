@@ -6,6 +6,7 @@
     {
         private const string IDLE = "Idle";
         private const string DEATH = "Death";
+        private const string DEAD_FADE = "Dead_Fade";
         private const string HURT = "Hurt";
 
         [Header("REFS")]
@@ -47,6 +48,11 @@
         {
             FlipX(dir > 0f);
             _animator.SetTrigger(DEATH);
+        }
+
+        public virtual void PlayDeadFadeAnimation()
+        {
+            _animator.SetTrigger(DEAD_FADE);
         }
     }
 }
