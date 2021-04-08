@@ -6,9 +6,15 @@
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private Datas.CameraDatas _cameraDatas = null;
+        [SerializeField] private Camera _camera = null;
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private CameraShake.Settings _shakeSettings = CameraShake.Settings.Default;
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
+
+        [Header("PIXEL PERFECT FIX")]
+        [SerializeField] private bool _toggleManualFix = true;
+        [SerializeField] private Vector2Int _referenceResolution = new Vector2Int(160, 144);
+        [SerializeField, Min(1)] private int _assetsPixelsPerUnit = 100;
 
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
@@ -105,6 +111,23 @@
             pos += Shake.GetShake();
         }
 
+        private void UpdatePixelPerfectCameraSize()
+        {
+            // Test method to fix pixel perfect jitter.
+
+            if (!_toggleManualFix)
+                return;
+
+            int w = _camera.targetTexture?.width ?? Screen.width;
+            int h = _camera.targetTexture?.height ?? Screen.height;
+
+            int verticalZoom = h / _referenceResolution.y;
+            int horizontalZoom = w / _referenceResolution.x;
+            int zoom = Mathf.Max(1, Mathf.Min(verticalZoom, horizontalZoom));
+
+            _camera.orthographicSize = h * 0.5f / (zoom * _assetsPixelsPerUnit);
+        }
+
         private void Awake()
         {
             _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
@@ -127,7 +150,6 @@
             if (_focusArea.Size != _cameraDatas.FocusAreaSize)
                 _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
 #endif
-
             _focusArea.Update();
 
             Vector3 targetPosition = ComputeBaseTargetPosition();
@@ -138,6 +160,8 @@
             ComputeDampedPosition(ref targetPosition);
 
             transform.position = targetPosition.WithZ(transform.position.z);
+
+            //UpdatePixelPerfectCameraSize();
         }
 
         private void OnDrawGizmos()

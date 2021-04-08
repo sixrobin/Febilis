@@ -1,7 +1,6 @@
 - Attaque up du templier.
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
 - Code pour stopper les unités au bord d'une edge (pour les ennemis et pour le roll du perso, avec un seuil à partir duquel il ne peut plus tomber ?).
-- Animations des checkpoints quand on interagit avec le current.
 - Meilleur manager de sauvegarde.
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
@@ -13,6 +12,8 @@
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
 - Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
+- Monter sur le rat on se déplace avec et il courre.
+- Clamper la caméra sur les bords.
 
 - Première passe de sound design.
 
@@ -24,7 +25,7 @@
 	- Variantes des tiles de l'enviro qui n'en ont pas encore.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
-		- Clouds : bouton pour automatiquement détecter le min et le max en tailles.
+	- Clouds : outil pour modifier la vitesse du vent.
 - XML :
 	- Attack datas.
 	- Player datas.
@@ -40,10 +41,3 @@ Plus tard :
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
 	
 Level Editor ?
-
-
-
-RSLib
-- AutoDestroy, avec delay, pour anim event.
-- Encryption tool.
-- Textures de gradients linéaires/radiaux déjà utilisables, BW et WB.

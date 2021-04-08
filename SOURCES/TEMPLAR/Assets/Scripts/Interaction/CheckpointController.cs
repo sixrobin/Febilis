@@ -63,15 +63,10 @@
                 BeforeCheckpointChange(CurrCheckpointId, Id);
                 CurrCheckpointId = Id;
                 CurrCheckpoint = this;
+            }
 
-                Manager.GameManager.PlayerCtrl.AllowInputs(false);
-                _checkpointView.PlayInteractedAnimation(OnCheckpointViewEnabled);
-            }
-            else
-            {
-                // [TODO] VFX to show something happened even if it is the current checkpoint.
-                OnCheckpointViewEnabled();
-            }
+            Manager.GameManager.PlayerCtrl.AllowInputs(false);
+            _checkpointView.PlayInteractedAnimation(OnCheckpointViewEnabled);
 
             Manager.SaveManager.Save();
             Manager.GameManager.OnCheckpointInteracted(this);

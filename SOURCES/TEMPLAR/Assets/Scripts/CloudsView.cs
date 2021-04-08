@@ -46,5 +46,20 @@
         {
             _clouds = GetComponentsInChildren<SpriteRenderer>();
         }
+
+        [ContextMenu("Compute size range")]
+        private void ComputeSizeRange()
+        {
+            float min = float.MaxValue;
+            float max = float.MinValue;
+
+            for (int i = _clouds.Length - 1; i >= 0; --i)
+            {
+                min = Mathf.Min(min, _clouds[i].size.x);
+                max = Mathf.Max(min, _clouds[i].size.x);
+            }
+
+            _cloudLengthMinMax = new Vector2(min, max);
+        }
     }
 }
