@@ -6,16 +6,18 @@
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Implémentation attaque du rat.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
+	- Le rat doit ouvrir sa gueule sur la frame avant le hit.
 - Slopes avec roll à la fin ?
-- Setup un animator controller commun aux ennemis et voir pour les animations spécifiques à chacun.
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
 - Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
-- Monter sur le rat on se déplace avec et il courre.
 - Clamper la caméra sur les bords.
 
 - Première passe de sound design.
+- Système de potions.
+- Mockup/concept pour l'inventaire.
+- Variante du concept du boss avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc..
 
 - Enviro :
 	- Parallax.

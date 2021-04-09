@@ -22,6 +22,7 @@
                 return;
 
             EnemyCtrl.EnemyView.FlipX(EnemyCtrl.PlayerCtrl.transform.position.x - EnemyCtrl.transform.position.x < 0f);
+            EnemyCtrl.EnemyView.PlayWalkAnimation(false);
 
             _delayTimer += UnityEngine.Time.deltaTime;
             if (_delayTimer < _nextDelay || EnemyCtrl.BeingHurt)

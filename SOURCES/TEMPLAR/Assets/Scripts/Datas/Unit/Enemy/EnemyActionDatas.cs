@@ -23,7 +23,7 @@
 
         public (float min, float max) Delay { get; private set; }
 
-        public string AnimatorSuffix { get; private set; }
+        public string AnimatorId { get; private set; }
 
         protected override void Deserialize(XContainer container)
         {
@@ -39,8 +39,8 @@
             if (delayElement != null)
                 Delay = delayElement.MinMaxAttributesToFloats();
 
-            XElement animatorSuffixElement = attackElement.Element("AnimatorSuffix");
-            AnimatorSuffix = animatorSuffixElement?.Value ?? string.Empty;
+            XElement animatorSuffixElement = attackElement.Element("AnimatorId");
+            AnimatorId = animatorSuffixElement?.Value ?? string.Empty;
         }
     }
 

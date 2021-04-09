@@ -215,6 +215,7 @@
                 }
             }
 
+            EnemyView.SetEnemyId(_id);
             StartCoroutine(UpdateSleepCoroutine());
         }
 

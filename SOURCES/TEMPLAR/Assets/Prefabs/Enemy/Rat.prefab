@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1496673142350833529, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _above
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1845463281550807660, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: m_Offset.x
@@ -198,11 +203,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rat
       objectReference: {fileID: 0}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _aocTemplate
+      value: 
+      objectReference: {fileID: 22100000, guid: c1e5f8c29a87f8044a4d46335ca4cbfe,
+        type: 2}
     - target: {fileID: 7629123961653350815, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 077a5bab1b1db81439682114b77dd339, type: 2}
+      objectReference: {fileID: 22100000, guid: c1e5f8c29a87f8044a4d46335ca4cbfe,
+        type: 2}
     - target: {fileID: 9076108134413353365, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: _id

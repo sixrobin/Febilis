@@ -18,6 +18,7 @@
 
             EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f);
             EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
+            EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
     }
 }

@@ -156,7 +156,7 @@
                      <xs:attribute name="Max" type="xs:float" use="required"/>
                   </xs:complexType>
                </xs:element>
-               <xs:element name="AnimatorSuffix" type="xs:token" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="AnimatorId" type="xs:token" minOccurs="1" maxOccurs="1"/>
             </xs:sequence>
             <xs:attribute name="Id" type="xs:token" use="required"/>
          </xs:extension>

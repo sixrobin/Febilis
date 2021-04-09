@@ -95,13 +95,16 @@
 
         private LayerMask _collisionMask;
 
+        // Used to trigger events manually after movement has been applied.
+        private System.Collections.Generic.Queue<CollisionInfos> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionInfos>();
+
+        private static System.Collections.Generic.Dictionary<Collider2D, SideTriggerOverrider> s_sharedKnownSideTriggerOverriders
+            = new System.Collections.Generic.Dictionary<Collider2D, SideTriggerOverrider>();
+
         public CollisionsController(BoxCollider2D boxCollider2D, LayerMask collisionMask) : base(boxCollider2D)
         {
             _collisionMask = collisionMask;
         }
-
-        // Used to trigger events manually after movement has been applied.
-        private System.Collections.Generic.Queue<CollisionInfos> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionInfos>();
 
         public delegate void CollisionDetectedEventHandler(CollisionInfos collisionInfos);
         public event CollisionDetectedEventHandler CollisionDetected;
@@ -195,8 +198,19 @@
 
                 if (hit)
                 {
-                    if (hit.collider.isTrigger)
+                    if (!hit.collider.isTrigger)
+                    {
+                        if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
+                            if (hit.collider.TryGetComponent(out sideTriggerOverrider))
+                                s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
+
+                        if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT) ?? false)
+                            continue;
+                    }
+                    else
+                    {
                         continue;
+                    }
 
                     Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.red);
 
@@ -231,8 +245,19 @@
 
                 if (hit)
                 {
-                    if (hit.collider.isTrigger)
+                    if (!hit.collider.isTrigger)
+                    {
+                        if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
+                            if (hit.collider.TryGetComponent(out sideTriggerOverrider))
+                                s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
+
+                        if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.BELOW : CollisionOrigin.ABOVE) ?? false)
+                            continue;
+                    }
+                    else
+                    {
                         continue;
+                    }
 
                     Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);
 

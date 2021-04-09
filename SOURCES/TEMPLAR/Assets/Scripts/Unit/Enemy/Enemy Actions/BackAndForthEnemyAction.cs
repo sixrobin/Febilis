@@ -23,7 +23,7 @@
         {
             base.Init();
 
-            EnemyCtrl.CollisionsCtrl.CollisionDetected += CollisionsCtrl_CollisionDetected;
+            EnemyCtrl.CollisionsCtrl.CollisionDetected += OnCollisionDetected;
             InitX = EnemyCtrl.transform.position.x;
             CurrRange = ActionDatas.Range;
         }
@@ -64,11 +64,15 @@
                 IsOnPause = true;
                 ComputeNextPauseDuration();
                 ComputeRangeWithFluctuation();
+
+                EnemyCtrl.EnemyView.PlayWalkAnimation(false);
+
                 return;
             }
 
             EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f);
             EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
+            EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
 
         public override void Reset()
@@ -79,7 +83,7 @@
             ComputeRangeWithFluctuation();
         }
 
-        private void CollisionsCtrl_CollisionDetected(Physics.CollisionsController.CollisionInfos collisionInfos)
+        private void OnCollisionDetected(Physics.CollisionsController.CollisionInfos collisionInfos)
         {
             if (EnemyCtrl.CurrAction != this)
                 return;

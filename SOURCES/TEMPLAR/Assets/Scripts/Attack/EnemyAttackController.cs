@@ -29,12 +29,14 @@
 
         private System.Collections.IEnumerator AttackCoroutine(Unit.Enemy.Actions.AttackEnemyAction attackAction, AttackOverEventHandler attackOverCallback = null)
         {
+            _enemyCtrl.EnemyView.SetupAttackOverrideClips(attackAction.ActionDatas.AnimatorId);
+
             ComputeAttackDirection();
-            _enemyCtrl.EnemyView.PlayAttackAnticipationAnimation(attackAction.ActionDatas.AnimatorSuffix);
+            _enemyCtrl.EnemyView.PlayAttackAnticipationAnimation();
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AttackAnticipationDur);
 
-            _enemyCtrl.EnemyView.PlayAttackAnimation(attackAction.ActionDatas.AnimatorSuffix);
+            _enemyCtrl.EnemyView.PlayAttackAnimation();
             TriggerHit(_currAttackDatas, attackAction.ActionDatas.Id);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AttackDur);

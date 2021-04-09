@@ -5040,6 +5040,7 @@ GameObject:
   - component: {fileID: 2520554085846605117}
   - component: {fileID: 1845463281550807660}
   - component: {fileID: 9076108134413353365}
+  - component: {fileID: 1496673142350833529}
   m_Layer: 10
   m_Name: Enemy Base
   m_TagString: Untagged
@@ -5111,13 +5112,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   _debugCollisionsState: 
-  _player: {fileID: 0}
+  _playerCtrl: {fileID: 0}
   _enemyView: {fileID: 7435713418959382855}
   _id: 
   _behaviourUpdateRate: 0.5
   _currBehaviourName: 
   _currActionName: 
   _tmpAttackDatas: {fileID: 11400000, guid: 76dcf6a97f2d9ad499f2f68ce7a919c7, type: 2}
+--- !u!114 &1496673142350833529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7056691178450352317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f664beb2babf6714dac2117618bfbbc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _above: 0
+  _below: 0
+  _left: 0
+  _right: 0
 --- !u!1 &7449810499353716721
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,7 +5260,7 @@ Animator:
   m_GameObject: {fileID: 8467270659759489473}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3cdb8cdabfa508e45a895a03eb75a7cd, type: 2}
+  m_Controller: {fileID: 22100000, guid: 6ad184a7e60ad404688ec32a53cef38f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5267,6 +5284,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 4755921035503925074}
   _animator: {fileID: 7629123961653350815}
   _spriteBlink: {fileID: 1317545449090868740}
+  _aocTemplate: {fileID: 0}
 --- !u!114 &1317545449090868740
 MonoBehaviour:
   m_ObjectHideFlags: 0

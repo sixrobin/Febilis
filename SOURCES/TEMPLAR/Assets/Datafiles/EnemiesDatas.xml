@@ -25,7 +25,7 @@
                      <PlayerAbove/>
                      <PlayerAlive/>
                   </Conditions>
-                  <AnimatorSuffix>_Above</AnimatorSuffix>
+                  <AnimatorId>Above</AnimatorId>
                </Attack>
                <Attack Id="skeleton_atk_base">
                   <Conditions>
@@ -33,6 +33,7 @@
                      <PlayerInRange Range="2.5"/>
                   </Conditions>
                   <Delay Min="0.45" Max="0.55"/>
+                  <AnimatorId>Base</AnimatorId>
                </Attack>
                <Chase>
                   <Conditions>
