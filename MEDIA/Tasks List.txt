@@ -6,13 +6,15 @@
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
 - Implémentation attaque du rat.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
-	- Le rat doit ouvrir sa gueule sur la frame avant le hit.
+	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
 - Slopes avec roll à la fin ?
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
 - Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
 - Clamper la caméra sur les bords.
+
+- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 
 - Première passe de sound design.
 - Système de potions.

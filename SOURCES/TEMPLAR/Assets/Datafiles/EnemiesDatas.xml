@@ -68,12 +68,21 @@
       <Behaviours>
          <Behaviour Name="Base">
             <Actions>
-               <!--Need a check on Y offset!-->
-               <!--<Chase>
+               <Attack Id="rat_atk_base">
                   <Conditions>
+                     <FullHealth Negate="true"/>
+                     <PlayerAlive/>
+                     <PlayerInRange Range="1.5"/>
+                  </Conditions>
+                  <AnimatorId>Base</AnimatorId>
+               </Attack>
+               <Chase>
+                  <Conditions>
+                     <FullHealth Negate="true"/>
+                     <MaxHeightOffset Offset="4"/>
                      <PlayerDetected/>
                   </Conditions>
-               </Chase>-->
+               </Chase>
                <BackAndForth>
                   <Range>6</Range>
                   <Pause Min="0.2" Max="0.5"/>
