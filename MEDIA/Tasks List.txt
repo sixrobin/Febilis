@@ -4,20 +4,25 @@
 - Meilleur manager de sauvegarde.
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
-- Implémentation attaque du rat.
-	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
-	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
+- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
+- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
 - Slopes avec roll à la fin ?
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
 - Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
 - Clamper la caméra sur les bords.
+- Classe pour gérer les logs CProLogger.
 
+- Permettre de spliter les xml.
 - Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 
 - Première passe de sound design.
-- Système de potions.
+
+- Système de heal.
+	- Animation + bloquer le perso.
+	- Déclencher le heal seulement si le joueur arrive à le faire sans être interrompu par une attaque seulement.
+
 - Mockup/concept pour l'inventaire.
 - Variante du concept du boss avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc..
 
@@ -29,7 +34,6 @@
 	- Variantes des tiles de l'enviro qui n'en ont pas encore.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
-	- Clouds : outil pour modifier la vitesse du vent.
 - XML :
 	- Attack datas.
 	- Player datas.

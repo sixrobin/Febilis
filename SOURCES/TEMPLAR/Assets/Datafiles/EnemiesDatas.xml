@@ -79,7 +79,7 @@
                <Chase>
                   <Conditions>
                      <FullHealth Negate="true"/>
-                     <MaxHeightOffset Offset="4"/>
+                     <MaxHeightOffset Offset="0.5"/>
                      <PlayerDetected/>
                   </Conditions>
                </Chase>

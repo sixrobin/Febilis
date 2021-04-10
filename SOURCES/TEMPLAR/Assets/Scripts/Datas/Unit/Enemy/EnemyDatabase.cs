@@ -61,6 +61,8 @@
 
             Instance.Log($"Found {clips.Count} clips.");
             _animationClips = clips.ToArray();
+
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 #endif
 

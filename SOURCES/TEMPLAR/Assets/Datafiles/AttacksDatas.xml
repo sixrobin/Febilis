@@ -1,6 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <AttacksDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
 
+   <!-- ██████████ -->
+   <!--   PLAYER   -->
+   <!-- ██████████ -->
+
+   <Combo Id="base_combo">
+      <Attack>atk_base_00</Attack>
+      <Attack>atk_base_01</Attack>
+      <Attack>atk_base_02</Attack>
+   </Combo>
+   
+   <AttackDatas Id="atk_base_00">
+      <Dmg>25</Dmg>
+      <Dur>0.55</Dur>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <ChainAllowedTime>0.48</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>1.7</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+      <Traumas>
+         <Base X="0.1" Y="0.1" Type="Additive"/>
+         <OnHit X="0.75" Y="0.75" Type="Override"/>
+      </Traumas>
+      <AnimSpeedMult>1</AnimSpeedMult>
+   </AttackDatas>
+   
+   
+
+
    <!-- ███████████ -->
    <!--   ENEMIES   -->
    <!-- ███████████ -->
@@ -10,9 +45,9 @@
       <ClipsDurations>
          <Anticipation>0.5</Anticipation>
          <Attack>0.5</Attack>
-         <HitDetection>0.1</HitDetection>
       </ClipsDurations>
       <Hit>
+         <Dur>0.1</Dur>
          <Layer>PLAYER</Layer>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.1</FreezeFrameDur>

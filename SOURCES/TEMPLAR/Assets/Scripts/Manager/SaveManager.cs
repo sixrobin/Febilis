@@ -1,10 +1,11 @@
 ﻿namespace Templar.Manager
 {
+    using RSLib.Extensions;
     using System.Xml;
     using System.Xml.Linq;
     using UnityEngine;
 
-    public class SaveManager : RSLib.Framework.Singleton<SaveManager>
+    public partial class SaveManager : RSLib.Framework.Singleton<SaveManager>
     {
         [SerializeField] private bool _disableLoading = false;
 
@@ -18,6 +19,9 @@
 
             XElement checkpointIdElement = new XElement("CheckpointId", Interaction.CheckpointController.CurrCheckpointId);
             container.Add(checkpointIdElement);
+
+            XElement paletteIndexElement = new XElement("PaletteIndex", FindObjectOfType<PaletteSelector>().CurrRampIndex); // [TMP] Find.
+            container.Add(paletteIndexElement);
 
             try
             {
@@ -49,7 +53,10 @@
             catch (System.Exception e)
             {
                 Instance.LogError($"Could not save game ! Exception message:\n{e.ToString()}");
+                return;
             }
+
+            Instance.Log("Game saved successfully !");
         }
 
         public static bool TryLoad()
@@ -67,6 +74,10 @@
 
                 XElement checkpointIdElement = gameSaveElement.Element("CheckpointId");
                 Interaction.CheckpointController.LoadCurrentCheckpointId(GameManager.OverrideCheckpoint?.Id ?? checkpointIdElement.Value);
+
+                XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
+                if (paletteIndexElement != null)
+                    FindObjectOfType<PaletteSelector>().LoadPalette(paletteIndexElement.ValueToInt()); // [TMP] Find.
             }
             catch (System.Exception e)
             {
@@ -74,6 +85,7 @@
                 return false;
             }
 
+            Instance.Log("Game loaded successfully !");
             return true;
         }
 
@@ -92,6 +104,7 @@
                 return false;
             }
 
+            Instance.Log("Game save erased successfully !");
             return true;
         }
 
@@ -101,6 +114,29 @@
 
             if (!_disableLoading)
                 TryLoad();
+        }
+    }
+
+    public partial class SaveManager : RSLib.Framework.Singleton<SaveManager>
+    {
+        public override void Log(string msg)
+        {
+            CProLogger.Log(this, msg, gameObject);
+        }
+
+        public override void Log(string msg, Object context)
+        {
+            CProLogger.Log(this, msg, gameObject);
+        }
+
+        public override void LogError(string msg)
+        {
+            CProLogger.LogError(this, msg, gameObject);
+        }
+
+        public override void LogError(string msg, Object context)
+        {
+            CProLogger.LogError(this, msg, gameObject);
         }
     }
 }
