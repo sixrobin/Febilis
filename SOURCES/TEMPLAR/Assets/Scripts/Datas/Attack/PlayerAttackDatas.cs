@@ -1,34 +1,72 @@
 ﻿namespace Templar.Datas.Attack
 {
-    using UnityEngine;
+    using RSLib.Extensions;
+    using System.Xml.Linq;
 
-    [CreateAssetMenu(fileName = "New Player Attack Datas", menuName = "Datas/Player/Attack")]
     public class PlayerAttackDatas : AttackDatas
     {
-        [Tooltip("Duration from which the next attack, if it exists, can be triggered. Must then be less than full duration.")]
-        [SerializeField] private float _chainAllowedTime = 0.4f;
-
-        [Tooltip("Determines if controller velocity is driven by attack datas or not.")]
-        [SerializeField] private bool _controlVelocity = true;
-
-        [Tooltip("Speed that will be multiplied by the attack curve evaluation.")]
-        [SerializeField] private float _moveSpeed = 0.3f;
-
-        [Tooltip("Gravity that will be applied if controller is airborne, while attack motion is running.")]
-        [SerializeField] private float _gravity = 0.5f;
-
-        [Tooltip("Curve that will be applied to attack speed over the attack duration. Values should be between 0 and 1.")]
-        [SerializeField] private AnimationCurve _moveSpeedCurve = null;
-
-        public float ChainAllowedTime => _chainAllowedTime;
-        public bool ControlVelocity => _controlVelocity;
-        public float MoveSpeed => _moveSpeed;
-        public float Gravity => _gravity;
-        public AnimationCurve MoveSpeedCurve => _moveSpeedCurve;
-
-        protected override void OnValidate()
+        public PlayerAttackDatas() : base()
         {
-            _chainAllowedTime = Mathf.Min(_chainAllowedTime, Dur);
+        }
+
+        public PlayerAttackDatas(XContainer container) : base(container)
+        {
+            Deserialize(container);
+        }
+
+        public new static PlayerAttackDatas Default => new PlayerAttackDatas()
+        {
+            Dmg = 10,
+            HitDur = 0.1f,
+            HitLayer = Templar.Attack.HitLayer.PLAYER,
+            HitDirComputationType = Templar.Attack.HitDirComputationType.ATTACK_DIR,
+            HitFreezeFrameDur = 0f,
+            BaseTraumaDatas = ShakeTraumaDatas.Default,
+            HitTraumaDatas = ShakeTraumaDatas.Default,
+            Dur = 0.5f,
+            ChainAllowedTime = 0.35f,
+            AnimSpeedMult = 1f,
+            ControlVelocity = false
+        };
+
+        public float Dur { get; private set; }
+        public float ChainAllowedTime { get; private set; }
+        public float AnimSpeedMult { get; private set; }
+
+        public bool ControlVelocity { get; private set; }
+        public float MoveSpeed { get; private set; }
+        public float Gravity { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement attackElement = container as XElement;
+
+            XElement durElement = attackElement.Element("Dur");
+            UnityEngine.Assertions.Assert.IsNotNull(durElement, "PlayerAttackDatas must have a Dur element.");
+            Dur = durElement.ValueToFloat();
+
+            XElement chainAllowedTimeElement = attackElement.Element("ChainAllowedTime");
+            UnityEngine.Assertions.Assert.IsNotNull(chainAllowedTimeElement, "PlayerAttackDatas must have a ChainAllowedTime element.");
+            ChainAllowedTime = chainAllowedTimeElement.ValueToFloat();
+
+            XElement animSpeedMultElement = attackElement.Element("AnimSpeedMult");
+            AnimSpeedMult = animSpeedMultElement?.ValueToFloat() ?? 1f;
+
+            XElement controlVelocityElement = attackElement.Element("ControlVelocity");
+            ControlVelocity = !controlVelocityElement.IsNullOrEmpty();
+
+            if (ControlVelocity)
+            {
+                XElement moveSpeedElement = controlVelocityElement.Element("MoveSpeed");
+                UnityEngine.Assertions.Assert.IsNotNull(moveSpeedElement, "ControlVelocity must have a MoveSpeed element.");
+                MoveSpeed = moveSpeedElement.ValueToFloat();
+
+                XElement gravityElement = controlVelocityElement.Element("Gravity");
+                UnityEngine.Assertions.Assert.IsNotNull(gravityElement, "ControlVelocity must have a Gravity element.");
+                Gravity = gravityElement.ValueToFloat();
+            }
         }
     }
 }

@@ -78,6 +78,17 @@
             _trauma.y = Mathf.Clamp01(y);
         }
 
+        public void AddTraumaFromDatas(Templar.Datas.ShakeTraumaDatas datas)
+        {
+            if (datas == null)
+                return;
+
+            if (datas.AddType == Templar.Datas.ShakeTraumaDatas.ShakeAddType.Additive)
+                AddTrauma(datas.X, datas.Y);
+            else if (datas.AddType == Templar.Datas.ShakeTraumaDatas.ShakeAddType.Override)
+                SetTrauma(datas.X, datas.Y);
+        }
+
         public void ApplyOnTransform(Transform transform)
         {
             transform.position += GetShake();

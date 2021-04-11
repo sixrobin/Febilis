@@ -97,6 +97,9 @@
         {
             KillTrigger.ResetSharedTriggers();
             _checkpointListeners = FindObjectsOfType<MonoBehaviour>().OfType<ICheckpointListener>();
+
+            // [TMP]
+            RSLib.SceneReloader.BeforeReload += SaveManager.Save;
         }
 
         private void Update()
@@ -107,6 +110,12 @@
                 SaveManager.EraseSave();
                 Interaction.CheckpointController.ForceRemoveCurrentCheckpoint();
             }
+        }
+
+        private void OnDestroy()
+        {
+            // [TMP]
+            RSLib.SceneReloader.BeforeReload -= SaveManager.Save;
         }
     }
 }

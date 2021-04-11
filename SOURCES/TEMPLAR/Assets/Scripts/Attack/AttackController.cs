@@ -61,7 +61,7 @@
             _hitboxesContainer.SetDirection(AttackDir);
             _hitboxesById[id].Trigger(AttackDir, attackDatas);
 
-            UnityEngine.Object.FindObjectOfType<Camera.CameraController>().Shake.AddTrauma(attackDatas.TraumaOnAttackFrame); // [TMP] Find.
+            UnityEngine.Object.FindObjectOfType<Camera.CameraController>().Shake.AddTraumaFromDatas(attackDatas.BaseTraumaDatas); // [TMP] Find.
         }
 
         protected abstract void ComputeAttackDirection();

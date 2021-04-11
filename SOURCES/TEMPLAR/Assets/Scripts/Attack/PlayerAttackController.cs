@@ -12,8 +12,12 @@
             : base(templarController, templarController.AttackHitboxesContainer, templarController.transform)
         {
             _playerController = templarController;
-            _baseComboDatas = _playerController.CtrlDatas.BaseCombo;
-            _airborneAttackDatas = _playerController.CtrlDatas.AirborneAttack;
+
+            _baseComboDatas = new Datas.Attack.PlayerAttackDatas[_playerController.CtrlDatas.BaseComboIds.Length];
+            for (int i = 0; i < _baseComboDatas.Length; ++i)
+                _baseComboDatas[i] = Datas.Attack.AttackDatabase.PlayerAttacksDatas[_playerController.CtrlDatas.BaseComboIds[i]];
+
+            _airborneAttackDatas = Datas.Attack.AttackDatabase.PlayerAttacksDatas[_playerController.CtrlDatas.AirborneAttackId];
         }
 
         public Unit.Player.PlayerInputController InputController => _playerController.InputCtrl;
@@ -54,7 +58,8 @@
 
         private void ComputeVelocity(float t, ref Vector3 vel)
         {
-            vel.x = CurrentAttackDatas.MoveSpeedCurve.Evaluate(t) * CurrentAttackDatas.MoveSpeed * AttackDir;
+            //vel.x = CurrentAttackDatas.MoveSpeedCurve.Evaluate(t) * CurrentAttackDatas.MoveSpeed * AttackDir;
+            vel.x = Datas.Attack.AttackDatabase.DefaultPlayerAttackCurve.Evaluate(t) * CurrentAttackDatas.MoveSpeed * AttackDir;
             vel.y -= CurrentAttackDatas.Gravity * Time.deltaTime;
         }
 

@@ -145,7 +145,7 @@
 
         private void UpdateAttackAnimation(float dir = 0f)
         {
-            _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrentAttackDatas.AnimMult);
+            _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrentAttackDatas.AnimSpeedMult);
             if (dir != 0f)
                 FlipX(dir < 0f);
         }

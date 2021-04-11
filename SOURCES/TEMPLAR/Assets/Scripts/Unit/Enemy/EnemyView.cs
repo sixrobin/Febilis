@@ -5,7 +5,7 @@
 
     public class EnemyView : UnitView
     {
-        public const float DEAD_FADE_DELAY = 1.5f;
+        public const float DEAD_FADE_DELAY = 0.8f;
 
         private const string ATTACK_ANM_OVERRIDE_ID = "Attack";
         private const string ATTACK_ANTICIPATION_ANM_OVERRIDE_ID = "Attack Anticipation";
@@ -20,7 +20,7 @@
         [SerializeField] private AnimatorOverrideController _aocTemplate = null;
 
         private AnimatorOverrideController _aoc;
-        List<KeyValuePair<AnimationClip, AnimationClip>> _initClips;
+        private List<KeyValuePair<AnimationClip, AnimationClip>> _initClips;
 
         public string EnemyId { get; private set; }
 

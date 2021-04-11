@@ -136,9 +136,9 @@
             _hurtCoroutine = HurtCoroutine();
             StartCoroutine(_hurtCoroutine);
 
-            CameraCtrl.Shake.SetTrauma(args.HitDatas.AttackDatas.TraumaOnHit);
-            if (args.HitDatas.AttackDatas.FreezeFrameDurOnHit > 0f)
-                Manager.FreezeFrameManager.FreezeFrame(0, args.HitDatas.AttackDatas.FreezeFrameDurOnHit);
+            CameraCtrl.Shake.AddTraumaFromDatas(args.HitDatas.AttackDatas.HitTraumaDatas);
+            if (args.HitDatas.AttackDatas.HitFreezeFrameDur > 0f)
+                Manager.FreezeFrameManager.FreezeFrame(0, args.HitDatas.AttackDatas.HitFreezeFrameDur);
 
             _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HurtRecoilSettings, hitDir);
         }

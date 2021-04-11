@@ -170,6 +170,7 @@ MonoBehaviour:
   _rollCollisionMask:
     serializedVersion: 2
     m_Bits: 256
+  _baseHealth: 100
 --- !u!1 &2727861838046398926
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31055c1aef4691f419c18d0b62dddd1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: atk_airborne_00
+  _id: atk_airborne
 --- !u!50 &2727861838334594514
 Rigidbody2D:
   serializedVersion: 4
@@ -649,13 +650,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 2727861839271538948}
-  _baseHealth: 100
+  _healthBarCanvas: {fileID: 0}
   _healthBar: {fileID: 0}
   _healthBarBlink: {fileID: 0}
   _healthBarBlinkPauseDur: 0.15
   _healthBarBlinkUpdateSpeed: 4
   _shineRectTransform: {fileID: 0}
-  _shineDelay: 15
   _shineDist: 270
   _shineDur: 0.6
   _shineCurve: 18

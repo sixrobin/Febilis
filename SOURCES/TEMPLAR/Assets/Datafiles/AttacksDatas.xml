@@ -11,7 +11,7 @@
       <Attack>atk_base_02</Attack>
    </Combo>
    
-   <AttackDatas Id="atk_base_00">
+   <PlayerAttack Id="atk_base_00">
       <Dmg>25</Dmg>
       <Dur>0.55</Dur>
       <Hit>
@@ -27,20 +27,80 @@
          <!--Move speed curve ? Id link to some curves database ?-->
       </ControlVelocity>
       <Traumas>
-         <Base X="0.1" Y="0.1" Type="Additive"/>
-         <OnHit X="0.75" Y="0.75" Type="Override"/>
+         <Base X="0.1" Y="0.1" AddType="Additive"/>
+         <OnHit X="0.75" Y="0.75" AddType="Override"/>
       </Traumas>
       <AnimSpeedMult>1</AnimSpeedMult>
-   </AttackDatas>
-   
-   
+   </PlayerAttack>
 
+   <PlayerAttack Id="atk_base_01">
+      <Dmg>25</Dmg>
+      <Dur>0.55</Dur>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <ChainAllowedTime>0.48</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>1.7</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+      <Traumas>
+         <Base X="0.1" Y="0.1" AddType="Additive"/>
+         <OnHit X="0.75" Y="0.75" AddType="Override"/>
+      </Traumas>
+      <AnimSpeedMult>1</AnimSpeedMult>
+   </PlayerAttack>
+
+   <PlayerAttack Id="atk_base_02">
+      <Dmg>25</Dmg>
+      <Dur>0.55</Dur>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <ChainAllowedTime>0.48</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>1.7</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+      <Traumas>
+         <Base X="0.1" Y="0.1" AddType="Additive"/>
+         <OnHit X="0.75" Y="0.75" AddType="Override"/>
+      </Traumas>
+      <AnimSpeedMult>1</AnimSpeedMult>
+   </PlayerAttack>
+
+   <PlayerAttack Id="atk_airborne">
+      <Dmg>25</Dmg>
+      <Dur>0.55</Dur>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <ChainAllowedTime>0.48</ChainAllowedTime>
+      <Traumas>
+         <Base X="0.1" Y="0.1" AddType="Additive"/>
+         <OnHit X="0.75" Y="0.75" AddType="Override"/>
+      </Traumas>
+      <AnimSpeedMult>1</AnimSpeedMult>
+   </PlayerAttack>
+
+   
 
    <!-- ███████████ -->
    <!--   ENEMIES   -->
    <!-- ███████████ -->
    
-   <AttackDatas Id="skeleton_atk_base">
+   <EnemyAttack Id="skeleton_atk_base">
       <Dmg>15</Dmg>
       <ClipsDurations>
          <Anticipation>0.5</Anticipation>
@@ -54,8 +114,8 @@
       </Hit>
       <Traumas>
          <Base X="0.1" Y="0.1" Type="Additive"/>
-         <OnHit X="0.75" Y="0.75" Type="Override"/>
+         <Hit X="0.75" Y="0.75" Type="Override"/>
       </Traumas>
-   </AttackDatas>
+   </EnemyAttack>
    
 </AttacksDatas>

@@ -10,14 +10,21 @@
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
-- Dans les datas : structure pour le shake qui permet de paramétrer s'il est additif ou non (via une enum?).
 - Clamper la caméra sur les bords.
+
 - Classe pour gérer les logs CProLogger.
+- Classe abstraite "Datas" avec ctor et Deserialize.
 
 - Permettre de spliter les xml.
 - Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 
 - Première passe de sound design.
+
+- XSD des AttackDatas.
+- Remettre les valeurs des attack datas.
+- Setup les AttackDatas pour être utilisable correctement dans les behaviours des ennemis.
+- Setup le xml de sorte à pouvoir y paramétrer le combo du joueur.
+- Voir pour un "héritage" des property "Default" ?
 
 - Système de heal.
 	- Animation + bloquer le perso.
@@ -35,7 +42,6 @@
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
 - XML :
-	- Attack datas.
 	- Player datas.
 	- Roll datas.
 	- Jump datas.

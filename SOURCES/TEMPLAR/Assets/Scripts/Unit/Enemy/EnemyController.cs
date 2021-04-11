@@ -19,7 +19,7 @@
         [Header("DEBUG")]
         [SerializeField] private string _currBehaviourName = string.Empty;
         [SerializeField] private string _currActionName = string.Empty;
-        [SerializeField] public Datas.Attack.SkeletonAttackDatas _tmpAttackDatas = null;
+        [SerializeField] public string _tmpAttackDatasId = null;
 
         private float _sleepUpdateTimer;
         private float _behaviourUpdateTimer;

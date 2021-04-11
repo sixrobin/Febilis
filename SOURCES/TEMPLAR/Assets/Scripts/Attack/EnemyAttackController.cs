@@ -3,12 +3,12 @@
     public class EnemyAttackController : AttackController
     {
         private Unit.Enemy.EnemyController _enemyCtrl;
-        private Datas.Attack.SkeletonAttackDatas _currAttackDatas;
-
+        private Datas.Attack.EnemyAttackDatas _currAttackDatas;
+        
         public EnemyAttackController(Unit.Enemy.EnemyController enemyCtrl)
             : base(enemyCtrl, enemyCtrl.AttackHitboxesContainer, enemyCtrl.transform)
         {
-            _currAttackDatas = enemyCtrl._tmpAttackDatas;
+            _currAttackDatas = Datas.Attack.EnemyAttackDatas.Default;
             _enemyCtrl = enemyCtrl;
         }
 
@@ -34,7 +34,7 @@
             ComputeAttackDirection();
             _enemyCtrl.EnemyView.PlayAttackAnticipationAnimation();
 
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AttackAnticipationDur);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AnticipationDur);
 
             _enemyCtrl.EnemyView.PlayAttackAnimation();
             TriggerHit(_currAttackDatas, attackAction.ActionDatas.Id);

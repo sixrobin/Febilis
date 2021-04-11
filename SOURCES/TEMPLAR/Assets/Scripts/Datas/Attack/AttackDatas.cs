@@ -1,76 +1,82 @@
 ﻿namespace Templar.Datas.Attack
 {
     using RSLib.Extensions;
-    using UnityEngine;
+    using System.Xml.Linq;
 
-    public class AttackDatas : ScriptableObject
+    public class AttackDatas
     {
-        [Tooltip("Identifier used to retrieve the attack hitbox.")]
-        [SerializeField] private string _id = string.Empty;
-
-        [Tooltip("Base damage applied to any hit target.")]
-        [SerializeField, Min(0)] private int _dmg = 10;
-
-        [Tooltip("Full attack motion duration.")]
-        [SerializeField] private float _dur = 0.8f;
-
-        [Tooltip("Duration during which the attack hitbox is enabled")]
-        [SerializeField, Min(0f)] private float _hitDur = 0.1f;
-
-        [Tooltip("Targets than can be hit by the attack.")]
-        [SerializeField] private Templar.Attack.HitLayer _hitLayer = Templar.Attack.HitLayer.NONE;
-
-        [Tooltip("Method used to compute direction to apply to hit target. Look at enum definition for more infos.")]
-        [SerializeField] private Templar.Attack.HitDirComputationType _hitDirComputationType = Templar.Attack.HitDirComputationType.ATTACK_DIR;
-
-        [Tooltip("Multiplier applied to attack animation speed.")]
-        [SerializeField] private float _animMult = 1f;
-
-        [Tooltip("Shake trauma applied on the attack frame, no matter the attack hits or not.")]
-        [SerializeField] private Vector2 _traumaOnAttackFrame = Vector2.zero;
-
-        [Tooltip("Shake trauma applied if the attack hits at least one target.")]
-        [SerializeField] private Vector2 _traumaOnHit = Vector2.zero;
-
-        [Tooltip("Freeze frame duration if the attack hits at least one target.")]
-        [SerializeField, Min(0f)] private float _freezeFrameDurOnHit = 0.1f;
-
-        // If a "parriable" boolean exists someday, it should be there.
-
-        /// <summary>
-        /// Instantiates a default datas container that can be used for testing purpose, without having
-        /// to create a new asset and reference it in scripts.
-        /// </summary>
-        public static AttackDatas Default
+        public AttackDatas()
         {
-            get
-            {
-                AttackDatas defaultDatas = CreateInstance<AttackDatas>();
-                defaultDatas._id = "Default";
-                defaultDatas._dmg = 25;
-                defaultDatas._dur = 0f;
-                defaultDatas._hitLayer = Templar.Attack.HitLayer.ALL;
-                defaultDatas._traumaOnHit = Vector2.zero;
-                defaultDatas._freezeFrameDurOnHit = 0f;
-
-                return defaultDatas;
-            }
         }
 
-        public string Id => _id;
-        public int Dmg => _dmg;
-        public float Dur => _dur;
-        public float HitDur => _hitDur;
-        public Templar.Attack.HitLayer HitLayer => _hitLayer;
-        public Templar.Attack.HitDirComputationType HitDirComputationType => _hitDirComputationType;
-        public float AnimMult => _animMult;
-        public Vector2 TraumaOnAttackFrame => _traumaOnAttackFrame;
-        public Vector2 TraumaOnHit => _traumaOnHit;
-        public float FreezeFrameDurOnHit => _freezeFrameDurOnHit;
-        
-        protected virtual void OnValidate()
+        public AttackDatas(XContainer container)
         {
-            _traumaOnHit = _traumaOnHit.ClampAll01();
+            Deserialize(container);
+        }
+
+        public static EnemyAttackDatas Default => new EnemyAttackDatas()
+        {
+            Dmg = 10,
+            HitDur = 0.1f,
+            HitLayer = Templar.Attack.HitLayer.PLAYER,
+            HitDirComputationType = Templar.Attack.HitDirComputationType.ATTACK_DIR,
+            HitFreezeFrameDur = 0f,
+            BaseTraumaDatas = ShakeTraumaDatas.Default,
+            HitTraumaDatas = ShakeTraumaDatas.Default
+        };
+
+        public string Id { get; protected set; }
+
+        public int Dmg { get; protected set; }
+
+        public float HitDur { get; protected set; }
+        public Templar.Attack.HitLayer HitLayer { get; protected set; }
+        public Templar.Attack.HitDirComputationType HitDirComputationType { get; protected set; }
+
+        public float HitFreezeFrameDur { get; protected set; }
+        public ShakeTraumaDatas BaseTraumaDatas { get; protected set; }
+        public ShakeTraumaDatas HitTraumaDatas { get; protected set; }
+
+        public virtual void Deserialize(XContainer container)
+        {
+            XElement attackElement = container as XElement;
+
+            XAttribute idAttribute = attackElement.Attribute("Id");
+            UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Enemy Id attribute is null or empty.");
+            Id = idAttribute.Value;
+
+            XElement dmgElement = attackElement.Element("Dmg");
+            UnityEngine.Assertions.Assert.IsNotNull(dmgElement, "AttackDatas must have a Dmg element.");
+            Dmg = dmgElement.ValueToInt();
+
+            XElement hitElement = attackElement.Element("Hit");
+            UnityEngine.Assertions.Assert.IsFalse(hitElement.IsNullOrEmpty(), "AttackDatas Hit element is null or empty.");
+
+            XElement hitDurElement = hitElement.Element("Dur");
+            UnityEngine.Assertions.Assert.IsFalse(hitDurElement.IsNullOrEmpty(), "Hit Dur element is null or empty.");
+            HitDur = hitDurElement.ValueToFloat();
+
+            XElement hitLayerElement = hitElement.Element("Layer");
+            UnityEngine.Assertions.Assert.IsFalse(hitLayerElement.IsNullOrEmpty(), "Hit Layer element is null or empty.");
+            HitLayer = hitLayerElement.ValueToEnum<Templar.Attack.HitLayer>();
+
+            XElement hitDirComputationTypeElement = hitElement.Element("DirComputationType");
+            HitDirComputationType = hitDirComputationTypeElement?.ValueToEnum<Templar.Attack.HitDirComputationType>() ?? Templar.Attack.HitDirComputationType.ATTACK_DIR;
+
+            XElement hitFreezeFrameDurElement = hitElement.Element("FreezeFrameDur");
+            HitFreezeFrameDur = hitFreezeFrameDurElement?.ValueToFloat() ?? 0f;
+
+            XElement traumasElement = attackElement.Element("Traumas");
+            if (traumasElement != null)
+            {
+                XElement baseTraumaElement = traumasElement.Element("Base");
+                if (!baseTraumaElement.IsNullOrEmpty())
+                    BaseTraumaDatas = new ShakeTraumaDatas(baseTraumaElement);
+
+                XElement hitTraumaElement = traumasElement.Element("Hit");
+                if (!hitTraumaElement.IsNullOrEmpty())
+                    HitTraumaDatas = new ShakeTraumaDatas(hitTraumaElement);
+            }
         }
     }
 }
