@@ -1,6 +1,5 @@
 - Attaque up du templier.
 - Code pour faire durer le roll tant que le joueur ne peut se relever.
-- Code pour stopper les unités au bord d'une edge (pour les ennemis et pour le roll du perso, avec un seuil à partir duquel il ne peut plus tomber ?).
 - Meilleur manager de sauvegarde.
 - Outil de visualisation des colliders du world.
 - Meilleure courbe de saut, avec gestion dans l'input maintenu.
@@ -12,19 +11,13 @@
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
 - Clamper la caméra sur les bords.
 
-- Classe pour gérer les logs CProLogger.
-- Classe abstraite "Datas" avec ctor et Deserialize.
-
-- Permettre de spliter les xml.
 - Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-
+- Besoin d'implémenter un système similaire aux animators des ennemis pour les attaques du joueur pour plus de modularité.
 - Première passe de sound design.
 
-- XSD des AttackDatas.
-- Remettre les valeurs des attack datas.
-- Setup les AttackDatas pour être utilisable correctement dans les behaviours des ennemis.
 - Setup le xml de sorte à pouvoir y paramétrer le combo du joueur.
 - Voir pour un "héritage" des property "Default" ?
+- Recoil dans AttackDatas.
 
 - Système de heal.
 	- Animation + bloquer le perso.
@@ -51,7 +44,8 @@ Plus tard :
 	- Anim de health bar qui se remplit au reload et anim de respawn du joueur.
 	- Effet de shine sur les spikes.
 	- Anim de mort pour les pics (où le perso n'est pas groundé).
-	- Créer une tileset template après avoir terminé la première pour setup le workflow des suivantes.
+	- Setup une rule tile.
+		- Créer une tileset + rule tile template après avoir terminé la première pour setup le workflow des suivantes.
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
 	
 Level Editor ?

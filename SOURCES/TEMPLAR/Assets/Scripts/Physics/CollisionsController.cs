@@ -16,7 +16,8 @@
                     { CollisionOrigin.ABOVE, false },
                     { CollisionOrigin.BELOW, false },
                     { CollisionOrigin.LEFT, false },
-                    { CollisionOrigin.RIGHT, false }
+                    { CollisionOrigin.RIGHT, false },
+                    { CollisionOrigin.EDGE, false }
                 };
             }
 
@@ -26,6 +27,7 @@
                 _states[CollisionOrigin.BELOW] = false;
                 _states[CollisionOrigin.LEFT] = false;
                 _states[CollisionOrigin.RIGHT] = false;
+                _states[CollisionOrigin.EDGE] = false;
             }
 
             public void Copy(CollisionsStates states)
@@ -34,6 +36,7 @@
                 _states[CollisionOrigin.BELOW] = states.GetCollisionState(CollisionOrigin.BELOW);
                 _states[CollisionOrigin.LEFT] = states.GetCollisionState(CollisionOrigin.LEFT);
                 _states[CollisionOrigin.RIGHT] = states.GetCollisionState(CollisionOrigin.RIGHT);
+                _states[CollisionOrigin.EDGE] = states.GetCollisionState(CollisionOrigin.EDGE);
             }
 
             public void SetCollision(CollisionOrigin origin, bool state = true)
@@ -115,7 +118,8 @@
             ABOVE,
             BELOW,
             LEFT,
-            RIGHT
+            RIGHT,
+            EDGE
         }
 
         public CollisionsStates CurrentStates { get; private set; } = new CollisionsStates();
@@ -125,6 +129,7 @@
         public bool Below => CurrentStates.GetCollisionState(CollisionOrigin.BELOW);
         public bool Left => CurrentStates.GetCollisionState(CollisionOrigin.LEFT);
         public bool Right => CurrentStates.GetCollisionState(CollisionOrigin.RIGHT);
+        public bool Edge => CurrentStates.GetCollisionState(CollisionOrigin.EDGE);
         public bool Horizontal => CurrentStates.GetHorizontalCollisionsState();
         public bool Vertical => CurrentStates.GetVerticalCollisionsState();
         public bool Any => CurrentStates.GetAnyCollisionsState();
@@ -167,18 +172,18 @@
             CProLogger.LogWarning(this, $"No ground has been found to ground {transform.name}.");
         }
 
-        public void ComputeCollisions(ref Vector3 vel)
+        public void ComputeCollisions(ref Vector3 vel, bool checkEdge = false)
         {
-            vel = ComputeCollisions(vel);
+            vel = ComputeCollisions(vel, checkEdge);
         }
 
-        public Vector3 ComputeCollisions(Vector3 vel)
+        public Vector3 ComputeCollisions(Vector3 vel, bool checkEdge = false)
         {
             ComputeRaycastOrigins();
             CurrentStates.Reset();
 
             if (vel.x != 0f)
-                ComputeHorizontalCollisions(ref vel);
+                ComputeHorizontalCollisions(ref vel, checkEdge);
 
             if (vel.y != 0f)
                 ComputeVerticalCollisions(ref vel);
@@ -186,7 +191,7 @@
             return vel;
         }
 
-        public void ComputeHorizontalCollisions(ref Vector3 vel)
+        public void ComputeHorizontalCollisions(ref Vector3 vel, bool checkEdge = false)
         {
             float sign = Mathf.Sign(vel.x);
             float length = vel.x * sign + SKIN_WIDTH;
@@ -228,6 +233,9 @@
                 }
                 else
                 {
+                    if (checkEdge)
+                        ComputeEdgeCollisions(ref vel);
+
                     Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.yellow);
                 }
             }
@@ -277,6 +285,22 @@
                 {
                     Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.yellow);
                 }
+            }
+        }
+
+        public void ComputeEdgeCollisions(ref Vector3 vel)
+        {
+            float sign = Mathf.Sign(vel.x);
+            Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.BottomRight : RaycastsOrigins.BottomLeft) + new Vector2(vel.x, 0f);
+            Debug.DrawRay(rayOrigin, Vector2.down, Color.green);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, EDGE_MIN_HEIGHT, ComputeCollisionMask());
+            if (!hit)
+            {
+                vel.x = 0f;
+
+                CurrentStates.SetCollision(CollisionOrigin.EDGE, true);
+                RegisterCollisionForEvent(new CollisionInfos(CollisionOrigin.EDGE, hit));
             }
         }
 

@@ -19,6 +19,9 @@
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
         [SerializeField] private RSLib.DataColor _debugColor = null;
+#if UNITY_EDITOR
+        [SerializeField] private Vector2 _currTraumaVisualizer = Vector2.zero;
+#endif
 
         private RSLib.FocusArea _focusArea;
 
@@ -149,7 +152,10 @@
 #if UNITY_EDITOR
             if (_focusArea.Size != _cameraDatas.FocusAreaSize)
                 _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
+
+            _currTraumaVisualizer = Shake.Trauma;
 #endif
+
             _focusArea.Update();
 
             Vector3 targetPosition = ComputeBaseTargetPosition();

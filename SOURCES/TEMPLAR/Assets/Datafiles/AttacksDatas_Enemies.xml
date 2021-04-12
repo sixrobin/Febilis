@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AttacksDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
+
+   <!-- ████████████ -->
+   <!--   SKELETON   -->
+   <!-- ████████████ -->
+   
+   <EnemyAttack Id="skeleton_atk_base">
+      <Dmg>25</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>PLAYER</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Base X="0.25" Y="0.5" AddType="ADDITIVE"/>
+         <Hit X="0.75" Y="0.75" AddType="OVERRIDE"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.5</Anticipation>
+         <Attack>0.5</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+
+   <EnemyAttack Id="skeleton_atk_above">
+      <Dmg>15</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>PLAYER</Layer>
+         <DirComputationType>X_OFFSET</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Base X="0.25" Y="0.25" AddType="ADDITIVE"/>
+         <Hit X="0.6" Y="0.6" AddType="OVERRIDE"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.4</Anticipation>
+         <Attack>0.5</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+
+
+   
+   <!-- █████████ -->
+   <!--    RAT    -->
+   <!-- █████████ -->
+
+   <EnemyAttack Id="rat_atk_base">
+      <Dmg>10</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layer>PLAYER</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.05</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Hit X="0.45" Y="0.45" AddType="OVERRIDE"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.33</Anticipation>
+         <Attack>0.33</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+   
+</AttacksDatas>

@@ -5483,6 +5483,7 @@ MonoBehaviour:
   _assetsPixelsPerUnit: 18
   _debugOnSelectedOnly: 0
   _debugColor: {fileID: 11400000, guid: 0bc4dac2a1ed649449d963fee17371c5, type: 2}
+  _currTraumaVisualizer: {x: 0, y: 0}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8341,6 +8342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 1
+  _overrideLogPrefix: 
   _enemiesDatas: {fileID: 4900000, guid: baf44483c3f4d6a4188f4d88a2e7d401, type: 3}
   _animationClips:
   - {fileID: 7400000, guid: c8c920164fd433441870aef8fc42fb36, type: 2}
@@ -30396,7 +30398,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _attacksDatas: {fileID: 4900000, guid: ddcf2877f5c3f68469d6faeca9bc2ce8, type: 3}
+  _overrideLogPrefix: 
+  _attacksDatas:
+  - {fileID: 4900000, guid: dad4125d0125c6f48af807d3fdbf7c8e, type: 3}
+  - {fileID: 4900000, guid: 45044d615f1e909478f96dc24a32acf8, type: 3}
   _defaultPlayerAttackCurve:
     serializedVersion: 2
     m_Curve:
@@ -52608,6 +52613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 1
+  _overrideLogPrefix: 
   _overrideCheckpoint: {fileID: 0}
   _playerCtrl: {fileID: 327885998}
   _fadeOnRespawn: 1
@@ -53944,6 +53950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 1
+  _overrideLogPrefix: 
   _disableLoading: 0
 --- !u!1 &1930193693
 GameObject:
@@ -55017,6 +55024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
+  _overrideLogPrefix: 
   _timeScaleDependent: 0
   _rampFadesDatabase: {fileID: 11400000, guid: 9bdfd56485b73424bb864328417501e2, type: 2}
 --- !u!4 &2092481045

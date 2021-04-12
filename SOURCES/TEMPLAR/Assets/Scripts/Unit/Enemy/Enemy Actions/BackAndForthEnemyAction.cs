@@ -70,7 +70,7 @@
                 return;
             }
 
-            EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f);
+            EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f, true);
             EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
             EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
@@ -89,7 +89,8 @@
                 return;
 
             _sideCollision = EnemyCtrl.CurrDir == 1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.RIGHT
-                || EnemyCtrl.CurrDir == -1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.LEFT;
+                || EnemyCtrl.CurrDir == -1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.LEFT
+                || collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.EDGE;
         }
 
         private void ComputeNextPauseDuration()

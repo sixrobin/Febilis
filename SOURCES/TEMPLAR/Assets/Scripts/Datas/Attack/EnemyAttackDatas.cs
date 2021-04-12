@@ -16,13 +16,14 @@
 
         public new static EnemyAttackDatas Default => new EnemyAttackDatas()
         {
-            Dmg = 10,
+            Dmg = 20,
             HitDur = 0.1f,
             HitLayer = Templar.Attack.HitLayer.PLAYER,
             HitDirComputationType = Templar.Attack.HitDirComputationType.ATTACK_DIR,
             HitFreezeFrameDur = 0f,
             BaseTraumaDatas = ShakeTraumaDatas.Default,
             HitTraumaDatas = ShakeTraumaDatas.Default,
+            AnimSpeedMult = 1f,
             AnticipationDur = 0.5f,
             AttackDur = 0.5f
         };
@@ -43,9 +44,13 @@
             UnityEngine.Assertions.Assert.IsNotNull(anticipationDurElement, "ClipsDurations must have an Anticipation element.");
             AnticipationDur = anticipationDurElement.ValueToFloat();
 
+            UnityEngine.Assertions.Assert.IsTrue(AnticipationDur >= 0, "Anticipation duration can not be negative.");
+
             XElement attackDurElement = clipsDurationsElement.Element("Attack");
             UnityEngine.Assertions.Assert.IsNotNull(attackDurElement, "ClipsDurations must have an Attack element.");
             AttackDur = attackDurElement.ValueToFloat();
+
+            UnityEngine.Assertions.Assert.IsTrue(AttackDur >= 0, "Attack duration can not be negative.");
         }
     }
 }

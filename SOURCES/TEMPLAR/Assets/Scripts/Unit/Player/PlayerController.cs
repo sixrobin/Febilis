@@ -136,10 +136,6 @@
             _hurtCoroutine = HurtCoroutine();
             StartCoroutine(_hurtCoroutine);
 
-            CameraCtrl.Shake.AddTraumaFromDatas(args.HitDatas.AttackDatas.HitTraumaDatas);
-            if (args.HitDatas.AttackDatas.HitFreezeFrameDur > 0f)
-                Manager.FreezeFrameManager.FreezeFrame(0, args.HitDatas.AttackDatas.HitFreezeFrameDur);
-
             _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HurtRecoilSettings, hitDir);
         }
 
@@ -210,7 +206,7 @@
                 AttackCtrl.Attack((attackOverArgs) =>
                 {
                     CurrDir = attackOverArgs.Dir;
-                    if (AttackCtrl.CurrentAttackDatas.ControlVelocity)
+                    if (AttackCtrl.CurrAttackDatas.ControlVelocity)
                         ResetVelocity();
                 });
             }
@@ -240,7 +236,7 @@
 
         private void Move()
         {
-            if (RollCtrl.IsRolling || AttackCtrl.IsAttacking && AttackCtrl.CurrentAttackDatas.ControlVelocity)
+            if (RollCtrl.IsRolling || AttackCtrl.IsAttacking && AttackCtrl.CurrAttackDatas.ControlVelocity)
                 return;
 
             if (CollisionsCtrl.Vertical && !JumpCtrl.IsAnticipatingJump)
@@ -260,7 +256,7 @@
             if (JumpCtrl.JumpsLeft > 0
                 && InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP)
                 && !JumpCtrl.IsInLandImpact && !JumpCtrl.IsAnticipatingJump
-                && (AttackCtrl.CurrentAttackDatas == null || AttackCtrl.CanChainAttack)
+                && (AttackCtrl.CurrAttackDatas == null || AttackCtrl.CanChainAttack)
                 && !IsBeingHurt)
             {
                 JumpAllowedThisFrame = true;

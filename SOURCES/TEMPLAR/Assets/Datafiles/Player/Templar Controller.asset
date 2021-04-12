@@ -28,3 +28,4 @@ MonoBehaviour:
   _hurtRecoilSettings:
     _force: 8.2
     _dur: 0.15
+    _checkEdge: 0

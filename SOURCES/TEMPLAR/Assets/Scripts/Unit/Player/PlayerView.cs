@@ -15,7 +15,6 @@
         private const string ATTACK_AIRBORNE = "AttackAirborne";
         private const string HURT = "Hurt";
         private const string MULT_ROLL = "Mult_Roll";
-        private const string MULT_ATTACK = "Mult_Attack";
 
         [Header("MOTION")]
         [SerializeField] private GameObject _jumpPuffPrefab = null;
@@ -145,7 +144,7 @@
 
         private void UpdateAttackAnimation(float dir = 0f)
         {
-            _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrentAttackDatas.AnimSpeedMult);
+            _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
             if (dir != 0f)
                 FlipX(dir < 0f);
         }

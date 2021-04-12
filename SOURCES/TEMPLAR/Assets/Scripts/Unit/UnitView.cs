@@ -8,6 +8,7 @@
         private const string DEATH = "Death";
         private const string DEAD_FADE = "Dead_Fade";
         private const string HURT = "Hurt";
+        protected const string MULT_ATTACK = "Mult_Attack";
 
         [Header("REFS")]
         [SerializeField] protected SpriteRenderer _spriteRenderer = null;

@@ -125,7 +125,7 @@
             if (AttackCtrl.IsAttacking)
                 return;
 
-            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, force: 2.5f, dur: 0.15f); // [TMP] Hardcoded values.
+            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, force: 2.5f, dur: 0.15f, true); // [TMP] Hardcoded values.
 
             _hurtCoroutine = HurtCoroutine();
             StartCoroutine(_hurtCoroutine);
@@ -136,7 +136,7 @@
             AttackCtrl.CancelAttack();
 
             FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
-            Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true);
+            Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;

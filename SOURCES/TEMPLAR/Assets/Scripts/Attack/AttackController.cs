@@ -64,8 +64,10 @@
             UnityEngine.Object.FindObjectOfType<Camera.CameraController>().Shake.AddTraumaFromDatas(attackDatas.BaseTraumaDatas); // [TMP] Find.
         }
 
-        protected abstract void ComputeAttackDirection();
+        protected virtual void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
+        {
+        }
 
-        protected abstract void OnAttackHit(AttackHitbox.HitEventArgs hitArgs);
+        protected abstract void ComputeAttackDirection();
     }
 }

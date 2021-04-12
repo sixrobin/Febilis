@@ -25,20 +25,20 @@
 
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
-        public void Translate(Vector3 vel)
+        public void Translate(Vector3 vel, bool checkEdge = false)
         {
-            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime);
+            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, checkEdge);
             transform.Translate(vel);
         }
 
-        public void Translate(float x, float y)
+        public void Translate(float x, float y, bool checkEdge = false)
         {
-            Translate(new Vector3(x, y));
+            Translate(new Vector3(x, y), checkEdge);
         }
 
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
-            if (KillTrigger.SharedKillTriggers.ContainsKey(collisionInfos.Hit.collider))
+            if (collisionInfos.Hit && KillTrigger.SharedKillTriggers.ContainsKey(collisionInfos.Hit.collider))
                 HealthCtrl.HealthSystem.Kill();
         }
         
@@ -47,7 +47,7 @@
             if (_currentRecoil == null)
                 return;
 
-            Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f));
+            Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f), _currentRecoil.CheckEdge);
             _currentRecoil.Update();
             if (_currentRecoil.IsComplete)
                 _currentRecoil = null;

@@ -3,16 +3,15 @@
     using RSLib.Extensions;
     using System.Xml.Linq;
 
-    public abstract class EnemyConditionDatas
+    public abstract class EnemyConditionDatas : Datas
     {
-        public EnemyConditionDatas(XContainer container)
+        public EnemyConditionDatas(XContainer container) : base(container)
         {
-            Deserialize(container);
         }
 
         public bool Negate { get; private set; }
 
-        protected virtual void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             XElement conditionElement = container as XElement;
 
@@ -41,7 +40,7 @@
 
         public int Threshold { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 
@@ -66,7 +65,7 @@
 
         public int Threshold { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 
@@ -101,7 +100,7 @@
 
         public float Offset { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 
@@ -157,7 +156,7 @@
         public float Range { get; private set; }
         public float RangeSqr => Range * Range;
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 
@@ -182,7 +181,7 @@
 
         public float Chance { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 

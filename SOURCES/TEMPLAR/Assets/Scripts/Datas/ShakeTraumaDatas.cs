@@ -16,15 +16,15 @@
 
         public enum ShakeAddType
         {
-            Additive,
-            Override
+            ADDITIVE,
+            OVERRIDE
         }
 
         public static ShakeTraumaDatas Default => new ShakeTraumaDatas()
         {
             X = 0.25f,
             Y = 0.25f,
-            AddType = ShakeAddType.Additive
+            AddType = ShakeAddType.ADDITIVE
         };
 
         public float X { get; private set; }
@@ -41,13 +41,13 @@
 
             XAttribute yAttribute = traumaElement.Attribute("Y");
             UnityEngine.Assertions.Assert.IsNotNull(yAttribute, "ShakeTraumaDatas must have an Y attribute.");
-            Y = xAttribute.ValueToFloat();
+            Y = yAttribute.ValueToFloat();
 
             UnityEngine.Assertions.Assert.IsTrue(X >= 0 && X <= 1, "ShakeTraumaDatas X value must be contained between 0 and 1.");
             UnityEngine.Assertions.Assert.IsTrue(Y >= 0 && Y <= 1, "ShakeTraumaDatas Y value must be contained between 0 and 1.");
 
             XAttribute addTypeAttribute = traumaElement.Attribute("AddType");
-            AddType = addTypeAttribute?.ValueToEnum<ShakeAddType>() ?? ShakeAddType.Additive;
+            AddType = addTypeAttribute?.ValueToEnum<ShakeAddType>() ?? ShakeAddType.ADDITIVE;
         }
     }
 }

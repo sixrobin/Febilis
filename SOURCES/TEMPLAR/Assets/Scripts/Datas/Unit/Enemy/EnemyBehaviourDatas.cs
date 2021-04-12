@@ -13,7 +13,7 @@
 
         public System.Collections.Generic.List<EnemyActionDatas> Actions { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 

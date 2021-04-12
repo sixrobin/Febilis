@@ -3,15 +3,14 @@
     using RSLib.Extensions;
     using System.Xml.Linq;
 
-    public class AttackDatas
+    public class AttackDatas : Datas
     {
-        public AttackDatas()
+        public AttackDatas() : base(null)
         {
         }
 
-        public AttackDatas(XContainer container)
+        public AttackDatas(XContainer container) : base(container)
         {
-            Deserialize(container);
         }
 
         public static EnemyAttackDatas Default => new EnemyAttackDatas()
@@ -22,7 +21,8 @@
             HitDirComputationType = Templar.Attack.HitDirComputationType.ATTACK_DIR,
             HitFreezeFrameDur = 0f,
             BaseTraumaDatas = ShakeTraumaDatas.Default,
-            HitTraumaDatas = ShakeTraumaDatas.Default
+            HitTraumaDatas = ShakeTraumaDatas.Default,
+            AnimSpeedMult = 1f
         };
 
         public string Id { get; protected set; }
@@ -37,7 +37,9 @@
         public ShakeTraumaDatas BaseTraumaDatas { get; protected set; }
         public ShakeTraumaDatas HitTraumaDatas { get; protected set; }
 
-        public virtual void Deserialize(XContainer container)
+        public float AnimSpeedMult { get; protected set; }
+
+        public override void Deserialize(XContainer container)
         {
             XElement attackElement = container as XElement;
 
@@ -70,13 +72,16 @@
             if (traumasElement != null)
             {
                 XElement baseTraumaElement = traumasElement.Element("Base");
-                if (!baseTraumaElement.IsNullOrEmpty())
+                if (baseTraumaElement != null)
                     BaseTraumaDatas = new ShakeTraumaDatas(baseTraumaElement);
 
                 XElement hitTraumaElement = traumasElement.Element("Hit");
-                if (!hitTraumaElement.IsNullOrEmpty())
+                if (hitTraumaElement != null)
                     HitTraumaDatas = new ShakeTraumaDatas(hitTraumaElement);
             }
+
+            XElement animSpeedMultElement = attackElement.Element("AnimSpeedMult");
+            AnimSpeedMult = animSpeedMultElement?.ValueToFloat() ?? 1f;
         }
     }
 }

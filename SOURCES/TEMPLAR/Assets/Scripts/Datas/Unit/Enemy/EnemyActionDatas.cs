@@ -25,7 +25,7 @@
 
         public string AnimatorId { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 
@@ -57,7 +57,7 @@
         public (float min, float max) PauseDur { get; private set; }
         public float RangeFluctuationOnPause { get; private set; }
 
-        protected override void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 

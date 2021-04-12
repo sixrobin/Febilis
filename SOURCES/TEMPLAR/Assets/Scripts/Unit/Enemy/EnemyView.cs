@@ -34,7 +34,7 @@
             _animator.SetBool(IS_WALKING, state);
         }
 
-        public void SetupAttackOverrideClips(string id)
+        public void SetupAttackAnimationsDatas(string id, Datas.Attack.AttackDatas attackDatas)
         {
             string attackClipName = string.Format(ATTACK_CLIP_NAME_FORMAT, EnemyId, id);
             string attackAnticipationClipName = string.Format(ATTACK_ANTICIPATION_CLIP_NAME_FORMAT, EnemyId, id);
@@ -44,6 +44,8 @@
 
             OverrideClip(ATTACK_ANM_OVERRIDE_ID, Datas.Unit.Enemy.EnemyDatabase.AnimationClips[attackClipName]);
             OverrideClip(ATTACK_ANTICIPATION_ANM_OVERRIDE_ID, Datas.Unit.Enemy.EnemyDatabase.AnimationClips[attackAnticipationClipName]);
+
+            _animator.SetFloat(MULT_ATTACK, attackDatas.AnimSpeedMult);
         }
 
         public void PlayAttackAnticipationAnimation()
@@ -54,7 +56,6 @@
         public void PlayAttackAnimation()
         {
             _animator.SetTrigger(ATTACK);
-            FindObjectOfType<Templar.Camera.CameraController>().Shake.SetTrauma(0.2f, 0.45f); // [TMP] GetComponent + hard coded values.
         }
 
         private void OverrideClip(string key, AnimationClip clip)

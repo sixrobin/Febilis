@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AttacksDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
+
+   <PlayerAttack Id="atk_base_00">
+      <Dmg>25</Dmg>
+      <Hit>
+         <Dur>0.25</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.05</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+      </Traumas>
+      <Dur>0.55</Dur>
+      <ChainAllowedTime>0.48</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>1.7</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+   </PlayerAttack>
+
+   <PlayerAttack Id="atk_base_01">
+      <Dmg>25</Dmg>
+      <Hit>
+         <Dur>0.25</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.05</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+      </Traumas>
+      <Dur>0.55</Dur>
+      <ChainAllowedTime>0.48</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>1.7</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+   </PlayerAttack>
+
+   <PlayerAttack Id="atk_base_02">
+      <Dmg>25</Dmg>
+      <Hit>
+         <Dur>0.25</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.05</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+      </Traumas>
+      <Dur>0.55</Dur>
+      <ControlVelocity>
+         <MoveSpeed>2.5</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+   </PlayerAttack>
+
+   <PlayerAttack Id="atk_airborne">
+      <Dmg>25</Dmg>
+      <Hit>
+         <Dur>0.25</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.05</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+      </Traumas>
+      <AnimSpeedMult>1.2</AnimSpeedMult>
+      <Dur>0.4</Dur>
+      <!--<ControlVelocity>
+         <MoveSpeed>5</MoveSpeed>
+         <Gravity>0.05</Gravity>
+      </ControlVelocity>-->
+   </PlayerAttack>
+   
+</AttacksDatas>

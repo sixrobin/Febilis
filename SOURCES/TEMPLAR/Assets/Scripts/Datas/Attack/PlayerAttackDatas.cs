@@ -31,7 +31,6 @@
 
         public float Dur { get; private set; }
         public float ChainAllowedTime { get; private set; }
-        public float AnimSpeedMult { get; private set; }
 
         public bool ControlVelocity { get; private set; }
         public float MoveSpeed { get; private set; }
@@ -48,11 +47,7 @@
             Dur = durElement.ValueToFloat();
 
             XElement chainAllowedTimeElement = attackElement.Element("ChainAllowedTime");
-            UnityEngine.Assertions.Assert.IsNotNull(chainAllowedTimeElement, "PlayerAttackDatas must have a ChainAllowedTime element.");
-            ChainAllowedTime = chainAllowedTimeElement.ValueToFloat();
-
-            XElement animSpeedMultElement = attackElement.Element("AnimSpeedMult");
-            AnimSpeedMult = animSpeedMultElement?.ValueToFloat() ?? 1f;
+            ChainAllowedTime = chainAllowedTimeElement?.ValueToFloat() ?? 0f;
 
             XElement controlVelocityElement = attackElement.Element("ControlVelocity");
             ControlVelocity = !controlVelocityElement.IsNullOrEmpty();

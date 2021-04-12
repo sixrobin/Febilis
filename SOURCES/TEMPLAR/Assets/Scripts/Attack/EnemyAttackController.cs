@@ -8,7 +8,6 @@
         public EnemyAttackController(Unit.Enemy.EnemyController enemyCtrl)
             : base(enemyCtrl, enemyCtrl.AttackHitboxesContainer, enemyCtrl.transform)
         {
-            _currAttackDatas = Datas.Attack.EnemyAttackDatas.Default;
             _enemyCtrl = enemyCtrl;
         }
 
@@ -20,6 +19,8 @@
 
         protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
         {
+            UnityEngine.Assertions.Assert.IsNotNull(_currAttackDatas, "An attack hit has been triggered but enemy attack datas are null.");
+            Manager.GameManager.PlayerCtrl.CameraCtrl.Shake.AddTraumaFromDatas(_currAttackDatas.HitTraumaDatas);
         }
 
         protected override void ComputeAttackDirection()
@@ -29,7 +30,14 @@
 
         private System.Collections.IEnumerator AttackCoroutine(Unit.Enemy.Actions.AttackEnemyAction attackAction, AttackOverEventHandler attackOverCallback = null)
         {
-            _enemyCtrl.EnemyView.SetupAttackOverrideClips(attackAction.ActionDatas.AnimatorId);
+            if (!Datas.Attack.AttackDatabase.EnemyAttacksDatas.TryGetValue(attackAction.ActionDatas.Id, out _currAttackDatas))
+            {
+                // Should never happen.
+                _currAttackDatas = Datas.Attack.EnemyAttackDatas.Default;
+                CProLogger.LogError(this, $"Enemy Attack Datas with Id {attackAction.ActionDatas.Id} could not be found using default datas instead.");
+            }
+
+            _enemyCtrl.EnemyView.SetupAttackAnimationsDatas(attackAction.ActionDatas.AnimatorId, _currAttackDatas);
 
             ComputeAttackDirection();
             _enemyCtrl.EnemyView.PlayAttackAnticipationAnimation();

@@ -5,7 +5,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public partial class SaveManager : RSLib.Framework.Singleton<SaveManager>
+    public partial class SaveManager : RSLib.Framework.ConsoleProSingleton<SaveManager>
     {
         [SerializeField] private bool _disableLoading = false;
 
@@ -114,29 +114,6 @@
 
             if (!_disableLoading)
                 TryLoad();
-        }
-    }
-
-    public partial class SaveManager : RSLib.Framework.Singleton<SaveManager>
-    {
-        public override void Log(string msg)
-        {
-            CProLogger.Log(this, msg, gameObject);
-        }
-
-        public override void Log(string msg, Object context)
-        {
-            CProLogger.Log(this, msg, gameObject);
-        }
-
-        public override void LogError(string msg)
-        {
-            CProLogger.LogError(this, msg, gameObject);
-        }
-
-        public override void LogError(string msg, Object context)
-        {
-            CProLogger.LogError(this, msg, gameObject);
         }
     }
 }

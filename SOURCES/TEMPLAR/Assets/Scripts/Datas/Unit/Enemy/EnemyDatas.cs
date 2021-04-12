@@ -3,11 +3,10 @@
     using RSLib.Extensions;
     using System.Xml.Linq;
 
-    public class EnemyDatas
+    public class EnemyDatas : Datas
     {
-        public EnemyDatas(XContainer container)
+        public EnemyDatas(XContainer container) : base(container)
         {
-            Deserialize(container);
         }
 
         public string Id { get; private set; }
@@ -26,7 +25,7 @@
 
         public System.Collections.Generic.List<EnemyBehaviourDatas> Behaviours { get; private set; }
 
-        private void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             XElement enemyElement = container as XElement;
 

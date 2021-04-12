@@ -4,7 +4,7 @@
     using System.Linq;
     using UnityEngine;
 
-    public class GameManager : RSLib.Framework.Singleton<GameManager>
+    public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
     {
         [Tooltip("Checkpoint to use on game start. Can be null to use default behaviour.")]
         [SerializeField] private Interaction.CheckpointController _overrideCheckpoint = null;

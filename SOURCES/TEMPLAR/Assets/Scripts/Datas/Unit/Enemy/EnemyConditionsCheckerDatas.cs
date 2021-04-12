@@ -2,18 +2,17 @@
 {
     using System.Xml.Linq;
 
-    public abstract class EnemyConditionsCheckerDatas
+    public abstract class EnemyConditionsCheckerDatas : Datas
     {
-        public EnemyConditionsCheckerDatas(XContainer container)
+        public EnemyConditionsCheckerDatas(XContainer container) : base(container)
         {
-            Deserialize(container);
         }
 
         public System.Collections.Generic.List<EnemyConditionDatas> Conditions { get; private set; }
 
         public bool HasConditions => Conditions != null;
 
-        protected virtual void Deserialize(XContainer container)
+        public override void Deserialize(XContainer container)
         {
             XElement conditionsElement = (container as XElement).Element("Conditions");
 

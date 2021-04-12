@@ -12,6 +12,9 @@
         [Tooltip("Speed that will be multiplied by the roll curve evaluation.")]
         [SerializeField, Min(0f)] private float _speed = 3f;
 
+        [Tooltip("Percentage of the roll duration from which edges are detected not to fall.")]
+        [SerializeField, Range(0f, 1f)] private float _edgeDetectionThreshold = 0f;
+
         [Tooltip("Curve that will be applied to roll speed over the roll duration. Values should be between 0 and 1.")]
         [SerializeField] private AnimationCurve _speedCurve = null;
 
@@ -26,6 +29,7 @@
 
         public float Dur => _dur;
         public float Speed => _speed;
+        public float EdgeDetectionThreshold => _edgeDetectionThreshold;
         public AnimationCurve SpeedCurve => _speedCurve;
         public float Cooldown => _cooldown;
         public bool HasCooldown => Cooldown > 0;

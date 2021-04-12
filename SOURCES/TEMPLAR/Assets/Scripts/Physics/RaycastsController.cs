@@ -14,6 +14,7 @@
 
         public const float SKIN_WIDTH = 0.005f;
         public const float RAYCASTS_SPACING = 0.1f;
+        public const float EDGE_MIN_HEIGHT = 0.5f;
 
         private BoxCollider2D _boxCollider2D;
 

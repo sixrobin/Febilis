@@ -3,7 +3,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public partial class EnemyDatabase : RSLib.Framework.Singleton<EnemyDatabase>
+    public partial class EnemyDatabase : RSLib.Framework.ConsoleProSingleton<EnemyDatabase>
     {
         [SerializeField] private TextAsset _enemiesDatas = null;
         [SerializeField] private AnimationClip[] _animationClips = null;
@@ -71,29 +71,6 @@
             base.Awake();
             Deserialize();
             GenerateClipsDictionary();
-        }
-    }
-
-    public partial class EnemyDatabase : RSLib.Framework.Singleton<EnemyDatabase>
-    {
-        public override void Log(string msg)
-        {
-            CProLogger.Log(this, msg, gameObject);
-        }
-
-        public override void Log(string msg, Object context)
-        {
-            CProLogger.Log(this, msg, gameObject);
-        }
-
-        public override void LogError(string msg)
-        {
-            CProLogger.LogError(this, msg, gameObject);
-        }
-
-        public override void LogError(string msg, Object context)
-        {
-            CProLogger.LogError(this, msg, gameObject);
         }
     }
 }
