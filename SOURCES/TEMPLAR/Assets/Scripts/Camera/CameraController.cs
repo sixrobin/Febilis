@@ -10,6 +10,7 @@
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private CameraShake.Settings _shakeSettings = CameraShake.Settings.Default;
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
+        [SerializeField] private BoxCollider2D _levelBounds = null;
 
         [Header("PIXEL PERFECT FIX")]
         [SerializeField] private bool _toggleManualFix = true;
@@ -109,6 +110,25 @@
                 pos.y = Mathf.SmoothDamp(transform.position.y, pos.y, ref _refY, _cameraDatas.VerticalDamping);
         }
 
+        private void ComputeLevelBoundsPosition(ref Vector3 pos)
+        {
+            if (_levelBounds == null)
+            {
+                return;
+            }
+
+            float halfHeight = _camera.orthographicSize;
+            float halfWidth = halfHeight * Screen.width / Screen.height;
+
+            float xMin = _levelBounds.bounds.min.x + halfWidth;
+            float xMax = _levelBounds.bounds.max.x - halfWidth;
+            float yMin = _levelBounds.bounds.min.y + halfHeight;
+            float yMax = _levelBounds.bounds.max.y - halfHeight;
+
+            pos.x = Mathf.Clamp(pos.x, xMin, xMax);
+            pos.y = Mathf.Clamp(pos.y, yMin, yMax);
+        }
+
         private void ComputeShakePosition(ref Vector3 pos)
         {
             pos += Shake.GetShake();
@@ -164,6 +184,7 @@
             ComputeLookVerticalPosition(ref targetPosition);
             ComputeShakePosition(ref targetPosition);
             ComputeDampedPosition(ref targetPosition);
+            ComputeLevelBoundsPosition(ref targetPosition);
 
             transform.position = targetPosition.WithZ(transform.position.z);
 

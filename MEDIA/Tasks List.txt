@@ -9,10 +9,9 @@
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
-- Clamper la caméra sur les bords.
 
 - Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-- Besoin d'implémenter un système similaire aux animators des ennemis pour les attaques du joueur pour plus de modularité.
+- Besoin d'implémenter un système similaire aux animators des ennemis pour les attaques du joueur pour plus de modularité ?
 - Première passe de sound design.
 
 - Setup le xml de sorte à pouvoir y paramétrer le combo du joueur.
@@ -23,7 +22,7 @@
 	- Animation + bloquer le perso.
 	- Déclencher le heal seulement si le joueur arrive à le faire sans être interrompu par une attaque seulement.
 
-- Mockup/concept pour l'inventaire.
+- Mockup/concept pour l'inventaire quand ce qui est dedans aura été décidé.
 - Variante du concept du boss avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc..
 
 - Enviro :
@@ -34,6 +33,7 @@
 	- Variantes des tiles de l'enviro qui n'en ont pas encore.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
+	
 - XML :
 	- Player datas.
 	- Roll datas.
