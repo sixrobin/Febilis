@@ -11,6 +11,9 @@
         [SerializeField] private float _healthBarBlinkPauseDur = 0.15f;
         [SerializeField] private float _healthBarBlinkUpdateSpeed = 4f;
 
+        [Header("HEAL CELLS")]
+        [SerializeField] private GameObject[] _healCellsViews = null;
+
         [Header("HEALTH BAR SHINE")]
         [SerializeField] private RectTransform _shineRectTransform = null;
         [SerializeField] private float _shineDist = 250f;
@@ -20,6 +23,18 @@
         private System.Collections.IEnumerator _healthBarUpdateCoroutine;
         private System.Collections.IEnumerator _shineCoroutine;
 
+        private uint _healCellsLeft;
+        public uint HealCellsLeft
+        {
+            get => _healCellsLeft;
+            set
+            {
+                _healCellsLeft = value;
+                for (int i = 0; i < _healCellsViews.Length; ++i)
+                    _healCellsViews[i].SetActive(i < _healCellsLeft);
+            }
+        }
+
         public PlayerController PlayerCtrl { get; set; }
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.PLAYER;
@@ -27,6 +42,7 @@
         public override void Init(int health)
         {
             base.Init(health);
+            RestoreCells();
 
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
             Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
@@ -39,6 +55,12 @@
                 return;
 
             base.OnHit(hitDatas);
+        }
+
+        public void RestoreCells()
+        {
+            // [TODO] Hardcoded value. Need to load, or get it from datas, etc.
+            HealCellsLeft = 2;
         }
 
         protected override void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)

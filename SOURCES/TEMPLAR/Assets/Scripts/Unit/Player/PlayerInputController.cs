@@ -13,6 +13,7 @@
         public const string ROLL = "Roll";
         public const string ATTACK = "Attack";
         public const string INTERACT = "Interact";
+        public const string HEAL = "Heal";
 
         private Datas.Unit.Player.PlayerInputDatas _inputDatas;
         private MonoBehaviour _coroutinesExecuter;
@@ -38,7 +39,8 @@
             ROLL = 2,
             ATTACK = 4,
             INTERACT = 8,
-            ANY = JUMP | ROLL | ATTACK | INTERACT
+            HEAL = 16,
+            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL
         }
 
         public float Horizontal { get; private set; }
@@ -82,6 +84,8 @@
         {
             Horizontal = 0f;
             Vertical = 0f;
+
+            _delayedInputs &= ~ButtonCategory.HEAL;
         }
 
         public void ResetDelayedInput(ButtonCategory btnCategory)
@@ -93,7 +97,7 @@
                 storeCoroutine = null;
             }
 
-            _delayedInputs ^= btnCategory;
+            _delayedInputs &= ~btnCategory;
         }
 
         private void Init()
@@ -104,7 +108,8 @@
                     { ButtonCategory.JUMP, () => InputManager.GetInputDown(JUMP) },
                     { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
                     { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
-                    { ButtonCategory.INTERACT, () => InputManager.GetInputDown(INTERACT) }
+                    { ButtonCategory.INTERACT, () => InputManager.GetInputDown(INTERACT) },
+                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) }
                 };
 
             _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(
@@ -130,7 +135,7 @@
                 yield break;
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_inputDelaysByCategory[btnCategory]);
-            _delayedInputs ^= btnCategory;
+            _delayedInputs &= ~btnCategory;
         }
     }
 }

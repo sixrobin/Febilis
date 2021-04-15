@@ -40,6 +40,12 @@
         [Tooltip("Recoil applied to controller when getting hurt.")]
         [SerializeField] private Templar.Physics.Recoil.RecoilSettings _hurtRecoilSettings = null;
 
+        [Tooltip("Full heal motion duration.")]
+        [SerializeField, Min(0f)] private float _healDur = 1f;
+
+        [Tooltip("Recoil applied to controller when healing. Can be null.")]
+        [SerializeField] private Templar.Physics.Recoil.RecoilSettings _healRecoilSettings = null;
+
         public PlayerInputDatas Input => _playerInputDatas;
         public UnitJumpDatas Jump => _playerJumpDatas;
         public UnitRollDatas Roll => _playerRollDatas;
@@ -52,5 +58,7 @@
         public float HurtDur => _hurtDur;
         public float MaxFallVelocity => _maxFallVelocity;
         public Templar.Physics.Recoil.RecoilSettings HurtRecoilSettings => _hurtRecoilSettings;
+        public float HealDur => _healDur;
+        public Templar.Physics.Recoil.RecoilSettings HealRecoilSettings => _healRecoilSettings;
     }
 }

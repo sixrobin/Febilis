@@ -16,6 +16,7 @@
         private bool _inputsAllowed;
 
         private System.Collections.IEnumerator _hurtCoroutine;
+        private System.Collections.IEnumerator _healCoroutine;
 
         private Vector3 _currVel;
         private Vector3 _prevVel;
@@ -28,6 +29,8 @@
         public Templar.Camera.CameraController CameraCtrl => _cameraCtrl;
         public Datas.Unit.Player.PlayerControllerDatas CtrlDatas => _ctrlDatas;
 
+        public PlayerHealthController PlayerHealthCtrl => HealthCtrl as PlayerHealthController;
+
         public PlayerInputController InputCtrl { get; private set; }
         public PlayerJumpController JumpCtrl { get; private set; }
         public PlayerRollController RollCtrl { get; private set; }
@@ -36,6 +39,7 @@
         public float Gravity { get; private set; }
 
         public bool IsBeingHurt => _hurtCoroutine != null;
+        public bool IsHealing => _healCoroutine != null;
 
         public bool JumpAllowedThisFrame { get; private set; }
 
@@ -51,8 +55,8 @@
 
             if (HealthCtrl is PlayerHealthController templarHealthCtrl)
             {
-                templarHealthCtrl.Init(_baseHealth);
                 templarHealthCtrl.PlayerCtrl = this;
+                templarHealthCtrl.Init(_baseHealth);
                 templarHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
                 templarHealthCtrl.UnitKilled += OnUnitKilled;
             }
@@ -128,6 +132,12 @@
             if (!args.IsLoss)
                 return;
 
+            if (IsHealing)
+            {
+                StopCoroutine(_healCoroutine);
+                _healCoroutine = null;
+            }
+
             float hitDir = args.HitDatas.ComputeHitDir(transform);
 
             ResetVelocity();
@@ -176,14 +186,15 @@
         {
             if (RollCtrl.IsRollingOrInCooldown
                 || AttackCtrl.IsAttacking
-                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ROLL)
                 || !CollisionsCtrl.Below
                 || JumpCtrl.IsInLandImpact
-                || IsBeingHurt)
+                || IsBeingHurt
+                || IsHealing
+                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ROLL))
                 return;
 
-            _currVel = Vector3.zero;
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.ROLL);
+            _currVel = Vector3.zero;
 
             RollCtrl.Roll(
                 InputCtrl.Horizontal != 0f ? Mathf.Sign(InputCtrl.Horizontal) : CurrDir,
@@ -194,9 +205,10 @@
         {
             if (RollCtrl.IsRolling
                 || AttackCtrl.IsAttacking
-                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ATTACK)
                 || JumpCtrl.IsInLandImpact
-                || IsBeingHurt)
+                || IsBeingHurt
+                || IsHealing
+                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ATTACK))
                 return;
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.ATTACK);
@@ -227,11 +239,40 @@
             // If the player attacks, we need to remove feedback on potential interactable, but there won't be
             // a collision afterward to show it again. Callback system ?
 
-            if (!InputCtrl.CheckInput(PlayerInputController.ButtonCategory.INTERACT))
+            if (IsHealing || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.INTERACT))
                 return;
 
             _interacter.TryInteract();
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.INTERACT);
+        }
+
+        private void TryHeal()
+        {
+            if (RollCtrl.IsRolling
+                || AttackCtrl.IsAttacking
+                || JumpCtrl.IsInLandImpact
+                || IsBeingHurt
+                || IsHealing
+                || HealthCtrl.HealthSystem.IsFull
+                || PlayerHealthCtrl.HealCellsLeft == 0
+                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL))
+                return;
+
+            InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.HEAL);
+
+            PlayerView.PlayHealAnimation(() =>
+            {
+                UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.HealCellsLeft > 0, "Healing has been allowed while there are no cells left.");
+                PlayerHealthCtrl.HealCellsLeft--;
+                HealthCtrl.HealthSystem.Heal(50); // [TODO] Hardcoded values.
+
+                _cameraCtrl.Shake.AddTrauma(0.25f); // [TODO] Hardcoded values.
+                if (CtrlDatas.HealRecoilSettings != null)
+                    _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
+            });
+
+            _healCoroutine = HealCoroutine();
+            StartCoroutine(_healCoroutine);
         }
 
         private void Move()
@@ -257,7 +298,8 @@
                 && InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP)
                 && !JumpCtrl.IsInLandImpact && !JumpCtrl.IsAnticipatingJump
                 && (AttackCtrl.CurrAttackDatas == null || AttackCtrl.CanChainAttack)
-                && !IsBeingHurt)
+                && !IsBeingHurt
+                && !IsHealing)
             {
                 JumpAllowedThisFrame = true;
                 InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
@@ -288,7 +330,7 @@
             }
 
             float targetVelX = CtrlDatas.RunSpeed;
-            if (!IsBeingHurt)
+            if (!IsBeingHurt && !IsHealing)
             {
                 targetVelX *= InputCtrl.Horizontal;
                 if (JumpCtrl.IsAnticipatingJump)
@@ -308,6 +350,8 @@
             _currVel.x = Mathf.SmoothDamp(_currVel.x, targetVelX, ref _refVelX, CollisionsCtrl.Below ? CtrlDatas.GroundedDamping : CtrlDatas.Jump.AirborneDamping);
             _currVel.y += grav;
             _currVel.y = Mathf.Max(_currVel.y, -CtrlDatas.MaxFallVelocity);
+
+            _currVel += GetCurrentRecoil(); // Done here because events management seems to have a better behaviour when all movement is done in one place.
 
             Translate(_currVel);
 
@@ -335,6 +379,13 @@
             PlayerView.PlayIdleAnimation();
         }
 
+        private System.Collections.IEnumerator HealCoroutine()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.HealDur);
+            _healCoroutine = null;
+            PlayerView.PlayIdleAnimation();
+        }
+
         protected override void Update()
         {
             if (!Initialized)
@@ -354,8 +405,10 @@
             TryRoll();
             TryAttack();
             TryInteract();
+            TryHeal();
+
             Move();
-            ApplyCurrentRecoil();
+            //ApplyCurrentRecoil();
 
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
             PlayerView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);

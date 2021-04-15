@@ -25,3 +25,6 @@ MonoBehaviour:
   - _actionId: Interact
     _btn: 101
     _altBtn: 333
+  - _actionId: Heal
+    _btn: 97
+    _altBtn: 335

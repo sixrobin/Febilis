@@ -29,3 +29,8 @@ MonoBehaviour:
     _force: 8.2
     _dur: 0.15
     _checkEdge: 0
+  _healDur: 0.85
+  _healRecoilSettings:
+    _force: 1
+    _dur: 0.1
+    _checkEdge: 1

@@ -87,6 +87,8 @@
             // Logic that should happen on interaction, but delayed to fit the game view.
 
             Manager.GameManager.PlayerCtrl.HealthCtrl.HealFull();
+            Manager.GameManager.PlayerCtrl.PlayerHealthCtrl.RestoreCells();
+
             Manager.GameManager.PlayerCtrl.AllowInputs(true);
         }
 

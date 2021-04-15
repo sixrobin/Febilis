@@ -82,9 +82,10 @@ Idées générales
 - Mimic ?
 
 - Quand on attaque un rat, tous les autres aux alentours attaquent.
+- Le main menu et autres écrans hors jeu devraient garder la palette de la sauvegarde!
 
 - Boss au caractère un peu troll qui a un dialogue du style "ah bah le setup est pas mal pour un combat, ah, les barrières viennent de se fermer. Bon, allons-y".
-
+- Au village, une ferme avec un animal qui est un monstre caché, qui ne se transforme que dans une certaine version du monde.
 - Salle dans une église/cathédrale dans laquelle le templier peut jouer de l'orgue. Osef mais marrant.
 
 - Feinte au début du jeu, musique épique pour un mob de merde, puis ensuite un vrai boss sorti de nulle part.

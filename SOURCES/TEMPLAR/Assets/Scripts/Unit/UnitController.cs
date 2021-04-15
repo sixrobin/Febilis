@@ -53,6 +53,19 @@
                 _currentRecoil = null;
         }
 
+        protected Vector3 GetCurrentRecoil()
+        {
+            if (_currentRecoil == null)
+                return Vector3.zero;
+
+            Vector3 recoil = new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f);
+            _currentRecoil.Update();
+            if (_currentRecoil.IsComplete)
+                _currentRecoil = null;
+
+            return recoil;
+        }
+
         protected virtual void Update()
         {
 #if UNITY_EDITOR

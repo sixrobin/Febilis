@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftJoystickDeadZone: 0.4
   _jumpInputDelay: 0.25
-  _rollInputDelay: 0.08
-  _attackInputDelay: 0.15
+  _rollInputDelay: 0.2
+  _attackInputDelay: 0.2

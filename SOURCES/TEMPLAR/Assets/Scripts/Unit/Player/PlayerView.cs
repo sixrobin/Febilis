@@ -13,7 +13,7 @@
         private const string ATTACK = "Attack";
         private const string ATTACK_CHAIN = "AttackChain";
         private const string ATTACK_AIRBORNE = "AttackAirborne";
-        private const string HURT = "Hurt";
+        private const string HEAL = "Heal";
         private const string MULT_ROLL = "Mult_Roll";
 
         [Header("MOTION")]
@@ -28,6 +28,10 @@
         [SerializeField] private Transform _hitVFXPivot = null;
         [SerializeField] private GameObject _attackPuffPrefab = null;
         [SerializeField] private GameObject[] _hurtPrefabs = null;
+
+        private HealFrameCallbackHandler _healFrameCallback;
+
+        public delegate void HealFrameCallbackHandler();
 
         public PlayerController TemplarController { get; set; }
 
@@ -134,12 +138,23 @@
             jumpPuffInstance.transform.SetScaleX(dir);
         }
 
+        public void PlayHealAnimation(HealFrameCallbackHandler healFrameCallback)
+        {
+            _healFrameCallback = healFrameCallback;
+            _animator.SetTrigger(HEAL);
+        }
+
         public override void PlayDeathAnimation(float dir)
         {
             base.PlayDeathAnimation(dir);
 
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
+        }
+
+        public void OnHealFrame()
+        {
+            _healFrameCallback?.Invoke();
         }
 
         private void UpdateAttackAnimation(float dir = 0f)

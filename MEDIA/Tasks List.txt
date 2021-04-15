@@ -9,19 +9,13 @@
 - Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 - Bug : collisions avec les coins.
 - Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
-
 - Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 - Besoin d'implémenter un système similaire aux animators des ennemis pour les attaques du joueur pour plus de modularité ?
 - Première passe de sound design.
-
 - Setup le xml de sorte à pouvoir y paramétrer le combo du joueur.
 - Voir pour un "héritage" des property "Default" ?
 - Recoil dans AttackDatas.
-
-- Système de heal.
-	- Animation + bloquer le perso.
-	- Déclencher le heal seulement si le joueur arrive à le faire sans être interrompu par une attaque seulement.
-
+- InputManager : s'assurer que les nouveaux inputs sont bien chargés avec une save si la save ne les connait pas.
 - Mockup/concept pour l'inventaire quand ce qui est dedans aura été décidé.
 - Variante du concept du boss avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc..
 
