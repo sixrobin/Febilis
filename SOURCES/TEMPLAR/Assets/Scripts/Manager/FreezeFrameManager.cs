@@ -8,7 +8,7 @@
 
         public static void FreezeFrame(int framesDelay, float dur, float targetTimeScale = 0f, bool overrideCurrFreeze = false)
         {
-            if (!Exists())
+            if (!Exists() || dur == 0f)
                 return;
 
             if (Instance._freezeFrameCoroutine != null)

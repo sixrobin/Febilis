@@ -47,6 +47,9 @@
             if (_currentRecoil == null)
                 return;
 
+            // [TODO] We may want to multiply the recoil by some factor if the unit is grounded or not.
+            // For this, recoil datas should definitely be more complete and procedural.
+
             Translate(new Vector3(_currentRecoil.Dir * _currentRecoil.Force, 0f), _currentRecoil.CheckEdge);
             _currentRecoil.Update();
             if (_currentRecoil.IsComplete)

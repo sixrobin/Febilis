@@ -18,9 +18,18 @@
 - InputManager : s'assurer que les nouveaux inputs sont bien chargés avec une save si la save ne les connait pas.
 - Mockup/concept pour l'inventaire quand ce qui est dedans aura été décidé.
 - Variante du concept du boss avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc..
+- Plusieurs shakes : small medium large.
+- Permettre de reprendre le pas sur l'anim de heal une fois l'anim du faisceau déclenché (event d'anim?)
+- Animer les cellules de regen qui disparaissent/réapparaissent.
+
+- CurrentAttackDatas dans AttackController ?
+- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
+- Le recoil devrait avoir un multiplicateur quand on est en l'air.
+
+- Animation d'interaction.
+	- Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim (interaction instantanée).
 
 - Enviro :
-	- Parallax.
 	- Background.
 	- Petites variations par dessus la couche "darken".
 	- Variantes des spikes.

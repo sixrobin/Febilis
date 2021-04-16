@@ -31,6 +31,17 @@
         public bool IsRolling => _rollCoroutine != null;
         public bool IsRollingOrInCooldown => IsRolling || _rollCooldownCoroutine != null;
 
+        public bool CanRoll()
+        {
+            return !IsRollingOrInCooldown
+                && !_playerCtrl.AttackCtrl.IsAttacking
+                && _playerCtrl.CollisionsCtrl.Below
+                && !_playerCtrl.JumpCtrl.IsInLandImpact
+                && !_playerCtrl.IsBeingHurt
+                && !_playerCtrl.IsHealing
+                && _playerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ROLL);
+        }
+
         public void Interrupt()
         {
             if (_rollCoroutine == null)

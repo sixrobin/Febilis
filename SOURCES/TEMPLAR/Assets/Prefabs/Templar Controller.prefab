@@ -187,6 +187,8 @@ MonoBehaviour:
   _jump: 0
   _roll: 0
   _attack: 0
+  _interaction: 0
+  _heal: 0
   _playerCtrl: {fileID: 2727861838001810201}
 --- !u!1 &2727861838046398926
 GameObject:
@@ -608,7 +610,7 @@ GameObject:
   - component: {fileID: 2727861839271538948}
   - component: {fileID: 2727861839271538949}
   m_Layer: 9
-  m_Name: Templar Health Hitbox
+  m_Name: Templar Health Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,15 +669,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 2727861839271538948}
-  _healthBarCanvas: {fileID: 0}
-  _healthBar: {fileID: 0}
-  _healthBarBlink: {fileID: 0}
-  _healthBarBlinkPauseDur: 0.15
-  _healthBarBlinkUpdateSpeed: 4
-  _shineRectTransform: {fileID: 0}
-  _shineDist: 270
-  _shineDur: 0.6
-  _shineCurve: 18
+  _baseHealsLeft: 2
+  _healAmount: 50
+  _debugMode: 0
 --- !u!1 &2727861839411020231
 GameObject:
   m_ObjectHideFlags: 0

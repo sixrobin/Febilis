@@ -1,51 +1,55 @@
 ﻿namespace Templar.Unit.Player
 {
-    using RSLib.Extensions;
     using UnityEngine;
 
     public class PlayerHealthController : UnitHealthController
     {
-        [SerializeField] private Canvas _healthBarCanvas = null;
-        [SerializeField] private UnityEngine.UI.Image _healthBar = null;
-        [SerializeField] private UnityEngine.UI.Image _healthBarBlink = null;
-        [SerializeField] private float _healthBarBlinkPauseDur = 0.15f;
-        [SerializeField] private float _healthBarBlinkUpdateSpeed = 4f;
+        [SerializeField] private int _baseHealsLeft = 2;
+        [SerializeField] private int _healAmount = 50;
 
-        [Header("HEAL CELLS")]
-        [SerializeField] private GameObject[] _healCellsViews = null;
+        [Header("DEBUG")]
+        [SerializeField] private bool _debugMode = false;
 
-        [Header("HEALTH BAR SHINE")]
-        [SerializeField] private RectTransform _shineRectTransform = null;
-        [SerializeField] private float _shineDist = 250f;
-        [SerializeField] private float _shineDur = 0.2f;
-        [SerializeField] private RSLib.Maths.Curve _shineCurve = RSLib.Maths.Curve.Linear;
+        public delegate void HealsLeftChangedEventHandler(int healsLeft);
+        public event HealsLeftChangedEventHandler HealsLeftChanged;
 
-        private System.Collections.IEnumerator _healthBarUpdateCoroutine;
-        private System.Collections.IEnumerator _shineCoroutine;
-
-        private uint _healCellsLeft;
-        public uint HealCellsLeft
+        private int _healsLeft;
+        public int HealsLeft
         {
-            get => _healCellsLeft;
+            get => _healsLeft;
             set
             {
-                _healCellsLeft = value;
-                for (int i = 0; i < _healCellsViews.Length; ++i)
-                    _healCellsViews[i].SetActive(i < _healCellsLeft);
+                if (DebugMode)
+                    return;
+
+                _healsLeft = Mathf.Max(0, value);
+                HealsLeftChanged?.Invoke(_healsLeft);
             }
         }
+
+        public int HealAmount => _healAmount;
 
         public PlayerController PlayerCtrl { get; set; }
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.PLAYER;
 
+        public bool DebugMode => _debugMode;
+
+        public bool CanHeal()
+        {
+            return !PlayerCtrl.RollCtrl.IsRolling
+                && !PlayerCtrl.AttackCtrl.IsAttacking
+                && !PlayerCtrl.JumpCtrl.IsInLandImpact
+                && !PlayerCtrl.IsBeingHurt
+                && !PlayerCtrl.IsHealing
+                && (!PlayerCtrl.HealthCtrl.HealthSystem.IsFull && HealsLeft > 0 || DebugMode)
+                && PlayerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL);
+        }
+
         public override void Init(int health)
         {
             base.Init(health);
             RestoreCells();
-
-            Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
-            Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
         }
 
         public override void OnHit(Attack.HitInfos hitDatas)
@@ -57,105 +61,11 @@
             base.OnHit(hitDatas);
         }
 
+        [ContextMenu("Restore cells")]
         public void RestoreCells()
         {
-            // [TODO] Hardcoded value. Need to load, or get it from datas, etc.
-            HealCellsLeft = 2;
-        }
-
-        protected override void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
-        {
-            base.OnHealthChanged(args);
-
-            if (_healthBarUpdateCoroutine != null)
-                SkipHealthBarUpdateCoroutine();
-
-            if (args.IsLoss)
-            {
-                _healthBar.fillAmount = HealthSystem.HealthPercentage;
-            }
-            else
-            {
-                _healthBarBlink.fillAmount = HealthSystem.HealthPercentage;
-
-                //_shineCoroutine = ShineCoroutine();
-                //StartCoroutine(_shineCoroutine);
-            }
-
-            _healthBarUpdateCoroutine = BlinkHealthBarCoroutine(args.IsLoss);
-            StartCoroutine(_healthBarUpdateCoroutine);
-        }
-
-        protected override void OnKilled()
-        {
-            base.OnKilled();
-
-            // [TMP] We may want to do something special on the HUD on death.
-            _healthBar.fillAmount = 0;
-            StartCoroutine(BlinkHealthBarCoroutine(true));
-            //StopCoroutine(_shineCoroutine);
-        }
-
-        private void OnFadeBegan()
-        {
-            _healthBarCanvas.enabled = false;
-        }
-
-        private void OnFadeOver()
-        {
-            // [TMP] Should have a better HUD management. This case is too specific.
-            if (!HealthSystem.IsDead)
-                _healthBarCanvas.enabled = true;
-        }
-
-        private void SkipHealthBarUpdateCoroutine()
-        {
-            UnityEngine.Assertions.Assert.IsNotNull(_healthBarUpdateCoroutine, "Trying to stop a coroutine that is not running.");
-            StopCoroutine(_healthBarUpdateCoroutine);
-            _healthBarBlink.fillAmount = _healthBar.fillAmount;
-        }
-
-        private System.Collections.IEnumerator BlinkHealthBarCoroutine(bool isLoss)
-        {
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_healthBarBlinkPauseDur);
-
-            UnityEngine.UI.Image barToFill = isLoss ? _healthBarBlink : _healthBar;
-
-            float targetValue = HealthSystem.HealthPercentage;
-            float sign = Mathf.Sign(targetValue - (isLoss ? _healthBarBlink.fillAmount : _healthBar.fillAmount));
-
-            while (sign > 0f ? barToFill.fillAmount < targetValue : barToFill.fillAmount > targetValue)
-            {
-                barToFill.fillAmount += _healthBarBlinkUpdateSpeed * Time.deltaTime * sign;
-                yield return null;
-            }
-
-            barToFill.fillAmount = targetValue;
-            _healthBarUpdateCoroutine = null;
-        }
-
-        private System.Collections.IEnumerator ShineCoroutine()
-        {
-            _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(0f);
-
-            for (float t = 0f; t < 1f; t += Time.deltaTime / _shineDur)
-            {
-                _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(_shineDist * RSLib.Maths.Easing.Ease(t, _shineCurve));
-                yield return null;
-            }
-
-            _shineRectTransform.anchoredPosition = _shineRectTransform.anchoredPosition.WithX(_shineDist);
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            if (Manager.RampFadeManager.Exists())
-            {
-                Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
-                Manager.RampFadeManager.Instance.FadeOver -= OnFadeOver;
-            }
+            // [TMP] Need to load, or get it from datas, etc.
+            HealsLeft = _baseHealsLeft;
         }
     }
 }

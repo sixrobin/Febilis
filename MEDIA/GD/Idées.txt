@@ -81,6 +81,9 @@ Idées générales
 - Perso débile qui se stun tout seul si on se pose sur sa tête (il essaie de nous frapper et se met un coup à lui-même). Mécanique de boss ?
 - Mimic ?
 
+- Changement dans l'enviro de la crypte en mode tout pété : on pourrait changer le sol pour un sol fait de crânes, voir tout l'enviro.
+- Pouvoir payer un PNJ qui joue de la musique pour changer de playlist.
+
 - Quand on attaque un rat, tous les autres aux alentours attaquent.
 - Le main menu et autres écrans hors jeu devraient garder la palette de la sauvegarde!
 

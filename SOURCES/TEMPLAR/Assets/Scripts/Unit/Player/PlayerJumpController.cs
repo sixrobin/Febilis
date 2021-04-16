@@ -23,6 +23,17 @@
         public int JumpsLeft { get; set; }
         public float LandImpactSpeedMult { get; private set; }
 
+        public bool CanJump()
+        {
+            return JumpsLeft > 0
+                && _playerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP)
+                && !IsInLandImpact
+                && !IsAnticipatingJump
+                && (_playerCtrl.AttackCtrl.CurrAttackDatas == null || _playerCtrl.AttackCtrl.CanChainAttack)
+                && !_playerCtrl.IsBeingHurt
+                && !_playerCtrl.IsHealing;
+        }
+
         public void ResetJumpsLeft()
         {
             JumpsLeft = _jumpDatas.MaxFollowingJumps;

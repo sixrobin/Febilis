@@ -21,6 +21,7 @@
         {
             UnityEngine.Assertions.Assert.IsNotNull(_currAttackDatas, "An attack hit has been triggered but enemy attack datas are null.");
             Manager.GameManager.PlayerCtrl.CameraCtrl.Shake.AddTraumaFromDatas(_currAttackDatas.HitTraumaDatas);
+            Manager.FreezeFrameManager.FreezeFrame(0, _currAttackDatas.HitFreezeFrameDur);
         }
 
         protected override void ComputeAttackDirection()

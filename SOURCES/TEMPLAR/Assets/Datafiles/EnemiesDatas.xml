@@ -11,11 +11,13 @@
       <Behaviours>
          <!--<Behaviour Name="Flee">
             <Conditions>
-               <HealthMax Threshold="30"/>
+               <HealthMax Threshold="140"/>
                <PlayerDetected/>
             </Conditions>
             <Actions>
-               <Flee/>
+               <Flee>
+                  <FacePlayer>true</FacePlayer>
+               </Flee>
             </Actions>
          </Behaviour>-->
          <Behaviour Name="Base">

@@ -11,7 +11,7 @@
          <Dur>0.1</Dur>
          <Layer>PLAYER</Layer>
          <DirComputationType>ATTACK_DIR</DirComputationType>
-         <FreezeFrameDur>0.1</FreezeFrameDur>
+         <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
       <Traumas>
          <Base X="0.25" Y="0.5" AddType="ADDITIVE"/>
@@ -29,7 +29,7 @@
          <Dur>0.1</Dur>
          <Layer>PLAYER</Layer>
          <DirComputationType>X_OFFSET</DirComputationType>
-         <FreezeFrameDur>0.1</FreezeFrameDur>
+         <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
       <Traumas>
          <Base X="0.25" Y="0.25" AddType="ADDITIVE"/>

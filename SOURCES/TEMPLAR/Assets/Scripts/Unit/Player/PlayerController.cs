@@ -53,13 +53,10 @@
             CollisionsCtrl = new Templar.Physics.PlayerCollisionsController(BoxCollider2D, CollisionMask, _rollCollisionMask, this);
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
 
-            if (HealthCtrl is PlayerHealthController templarHealthCtrl)
-            {
-                templarHealthCtrl.PlayerCtrl = this;
-                templarHealthCtrl.Init(_baseHealth);
-                templarHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
-                templarHealthCtrl.UnitKilled += OnUnitKilled;
-            }
+            PlayerHealthCtrl.PlayerCtrl = this;
+            PlayerHealthCtrl.Init(_baseHealth);
+            PlayerHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
+            PlayerHealthCtrl.UnitKilled += OnUnitKilled;
 
             PlayerView.TemplarController = this;
 
@@ -184,13 +181,7 @@
 
         private void TryRoll()
         {
-            if (RollCtrl.IsRollingOrInCooldown
-                || AttackCtrl.IsAttacking
-                || !CollisionsCtrl.Below
-                || JumpCtrl.IsInLandImpact
-                || IsBeingHurt
-                || IsHealing
-                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ROLL))
+            if (!RollCtrl.CanRoll())
                 return;
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.ROLL);
@@ -203,12 +194,7 @@
 
         private void TryAttack()
         {
-            if (RollCtrl.IsRolling
-                || AttackCtrl.IsAttacking
-                || JumpCtrl.IsInLandImpact
-                || IsBeingHurt
-                || IsHealing
-                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.ATTACK))
+            if (!AttackCtrl.CanAttack())
                 return;
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.ATTACK);
@@ -248,26 +234,23 @@
 
         private void TryHeal()
         {
-            if (RollCtrl.IsRolling
-                || AttackCtrl.IsAttacking
-                || JumpCtrl.IsInLandImpact
-                || IsBeingHurt
-                || IsHealing
-                || HealthCtrl.HealthSystem.IsFull
-                || PlayerHealthCtrl.HealCellsLeft == 0
-                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL))
+            if (!PlayerHealthCtrl.CanHeal())
                 return;
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.HEAL);
 
             PlayerView.PlayHealAnimation(() =>
             {
-                UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.HealCellsLeft > 0, "Healing has been allowed while there are no cells left.");
-                PlayerHealthCtrl.HealCellsLeft--;
-                HealthCtrl.HealthSystem.Heal(50); // [TODO] Hardcoded values.
+                if (!PlayerHealthCtrl.DebugMode)
+                {
+                    UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.HealsLeft > 0, "Healing has been allowed while there are no cells left.");
+                    PlayerHealthCtrl.HealsLeft--;
+                }
 
-                _cameraCtrl.Shake.AddTrauma(0.25f); // [TODO] Hardcoded values.
-                if (CtrlDatas.HealRecoilSettings != null)
+                HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
+
+                _cameraCtrl.Shake.AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
+                if (CtrlDatas.HealRecoilSettings != null && CtrlDatas.HealRecoilSettings.Force != 0f)
                     _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
             });
 
@@ -294,12 +277,7 @@
                 CurrDir = InputCtrl.CurrentHorizontalDir;
 
             // Jump.
-            if (JumpCtrl.JumpsLeft > 0
-                && InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP)
-                && !JumpCtrl.IsInLandImpact && !JumpCtrl.IsAnticipatingJump
-                && (AttackCtrl.CurrAttackDatas == null || AttackCtrl.CanChainAttack)
-                && !IsBeingHurt
-                && !IsHealing)
+            if (JumpCtrl.CanJump())
             {
                 JumpAllowedThisFrame = true;
                 InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
@@ -351,7 +329,7 @@
             _currVel.y += grav;
             _currVel.y = Mathf.Max(_currVel.y, -CtrlDatas.MaxFallVelocity);
 
-            _currVel += GetCurrentRecoil(); // Done here because events management seems to have a better behaviour when all movement is done in one place.
+            //_currVel += GetCurrentRecoil(); // Done here because events management seems to have a better behaviour when all movement is done in one place.
 
             Translate(_currVel);
 
@@ -408,7 +386,7 @@
             TryHeal();
 
             Move();
-            //ApplyCurrentRecoil();
+            ApplyCurrentRecoil();
 
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
             PlayerView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);
@@ -417,12 +395,8 @@
         private void OnDestroy()
         {
             CollisionsCtrl.CollisionDetected -= OnCollisionDetected;
-
-            if (HealthCtrl is PlayerHealthController templarHealthCtrl)
-            {
-                templarHealthCtrl.UnitHealthChanged -= OnUnitHealthChanged;
-                templarHealthCtrl.UnitKilled -= OnUnitKilled;
-            }
+            PlayerHealthCtrl.UnitHealthChanged -= OnUnitHealthChanged;
+            PlayerHealthCtrl.UnitKilled -= OnUnitKilled;
         }
     }
 }

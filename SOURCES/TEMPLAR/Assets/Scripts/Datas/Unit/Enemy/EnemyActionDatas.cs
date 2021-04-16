@@ -95,5 +95,17 @@
         public FleeEnemyActionDatas(XContainer container) : base(container)
         {
         }
+
+        public bool FacePlayer { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XContainer fleeElement = container as XElement;
+
+            XElement facePlayerElement = fleeElement.Element("FacePlayer");
+            FacePlayer = facePlayerElement?.ValueToBool() ?? false;
+        }
     }
 }

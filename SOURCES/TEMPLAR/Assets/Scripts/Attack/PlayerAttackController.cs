@@ -26,6 +26,16 @@
         public bool CanAttackAirborne { get; private set; }
         public bool CanChainAttack { get; private set; }
 
+        public bool CanAttack()
+        {
+            return !_playerCtrl.RollCtrl.IsRolling
+                && !IsAttacking
+                && !_playerCtrl.JumpCtrl.IsInLandImpact
+                && !_playerCtrl.IsBeingHurt
+                && !_playerCtrl.IsHealing
+                && InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK);
+        }
+
         public void ResetAirborneAttack()
         {
             CanAttackAirborne = true;

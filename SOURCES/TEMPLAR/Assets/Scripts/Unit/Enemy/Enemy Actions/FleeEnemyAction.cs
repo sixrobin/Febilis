@@ -17,7 +17,7 @@
             EnemyCtrl.SetDirection(UnityEngine.Mathf.Sign(EnemyCtrl.transform.position.x - EnemyCtrl.PlayerCtrl.transform.position.x));
 
             EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f, true);
-            EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
+            EnemyCtrl.EnemyView.FlipX(ActionDatas.FacePlayer ? -EnemyCtrl.CurrDir < 0f : EnemyCtrl.CurrDir < 0f);
             EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
     }
