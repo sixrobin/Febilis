@@ -120,7 +120,7 @@
             if (!args.IsLoss)
                 return;
 
-            EnemyView.BlinkSpriteColor();
+            EnemyView.BlinkSpriteColor(delay: 0.025f);
 
             if (AttackCtrl.IsAttacking)
                 return;

@@ -3,11 +3,11 @@
     using RSLib.Extensions;
     using UnityEngine;
 
-    public class PlayerController : UnitController
+    public class PlayerController : UnitController, ICheckpointListener
     {
         [Header("PLAYER")]
         [SerializeField] private PlayerView _playerView = null;
-        [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null; // Player should not reference the camera.
+        [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null; // [TMP] Player should not reference the camera.
         [SerializeField] private Datas.Unit.Player.PlayerControllerDatas _ctrlDatas = null;
         [SerializeField] private Interaction.Interacter _interacter = null;
         [SerializeField] private LayerMask _rollCollisionMask = 0;
@@ -42,6 +42,13 @@
         public bool IsHealing => _healCoroutine != null;
 
         public bool JumpAllowedThisFrame { get; private set; }
+
+        public void OnCheckpointInteracted(Interaction.CheckpointController checkpointCtrl)
+        {
+            HealthCtrl.HealFull();
+            PlayerHealthCtrl.RestoreCells();
+            AllowInputs(true);
+        }
 
         public void Init(Interaction.CheckpointController checkpoint = null)
         {
@@ -273,7 +280,7 @@
                 }
             }
 
-            if (InputCtrl.Horizontal != 0f)
+            if (InputCtrl.Horizontal != 0f && !IsHealing)
                 CurrDir = InputCtrl.CurrentHorizontalDir;
 
             // Jump.

@@ -26,7 +26,7 @@
         private static System.Collections.IEnumerator FreezeFrameCoroutine(int framesDelay, float dur, float targetTimeScale = 0f)
         {
             for (int i = 0; i < framesDelay; ++i)
-                yield return null;
+                yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
 
             UnityEngine.Time.timeScale = targetTimeScale;
             yield return RSLib.Yield.SharedYields.WaitForSecondsRealtime(dur);

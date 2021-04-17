@@ -15,6 +15,8 @@
         [SerializeField] protected Animator _animator = null;
         [SerializeField] protected RSLib.ImageEffects.SpriteBlink _spriteBlink = null;
 
+        private System.Collections.IEnumerator _blinkSpriteColorDelayedCoroutine;
+
         public bool GetSpriteRendererFlipX()
         {
             return _spriteRenderer.flipX;
@@ -25,9 +27,22 @@
             _spriteRenderer.flipX = flip;
         }
 
-        public void BlinkSpriteColor(int count = 1)
+        public void BlinkSpriteColor(float delay = 0f, int count = 1)
         {
-            _spriteBlink.BlinkColor(count);
+            if (delay == 0f)
+            {
+                _spriteBlink.BlinkColor(count);
+                return;
+            }
+
+            if (_blinkSpriteColorDelayedCoroutine != null)
+            {
+                StopCoroutine(_blinkSpriteColorDelayedCoroutine);
+                _spriteBlink.ResetColor();
+            }
+
+            _blinkSpriteColorDelayedCoroutine = BlinkSpriteColorDelayedCoroutine(delay, count);
+            StartCoroutine(_blinkSpriteColorDelayedCoroutine);
         }
 
         public void BlinkSpriteAlpha(int count = 1)
@@ -54,6 +69,12 @@
         public virtual void PlayDeadFadeAnimation()
         {
             _animator.SetTrigger(DEAD_FADE);
+        }
+
+        private System.Collections.IEnumerator BlinkSpriteColorDelayedCoroutine(float delay, int count = 1)
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(delay);
+            _spriteBlink.BlinkColor(count);
         }
     }
 }

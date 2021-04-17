@@ -66,10 +66,9 @@
             }
 
             Manager.GameManager.PlayerCtrl.AllowInputs(false);
-            _checkpointView.PlayInteractedAnimation(OnCheckpointViewEnabled);
+            _checkpointView.PlayInteractedAnimation(() => Manager.GameManager.OnCheckpointInteracted(this));
 
             Manager.SaveManager.Save();
-            Manager.GameManager.OnCheckpointInteracted(this);
         }
 
         private void OnBeforeCheckpointChange(string currId, string nextId)
@@ -80,16 +79,6 @@
             // Turn off last checkpoint if it's in the scene.
             if (currId == Id)
                 _checkpointView.PlayOffAnimation();
-        }
-
-        private void OnCheckpointViewEnabled()
-        {
-            // Logic that should happen on interaction, but delayed to fit the game view.
-
-            Manager.GameManager.PlayerCtrl.HealthCtrl.HealFull();
-            Manager.GameManager.PlayerCtrl.PlayerHealthCtrl.RestoreCells();
-
-            Manager.GameManager.PlayerCtrl.AllowInputs(true);
         }
 
         private void Start()

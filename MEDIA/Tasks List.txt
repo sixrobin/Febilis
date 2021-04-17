@@ -21,6 +21,7 @@
 - Plusieurs shakes : small medium large.
 - Permettre de reprendre le pas sur l'anim de heal une fois l'anim du faisceau déclenché (event d'anim?)
 - Animer les cellules de regen qui disparaissent/réapparaissent.
+- Animation de break idle.
 
 - CurrentAttackDatas dans AttackController ?
 - Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?

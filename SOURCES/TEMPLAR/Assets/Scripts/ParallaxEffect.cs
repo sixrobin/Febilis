@@ -44,6 +44,8 @@
 
                 float travelFactor = depthPercentage * _furthestLayerFactor;
                 _individualTransforms[i].AddPositionX(_individualTransformsOffsets[i].x * travelFactor);
+
+                // Compute init offset again after prewarming.
                 _individualTransformsOffsets[i] = _initCamPos - _individualTransforms[i].position;
             }
         }
@@ -67,6 +69,44 @@
                 : RSLib.Maths.Maths.Normalize01(depth, 0f, _furthestLayerDist) * _furthestLayerFactor;
 
             t.SetPositionX(_initCamPos.x - initOffset.x + TravelDistX * travelFactor);
+        }
+
+        [ContextMenu("Check duplicates")]
+        private void CheckDuplicates()
+        {
+            System.Collections.Generic.Dictionary<Transform, int> transformsCounters = new System.Collections.Generic.Dictionary<Transform, int>();
+
+            for (int i = _layers.Length - 1; i >= 0; --i)
+            {
+                if (!transformsCounters.ContainsKey(_layers[i]))
+                    transformsCounters.Add(_layers[i], 0);
+
+                transformsCounters[_layers[i]]++;
+            }
+
+            for (int i = _individualsObjectsParents.Length - 1; i >= 0; --i)
+            {
+                for (int j = _individualsObjectsParents[i].childCount - 1; j >= 0; --j)
+                {
+                    if (!transformsCounters.ContainsKey(_individualsObjectsParents[i].GetChild(j)))
+                        transformsCounters.Add(_individualsObjectsParents[i].GetChild(j), 0);
+
+                    transformsCounters[_individualsObjectsParents[i].GetChild(j)]++;
+                }
+            }
+
+            bool anyDuplicataFound = false;
+            foreach (System.Collections.Generic.KeyValuePair<Transform, int> counter in transformsCounters)
+            {
+                if (counter.Value > 1)
+                {
+                    CProLogger.Log(this, $"Duplicata found for {counter.Key.name} ({counter.Value} occurences).");
+                    anyDuplicataFound = true;
+                }
+            }
+
+            if (!anyDuplicataFound)
+                CProLogger.Log(this, $"No duplicata found.");
         }
 
         private void Start()
