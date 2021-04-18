@@ -104,6 +104,9 @@
         private static System.Collections.Generic.Dictionary<Collider2D, SideTriggerOverrider> s_sharedKnownSideTriggerOverriders
             = new System.Collections.Generic.Dictionary<Collider2D, SideTriggerOverrider>();
 
+        private static System.Collections.Generic.Dictionary<Collider2D, PlatformEffector> s_sharedKnownEffectors
+            = new System.Collections.Generic.Dictionary<Collider2D, PlatformEffector>();
+
         public CollisionsController(BoxCollider2D boxCollider2D, LayerMask collisionMask) : base(boxCollider2D)
         {
             _collisionMask = collisionMask;
@@ -133,6 +136,8 @@
         public bool Horizontal => CurrentStates.GetHorizontalCollisionsState();
         public bool Vertical => CurrentStates.GetVerticalCollisionsState();
         public bool Any => CurrentStates.GetAnyCollisionsState();
+
+        public bool AboveEffector { get; private set; }
 
         public virtual LayerMask ComputeCollisionMask()
         {
@@ -172,12 +177,12 @@
             CProLogger.LogWarning(this, $"No ground has been found to ground {transform.name}.");
         }
 
-        public void ComputeCollisions(ref Vector3 vel, bool checkEdge = false)
+        public void ComputeCollisions(ref Vector3 vel, bool checkEdge = false, bool downEffector = false)
         {
-            vel = ComputeCollisions(vel, checkEdge);
+            vel = ComputeCollisions(vel, checkEdge, downEffector);
         }
 
-        public Vector3 ComputeCollisions(Vector3 vel, bool checkEdge = false)
+        public Vector3 ComputeCollisions(Vector3 vel, bool checkEdge = false, bool downEffector = false)
         {
             ComputeRaycastOrigins();
             CurrentStates.Reset();
@@ -186,7 +191,7 @@
                 ComputeHorizontalCollisions(ref vel, checkEdge);
 
             if (vel.y != 0f)
-                ComputeVerticalCollisions(ref vel);
+                ComputeVerticalCollisions(ref vel, downEffector);
 
             return vel;
         }
@@ -201,47 +206,47 @@
                 Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.BottomRight : RaycastsOrigins.BottomLeft) + Vector2.up * i * HorizontalRaycastsSpacing;
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * sign, length, ComputeCollisionMask());
 
-                if (hit)
-                {
-                    if (!hit.collider.isTrigger)
-                    {
-                        if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
-                            if (hit.collider.TryGetComponent(out sideTriggerOverrider))
-                                s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
-
-                        if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT) ?? false)
-                            continue;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                    Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.red);
-
-                    if (hit.distance <= Mathf.Epsilon)
-                        continue;
-
-                    length = hit.distance;
-                    vel.x = (length - SKIN_WIDTH) * sign;
-
-                    CurrentStates.SetCollision(CollisionOrigin.LEFT, sign == -1f);
-                    CurrentStates.SetCollision(CollisionOrigin.RIGHT, sign == 1f);
-                    RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
-
-                    return;
-                }
-                else
+                if (!hit)
                 {
                     if (checkEdge)
                         ComputeEdgeCollisions(ref vel);
 
                     Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.yellow);
+                    continue;
                 }
+
+                if (hit.collider.isTrigger)
+                    continue;
+
+                if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
+                    if (hit.collider.TryGetComponent(out sideTriggerOverrider))
+                        s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
+
+                if (!s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector))
+                    if (hit.collider.TryGetComponent(out effector))
+                        s_sharedKnownEffectors.Add(hit.collider, effector);
+
+                if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT) ?? false
+                    || effector != null)
+                    continue;
+
+                Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.red);
+
+                if (hit.distance <= Mathf.Epsilon)
+                    continue;
+
+                length = hit.distance;
+                vel.x = (length - SKIN_WIDTH) * sign;
+
+                CurrentStates.SetCollision(CollisionOrigin.LEFT, sign == -1f);
+                CurrentStates.SetCollision(CollisionOrigin.RIGHT, sign == 1f);
+                RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
+
+                return;
             }
         }
 
-        public void ComputeVerticalCollisions(ref Vector3 vel)
+        public void ComputeVerticalCollisions(ref Vector3 vel, bool downEffector)
         {
             float sign = Mathf.Sign(vel.y);
             float length = vel.y * sign + SKIN_WIDTH;
@@ -251,40 +256,48 @@
                 Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.TopLeft : RaycastsOrigins.BottomLeft) + Vector2.right * i * VerticalRaycastsSpacing;
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * sign, length, ComputeCollisionMask());
 
-                if (hit)
-                {
-                    if (!hit.collider.isTrigger)
-                    {
-                        if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
-                            if (hit.collider.TryGetComponent(out sideTriggerOverrider))
-                                s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
-
-                        if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.BELOW : CollisionOrigin.ABOVE) ?? false)
-                            continue;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                    Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);
-
-                    if (hit.distance <= Mathf.Epsilon)
-                        continue;
-
-                    length = hit.distance;
-                    vel.y = (length - SKIN_WIDTH) * sign;
-
-                    CurrentStates.SetCollision(CollisionOrigin.ABOVE, sign == 1f);
-                    CurrentStates.SetCollision(CollisionOrigin.BELOW, sign == -1f);
-                    RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
-
-                    return;
-                }
-                else
+                if (!hit)
                 {
                     Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.yellow);
+                    continue;
                 }
+
+                if (hit.collider.isTrigger)
+                    continue;
+
+                if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
+                    if (hit.collider.TryGetComponent(out sideTriggerOverrider))
+                        s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
+
+                if (!s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector))
+                    if (hit.collider.TryGetComponent(out effector))
+                        s_sharedKnownEffectors.Add(hit.collider, effector);
+
+                AboveEffector = sign == -1f && effector != null;
+
+                if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.BELOW : CollisionOrigin.ABOVE) ?? false)
+                    continue;
+
+                // Effector detected but going up, so we can get through it.
+                if (effector != null && sign == 1f)
+                    continue;
+
+                if (downEffector && AboveEffector)
+                    continue;
+
+                Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);
+
+                if (hit.distance <= Mathf.Epsilon)
+                    continue;
+
+                length = hit.distance;
+                vel.y = (length - SKIN_WIDTH) * sign;
+
+                CurrentStates.SetCollision(CollisionOrigin.ABOVE, sign == 1f);
+                CurrentStates.SetCollision(CollisionOrigin.BELOW, sign == -1f);
+                RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
+
+                return;
             }
         }
 

@@ -55,7 +55,7 @@
         public override void OnHit(Attack.HitInfos hitDatas)
         {
             UnityEngine.Assertions.Assert.IsNotNull(PlayerCtrl, "PlayerController must be referenced to handle PlayerHealthController.");
-            if (PlayerCtrl.RollCtrl.IsRolling)
+            if (PlayerCtrl.RollCtrl.IsRolling || PlayerCtrl.IsBeingHurt)
                 return;
 
             base.OnHit(hitDatas);

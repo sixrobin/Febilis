@@ -22,6 +22,7 @@
 - Permettre de reprendre le pas sur l'anim de heal une fois l'anim du faisceau déclenché (event d'anim?)
 - Animer les cellules de regen qui disparaissent/réapparaissent.
 - Animation de break idle.
+- Input down + bas quand sur un effector fait tomber (checker s'il y a du vide ou pas?)
 
 - CurrentAttackDatas dans AttackController ?
 - Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
@@ -29,6 +30,9 @@
 
 - Animation d'interaction.
 	- Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim (interaction instantanée).
+
+- Outil pour générer automatiquement une tilemap (prendre un template, prendre une tile, et remplir une tilemap avec ces 2 infos).
+- Image explicative de la nomenclature des tiles d'un set.
 
 - Enviro :
 	- Background.
@@ -48,8 +52,8 @@ Plus tard :
 	- Anim de health bar qui se remplit au reload et anim de respawn du joueur.
 	- Effet de shine sur les spikes.
 	- Anim de mort pour les pics (où le perso n'est pas groundé).
-	- Setup une rule tile.
-		- Créer une tileset + rule tile template après avoir terminé la première pour setup le workflow des suivantes.
+	- Créer une tileset après avoir terminé la première pour setup le workflow des suivantes.
+		- (il existe apparemment des Rule Tile Override)
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
 	
 Level Editor ?

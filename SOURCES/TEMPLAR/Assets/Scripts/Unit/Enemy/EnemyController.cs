@@ -263,7 +263,7 @@
 
             // Check above. There may be a better way to handle this, but this will do the job for now.
             Vector3 upCheck = new Vector3(0f, Templar.Physics.RaycastsController.SKIN_WIDTH * 2);
-            CollisionsCtrl.ComputeVerticalCollisions(ref upCheck);
+            CollisionsCtrl.ComputeVerticalCollisions(ref upCheck, false);
 
             _behaviourUpdateTimer += Time.deltaTime;
             if (_behaviourUpdateTimer > _behaviourUpdateRate)

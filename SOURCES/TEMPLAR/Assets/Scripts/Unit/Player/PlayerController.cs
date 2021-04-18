@@ -270,21 +270,26 @@
             if (RollCtrl.IsRolling || AttackCtrl.IsAttacking && AttackCtrl.CurrAttackDatas.ControlVelocity)
                 return;
 
+            bool effectorDown = false;
+
             if (CollisionsCtrl.Vertical && !JumpCtrl.IsAnticipatingJump)
             {
-                _currVel.y = 0f;
                 if (CollisionsCtrl.Below)
                 {
                     JumpCtrl.ResetJumpsLeft();
                     AttackCtrl.ResetAirborneAttack();
                 }
+
+                effectorDown = InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP) && InputCtrl.Vertical == -1f;
+                if (!effectorDown)
+                    _currVel.y = 0f;
             }
 
             if (InputCtrl.Horizontal != 0f && !IsHealing)
                 CurrDir = InputCtrl.CurrentHorizontalDir;
 
             // Jump.
-            if (JumpCtrl.CanJump())
+            if (JumpCtrl.CanJump() && (!effectorDown || !CollisionsCtrl.AboveEffector))
             {
                 JumpAllowedThisFrame = true;
                 InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
@@ -336,9 +341,10 @@
             _currVel.y += grav;
             _currVel.y = Mathf.Max(_currVel.y, -CtrlDatas.MaxFallVelocity);
 
-            //_currVel += GetCurrentRecoil(); // Done here because events management seems to have a better behaviour when all movement is done in one place.
+            // Doing this here makes events being well triggered but causes the tennis ball bug.
+            //_currVel += GetCurrentRecoil();
 
-            Translate(_currVel);
+            Translate(_currVel, checkEdge: false, effectorDown);
 
             // Doing a grounded jump or falling will trigger this condition and remove one jump left. We need to do this after the ComputeCollisions call.
             if (!CollisionsCtrl.Below && CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW))
