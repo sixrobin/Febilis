@@ -5,12 +5,28 @@
 
     public class CameraController : MonoBehaviour
     {
+        [System.Serializable]
+        public class ShakeComponent
+        {
+            [SerializeField] private string _id = string.Empty;
+            [SerializeField] private CameraShake.Settings _shakeSettings = CameraShake.Settings.Default;
+
+            public string Id => _id;
+
+            public CameraShake GetShakeFromSettings()
+            {
+                return new CameraShake(_shakeSettings);
+            }
+        }
+
         [SerializeField] private Datas.CameraDatas _cameraDatas = null;
         [SerializeField] private Camera _camera = null;
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
-        [SerializeField] private CameraShake.Settings _shakeSettings = CameraShake.Settings.Default;
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
         [SerializeField] private BoxCollider2D _levelBounds = null;
+
+        [Header("SHAKES")]
+        [SerializeField] private ShakeComponent[] _shakes = null;
 
         [Header("PIXEL PERFECT FIX")]
         [SerializeField] private bool _toggleManualFix = true;
@@ -40,9 +56,33 @@
         private float _refY;
         private float _refLookAheadVertical;
 
-        public CameraShake Shake { get; private set; }
+        private System.Collections.Generic.Dictionary<string, CameraShake> _shakesDictionary;
 
         public RSLib.ImageEffects.CameraGrayscaleRamp GrayscaleRamp => _grayscaleRamp;
+
+        public void ApplyShakeFromDatas(Templar.Datas.ShakeTraumaDatas shakeDatas)
+        {
+            if (shakeDatas == null)
+                return;
+
+            GetShake(shakeDatas.ShakeId).AddTraumaFromDatas(shakeDatas);
+        }
+
+        public CameraShake GetShake(string id)
+        {
+            UnityEngine.Assertions.Assert.IsTrue(
+                _shakesDictionary.ContainsKey(id),
+                $"Shake with Id {id} does not exist. Existing shakes are {string.Join(",", _shakesDictionary.Keys)}.");
+
+            return _shakesDictionary[id];
+        }
+
+        private void GenerateShakesDictionary()
+        {
+            _shakesDictionary = new System.Collections.Generic.Dictionary<string, CameraShake>();
+            for (int i = _shakes.Length - 1; i >= 0; --i)
+                _shakesDictionary.Add(_shakes[i].Id, _shakes[i].GetShakeFromSettings());
+        }
 
         private Vector3 ComputeBaseTargetPosition()
         {
@@ -131,7 +171,8 @@
 
         private void ComputeShakePosition(ref Vector3 pos)
         {
-            pos += Shake.GetShake();
+            foreach (System.Collections.Generic.KeyValuePair<string, CameraShake> shake in _shakesDictionary)
+                pos += shake.Value.GetShake();
         }
 
         private void UpdatePixelPerfectCameraSize()
@@ -154,7 +195,7 @@
         private void Awake()
         {
             _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
-            Shake = new CameraShake(_shakeSettings);
+            GenerateShakesDictionary();
 
             // Instantly position camera on first frame.
             transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
@@ -173,7 +214,8 @@
             if (_focusArea.Size != _cameraDatas.FocusAreaSize)
                 _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
 
-            _currTraumaVisualizer = Shake.Trauma;
+            // [TODO] Visualize all shakes traumas.
+            //_currTraumaVisualizer = Shake.Trauma;
 #endif
 
             _focusArea.Update();
@@ -207,9 +249,15 @@
             _focusArea?.DrawArea(_debugColor.Color);
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
-            Shake?.SetSettings(_shakeSettings);
+            if (!UnityEditor.EditorApplication.isPlaying)
+                return;
+
+            if (_shakes != null)
+                GenerateShakesDictionary();
         }
+#endif
     }
 }

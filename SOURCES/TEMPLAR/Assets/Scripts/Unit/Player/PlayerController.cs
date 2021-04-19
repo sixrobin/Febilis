@@ -26,6 +26,8 @@
         public bool Initialized { get; private set; }
 
         public PlayerView PlayerView => _playerView;
+        public override UnitView UnitView => _playerView;
+
         public Templar.Camera.CameraController CameraCtrl => _cameraCtrl;
         public Datas.Unit.Player.PlayerControllerDatas CtrlDatas => _ctrlDatas;
 
@@ -169,9 +171,11 @@
             CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
             PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
-            CameraCtrl.Shake.SetTrauma(0.5f); // [TMP] Hard coded value.
+            CameraCtrl.GetShake("Big").SetTrauma(0.5f); // [TMP] Hard coded value.
             Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
             _currentRecoil = null;
+
+            StartDeadFadeCoroutine();
         }
 
         [ContextMenu("Compute Jump Physics")]
@@ -256,7 +260,7 @@
 
                 HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
 
-                _cameraCtrl.Shake.AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
+                _cameraCtrl.GetShake("Small").AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
                 if (CtrlDatas.HealRecoilSettings != null && CtrlDatas.HealRecoilSettings.Force != 0f)
                     _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
             });

@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class UnitView : MonoBehaviour
+    public abstract class UnitView : MonoBehaviour
     {
         private const string IDLE = "Idle";
         private const string DEATH = "Death";
@@ -16,6 +16,8 @@
         [SerializeField] protected RSLib.ImageEffects.SpriteBlink _spriteBlink = null;
 
         private System.Collections.IEnumerator _blinkSpriteColorDelayedCoroutine;
+
+        public abstract float DeadFadeDelay { get; }
 
         public bool GetSpriteRendererFlipX()
         {

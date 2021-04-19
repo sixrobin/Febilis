@@ -17,6 +17,6 @@ MonoBehaviour:
   _horizontalLookAheadDist: 0.5
   _verticalLookAheadDamping: 0.1
   _verticalLookAheadDist: 2
-  _verticalLookAheadDelay: 0.2
+  _verticalLookAheadDelay: 0.35
   _verticalDamping: 0.08
   _heightOffset: 1

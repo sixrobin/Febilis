@@ -5,6 +5,8 @@
 
     public class PlayerView : UnitView
     {
+        private const float DEAD_FADE_DELAY = 1.2f;
+
         private const string IS_RUNNING = "IsRunning";
         private const string FALL = "Fall";
         private const string JUMP = "Jump";
@@ -34,6 +36,8 @@
         public delegate void HealFrameCallbackHandler();
 
         public PlayerController TemplarController { get; set; }
+
+        public override float DeadFadeDelay => DEAD_FADE_DELAY;
 
         public void UpdateView(bool flip, Vector3 currVel, Vector3 prevVel)
         {

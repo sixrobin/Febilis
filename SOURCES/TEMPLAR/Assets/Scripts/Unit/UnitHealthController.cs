@@ -103,9 +103,15 @@
         }
 
         [ContextMenu("Damage with default AttackDatas")]
-        private void DamageHalfLife()
+        private void DebugDamageDefault()
         {
             OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform));
+        }
+
+        [ContextMenu("Damage with infinite damage")]
+        private void DebugDamageInfinite()
+        {
+            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.InfiniteDamage, 1f, transform));
         }
     }
 }

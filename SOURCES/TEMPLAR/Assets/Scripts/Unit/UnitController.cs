@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public class UnitController : MonoBehaviour
+    public abstract class UnitController : MonoBehaviour
     {
         [Header("UNIT BASE")]
         [SerializeField] private BoxCollider2D _boxCollider2D = null;
@@ -12,12 +12,15 @@
         [SerializeField] private LayerMask _collisionMask = 0;
         [SerializeField] private string _debugCollisionsState = string.Empty;
 
-        protected Templar.Physics.Recoil _currentRecoil;
-
         public BoxCollider2D BoxCollider2D => _boxCollider2D;
         public Attack.AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
         public UnitHealthController HealthCtrl => _healthCtrl;
         public LayerMask CollisionMask => _collisionMask;
+
+        public abstract UnitView UnitView { get; }
+
+        protected Templar.Physics.Recoil _currentRecoil;
+        private System.Collections.IEnumerator _deadFadeCoroutine;
 
         public Templar.Physics.CollisionsController CollisionsCtrl { get; protected set; }
 
@@ -67,6 +70,21 @@
                 _currentRecoil = null;
 
             return recoil;
+        }
+
+        protected void StartDeadFadeCoroutine()
+        {
+            _deadFadeCoroutine = DeadFadeCoroutine();
+            StartCoroutine(_deadFadeCoroutine);
+        }
+
+        private System.Collections.IEnumerator DeadFadeCoroutine()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(UnitView.DeadFadeDelay);
+
+            _deadFadeCoroutine = null;
+            if (IsDead)
+                UnitView.PlayDeadFadeAnimation();
         }
 
         protected virtual void Update()

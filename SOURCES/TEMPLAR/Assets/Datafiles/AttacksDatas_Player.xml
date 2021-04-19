@@ -10,7 +10,7 @@
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.48</ChainAllowedTime>
@@ -30,7 +30,7 @@
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.48</ChainAllowedTime>
@@ -50,7 +50,7 @@
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
       </Traumas>
       <Dur>0.55</Dur>
       <ControlVelocity>
@@ -69,7 +69,7 @@
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE"/>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
       </Traumas>
       <AnimSpeedMult>1.2</AnimSpeedMult>
       <Dur>0.4</Dur>

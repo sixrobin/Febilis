@@ -25,6 +25,18 @@
             AnimSpeedMult = 1f
         };
 
+        public static EnemyAttackDatas InfiniteDamage => new EnemyAttackDatas()
+        {
+            Dmg = int.MaxValue,
+            HitDur = 0.1f,
+            HitLayer = Templar.Attack.HitLayer.PLAYER,
+            HitDirComputationType = Templar.Attack.HitDirComputationType.ATTACK_DIR,
+            HitFreezeFrameDur = 0f,
+            BaseTraumaDatas = ShakeTraumaDatas.Default,
+            HitTraumaDatas = ShakeTraumaDatas.Default,
+            AnimSpeedMult = 1f
+        };
+
         public string Id { get; protected set; }
 
         public int Dmg { get; protected set; }

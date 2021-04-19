@@ -14,8 +14,8 @@
          <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Base X="0.25" Y="0.5" AddType="ADDITIVE"/>
-         <Hit X="0.75" Y="0.75" AddType="OVERRIDE"/>
+         <Base X="0.25" Y="0.5" AddType="ADDITIVE" ShakeId="Small"/>
+         <Hit X="0.75" Y="0.75" AddType="OVERRIDE" ShakeId="Big"/>
       </Traumas>
       <ClipsDurations>
          <Anticipation>0.5</Anticipation>
@@ -32,8 +32,8 @@
          <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Base X="0.25" Y="0.25" AddType="ADDITIVE"/>
-         <Hit X="0.6" Y="0.6" AddType="OVERRIDE"/>
+         <Base X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
+         <Hit X="0.6" Y="0.6" AddType="OVERRIDE" ShakeId="Medium"/>
       </Traumas>
       <ClipsDurations>
          <Anticipation>0.4</Anticipation>
@@ -56,7 +56,7 @@
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
       <Traumas>
-         <Hit X="0.45" Y="0.45" AddType="OVERRIDE"/>
+         <Hit X="0.45" Y="0.45" AddType="OVERRIDE" ShakeId="Small"/>
       </Traumas>
       <ClipsDurations>
          <Anticipation>0.33</Anticipation>

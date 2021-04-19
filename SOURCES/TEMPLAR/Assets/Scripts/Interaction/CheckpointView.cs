@@ -20,7 +20,7 @@
         {
             _lightBurstCallback?.Invoke();
 
-            FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(0.3f, 0.8f); // [TMP] Find and hardcoded values.
+            FindObjectOfType<Templar.Camera.CameraController>().GetShake("Small").AddTrauma(0.3f, 0.8f); // [TMP] Find and hardcoded values.
             for (int i = _enabledOnLightBurst.Length - 1; i >= 0; --i)
                 _enabledOnLightBurst[i].SetActive(true);
         }

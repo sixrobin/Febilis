@@ -282,7 +282,7 @@
                 if (effector != null && sign == 1f)
                     continue;
 
-                if (downEffector && AboveEffector)
+                if (downEffector && AboveEffector && !effector.BlockDown)
                     continue;
 
                 Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);

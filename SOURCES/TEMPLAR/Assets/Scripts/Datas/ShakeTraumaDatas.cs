@@ -24,8 +24,11 @@
         {
             X = 0.25f,
             Y = 0.25f,
-            AddType = ShakeAddType.ADDITIVE
+            AddType = ShakeAddType.ADDITIVE,
+            ShakeId = "Medium"
         };
+
+        public string ShakeId { get; private set; }
 
         public float X { get; private set; }
         public float Y { get; private set; }
@@ -34,6 +37,9 @@
         public void Deserialize(XContainer container)
         {
             XElement traumaElement = container as XElement;
+
+            XAttribute shakeIdElement = traumaElement.Attribute("ShakeId");
+            ShakeId = shakeIdElement?.Value ?? "Medium";
 
             XAttribute xAttribute = traumaElement.Attribute("X");
             UnityEngine.Assertions.Assert.IsNotNull(xAttribute, "ShakeTraumaDatas must have a X attribute.");

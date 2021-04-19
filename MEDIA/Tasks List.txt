@@ -1,59 +1,75 @@
-- Attaque up du templier.
-- Code pour faire durer le roll tant que le joueur ne peut se relever.
-- Meilleur manager de sauvegarde.
-- Outil de visualisation des colliders du world.
-- Meilleure courbe de saut, avec gestion dans l'input maintenu.
-- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
-- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
-- Slopes avec roll à la fin ?
-- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
-- Bug : collisions avec les coins.
-- Bug (?) : on peut faire un jump après avoir fait une roulade dans le vide.
-- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-- Besoin d'implémenter un système similaire aux animators des ennemis pour les attaques du joueur pour plus de modularité ?
-- Première passe de sound design.
-- Setup le xml de sorte à pouvoir y paramétrer le combo du joueur.
-- Voir pour un "héritage" des property "Default" ?
-- Recoil dans AttackDatas.
-- InputManager : s'assurer que les nouveaux inputs sont bien chargés avec une save si la save ne les connait pas.
-- Mockup/concept pour l'inventaire quand ce qui est dedans aura été décidé.
-- Variante du concept du boss avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc..
-- Plusieurs shakes : small medium large.
-- Permettre de reprendre le pas sur l'anim de heal une fois l'anim du faisceau déclenché (event d'anim?)
-- Animer les cellules de regen qui disparaissent/réapparaissent.
-- Animation de break idle.
-- Input down + bas quand sur un effector fait tomber (checker s'il y a du vide ou pas?)
-
-- CurrentAttackDatas dans AttackController ?
-- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
-- Le recoil devrait avoir un multiplicateur quand on est en l'air.
-
-- Animation d'interaction.
-	- Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim (interaction instantanée).
-
-- Outil pour générer automatiquement une tilemap (prendre un template, prendre une tile, et remplir une tilemap avec ces 2 infos).
-- Image explicative de la nomenclature des tiles d'un set.
-
-- Enviro :
-	- Background.
-	- Petites variations par dessus la couche "darken".
-	- Variantes des spikes.
-	- Variantes des tiles de l'enviro qui n'en ont pas encore.
-	- Branches/lianes à accrocher aux grounds up.
-	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
+///// MISC / TO PUT AWAY
+	- Code pour faire durer le roll tant que le joueur ne peut se relever.
+	- Meilleur manager de sauvegarde.
+	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
+	- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
+	- InputManager : s'assurer que les nouveaux inputs sont bien chargés avec une save si la save ne les connait pas.
+	- Première passe de sound design.
+	- CurrentAttackDatas dans AttackController ?
+	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
+	- Le recoil devrait avoir un multiplicateur quand on est en l'air.
+	- Trouver une font.
 	
-- XML :
-	- Player datas.
-	- Roll datas.
-	- Jump datas.
+	
+	
+	
+	
+	
+///// BUG TRACKER
+	- Collisions avec les coins.
+	- On peut faire un jump après avoir fait une roulade dans le vide.
+	- Le perso resaute s'il tombe d'un effector trop bas.
 
 
-Plus tard :
-	- Anim de health bar qui se remplit au reload et anim de respawn du joueur.
-	- Effet de shine sur les spikes.
-	- Anim de mort pour les pics (où le perso n'est pas groundé).
-	- Créer une tileset après avoir terminé la première pour setup le workflow des suivantes.
-		- (il existe apparemment des Rule Tile Override)
+
+
+
+
+///// GAMEPLAY
+	- Splitter le heal en deux temps : anticipation, puis fin d'anim (avec heal en transition).
+		- Permettre de casser la séquence de heal après l'anticipation ?
+	- Meilleure courbe de saut, avec gestion dans l'input maintenu (contrôle à 100% comme HK, 2 hauteurs fixes ?)
+	- Attaque up du templier (sur place).
+	- NPCs (héritent de Interactable et déclenchent des dialogues)
+	- Système de dialogue.
+	- Slopes (avec un roll automatique à la fin ?).
+	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
+	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
+	- Réfléchir à comment mettre en place le Guardian.
+	
+
+
+///// CONCEPTS
+	- UI dialogues.
+	- Inventaire (quand on saura un peu plus ce qu'il y aura dedans).
+	- Options.
+	- Variante du Guardian avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc.
+
+
+
+///// DATAS
+	- Recoil dans AttackDatas (force, durée).
+	- Setup le xml AttacksDatas_Player de sorte à pouvoir y paramétrer le combo du joueur.
+	- DialogueDatas (voir avec le système de dialogue).
+
+
+
+///// ANIMATION
+	- Templar_Break-Idle.
+	- Templar_Attack_Up.
+	- Templar_Talking.
+	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).
+	- Cellules de heal qui sont consommées/restorées (attendre d'avoir un graph plus def pour faire une anim autre qu'un placeholder).
+	- Templar_Death-Spikes.
+	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
 	
-Level Editor ?
+
+
+///// ENVIRONMENT :
+	- Meilleur setup des orders (layers background, playground, foreground).
+	- Background.
+	- Variantes des spikes et effet de shine.
+	- Variantes des tiles qui n'en ont pas encore, au moins 3 par tile.
+	- Branches/lianes à accrocher aux grounds up.
+	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).

@@ -27,7 +27,6 @@
         private Vector3 _initPos;
 
         private System.Collections.IEnumerator _hurtCoroutine;
-        private System.Collections.IEnumerator _deadFadeCoroutine;
 
         private EnemyBehaviour _currBehaviour;
         public EnemyBehaviour CurrBehaviour
@@ -60,6 +59,8 @@
         public Datas.Unit.Enemy.EnemyDatas EnemyDatas { get; private set; }
         public EnemyBehaviour[] Behaviours { get; private set; }
         public Attack.EnemyAttackController AttackCtrl { get; private set; }
+
+        public override UnitView UnitView => _enemyView;
 
         public bool IsPlayerAbove { get; private set; }
 
@@ -135,14 +136,13 @@
         {
             AttackCtrl.CancelAttack();
 
-            FindObjectOfType<Templar.Camera.CameraController>().Shake.AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
+            FindObjectOfType<Templar.Camera.CameraController>().GetShake("Medium").AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;
 
-            _deadFadeCoroutine = DeadFadeCoroutine();
-            StartCoroutine(_deadFadeCoroutine);
+            StartDeadFadeCoroutine();
         }
 
         private void UpdateCurrentBehaviour()
@@ -190,15 +190,6 @@
             _hurtCoroutine = null;
             if (!IsDead && !AttackCtrl.IsAttacking)
                 EnemyView.PlayIdleAnimation();
-        }
-
-        private System.Collections.IEnumerator DeadFadeCoroutine()
-        {
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(EnemyView.DEAD_FADE_DELAY);
-
-            _deadFadeCoroutine = null;
-            if (IsDead)
-                EnemyView.PlayDeadFadeAnimation();
         }
 
         private void Awake()
