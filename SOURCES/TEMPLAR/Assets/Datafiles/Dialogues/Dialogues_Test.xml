@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
+
+   <Dialogue Id="TestDialogue_00">
+      <Sentence>TestDialogue_00_00</Sentence>
+      <Pause>0.5</Pause>
+      <Sentence>TestDialogue_00_01</Sentence>
+      <Sentence>TestDialogue_00_02</Sentence>
+      <Sentence>TestDialogue_00_03</Sentence>
+   </Dialogue>
+
+   <Sentence Id="TestDialogue_00_00">
+      <Value>Hi ! I'm the first sentence of the test dialogue.</Value>
+   </Sentence>
+
+   <Sentence Id="TestDialogue_00_01">
+      <Value>Here's a &lt;b&gt;bold&lt;/b&gt; text !</Value>
+   </Sentence>
+
+   <Sentence Id="TestDialogue_00_02">
+      <Value>Hope everything worked as intented. Now let's display a pretty long sentence to see how the UI handles it !</Value>
+   </Sentence>
+
+   <Sentence Id="TestDialogue_00_03">
+      <Value>Now let's try to pause... right now ! &lt;pause&gt;1&lt;/pause&gt; Did it work ? &lt;pause&gt;1&lt;/pause&gt;&lt;pause&gt;2&lt;/pause&gt; Another!</Value>
+   </Sentence>
+   
+</DialoguesDatas>

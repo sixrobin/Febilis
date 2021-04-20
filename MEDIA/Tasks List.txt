@@ -9,6 +9,7 @@
 	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
 	- Le recoil devrait avoir un multiplicateur quand on est en l'air.
 	- Trouver une font.
+	- Checkpoints : plus de vert pomme/clair.
 	
 	
 	
@@ -19,6 +20,7 @@
 	- Collisions avec les coins.
 	- On peut faire un jump après avoir fait une roulade dans le vide.
 	- Le perso resaute s'il tombe d'un effector trop bas.
+	- Le shake "Hit" des ennemis est déclenché même si le perso roule.
 
 
 
