@@ -12,6 +12,9 @@
         public string Id { get; private set; }
 
         public string RawValue { get; private set; }
+        public string SentenceValue { get; private set; }
+
+        public bool Skippable { get; private set; }
 
         public SentenceSequenceElementDatas[] SequenceElementsDatas { get; private set; }
 
@@ -22,6 +25,8 @@
             XAttribute idAttribute = sentenceElement.Attribute("Id");
             UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Sentence Id attribute is null or empty.");
             Id = idAttribute.Value;
+
+            Skippable = sentenceElement.Element("Unskippable") == null;
 
             XElement valueElement = sentenceElement.Element("Value");
             UnityEngine.Assertions.Assert.IsFalse(valueElement.IsNullOrEmpty(), "Sentence Value element is null or empty.");
@@ -68,21 +73,24 @@
 
                 // Custom tag creations.
                 if (openingTagId == SentencePauseDatas.TAG_ID)
-                    customTagsElements.Add((new SentencePauseDatas(tagValue, openingBracketsIndexes[i], closingBracketsIndexes[i + 1]), openingBracketsIndexes[i], closingBracketsIndexes[i + 1]));
+                    customTagsElements.Add((new SentencePauseDatas(this, tagValue, openingBracketsIndexes[i], closingBracketsIndexes[i + 1]), openingBracketsIndexes[i], closingBracketsIndexes[i + 1]));
             }
 
             // Sequence creation.
             if (customTagsElements.Count == 0)
             {
                 // No custom elements, only a simple text.
-                SequenceElementsDatas = new SentenceSequenceElementDatas[] { new SentenceTextDatas(RawValue) };
+                SequenceElementsDatas = new SentenceSequenceElementDatas[] { new SentenceTextDatas(this, RawValue) };
+                SentenceValue = RawValue;
             }
             else
             {
                 System.Collections.Generic.List<SentenceSequenceElementDatas> sequenceElementsDatasList = new System.Collections.Generic.List<SentenceSequenceElementDatas>
                 {
-                    new SentenceTextDatas(RawValue.Substring(0, openingBracketsIndexes[0]))
+                    new SentenceTextDatas(this, RawValue.Substring(0, openingBracketsIndexes[0]))
                 };
+
+                SentenceValue += RawValue.Substring(0, openingBracketsIndexes[0]);
 
                 // Take each custom tag, add it to the sequence, and add the normal text that's following if it exists (= not another tag right after).
                 for (int i = 0; i < customTagsElements.Count; ++i)
@@ -95,7 +103,10 @@
 
                     string nextText = RawValue.Substring(customTagsElements[i].tagEnd + 1, nextTextEnd);
                     if (!string.IsNullOrEmpty(nextText))
-                        sequenceElementsDatasList.Add(new SentenceTextDatas(nextText));
+                    {
+                        sequenceElementsDatasList.Add(new SentenceTextDatas(this, nextText));
+                        SentenceValue += nextText;
+                    }
                 }
 
                 SequenceElementsDatas = sequenceElementsDatasList.ToArray();

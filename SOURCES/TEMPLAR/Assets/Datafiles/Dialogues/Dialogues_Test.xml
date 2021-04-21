@@ -1,15 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
 
+   <Dialogue Id="Twitter">
+      <Sentence>Twitter_00</Sentence>
+      <Sentence>Twitter_01</Sentence>
+      <Sentence>Twitter_02</Sentence>
+      <Sentence>Twitter_03</Sentence>
+      <Sentence>Twitter_04</Sentence>
+      <Sentence>Twitter_05</Sentence>
+      <Pause>0.5</Pause>
+      <Sentence>Twitter_06</Sentence>
+   </Dialogue>
+
+   <Sentence Id="Twitter_00">
+      <Value>Hi ! I'm not posting a lot these days.</Value>
+   </Sentence>
+   <Sentence Id="Twitter_01">
+      <Value>I'm working on programming so...&lt;pause&gt;0&lt;/pause&gt; there's nothing really fancy to show.</Value>
+   </Sentence>
+   <Sentence Id="Twitter_02">
+      <Value>As you can see, I'm working on a dialogue system !</Value>
+   </Sentence>
+   <Sentence Id="Twitter_03">
+      <Value>(Pretty cool not being limited to 280 characters by the way)</Value>
+   </Sentence>
+   <Sentence Id="Twitter_04">
+      <Value>And I'll take part in the 48th Ludum Dare this weekend !</Value>
+   </Sentence>
+   <Sentence Id="Twitter_05">
+      <Value>So there probably won't be much progress on this project for some days.</Value>
+   </Sentence>
+   <Sentence Id="Twitter_06">
+      <Value>But it'll be back soon ! :D</Value>
+   </Sentence>
+   
+   
    <Dialogue Id="TestDialogue_00">
       <Sentence>TestDialogue_00_00</Sentence>
-      <Pause>0.5</Pause>
+      <Sentence>TestDialogue_00_00</Sentence>
+      <Sentence>TestDialogue_00_00</Sentence>
+      <Sentence>TestDialogue_00_03</Sentence>
+      <Sentence>TestDialogue_00_03</Sentence>
+      <Sentence>TestDialogue_00_03</Sentence>
+      <Sentence>TestDialogue_00_03</Sentence>
+      <Sentence>TestDialogue_00_03</Sentence>
+      <Pause>1</Pause>
       <Sentence>TestDialogue_00_01</Sentence>
+      <Sentence>Ellipsis</Sentence>
       <Sentence>TestDialogue_00_02</Sentence>
+      <Sentence>EllipsisLong</Sentence>
       <Sentence>TestDialogue_00_03</Sentence>
    </Dialogue>
 
    <Sentence Id="TestDialogue_00_00">
+      <!--<Unskippable/>-->
       <Value>Hi ! I'm the first sentence of the test dialogue.</Value>
    </Sentence>
 
@@ -22,7 +66,15 @@
    </Sentence>
 
    <Sentence Id="TestDialogue_00_03">
-      <Value>Now let's try to pause... right now ! &lt;pause&gt;1&lt;/pause&gt; Did it work ? &lt;pause&gt;1&lt;/pause&gt;&lt;pause&gt;2&lt;/pause&gt; Another!</Value>
+      <Value>Now let's try to pause... right now !&lt;pause&gt;0.5&lt;/pause&gt; Did it work ?&lt;pause&gt;1&lt;/pause&gt; Another!</Value>
+   </Sentence>
+
+   <Sentence Id="Ellipsis">
+      <Value>...</Value>
+   </Sentence>
+
+   <Sentence Id="EllipsisLong">
+      <Value>.&lt;pause&gt;0.33&lt;/pause&gt;.&lt;pause&gt;0.33&lt;/pause&gt;.</Value>
    </Sentence>
    
 </DialoguesDatas>

@@ -2,7 +2,7 @@
 {
     public class SentenceTextDatas : SentenceSequenceElementDatas
     {
-        public SentenceTextDatas(string value) : base(value)
+        public SentenceTextDatas(SentenceDatas container, string value) : base(container, value)
         {
             Value = value;
         }

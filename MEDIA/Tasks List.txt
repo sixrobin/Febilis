@@ -38,6 +38,12 @@
 	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Réfléchir à comment mettre en place le Guardian.
+	- Coroutine générique avec Func<bool> pour attendre durant un certain délai mais possibilité de break.
+	- Dialogue
+		- DialogueView -> méthode AppendTextCoroutine qui devrait aller dans DialogueManager.
+		- Dans les phrases, gérer les balises au format <tag=something> pour avoir une gestion bien plus simple.
+		- Events OnStart et OnEnd
+		- Paramètre IsDialogueRunning
 	
 
 
