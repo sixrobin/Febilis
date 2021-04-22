@@ -1,0 +1,60 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+   <xs:element name="DialoguesDatas">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="DialogueDatas" type="DialogueDatas" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SentenceDatas"  type="SentenceDatas" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:complexType name="DialogueDatas">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+         <xs:element name="Sentence">
+            <xs:complexType>
+               <xs:sequence>
+                  <!--Override anchor, override speaker name, etc.-->
+               </xs:sequence>
+               <xs:attribute name="Id" type="xs:token" use="required"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Pause">
+            <xs:complexType>
+               <xs:sequence>
+                  <!--Hide panel or not ?-->
+               </xs:sequence>
+               <xs:attribute name="Dur" type="xs:float" use="required"/>
+            </xs:complexType>
+         </xs:element>
+         <!--Element event?-->
+      </xs:choice>
+      <xs:attribute name="Id" type="xs:token" use="required"/>
+   </xs:complexType>
+
+   <xs:complexType name="SentenceDatas">
+      <xs:sequence>
+         <xs:element name="Speaker" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="CustomDisplayName" type="xs:token" minOccurs="0" maxOccurs="1"/>
+                  <xs:element name="CustomPortraitId" type="xs:token" minOccurs="0" maxOccurs="1"/>
+               </xs:sequence>
+               <xs:attribute name="Id" type="xs:token" use="required"/>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Value" type="xs:token" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="PortraitAnchor" type="PortraitAnchor" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:token" use="required"/>
+   </xs:complexType>
+
+   <xs:simpleType name="PortraitAnchor" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="TOP_LEFT"/>
+         <xs:enumeration value="TOP_RIGHT"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+</xs:schema>

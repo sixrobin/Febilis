@@ -3993,7 +3993,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 22, y: 21}
+  m_SizeDelta: {x: 26, y: 26}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &344493569
 MonoBehaviour:
@@ -5582,6 +5582,7 @@ RectTransform:
   m_Children:
   - {fileID: 1803635989}
   - {fileID: 1872556604}
+  - {fileID: 1298136237}
   m_Father: {fileID: 1478647873}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5624,10 +5625,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 540749028}
+  _portraitBox: {fileID: 1803635989}
+  _textBox: {fileID: 1872556604}
   _text: {fileID: 635339687}
-  _skipInputFeedback: {fileID: 1298136237}
+  _portrait: {fileID: 344493569}
+  _speakerSentenceFormat: '{0}: {1}'
   _lettersPerTick: 3
   _tickInterval: 0.08
+  _skipInputFeedback: {fileID: 1298136237}
   _skipInputShowDelay: 1
   _skipInputIdleOffset: 1
   _skipInputIdleTimestep: 0.25
@@ -7651,8 +7656,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Templar: Hey there, wanna touch my nice big sword and team up to conquer
-    Jerusalem ???'
+  m_text: This is some test dialogue ! Nothing sexy...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fcecbfdcfa7ba349855054ab8a78c95, type: 2}
   m_sharedMaterial: {fileID: 2026708820861944882, guid: 9fcecbfdcfa7ba349855054ab8a78c95,
@@ -8370,7 +8374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486b501f2ba171f4d852c0767d93cf5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueId: TestDialogue_00
+  _dialogueId: NPCDial_00
 --- !u!4 &749907509
 Transform:
   m_ObjectHideFlags: 0
@@ -12866,14 +12870,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1872556604}
-  m_RootOrder: 1
+  m_Father: {fileID: 540749027}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -3, y: -1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 77, y: -35}
   m_SizeDelta: {x: 7, y: 5}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1298136238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54687,6 +54691,12 @@ MonoBehaviour:
   _overrideLogPrefix: 
   _dialoguesDatas:
   - {fileID: 4900000, guid: 9dc31701263b16f428807ecd2c8458cf, type: 3}
+  _portraits:
+  - {fileID: 21300000, guid: 002536c19f1a7f342ab02816e429606c, type: 3}
+  - {fileID: 21300000, guid: 7453fb0a0b438e64082266f3921b9e39, type: 3}
+  - {fileID: 21300000, guid: 0eeeebd0985f9834eadd0983c18c5674, type: 3}
+  _defaultPortrait: {fileID: 21300000, guid: 002536c19f1a7f342ab02816e429606c, type: 3}
+  portraitsAssetsRootPath: Assets/Textures/UI/Dialogue/Portraits
 --- !u!1001 &1854598029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54798,7 +54808,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 4, y: 5}
-  m_SizeDelta: {x: 24, y: 24}
+  m_SizeDelta: {x: 26, y: 26}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1869614525
 MonoBehaviour:
@@ -54880,7 +54890,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 635339686}
-  - {fileID: 1298136237}
   m_Father: {fileID: 540749027}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

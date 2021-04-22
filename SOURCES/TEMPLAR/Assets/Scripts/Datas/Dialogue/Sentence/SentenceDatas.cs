@@ -11,10 +11,16 @@
 
         public string Id { get; private set; }
 
+        public string SpeakerId { get; private set; }
+        public string CustomDisplayName { get; private set; }
+        public string CustomPortraitId { get; private set; }
+
         public string RawValue { get; private set; }
         public string SentenceValue { get; private set; }
 
         public bool Skippable { get; private set; }
+
+        public PortraitAnchor PortraitAnchor { get; private set; }
 
         public SentenceSequenceElementDatas[] SequenceElementsDatas { get; private set; }
 
@@ -27,6 +33,22 @@
             Id = idAttribute.Value;
 
             Skippable = sentenceElement.Element("Unskippable") == null;
+
+            XElement portraitAnchorElement = sentenceElement.Element("PortraitAnchor");
+            PortraitAnchor = portraitAnchorElement?.ValueToEnum<PortraitAnchor>() ?? PortraitAnchor.TOP_LEFT;
+
+            XElement speakerElement = sentenceElement.Element("Speaker");
+            UnityEngine.Assertions.Assert.IsNotNull(speakerElement, "Sentence datas needs a Speaker element.");
+
+            XAttribute speakerIdAttribute = speakerElement.Attribute("Id");
+            UnityEngine.Assertions.Assert.IsNotNull(speakerIdAttribute, "Speaker element needs an Id attribute.");
+            SpeakerId = speakerIdAttribute.Value;
+
+            XElement customDisplayNameElement = speakerElement.Element("CustomDisplayName");
+            CustomDisplayName = customDisplayNameElement?.Value ?? null;
+
+            XElement customPortraitIdElement = speakerElement.Element("CustomPortraitId");
+            CustomPortraitId = customPortraitIdElement?.Value ?? null;
 
             XElement valueElement = sentenceElement.Element("Value");
             UnityEngine.Assertions.Assert.IsFalse(valueElement.IsNullOrEmpty(), "Sentence Value element is null or empty.");
@@ -51,29 +73,24 @@
                 openingBracketsIndexes.Count == closingBracketsIndexes.Count,
                 $"Sentence {Id} contains {openingBracketsIndexes.Count} opening brackets for {closingBracketsIndexes.Count} closing brackets.");
 
-            UnityEngine.Assertions.Assert.IsTrue(
-                openingBracketsIndexes.Count % 2 == 0,
-                $"Sentence {Id} contains an odd count of brackets pairs ({openingBracketsIndexes.Count}).");
-
-            for (int i = 0; i < openingBracketsIndexes.Count; i += 2)
+            for (int i = 0; i < openingBracketsIndexes.Count; ++i)
             {
-                string openingTag = RawValue.Substring(openingBracketsIndexes[i], closingBracketsIndexes[i] - openingBracketsIndexes[i] + 1);
-                string closingTag = RawValue.Substring(openingBracketsIndexes[i + 1], closingBracketsIndexes[i + 1] - openingBracketsIndexes[i + 1]);
-                string openingTagId = openingTag.Substring(1, openingTag.Length - 2).ToLower();
-                string closingTagId = closingTag.Substring(2, closingTag.Length - 2).ToLower(); // Start at 2 because closing tag should have a '\' char.
-                string tagValue = RawValue.Substring(closingBracketsIndexes[i] + 1, openingBracketsIndexes[i + 1] - closingBracketsIndexes[i] - 1);
+                int closingBracketIndex = closingBracketsIndexes[i];
+                string tag = RawValue.Substring(openingBracketsIndexes[i] + 1, closingBracketsIndexes[i] - openingBracketsIndexes[i] - 1);
 
-                //UnityEngine.Debug.Log($"Opening tag Id: {openingTagId}");
-                //UnityEngine.Debug.Log($"Closing tag Id: {closingTagId}");
+                string[] tagArgs = tag.Split('=');
+                UnityEngine.Assertions.Assert.IsTrue(tagArgs.Length == 2, $"Tag {tag} could not be split in exactly 2 arguments using = as separator in sentence {Id}.");
+
+                string tagType = tagArgs[0];
+                string tagValue = tagArgs[1];
+
+                //UnityEngine.Debug.Log($"Full tag: {tag}");
+                //UnityEngine.Debug.Log($"Tag type: {tagType}");
                 //UnityEngine.Debug.Log($"Tag value: {tagValue}");
 
-                UnityEngine.Assertions.Assert.IsTrue(
-                    openingTagId == closingTagId,
-                    $"Opening tag {openingTagId} is different from closing tag {closingTagId} in sentence {Id}.");
-
                 // Custom tag creations.
-                if (openingTagId == SentencePauseDatas.TAG_ID)
-                    customTagsElements.Add((new SentencePauseDatas(this, tagValue, openingBracketsIndexes[i], closingBracketsIndexes[i + 1]), openingBracketsIndexes[i], closingBracketsIndexes[i + 1]));
+                if (tagType == SentencePauseDatas.TAG_ID)
+                    customTagsElements.Add((new SentencePauseDatas(this, tagValue, openingBracketsIndexes[i], closingBracketsIndexes[i]), openingBracketsIndexes[i], closingBracketsIndexes[i]));
             }
 
             // Sequence creation.
@@ -111,6 +128,16 @@
 
                 SequenceElementsDatas = sequenceElementsDatasList.ToArray();
             }
+        }
+
+        public string GetDisplayName()
+        {
+            return CustomDisplayName ?? SpeakerId;
+        }
+
+        public string GetPortraitId()
+        {
+            return CustomPortraitId ?? SpeakerId;
         }
     }
 }

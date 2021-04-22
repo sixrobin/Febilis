@@ -29,9 +29,18 @@
             foreach (XElement sentenceElement in dialogueSequenceElements)
             {
                 if (sentenceElement.Name.LocalName == "Sentence")
-                    SequenceElementsDatas[i] = DialogueDatabase.SentencesDatas[sentenceElement.Value];
+                {
+                    // We may want to create a custom class containing SentenceDatas, like DialogueSentenceDatas
+                    // to override datas from the base sentence.
+
+                    XAttribute sentenceIdAttribute = sentenceElement.Attribute("Id");
+                    UnityEngine.Assertions.Assert.IsNotNull(sentenceIdAttribute, "Dialogue Sentence element needs an Id attribute.");
+                    SequenceElementsDatas[i] = DialogueDatabase.SentencesDatas[sentenceIdAttribute.Value];
+                }
                 else if (sentenceElement.Name.LocalName == "Pause")
+                {
                     SequenceElementsDatas[i] = new DialoguePauseDatas(sentenceElement);
+                }
 
                 i++;
             }

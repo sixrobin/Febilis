@@ -8,7 +8,17 @@
         [SerializeField] private DialogueView _dialogueView = null;
 
         private System.Collections.IEnumerator _dialogueCoroutine;
+        private string _currDialogueId;
+
         private bool _skippedSentenceSequence;
+        private string _currSentenceProgress;
+
+        public delegate void DialogueEventHandler(string id);
+
+        public event DialogueEventHandler DialogueStarted;
+        public event DialogueEventHandler DialogueOver;
+
+        public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
         public static void PlayDialogue(string id)
         {
@@ -17,13 +27,19 @@
 
         public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
+            UnityEngine.Assertions.Assert.IsNull(
+                Instance._dialogueCoroutine,
+                $"Trying to play dialogue {dialogueDatas.Id} while dialogue {Instance._currDialogueId} is already playing.");
+
+            Instance._currDialogueId = dialogueDatas.Id;
+
             Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueDatas);
             Instance.StartCoroutine(Instance._dialogueCoroutine);
         }
 
         public static bool CheckSkipInput()
         {
-            // [TODO] Need to set the input somewhere.
+            // [TODO] Need to have a better input handling.
             return Input.GetKeyDown(KeyCode.E);
         }
 
@@ -35,6 +51,8 @@
         private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             Log($"Playing dialogue {dialogueDatas.Id}...");
+
+            DialogueStarted?.Invoke(dialogueDatas.Id);
 
             for (int i = 0; i < dialogueDatas.SequenceElementsDatas.Length; ++i)
             {
@@ -57,20 +75,29 @@
 
             _dialogueView.Display(false);
 
+            _dialogueCoroutine = null;
+            _currDialogueId = string.Empty;
+
+            DialogueOver?.Invoke(dialogueDatas.Id);
+
             Log($"Dialogue {dialogueDatas.Id} sequence is over.");
         }
 
         private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
-            _dialogueView.Display(true);
             _dialogueView.ClearText();
+            _dialogueView.SetBoxesPosition(sentenceDatas.PortraitAnchor);
+            _dialogueView.SetPortrait(sentenceDatas);
+            _dialogueView.Display(true);
+
             _skippedSentenceSequence = false;
+            _currSentenceProgress = string.Empty;
 
             for (int i = 0; i < sentenceDatas.SequenceElementsDatas.Length; ++i)
             {
                 if (sentenceDatas.SequenceElementsDatas[i] is Datas.Dialogue.SentenceTextDatas textDatas)
                 {
-                    yield return _dialogueView.AppendTextCoroutine(textDatas);
+                    yield return AppendSentenceTextCoroutine(textDatas);
                 }
                 else if (sentenceDatas.SequenceElementsDatas[i] is Datas.Dialogue.SentencePauseDatas pauseDatas)
                 {
@@ -84,7 +111,7 @@
 
                 if (_skippedSentenceSequence)
                 {
-                    _dialogueView.SetText(sentenceDatas.SentenceValue);
+                    _dialogueView.DisplaySentenceProgression(sentenceDatas, sentenceDatas.SentenceValue);
                     break;
                 }
             }
@@ -109,6 +136,42 @@
             _dialogueView.DisplaySkipInput(false);
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+        }
+
+        private System.Collections.IEnumerator AppendSentenceTextCoroutine(Datas.Dialogue.SentenceTextDatas textDatas)
+        {
+            string initStr = _currSentenceProgress;
+
+            int i = 0;
+            while (i < textDatas.Value.Length)
+            {
+                int substringLength = Mathf.Min(_dialogueView.LettersPerTick, textDatas.Value.Length - i);
+                _currSentenceProgress += textDatas.Value.Substring(i, substringLength);
+
+                if (!textDatas.Container.Skippable)
+                {
+                    yield return RSLib.Yield.SharedYields.WaitForSeconds(_dialogueView.TickInterval);
+                }
+                else
+                {
+                    for (float t = 0f; t <= 1f; t += Time.deltaTime / _dialogueView.TickInterval)
+                    {
+                        if (CheckSkipInput())
+                        {
+                            _currSentenceProgress = initStr + textDatas.Value;
+                            _dialogueView.DisplaySentenceProgression(textDatas.Container, _currSentenceProgress);
+
+                            MarkSentenceAsSkipped();
+                            yield break;
+                        }
+
+                        yield return null;
+                    }
+                }
+
+                _dialogueView.DisplaySentenceProgression(textDatas.Container, _currSentenceProgress);
+                i += _dialogueView.LettersPerTick;
+            }
         }
 
         private System.Collections.IEnumerator WaitForSentencePause(Datas.Dialogue.SentencePauseDatas pauseDatas)

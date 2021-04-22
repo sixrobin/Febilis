@@ -13,8 +13,11 @@
 
         public override void Deserialize(XContainer container)
         {
-            XElement delayElement = container as XElement;
-            Dur = delayElement.ValueToFloat();
+            XElement pauseElement = container as XElement;
+
+            XAttribute durAttribute = pauseElement.Attribute("Dur");
+            UnityEngine.Assertions.Assert.IsNotNull(durAttribute, "Dialogue Pause element needs a Dur attribute.");
+            Dur = durAttribute.ValueToFloat();
         }
     }
 }

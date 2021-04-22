@@ -1,18 +1,23 @@
 ﻿namespace Templar.UI.Dialogue
 {
-    using RSLib.Extensions;
     using UnityEngine;
 
     [DisallowMultipleComponent]
     public class DialogueView : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas = null;
+        [SerializeField] private RectTransform _portraitBox = null;
+        [SerializeField] private RectTransform _textBox = null;
         [SerializeField] private TMPro.TextMeshProUGUI _text = null;
-        [SerializeField] private RectTransform _skipInputFeedback = null;
+        [SerializeField] private UnityEngine.UI.Image _portrait = null;
+
+        [Header("TEXT TYPING")]
+        [SerializeField] private string _speakerSentenceFormat = "{0}: {1}";
         [SerializeField] private int _lettersPerTick = 3; // Overridable in xml ?
         [SerializeField] private float _tickInterval = 0.1f; // Overridable in xml ?
 
         [Header("SKIP INPUT")]
+        [SerializeField] private RectTransform _skipInputFeedback = null;
         [SerializeField] private float _skipInputShowDelay = 1f;
         [SerializeField] private float _skipInputIdleOffset = 1f;
         [SerializeField] private float _skipInputIdleTimestep = 0.25f;
@@ -20,7 +25,11 @@
         private System.Collections.IEnumerator _skipInputIdleCoroutine;
         private float _skipInputInitY;
 
+        public int LettersPerTick => _lettersPerTick;
+        public float TickInterval => _tickInterval;
         public float SkipInputShowDelay => _skipInputShowDelay;
+
+        public string CurrDisplayedText => _text.text;
 
         public void Display(bool show)
         {
@@ -53,45 +62,58 @@
             _text.text = string.Empty;
         }
 
-        public void SetText(string text)
+        public void DisplaySentenceProgression(Datas.Dialogue.SentenceDatas sentenceDatas, string text)
         {
-            _text.text = text;
+            if (!string.IsNullOrEmpty(sentenceDatas.SpeakerId))
+                _text.text = string.Format(_speakerSentenceFormat, sentenceDatas.GetDisplayName(), text);
+            else
+                _text.text = text;
         }
 
-        // [TODO] Move this in DialogueManager. This should not handle skipping or calling manager methods.
-        public System.Collections.IEnumerator AppendTextCoroutine(Datas.Dialogue.SentenceTextDatas textDatas)
+        public void SetBoxesPosition(Datas.Dialogue.PortraitAnchor portraitAnchor)
         {
-            string initStr = _text.text;
-            string str = initStr;
+            float portraitBoxY = _portraitBox.anchoredPosition.y;
+            float textBoxY = _textBox.anchoredPosition.y;
 
-            int i = 0;
-            while (i < textDatas.Value.Length)
+            switch (portraitAnchor)
             {
-                int substringLength = Mathf.Min(_lettersPerTick, textDatas.Value.Length - i);
-                str += textDatas.Value.Substring(i, substringLength);
-
-                if (!textDatas.Container.Skippable)
+                case Datas.Dialogue.PortraitAnchor.TOP_RIGHT:
                 {
-                    yield return RSLib.Yield.SharedYields.WaitForSeconds(_tickInterval);
-                }
-                else
-                {
-                    for (float t = 0f; t <= 1f; t += Time.deltaTime / _tickInterval)
-                    {
-                        if (DialogueManager.CheckSkipInput())
-                        {
-                            _text.text = initStr + textDatas.Value;
-                            DialogueManager.MarkSentenceAsSkipped();
-                            yield break;
-                        }
+                    _portraitBox.pivot = Vector2.one;
+                    _portraitBox.anchorMin = Vector2.one;
+                    _portraitBox.anchorMax = Vector2.one;
+                    _portraitBox.localScale = new Vector3(-1f, 1f, 1f);
+                    _portraitBox.anchoredPosition = new Vector2(-1f - _portraitBox.rect.width, portraitBoxY);
 
-                        yield return null;
-                    }
+                    _textBox.pivot = new Vector2(0f, 1f);
+                    _textBox.anchorMin = new Vector2(0f, 1f);
+                    _textBox.anchorMax = new Vector2(0f, 1f);
+                    _textBox.anchoredPosition = new Vector2(1f, textBoxY);
+
+                    break;
                 }
 
-                _text.text = str;
-                i += _lettersPerTick;
+                case Datas.Dialogue.PortraitAnchor.TOP_LEFT:
+                {
+                    _portraitBox.pivot = new Vector2(0f, 1f);
+                    _portraitBox.anchorMin = new Vector2(0f, 1f);
+                    _portraitBox.anchorMax = new Vector2(0f, 1f);
+                    _portraitBox.localScale = Vector3.one;
+                    _portraitBox.anchoredPosition = new Vector2(1f, portraitBoxY);
+
+                    _textBox.pivot = Vector2.one;
+                    _textBox.anchorMin = Vector2.one;
+                    _textBox.anchorMax = Vector2.one;
+                    _textBox.anchoredPosition = new Vector2(-1f, textBoxY);
+
+                    break;
+                }
             }
+        }
+
+        public void SetPortrait(Datas.Dialogue.SentenceDatas sentenceDatas)
+        {
+            _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas.GetPortraitId());
         }
 
         private System.Collections.IEnumerator SkipInputIdleCoroutine()

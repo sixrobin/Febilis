@@ -33,22 +33,17 @@
 	- Meilleure courbe de saut, avec gestion dans l'input maintenu (contrôle à 100% comme HK, 2 hauteurs fixes ?)
 	- Attaque up du templier (sur place).
 	- NPCs (héritent de Interactable et déclenchent des dialogues)
-	- Système de dialogue.
 	- Slopes (avec un roll automatique à la fin ?).
 	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Réfléchir à comment mettre en place le Guardian.
 	- Coroutine générique avec Func<bool> pour attendre durant un certain délai mais possibilité de break.
 	- Dialogue
-		- DialogueView -> méthode AppendTextCoroutine qui devrait aller dans DialogueManager.
-		- Dans les phrases, gérer les balises au format <tag=something> pour avoir une gestion bien plus simple.
-		- Events OnStart et OnEnd
-		- Paramètre IsDialogueRunning
-	
+		- Interface IDialoguer pour représenter les entités dans le world qui parlent (pour pouvoir les animer, etc.)
+		
 
 
 ///// CONCEPTS
-	- UI dialogues.
 	- Inventaire (quand on saura un peu plus ce qu'il y aura dedans).
 	- Options.
 	- Variante du Guardian avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc.
@@ -59,10 +54,12 @@
 	- Recoil dans AttackDatas (force, durée).
 	- Setup le xml AttacksDatas_Player de sorte à pouvoir y paramétrer le combo du joueur.
 	- DialogueDatas (voir avec le système de dialogue).
+		- De quoi override les datas des sentences au sein de chaque dialogue spécifiquement ? Réfléchir à l'intérêt.
+		- Les DisplayName de chaque SpeakerId devraient être settés par défaut à un seul endroit (comme une loca en gros) et pouvoir les override au besoin, sinon les renamings vont être ingérables. Dans un xml dédié étant donné que les DialoguesDatas peuvent être splittés !
 
 
 
-///// ANIMATION
+///// ANIMATION / VIEW
 	- Templar_Break-Idle.
 	- Templar_Attack_Up.
 	- Templar_Talking.
@@ -71,6 +68,9 @@
 	- Templar_Death-Spikes.
 	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
+	- Animer les portraits des dialogues (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
+	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
+	- Faire en sorte à ce que la font soit pixel perfect.
 	
 
 
@@ -81,3 +81,9 @@
 	- Variantes des tiles qui n'en ont pas encore, au moins 3 par tile.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
+	
+	
+	
+///// WORKFLOW :
+	- Psd "PortraitBuilder" pour créer efficacement les portraits avec toutes les contraintes déjà prévues.
+	- Importer la Debug Console et setup quelques commandes.

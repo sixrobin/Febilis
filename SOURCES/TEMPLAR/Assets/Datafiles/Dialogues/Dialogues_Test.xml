@@ -1,80 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
-
-   <Dialogue Id="Twitter">
-      <Sentence>Twitter_00</Sentence>
-      <Sentence>Twitter_01</Sentence>
-      <Sentence>Twitter_02</Sentence>
-      <Sentence>Twitter_03</Sentence>
-      <Sentence>Twitter_04</Sentence>
-      <Sentence>Twitter_05</Sentence>
-      <Pause>0.5</Pause>
-      <Sentence>Twitter_06</Sentence>
-   </Dialogue>
-
-   <Sentence Id="Twitter_00">
-      <Value>Hi ! I'm not posting a lot these days.</Value>
-   </Sentence>
-   <Sentence Id="Twitter_01">
-      <Value>I'm working on programming so...&lt;pause&gt;0&lt;/pause&gt; there's nothing really fancy to show.</Value>
-   </Sentence>
-   <Sentence Id="Twitter_02">
-      <Value>As you can see, I'm working on a dialogue system !</Value>
-   </Sentence>
-   <Sentence Id="Twitter_03">
-      <Value>(Pretty cool not being limited to 280 characters by the way)</Value>
-   </Sentence>
-   <Sentence Id="Twitter_04">
-      <Value>And I'll take part in the 48th Ludum Dare this weekend !</Value>
-   </Sentence>
-   <Sentence Id="Twitter_05">
-      <Value>So there probably won't be much progress on this project for some days.</Value>
-   </Sentence>
-   <Sentence Id="Twitter_06">
-      <Value>But it'll be back soon ! :D</Value>
-   </Sentence>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
    
-   
-   <Dialogue Id="TestDialogue_00">
-      <Sentence>TestDialogue_00_00</Sentence>
-      <Sentence>TestDialogue_00_00</Sentence>
-      <Sentence>TestDialogue_00_00</Sentence>
-      <Sentence>TestDialogue_00_03</Sentence>
-      <Sentence>TestDialogue_00_03</Sentence>
-      <Sentence>TestDialogue_00_03</Sentence>
-      <Sentence>TestDialogue_00_03</Sentence>
-      <Sentence>TestDialogue_00_03</Sentence>
-      <Pause>1</Pause>
-      <Sentence>TestDialogue_00_01</Sentence>
-      <Sentence>Ellipsis</Sentence>
-      <Sentence>TestDialogue_00_02</Sentence>
-      <Sentence>EllipsisLong</Sentence>
-      <Sentence>TestDialogue_00_03</Sentence>
-   </Dialogue>
+   <DialogueDatas Id="NPCDial_00">
+      <Sentence Id="NPCDial_00_Sentence_00"/>
+      <Pause Dur="0.5"/>
+      <Sentence Id="NPCDial_00_Sentence_01"/>
+      <Sentence Id="NPCDial_00_Sentence_02"/>
+      <Sentence Id="NPCDial_00_Sentence_NameReveal"/>
+      <Sentence Id="NPCDial_00_Sentence_03"/>
+      <Pause Dur="0.5"/>
+      <Sentence Id="NPC_Ellipsis"/>
+      <Sentence Id="NPCDial_00_Sentence_04"/>
+   </DialogueDatas>
 
-   <Sentence Id="TestDialogue_00_00">
-      <!--<Unskippable/>-->
-      <Value>Hi ! I'm the first sentence of the test dialogue.</Value>
-   </Sentence>
+   <SentenceDatas Id="NPCDial_00_Sentence_00">
+      <Speaker Id="NPC-Placeholder">
+         <CustomDisplayName>???</CustomDisplayName>
+         <CustomPortraitId>Unknown</CustomPortraitId>
+      </Speaker>
+      <Value>Hi there, what are you doing here ?</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
 
-   <Sentence Id="TestDialogue_00_01">
-      <Value>Here's a &lt;b&gt;bold&lt;/b&gt; text !</Value>
-   </Sentence>
+   <SentenceDatas Id="NPCDial_00_Sentence_01">
+      <Speaker Id="NPC-Placeholder">
+         <CustomDisplayName>???</CustomDisplayName>
+         <CustomPortraitId>Unknown</CustomPortraitId>
+      </Speaker>
+      <Value>Ah, I see...&lt;pause=1&gt; Looking for answers ?</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
 
-   <Sentence Id="TestDialogue_00_02">
-      <Value>Hope everything worked as intented. Now let's display a pretty long sentence to see how the UI handles it !</Value>
-   </Sentence>
+   <SentenceDatas Id="NPCDial_00_Sentence_02">
+      <Speaker Id="Templar"/>
+      <Value>What do you know about this place ? &lt;pause=1&gt;It all looks... &lt;pause=0.8&gt;unreal.</Value>
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SentenceDatas>
 
-   <Sentence Id="TestDialogue_00_03">
-      <Value>Now let's try to pause... right now !&lt;pause&gt;0.5&lt;/pause&gt; Did it work ?&lt;pause&gt;1&lt;/pause&gt; Another!</Value>
-   </Sentence>
+   <SentenceDatas Id="NPCDial_00_Sentence_NameReveal">
+      <Speaker Id="NPC-Placeholder">
+         <CustomDisplayName>NPC</CustomDisplayName>
+      </Speaker>
+      <Value>Now you can see my portrait.</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
 
-   <Sentence Id="Ellipsis">
-      <Value>...</Value>
-   </Sentence>
+   <SentenceDatas Id="NPCDial_00_Sentence_03">
+      <Speaker Id="NPC-Placeholder">
+         <CustomDisplayName>NPC</CustomDisplayName>
+      </Speaker>
+      <Value>Unreal, uh ? Maybe it is ! Ha, ah, ah !</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
 
-   <Sentence Id="EllipsisLong">
-      <Value>.&lt;pause&gt;0.33&lt;/pause&gt;.&lt;pause&gt;0.33&lt;/pause&gt;.</Value>
-   </Sentence>
+   <SentenceDatas Id="NPCDial_00_Sentence_04">
+      <Speaker Id="NPC-Placeholder">
+         <CustomDisplayName>NPC</CustomDisplayName>
+      </Speaker>
+      <Value>Go away.</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
+
+   <SentenceDatas Id="NPC_Ellipsis">
+      <Speaker Id="NPC-Placeholder">
+         <CustomDisplayName>NPC</CustomDisplayName>
+      </Speaker>
+      <Value>&lt;pause=0.3&gt;.&lt;pause=0.3&gt;.&lt;pause=0.3&gt;.</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
    
 </DialoguesDatas>

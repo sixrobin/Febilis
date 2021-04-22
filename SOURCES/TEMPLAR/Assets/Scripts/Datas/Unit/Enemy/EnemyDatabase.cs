@@ -39,7 +39,7 @@
             {
                 UnityEngine.Assertions.Assert.IsFalse(
                     AnimationClips.ContainsKey(_animationClips[i].name),
-                    $"Clip \"{_animationClips[i].name}\" has already been registered in database.");
+                    $"Clip \"{_animationClips[i].name}\" has already been registered in {GetType().Name}.");
 
                 AnimationClips.Add(_animationClips[i].name, _animationClips[i]);
             }
