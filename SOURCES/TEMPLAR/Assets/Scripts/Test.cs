@@ -22,6 +22,18 @@
             {
                 UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId);
             }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                StartCoroutine(WaitForFramesCoroutine());
+            }
+        }
+
+        System.Collections.IEnumerator WaitForFramesCoroutine()
+        {
+            Debug.Log("A");
+            yield return RSLib.Yield.SharedYields.WaitForFrames(48);
+            Debug.Log("B");
         }
     }
 }

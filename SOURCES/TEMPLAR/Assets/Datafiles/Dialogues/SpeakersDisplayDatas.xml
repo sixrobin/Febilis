@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpeakersDisplayDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SpeakersDisplayDatas.xsd">
+
+   <SpeakerDisplayDatas Id="NPC-Placeholder">
+      <DisplayName>NPC</DisplayName>
+   </SpeakerDisplayDatas>
+
+   <SpeakerDisplayDatas Id="Templar">
+      <DisplayName>Templar</DisplayName>
+   </SpeakerDisplayDatas>
+   
+</SpeakersDisplayDatas>

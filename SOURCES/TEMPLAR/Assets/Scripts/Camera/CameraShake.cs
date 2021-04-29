@@ -5,6 +5,10 @@
 
     public class CameraShake
     {
+        public const string ID_SMALL = "Small";
+        public const string ID_MEDIUM = "Medium";
+        public const string ID_BIG = "Big";
+
         [System.Serializable]
         public class Settings
         {

@@ -12,8 +12,10 @@
         public string Id { get; private set; }
 
         public string SpeakerId { get; private set; }
-        public string CustomDisplayName { get; private set; }
-        public string CustomPortraitId { get; private set; }
+
+        public string OverrideDisplayName { get; private set; }
+        public string OverridePortraitId { get; private set; }
+        public bool HideSpeakerName { get; private set; }
 
         public string RawValue { get; private set; }
         public string SentenceValue { get; private set; }
@@ -44,11 +46,13 @@
             UnityEngine.Assertions.Assert.IsNotNull(speakerIdAttribute, "Speaker element needs an Id attribute.");
             SpeakerId = speakerIdAttribute.Value;
 
-            XElement customDisplayNameElement = speakerElement.Element("CustomDisplayName");
-            CustomDisplayName = customDisplayNameElement?.Value ?? null;
+            XElement overrideDisplayNameElement = speakerElement.Element("OverrideDisplayName");
+            OverrideDisplayName = overrideDisplayNameElement?.Value ?? null;
 
-            XElement customPortraitIdElement = speakerElement.Element("CustomPortraitId");
-            CustomPortraitId = customPortraitIdElement?.Value ?? null;
+            XElement overridePortraitIdElement = speakerElement.Element("OverridePortraitId");
+            OverridePortraitId = overridePortraitIdElement?.Value ?? null;
+
+            HideSpeakerName = speakerElement.Element("HideSpeakerName") != null;
 
             XElement valueElement = sentenceElement.Element("Value");
             UnityEngine.Assertions.Assert.IsFalse(valueElement.IsNullOrEmpty(), "Sentence Value element is null or empty.");
@@ -128,16 +132,6 @@
 
                 SequenceElementsDatas = sequenceElementsDatasList.ToArray();
             }
-        }
-
-        public string GetDisplayName()
-        {
-            return CustomDisplayName ?? SpeakerId;
-        }
-
-        public string GetPortraitId()
-        {
-            return CustomPortraitId ?? SpeakerId;
         }
     }
 }

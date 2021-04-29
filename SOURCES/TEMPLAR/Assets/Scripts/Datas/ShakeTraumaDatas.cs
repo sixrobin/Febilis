@@ -25,7 +25,7 @@
             X = 0.25f,
             Y = 0.25f,
             AddType = ShakeAddType.ADDITIVE,
-            ShakeId = "Medium"
+            ShakeId = Camera.CameraShake.ID_MEDIUM
         };
 
         public string ShakeId { get; private set; }
@@ -39,7 +39,7 @@
             XElement traumaElement = container as XElement;
 
             XAttribute shakeIdElement = traumaElement.Attribute("ShakeId");
-            ShakeId = shakeIdElement?.Value ?? "Medium";
+            ShakeId = shakeIdElement?.Value ?? Camera.CameraShake.ID_MEDIUM;
 
             XAttribute xAttribute = traumaElement.Attribute("X");
             UnityEngine.Assertions.Assert.IsNotNull(xAttribute, "ShakeTraumaDatas must have a X attribute.");

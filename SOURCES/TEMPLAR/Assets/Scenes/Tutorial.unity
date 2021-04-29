@@ -54690,7 +54690,9 @@ MonoBehaviour:
   _verbose: 0
   _overrideLogPrefix: 
   _dialoguesDatas:
-  - {fileID: 4900000, guid: 9dc31701263b16f428807ecd2c8458cf, type: 3}
+  - {fileID: 4900000, guid: 79cfd422ddd797841b2b3476d4780aad, type: 3}
+  _speakersDisplayDatas: {fileID: 4900000, guid: 4a862cfbd599fb345be9c37334a0cccb,
+    type: 3}
   _portraits:
   - {fileID: 21300000, guid: 002536c19f1a7f342ab02816e429606c, type: 3}
   - {fileID: 21300000, guid: 7453fb0a0b438e64082266f3921b9e39, type: 3}

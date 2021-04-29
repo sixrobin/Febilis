@@ -15,8 +15,8 @@
 
    <SentenceDatas Id="NPCDial_00_Sentence_00">
       <Speaker Id="NPC-Placeholder">
-         <CustomDisplayName>???</CustomDisplayName>
-         <CustomPortraitId>Unknown</CustomPortraitId>
+         <OverrideDisplayName>???</OverrideDisplayName>
+         <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
       <Value>Hi there, what are you doing here ?</Value>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
@@ -24,10 +24,10 @@
 
    <SentenceDatas Id="NPCDial_00_Sentence_01">
       <Speaker Id="NPC-Placeholder">
-         <CustomDisplayName>???</CustomDisplayName>
-         <CustomPortraitId>Unknown</CustomPortraitId>
+         <OverrideDisplayName>???</OverrideDisplayName>
+         <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Ah, I see...&lt;pause=1&gt; Looking for answers ?</Value>
+      <Value>Ah, I see...&lt;pause=3&gt; Looking for answers ?</Value>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SentenceDatas>
 
@@ -38,32 +38,26 @@
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_NameReveal">
-      <Speaker Id="NPC-Placeholder">
-         <CustomDisplayName>NPC</CustomDisplayName>
-      </Speaker>
+      <Speaker Id="NPC-Placeholder"/>
       <Value>Now you can see my portrait.</Value>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_03">
-      <Speaker Id="NPC-Placeholder">
-         <CustomDisplayName>NPC</CustomDisplayName>
-      </Speaker>
+      <Speaker Id="NPC-Placeholder"/>
       <Value>Unreal, uh ? Maybe it is ! Ha, ah, ah !</Value>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_04">
-      <Speaker Id="NPC-Placeholder">
-         <CustomDisplayName>NPC</CustomDisplayName>
-      </Speaker>
+      <Speaker Id="NPC-Placeholder"/>
       <Value>Go away.</Value>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC_Ellipsis">
       <Speaker Id="NPC-Placeholder">
-         <CustomDisplayName>NPC</CustomDisplayName>
+         <HideSpeakerName/>
       </Speaker>
       <Value>&lt;pause=0.3&gt;.&lt;pause=0.3&gt;.&lt;pause=0.3&gt;.</Value>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>

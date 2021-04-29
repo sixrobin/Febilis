@@ -171,7 +171,7 @@
             CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
             PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
-            CameraCtrl.GetShake("Big").SetTrauma(0.5f); // [TMP] Hard coded value.
+            CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // [TMP] Hard coded value.
             Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
             _currentRecoil = null;
 
@@ -260,7 +260,7 @@
 
                 HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
 
-                _cameraCtrl.GetShake("Small").AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
+                _cameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
                 if (CtrlDatas.HealRecoilSettings != null && CtrlDatas.HealRecoilSettings.Force != 0f)
                     _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
             });

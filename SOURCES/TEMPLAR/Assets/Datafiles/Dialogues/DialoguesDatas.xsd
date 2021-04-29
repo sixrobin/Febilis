@@ -38,8 +38,9 @@
          <xs:element name="Speaker" minOccurs="0" maxOccurs="1">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element name="CustomDisplayName" type="xs:token" minOccurs="0" maxOccurs="1"/>
-                  <xs:element name="CustomPortraitId" type="xs:token" minOccurs="0" maxOccurs="1"/>
+                  <xs:element name="OverrideDisplayName" type="xs:token" minOccurs="0" maxOccurs="1"/>
+                  <xs:element name="HideSpeakerName" minOccurs="0" maxOccurs="1"/>
+                  <xs:element name="OverridePortraitId" type="xs:token" minOccurs="0" maxOccurs="1"/>
                </xs:sequence>
                <xs:attribute name="Id" type="xs:token" use="required"/>
             </xs:complexType>

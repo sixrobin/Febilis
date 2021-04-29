@@ -8,6 +8,7 @@
         public const string PORTRAIT_PREFIX = "Dialogue-Portrait_";
 
         [SerializeField] private TextAsset[] _dialoguesDatas = null;
+        [SerializeField] private TextAsset _speakersDisplayDatas = null;
         [SerializeField] private Sprite[] _portraits = null;
         [SerializeField] private Sprite _defaultPortrait = null;
 
@@ -19,29 +20,36 @@
         public static System.Collections.Generic.Dictionary<string, DialogueDatas> DialoguesDatas { get; private set; }
         public static System.Collections.Generic.Dictionary<string, SentenceDatas> SentencesDatas { get; private set; }
 
+        public static System.Collections.Generic.Dictionary<string, SpeakerDisplayDatas> SpeakersDisplayDatas { get; private set; }
+
         public static System.Collections.Generic.Dictionary<string, Sprite> Portraits { get; private set; }
         public static Sprite DefaultPortrait => Instance._defaultPortrait;
 
-        public static Sprite GetPortrait(string speakerId)
+        public static Sprite GetPortraitOrUseDefault(SentenceDatas sentenceDatas)
         {
-            if (!Portraits.TryGetValue($"{PORTRAIT_PREFIX}{speakerId}", out Sprite portrait))
+            string portraitId = sentenceDatas.OverridePortraitId ?? sentenceDatas.SpeakerId;
+
+            if (!Portraits.TryGetValue($"{PORTRAIT_PREFIX}{portraitId}", out Sprite portrait))
             {
-                Instance.LogError($"Portrait not found in {Instance.GetType().Name} for Speaker Id {speakerId}.");
-                return null;
+                Instance.LogWarning($"Portrait not found in {Instance.GetType().Name} for Id {portraitId}, using default one.");
+                return DefaultPortrait;
             }
 
             return portrait;
         }
 
-        public static Sprite GetPortraitOrUseDefault(string speakerId)
+        public static string GetSpeakerDisplayName(SentenceDatas sentenceDatas)
         {
-            if (!Portraits.TryGetValue($"{PORTRAIT_PREFIX}{speakerId}", out Sprite portrait))
+            if (!string.IsNullOrEmpty(sentenceDatas.OverrideDisplayName))
+                return sentenceDatas.OverrideDisplayName;
+
+            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out SpeakerDisplayDatas speakerDisplayDatas))
             {
-                Instance.LogWarning($"Portrait not found in {Instance.GetType().Name} for Speaker Id {speakerId}, using default one.");
-                return DefaultPortrait;
+                Instance.LogError($"Speaker Id {sentenceDatas.SpeakerId} was not found in {Instance.GetType().Name} speakers display datas, returning Id.");
+                return sentenceDatas.SpeakerId;
             }
 
-            return portrait;
+            return speakerDisplayDatas.DisplayName;
         }
 
         private void Deserialize()
@@ -77,6 +85,22 @@
             }
 
             Log($"Deserialized {SentencesDatas.Count} sentences datas and {DialoguesDatas.Count} dialogues datas.");
+
+            DeserializeSpeakersDatas();
+        }
+
+        private void DeserializeSpeakersDatas()
+        {
+            SpeakersDisplayDatas = new System.Collections.Generic.Dictionary<string, SpeakerDisplayDatas>();
+
+            XDocument speakersDisplayDatasDoc = XDocument.Parse(_speakersDisplayDatas.text, LoadOptions.SetBaseUri);
+
+            XElement speakersDisplayElement = speakersDisplayDatasDoc.Element("SpeakersDisplayDatas");
+            foreach (XElement speakerDisplayElement in speakersDisplayElement.Elements("SpeakerDisplayDatas"))
+            {
+                SpeakerDisplayDatas speakerDisplayDatas = new SpeakerDisplayDatas(speakerDisplayElement);
+                SpeakersDisplayDatas.Add(speakerDisplayDatas.Id, speakerDisplayDatas);
+            }
         }
 
         private void GeneratePortraitsDictionary()

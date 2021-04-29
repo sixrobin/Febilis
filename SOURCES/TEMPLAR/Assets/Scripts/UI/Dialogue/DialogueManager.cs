@@ -62,7 +62,7 @@
                 }
                 else if (dialogueDatas.SequenceElementsDatas[i] is Datas.Dialogue.DialoguePauseDatas pauseDatas)
                 {
-                    // [TODO] Param in xml to hide or not ?
+                    // [TODO] Param in xml to hide panel or not ?
                     _dialogueView.Display(false);
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
                 }
@@ -118,15 +118,7 @@
 
             // If sentence sequence has been skipped, we immediatly want to show the skip feedback, WITHOUT skipping to next sentence.
             if (!_skippedSentenceSequence)
-            {
-                for (float t = 0f; t <= 1f; t += Time.deltaTime / _dialogueView.SkipInputShowDelay)
-                {
-                    if (CheckSkipInput())
-                        break;
-
-                    yield return null;
-                }
-            }
+                yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_dialogueView.SkipInputShowDelay, CheckSkipInput);
 
             _dialogueView.DisplaySkipInput(true);
 
@@ -154,19 +146,18 @@
                 }
                 else
                 {
-                    for (float t = 0f; t <= 1f; t += Time.deltaTime / _dialogueView.TickInterval)
-                    {
-                        if (CheckSkipInput())
+                    yield return new RSLib.Yield.WaitForSecondsOrBreakIf(
+                        _dialogueView.TickInterval,
+                        CheckSkipInput,
+                        () =>
                         {
                             _currSentenceProgress = initStr + textDatas.Value;
                             _dialogueView.DisplaySentenceProgression(textDatas.Container, _currSentenceProgress);
-
                             MarkSentenceAsSkipped();
-                            yield break;
-                        }
+                        });
 
-                        yield return null;
-                    }
+                    if (_skippedSentenceSequence)
+                        yield break;
                 }
 
                 _dialogueView.DisplaySentenceProgression(textDatas.Container, _currSentenceProgress);
@@ -182,16 +173,7 @@
                 yield break;
             }
 
-            for (float t = 0f; t <= 1f; t += Time.deltaTime / pauseDatas.Dur)
-            {
-                if (CheckSkipInput())
-                {
-                    MarkSentenceAsSkipped();
-                    yield break;
-                }
-
-                yield return null;
-            }
+            yield return new RSLib.Yield.WaitForSecondsOrBreakIf(pauseDatas.Dur, CheckSkipInput, MarkSentenceAsSkipped);
         }
     }
 }

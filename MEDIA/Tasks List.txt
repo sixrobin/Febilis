@@ -32,14 +32,11 @@
 		- Permettre de casser la séquence de heal après l'anticipation ?
 	- Meilleure courbe de saut, avec gestion dans l'input maintenu (contrôle à 100% comme HK, 2 hauteurs fixes ?)
 	- Attaque up du templier (sur place).
-	- NPCs (héritent de Interactable et déclenchent des dialogues)
 	- Slopes (avec un roll automatique à la fin ?).
 	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Réfléchir à comment mettre en place le Guardian.
-	- Coroutine générique avec Func<bool> pour attendre durant un certain délai mais possibilité de break.
-	- Dialogue
-		- Interface IDialoguer pour représenter les entités dans le world qui parlent (pour pouvoir les animer, etc.)
+	- Dialogue/NPC: cf Réflexion Dialogue.txt
 		
 
 
@@ -53,9 +50,6 @@
 ///// DATAS
 	- Recoil dans AttackDatas (force, durée).
 	- Setup le xml AttacksDatas_Player de sorte à pouvoir y paramétrer le combo du joueur.
-	- DialogueDatas (voir avec le système de dialogue).
-		- De quoi override les datas des sentences au sein de chaque dialogue spécifiquement ? Réfléchir à l'intérêt.
-		- Les DisplayName de chaque SpeakerId devraient être settés par défaut à un seul endroit (comme une loca en gros) et pouvoir les override au besoin, sinon les renamings vont être ingérables. Dans un xml dédié étant donné que les DialoguesDatas peuvent être splittés !
 
 
 

@@ -136,7 +136,7 @@
         {
             AttackCtrl.CancelAttack();
 
-            FindObjectOfType<Templar.Camera.CameraController>().GetShake("Medium").AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
+            FindObjectOfType<Templar.Camera.CameraController>().GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);

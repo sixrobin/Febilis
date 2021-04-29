@@ -64,10 +64,13 @@
 
         public void DisplaySentenceProgression(Datas.Dialogue.SentenceDatas sentenceDatas, string text)
         {
-            if (!string.IsNullOrEmpty(sentenceDatas.SpeakerId))
-                _text.text = string.Format(_speakerSentenceFormat, sentenceDatas.GetDisplayName(), text);
-            else
+            if (sentenceDatas.HideSpeakerName)
+            {
                 _text.text = text;
+                return;
+            }
+
+            _text.text = string.Format(_speakerSentenceFormat, Datas.Dialogue.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
         }
 
         public void SetBoxesPosition(Datas.Dialogue.PortraitAnchor portraitAnchor)
@@ -113,7 +116,7 @@
 
         public void SetPortrait(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
-            _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas.GetPortraitId());
+            _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
         }
 
         private System.Collections.IEnumerator SkipInputIdleCoroutine()
