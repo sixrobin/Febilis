@@ -23,6 +23,8 @@
         public int JumpsLeft { get; set; }
         public float LandImpactSpeedMult { get; private set; }
 
+        public bool JumpAllowedThisFrame { get; set; }
+
         public bool CanJump()
         {
             return JumpsLeft > 0
@@ -87,7 +89,7 @@
             // Known potential issue: this might cause the templar to stay grounded without jumping if the store jump
             // input coroutine ends on the exact frame than this coroutine.
             if (!_playerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP)
-                && !_playerCtrl.JumpAllowedThisFrame
+                && !JumpAllowedThisFrame
                 && !_playerCtrl.RollCtrl.IsRolling
                 && !_playerCtrl.AttackCtrl.IsAttacking)
                 _playerCtrl.PlayerView.PlayIdleAnimation();

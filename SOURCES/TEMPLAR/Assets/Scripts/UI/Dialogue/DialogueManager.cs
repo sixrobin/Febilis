@@ -13,19 +13,19 @@
         private bool _skippedSentenceSequence;
         private string _currSentenceProgress;
 
-        public delegate void DialogueEventHandler(string id);
+        public delegate void DialogueEventHandler(string dialogueId);
 
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
 
         public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
-        public static void PlayDialogue(string id)
+        public static void PlayDialogue(string id, Interaction.Dialogue.ISpeaker sourceSpeaker)
         {
-            PlayDialogue(Datas.Dialogue.DialogueDatabase.DialoguesDatas[id]);
+            PlayDialogue(Datas.Dialogue.DialogueDatabase.DialoguesDatas[id], sourceSpeaker);
         }
 
-        public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas)
+        public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker)
         {
             UnityEngine.Assertions.Assert.IsNull(
                 Instance._dialogueCoroutine,
@@ -33,7 +33,7 @@
 
             Instance._currDialogueId = dialogueDatas.Id;
 
-            Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueDatas);
+            Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueDatas, sourceSpeaker);
             Instance.StartCoroutine(Instance._dialogueCoroutine);
         }
 
@@ -48,11 +48,17 @@
             Instance._skippedSentenceSequence = true;
         }
 
-        private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas)
+        private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker)
         {
             Log($"Playing dialogue {dialogueDatas.Id}...");
 
             DialogueStarted?.Invoke(dialogueDatas.Id);
+
+            // We may want to ensure speaker is NOT the player himself, if someday player becomes a speaker.
+            Manager.GameManager.PlayerCtrl.IsDialoguing = true;
+            yield return Manager.GameManager.PlayerCtrl.PrepareDialogueCoroutine(sourceSpeaker);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
+            Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();
 
             for (int i = 0; i < dialogueDatas.SequenceElementsDatas.Length; ++i)
             {
@@ -74,6 +80,9 @@
             }
 
             _dialogueView.Display(false);
+
+            Manager.GameManager.PlayerCtrl.IsDialoguing = false;
+            Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
             _dialogueCoroutine = null;
             _currDialogueId = string.Empty;

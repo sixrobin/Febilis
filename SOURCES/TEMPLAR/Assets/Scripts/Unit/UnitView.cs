@@ -6,7 +6,7 @@
     {
         private const string IDLE = "Idle";
         private const string DEATH = "Death";
-        private const string DEAD_FADE = "Dead_Fade";
+        private const string DEAD_FADE = "DeadFade";
         private const string HURT = "Hurt";
         protected const string MULT_ATTACK = "Mult_Attack";
 

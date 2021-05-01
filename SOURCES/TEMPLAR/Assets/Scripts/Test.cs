@@ -3,24 +3,24 @@
     using UnityEngine;
     using RSLib.Extensions;
 
-    public class Test : MonoBehaviour
+    public class Test : MonoBehaviour, Interaction.Dialogue.ISpeaker
     {
         public string _dialogueId = string.Empty;
-
-        // Start is called before the first frame update
-        void Start() 
-        {
-
-        }
+        public Transform _dialoguePos = null;
 
         int switcher = 0;
+
+        public string SpeakerId => "OUI";
+
+        public Vector3 SpeakerPos => transform.position;
+        public Vector3 PlayerDialoguePos => _dialoguePos.position;
 
         // Update is called once per frame
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId);
+                UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, this);
             }
 
             if (Input.GetKeyDown(KeyCode.N))
@@ -34,6 +34,16 @@
             Debug.Log("A");
             yield return RSLib.Yield.SharedYields.WaitForFrames(48);
             Debug.Log("B");
+        }
+
+        public void OnSentenceStart()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnSentenceStop()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

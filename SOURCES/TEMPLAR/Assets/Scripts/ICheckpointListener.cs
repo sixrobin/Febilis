@@ -2,6 +2,6 @@
 {
     public interface ICheckpointListener
     {
-        void OnCheckpointInteracted(Interaction.CheckpointController checkpointCtrl);
+        void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl);
     }
 }

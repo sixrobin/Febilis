@@ -1,5 +1,6 @@
 ﻿namespace Templar.UI.Dialogue
 {
+    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
@@ -21,6 +22,8 @@
         [SerializeField] private float _skipInputShowDelay = 1f;
         [SerializeField] private float _skipInputIdleOffset = 1f;
         [SerializeField] private float _skipInputIdleTimestep = 0.25f;
+
+        private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
         private System.Collections.IEnumerator _skipInputIdleCoroutine;
         private float _skipInputInitY;
@@ -119,6 +122,14 @@
             _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
         }
 
+        private void RegisterSpeakersInScene()
+        {
+            _speakers = new System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker>();
+            System.Collections.Generic.IEnumerable<Interaction.Dialogue.ISpeaker> speakers = FindObjectsOfType<MonoBehaviour>().OfType<Interaction.Dialogue.ISpeaker>();
+            foreach (Interaction.Dialogue.ISpeaker speaker in speakers)
+                _speakers.Add(speaker.SpeakerId, speaker);
+        }
+
         private System.Collections.IEnumerator SkipInputIdleCoroutine()
         {
             _skipInputFeedback.gameObject.SetActive(true);
@@ -135,6 +146,8 @@
         private void Awake()
         {
             Display(false);
+            RegisterSpeakersInScene();
+
             _skipInputInitY = _skipInputFeedback.anchoredPosition.y;
         }
     }

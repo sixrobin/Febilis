@@ -35,8 +35,7 @@
 	- Slopes (avec un roll automatique à la fin ?).
 	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-	- Réfléchir à comment mettre en place le Guardian.
-	- Dialogue/NPC: cf Réflexion Dialogue.txt
+	- Mettre en place le NPC placeholder en tant qu'Interactable.
 		
 
 

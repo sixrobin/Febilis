@@ -69,7 +69,7 @@
         
         public bool BeingHurt => _hurtCoroutine != null;
 
-        public void OnCheckpointInteracted(Interaction.CheckpointController checkpointCtrl)
+        public void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
             enemyHealthCtrl.ResetController();

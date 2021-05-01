@@ -1,4 +1,4 @@
-﻿namespace Templar.Interaction
+﻿namespace Templar.Interaction.Checkpoint
 {
     using UnityEngine;
 

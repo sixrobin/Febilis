@@ -1,5 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <DialogueDatas Id="Twitter">
+      <Sentence Id="Twitter_Sentence_00"/>
+      <Sentence Id="Twitter_Sentence_01"/>
+      <Pause Dur="1"/>
+      <Sentence Id="Twitter_Sentence_02"/>
+   </DialogueDatas>
+
+   <SentenceDatas Id="Twitter_Sentence_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>Hello there!</Value>
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Twitter_Sentence_01">
+      <Speaker Id="NPC-Placeholder">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>General Kenobi!</Value>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Twitter_Sentence_02">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>I should get back to work.</Value>
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SentenceDatas>
+   
+   
+   
    
    <DialogueDatas Id="NPCDial_00">
       <Sentence Id="NPCDial_00_Sentence_00"/>

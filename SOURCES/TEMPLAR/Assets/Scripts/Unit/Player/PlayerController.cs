@@ -42,17 +42,16 @@
 
         public bool IsBeingHurt => _hurtCoroutine != null;
         public bool IsHealing => _healCoroutine != null;
+        public bool IsDialoguing { get; set; }
 
-        public bool JumpAllowedThisFrame { get; private set; }
-
-        public void OnCheckpointInteracted(Interaction.CheckpointController checkpointCtrl)
+        public void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             HealthCtrl.HealFull();
             PlayerHealthCtrl.RestoreCells();
             AllowInputs(true);
         }
 
-        public void Init(Interaction.CheckpointController checkpoint = null)
+        public void Init(Interaction.Checkpoint.CheckpointController checkpoint = null)
         {
             InputCtrl = new PlayerInputController(CtrlDatas.Input, this);
             JumpCtrl = new PlayerJumpController(this);
@@ -295,7 +294,7 @@
             // Jump.
             if (JumpCtrl.CanJump() && (!effectorDown || !CollisionsCtrl.AboveEffector))
             {
-                JumpAllowedThisFrame = true;
+                JumpCtrl.JumpAllowedThisFrame = true;
                 InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
 
                 if (CollisionsCtrl.Below)
@@ -364,7 +363,40 @@
         private void ResetCurrentState()
         {
             InputCtrl.Reset();
-            JumpAllowedThisFrame = false;
+            JumpCtrl.JumpAllowedThisFrame = false;
+        }
+
+        public System.Collections.IEnumerator PrepareDialogueCoroutine(Interaction.Dialogue.ISpeaker speaker)
+        {
+            CurrDir = Mathf.Sign(speaker.PlayerDialoguePos.x - transform.position.x);
+            PlayerView.PlayRunAnimation(CurrDir);
+
+            while (Mathf.Abs(transform.position.x - speaker.PlayerDialoguePos.x) > CtrlDatas.RunSpeed * Time.deltaTime + 0.05f)
+            {
+                // [TMP] Not sure if actually TMP, but maybe we should think of a better way to do this because it currently
+                // is just a copy/paste of the Move() method.
+
+                if (CollisionsCtrl.Below)
+                    _currVel.y = 0f;
+
+                float grav = Gravity * Time.deltaTime;
+                if (_currVel.y < 0f)
+                    grav *= CtrlDatas.Jump.FallMultiplier;
+
+                _currVel.x = CtrlDatas.RunSpeed * CurrDir;
+                _currVel.y += grav;
+
+                Translate(_currVel);
+                yield return null;
+            }
+
+            transform.SetPositionX(speaker.PlayerDialoguePos.x);
+            PlayerView.StopRunAnimation();
+
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
+
+            CurrDir = Mathf.Sign(speaker.SpeakerPos.x - transform.position.x);
+            PlayerView.FlipX(CurrDir < 0f);
         }
 
         private System.Collections.IEnumerator HurtCoroutine()
@@ -390,6 +422,10 @@
 
             BackupCurrentState();
             ResetCurrentState();
+
+            // Can't use the _inputsAllowed field for dialogue while this Update() is updating the view.
+            if (IsDialoguing)
+                return;
 
             if (_inputsAllowed)
                 InputCtrl.Update();

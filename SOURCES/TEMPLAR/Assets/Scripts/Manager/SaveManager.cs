@@ -17,7 +17,7 @@
 
             XContainer container = new XElement("GameSave");
 
-            XElement checkpointIdElement = new XElement("CheckpointId", Interaction.CheckpointController.CurrCheckpointId);
+            XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
             container.Add(checkpointIdElement);
 
             XElement paletteIndexElement = new XElement("PaletteIndex", FindObjectOfType<PaletteSelector>().CurrRampIndex); // [TMP] Find.
@@ -73,7 +73,7 @@
                 XElement gameSaveElement = container.Element("GameSave");
 
                 XElement checkpointIdElement = gameSaveElement.Element("CheckpointId");
-                Interaction.CheckpointController.LoadCurrentCheckpointId(GameManager.OverrideCheckpoint?.Id ?? checkpointIdElement.Value);
+                Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(GameManager.OverrideCheckpoint?.Id ?? checkpointIdElement.Value);
 
                 XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
                 if (paletteIndexElement != null)

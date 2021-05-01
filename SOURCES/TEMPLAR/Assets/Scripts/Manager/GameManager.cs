@@ -1,13 +1,12 @@
 ﻿namespace Templar.Manager
 {
-    using System;
     using System.Linq;
     using UnityEngine;
 
     public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
     {
         [Tooltip("Checkpoint to use on game start. Can be null to use default behaviour.")]
-        [SerializeField] private Interaction.CheckpointController _overrideCheckpoint = null;
+        [SerializeField] private Interaction.Checkpoint.CheckpointController _overrideCheckpoint = null;
 
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private bool _fadeOnRespawn = false;
@@ -15,9 +14,9 @@
         private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
 
         public static Unit.Player.PlayerController PlayerCtrl => Instance._playerCtrl;
-        public static Interaction.CheckpointController OverrideCheckpoint => Instance._overrideCheckpoint;
+        public static Interaction.Checkpoint.CheckpointController OverrideCheckpoint => Instance._overrideCheckpoint;
 
-        public static void OnCheckpointInteracted(Interaction.CheckpointController checkpoint)
+        public static void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpoint)
         {
             foreach (ICheckpointListener listener in Instance._checkpointListeners)
                 listener.OnCheckpointInteracted(checkpoint);
@@ -25,7 +24,7 @@
 
         private void CheckDuplicateCheckpointIds()
         {
-            Interaction.CheckpointController[] checkpoints = FindObjectsOfType<Interaction.CheckpointController>();
+            Interaction.Checkpoint.CheckpointController[] checkpoints = FindObjectsOfType<Interaction.Checkpoint.CheckpointController>();
             if (checkpoints.Length == 0)
                 return;
 
@@ -49,7 +48,7 @@
             if (OverrideCheckpoint != null)
                 LogWarning($"Spawning player to an overridden checkpoint {OverrideCheckpoint.transform.name}.");
 
-            _playerCtrl.Init(OverrideCheckpoint ?? Interaction.CheckpointController.CurrCheckpoint);
+            _playerCtrl.Init(OverrideCheckpoint ?? Interaction.Checkpoint.CheckpointController.CurrCheckpoint);
         }
 
         private System.Collections.IEnumerator SpawnPlayerCoroutine()
@@ -108,7 +107,7 @@
             if (Input.GetKeyDown(KeyCode.F2))
             {
                 SaveManager.EraseSave();
-                Interaction.CheckpointController.ForceRemoveCurrentCheckpoint();
+                Interaction.Checkpoint.CheckpointController.ForceRemoveCurrentCheckpoint();
             }
         }
 

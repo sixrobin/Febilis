@@ -16,6 +16,7 @@
         private const string ATTACK_CHAIN = "AttackChain";
         private const string ATTACK_AIRBORNE = "AttackAirborne";
         private const string HEAL = "Heal";
+        private const string DIALOGUE_IDLE = "DialogueIdle";
         private const string MULT_ROLL = "Mult_Roll";
 
         [Header("MOTION")]
@@ -53,6 +54,17 @@
                 && !TemplarController.AttackCtrl.IsAttacking
                 && !TemplarController.IsBeingHurt)
                 _animator.SetTrigger(FALL);
+        }
+
+        public void PlayRunAnimation(float dir)
+        {
+            _animator.SetBool(IS_RUNNING, true);
+            FlipX(dir < 0f);
+        }
+
+        public void StopRunAnimation()
+        {
+            _animator.SetBool(IS_RUNNING, false);
         }
 
         public void PlayJumpAnimation(float dir)
@@ -146,6 +158,11 @@
         {
             _healFrameCallback = healFrameCallback;
             _animator.SetTrigger(HEAL);
+        }
+
+        public void PlayDialogueIdleAnimation()
+        {
+            _animator.SetTrigger(DIALOGUE_IDLE);
         }
 
         public override void PlayDeathAnimation(float dir)
