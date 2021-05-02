@@ -3,8 +3,10 @@
     using RSLib.Extensions;
     using UnityEngine;
 
-    public class PlayerController : UnitController, ICheckpointListener
+    public class PlayerController : UnitController, ICheckpointListener, Interaction.Dialogue.ISpeaker
     {
+        private const string PLAYER_SPEAKER_ID = "Templar";
+
         [Header("PLAYER")]
         [SerializeField] private PlayerView _playerView = null;
         [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null; // [TMP] Player should not reference the camera.
@@ -42,7 +44,10 @@
 
         public bool IsBeingHurt => _hurtCoroutine != null;
         public bool IsHealing => _healCoroutine != null;
+
         public bool IsDialoguing { get; set; }
+        public string SpeakerId => PLAYER_SPEAKER_ID;
+        public Vector3 SpeakerPos => transform.position;
 
         public void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
@@ -89,6 +94,16 @@
         public void Jump()
         {
             _currVel.y = _jumpVel;
+        }
+
+        public void OnSentenceStartOrResume()
+        {
+            PlayerView.PlayDialogueTalkAnimation();
+        }
+
+        public void OnSentenceStopOrPause()
+        {
+            PlayerView.PlayDialogueIdleAnimation();
         }
 
         protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -366,12 +381,24 @@
             JumpCtrl.JumpAllowedThisFrame = false;
         }
 
-        public System.Collections.IEnumerator PrepareDialogueCoroutine(Interaction.Dialogue.ISpeaker speaker)
+        public System.Collections.IEnumerator PrepareDialogueCoroutine(Interaction.Dialogue.INpcSpeaker npcSpeaker)
         {
-            CurrDir = Mathf.Sign(speaker.PlayerDialoguePos.x - transform.position.x);
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
+
+            AttackCtrl.CancelAttack();
+            RollCtrl.Interrupt();
+
+            if (npcSpeaker.PlayerDialoguePivot == null)
+            {
+                CurrDir = Mathf.Sign(npcSpeaker.SpeakerPos.x - transform.position.x);
+                PlayerView.FlipX(CurrDir < 0f);
+                yield break;
+            }
+
+            CurrDir = Mathf.Sign(npcSpeaker.PlayerDialoguePivot.position.x - transform.position.x);
             PlayerView.PlayRunAnimation(CurrDir);
 
-            while (Mathf.Abs(transform.position.x - speaker.PlayerDialoguePos.x) > CtrlDatas.RunSpeed * Time.deltaTime + 0.05f)
+            while (Mathf.Abs(transform.position.x - npcSpeaker.PlayerDialoguePivot.position.x) > CtrlDatas.RunSpeed * Time.deltaTime + 0.05f)
             {
                 // [TMP] Not sure if actually TMP, but maybe we should think of a better way to do this because it currently
                 // is just a copy/paste of the Move() method.
@@ -390,12 +417,12 @@
                 yield return null;
             }
 
-            transform.SetPositionX(speaker.PlayerDialoguePos.x);
+            transform.SetPositionX(npcSpeaker.PlayerDialoguePivot.position.x);
             PlayerView.StopRunAnimation();
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
 
-            CurrDir = Mathf.Sign(speaker.SpeakerPos.x - transform.position.x);
+            CurrDir = Mathf.Sign(npcSpeaker.SpeakerPos.x - transform.position.x);
             PlayerView.FlipX(CurrDir < 0f);
         }
 

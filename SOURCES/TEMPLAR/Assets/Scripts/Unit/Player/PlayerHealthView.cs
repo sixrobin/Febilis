@@ -71,6 +71,16 @@
                 _healthBarCanvas.enabled = true;
         }
 
+        private void OnDialogueStarted(string dialogueId)
+        {
+            _healthBarCanvas.enabled = false;
+        }
+
+        private void OnDialogueOver(string dialogueId)
+        {
+            _healthBarCanvas.enabled = true;
+        }
+
         private void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
         {
             if (_healthBarUpdateCoroutine != null)
@@ -147,6 +157,9 @@
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
             Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
 
+            UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
+            UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
+
             StartCoroutine(InitHealth());
         }
 
@@ -160,6 +173,12 @@
             {
                 Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
                 Manager.RampFadeManager.Instance.FadeOver -= OnFadeOver;
+            }
+
+            if (UI.Dialogue.DialogueManager.Exists())
+            {
+                UI.Dialogue.DialogueManager.Instance.DialogueStarted -= OnDialogueStarted;
+                UI.Dialogue.DialogueManager.Instance.DialogueOver -= OnDialogueOver;
             }
         }
     }

@@ -17,6 +17,7 @@
         private const string ATTACK_AIRBORNE = "AttackAirborne";
         private const string HEAL = "Heal";
         private const string DIALOGUE_IDLE = "DialogueIdle";
+        private const string DIALOGUE_TALK = "DialogueTalk";
         private const string MULT_ROLL = "Mult_Roll";
 
         [Header("MOTION")]
@@ -163,6 +164,12 @@
         public void PlayDialogueIdleAnimation()
         {
             _animator.SetTrigger(DIALOGUE_IDLE);
+        }
+
+        public void PlayDialogueTalkAnimation()
+        {
+            // [TODO] Only if NOT currently talking. Use AnimationHash things?
+            _animator.SetTrigger(DIALOGUE_TALK);
         }
 
         public override void PlayDeathAnimation(float dir)

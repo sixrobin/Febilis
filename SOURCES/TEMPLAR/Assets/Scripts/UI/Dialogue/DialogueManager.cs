@@ -1,11 +1,14 @@
 ﻿namespace Templar.UI.Dialogue
 {
+    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
     public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
     {
         [SerializeField] private DialogueView _dialogueView = null;
+
+        private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
         private System.Collections.IEnumerator _dialogueCoroutine;
         private string _currDialogueId;
@@ -48,15 +51,27 @@
             Instance._skippedSentenceSequence = true;
         }
 
+        private void RegisterSpeakersInScene()
+        {
+            _speakers = new System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker>();
+            System.Collections.Generic.IEnumerable<Interaction.Dialogue.ISpeaker> speakers = FindObjectsOfType<MonoBehaviour>().OfType<Interaction.Dialogue.ISpeaker>();
+            foreach (Interaction.Dialogue.ISpeaker speaker in speakers)
+                _speakers.Add(speaker.SpeakerId, speaker);
+
+            Log($"Registered {_speakers.Count} speaker(s) is scene : {string.Join(",", _speakers.Keys)}.");
+        }
+
         private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker)
         {
             Log($"Playing dialogue {dialogueDatas.Id}...");
 
             DialogueStarted?.Invoke(dialogueDatas.Id);
 
-            // We may want to ensure speaker is NOT the player himself, if someday player becomes a speaker.
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
-            yield return Manager.GameManager.PlayerCtrl.PrepareDialogueCoroutine(sourceSpeaker);
+
+            if (sourceSpeaker is Interaction.Dialogue.INpcSpeaker npcSpeaker)
+                yield return Manager.GameManager.PlayerCtrl.PrepareDialogueCoroutine(npcSpeaker);
+
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
             Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();
 
@@ -94,13 +109,18 @@
 
         private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
+            UnityEngine.Assertions.Assert.IsTrue(
+                _speakers.ContainsKey(sentenceDatas.SpeakerId),
+                $"Speaker Id {sentenceDatas.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
+
             _dialogueView.ClearText();
-            _dialogueView.SetBoxesPosition(sentenceDatas.PortraitAnchor);
-            _dialogueView.SetPortrait(sentenceDatas);
+            _dialogueView.SetPortraitAndAnchors(sentenceDatas);
             _dialogueView.Display(true);
 
             _skippedSentenceSequence = false;
             _currSentenceProgress = string.Empty;
+
+            _speakers[sentenceDatas.SpeakerId].OnSentenceStartOrResume();
 
             for (int i = 0; i < sentenceDatas.SequenceElementsDatas.Length; ++i)
             {
@@ -135,6 +155,7 @@
             yield return new WaitUntil(() => CheckSkipInput());
 
             _dialogueView.DisplaySkipInput(false);
+            _speakers[sentenceDatas.SpeakerId].OnSentenceStopOrPause();
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
         }
@@ -183,6 +204,12 @@
             }
 
             yield return new RSLib.Yield.WaitForSecondsOrBreakIf(pauseDatas.Dur, CheckSkipInput, MarkSentenceAsSkipped);
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            RegisterSpeakersInScene();
         }
     }
 }

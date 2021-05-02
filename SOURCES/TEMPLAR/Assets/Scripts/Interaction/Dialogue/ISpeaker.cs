@@ -3,10 +3,10 @@
     public interface ISpeaker
     {
         string SpeakerId { get; }
+        bool IsDialoguing { get; set; }
         UnityEngine.Vector3 SpeakerPos { get; }
-        UnityEngine.Vector3 PlayerDialoguePos { get; }
-        
-        void OnSentenceStart();
-        void OnSentenceStop();
+
+        void OnSentenceStartOrResume();
+        void OnSentenceStopOrPause();
     }
 }

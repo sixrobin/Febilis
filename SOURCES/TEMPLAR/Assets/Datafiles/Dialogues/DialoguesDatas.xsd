@@ -46,7 +46,7 @@
             </xs:complexType>
          </xs:element>
          <xs:element name="Value" type="xs:token" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="PortraitAnchor" type="PortraitAnchor" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="OverridePortraitAnchor" type="PortraitAnchor" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attribute name="Id" type="xs:token" use="required"/>
    </xs:complexType>

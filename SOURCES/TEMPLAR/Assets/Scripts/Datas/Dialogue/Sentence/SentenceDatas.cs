@@ -5,6 +5,9 @@
 
     public class SentenceDatas : Datas, IDialogueSequenceElementDatas
     {
+        private const char OPENING_SPE_TAG_CHAR = '[';
+        private const char CLOSING_SPE_TAG_CHAR = ']';
+
         public SentenceDatas(XContainer container) : base(container)
         {
         }
@@ -22,7 +25,7 @@
 
         public bool Skippable { get; private set; }
 
-        public PortraitAnchor PortraitAnchor { get; private set; }
+        public PortraitAnchor OverridePortraitAnchor { get; private set; }
 
         public SentenceSequenceElementDatas[] SequenceElementsDatas { get; private set; }
 
@@ -36,8 +39,8 @@
 
             Skippable = sentenceElement.Element("Unskippable") == null;
 
-            XElement portraitAnchorElement = sentenceElement.Element("PortraitAnchor");
-            PortraitAnchor = portraitAnchorElement?.ValueToEnum<PortraitAnchor>() ?? PortraitAnchor.TOP_LEFT;
+            XElement overridePortraitAnchorElement = sentenceElement.Element("OverridePortraitAnchor");
+            OverridePortraitAnchor = overridePortraitAnchorElement?.ValueToEnum<PortraitAnchor>() ?? PortraitAnchor.NONE;
 
             XElement speakerElement = sentenceElement.Element("Speaker");
             UnityEngine.Assertions.Assert.IsNotNull(speakerElement, "Sentence datas needs a Speaker element.");
@@ -67,15 +70,15 @@
 
             for (int c = 0; c < RawValue.Length; ++c)
             {
-                if (RawValue[c] == '<')
+                if (RawValue[c] == OPENING_SPE_TAG_CHAR)
                     openingBracketsIndexes.Add(c);
-                else if (RawValue[c] == '>')
+                else if (RawValue[c] == CLOSING_SPE_TAG_CHAR)
                     closingBracketsIndexes.Add(c);
             }
 
             UnityEngine.Assertions.Assert.IsTrue(
                 openingBracketsIndexes.Count == closingBracketsIndexes.Count,
-                $"Sentence {Id} contains {openingBracketsIndexes.Count} opening brackets for {closingBracketsIndexes.Count} closing brackets.");
+                $"Sentence {Id} contains {openingBracketsIndexes.Count} opening tag chars for {closingBracketsIndexes.Count} closing tag chars.");
 
             for (int i = 0; i < openingBracketsIndexes.Count; ++i)
             {

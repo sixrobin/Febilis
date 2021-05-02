@@ -23,8 +23,6 @@
         [SerializeField] private float _skipInputIdleOffset = 1f;
         [SerializeField] private float _skipInputIdleTimestep = 0.25f;
 
-        private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
-
         private System.Collections.IEnumerator _skipInputIdleCoroutine;
         private float _skipInputInitY;
 
@@ -76,8 +74,12 @@
             _text.text = string.Format(_speakerSentenceFormat, Datas.Dialogue.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
         }
 
-        public void SetBoxesPosition(Datas.Dialogue.PortraitAnchor portraitAnchor)
+        public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
+            _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
+
+            Datas.Dialogue.PortraitAnchor portraitAnchor = Datas.Dialogue.DialogueDatabase.GetSpeakerPortraitAnchor(sentenceDatas);
+
             float portraitBoxY = _portraitBox.anchoredPosition.y;
             float textBoxY = _textBox.anchoredPosition.y;
 
@@ -114,20 +116,11 @@
 
                     break;
                 }
+
+                default:
+                    DialogueManager.Instance.LogError($"Unhandled PortraitAnchor {portraitAnchor} to set dialogue view elements anchors.");
+                    break;
             }
-        }
-
-        public void SetPortrait(Datas.Dialogue.SentenceDatas sentenceDatas)
-        {
-            _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
-        }
-
-        private void RegisterSpeakersInScene()
-        {
-            _speakers = new System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker>();
-            System.Collections.Generic.IEnumerable<Interaction.Dialogue.ISpeaker> speakers = FindObjectsOfType<MonoBehaviour>().OfType<Interaction.Dialogue.ISpeaker>();
-            foreach (Interaction.Dialogue.ISpeaker speaker in speakers)
-                _speakers.Add(speaker.SpeakerId, speaker);
         }
 
         private System.Collections.IEnumerator SkipInputIdleCoroutine()
@@ -146,8 +139,6 @@
         private void Awake()
         {
             Display(false);
-            RegisterSpeakersInScene();
-
             _skipInputInitY = _skipInputFeedback.anchoredPosition.y;
         }
     }

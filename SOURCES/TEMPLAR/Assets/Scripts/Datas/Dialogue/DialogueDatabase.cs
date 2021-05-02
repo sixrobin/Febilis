@@ -52,6 +52,20 @@
             return speakerDisplayDatas.DisplayName;
         }
 
+        public static PortraitAnchor GetSpeakerPortraitAnchor(SentenceDatas sentenceDatas)
+        {
+            if (sentenceDatas.OverridePortraitAnchor != PortraitAnchor.NONE)
+                return sentenceDatas.OverridePortraitAnchor;
+
+            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out SpeakerDisplayDatas speakerDisplayDatas))
+            {
+                Instance.LogError($"Speaker Id {sentenceDatas.SpeakerId} was not found in {Instance.GetType().Name} speakers display datas, returning PortraitAnchor.TOP_RIGHT.");
+                return PortraitAnchor.TOP_RIGHT;
+            }
+
+            return speakerDisplayDatas.PortraitAnchor;
+        }
+
         private void Deserialize()
         {
             SentencesDatas = new System.Collections.Generic.Dictionary<string, SentenceDatas>();

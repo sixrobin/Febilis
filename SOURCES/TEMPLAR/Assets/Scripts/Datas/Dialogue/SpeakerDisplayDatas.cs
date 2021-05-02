@@ -13,6 +13,7 @@
 
         public string DisplayName { get; private set; }
         public string PortraitId { get; private set; }
+        public PortraitAnchor PortraitAnchor { get; private set; }
 
         public override void Deserialize(XContainer container)
         {
@@ -28,6 +29,10 @@
 
             XElement portraitIdElement = speakerDisplayElement.Element("PortraitId");
             PortraitId = portraitIdElement?.Value ?? Id;
+
+            XElement portraitAnchorElement = speakerDisplayElement.Element("PortraitAnchor");
+            UnityEngine.Assertions.Assert.IsFalse(portraitAnchorElement.IsNullOrEmpty(), "SpeakerDisplayDatas needs a PortraitAnchor element.");
+            PortraitAnchor = portraitAnchorElement.ValueToEnum<PortraitAnchor>();
         }
     }
 }

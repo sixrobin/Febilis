@@ -12,6 +12,8 @@
 
         public string SpeakerId => "OUI";
 
+        public bool IsDialoguing { get; set; }
+
         public Vector3 SpeakerPos => transform.position;
         public Vector3 PlayerDialoguePos => _dialoguePos.position;
 
@@ -36,12 +38,12 @@
             Debug.Log("B");
         }
 
-        public void OnSentenceStart()
+        public void OnSentenceStartOrResume()
         {
             throw new System.NotImplementedException();
         }
 
-        public void OnSentenceStop()
+        public void OnSentenceStopOrPause()
         {
             throw new System.NotImplementedException();
         }

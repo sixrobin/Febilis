@@ -9,6 +9,14 @@
                   <xs:sequence>
                      <xs:element name="DisplayName" type="xs:token" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="PortraitId" type="xs:token" minOccurs="0" maxOccurs="1"/>
+                     <xs:element name="PortraitAnchor" minOccurs="1" maxOccurs="1">
+                        <xs:simpleType>
+                           <xs:restriction base="xs:string">
+                              <xs:enumeration value="TOP_LEFT"/>
+                              <xs:enumeration value="TOP_RIGHT"/>
+                           </xs:restriction>
+                        </xs:simpleType>
+                     </xs:element>
                   </xs:sequence>
                   <xs:attribute name="Id" type="xs:token" use="required"/>
                </xs:complexType>
@@ -16,5 +24,12 @@
          </xs:sequence>
       </xs:complexType>
    </xs:element>
+
+   <xs:simpleType name="PortraitAnchor" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="TOP_LEFT"/>
+         <xs:enumeration value="TOP_RIGHT"/>
+      </xs:restriction>
+   </xs:simpleType>
 
 </xs:schema>
