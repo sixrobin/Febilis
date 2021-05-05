@@ -264,21 +264,6 @@
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.HEAL);
 
-            PlayerView.PlayHealAnimation(() =>
-            {
-                if (!PlayerHealthCtrl.DebugMode)
-                {
-                    UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.HealsLeft > 0, "Healing has been allowed while there are no cells left.");
-                    PlayerHealthCtrl.HealsLeft--;
-                }
-
-                HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
-
-                _cameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
-                if (CtrlDatas.HealRecoilSettings != null && CtrlDatas.HealRecoilSettings.Force != 0f)
-                    _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
-            });
-
             _healCoroutine = HealCoroutine();
             StartCoroutine(_healCoroutine);
         }
@@ -435,7 +420,25 @@
 
         private System.Collections.IEnumerator HealCoroutine()
         {
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.HealDur);
+            PlayerView.PlayHealAnticipationAnimation();
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.PreHealDelay);
+
+            if (!PlayerHealthCtrl.DebugMode)
+            {
+                UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.HealsLeft > 0, "Healing has been allowed while there are no cells left.");
+                PlayerHealthCtrl.HealsLeft--;
+            }
+
+            HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
+
+            _cameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
+            if (CtrlDatas.HealRecoilSettings != null && CtrlDatas.HealRecoilSettings.Force != 0f)
+                _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
+
+            PlayerView.PlayHealAnimation();
+
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.PostHealDelay);
+
             _healCoroutine = null;
             PlayerView.PlayIdleAnimation();
         }

@@ -10,6 +10,8 @@
 	- Le recoil devrait avoir un multiplicateur quand on est en l'air.
 	- Checkpoints : plus de vert pomme/clair.
 	
+	---> RECUPERER LES VSSETTINGS
+	
 	
 	
 	
