@@ -8,8 +8,6 @@
 	- CurrentAttackDatas dans AttackController ?
 	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
 	
-	---> RECUPERER LES VSSETTINGS
-	
 	
 	
 	
@@ -49,9 +47,6 @@
 
 
 ///// ANIMATION / VIEW
-	- Templar_Break-Idle.
-		- Un break ponctuel que le perso peut répéter plusieurs fois.
-		- Une anim qui loop qu'on peut jouer si le joueur reste immobile très longtemps (endormi ?).
 	- Templar_Attack_Up.
 	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).
 	- Cellules de heal qui sont consommées/restorées (attendre d'avoir un graph plus def pour faire une anim autre qu'un placeholder).

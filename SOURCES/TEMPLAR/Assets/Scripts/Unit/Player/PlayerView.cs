@@ -8,6 +8,8 @@
         private const float DEAD_FADE_DELAY = 1.2f;
 
         private const string IS_RUNNING = "IsRunning";
+        private const string IDLE_BREAK = "IdleBreak";
+        private const string IDLE_SLEEPING = "IdleSleeping";
         private const string FALL = "Fall";
         private const string JUMP = "Jump";
         private const string LAND = "Land";
@@ -35,8 +37,16 @@
         [SerializeField] private GameObject[] _hurtPrefabs = null;
 
         [Header("IDLE BREAK")]
-        [SerializeField, Min(0f)] private float _secInterval = 15f;
-        [SerializeField, Min(0)] private int _countBeforeContinuousBreak = 2;
+        [SerializeField, Min(0f)] private float _idleBreakSecInterval = 15f;
+        [SerializeField, Min(0)] private int _breaksBeforeSleep = 2;
+        [SerializeField] private SleepFeedback _sleepFeedback = null;
+
+        private int _idleStateHash;
+        private int _idleBreakStateHash;
+        private int _idleSleepingStateHash;
+
+        private int _currStateHash;
+        private int _previousStateHash;
 
         private float _idleBreakTimer;
         private int _idleBreaksCounter;
@@ -193,6 +203,55 @@
             _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
             if (dir != 0f)
                 FlipX(dir < 0f);
+        }
+
+        private void UpdateIdleBreakAndSleeping()
+        {
+            _previousStateHash = _currStateHash;
+            _currStateHash = _animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+
+            if (_currStateHash == _idleSleepingStateHash)
+                return;
+            else if (_previousStateHash == _idleSleepingStateHash)
+                _sleepFeedback.Toggle(false);
+
+            if (_currStateHash != _idleStateHash)
+            {
+                if (_currStateHash != _idleBreakStateHash)
+                    _idleBreaksCounter = 0;
+
+                _idleBreakTimer = 0f;
+                return;
+            }
+
+            _idleBreakTimer += Time.deltaTime;
+            if (_idleBreakTimer > _idleBreakSecInterval)
+            {
+                _idleBreaksCounter++;
+                _idleBreakTimer = 0f;
+
+                if (_idleBreaksCounter == _breaksBeforeSleep)
+                {
+                    _animator.SetTrigger(IDLE_SLEEPING);
+                    _sleepFeedback.Toggle(true);
+                }
+                else
+                {
+                    _animator.SetTrigger(IDLE_BREAK);
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            _idleStateHash = Animator.StringToHash("Motion_Idle");
+            _idleBreakStateHash = Animator.StringToHash("Idle-Break");
+            _idleSleepingStateHash = Animator.StringToHash("Idle-Sleeping");
+        }
+
+        private void Update()
+        {
+            UpdateIdleBreakAndSleeping();
         }
     }
 }

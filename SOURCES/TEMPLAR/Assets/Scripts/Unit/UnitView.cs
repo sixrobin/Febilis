@@ -4,10 +4,10 @@
 
     public abstract class UnitView : MonoBehaviour
     {
-        private const string IDLE = "Idle";
-        private const string DEATH = "Death";
-        private const string DEAD_FADE = "DeadFade";
-        private const string HURT = "Hurt";
+        protected const string IDLE = "Idle";
+        protected const string DEATH = "Death";
+        protected const string DEAD_FADE = "DeadFade";
+        protected const string HURT = "Hurt";
         protected const string MULT_ATTACK = "Mult_Attack";
 
         [Header("REFS")]
