@@ -8,7 +8,6 @@
 	- CurrentAttackDatas dans AttackController ?
 	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
 	- Le recoil devrait avoir un multiplicateur quand on est en l'air.
-	- Checkpoints : plus de vert pomme/clair.
 	
 	
 	
@@ -19,7 +18,6 @@
 	- Collisions avec les coins.
 	- On peut faire un jump après avoir fait une roulade dans le vide.
 	- Le perso resaute s'il tombe d'un effector trop bas.
-	- Le shake "Hit" des ennemis est déclenché même si le perso roule.
 
 
 
@@ -52,6 +50,8 @@
 
 ///// ANIMATION / VIEW
 	- Templar_Break-Idle.
+		- Un break ponctuel que le perso peut répéter plusieurs fois.
+		- Une anim qui loop qu'on peut jouer si le joueur reste immobile très longtemps (endormi ?).
 	- Templar_Attack_Up.
 	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).
 	- Cellules de heal qui sont consommées/restorées (attendre d'avoir un graph plus def pour faire une anim autre qu'un placeholder).
@@ -61,7 +61,7 @@
 	- Animer les portraits des dialogues (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
-	
+		
 
 
 ///// ENVIRONMENT :

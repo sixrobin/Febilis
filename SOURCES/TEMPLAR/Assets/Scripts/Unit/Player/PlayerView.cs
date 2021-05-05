@@ -33,7 +33,14 @@
         [SerializeField] private GameObject _attackPuffPrefab = null;
         [SerializeField] private GameObject[] _hurtPrefabs = null;
 
+        [Header("IDLE BREAK")]
+        [SerializeField, Min(0f)] private float _secInterval = 15f;
+        [SerializeField, Min(0)] private int _countBeforeContinuousBreak = 2;
+
         private HealFrameCallbackHandler _healFrameCallback;
+
+        private float _idleBreakTimer;
+        private int _idleBreaksCounter;
 
         public delegate void HealFrameCallbackHandler();
 

@@ -7,6 +7,7 @@
     {
         private const char OPENING_SPE_TAG_CHAR = '[';
         private const char CLOSING_SPE_TAG_CHAR = ']';
+        private const char TAG_ASSIGNEMENT_CHAR = '=';
 
         public SentenceDatas(XContainer container) : base(container)
         {
@@ -65,28 +66,18 @@
             System.Collections.Generic.List<(SentenceSequenceElementDatas datas, int tagStart, int tagEnd)> customTagsElements
                 = new System.Collections.Generic.List<(SentenceSequenceElementDatas datas, int tagStart, int tagEnd)>();
 
-            System.Collections.Generic.List<int> openingBracketsIndexes = new System.Collections.Generic.List<int>();
-            System.Collections.Generic.List<int> closingBracketsIndexes = new System.Collections.Generic.List<int>();
-
-            for (int c = 0; c < RawValue.Length; ++c)
-            {
-                if (RawValue[c] == OPENING_SPE_TAG_CHAR)
-                    openingBracketsIndexes.Add(c);
-                else if (RawValue[c] == CLOSING_SPE_TAG_CHAR)
-                    closingBracketsIndexes.Add(c);
-            }
+            System.Collections.Generic.List<int> openingIndexes = RawValue.AllIndexesOf(OPENING_SPE_TAG_CHAR);
+            System.Collections.Generic.List<int> closingIndexes = RawValue.AllIndexesOf(CLOSING_SPE_TAG_CHAR);
 
             UnityEngine.Assertions.Assert.IsTrue(
-                openingBracketsIndexes.Count == closingBracketsIndexes.Count,
-                $"Sentence {Id} contains {openingBracketsIndexes.Count} opening tag chars for {closingBracketsIndexes.Count} closing tag chars.");
+                openingIndexes.Count == closingIndexes.Count,
+                $"Sentence {Id} contains {openingIndexes.Count} opening tag chars for {closingIndexes.Count} closing tag chars.");
 
-            for (int i = 0; i < openingBracketsIndexes.Count; ++i)
+            for (int i = 0; i < openingIndexes.Count; ++i)
             {
-                int closingBracketIndex = closingBracketsIndexes[i];
-                string tag = RawValue.Substring(openingBracketsIndexes[i] + 1, closingBracketsIndexes[i] - openingBracketsIndexes[i] - 1);
-
-                string[] tagArgs = tag.Split('=');
-                UnityEngine.Assertions.Assert.IsTrue(tagArgs.Length == 2, $"Tag {tag} could not be split in exactly 2 arguments using = as separator in sentence {Id}.");
+                string tag = RawValue.Substring(openingIndexes[i] + 1, closingIndexes[i] - openingIndexes[i] - 1);
+                string[] tagArgs = tag.Split(TAG_ASSIGNEMENT_CHAR);
+                UnityEngine.Assertions.Assert.IsTrue(tagArgs.Length == 2, $"Tag {tag} could not be split in exactly 2 arguments using {TAG_ASSIGNEMENT_CHAR} as separator in sentence {Id}.");
 
                 string tagType = tagArgs[0];
                 string tagValue = tagArgs[1];
@@ -97,7 +88,7 @@
 
                 // Custom tag creations.
                 if (tagType == SentencePauseDatas.TAG_ID)
-                    customTagsElements.Add((new SentencePauseDatas(this, tagValue, openingBracketsIndexes[i], closingBracketsIndexes[i]), openingBracketsIndexes[i], closingBracketsIndexes[i]));
+                    customTagsElements.Add((new SentencePauseDatas(this, tagValue, openingIndexes[i], closingIndexes[i]), openingIndexes[i], closingIndexes[i]));
             }
 
             // Sequence creation.
@@ -111,10 +102,10 @@
             {
                 System.Collections.Generic.List<SentenceSequenceElementDatas> sequenceElementsDatasList = new System.Collections.Generic.List<SentenceSequenceElementDatas>
                 {
-                    new SentenceTextDatas(this, RawValue.Substring(0, openingBracketsIndexes[0]))
+                    new SentenceTextDatas(this, RawValue.Substring(0, openingIndexes[0]))
                 };
 
-                SentenceValue += RawValue.Substring(0, openingBracketsIndexes[0]);
+                SentenceValue += RawValue.Substring(0, openingIndexes[0]);
 
                 // Take each custom tag, add it to the sequence, and add the normal text that's following if it exists (= not another tag right after).
                 for (int i = 0; i < customTagsElements.Count; ++i)

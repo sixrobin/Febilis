@@ -13,6 +13,8 @@
         public delegate void HealsLeftChangedEventHandler(int healsLeft);
         public event HealsLeftChangedEventHandler HealsLeftChanged;
 
+        public override bool CanBeHit => base.CanBeHit && !PlayerCtrl.RollCtrl.IsRolling;
+
         private int _healsLeft;
         public int HealsLeft
         {
