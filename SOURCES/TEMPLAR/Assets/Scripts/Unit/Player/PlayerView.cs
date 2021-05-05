@@ -15,6 +15,7 @@
         private const string ATTACK = "Attack";
         private const string ATTACK_CHAIN = "AttackChain";
         private const string ATTACK_AIRBORNE = "AttackAirborne";
+        private const string HEAL_ANTICIPATION = "HealAnticipation";
         private const string HEAL = "Heal";
         private const string DIALOGUE_IDLE = "DialogueIdle";
         private const string DIALOGUE_TALK = "DialogueTalk";
@@ -37,12 +38,8 @@
         [SerializeField, Min(0f)] private float _secInterval = 15f;
         [SerializeField, Min(0)] private int _countBeforeContinuousBreak = 2;
 
-        private HealFrameCallbackHandler _healFrameCallback;
-
         private float _idleBreakTimer;
         private int _idleBreaksCounter;
-
-        public delegate void HealFrameCallbackHandler();
 
         public PlayerController TemplarController { get; set; }
 
@@ -162,9 +159,13 @@
             jumpPuffInstance.transform.SetScaleX(dir);
         }
 
-        public void PlayHealAnimation(HealFrameCallbackHandler healFrameCallback)
+        public void PlayHealAnticipationAnimation()
         {
-            _healFrameCallback = healFrameCallback;
+            _animator.SetTrigger(HEAL_ANTICIPATION);
+        }
+
+        public void PlayHealAnimation()
+        {
             _animator.SetTrigger(HEAL);
         }
 
@@ -185,11 +186,6 @@
 
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
-        }
-
-        public void OnHealFrame()
-        {
-            _healFrameCallback?.Invoke();
         }
 
         private void UpdateAttackAnimation(float dir = 0f)

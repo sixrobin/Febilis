@@ -126,7 +126,7 @@
             if (AttackCtrl.IsAttacking)
                 return;
 
-            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, force: 2.5f, dur: 0.15f, true); // [TMP] Hardcoded values.
+            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, force: 2.5f, dur: 0.15f, airborneMult: 1f, true); // [TMP] Hardcoded values.
 
             _hurtCoroutine = HurtCoroutine();
             StartCoroutine(_hurtCoroutine);

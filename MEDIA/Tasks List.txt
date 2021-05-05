@@ -7,7 +7,8 @@
 	- Première passe de sound design.
 	- CurrentAttackDatas dans AttackController ?
 	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
-	- Le recoil devrait avoir un multiplicateur quand on est en l'air.
+	
+	---> RECUPERER LES VSSETTINGS
 	
 	
 	
@@ -25,8 +26,7 @@
 
 
 ///// GAMEPLAY
-	- Splitter le heal en deux temps : anticipation, puis fin d'anim (avec heal en transition).
-		- Permettre de casser la séquence de heal après l'anticipation ?
+	- Permettre de casser la séquence de heal après l'anticipation ?
 	- Meilleure courbe de saut, avec gestion dans l'input maintenu (contrôle à 100% comme HK, 2 hauteurs fixes ?)
 	- Attaque up du templier (sur place).
 	- Slopes (avec un roll automatique à la fin ?).
@@ -58,7 +58,7 @@
 	- Templar_Death-Spikes.
 	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
 	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
-	- Animer les portraits des dialogues (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
+	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
 		
