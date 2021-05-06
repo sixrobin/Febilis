@@ -41,7 +41,6 @@
 
 
 ///// DATAS
-	- Recoil dans AttackDatas (force, durée).
 	- Setup le xml AttacksDatas_Player de sorte à pouvoir y paramétrer le combo du joueur.
 
 

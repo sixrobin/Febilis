@@ -56513,11 +56513,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Templar Controller
       objectReference: {fileID: 0}
-    - target: {fileID: 2727861838613788317, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
-        type: 3}
-      propertyPath: _idleBreakSecInterval
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2727861838613788318, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
         type: 3}
       propertyPath: m_SortingOrder

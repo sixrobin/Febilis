@@ -44,6 +44,7 @@
         public float HitDur { get; protected set; }
         public Templar.Attack.HitLayer HitLayer { get; protected set; }
         public Templar.Attack.HitDirComputationType HitDirComputationType { get; protected set; }
+        public RecoilDatas RecoilDatas { get; private set; }
 
         public float HitFreezeFrameDur { get; protected set; }
         public ShakeTraumaDatas BaseTraumaDatas { get; protected set; }
@@ -56,26 +57,30 @@
             XElement attackElement = container as XElement;
 
             XAttribute idAttribute = attackElement.Attribute("Id");
-            UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Enemy Id attribute is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Attack Id attribute is null or empty.");
             Id = idAttribute.Value;
 
             XElement dmgElement = attackElement.Element("Dmg");
-            UnityEngine.Assertions.Assert.IsNotNull(dmgElement, "AttackDatas must have a Dmg element.");
+            UnityEngine.Assertions.Assert.IsNotNull(dmgElement, $"AttackDatas {Id} must have a Dmg element.");
             Dmg = dmgElement.ValueToInt();
 
             XElement hitElement = attackElement.Element("Hit");
-            UnityEngine.Assertions.Assert.IsFalse(hitElement.IsNullOrEmpty(), "AttackDatas Hit element is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(hitElement.IsNullOrEmpty(), $"AttackDatas Hit element is null or empty for attack {Id}.");
 
             XElement hitDurElement = hitElement.Element("Dur");
-            UnityEngine.Assertions.Assert.IsFalse(hitDurElement.IsNullOrEmpty(), "Hit Dur element is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(hitDurElement.IsNullOrEmpty(), $"Hit Dur element is null or empty for attack {Id}.");
             HitDur = hitDurElement.ValueToFloat();
 
             XElement hitLayerElement = hitElement.Element("Layer");
-            UnityEngine.Assertions.Assert.IsFalse(hitLayerElement.IsNullOrEmpty(), "Hit Layer element is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(hitLayerElement.IsNullOrEmpty(), $"Hit Layer element is null or empty for attack {Id}.");
             HitLayer = hitLayerElement.ValueToEnum<Templar.Attack.HitLayer>();
 
             XElement hitDirComputationTypeElement = hitElement.Element("DirComputationType");
             HitDirComputationType = hitDirComputationTypeElement?.ValueToEnum<Templar.Attack.HitDirComputationType>() ?? Templar.Attack.HitDirComputationType.ATTACK_DIR;
+
+            XElement recoilElement = attackElement.Element("Recoil");
+            UnityEngine.Assertions.Assert.IsFalse(recoilElement.IsNullOrEmpty(), $"Recoil element is null or empty for attack {Id}.");
+            RecoilDatas = new RecoilDatas(recoilElement);
 
             XElement hitFreezeFrameDurElement = hitElement.Element("FreezeFrameDur");
             HitFreezeFrameDur = hitFreezeFrameDurElement?.ValueToFloat() ?? 0f;

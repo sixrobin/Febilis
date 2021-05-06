@@ -41,6 +41,9 @@
         [SerializeField, Min(0)] private int _breaksBeforeSleep = 2;
         [SerializeField] private SleepFeedback _sleepFeedback = null;
 
+        [Header("DEBUG")]
+        [SerializeField] private bool _logAnimationsPlays = false;
+
         private int _idleStateHash;
         private int _idleBreakStateHash;
         private int _idleSleepingStateHash;
@@ -75,6 +78,7 @@
         {
             _animator.SetBool(IS_RUNNING, true);
             FlipX(dir < 0f);
+            LogAnimationPlayIfRequired("Run");
         }
 
         public void StopRunAnimation()
@@ -96,12 +100,15 @@
                 // We might probably want to use another prefab to have another VFX.s
                 Instantiate(_landPuffPrefab, transform.position, _landPuffPrefab.transform.rotation);
             }
+
+            LogAnimationPlayIfRequired("Jump");
         }
 
         public void PlayDoubleJumpAnimation()
         {
             _animator.SetTrigger(JUMP);
             Instantiate(_doubleJumpPuffPrefab, transform.position, _doubleJumpPuffPrefab.transform.rotation);
+            LogAnimationPlayIfRequired("Double Jump");
         }
 
         public void PlayLandAnimation(float velYAbs)
@@ -109,6 +116,8 @@
             _animator.SetTrigger(LAND);
             if (velYAbs > _landPuffMinVel)
                 PlayLandVFX();
+
+            LogAnimationPlayIfRequired("Land");
         }
 
         public void PlayLandVFX()
@@ -124,24 +133,29 @@
 
             GameObject rollPuffInstance = Instantiate(_rollPuffPrefab, transform.position, _rollPuffPrefab.transform.rotation);
             rollPuffInstance.transform.SetScaleX(dir);
+
+            LogAnimationPlayIfRequired("Roll");
         }
 
         public void PlayAttackAnimation(float dir)
         {
             UpdateAttackAnimation(dir);
             _animator.SetTrigger(ATTACK);
+            LogAnimationPlayIfRequired("Attack");
         }
 
         public void PlayChainAttackAnimation(float dir)
         {
             UpdateAttackAnimation(dir);
             _animator.SetTrigger(ATTACK_CHAIN);
+            LogAnimationPlayIfRequired("Chain Attack");
         }
 
         public void PlayAttackAirborneAnimation()
         {
             UpdateAttackAnimation();
             _animator.SetTrigger(ATTACK_AIRBORNE);
+            LogAnimationPlayIfRequired("Airborne Attack");
         }
 
         public void PlayAttackVFX(float dir, float offset)
@@ -167,27 +181,33 @@
             // [TMP] We probably want a puff VFX made especially for hurt feedback.
             GameObject jumpPuffInstance = Instantiate(_jumpPuffPrefab, transform.position, _jumpPuffPrefab.transform.rotation);
             jumpPuffInstance.transform.SetScaleX(dir);
+
+            LogAnimationPlayIfRequired("Hurt");
         }
 
         public void PlayHealAnticipationAnimation()
         {
             _animator.SetTrigger(HEAL_ANTICIPATION);
+            LogAnimationPlayIfRequired("Heal Anticipation");
         }
 
         public void PlayHealAnimation()
         {
             _animator.SetTrigger(HEAL);
+            LogAnimationPlayIfRequired("Heal");
         }
 
         public void PlayDialogueIdleAnimation()
         {
             _animator.SetTrigger(DIALOGUE_IDLE);
+            LogAnimationPlayIfRequired("Dialogue Idle");
         }
 
         public void PlayDialogueTalkAnimation()
         {
             // [TODO] Only if NOT currently talking. Use AnimationHash things?
             _animator.SetTrigger(DIALOGUE_TALK);
+            LogAnimationPlayIfRequired("Dialogue Talk");
         }
 
         public override void PlayDeathAnimation(float dir)
@@ -196,6 +216,8 @@
 
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
+
+            LogAnimationPlayIfRequired("Death");
         }
 
         private void UpdateAttackAnimation(float dir = 0f)
@@ -230,16 +252,26 @@
                 _idleBreaksCounter++;
                 _idleBreakTimer = 0f;
 
-                if (_idleBreaksCounter == _breaksBeforeSleep)
+                if (_idleBreaksCounter == _breaksBeforeSleep + 1)
                 {
                     _animator.SetTrigger(IDLE_SLEEPING);
                     _sleepFeedback.Toggle(true);
+                    LogAnimationPlayIfRequired("Idle Sleeping");
                 }
                 else
                 {
                     _animator.SetTrigger(IDLE_BREAK);
+                    LogAnimationPlayIfRequired("Idle Break");
                 }
             }
+        }
+
+        private void LogAnimationPlayIfRequired(string animationName)
+        {
+            if (!_logAnimationsPlays)
+                return;
+
+            CProLogger.Log(this, $"Playing animation {animationName}.", gameObject);
         }
 
         private void Awake()

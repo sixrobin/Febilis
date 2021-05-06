@@ -9,6 +9,10 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>2.5</Force>
+         <Dur>0.15</Dur>
+      </Recoil>
       <Traumas>
          <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
@@ -29,6 +33,10 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>2.5</Force>
+         <Dur>0.15</Dur>
+      </Recoil>
       <Traumas>
          <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
@@ -49,6 +57,10 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>3.5</Force>
+         <Dur>0.25</Dur>
+      </Recoil>
       <Traumas>
          <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
       </Traumas>
@@ -68,6 +80,10 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>2</Force>
+         <Dur>0.15</Dur>
+      </Recoil>
       <Traumas>
          <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
       </Traumas>

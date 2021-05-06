@@ -478,9 +478,10 @@ MonoBehaviour:
   _hurtPrefabs:
   - {fileID: 6902329658627871376, guid: 2711b44af73a43847a61602dcf47d1c7, type: 3}
   - {fileID: 3272460718499099270, guid: d403fe461123359428d8fc8d63951846, type: 3}
-  _idleBreakSecInterval: 15
+  _idleBreakSecInterval: 6
   _breaksBeforeSleep: 2
   _sleepFeedback: {fileID: 1141313425224219380}
+  _logAnimationsPlays: 0
 --- !u!114 &2727861838613788315
 MonoBehaviour:
   m_ObjectHideFlags: 0

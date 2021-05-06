@@ -166,7 +166,7 @@
             _hurtCoroutine = HurtCoroutine();
             StartCoroutine(_hurtCoroutine);
 
-            _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HurtRecoilSettings, hitDir);
+            _currentRecoil = new Templar.Physics.Recoil(hitDir, args.HitDatas.AttackDatas.RecoilDatas);
         }
 
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
@@ -432,11 +432,11 @@
             HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
 
             _cameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
-            if (CtrlDatas.HealRecoilSettings != null && CtrlDatas.HealRecoilSettings.Force != 0f)
-                _currentRecoil = new Templar.Physics.Recoil(CtrlDatas.HealRecoilSettings, -CurrDir);
+
+            // [TODO] Manage this recoil values somewhere. Also, recoil will trigger a collision event and play the idle animation back for now.
+            //_currentRecoil = new Templar.Physics.Recoil(-CurrDir, Datas.Attack.RecoilDatas.NullRecoil); 
 
             PlayerView.PlayHealAnimation();
-
             yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.PostHealDelay);
 
             _healCoroutine = null;

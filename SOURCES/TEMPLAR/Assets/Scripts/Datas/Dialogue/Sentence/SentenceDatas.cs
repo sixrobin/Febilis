@@ -44,10 +44,10 @@
             OverridePortraitAnchor = overridePortraitAnchorElement?.ValueToEnum<PortraitAnchor>() ?? PortraitAnchor.NONE;
 
             XElement speakerElement = sentenceElement.Element("Speaker");
-            UnityEngine.Assertions.Assert.IsNotNull(speakerElement, "Sentence datas needs a Speaker element.");
+            UnityEngine.Assertions.Assert.IsNotNull(speakerElement, $"Sentence datas {Id} needs a Speaker element.");
 
             XAttribute speakerIdAttribute = speakerElement.Attribute("Id");
-            UnityEngine.Assertions.Assert.IsNotNull(speakerIdAttribute, "Speaker element needs an Id attribute.");
+            UnityEngine.Assertions.Assert.IsNotNull(speakerIdAttribute, $"Speaker element for sentence {Id} needs an Id attribute.");
             SpeakerId = speakerIdAttribute.Value;
 
             XElement overrideDisplayNameElement = speakerElement.Element("OverrideDisplayName");
@@ -59,7 +59,7 @@
             HideSpeakerName = speakerElement.Element("HideSpeakerName") != null;
 
             XElement valueElement = sentenceElement.Element("Value");
-            UnityEngine.Assertions.Assert.IsFalse(valueElement.IsNullOrEmpty(), "Sentence Value element is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(valueElement.IsNullOrEmpty(), $"Sentence {Id} Value element is null or empty.");
             RawValue = valueElement.Value;
 
             // Custom tags parsing.

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<AttacksDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">
+<AttacksDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">   
 
    <!-- ████████████ -->
    <!--   SKELETON   -->
@@ -13,6 +13,11 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>7</Force>
+         <Dur>0.25</Dur>
+         <AirborneMult>2</AirborneMult>
+      </Recoil>
       <Traumas>
          <Base X="0.25" Y="0.5" AddType="ADDITIVE" ShakeId="Small"/>
          <Hit X="0.75" Y="0.75" AddType="OVERRIDE" ShakeId="Big"/>
@@ -31,6 +36,11 @@
          <DirComputationType>X_OFFSET</DirComputationType>
          <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>9</Force>
+         <Dur>0.3</Dur>
+         <AirborneMult>1.5</AirborneMult>
+      </Recoil>
       <Traumas>
          <Base X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
          <Hit X="0.6" Y="0.6" AddType="OVERRIDE" ShakeId="Medium"/>
@@ -55,6 +65,11 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
+      <Recoil>
+         <Force>7</Force>
+         <Dur>0.25</Dur>
+         <AirborneMult>1</AirborneMult>
+      </Recoil>
       <Traumas>
          <Hit X="0.45" Y="0.45" AddType="OVERRIDE" ShakeId="Small"/>
       </Traumas>
