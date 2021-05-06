@@ -67,11 +67,7 @@
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
 
             PlayerHealthCtrl.PlayerCtrl = this;
-            PlayerHealthCtrl.Init(_baseHealth);
-            PlayerHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
-            PlayerHealthCtrl.UnitKilled += OnUnitKilled;
-
-            PlayerView.TemplarController = this;
+            PlayerHealthCtrl.Init(_baseHealth, OnUnitHealthChanged, OnUnitKilled);
 
             ComputeJumpPhysics();
 
@@ -81,6 +77,7 @@
             if (CtrlDatas.GroundOnAwake)
                 CollisionsCtrl.Ground(transform);
 
+            PlayerView.TemplarController = this;
             CurrDir = PlayerView.GetSpriteRendererFlipX() ? -1f : 1f;
 
             Initialized = true;
@@ -96,14 +93,39 @@
             _currVel.y = _jumpVel;
         }
 
-        public void OnSentenceStartOrResume()
+        public void OnSentenceStart()
         {
             PlayerView.PlayDialogueTalkAnimation();
         }
 
-        public void OnSentenceStopOrPause()
+        public void OnSentenceEnd()
         {
             PlayerView.PlayDialogueIdleAnimation();
+        }
+
+        public override void Translate(Vector3 vel, bool checkEdge = false, bool effectorDown = false)
+        {
+            // We don't want to use the base method because it computes both direction and then translates, which can result
+            // in glitchy corners collisions. This is fine for enemies, but for the player we want to check any direction first, translate
+            // if needed, refresh the raycast origins, then check the other direction, and translate if needed.
+
+            CollisionsCtrl.ComputeRaycastOrigins();
+            CollisionsCtrl.CurrentStates.Reset();
+
+            vel *= Time.deltaTime;
+
+            if (vel.x != 0f)
+            {
+                CollisionsCtrl.ComputeHorizontalCollisions(ref vel, false);
+                transform.Translate(new Vector3(vel.x, 0f));
+            }
+
+            if (vel.y != 0f)
+            {
+                CollisionsCtrl.ComputeRaycastOrigins();
+                CollisionsCtrl.ComputeVerticalCollisions(ref vel, false);
+                transform.Translate(new Vector3(0f, vel.y));
+            }
         }
 
         protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -163,8 +185,7 @@
             ResetVelocity();
 
             PlayerView.PlayHurtAnimation(hitDir);
-            _hurtCoroutine = HurtCoroutine();
-            StartCoroutine(_hurtCoroutine);
+            StartCoroutine(_hurtCoroutine = HurtCoroutine());
 
             _currentRecoil = new Templar.Physics.Recoil(hitDir, args.HitDatas.AttackDatas.RecoilDatas);
         }
@@ -253,8 +274,8 @@
             if (IsHealing || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.INTERACT))
                 return;
 
-            _interacter.TryInteract();
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.INTERACT);
+            _interacter.TryInteract();
         }
 
         private void TryHeal()
@@ -263,9 +284,7 @@
                 return;
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.HEAL);
-
-            _healCoroutine = HealCoroutine();
-            StartCoroutine(_healCoroutine);
+            StartCoroutine(_healCoroutine = HealCoroutine());
         }
 
         private void Move()

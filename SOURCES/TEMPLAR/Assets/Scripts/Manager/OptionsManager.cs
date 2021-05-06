@@ -22,10 +22,10 @@
             {
                 OptionsPanelDisplayed = !OptionsPanelDisplayed;
                 _optionsPanel.SetActive(OptionsPanelDisplayed);
-            }
 
-            if (!OptionsPanelDisplayed)
-                RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
+                if (!OptionsPanelDisplayed)
+                    RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
+            }
         }
     }
 }

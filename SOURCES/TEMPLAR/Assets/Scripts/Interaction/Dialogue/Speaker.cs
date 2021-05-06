@@ -44,11 +44,11 @@
             UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, this);
         }
 
-        public void OnSentenceStartOrResume()
+        public void OnSentenceStart()
         {
         }
 
-        public void OnSentenceStopOrPause()
+        public void OnSentenceEnd()
         {
         }
 

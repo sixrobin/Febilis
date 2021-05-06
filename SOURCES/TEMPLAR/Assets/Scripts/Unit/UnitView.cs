@@ -54,7 +54,6 @@
 
         public void PlayIdleAnimation()
         {
-            Debug.Log("Idle");
             _animator.SetTrigger(IDLE);
         }
 

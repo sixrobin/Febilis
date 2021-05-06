@@ -6,7 +6,7 @@
         bool IsDialoguing { get; set; }
         UnityEngine.Vector3 SpeakerPos { get; }
 
-        void OnSentenceStartOrResume();
-        void OnSentenceStopOrPause();
+        void OnSentenceStart();
+        void OnSentenceEnd();
     }
 }

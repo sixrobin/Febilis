@@ -38,12 +38,12 @@
             Debug.Log("B");
         }
 
-        public void OnSentenceStartOrResume()
+        public void OnSentenceStart()
         {
             throw new System.NotImplementedException();
         }
 
-        public void OnSentenceStopOrPause()
+        public void OnSentenceEnd()
         {
             throw new System.NotImplementedException();
         }

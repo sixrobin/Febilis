@@ -28,7 +28,7 @@
 
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
-        public void Translate(Vector3 vel, bool checkEdge = false, bool effectorDown = false)
+        public virtual void Translate(Vector3 vel, bool checkEdge = false, bool effectorDown = false)
         {
             vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, checkEdge, effectorDown);
             transform.Translate(vel);

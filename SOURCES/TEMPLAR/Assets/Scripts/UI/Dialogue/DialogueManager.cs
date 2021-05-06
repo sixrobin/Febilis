@@ -42,8 +42,7 @@
 
         public static bool CheckSkipInput()
         {
-            // [TODO] Need to have a better input handling.
-            return Input.GetKeyDown(KeyCode.E);
+            return RSLib.Framework.InputSystem.InputManager.GetAnyInputDown(Unit.Player.PlayerInputController.JUMP, Unit.Player.PlayerInputController.ATTACK);
         }
 
         public static void MarkSentenceAsSkipped()
@@ -120,7 +119,7 @@
             _skippedSentenceSequence = false;
             _currSentenceProgress = string.Empty;
 
-            _speakers[sentenceDatas.SpeakerId].OnSentenceStartOrResume();
+            _speakers[sentenceDatas.SpeakerId].OnSentenceStart();
 
             for (int i = 0; i < sentenceDatas.SequenceElementsDatas.Length; ++i)
             {
@@ -155,7 +154,7 @@
             yield return new WaitUntil(() => CheckSkipInput());
 
             _dialogueView.DisplaySkipInput(false);
-            _speakers[sentenceDatas.SpeakerId].OnSentenceStopOrPause();
+            _speakers[sentenceDatas.SpeakerId].OnSentenceEnd();
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
         }

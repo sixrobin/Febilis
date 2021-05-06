@@ -3,7 +3,6 @@
 	- Meilleur manager de sauvegarde.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
-	- InputManager : s'assurer que les nouveaux inputs sont bien chargés avec une save si la save ne les connait pas.
 	- Première passe de sound design.
 	- CurrentAttackDatas dans AttackController ?
 	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
@@ -14,7 +13,6 @@
 	
 	
 ///// BUG TRACKER
-	- Collisions avec les coins.
 	- On peut faire un jump après avoir fait une roulade dans le vide.
 	- Le perso resaute s'il tombe d'un effector trop bas.
 
@@ -70,3 +68,4 @@
 	
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
+	- Tool qui affiche les checkpoints de la scène et permet de s'y téléporter.

@@ -54,6 +54,13 @@
             RestoreCells();
         }
 
+        public void Init(int health, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled)
+        {
+            UnitHealthChanged += onUnitHealthChanged;
+            UnitKilled += onUnitKilled;
+            Init(health);
+        }
+        
         public override void OnHit(Attack.HitInfos hitDatas)
         {
             UnityEngine.Assertions.Assert.IsNotNull(PlayerCtrl, "PlayerController must be referenced to handle PlayerHealthController.");
