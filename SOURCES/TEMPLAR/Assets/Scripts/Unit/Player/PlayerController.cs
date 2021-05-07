@@ -116,14 +116,14 @@
 
             if (vel.x != 0f)
             {
-                CollisionsCtrl.ComputeHorizontalCollisions(ref vel, false);
+                CollisionsCtrl.ComputeHorizontalCollisions(ref vel, checkEdge);
                 transform.Translate(new Vector3(vel.x, 0f));
             }
 
             if (vel.y != 0f)
             {
                 CollisionsCtrl.ComputeRaycastOrigins();
-                CollisionsCtrl.ComputeVerticalCollisions(ref vel, false);
+                CollisionsCtrl.ComputeVerticalCollisions(ref vel, effectorDown);
                 transform.Translate(new Vector3(0f, vel.y));
             }
         }
@@ -341,6 +341,10 @@
                 }
             }
 
+
+            if (effectorDown && CollisionsCtrl.AboveEffector)
+                StartCoroutine(ResetJumpInputAfterDownEffector());
+
             float targetVelX = CtrlDatas.RunSpeed;
             if (!IsBeingHurt && !IsHealing)
             {
@@ -366,7 +370,7 @@
             // Doing this here makes events being well triggered but causes the tennis ball bug.
             //_currVel += GetCurrentRecoil();
 
-            Translate(_currVel, checkEdge: false, effectorDown);
+            Translate(_currVel, checkEdge: false, effectorDown: effectorDown);
 
             // Doing a grounded jump or falling will trigger this condition and remove one jump left. We need to do this after the ComputeCollisions call.
             if (!CollisionsCtrl.Below && CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW))
@@ -460,6 +464,13 @@
 
             _healCoroutine = null;
             PlayerView.PlayIdleAnimation();
+        }
+
+        private System.Collections.IEnumerator ResetJumpInputAfterDownEffector()
+        {
+            // Used to avoid player to jump after falling down from an effector too close to the ground.
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(0.02f);
+            InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
         }
 
         protected override void Update()

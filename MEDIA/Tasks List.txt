@@ -6,15 +6,14 @@
 	- Première passe de sound design.
 	- CurrentAttackDatas dans AttackController ?
 	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 ///// BUG TRACKER
 	- On peut faire un jump après avoir fait une roulade dans le vide.
-	- Le perso resaute s'il tombe d'un effector trop bas.
 
 
 
@@ -28,7 +27,7 @@
 	- Slopes (avec un roll automatique à la fin ?).
 	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-		
+
 
 
 ///// CONCEPTS
@@ -44,6 +43,7 @@
 
 
 ///// ANIMATION / VIEW
+	- Templar_LookUp & Templar_LookDown.
 	- Templar_Attack_Up.
 	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).
 	- Cellules de heal qui sont consommées/restorées (attendre d'avoir un graph plus def pour faire une anim autre qu'un placeholder).
@@ -53,7 +53,7 @@
 	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
-		
+
 
 
 ///// ENVIRONMENT :
@@ -69,3 +69,6 @@
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
 	- Tool qui affiche les checkpoints de la scène et permet de s'y téléporter.
+		- Set le checkpoint comme étant le current après TP.
+		- Grounder le perso une fois TP.
+		- Afficher dans le panel le checkpoint actuel.
