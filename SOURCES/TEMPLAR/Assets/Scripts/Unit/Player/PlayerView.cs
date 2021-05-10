@@ -7,6 +7,9 @@
     {
         private const float DEAD_FADE_DELAY = 1.2f;
 
+        private const string ATTACK_ANM_OVERRIDE_ID = "Attack";
+        private const string ATTACK_CLIP_NAME_FORMAT = "Anm_Templar_{0}";
+
         private const string IS_RUNNING = "IsRunning";
         private const string IDLE_BREAK = "IdleBreak";
         private const string IDLE_SLEEPING = "IdleSleeping";
@@ -14,9 +17,6 @@
         private const string JUMP = "Jump";
         private const string LAND = "Land";
         private const string ROLL = "Roll";
-        private const string ATTACK = "Attack";
-        private const string ATTACK_CHAIN = "AttackChain";
-        private const string ATTACK_AIRBORNE = "AttackAirborne";
         private const string HEAL_ANTICIPATION = "HealAnticipation";
         private const string HEAL = "Heal";
         private const string DIALOGUE_IDLE = "DialogueIdle";
@@ -54,24 +54,45 @@
         private float _idleBreakTimer;
         private int _idleBreaksCounter;
 
-        public PlayerController TemplarController { get; set; }
+        public PlayerController TemplarCtrl { get; set; }
 
         public override float DeadFadeDelay => DEAD_FADE_DELAY;
 
         public void UpdateView(bool flip, Vector3 currVel, Vector3 prevVel)
         {
-            _animator.SetBool(IS_RUNNING, !TemplarController.IsBeingHurt && !TemplarController.RollCtrl.IsRolling && TemplarController.InputCtrl.Horizontal != 0f);
+            _animator.SetBool(IS_RUNNING, !TemplarCtrl.IsBeingHurt && !TemplarCtrl.IsHealing && !TemplarCtrl.RollCtrl.IsRolling && TemplarCtrl.InputCtrl.Horizontal != 0f);
 
-            if (!TemplarController.RollCtrl.IsRolling && !TemplarController.AttackCtrl.IsAttacking)
+            if (!TemplarCtrl.RollCtrl.IsRolling && !TemplarCtrl.AttackCtrl.IsAttacking && !TemplarCtrl.IsHealing)
                 FlipX(flip);
 
             if (currVel.y < 0f
                 && (prevVel.y > 0f
-                || TemplarController.CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW)
-                && !TemplarController.CollisionsCtrl.Below)
-                && !TemplarController.AttackCtrl.IsAttacking
-                && !TemplarController.IsBeingHurt)
+                || TemplarCtrl.CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW)
+                && !TemplarCtrl.CollisionsCtrl.Below)
+                && !TemplarCtrl.AttackCtrl.IsAttacking
+                && !TemplarCtrl.IsBeingHurt
+                && !TemplarCtrl.IsHealing)
+            {
                 _animator.SetTrigger(FALL);
+                LogAnimationPlayIfRequired("Fall");
+            }
+        }
+
+        public void PlayAttackAnimation(float dir, Datas.Attack.PlayerAttackDatas attackDatas)
+        {
+            string attackClipName = string.Format(ATTACK_CLIP_NAME_FORMAT, attackDatas.Id);
+            UnityEngine.Assertions.Assert.IsTrue(
+                Datas.Unit.Player.PlayerDatabase.AnimationClips.ContainsKey(attackClipName),
+                $"Animation clip {attackClipName} was not found in {Datas.Unit.Player.PlayerDatabase.Instance.GetType().Name}.");
+
+            OverrideClip(ATTACK_ANM_OVERRIDE_ID, Datas.Unit.Player.PlayerDatabase.AnimationClips[attackClipName]);
+
+            UpdateAttackAnimation(dir);
+
+            _animator.SetTrigger(ATTACK);
+            _animator.SetFloat(MULT_ATTACK, attackDatas.AnimSpeedMult);
+
+            LogAnimationPlayIfRequired("Attack");
         }
 
         public void PlayRunAnimation(float dir)
@@ -129,33 +150,12 @@
         {
             FlipX(dir < 0f);
             _animator.SetTrigger(ROLL);
-            _animator.SetFloat(MULT_ROLL, TemplarController.CtrlDatas.Roll.AnimMult);
+            _animator.SetFloat(MULT_ROLL, TemplarCtrl.CtrlDatas.Roll.AnimMult);
 
             GameObject rollPuffInstance = Instantiate(_rollPuffPrefab, transform.position, _rollPuffPrefab.transform.rotation);
             rollPuffInstance.transform.SetScaleX(dir);
 
             LogAnimationPlayIfRequired("Roll");
-        }
-
-        public void PlayAttackAnimation(float dir)
-        {
-            UpdateAttackAnimation(dir);
-            _animator.SetTrigger(ATTACK);
-            LogAnimationPlayIfRequired("Attack");
-        }
-
-        public void PlayChainAttackAnimation(float dir)
-        {
-            UpdateAttackAnimation(dir);
-            _animator.SetTrigger(ATTACK_CHAIN);
-            LogAnimationPlayIfRequired("Chain Attack");
-        }
-
-        public void PlayAttackAirborneAnimation()
-        {
-            UpdateAttackAnimation();
-            _animator.SetTrigger(ATTACK_AIRBORNE);
-            LogAnimationPlayIfRequired("Airborne Attack");
         }
 
         public void PlayAttackVFX(float dir, float offset)
@@ -222,7 +222,7 @@
 
         private void UpdateAttackAnimation(float dir = 0f)
         {
-            _animator.SetFloat(MULT_ATTACK, TemplarController.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
+            _animator.SetFloat(MULT_ATTACK, TemplarCtrl.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
             if (dir != 0f)
                 FlipX(dir < 0f);
         }
@@ -279,6 +279,8 @@
             _idleStateHash = Animator.StringToHash("Motion_Idle");
             _idleBreakStateHash = Animator.StringToHash("Idle-Break");
             _idleSleepingStateHash = Animator.StringToHash("Idle-Sleeping");
+
+            InitAnimatorOverrideController();
         }
 
         private void Update()

@@ -24,8 +24,7 @@
             if (_setSpeedMultiplierCoroutine != null)
                 StopCoroutine(_setSpeedMultiplierCoroutine);
 
-            _setSpeedMultiplierCoroutine = SetSpeedMultiplierCoroutine(value, transitionDur, curve);
-            StartCoroutine(_setSpeedMultiplierCoroutine);
+            StartCoroutine(_setSpeedMultiplierCoroutine = SetSpeedMultiplierCoroutine(value, transitionDur, curve));
         }
 
         public void ResetSpeedMultiplier(float transitionDur, RSLib.Maths.Curve curve = RSLib.Maths.Curve.Linear)

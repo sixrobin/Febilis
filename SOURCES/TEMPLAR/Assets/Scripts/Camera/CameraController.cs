@@ -77,6 +77,11 @@
             return _shakesDictionary[id];
         }
 
+        public void PositionInstantly()
+        {
+            transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
+        }
+
         private void GenerateShakesDictionary()
         {
             _shakesDictionary = new System.Collections.Generic.Dictionary<string, CameraShake>();
@@ -196,9 +201,7 @@
         {
             _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
             GenerateShakesDictionary();
-
-            // Instantly position camera on first frame.
-            transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
+            PositionInstantly();
         }
 
         private void Update()

@@ -36,8 +36,7 @@
 
             Instance._currDialogueId = dialogueDatas.Id;
 
-            Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueDatas, sourceSpeaker);
-            Instance.StartCoroutine(Instance._dialogueCoroutine);
+            Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueDatas, sourceSpeaker));
         }
 
         public static bool CheckSkipInput()

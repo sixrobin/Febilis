@@ -43,9 +43,7 @@
             if (show)
             {
                 UnityEngine.Assertions.Assert.IsNull(_skipInputIdleCoroutine, "Skip input is being displayed but its idle coroutine is already running.");
-
-                _skipInputIdleCoroutine = SkipInputIdleCoroutine();
-                StartCoroutine(_skipInputIdleCoroutine);
+                StartCoroutine(_skipInputIdleCoroutine = SkipInputIdleCoroutine());
                 return;
             }
 

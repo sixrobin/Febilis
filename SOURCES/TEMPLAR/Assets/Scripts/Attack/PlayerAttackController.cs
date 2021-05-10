@@ -43,14 +43,12 @@
 
         public void Attack(AttackOverEventHandler comboOverCallback = null)
         {
-            _attackCoroutine = ComboCoroutine(comboOverCallback);
-            _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
+            _attackCoroutineRunner.StartCoroutine(_attackCoroutine = ComboCoroutine(comboOverCallback));
         }
 
         public void AttackAirborne(AttackOverEventHandler attackOverCallback = null)
         {
-            _attackCoroutine = AirborneAttackCoroutine(attackOverCallback);
-            _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
+            _attackCoroutineRunner.StartCoroutine(_attackCoroutine = AirborneAttackCoroutine(attackOverCallback));
             CanAttackAirborne = false;
         }
 
@@ -80,14 +78,15 @@
             Vector3 attackVel = new Vector3(0f, 0f);
 
             CurrAttackDatas = _baseComboDatas[0]; // Done for attack view.
-            _playerCtrl.PlayerView.PlayAttackAnimation(AttackDir);
-            if (_playerCtrl.CollisionsCtrl.Below)
-                _playerCtrl.PlayerView.PlayAttackVFX(AttackDir, 0.25f);
 
             for (int i = 0; i < _baseComboDatas.Length; ++i)
             {
                 CurrAttackDatas = _baseComboDatas[i];
                 TriggerHit(CurrAttackDatas, CurrAttackDatas.Id);
+
+                _playerCtrl.PlayerView.PlayAttackAnimation(AttackDir, CurrAttackDatas);
+                if (_playerCtrl.CollisionsCtrl.Below)
+                    _playerCtrl.PlayerView.PlayAttackVFX(AttackDir, 0.25f);
 
                 // Attack motion.
                 for (float t = 0f; t < 1f; t += Time.deltaTime / CurrAttackDatas.Dur)
@@ -123,10 +122,6 @@
                     // Chained attack.
                     InputCtrl.ResetDelayedInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK);
                     ComputeAttackDirection();
-
-                    _playerCtrl.PlayerView.PlayChainAttackAnimation(AttackDir);
-                    if (_playerCtrl.CollisionsCtrl.Below)
-                        _playerCtrl.PlayerView.PlayAttackVFX(AttackDir, 0.25f);
                 }
                 else
                 {
@@ -146,12 +141,12 @@
         private System.Collections.IEnumerator AirborneAttackCoroutine(AttackOverEventHandler attackOverCallback = null)
         {
             ComputeAttackDirection();
-            Vector3 attackVel = new Vector3(0f, 0f);
+            Vector3 attackVel = Vector3.zero;
 
             CurrAttackDatas = _airborneAttackDatas;
             TriggerHit(CurrAttackDatas, CurrAttackDatas.Id);
 
-            _playerCtrl.PlayerView.PlayAttackAirborneAnimation();
+            _playerCtrl.PlayerView.PlayAttackAnimation(AttackDir, CurrAttackDatas);
 
             for (float t = 0f; t < 1f; t += Time.deltaTime / CurrAttackDatas.Dur)
             {

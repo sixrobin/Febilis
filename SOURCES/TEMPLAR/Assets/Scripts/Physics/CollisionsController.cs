@@ -182,21 +182,21 @@
             vel = ComputeCollisions(vel, checkEdge, downEffector);
         }
 
-        public Vector3 ComputeCollisions(Vector3 vel, bool checkEdge = false, bool downEffector = false)
+        public Vector3 ComputeCollisions(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool downEffector = false)
         {
             ComputeRaycastOrigins();
             CurrentStates.Reset();
 
             if (vel.x != 0f)
-                ComputeHorizontalCollisions(ref vel, checkEdge);
+                ComputeHorizontalCollisions(ref vel, triggerEvents, checkEdge);
 
             if (vel.y != 0f)
-                ComputeVerticalCollisions(ref vel, downEffector);
+                ComputeVerticalCollisions(ref vel, downEffector, triggerEvents);
 
             return vel;
         }
 
-        public void ComputeHorizontalCollisions(ref Vector3 vel, bool checkEdge = false)
+        public void ComputeHorizontalCollisions(ref Vector3 vel, bool triggerEvents = true, bool checkEdge = false)
         {
             float sign = Mathf.Sign(vel.x);
             float length = vel.x * sign + SKIN_WIDTH;
@@ -240,13 +240,15 @@
 
                 CurrentStates.SetCollision(CollisionOrigin.LEFT, sign == -1f);
                 CurrentStates.SetCollision(CollisionOrigin.RIGHT, sign == 1f);
-                RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
+
+                if (triggerEvents)
+                    RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
 
                 return;
             }
         }
 
-        public void ComputeVerticalCollisions(ref Vector3 vel, bool downEffector)
+        public void ComputeVerticalCollisions(ref Vector3 vel, bool downEffector, bool triggerEvents = true)
         {
             float sign = Mathf.Sign(vel.y);
             float length = vel.y * sign + SKIN_WIDTH;
@@ -295,13 +297,15 @@
 
                 CurrentStates.SetCollision(CollisionOrigin.ABOVE, sign == 1f);
                 CurrentStates.SetCollision(CollisionOrigin.BELOW, sign == -1f);
-                RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
+
+                if (triggerEvents)
+                    RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
 
                 return;
             }
         }
 
-        public void ComputeEdgeCollisions(ref Vector3 vel)
+        public void ComputeEdgeCollisions(ref Vector3 vel, bool triggerEvents = true)
         {
             float sign = Mathf.Sign(vel.x);
             Vector2 rayOrigin = (sign == 1f ? RaycastsOrigins.BottomRight : RaycastsOrigins.BottomLeft) + new Vector2(vel.x, 0f);
@@ -313,7 +317,9 @@
                 vel.x = 0f;
 
                 CurrentStates.SetCollision(CollisionOrigin.EDGE, true);
-                RegisterCollisionForEvent(new CollisionInfos(CollisionOrigin.EDGE, hit));
+
+                if (triggerEvents)
+                    RegisterCollisionForEvent(new CollisionInfos(CollisionOrigin.EDGE, hit));
             }
         }
 

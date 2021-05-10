@@ -77,7 +77,7 @@
             if (CtrlDatas.GroundOnAwake)
                 CollisionsCtrl.Ground(transform);
 
-            PlayerView.TemplarController = this;
+            PlayerView.TemplarCtrl = this;
             CurrDir = PlayerView.GetSpriteRendererFlipX() ? -1f : 1f;
 
             Initialized = true;
@@ -103,7 +103,7 @@
             PlayerView.PlayDialogueIdleAnimation();
         }
 
-        public override void Translate(Vector3 vel, bool checkEdge = false, bool effectorDown = false)
+        public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
         {
             // We don't want to use the base method because it computes both direction and then translates, which can result
             // in glitchy corners collisions. This is fine for enemies, but for the player we want to check any direction first, translate
@@ -116,14 +116,14 @@
 
             if (vel.x != 0f)
             {
-                CollisionsCtrl.ComputeHorizontalCollisions(ref vel, checkEdge);
+                CollisionsCtrl.ComputeHorizontalCollisions(ref vel, triggerEvents, checkEdge);
                 transform.Translate(new Vector3(vel.x, 0f));
             }
 
             if (vel.y != 0f)
             {
                 CollisionsCtrl.ComputeRaycastOrigins();
-                CollisionsCtrl.ComputeVerticalCollisions(ref vel, effectorDown);
+                CollisionsCtrl.ComputeVerticalCollisions(ref vel, effectorDown, triggerEvents);
                 transform.Translate(new Vector3(0f, vel.y));
             }
         }
@@ -289,7 +289,7 @@
 
         private void Move()
         {
-            if (RollCtrl.IsRolling || AttackCtrl.IsAttacking && AttackCtrl.CurrAttackDatas.ControlVelocity)
+            if (RollCtrl.IsRolling || AttackCtrl.IsAttacking && AttackCtrl.CurrAttackDatas.ControlVelocity || IsHealing)
                 return;
 
             bool effectorDown = false;
@@ -455,9 +455,7 @@
             HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
 
             _cameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
-
-            // [TODO] Manage this recoil values somewhere. Also, recoil will trigger a collision event and play the idle animation back for now.
-            //_currentRecoil = new Templar.Physics.Recoil(-CurrDir, Datas.Attack.RecoilDatas.NullRecoil); 
+            _currentRecoil = new Templar.Physics.Recoil(-CurrDir, new Datas.Attack.RecoilDatas(1f, 0.1f)); // [TODO] Hardcoded values.
 
             PlayerView.PlayHealAnimation();
             yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.PostHealDelay);
@@ -487,7 +485,7 @@
             if (IsDialoguing)
                 return;
 
-            if (_inputsAllowed)
+            if (_inputsAllowed && !Tools.CheckpointTeleporter.IsOpen)
                 InputCtrl.Update();
 
             if (IsDead)

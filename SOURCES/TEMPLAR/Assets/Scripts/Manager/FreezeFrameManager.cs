@@ -19,8 +19,7 @@
                 Instance.StopCoroutine(Instance._freezeFrameCoroutine);
             }
 
-            Instance._freezeFrameCoroutine = FreezeFrameCoroutine(framesDelay, dur, targetTimeScale);
-            Instance.StartCoroutine(Instance._freezeFrameCoroutine);
+            Instance.StartCoroutine(Instance._freezeFrameCoroutine = FreezeFrameCoroutine(framesDelay, dur, targetTimeScale));
         }
 
         private static System.Collections.IEnumerator FreezeFrameCoroutine(int framesDelay, float dur, float targetTimeScale = 0f)

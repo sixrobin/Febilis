@@ -13,8 +13,7 @@
 
         public void Attack(Unit.Enemy.Actions.AttackEnemyAction attackAction, AttackOverEventHandler attackOverCallback = null)
         {
-            _attackCoroutine = AttackCoroutine(attackAction, attackOverCallback);
-            _attackCoroutineRunner.StartCoroutine(_attackCoroutine);
+            _attackCoroutineRunner.StartCoroutine(_attackCoroutine = AttackCoroutine(attackAction, attackOverCallback));
         }
 
         protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
@@ -38,9 +37,9 @@
                 CProLogger.LogError(this, $"Enemy Attack Datas with Id {attackAction.ActionDatas.Id} could not be found using default datas instead.");
             }
 
-            _enemyCtrl.EnemyView.SetupAttackAnimationsDatas(attackAction.ActionDatas.AnimatorId, _currAttackDatas);
-
             ComputeAttackDirection();
+
+            _enemyCtrl.EnemyView.SetupAttackAnimationsDatas(attackAction.ActionDatas.AnimatorId, _currAttackDatas);
             _enemyCtrl.EnemyView.PlayAttackAnticipationAnimation();
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AnticipationDur);

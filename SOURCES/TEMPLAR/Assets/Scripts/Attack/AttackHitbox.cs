@@ -40,11 +40,9 @@
         {
             UnityEngine.Assertions.Assert.IsNull(_hitCoroutine, $"Triggering hit on {transform.name} hitbox that seems to already run a coroutine.");
 
-            _attackDatas = attackDatas;
             Dir = dir;
-
-            _hitCoroutine = HitCoroutine(_attackDatas.HitDur);
-            StartCoroutine(_hitCoroutine);
+            _attackDatas = attackDatas;
+            StartCoroutine(_hitCoroutine = HitCoroutine(_attackDatas.HitDur));
         }
 
         private System.Collections.IEnumerator HitCoroutine(float dur)

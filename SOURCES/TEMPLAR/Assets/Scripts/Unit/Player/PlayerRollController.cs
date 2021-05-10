@@ -56,8 +56,7 @@
 
         public void Roll(float dir, RollOverEventHandler rollOverCallback = null)
         {
-            _rollCoroutine = RollCoroutine(dir, rollOverCallback);
-            _playerCtrl.StartCoroutine(_rollCoroutine);
+            _playerCtrl.StartCoroutine(_rollCoroutine = RollCoroutine(dir, rollOverCallback));
         }
 
         private System.Collections.IEnumerator RollCoroutine(float dir, RollOverEventHandler rollOverCallback = null)
@@ -78,8 +77,7 @@
             if (_rollDatas.HasCooldown)
             {
                 UnityEngine.Assertions.Assert.IsTrue(_rollCooldownCoroutine == null, "Roll is about to end and cooldown coroutine is already running.");
-                _rollCooldownCoroutine = RollCooldownCoroutine();
-                _playerCtrl.StartCoroutine(_rollCooldownCoroutine);
+                _playerCtrl.StartCoroutine(_rollCooldownCoroutine = RollCooldownCoroutine());
             }
 
             rollOverCallback?.Invoke(new RollOverEventArgs(rollVel));

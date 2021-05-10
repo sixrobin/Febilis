@@ -39,8 +39,7 @@
             Instance._fadeDatas = fadeDatas;
             Instance._callback = callback;
 
-            Instance._fadeCoroutine = Instance.FadeCoroutine(delays);
-            Instance.StartCoroutine(Instance._fadeCoroutine);
+            Instance.StartCoroutine(Instance._fadeCoroutine = Instance.FadeCoroutine(delays));
         }
 
         public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, float targetOffset, float stepDur, float stepValue, (float, float) delays, FadeEventHandler callback = null)

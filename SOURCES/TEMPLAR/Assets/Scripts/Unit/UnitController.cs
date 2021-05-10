@@ -28,15 +28,15 @@
 
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
-        public virtual void Translate(Vector3 vel, bool checkEdge = false, bool effectorDown = false)
+        public virtual void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
         {
-            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, checkEdge, effectorDown);
+            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, triggerEvents, checkEdge, effectorDown);
             transform.Translate(vel);
         }
 
-        public void Translate(float x, float y, bool checkEdge = false)
+        public void Translate(float x, float y, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
         {
-            Translate(new Vector3(x, y), checkEdge);
+            Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown);
         }
 
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -50,14 +50,12 @@
             if (_currentRecoil == null)
                 return;
 
-            // [TODO] We may want to multiply the recoil by some factor if the unit is grounded or not.
-            // For this, recoil datas should definitely be more complete and procedural.
-
             float recoilX = _currentRecoil.Dir * _currentRecoil.Force;
             if (!CollisionsCtrl.Below)
                 recoilX *= _currentRecoil.AirborneMult;
 
-            Translate(new Vector3(recoilX, 0f), _currentRecoil.CheckEdge);
+            Translate(new Vector3(recoilX, 0f), triggerEvents: false, checkEdge: _currentRecoil.CheckEdge);
+
             _currentRecoil.Update();
             if (_currentRecoil.IsComplete)
                 _currentRecoil = null;
@@ -78,8 +76,7 @@
 
         protected void StartDeadFadeCoroutine()
         {
-            _deadFadeCoroutine = DeadFadeCoroutine();
-            StartCoroutine(_deadFadeCoroutine);
+            StartCoroutine(_deadFadeCoroutine = DeadFadeCoroutine());
         }
 
         private System.Collections.IEnumerator DeadFadeCoroutine()

@@ -1,13 +1,16 @@
 ﻿namespace Templar.Unit
 {
+    using System.Collections.Generic;
     using UnityEngine;
 
+    [DisallowMultipleComponent]
     public abstract class UnitView : MonoBehaviour
     {
         protected const string IDLE = "Idle";
         protected const string DEATH = "Death";
         protected const string DEAD_FADE = "DeadFade";
         protected const string HURT = "Hurt";
+        protected const string ATTACK = "Attack";
         protected const string MULT_ATTACK = "Mult_Attack";
 
         [Header("REFS")]
@@ -15,7 +18,13 @@
         [SerializeField] protected Animator _animator = null;
         [SerializeField] protected RSLib.ImageEffects.SpriteBlink _spriteBlink = null;
 
+        [Header("AOC")]
+        [SerializeField] private AnimatorOverrideController _aocTemplate = null;
+
         private System.Collections.IEnumerator _blinkSpriteColorDelayedCoroutine;
+
+        protected AnimatorOverrideController _aoc;
+        protected List<KeyValuePair<AnimationClip, AnimationClip>> _initClips;
 
         public abstract float DeadFadeDelay { get; }
 
@@ -71,6 +80,30 @@
         public virtual void PlayDeadFadeAnimation()
         {
             _animator.SetTrigger(DEAD_FADE);
+        }
+
+        protected void InitAnimatorOverrideController()
+        {
+            _aoc = new AnimatorOverrideController(_aocTemplate.runtimeAnimatorController) { name = $"aocCopy_{transform.name}" };
+
+            List<KeyValuePair<AnimationClip, AnimationClip>> clips = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+            _aocTemplate.GetOverrides(clips);
+            _aoc.ApplyOverrides(clips);
+            _initClips = clips;
+
+            _animator.runtimeAnimatorController = _aoc;
+        }
+
+        protected void OverrideClip(string key, AnimationClip clip)
+        {
+            _aoc[key] = clip;
+        }
+
+        protected void RestoreInitClip(string key)
+        {
+            foreach (KeyValuePair<AnimationClip, AnimationClip> initClip in _initClips)
+                if (initClip.Key.name == key)
+                    _aoc[key] = initClip.Value;
         }
 
         private System.Collections.IEnumerator BlinkSpriteColorDelayedCoroutine(float delay, int count = 1)

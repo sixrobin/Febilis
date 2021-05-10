@@ -127,9 +127,7 @@
                 return;
 
             _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas);
-
-            _hurtCoroutine = HurtCoroutine();
-            StartCoroutine(_hurtCoroutine);
+            StartCoroutine(_hurtCoroutine = HurtCoroutine());
         }
 
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
@@ -206,7 +204,7 @@
                 }
             }
 
-            EnemyView.SetEnemyId(_id);
+            EnemyView.Init(_id);
             StartCoroutine(UpdateSleepCoroutine());
         }
 

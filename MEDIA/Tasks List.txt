@@ -5,7 +5,9 @@
 	- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 	- Première passe de sound design.
 	- CurrentAttackDatas dans AttackController ?
-	- Le recoil est relou : ça mérite sans doute un bool triggerEvent dans la méthode Translate des collisionsController vu que c'est ça qui fait chier?
+	- Input Manager
+		- Option pour reset les inputs.
+		- Détecter si un input est déjà utilisé.
 
 
 
@@ -14,6 +16,7 @@
 
 ///// BUG TRACKER
 	- On peut faire un jump après avoir fait une roulade dans le vide.
+	- HUD qui repop rapidement au reload de la scène après la mort.
 
 
 
@@ -25,7 +28,6 @@
 	- Meilleure courbe de saut, avec gestion dans l'input maintenu (contrôle à 100% comme HK, 2 hauteurs fixes ?)
 	- Attaque up du templier (sur place).
 	- Slopes (avec un roll automatique à la fin ?).
-	- Implémenter au player un système similaire aux animators des ennemis pour les attaques et retaper l'animator.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 
 
@@ -53,6 +55,12 @@
 	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
+	
+	
+	
+///// GUI
+	- Box générique scalable.
+	- Bouton générique scalable.
 
 
 
@@ -68,7 +76,3 @@
 	
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
-	- Tool qui affiche les checkpoints de la scène et permet de s'y téléporter.
-		- Set le checkpoint comme étant le current après TP.
-		- Grounder le perso une fois TP.
-		- Afficher dans le panel le checkpoint actuel.

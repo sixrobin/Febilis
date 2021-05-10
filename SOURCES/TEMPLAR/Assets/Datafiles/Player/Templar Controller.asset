@@ -16,10 +16,10 @@ MonoBehaviour:
   _playerJumpDatas: {fileID: 11400000, guid: adce7efc25ce98f44bb1940f861245da, type: 2}
   _playerRollDatas: {fileID: 11400000, guid: e29db7ca8186b664f91ce0be9afabe21, type: 2}
   _baseComboIds:
-  - atk_base_00
-  - atk_base_01
-  - atk_base_02
-  _airborneAttackId: atk_airborne
+  - Attack_Base_00
+  - Attack_Base_01
+  - Attack_Base_02
+  _airborneAttackId: Attack_Airborne
   _runSpeed: 4.2
   _groundedDamping: 0
   _groundOnAwake: 1

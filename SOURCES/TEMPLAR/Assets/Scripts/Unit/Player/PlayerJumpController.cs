@@ -54,9 +54,7 @@
 
         public void TriggerLandImpact(float fallSpeedAbs)
         {
-            _landImpactCoroutine = WaitForLandImpactCoroutine(fallSpeedAbs);
-            _playerCtrl.StartCoroutine(_landImpactCoroutine);
-
+            _playerCtrl.StartCoroutine(_landImpactCoroutine = WaitForLandImpactCoroutine(fallSpeedAbs));
             _playerCtrl.PlayerView.PlayLandAnimation(fallSpeedAbs);
         }
 
