@@ -77,12 +77,10 @@
             ComputeAttackDirection();
             Vector3 attackVel = new Vector3(0f, 0f);
 
-            CurrAttackDatas = _baseComboDatas[0]; // Done for attack view.
-
             for (int i = 0; i < _baseComboDatas.Length; ++i)
             {
                 CurrAttackDatas = _baseComboDatas[i];
-                TriggerHit(CurrAttackDatas, CurrAttackDatas.Id);
+                TriggerHit(CurrAttackDatas, CurrAttackDatas.Id); // [TODO] Allow datas to trigger hit after delay.
 
                 _playerCtrl.PlayerView.PlayAttackAnimation(AttackDir, CurrAttackDatas);
                 if (_playerCtrl.CollisionsCtrl.Below)

@@ -301,8 +301,10 @@ MonoBehaviour:
   - {fileID: 7400000, guid: cf0b7dce67ccd7d4ba0f8da854516ac4, type: 2}
   - {fileID: 7400000, guid: 87b8a16089de0e448aed58771a5767d7, type: 2}
   - {fileID: 7400000, guid: bb552f126acfc234e9c4c9a2ef49702e, type: 2}
-  - {fileID: 7400000, guid: fd4fa236f157b7d47807ffc9fea0ae23, type: 2}
+  - {fileID: 7400000, guid: d709b2d06a1553f4498342df493fcacd, type: 2}
   - {fileID: 7400000, guid: 13df67a6c3c29a445a96c993de1d5f19, type: 2}
   - {fileID: 7400000, guid: 6676a4a9f9b86df4783ccdf4476ac695, type: 2}
   - {fileID: 7400000, guid: a134f2d6b65893b4396de223ad8fe778, type: 2}
+  - {fileID: 7400000, guid: fd4fa236f157b7d47807ffc9fea0ae23, type: 2}
+  - {fileID: 7400000, guid: 619e52095854b5c488317cac90d4ef5f, type: 2}
   clipsAssetsRootPath: Assets/Animations/Templar

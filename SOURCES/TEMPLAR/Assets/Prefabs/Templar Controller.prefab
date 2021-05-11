@@ -223,6 +223,7 @@ Transform:
   - {fileID: 2727861839270923086}
   - {fileID: 2727861839411020230}
   - {fileID: 2727861839848916877}
+  - {fileID: 5090011281015648122}
   - {fileID: 2727861838334594517}
   m_Father: {fileID: 2727861838001810202}
   m_RootOrder: 2
@@ -243,6 +244,7 @@ MonoBehaviour:
   - {fileID: 2727861839270923084}
   - {fileID: 2727861839411020228}
   - {fileID: 2727861839848916875}
+  - {fileID: 5343038121148444189}
   - {fileID: 2727861838334594516}
 --- !u!1 &2727861838334594518
 GameObject:
@@ -275,7 +277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2727861838046398925}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &2727861838334594515
 PolygonCollider2D:
@@ -416,7 +418,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 51af20cfcad153b47a3bf075c296346e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: becb4514bd808c34abc112eb219b7d9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -920,6 +922,105 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2727861839848916878}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!1 &8543061686199711687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5090011281015648122}
+  - component: {fileID: 5566563409560543565}
+  - component: {fileID: 5343038121148444189}
+  - component: {fileID: 2223939231935614765}
+  m_Layer: 0
+  m_Name: Attack_Base_03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5090011281015648122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543061686199711687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2727861838046398925}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &5566563409560543565
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543061686199711687}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.65159136, y: 1.3654147}
+      - {x: -0.9602456, y: 1.2909139}
+      - {x: -1.4744496, y: 0.23792827}
+      - {x: 0.52258503, y: -0.0230394}
+      - {x: 1.9871335, y: 0.24907678}
+      - {x: 2.2215319, y: 0.4611199}
+      - {x: 1.8937582, y: 0.96834314}
+--- !u!114 &5343038121148444189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543061686199711687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31055c1aef4691f419c18d0b62dddd1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: Attack_Base_03
+--- !u!50 &2223939231935614765
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543061686199711687}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0

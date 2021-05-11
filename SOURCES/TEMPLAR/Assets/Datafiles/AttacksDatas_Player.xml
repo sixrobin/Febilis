@@ -19,7 +19,7 @@
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.48</ChainAllowedTime>
       <ControlVelocity>
-         <MoveSpeed>1.7</MoveSpeed>
+         <MoveSpeed>1.2</MoveSpeed>
          <Gravity>0.5</Gravity>
          <!--Move speed curve ? Id link to some curves database ?-->
       </ControlVelocity>
@@ -43,7 +43,7 @@
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.48</ChainAllowedTime>
       <ControlVelocity>
-         <MoveSpeed>1.7</MoveSpeed>
+         <MoveSpeed>1.2</MoveSpeed>
          <Gravity>0.5</Gravity>
          <!--Move speed curve ? Id link to some curves database ?-->
       </ControlVelocity>
@@ -66,6 +66,30 @@
       </Traumas>
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.48</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>1.7</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+   </PlayerAttack>
+
+   <PlayerAttack Id="Attack_Base_03">
+      <Dmg>40</Dmg>
+      <Hit>
+         <Dur>0.25</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.08</FreezeFrameDur>
+      </Hit>
+      <Recoil>
+         <Force>6.5</Force>
+         <Dur>0.25</Dur>
+      </Recoil>
+      <Traumas>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
+      </Traumas>
+      <Dur>0.7</Dur>
+      <ChainAllowedTime>0.55</ChainAllowedTime>
       <ControlVelocity>
          <MoveSpeed>2.5</MoveSpeed>
          <Gravity>0.5</Gravity>

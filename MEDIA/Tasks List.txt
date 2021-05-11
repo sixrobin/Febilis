@@ -29,18 +29,15 @@
 	- Attaque up du templier (sur place).
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-
+	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
+	- Paramètre dans PlayerAttackDatas pour déterminer si le joueur peut être hurt ou non pendant l'attaque (juste l'anim, les dégâts restent).
+	
 
 
 ///// CONCEPTS
 	- Inventaire (quand on saura un peu plus ce qu'il y aura dedans).
 	- Options.
 	- Variante du Guardian avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc.
-
-
-
-///// DATAS
-	- Setup le xml AttacksDatas_Player de sorte à pouvoir y paramétrer le combo du joueur.
 
 
 
