@@ -76,11 +76,18 @@
         {
             ComputeAttackDirection();
             Vector3 attackVel = new Vector3(0f, 0f);
+            bool hasHit = false;
 
             for (int i = 0; i < _baseComboDatas.Length; ++i)
             {
                 CurrAttackDatas = _baseComboDatas[i];
-                TriggerHit(CurrAttackDatas, CurrAttackDatas.Id); // [TODO] Allow datas to trigger hit after delay.
+                hasHit = false;
+
+                if (CurrAttackDatas.HitDelay == 0f)
+                {
+                    TriggerHit(CurrAttackDatas, CurrAttackDatas.Id);
+                    hasHit = true;
+                }
 
                 _playerCtrl.PlayerView.PlayAttackAnimation(AttackDir, CurrAttackDatas);
                 if (_playerCtrl.CollisionsCtrl.Below)
@@ -89,7 +96,14 @@
                 // Attack motion.
                 for (float t = 0f; t < 1f; t += Time.deltaTime / CurrAttackDatas.Dur)
                 {
-                    CanChainAttack = t >= CurrAttackDatas.ChainAllowedTime;
+                    if (!hasHit && t * CurrAttackDatas.Dur > CurrAttackDatas.HitDelay)
+                    {
+                        Debug.Log($"Hitting after {CurrAttackDatas.HitDelay / CurrAttackDatas.Dur}");
+                        TriggerHit(CurrAttackDatas, CurrAttackDatas.Id);
+                        hasHit = true;
+                    }
+
+                    CanChainAttack = t * CurrAttackDatas.Dur >= CurrAttackDatas.ChainAllowedTime;
                     if (CanChainAttack)
                     {
                         if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ROLL) || InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.JUMP))
@@ -103,7 +117,7 @@
                     {
                         ComputeVelocity(t, ref attackVel);
                         bool checkEdge = _playerCtrl.CollisionsCtrl.Below;
-                        _playerCtrl.Translate(attackVel, checkEdge);
+                        _playerCtrl.Translate(attackVel, checkEdge: checkEdge);
                     }
 
                     yield return null;
@@ -148,7 +162,7 @@
 
             for (float t = 0f; t < 1f; t += Time.deltaTime / CurrAttackDatas.Dur)
             {
-                CanChainAttack = t >= CurrAttackDatas.ChainAllowedTime;
+                CanChainAttack = t * CurrAttackDatas.Dur >= CurrAttackDatas.ChainAllowedTime;
 
                 if (CurrAttackDatas.ControlVelocity)
                 {

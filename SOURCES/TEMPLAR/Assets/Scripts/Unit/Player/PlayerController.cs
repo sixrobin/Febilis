@@ -180,14 +180,15 @@
                 _healCoroutine = null;
             }
 
-            float hitDir = args.HitDatas.ComputeHitDir(transform);
+            if (AttackCtrl.IsAttacking && AttackCtrl.CurrAttackDatas.Unstoppable)
+                return;
 
+            AttackCtrl.CancelAttack();
             ResetVelocity();
 
-            PlayerView.PlayHurtAnimation(hitDir);
-            StartCoroutine(_hurtCoroutine = HurtCoroutine());
-
+            float hitDir = args.HitDatas.ComputeHitDir(transform);
             _currentRecoil = new Templar.Physics.Recoil(hitDir, args.HitDatas.AttackDatas.RecoilDatas);
+            StartCoroutine(_hurtCoroutine = HurtCoroutine(hitDir));
         }
 
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
@@ -434,8 +435,9 @@
             PlayerView.FlipX(CurrDir < 0f);
         }
 
-        private System.Collections.IEnumerator HurtCoroutine()
+        private System.Collections.IEnumerator HurtCoroutine(float dir)
         {
+            PlayerView.PlayHurtAnimation(dir);
             yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.HurtDur);
             _hurtCoroutine = null;
             PlayerView.PlayIdleAnimation();
@@ -454,7 +456,7 @@
 
             HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
 
-            _cameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
+            CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
             _currentRecoil = new Templar.Physics.Recoil(-CurrDir, new Datas.Attack.RecoilDatas(1f, 0.1f)); // [TODO] Hardcoded values.
 
             PlayerView.PlayHealAnimation();

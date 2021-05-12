@@ -14,6 +14,7 @@
       <xs:sequence>
          <xs:element name="Dmg" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
          <xs:element name="Hit" type="HitDatas" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Unstoppable" minOccurs="0" maxOccurs="1"/>
          <xs:element name="Recoil" type="RecoilDatas" minOccurs="1" maxOccurs="1"/>
          <xs:element name="Traumas" type="TraumasDatas" minOccurs="1" maxOccurs="1"/>
          <xs:element name="AnimSpeedMult" type="xs:float" minOccurs="0" maxOccurs="1"/>
@@ -65,6 +66,7 @@
 
    <xs:complexType name="HitDatas">
       <xs:sequence>
+         <xs:element name="Delay" type="xs:float" minOccurs="0" maxOccurs="1"/>
          <xs:element name="Dur" type="xs:float" minOccurs="1" maxOccurs="1"/>
          <xs:element name="Layer" type="HitLayer" minOccurs="1" maxOccurs="1"/>
          <xs:element name="DirComputationType" type="HitDirComputationType" minOccurs="0" maxOccurs="1"/>

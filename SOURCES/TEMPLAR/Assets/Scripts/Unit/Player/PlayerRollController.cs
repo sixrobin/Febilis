@@ -69,7 +69,7 @@
             {
                 rollVel.x = _rollDatas.SpeedCurve.Evaluate(t) * _rollDatas.Speed * dir;
                 rollVel.y += _playerCtrl.Gravity * Time.deltaTime * _rollDatas.GravityMult;
-                _playerCtrl.Translate(rollVel, t >= _rollDatas.EdgeDetectionThreshold);
+                _playerCtrl.Translate(rollVel, checkEdge: t >= _rollDatas.EdgeDetectionThreshold);
                 
                 yield return null;
             }

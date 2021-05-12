@@ -40,10 +40,14 @@
         public string Id { get; protected set; }
 
         public int Dmg { get; protected set; }
-
+        
+        public float HitDelay { get; private set; }
         public float HitDur { get; protected set; }
         public Templar.Attack.HitLayer HitLayer { get; protected set; }
         public Templar.Attack.HitDirComputationType HitDirComputationType { get; protected set; }
+
+        public bool Unstoppable { get; private set; }
+
         public RecoilDatas RecoilDatas { get; private set; }
 
         public float HitFreezeFrameDur { get; protected set; }
@@ -67,6 +71,9 @@
             XElement hitElement = attackElement.Element("Hit");
             UnityEngine.Assertions.Assert.IsFalse(hitElement.IsNullOrEmpty(), $"AttackDatas Hit element is null or empty for attack {Id}.");
 
+            XElement hitDelayElement = hitElement.Element("Delay");
+            HitDelay = hitDelayElement?.ValueToFloat() ?? 0f;
+
             XElement hitDurElement = hitElement.Element("Dur");
             UnityEngine.Assertions.Assert.IsFalse(hitDurElement.IsNullOrEmpty(), $"Hit Dur element is null or empty for attack {Id}.");
             HitDur = hitDurElement.ValueToFloat();
@@ -77,6 +84,8 @@
 
             XElement hitDirComputationTypeElement = hitElement.Element("DirComputationType");
             HitDirComputationType = hitDirComputationTypeElement?.ValueToEnum<Templar.Attack.HitDirComputationType>() ?? Templar.Attack.HitDirComputationType.ATTACK_DIR;
+
+            Unstoppable = attackElement.Element("Unstoppable") != null;
 
             XElement recoilElement = attackElement.Element("Recoil");
             UnityEngine.Assertions.Assert.IsFalse(recoilElement.IsNullOrEmpty(), $"Recoil element is null or empty for attack {Id}.");

@@ -8,6 +8,7 @@
         [SerializeField] private KeyBindingPanel[] _bindingPanels = null;
         [SerializeField] private GameObject _assignKeyScreen = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
+        [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
 
         private KeyBindingPanel _currentlyAssignedPanel;
 
@@ -31,17 +32,9 @@
             InputManager.AssignKey(_currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
 
-        private void Start()
+        private void UpdateAllBindingsPanels()
         {
             int i = 0;
-            for (; i < _bindingPanels.Length; ++i)
-            {
-                KeyBindingPanel panel = _bindingPanels[i];
-                _bindingPanels[i].BaseBtnButton.onClick.AddListener(() => AssignKey(panel, false));
-                _bindingPanels[i].AltBtnButton.onClick.AddListener(() => AssignKey(panel, true));
-            }
-
-            i = 0;
             System.Collections.Generic.Dictionary<string, (KeyCode btn, KeyCode altBtn)> allBindings = InputManager.GetMapCopy();
 
             foreach (System.Collections.Generic.KeyValuePair<string, (KeyCode btn, KeyCode altBtn)> binding in allBindings)
@@ -49,6 +42,31 @@
 
             for (; i < _bindingPanels.Length; ++i)
                 _bindingPanels[i].Hide();
+        }
+
+        private void ResetBindings()
+        {
+            InputManager.RestoreDefaultMap();
+            UpdateAllBindingsPanels();
+        }
+
+        private void Start()
+        {
+            _resetBindingsBtn.onClick.AddListener(ResetBindings);
+
+            for (int i = 0; i < _bindingPanels.Length; ++i)
+            {
+                KeyBindingPanel panel = _bindingPanels[i];
+                _bindingPanels[i].BaseBtnButton.onClick.AddListener(() => AssignKey(panel, false));
+                _bindingPanels[i].AltBtnButton.onClick.AddListener(() => AssignKey(panel, true));
+            }
+
+            UpdateAllBindingsPanels();
+        }
+
+        private void OnDestroy()
+        {
+            _resetBindingsBtn.onClick.RemoveAllListeners();
         }
 
         [ContextMenu("Locate binding panels")]

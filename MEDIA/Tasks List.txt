@@ -6,8 +6,8 @@
 	- Première passe de sound design.
 	- CurrentAttackDatas dans AttackController ?
 	- Input Manager
-		- Option pour reset les inputs.
 		- Détecter si un input est déjà utilisé.
+	- Vérifier que la valeur t dans les coroutine du player sont correctement utilisées par rapport à la TotalDur.
 
 
 
@@ -30,7 +30,6 @@
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
-	- Paramètre dans PlayerAttackDatas pour déterminer si le joueur peut être hurt ou non pendant l'attaque (juste l'anim, les dégâts restent).
 	
 
 

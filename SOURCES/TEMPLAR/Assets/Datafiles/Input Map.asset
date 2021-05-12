@@ -16,12 +16,12 @@ MonoBehaviour:
   - _actionId: Jump
     _btn: 32
     _altBtn: 330
-  - _actionId: Roll
-    _btn: 308
-    _altBtn: 331
   - _actionId: Attack
     _btn: 323
     _altBtn: 332
+  - _actionId: Roll
+    _btn: 308
+    _altBtn: 331
   - _actionId: Interact
     _btn: 101
     _altBtn: 333

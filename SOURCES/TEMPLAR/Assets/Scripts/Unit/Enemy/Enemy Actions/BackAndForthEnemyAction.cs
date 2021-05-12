@@ -70,7 +70,7 @@
                 return;
             }
 
-            EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f, true);
+            EnemyCtrl.Translate(EnemyCtrl.CurrDir * EnemyCtrl.EnemyDatas.WalkSpeed, 0f, checkEdge: true);
             EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
             EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
