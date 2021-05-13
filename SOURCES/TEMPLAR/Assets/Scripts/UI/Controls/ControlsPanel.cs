@@ -1,6 +1,7 @@
 ﻿namespace Templar.UI
 {
     using RSLib.Framework.InputSystem;
+    using System.Linq;
     using UnityEngine;
 
     public class ControlsPanel : MonoBehaviour
@@ -21,6 +22,8 @@
 
             _currentlyAssignedPanel.OverrideKey(btn, alt);
             _currentlyAssignedPanel = null;
+
+            UpdateAllBindingsPanels();
             _assignKeyScreen.SetActive(false);
         }
 
@@ -72,8 +75,7 @@
         [ContextMenu("Locate binding panels")]
         private void LocateBindingPanels()
         {
-            _bindingPanels = FindObjectsOfType<KeyBindingPanel>();
-            System.Array.Reverse(_bindingPanels);
+            _bindingPanels = FindObjectsOfType<KeyBindingPanel>().OrderBy(o => o.transform.GetSiblingIndex()).ToArray();
         }
     }
 }

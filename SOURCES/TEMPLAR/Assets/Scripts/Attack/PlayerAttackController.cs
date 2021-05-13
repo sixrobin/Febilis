@@ -98,7 +98,6 @@
                 {
                     if (!hasHit && t * CurrAttackDatas.Dur > CurrAttackDatas.HitDelay)
                     {
-                        Debug.Log($"Hitting after {CurrAttackDatas.HitDelay / CurrAttackDatas.Dur}");
                         TriggerHit(CurrAttackDatas, CurrAttackDatas.Id);
                         hasHit = true;
                     }
