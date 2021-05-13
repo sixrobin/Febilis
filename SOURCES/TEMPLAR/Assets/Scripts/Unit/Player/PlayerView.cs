@@ -82,10 +82,10 @@
         {
             string attackClipName = string.Format(ATTACK_CLIP_NAME_FORMAT, attackDatas.Id);
             UnityEngine.Assertions.Assert.IsTrue(
-                Datas.Unit.Player.PlayerDatabase.AnimationClips.ContainsKey(attackClipName),
-                $"Animation clip {attackClipName} was not found in {Datas.Unit.Player.PlayerDatabase.Instance.GetType().Name}.");
+                Database.PlayerDatabase.AnimationClips.ContainsKey(attackClipName),
+                $"Animation clip {attackClipName} was not found in {Database.PlayerDatabase.Instance.GetType().Name}.");
 
-            OverrideClip(ATTACK_ANM_OVERRIDE_ID, Datas.Unit.Player.PlayerDatabase.AnimationClips[attackClipName]);
+            OverrideClip(ATTACK_ANM_OVERRIDE_ID, Database.PlayerDatabase.AnimationClips[attackClipName]);
 
             UpdateAttackAnimation(dir);
 
@@ -229,6 +229,9 @@
 
         private void UpdateIdleBreakAndSleeping()
         {
+            if (Manager.OptionsManager.OptionsPanelDisplayed)
+                return;
+
             _previousStateHash = _currStateHash;
             _currStateHash = _animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
 

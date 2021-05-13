@@ -57,8 +57,8 @@
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
             UnityEngine.Assertions.Assert.IsTrue(
-                Datas.Dialogue.DialogueDatabase.SpeakersDisplayDatas.ContainsKey(SpeakerId),
-                $"Speaker Id {SpeakerId} isn't known by {Datas.Dialogue.DialogueDatabase.Instance.GetType().Name}.");
+                Database.DialogueDatabase.SpeakersDisplayDatas.ContainsKey(SpeakerId),
+                $"Speaker Id {SpeakerId} isn't known by {Database.DialogueDatabase.Instance.GetType().Name}.");
         }
 
         private void OnDestroy()

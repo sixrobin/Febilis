@@ -33,7 +33,7 @@
             UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Enemy Id attribute is null or empty.");
             Id = idAttribute.Value;
 
-            EnemyDatabase.Instance.Log($"Generating definition for enemy <b>{Id}</b>...");
+            Database.EnemyDatabase.Instance.Log($"Generating definition for enemy <b>{Id}</b>...");
 
             XElement healthElement = enemyElement.Element("Health");
             UnityEngine.Assertions.Assert.IsNotNull(healthElement, $"EnemyDatas {Id} must have a Health element.");

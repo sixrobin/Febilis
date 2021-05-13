@@ -1,34 +1,22 @@
-﻿namespace Templar.Datas.Unit.Enemy
+﻿namespace Templar.Database
 {
-    using System.Xml.Linq;
+    using System.Linq;
     using UnityEngine;
 
-    public partial class EnemyDatabase : RSLib.Framework.ConsoleProSingleton<EnemyDatabase>
+    public partial class PlayerDatabase : RSLib.Framework.ConsoleProSingleton<PlayerDatabase>, IDatabase
     {
-        [SerializeField] private TextAsset _enemiesDatas = null;
         [SerializeField] private AnimationClip[] _animationClips = null;
 
 #if UNITY_EDITOR
         [Header("DEBUG")]
-        [SerializeField] private string clipsAssetsRootPath = "Assets/Animations/Enemy";
+        [SerializeField] private string clipsAssetsRootPath = "Assets/Animations/Templar";
 #endif
 
-        public static System.Collections.Generic.Dictionary<string, EnemyDatas> EnemiesDatas { get; private set; }
         public static System.Collections.Generic.Dictionary<string, AnimationClip> AnimationClips { get; private set; }
 
-        private void Deserialize()
+        public void Load()
         {
-            XDocument enemiesDatasDoc = XDocument.Parse(_enemiesDatas.text, LoadOptions.SetBaseUri);
-            EnemiesDatas = new System.Collections.Generic.Dictionary<string, EnemyDatas>();
-
-            XElement enemiesDatasElement = enemiesDatasDoc.Element("EnemiesDatas");
-            foreach (XElement enemyDatasElement in enemiesDatasElement.Elements("EnemyDatas"))
-            {
-                EnemyDatas enemyDatas = new EnemyDatas(enemyDatasElement);
-                EnemiesDatas.Add(enemyDatas.Id, enemyDatas);
-            }
-
-            Log($"Deserialized {EnemiesDatas.Count} enemies datas.");
+            GenerateClipsDictionary();
         }
 
         private void GenerateClipsDictionary()
@@ -59,18 +47,14 @@
                 foreach (AnimationClip clip in RSLib.EditorUtilities.AssetDatabaseUtilities.GetAllAssetsAtFolderPath<AnimationClip>(subDirectory))
                     clips.Add(clip);
 
+            foreach (AnimationClip clip in RSLib.EditorUtilities.AssetDatabaseUtilities.GetAllAssetsAtFolderPath<AnimationClip>(clipsAssetsRootPath))
+                clips.Add(clip);
+
             Instance.Log($"Found {clips.Count} clip(s).");
-            _animationClips = clips.ToArray();
+            _animationClips = clips.OrderBy(o => o.name).ToArray();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 #endif
-
-        protected override void Awake()
-        {
-            base.Awake();
-            Deserialize();
-            GenerateClipsDictionary();
-        }
     }
 }

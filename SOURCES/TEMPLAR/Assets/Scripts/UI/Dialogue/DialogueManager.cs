@@ -25,7 +25,7 @@
 
         public static void PlayDialogue(string id, Interaction.Dialogue.ISpeaker sourceSpeaker)
         {
-            PlayDialogue(Datas.Dialogue.DialogueDatabase.DialoguesDatas[id], sourceSpeaker);
+            PlayDialogue(Database.DialogueDatabase.DialoguesDatas[id], sourceSpeaker);
         }
 
         public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker)

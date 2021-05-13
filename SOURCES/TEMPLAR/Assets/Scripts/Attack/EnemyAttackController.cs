@@ -30,7 +30,7 @@
 
         private System.Collections.IEnumerator AttackCoroutine(Unit.Enemy.Actions.AttackEnemyAction attackAction, AttackOverEventHandler attackOverCallback = null)
         {
-            if (!Datas.Attack.AttackDatabase.EnemyAttacksDatas.TryGetValue(attackAction.ActionDatas.Id, out _currAttackDatas))
+            if (!Database.AttackDatabase.EnemyAttacksDatas.TryGetValue(attackAction.ActionDatas.Id, out _currAttackDatas))
             {
                 // Should never happen.
                 _currAttackDatas = Datas.Attack.EnemyAttackDatas.Default;

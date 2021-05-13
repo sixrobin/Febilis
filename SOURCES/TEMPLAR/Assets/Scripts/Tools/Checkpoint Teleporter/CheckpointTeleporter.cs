@@ -25,7 +25,11 @@
 
         private void OnTeleportButtonClicked(string checkpointId)
         {
-            _playerCtrl.transform.position = _checkpoints.Where(o => o.Id == checkpointId).First().RespawnPos.AddY(Templar.Physics.RaycastsController.SKIN_WIDTH * 10f);
+            Interaction.Checkpoint.CheckpointController checkpoint = _checkpoints.Where(o => o.Id == checkpointId).First();
+
+            Log($"Teleporting player to checkpoint {checkpointId} (position {checkpoint.RespawnPos}).");
+
+            _playerCtrl.transform.position = checkpoint.RespawnPos.AddY(Templar.Physics.RaycastsController.SKIN_WIDTH * 10f);
             _playerCtrl.CollisionsCtrl.Ground(_playerCtrl.transform);
             _playerCtrl.CameraCtrl.PositionInstantly();
         }

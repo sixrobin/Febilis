@@ -69,14 +69,14 @@
                 return;
             }
 
-            _text.text = string.Format(_speakerSentenceFormat, Datas.Dialogue.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
+            _text.text = string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
         }
 
         public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
-            _portrait.sprite = Datas.Dialogue.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
+            _portrait.sprite = Database.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
 
-            Datas.Dialogue.PortraitAnchor portraitAnchor = Datas.Dialogue.DialogueDatabase.GetSpeakerPortraitAnchor(sentenceDatas);
+            Datas.Dialogue.PortraitAnchor portraitAnchor = Database.DialogueDatabase.GetSpeakerPortraitAnchor(sentenceDatas);
 
             float portraitBoxY = _portraitBox.anchoredPosition.y;
             float textBoxY = _textBox.anchoredPosition.y;

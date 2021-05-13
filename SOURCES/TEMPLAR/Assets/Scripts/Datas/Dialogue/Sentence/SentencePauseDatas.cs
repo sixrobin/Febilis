@@ -7,7 +7,7 @@
         public SentencePauseDatas(SentenceDatas container, string value, int tagStart, int tagEnd) : base(container, value)
         {
             if (!float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float dur))
-                DialogueDatabase.Instance.LogError($"Could not parse {value} to a valid float value to create a sentence pause.");
+                Database.DialogueDatabase.Instance.LogError($"Could not parse {value} to a valid float value to create a sentence pause.");
 
             Dur = dur;
 

@@ -35,7 +35,7 @@
 
                     XAttribute sentenceIdAttribute = sentenceElement.Attribute("Id");
                     UnityEngine.Assertions.Assert.IsNotNull(sentenceIdAttribute, "Dialogue Sentence element needs an Id attribute.");
-                    SequenceElementsDatas[i] = DialogueDatabase.SentencesDatas[sentenceIdAttribute.Value];
+                    SequenceElementsDatas[i] = Database.DialogueDatabase.SentencesDatas[sentenceIdAttribute.Value];
                 }
                 else if (sentenceElement.Name.LocalName == "Pause")
                 {

@@ -15,9 +15,9 @@
 
             _baseComboDatas = new Datas.Attack.PlayerAttackDatas[_playerCtrl.CtrlDatas.BaseComboIds.Length];
             for (int i = 0; i < _baseComboDatas.Length; ++i)
-                _baseComboDatas[i] = Datas.Attack.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.BaseComboIds[i]];
+                _baseComboDatas[i] = Database.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.BaseComboIds[i]];
 
-            _airborneAttackDatas = Datas.Attack.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.AirborneAttackId];
+            _airborneAttackDatas = Database.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.AirborneAttackId];
         }
 
         public Unit.Player.PlayerInputController InputCtrl => _playerCtrl.InputCtrl;
@@ -68,14 +68,14 @@
 
         private void ComputeVelocity(float t, ref Vector3 vel)
         {
-            vel.x = Datas.Attack.AttackDatabase.DefaultPlayerAttackCurve.Evaluate(t) * CurrAttackDatas.MoveSpeed * AttackDir;
+            vel.x = Database.AttackDatabase.DefaultPlayerAttackCurve.Evaluate(t) * CurrAttackDatas.MoveSpeed * AttackDir;
             vel.y -= CurrAttackDatas.Gravity * Time.deltaTime;
         }
 
         private System.Collections.IEnumerator ComboCoroutine(AttackOverEventHandler comboOverCallback = null)
         {
             ComputeAttackDirection();
-            Vector3 attackVel = new Vector3(0f, 0f);
+            Vector3 attackVel = Vector3.zero;
             bool hasHit = false;
 
             for (int i = 0; i < _baseComboDatas.Length; ++i)
@@ -115,8 +115,7 @@
                     if (CurrAttackDatas.ControlVelocity)
                     {
                         ComputeVelocity(t, ref attackVel);
-                        bool checkEdge = _playerCtrl.CollisionsCtrl.Below;
-                        _playerCtrl.Translate(attackVel, checkEdge: checkEdge);
+                        _playerCtrl.Translate(attackVel, checkEdge: _playerCtrl.CollisionsCtrl.Below);
                     }
 
                     yield return null;

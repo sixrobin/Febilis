@@ -1,4 +1,4 @@
-﻿namespace Templar.Datas
+﻿namespace Templar.Database
 {
     using UnityEngine;
 
@@ -9,21 +9,21 @@
         public class RampFadeItem
         {
             [SerializeField] private string _id = string.Empty;
-            [SerializeField] private RampFadeDatas _fadeDatas = null;
+            [SerializeField] private Datas.RampFadeDatas _fadeDatas = null;
 
             public string Id => _id;
-            public RampFadeDatas FadeDatas => _fadeDatas;
+            public Datas.RampFadeDatas FadeDatas => _fadeDatas;
         }
 
         [SerializeField] private RampFadeItem[] _fadesDatabase = null;
 
-        public RampFadeDatas GetRampFade(string id)
+        public Datas.RampFadeDatas GetRampFade(string id)
         {
             for (int i = _fadesDatabase.Length - 1; i >= 0; --i)
                 if (_fadesDatabase[i].Id == id)
                     return _fadesDatabase[i].FadeDatas;
 
-            Debug.LogError($"No RampFadeDatas instance has been found for Id {id}.");
+            CProLogger.LogError(this, $"No RampFadeDatas instance has been found for Id {id}.");
             return null;
         }
     }

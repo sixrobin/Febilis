@@ -1,9 +1,9 @@
-﻿namespace Templar.Datas.Dialogue
+﻿namespace Templar.Database
 {
     using System.Xml.Linq;
     using UnityEngine;
 
-    public partial class DialogueDatabase : RSLib.Framework.ConsoleProSingleton<DialogueDatabase>
+    public partial class DialogueDatabase : RSLib.Framework.ConsoleProSingleton<DialogueDatabase>, IDatabase
     {
         public const string PORTRAIT_PREFIX = "Dialogue-Portrait_";
 
@@ -17,15 +17,22 @@
         [SerializeField] private string portraitsAssetsRootPath = "Assets/Textures/UI/Dialogue/Portraits";
 #endif
 
-        public static System.Collections.Generic.Dictionary<string, DialogueDatas> DialoguesDatas { get; private set; }
-        public static System.Collections.Generic.Dictionary<string, SentenceDatas> SentencesDatas { get; private set; }
+        public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.DialogueDatas> DialoguesDatas { get; private set; }
+        public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.SentenceDatas> SentencesDatas { get; private set; }
 
-        public static System.Collections.Generic.Dictionary<string, SpeakerDisplayDatas> SpeakersDisplayDatas { get; private set; }
+        public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.SpeakerDisplayDatas> SpeakersDisplayDatas { get; private set; }
 
         public static System.Collections.Generic.Dictionary<string, Sprite> Portraits { get; private set; }
         public static Sprite DefaultPortrait => Instance._defaultPortrait;
 
-        public static Sprite GetPortraitOrUseDefault(SentenceDatas sentenceDatas)
+        public void Load()
+        {
+            DeserializeDialoguesDatas();
+            DeserializeSpeakersDisplayDatas();
+            GeneratePortraitsDictionary();
+        }
+
+        public static Sprite GetPortraitOrUseDefault(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
             string portraitId = sentenceDatas.OverridePortraitId ?? sentenceDatas.SpeakerId;
 
@@ -38,12 +45,12 @@
             return portrait;
         }
 
-        public static string GetSpeakerDisplayName(SentenceDatas sentenceDatas)
+        public static string GetSpeakerDisplayName(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
             if (!string.IsNullOrEmpty(sentenceDatas.OverrideDisplayName))
                 return sentenceDatas.OverrideDisplayName;
 
-            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out SpeakerDisplayDatas speakerDisplayDatas))
+            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out Datas.Dialogue.SpeakerDisplayDatas speakerDisplayDatas))
             {
                 Instance.LogError($"Speaker Id {sentenceDatas.SpeakerId} was not found in {Instance.GetType().Name} speakers display datas, returning Id.");
                 return sentenceDatas.SpeakerId;
@@ -52,24 +59,24 @@
             return speakerDisplayDatas.DisplayName;
         }
 
-        public static PortraitAnchor GetSpeakerPortraitAnchor(SentenceDatas sentenceDatas)
+        public static Datas.Dialogue.PortraitAnchor GetSpeakerPortraitAnchor(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
-            if (sentenceDatas.OverridePortraitAnchor != PortraitAnchor.NONE)
+            if (sentenceDatas.OverridePortraitAnchor != Datas.Dialogue.PortraitAnchor.NONE)
                 return sentenceDatas.OverridePortraitAnchor;
 
-            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out SpeakerDisplayDatas speakerDisplayDatas))
+            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out Datas.Dialogue.SpeakerDisplayDatas speakerDisplayDatas))
             {
                 Instance.LogError($"Speaker Id {sentenceDatas.SpeakerId} was not found in {Instance.GetType().Name} speakers display datas, returning PortraitAnchor.TOP_RIGHT.");
-                return PortraitAnchor.TOP_RIGHT;
+                return Datas.Dialogue.PortraitAnchor.TOP_RIGHT;
             }
 
             return speakerDisplayDatas.PortraitAnchor;
         }
 
-        private void Deserialize()
+        private void DeserializeDialoguesDatas()
         {
-            SentencesDatas = new System.Collections.Generic.Dictionary<string, SentenceDatas>();
-            DialoguesDatas = new System.Collections.Generic.Dictionary<string, DialogueDatas>();
+            SentencesDatas = new System.Collections.Generic.Dictionary<string, Datas.Dialogue.SentenceDatas>();
+            DialoguesDatas = new System.Collections.Generic.Dictionary<string, Datas.Dialogue.DialogueDatas>();
 
             System.Collections.Generic.List<XElement> allFilesElements = new System.Collections.Generic.List<XElement>();
 
@@ -84,7 +91,7 @@
             {
                 foreach (XElement sentenceElement in allFilesElements[i].Elements("SentenceDatas"))
                 {
-                    SentenceDatas sentenceDatas = new SentenceDatas(sentenceElement);
+                    Datas.Dialogue.SentenceDatas sentenceDatas = new Datas.Dialogue.SentenceDatas(sentenceElement);
                     SentencesDatas.Add(sentenceDatas.Id, sentenceDatas);
                 }
             }
@@ -93,28 +100,28 @@
             {
                 foreach (XElement dialogueElement in allFilesElements[i].Elements("DialogueDatas"))
                 {
-                    DialogueDatas dialogueDatas = new DialogueDatas(dialogueElement);
+                    Datas.Dialogue.DialogueDatas dialogueDatas = new Datas.Dialogue.DialogueDatas(dialogueElement);
                     DialoguesDatas.Add(dialogueDatas.Id, dialogueDatas);
                 }
             }
 
             Log($"Deserialized {SentencesDatas.Count} sentences datas and {DialoguesDatas.Count} dialogues datas.");
-
-            DeserializeSpeakersDatas();
         }
 
-        private void DeserializeSpeakersDatas()
+        private void DeserializeSpeakersDisplayDatas()
         {
-            SpeakersDisplayDatas = new System.Collections.Generic.Dictionary<string, SpeakerDisplayDatas>();
+            SpeakersDisplayDatas = new System.Collections.Generic.Dictionary<string, Datas.Dialogue.SpeakerDisplayDatas>();
 
             XDocument speakersDisplayDatasDoc = XDocument.Parse(_speakersDisplayDatas.text, LoadOptions.SetBaseUri);
 
             XElement speakersDisplayElement = speakersDisplayDatasDoc.Element("SpeakersDisplayDatas");
             foreach (XElement speakerDisplayElement in speakersDisplayElement.Elements("SpeakerDisplayDatas"))
             {
-                SpeakerDisplayDatas speakerDisplayDatas = new SpeakerDisplayDatas(speakerDisplayElement);
+                Datas.Dialogue.SpeakerDisplayDatas speakerDisplayDatas = new Datas.Dialogue.SpeakerDisplayDatas(speakerDisplayElement);
                 SpeakersDisplayDatas.Add(speakerDisplayDatas.Id, speakerDisplayDatas);
             }
+
+            Log($"Deserialized {SpeakersDisplayDatas.Count} speakers display datas.");
         }
 
         private void GeneratePortraitsDictionary()
@@ -154,8 +161,7 @@
         protected override void Awake()
         {
             base.Awake();
-            Deserialize();
-            GeneratePortraitsDictionary();
+
         }
     }
 }

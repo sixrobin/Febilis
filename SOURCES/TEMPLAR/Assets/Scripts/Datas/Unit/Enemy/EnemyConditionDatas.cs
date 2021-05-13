@@ -20,7 +20,7 @@
             {
                 if (!bool.TryParse(negateAttribute.Value, out bool negate))
                 {
-                    EnemyDatabase.Instance.LogError($"Could not parse {negateAttribute.Value} to a valid bool value.");
+                    Database.EnemyDatabase.Instance.LogError($"Could not parse {negateAttribute.Value} to a valid bool value.");
                     return;
                 }
 

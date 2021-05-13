@@ -17,7 +17,7 @@
          <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
       <Dur>0.55</Dur>
-      <ChainAllowedTime>0.35</ChainAllowedTime>
+      <ChainAllowedTime>0.3</ChainAllowedTime>
       <ControlVelocity>
          <MoveSpeed>1.2</MoveSpeed>
          <Gravity>0.5</Gravity>
@@ -41,7 +41,7 @@
          <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
       <Dur>0.55</Dur>
-      <ChainAllowedTime>0.35</ChainAllowedTime>
+      <ChainAllowedTime>0.3</ChainAllowedTime>
       <ControlVelocity>
          <MoveSpeed>1.2</MoveSpeed>
          <Gravity>0.5</Gravity>
@@ -94,6 +94,33 @@
       <ChainAllowedTime>0.5</ChainAllowedTime>
       <ControlVelocity>
          <MoveSpeed>2.5</MoveSpeed>
+         <Gravity>0.5</Gravity>
+         <!--Move speed curve ? Id link to some curves database ?-->
+      </ControlVelocity>
+   </PlayerAttack>
+
+   <PlayerAttack Id="Attack_Base_04">
+      <Dmg>50</Dmg>
+      <Hit>
+         <Delay>0.45</Delay>
+         <Dur>0.25</Dur>
+         <Layer>ENEMY</Layer>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <Unstoppable/>
+      <Recoil>
+         <Force>4.8</Force>
+         <Dur>0.3</Dur>
+      </Recoil>
+      <Traumas>
+         <Base X="0.2" Y="0.5" AddType="ADDITIVE" ShakeId="Medium"/>
+         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Big"/>
+      </Traumas>
+      <Dur>0.8</Dur>
+      <ChainAllowedTime>0.5</ChainAllowedTime>
+      <ControlVelocity>
+         <MoveSpeed>3.5</MoveSpeed>
          <Gravity>0.5</Gravity>
          <!--Move speed curve ? Id link to some curves database ?-->
       </ControlVelocity>

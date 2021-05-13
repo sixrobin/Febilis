@@ -4,20 +4,12 @@
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 	- Première passe de sound design.
-	- CurrentAttackDatas dans AttackController ?
-	- Vérifier que la valeur t dans les coroutine du player sont correctement utilisées par rapport à la TotalDur.
-
-
-
 
 
 
 ///// BUG TRACKER
 	- On peut faire un jump après avoir fait une roulade dans le vide.
 	- HUD qui repop rapidement au reload de la scène après la mort.
-
-
-
 
 
 
@@ -28,13 +20,13 @@
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
+	- Paramètre "ForceHurt" dans PlayerAttackDatas.
 	
 
 
 ///// CONCEPTS
 	- Inventaire (quand on saura un peu plus ce qu'il y aura dedans).
 	- Options.
-	- Controls : "Assigning key...".
 	- Variante du Guardian avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc.
 
 
@@ -51,12 +43,6 @@
 	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
-	
-	
-	
-///// GUI
-	- Box générique scalable.
-	- Bouton générique scalable.
 
 
 
@@ -71,4 +57,5 @@
 	
 	
 ///// WORKFLOW :
+	- RSLib : prefab dirty https://forum.unity.com/threads/can-prefabs-be-set-to-dirty-in-an-editor-script.598321/
 	- Importer la Debug Console et setup quelques commandes.

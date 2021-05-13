@@ -6,7 +6,7 @@
     public class RampFadeManager : RSLib.Framework.ConsoleProSingleton<RampFadeManager>
     {
         [SerializeField] private bool _timeScaleDependent = false;
-        [SerializeField] private Datas.RampFadesDatabase _rampFadesDatabase = null;
+        [SerializeField] private Database.RampFadesDatabase _rampFadesDatabase = null;
 
         private RSLib.ImageEffects.CameraGrayscaleRamp _ramp;
         private Datas.RampFadeDatas _fadeDatas;

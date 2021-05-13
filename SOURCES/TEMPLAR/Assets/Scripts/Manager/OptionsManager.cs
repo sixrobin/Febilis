@@ -2,15 +2,37 @@
 {
     using UnityEngine;
 
-    public class OptionsManager : MonoBehaviour
+    public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
     {
-        [SerializeField] private GameObject _optionsPanel = null;
+        [SerializeField] private UI.ControlsPanel _controlsPanel = null;
 
-        public bool OptionsPanelDisplayed { get; private set; }
+        public delegate void OptionsToggleEventHandler();
 
-        public bool CanToggleOptions()
+        public event OptionsToggleEventHandler OptionsOpened;
+        public event OptionsToggleEventHandler OptionsClosed;
+
+        public static bool OptionsPanelDisplayed { get; private set; }
+
+        public static bool CanToggleOptions()
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey;
+        }
+
+        public void Open()
+        {
+            OptionsPanelDisplayed = true;
+            _controlsPanel.Display(true);
+
+            OptionsOpened?.Invoke();
+        }
+
+        public void Close()
+        {
+            OptionsPanelDisplayed = false;
+            _controlsPanel.Display(false);
+            RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
+
+            OptionsClosed?.Invoke();
         }
 
         private void Update()
@@ -20,11 +42,10 @@
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                OptionsPanelDisplayed = !OptionsPanelDisplayed;
-                _optionsPanel.SetActive(OptionsPanelDisplayed);
-
-                if (!OptionsPanelDisplayed)
-                    RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
+                if (OptionsPanelDisplayed)
+                    Close();
+                else
+                    Open();
             }
         }
     }

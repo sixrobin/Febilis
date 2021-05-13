@@ -35,11 +35,11 @@
             string attackClipName = string.Format(ATTACK_CLIP_NAME_FORMAT, EnemyId, id);
             string attackAnticipationClipName = string.Format(ATTACK_ANTICIPATION_CLIP_NAME_FORMAT, EnemyId, id);
 
-            UnityEngine.Assertions.Assert.IsTrue(Datas.Unit.Enemy.EnemyDatabase.AnimationClips.ContainsKey(attackClipName), $"Animation clip {attackClipName} was not found in {Datas.Unit.Enemy.EnemyDatabase.Instance.GetType().Name}.");
-            UnityEngine.Assertions.Assert.IsTrue(Datas.Unit.Enemy.EnemyDatabase.AnimationClips.ContainsKey(attackAnticipationClipName), $"Animation clip {attackAnticipationClipName} was not found in {Datas.Unit.Enemy.EnemyDatabase.Instance.GetType().Name}.");
+            UnityEngine.Assertions.Assert.IsTrue(Database.EnemyDatabase.AnimationClips.ContainsKey(attackClipName), $"Animation clip {attackClipName} was not found in {Database.EnemyDatabase.Instance.GetType().Name}.");
+            UnityEngine.Assertions.Assert.IsTrue(Database.EnemyDatabase.AnimationClips.ContainsKey(attackAnticipationClipName), $"Animation clip {attackAnticipationClipName} was not found in {Database.EnemyDatabase.Instance.GetType().Name}.");
 
-            OverrideClip(ATTACK_ANM_OVERRIDE_ID, Datas.Unit.Enemy.EnemyDatabase.AnimationClips[attackClipName]);
-            OverrideClip(ATTACK_ANTICIPATION_ANM_OVERRIDE_ID, Datas.Unit.Enemy.EnemyDatabase.AnimationClips[attackAnticipationClipName]);
+            OverrideClip(ATTACK_ANM_OVERRIDE_ID, Database.EnemyDatabase.AnimationClips[attackClipName]);
+            OverrideClip(ATTACK_ANTICIPATION_ANM_OVERRIDE_ID, Database.EnemyDatabase.AnimationClips[attackAnticipationClipName]);
 
             _animator.SetFloat(MULT_ATTACK, attackDatas.AnimSpeedMult);
         }

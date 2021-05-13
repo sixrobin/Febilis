@@ -6,14 +6,41 @@
 
     public class ControlsPanel : MonoBehaviour
     {
+        [SerializeField] private Canvas _canvas = null;
+        [SerializeField] private UnityEngine.UI.Scrollbar _controlsScrollBar = null;
         [SerializeField] private KeyBindingPanel[] _bindingPanels = null;
         [SerializeField] private GameObject _assignKeyScreen = null;
+        [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
         [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
 
         private KeyBindingPanel _currentlyAssignedPanel;
+        private RectTransform _rectTransform;
+
+        private RectTransform RectTransform
+        {
+            get
+            {
+                if (_rectTransform == null)
+                    _rectTransform = _canvas.GetComponent<RectTransform>();
+
+                return _rectTransform;
+            }
+        }
 
         public bool Displayed { get; private set; }
+
+        public void Display(bool show)
+        {
+            Displayed = show;
+            _canvas.enabled = Displayed;
+
+            if (show)
+            {
+                UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
+                _controlsScrollBar.value = 1f;
+            }
+        }
 
         private void OnKeyAssigned(string actionId, KeyCode btn, bool alt)
         {
@@ -29,9 +56,12 @@
 
         private void AssignKey(KeyBindingPanel bindingPanel, bool alt)
         {
+            if (!Displayed)
+                return;
+
             _currentlyAssignedPanel = bindingPanel;
             _assignKeyScreen.SetActive(true);
-            _assignKeyText.text = $"Assign key to {bindingPanel.ActionId}...";
+            _assignKeyText.text = $"Assign key to <color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>...";
             InputManager.AssignKey(_currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
 

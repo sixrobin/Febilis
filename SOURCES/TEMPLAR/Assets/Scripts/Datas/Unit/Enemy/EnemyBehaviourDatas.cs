@@ -53,7 +53,7 @@
                 }
             }
 
-            EnemyDatabase.Instance.Log($"Generated behaviour \"<b>{Name}</b>\" datas ({Actions.Count} action(s), " +
+            Database.EnemyDatabase.Instance.Log($"Generated behaviour \"<b>{Name}</b>\" datas ({Actions.Count} action(s), " +
                 $"{(Conditions != null ? Conditions.Count.ToString() : "0")} condition(s))");
         }
     }

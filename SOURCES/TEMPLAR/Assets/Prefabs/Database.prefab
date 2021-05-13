@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4206304114665369707}
+  - component: {fileID: 4040683869852624797}
   m_Layer: 0
   m_Name: Database
   m_TagString: Untagged
@@ -157,6 +158,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4040683869852624797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4206304114665369684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57518e3355c023498f256628a6d9fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4206304114793737258
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,25 +299,25 @@ MonoBehaviour:
   _verbose: 0
   _overrideLogPrefix: 
   _animationClips:
-  - {fileID: 7400000, guid: 63290ce7f3019bb488a9543c4d4cbfe9, type: 2}
-  - {fileID: 7400000, guid: 29dff9917ef25c242a5fa99b3f554ce2, type: 2}
-  - {fileID: 7400000, guid: c497f264bf6ad5440ad21f171ff23446, type: 2}
-  - {fileID: 7400000, guid: c23bb932831af334ab50eb471c14921e, type: 2}
-  - {fileID: 7400000, guid: 1daafcb9b7d0ff94d8d02b862b8201ba, type: 2}
-  - {fileID: 7400000, guid: 76cdb982be321c346bf9a48362d9e8f2, type: 2}
-  - {fileID: 7400000, guid: acbbdb9182bedd84d87feb1c1f70a6f5, type: 2}
-  - {fileID: 7400000, guid: 8af29b8354d37fa4a830e59881f6539e, type: 2}
-  - {fileID: 7400000, guid: 40af28ddd9d49c246babf85c03d2f361, type: 2}
-  - {fileID: 7400000, guid: b4544068414641b4eac82432c903fc5f, type: 2}
-  - {fileID: 7400000, guid: ad3d04fdb911f0841bc46fe7eea5e68f, type: 2}
-  - {fileID: 7400000, guid: 6c3da324bc750524b98a5a7345f6b5de, type: 2}
-  - {fileID: 7400000, guid: cf0b7dce67ccd7d4ba0f8da854516ac4, type: 2}
-  - {fileID: 7400000, guid: 87b8a16089de0e448aed58771a5767d7, type: 2}
-  - {fileID: 7400000, guid: bb552f126acfc234e9c4c9a2ef49702e, type: 2}
-  - {fileID: 7400000, guid: d709b2d06a1553f4498342df493fcacd, type: 2}
-  - {fileID: 7400000, guid: 13df67a6c3c29a445a96c993de1d5f19, type: 2}
-  - {fileID: 7400000, guid: 6676a4a9f9b86df4783ccdf4476ac695, type: 2}
-  - {fileID: 7400000, guid: a134f2d6b65893b4396de223ad8fe778, type: 2}
   - {fileID: 7400000, guid: fd4fa236f157b7d47807ffc9fea0ae23, type: 2}
-  - {fileID: 7400000, guid: 619e52095854b5c488317cac90d4ef5f, type: 2}
+  - {fileID: 7400000, guid: a134f2d6b65893b4396de223ad8fe778, type: 2}
+  - {fileID: 7400000, guid: 6676a4a9f9b86df4783ccdf4476ac695, type: 2}
+  - {fileID: 7400000, guid: 13df67a6c3c29a445a96c993de1d5f19, type: 2}
+  - {fileID: 7400000, guid: d709b2d06a1553f4498342df493fcacd, type: 2}
+  - {fileID: 7400000, guid: be9ad8fe508a6834fa79b88c37362f28, type: 2}
+  - {fileID: 7400000, guid: bb552f126acfc234e9c4c9a2ef49702e, type: 2}
+  - {fileID: 7400000, guid: 87b8a16089de0e448aed58771a5767d7, type: 2}
+  - {fileID: 7400000, guid: cf0b7dce67ccd7d4ba0f8da854516ac4, type: 2}
+  - {fileID: 7400000, guid: 6c3da324bc750524b98a5a7345f6b5de, type: 2}
+  - {fileID: 7400000, guid: ad3d04fdb911f0841bc46fe7eea5e68f, type: 2}
+  - {fileID: 7400000, guid: b4544068414641b4eac82432c903fc5f, type: 2}
+  - {fileID: 7400000, guid: 40af28ddd9d49c246babf85c03d2f361, type: 2}
+  - {fileID: 7400000, guid: 8af29b8354d37fa4a830e59881f6539e, type: 2}
+  - {fileID: 7400000, guid: acbbdb9182bedd84d87feb1c1f70a6f5, type: 2}
+  - {fileID: 7400000, guid: 76cdb982be321c346bf9a48362d9e8f2, type: 2}
+  - {fileID: 7400000, guid: 1daafcb9b7d0ff94d8d02b862b8201ba, type: 2}
+  - {fileID: 7400000, guid: c23bb932831af334ab50eb471c14921e, type: 2}
+  - {fileID: 7400000, guid: c497f264bf6ad5440ad21f171ff23446, type: 2}
+  - {fileID: 7400000, guid: 29dff9917ef25c242a5fa99b3f554ce2, type: 2}
+  - {fileID: 7400000, guid: 63290ce7f3019bb488a9543c4d4cbfe9, type: 2}
   clipsAssetsRootPath: Assets/Animations/Templar

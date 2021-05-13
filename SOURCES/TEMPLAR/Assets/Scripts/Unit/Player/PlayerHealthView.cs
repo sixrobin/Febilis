@@ -71,6 +71,17 @@
                 _healthBarCanvas.enabled = true;
         }
 
+        private void OnOptionsOpened()
+        {
+            _healthBarCanvas.enabled = false;
+        }
+
+        private void OnOptionsClosed()
+        {
+            if (!_playerHealthCtrl.HealthSystem.IsDead)
+                _healthBarCanvas.enabled = true;
+        }
+
         private void OnDialogueStarted(string dialogueId)
         {
             _healthBarCanvas.enabled = false;
@@ -157,6 +168,9 @@
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
             Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
 
+            Manager.OptionsManager.Instance.OptionsOpened += OnOptionsOpened;
+            Manager.OptionsManager.Instance.OptionsClosed += OnOptionsClosed;
+
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
@@ -173,6 +187,12 @@
             {
                 Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
                 Manager.RampFadeManager.Instance.FadeOver -= OnFadeOver;
+            }
+
+            if (Manager.OptionsManager.Exists())
+            {
+                Manager.OptionsManager.Instance.OptionsOpened -= OnOptionsOpened;
+                Manager.OptionsManager.Instance.OptionsClosed -= OnOptionsClosed;
             }
 
             if (UI.Dialogue.DialogueManager.Exists())

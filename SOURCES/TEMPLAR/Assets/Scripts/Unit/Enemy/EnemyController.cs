@@ -210,8 +210,8 @@
 
         private void Start()
         {
-            UnityEngine.Assertions.Assert.IsTrue(Datas.Unit.Enemy.EnemyDatabase.EnemiesDatas.ContainsKey(_id), $"Unknown enemy Id {_id}.");
-            EnemyDatas = Datas.Unit.Enemy.EnemyDatabase.EnemiesDatas[_id];
+            UnityEngine.Assertions.Assert.IsTrue(Database.EnemyDatabase.EnemiesDatas.ContainsKey(_id), $"Unknown enemy Id {_id}.");
+            EnemyDatas = Database.EnemyDatabase.EnemiesDatas[_id];
 
             AttackCtrl = new Attack.EnemyAttackController(this);
             CollisionsCtrl = new Templar.Physics.CollisionsController(BoxCollider2D, CollisionMask);
