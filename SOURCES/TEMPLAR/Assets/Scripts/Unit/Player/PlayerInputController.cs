@@ -56,6 +56,16 @@
                 : (_delayedInputs & btnCategory) == btnCategory;
         }
 
+        public bool CheckJumpInput()
+        {
+            return InputManager.GetInput(JUMP);
+        }
+
+        public bool CheckJumpInputUp()
+        {
+            return InputManager.GetInputUp(JUMP);
+        }
+
         public void Update()
         {
             Horizontal = Input.GetAxisRaw(HORIZONTAL_KEYBOARD);

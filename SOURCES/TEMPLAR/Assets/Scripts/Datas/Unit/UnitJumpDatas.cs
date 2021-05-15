@@ -6,8 +6,11 @@
     public class UnitJumpDatas : ScriptableObject
     {
         [Header("JUMP")]
-        [Tooltip("Height reached by the controller's pivot when at his jump apex.")]
-        [SerializeField, Min(0f)] private float _jumpHeight = 2f;
+        [Tooltip("Height reached by the controller's pivot when at his jump maximum apex (input kept down for a long time).")]
+        [SerializeField, Min(0f)] private float _jumpHeightMax = 2f;
+
+        [Tooltip("Height reached by the controller's pivot when at his minimum jump apex (quick input down).")]
+        [SerializeField, Min(0f)] private float _jumpHeightMin = 0.5f;
 
         [Tooltip("Duration in seconds that the controller takes to reach his jump apex.")]
         [SerializeField, Min(0f)] private float _jumpApexDur = 0.5f;
@@ -43,8 +46,12 @@
         [Tooltip("Minimum and maximum values for landing impact duration, also used as range for impact speed multiplier normalization.")]
         [SerializeField] private Vector2 _landImpactDurMinMax = Vector2.zero;
 
+        public delegate void ValuesValidatedEventHandler();
+        public event ValuesValidatedEventHandler ValuesValidated;
+
         // Jump.
-        public float JumpHeight => _jumpHeight;
+        public float JumpHeightMax => _jumpHeightMax;
+        public float JumpHeightMin => _jumpHeightMin;
         public float JumpApexDur => _jumpApexDur;
         public float JumpApexDurSqr => _jumpApexDur * _jumpApexDur;
         public float FallMultiplier => _fallMultiplier;
@@ -53,7 +60,7 @@
         public float JumpAnticipationDur => _jumpAnticipationDur;
         public float AirborneJumpAnticipationDur => _airborneJumpAnticipationDur;
         public int MaxFollowingJumps => _maxFollowingJumps;
-
+        
         // Land.
         public float MinVelForLandImpact => _minVelForLandImpact;
         public float LandImpactSpeedMultMin => _landImpactSpeedMultMin;
@@ -65,6 +72,8 @@
         {
             _landImpactDurMinMax.x = Mathf.Max(_landImpactDurMinMax.x, 0f);
             _landImpactDurMinMax.y = Mathf.Max(_landImpactDurMinMax.x, _landImpactDurMinMax.y);
+
+            ValuesValidated?.Invoke();
         }
     }
 }

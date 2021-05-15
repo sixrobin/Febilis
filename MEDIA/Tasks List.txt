@@ -15,7 +15,6 @@
 
 ///// GAMEPLAY
 	- Permettre de casser la séquence de heal après l'anticipation ?
-	- Meilleure courbe de saut, avec gestion dans l'input maintenu (contrôle à 100% comme HK, 2 hauteurs fixes ?)
 	- Attaque up du templier (sur place).
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.

@@ -23,7 +23,6 @@
         private Vector3 _currVel;
         private Vector3 _prevVel;
         private float _refVelX;
-        private float _jumpVel;
 
         public bool Initialized { get; private set; }
 
@@ -39,8 +38,6 @@
         public PlayerJumpController JumpCtrl { get; private set; }
         public PlayerRollController RollCtrl { get; private set; }
         public Attack.PlayerAttackController AttackCtrl { get; private set; }
-
-        public float Gravity { get; private set; }
 
         public bool IsBeingHurt => _hurtCoroutine != null;
         public bool IsHealing => _healCoroutine != null;
@@ -88,9 +85,14 @@
             _inputsAllowed = state;
         }
 
-        public void Jump()
+        public void JumpWithMaxVelocity()
         {
-            _currVel.y = _jumpVel;
+            _currVel.y = JumpCtrl.JumpVelMax;
+        }
+
+        public void JumpWithVariousVelocity()
+        {
+            _currVel.y = InputCtrl.CheckJumpInput() ? JumpCtrl.JumpVelMax : JumpCtrl.JumpVelMin;
         }
 
         public void OnSentenceStart()
@@ -217,8 +219,7 @@
         [ContextMenu("Compute Jump Physics")]
         private void ComputeJumpPhysics()
         {
-            Gravity = -(2f * CtrlDatas.Jump.JumpHeight) / CtrlDatas.Jump.JumpApexDurSqr;
-            _jumpVel = Mathf.Abs(Gravity) * CtrlDatas.Jump.JumpApexDur;
+            JumpCtrl.ComputeJumpPhysics();
         }
 
         private void ResetVelocity()
@@ -322,7 +323,7 @@
                     if (CtrlDatas.Jump.JumpAnticipationDur > 0)
                         JumpCtrl.JumpAfterAnticipation();
                     else
-                        Jump();
+                        JumpWithMaxVelocity();
                 }
                 else
                 {
@@ -336,12 +337,15 @@
                     }
                     else
                     {
-                        Jump();
+                        JumpWithMaxVelocity();
                         PlayerView.PlayDoubleJumpAnimation();
                     }
                 }
             }
 
+            // Jump lower if jump input is released.
+            if (!CollisionsCtrl.Below && !JumpCtrl.IsAnticipatingJump && !InputCtrl.CheckJumpInput() && _currVel.y > JumpCtrl.JumpVelMin)
+                _currVel.y = JumpCtrl.JumpVelMin;
 
             if (effectorDown && CollisionsCtrl.AboveEffector)
                 StartCoroutine(ResetJumpInputAfterDownEffector());
@@ -360,7 +364,7 @@
                 targetVelX = 0f;
             }
 
-            float grav = Gravity * Time.deltaTime;
+            float grav = JumpCtrl.Gravity * Time.deltaTime;
             if (_currVel.y < 0f)
                 grav *= CtrlDatas.Jump.FallMultiplier;
 
@@ -415,7 +419,7 @@
                 if (CollisionsCtrl.Below)
                     _currVel.y = 0f;
 
-                float grav = Gravity * Time.deltaTime;
+                float grav = JumpCtrl.Gravity * Time.deltaTime;
                 if (_currVel.y < 0f)
                     grav *= CtrlDatas.Jump.FallMultiplier;
 

@@ -68,7 +68,7 @@
             for (float t = 0f; t < 1f; t += Time.deltaTime / _rollDatas.Dur)
             {
                 rollVel.x = _rollDatas.SpeedCurve.Evaluate(t) * _rollDatas.Speed * dir;
-                rollVel.y += _playerCtrl.Gravity * Time.deltaTime * _rollDatas.GravityMult;
+                rollVel.y += _playerCtrl.JumpCtrl.Gravity * Time.deltaTime * _rollDatas.GravityMult;
                 _playerCtrl.Translate(rollVel, checkEdge: t * _rollDatas.Dur >= _rollDatas.EdgeDetectionThreshold);
                 
                 yield return null;

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a61f072847403469ac8012d3926a8c, type: 3}
   m_Name: Templar Jump Datas
   m_EditorClassIdentifier: 
-  _jumpHeight: 1.5
-  _jumpApexDur: 0.3
+  _jumpHeightMax: 1.9
+  _jumpHeightMin: 0.8
+  _jumpApexDur: 0.35
   _fallMultiplier: 1.05
   _airborneDamping: 0.05
   _jumpAnticipationSpeedMult: 0.9
-  _jumpAnticipationDur: 0.04
+  _jumpAnticipationDur: 0.03
   _airborneJumpAnticipationDur: 0
   _maxFollowingJumps: 1
   _minVelForLandImpact: 8

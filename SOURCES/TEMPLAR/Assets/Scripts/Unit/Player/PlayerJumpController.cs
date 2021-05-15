@@ -14,16 +14,34 @@
         {
             _playerCtrl = playerCtrl;
             _jumpDatas = _playerCtrl.CtrlDatas.Jump;
+            _jumpDatas.ValuesValidated += ComputeJumpPhysics;
+
             ResetJumpsLeft();
+        }
+
+        ~PlayerJumpController()
+        {
+            _jumpDatas.ValuesValidated -= ComputeJumpPhysics;
         }
 
         public bool IsAnticipatingJump => _jumpAnticipationCoroutine != null;
         public bool IsInLandImpact => _landImpactCoroutine != null;
 
+        public float Gravity { get; private set; }
+        public float JumpVelMax { get; private set; }
+        public float JumpVelMin { get; private set; }
+
         public int JumpsLeft { get; set; }
         public float LandImpactSpeedMult { get; private set; }
 
         public bool JumpAllowedThisFrame { get; set; }
+
+        public void ComputeJumpPhysics()
+        {
+            Gravity = -(2f * _jumpDatas.JumpHeightMax) / _jumpDatas.JumpApexDurSqr;
+            JumpVelMax = Mathf.Abs(Gravity) * _jumpDatas.JumpApexDur;
+            JumpVelMin = Mathf.Sqrt(2f * Mathf.Abs(Gravity) * _jumpDatas.JumpHeightMin);
+        }
 
         public bool CanJump()
         {
@@ -43,9 +61,11 @@
 
         public void JumpAfterAnticipation(bool airborne = false)
         {
-            _jumpAnticipationCoroutine = JumpAfterAnticipationCoroutine(airborne ? _jumpDatas.AirborneJumpAnticipationDur : _jumpDatas.JumpAnticipationDur);
-            _playerCtrl.StartCoroutine(_jumpAnticipationCoroutine);
+            _playerCtrl.StartCoroutine(_jumpAnticipationCoroutine = JumpAfterAnticipationCoroutine(airborne ? _jumpDatas.AirborneJumpAnticipationDur : _jumpDatas.JumpAnticipationDur));
 
+            // Playing those animations here will lead to a strange view result if anticipation is too long, since the jump
+            // clip is actually played while controller is still grounded.
+            // An anticipation motion would do the job.
             if (airborne)
                 _playerCtrl.PlayerView.PlayDoubleJumpAnimation();
             else
@@ -62,7 +82,7 @@
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(dur);
 
-            _playerCtrl.Jump();
+            _playerCtrl.JumpWithVariousVelocity();
 
             for (int i = 0; i < 2; ++i)
                 yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
