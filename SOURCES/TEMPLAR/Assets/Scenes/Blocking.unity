@@ -2554,7 +2554,7 @@ PrefabInstance:
     - target: {fileID: 8543433988757545292, guid: 9c3bc8258787ad24ba4d7e4a1484bba3,
         type: 3}
       propertyPath: _dialogueId
-      value: NPC01
+      value: NPCDial_00
       objectReference: {fileID: 0}
     - target: {fileID: 8543433988757545293, guid: 9c3bc8258787ad24ba4d7e4a1484bba3,
         type: 3}
