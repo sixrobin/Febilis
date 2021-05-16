@@ -21,6 +21,7 @@
 	- Objets destructibles par la roulade ou l'attaque.
 	- Roll: courbe pour le Gravity multiplier.
 	- Navigation manette pour l'UI.
+	- Rendre générique le "MoveToDialoguePos" pour un "MoveToInteractionPos".
 	
 
 
