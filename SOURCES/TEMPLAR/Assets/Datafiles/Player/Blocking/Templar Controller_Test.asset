@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfc9b0f1a5f4834dac0f5288b0ff6ab, type: 3}
+  m_Name: Templar Controller_Test
+  m_EditorClassIdentifier: 
+  _playerInputDatas: {fileID: 11400000, guid: dd68a487e2d47784e98fd2c8de6b814e, type: 2}
+  _playerJumpDatas: {fileID: 11400000, guid: 83636384324a9e94b8a0f358f2ab53d2, type: 2}
+  _playerRollDatas: {fileID: 11400000, guid: e29db7ca8186b664f91ce0be9afabe21, type: 2}
+  _baseComboIds:
+  - Attack_Base_00
+  - Attack_Base_01
+  - Attack_Base_02
+  - Attack_Base_03
+  - Attack_Base_04
+  _airborneAttackId: Attack_Airborne
+  _runSpeed: 4.2
+  _groundedDamping: 0
+  _groundOnAwake: 1
+  _hurtDur: 0.33
+  _maxFallVelocity: 20
+  _preHealDelay: 0.6
+  _postHealDelay: 0.4
