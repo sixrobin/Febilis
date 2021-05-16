@@ -24,6 +24,13 @@
         {
             _playerCtrl = playerCtrl;
             _rollDatas = _playerCtrl.CtrlDatas.Roll;
+
+            _playerCtrl.CtrlDatas.ValuesValidated += OnDatasValuesChanged;
+        }
+
+        ~PlayerRollController()
+        {
+            _playerCtrl.CtrlDatas.ValuesValidated -= OnDatasValuesChanged;
         }
 
         public delegate void RollOverEventHandler(RollOverEventArgs args);
@@ -57,6 +64,12 @@
         public void Roll(float dir, RollOverEventHandler rollOverCallback = null)
         {
             _playerCtrl.StartCoroutine(_rollCoroutine = RollCoroutine(dir, rollOverCallback));
+        }
+
+        private void OnDatasValuesChanged()
+        {
+            if (_rollDatas != _playerCtrl.CtrlDatas.Roll)
+                _rollDatas = _playerCtrl.CtrlDatas.Roll;
         }
 
         private System.Collections.IEnumerator RollCoroutine(float dir, RollOverEventHandler rollOverCallback = null)

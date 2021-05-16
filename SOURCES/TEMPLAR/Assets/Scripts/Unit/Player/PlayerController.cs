@@ -77,6 +77,8 @@
             PlayerView.TemplarCtrl = this;
             CurrDir = PlayerView.GetSpriteRendererFlipX() ? -1f : 1f;
 
+            CtrlDatas.ValuesValidated += OnDatasValuesChanged;
+
             Initialized = true;
         }
 
@@ -508,6 +510,18 @@
             CollisionsCtrl.CollisionDetected -= OnCollisionDetected;
             PlayerHealthCtrl.UnitHealthChanged -= OnUnitHealthChanged;
             PlayerHealthCtrl.UnitKilled -= OnUnitKilled;
+            CtrlDatas.ValuesValidated -= OnDatasValuesChanged;
+        }
+
+        private void OnDatasValuesChanged()
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.EditorApplication.isPlaying)
+            {
+                if (InputCtrl.InputDatas != CtrlDatas.Input)
+                    InputCtrl = new PlayerInputController(CtrlDatas.Input, this);
+            }
+#endif
         }
     }
 }

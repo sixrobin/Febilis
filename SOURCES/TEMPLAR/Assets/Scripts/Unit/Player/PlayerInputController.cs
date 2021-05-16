@@ -15,10 +15,7 @@
         public const string INTERACT = "Interact";
         public const string HEAL = "Heal";
 
-        private Datas.Unit.Player.PlayerInputDatas _inputDatas;
         private MonoBehaviour _coroutinesExecuter;
-
-        public delegate bool InputGetterHandler();
 
         private System.Collections.Generic.Dictionary<ButtonCategory, InputGetterHandler> _inputGetters;
         private System.Collections.Generic.Dictionary<ButtonCategory, System.Collections.IEnumerator> _inputStoreCoroutines;
@@ -27,10 +24,13 @@
 
         public PlayerInputController(Datas.Unit.Player.PlayerInputDatas inputDatas, MonoBehaviour coroutinesExecuter)
         {
-            _inputDatas = inputDatas;
+            InputDatas = inputDatas;
             _coroutinesExecuter = coroutinesExecuter;
+
             Init();
         }
+
+        public delegate bool InputGetterHandler();
 
         public enum ButtonCategory
         {
@@ -42,6 +42,8 @@
             HEAL = 16,
             ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL
         }
+
+        public Datas.Unit.Player.PlayerInputDatas InputDatas { get; private set; }
 
         public float Horizontal { get; private set; }
         public float Vertical { get; private set; }
@@ -70,12 +72,12 @@
         {
             Horizontal = Input.GetAxisRaw(HORIZONTAL_KEYBOARD);
             float leftStickHorizontal = Input.GetAxis(HORIZONTAL_CONTROLLER);
-            if (leftStickHorizontal * leftStickHorizontal > _inputDatas.LeftJoystickDeadZoneSqr)
+            if (leftStickHorizontal * leftStickHorizontal > InputDatas.LeftJoystickDeadZoneSqr)
                 Horizontal = leftStickHorizontal;
 
             Vertical = Input.GetAxisRaw(VERTICAL_KEYBOARD);
             float leftStickVertical = Input.GetAxis(VERTICAL_CONTROLLER);
-            if (leftStickVertical * leftStickVertical > _inputDatas.LeftJoystickDeadZoneSqr)
+            if (leftStickVertical * leftStickVertical > InputDatas.LeftJoystickDeadZoneSqr)
                 Vertical = leftStickVertical;
 
             foreach (System.Collections.Generic.KeyValuePair<ButtonCategory, InputGetterHandler> input in _inputGetters)
@@ -113,7 +115,7 @@
         private void Init()
         {
             _inputGetters = new System.Collections.Generic.Dictionary<ButtonCategory, InputGetterHandler>(
-                 new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
+                new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
                 {
                     { ButtonCategory.JUMP, () => InputManager.GetInputDown(JUMP) },
                     { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
@@ -125,9 +127,9 @@
             _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(
                 new RSLib.Framework.Comparers.EnumComparer<ButtonCategory>())
                 {
-                    { ButtonCategory.JUMP, _inputDatas.JumpInputDelay },
-                    { ButtonCategory.ROLL, _inputDatas.RollInputDelay },
-                    { ButtonCategory.ATTACK, _inputDatas.AttackInputDelay }
+                    { ButtonCategory.JUMP, InputDatas.JumpInputDelay },
+                    { ButtonCategory.ROLL, InputDatas.RollInputDelay },
+                    { ButtonCategory.ATTACK, InputDatas.AttackInputDelay }
                 };
 
             _inputStoreCoroutines = new System.Collections.Generic.Dictionary<ButtonCategory, System.Collections.IEnumerator>(
@@ -144,6 +146,7 @@
             if (!_inputDelaysByCategory.ContainsKey(btnCategory))
                 yield break;
 
+            _delayedInputs &= btnCategory;
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_inputDelaysByCategory[btnCategory]);
             _delayedInputs &= ~btnCategory;
         }

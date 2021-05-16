@@ -14,14 +14,17 @@
         {
             _playerCtrl = playerCtrl;
             _jumpDatas = _playerCtrl.CtrlDatas.Jump;
-            _jumpDatas.ValuesValidated += ComputeJumpPhysics;
+
+            _playerCtrl.CtrlDatas.ValuesValidated += OnDatasValuesChanged;
+            _jumpDatas.ValuesValidated += OnDatasValuesChanged;
 
             ResetJumpsLeft();
         }
 
         ~PlayerJumpController()
         {
-            _jumpDatas.ValuesValidated -= ComputeJumpPhysics;
+            _playerCtrl.CtrlDatas.ValuesValidated -= OnDatasValuesChanged;
+            _jumpDatas.ValuesValidated -= OnDatasValuesChanged;
         }
 
         public bool IsAnticipatingJump => _jumpAnticipationCoroutine != null;
@@ -76,6 +79,14 @@
         {
             _playerCtrl.StartCoroutine(_landImpactCoroutine = WaitForLandImpactCoroutine(fallSpeedAbs));
             _playerCtrl.PlayerView.PlayLandAnimation(fallSpeedAbs);
+        }
+
+        private void OnDatasValuesChanged()
+        {
+            if (_jumpDatas != _playerCtrl.CtrlDatas.Jump)
+                _jumpDatas = _playerCtrl.CtrlDatas.Jump;
+
+            ComputeJumpPhysics();
         }
 
         private System.Collections.IEnumerator JumpAfterAnticipationCoroutine(float dur)

@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "New Player Input Datas", menuName = "Datas/Player/Input")]
-    public class PlayerInputDatas : ScriptableObject
+    public class PlayerInputDatas : ValuesValidatedEventScriptableObject
     {
         [Header("INPUT")]
         [Tooltip("Maximum value below which left stick inclinaison is ignored.")]

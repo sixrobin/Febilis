@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "New Player Jump Datas", menuName = "Datas/Player/Jump")]
-    public class UnitJumpDatas : ScriptableObject
+    public class UnitJumpDatas : ValuesValidatedEventScriptableObject
     {
         [Header("JUMP")]
         [Tooltip("Height reached by the controller's pivot when at his jump maximum apex (input kept down for a long time).")]
@@ -46,9 +46,6 @@
         [Tooltip("Minimum and maximum values for landing impact duration, also used as range for impact speed multiplier normalization.")]
         [SerializeField] private Vector2 _landImpactDurMinMax = Vector2.zero;
 
-        public delegate void ValuesValidatedEventHandler();
-        public event ValuesValidatedEventHandler ValuesValidated;
-
         // Jump.
         public float JumpHeightMax => _jumpHeightMax;
         public float JumpHeightMin => _jumpHeightMin;
@@ -68,12 +65,12 @@
         public float LandImpactDurMin => _landImpactDurMinMax.x;
         public float LandImpactDurMax => _landImpactDurMinMax.y;
 
-        private void OnValidate()
+        protected override void OnValidate()
         {
             _landImpactDurMinMax.x = Mathf.Max(_landImpactDurMinMax.x, 0f);
             _landImpactDurMinMax.y = Mathf.Max(_landImpactDurMinMax.x, _landImpactDurMinMax.y);
 
-            ValuesValidated?.Invoke();
+            base.OnValidate();
         }
     }
 }

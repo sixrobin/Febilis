@@ -20,6 +20,7 @@
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
 	- Objets destructibles par la roulade ou l'attaque.
 	- Roll: courbe pour le Gravity multiplier.
+	- Navigation manette pour l'UI.
 	
 
 
@@ -57,5 +58,4 @@
 	
 	
 ///// WORKFLOW :
-	- OnValidate sur PlayerController pour refresh RollDatas et JumpDatas (pour les changements de ref de SO).
 	- Importer la Debug Console et setup quelques commandes.
