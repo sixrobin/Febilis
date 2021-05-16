@@ -91,7 +91,7 @@
 
                 _playerCtrl.PlayerView.PlayAttackAnimation(AttackDir, CurrAttackDatas);
                 if (_playerCtrl.CollisionsCtrl.Below)
-                    _playerCtrl.PlayerView.PlayAttackVFX(AttackDir, 0.25f);
+                    _playerCtrl.PlayerView.PlayAttackMotionVFX(AttackDir, 0.25f, CurrAttackDatas.OverrideMotionVFXId);
 
                 // Attack motion.
                 for (float t = 0f; t < 1f; t += Time.deltaTime / CurrAttackDatas.Dur)

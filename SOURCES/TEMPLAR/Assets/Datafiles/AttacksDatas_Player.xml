@@ -83,6 +83,7 @@
          <FreezeFrameDur>0.08</FreezeFrameDur>
       </Hit>
       <Unstoppable/>
+      <ForceHurt/>
       <Recoil>
          <Force>4.5</Force>
          <Dur>0.25</Dur>
@@ -109,6 +110,7 @@
          <FreezeFrameDur>0.1</FreezeFrameDur>
       </Hit>
       <Unstoppable/>
+      <ForceHurt/>
       <Recoil>
          <Force>4.8</Force>
          <Dur>0.3</Dur>
@@ -124,6 +126,7 @@
          <Gravity>0.5</Gravity>
          <!--Move speed curve ? Id link to some curves database ?-->
       </ControlVelocity>
+      <OverrideMotionVFXId>Roll_Puff</OverrideMotionVFXId>
    </PlayerAttack>
 
    <PlayerAttack Id="Attack_Airborne">

@@ -48,23 +48,23 @@ MonoBehaviour:
   _overrideLogPrefix: 
   _enemiesDatas: {fileID: 4900000, guid: baf44483c3f4d6a4188f4d88a2e7d401, type: 3}
   _animationClips:
-  - {fileID: 7400000, guid: c8c920164fd433441870aef8fc42fb36, type: 2}
-  - {fileID: 7400000, guid: 0fe9bb554b030204eba14f47be98ec7c, type: 2}
-  - {fileID: 7400000, guid: 3e4d4d44e868802438e9b9c1bb8f5478, type: 2}
-  - {fileID: 7400000, guid: 1a9a60b7036ac94489d849518c3fb60b, type: 2}
-  - {fileID: 7400000, guid: 8311639e684cebb40a29559c54097738, type: 2}
-  - {fileID: 7400000, guid: 412eb3cc79c91b546b2730bbdad6030d, type: 2}
-  - {fileID: 7400000, guid: 42812e55b61152a4380019fbefa01b8d, type: 2}
   - {fileID: 7400000, guid: 5a5198a519bb09541964fe9b5771c2fc, type: 2}
-  - {fileID: 7400000, guid: db5ce7392f06cc44e8e6c4b71833cdac, type: 2}
-  - {fileID: 7400000, guid: 76a5faa5ee7222d41911af3b31bee62e, type: 2}
-  - {fileID: 7400000, guid: 5e0e759fc99e6d5438f6e8c33c4294e3, type: 2}
-  - {fileID: 7400000, guid: 0e5817bf3122aed4c88ed387030bff8d, type: 2}
-  - {fileID: 7400000, guid: 959cb790884267e4d8c92963e8b9e9c7, type: 2}
-  - {fileID: 7400000, guid: 67f139ccd5a2a7d4897db12e71cf7f44, type: 2}
-  - {fileID: 7400000, guid: 8d1b440771e0a4944ae326f3ade9c055, type: 2}
-  - {fileID: 7400000, guid: d8fd80ac0e7abb74985bb8f2718b0e1b, type: 2}
+  - {fileID: 7400000, guid: 42812e55b61152a4380019fbefa01b8d, type: 2}
+  - {fileID: 7400000, guid: 412eb3cc79c91b546b2730bbdad6030d, type: 2}
+  - {fileID: 7400000, guid: 8311639e684cebb40a29559c54097738, type: 2}
+  - {fileID: 7400000, guid: 1a9a60b7036ac94489d849518c3fb60b, type: 2}
+  - {fileID: 7400000, guid: 3e4d4d44e868802438e9b9c1bb8f5478, type: 2}
+  - {fileID: 7400000, guid: 0fe9bb554b030204eba14f47be98ec7c, type: 2}
+  - {fileID: 7400000, guid: c8c920164fd433441870aef8fc42fb36, type: 2}
   - {fileID: 7400000, guid: ae3d40aa1980d22418324dbb1eb0639a, type: 2}
+  - {fileID: 7400000, guid: d8fd80ac0e7abb74985bb8f2718b0e1b, type: 2}
+  - {fileID: 7400000, guid: 8d1b440771e0a4944ae326f3ade9c055, type: 2}
+  - {fileID: 7400000, guid: 67f139ccd5a2a7d4897db12e71cf7f44, type: 2}
+  - {fileID: 7400000, guid: 959cb790884267e4d8c92963e8b9e9c7, type: 2}
+  - {fileID: 7400000, guid: 0e5817bf3122aed4c88ed387030bff8d, type: 2}
+  - {fileID: 7400000, guid: 5e0e759fc99e6d5438f6e8c33c4294e3, type: 2}
+  - {fileID: 7400000, guid: 76a5faa5ee7222d41911af3b31bee62e, type: 2}
+  - {fileID: 7400000, guid: db5ce7392f06cc44e8e6c4b71833cdac, type: 2}
   clipsAssetsRootPath: Assets/Animations/Enemy
 --- !u!1 &4206304114253380134
 GameObject:

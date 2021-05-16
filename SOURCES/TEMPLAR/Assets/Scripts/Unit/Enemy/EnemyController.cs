@@ -124,7 +124,13 @@
             EnemyView.BlinkSpriteColor(delay: 0.025f);
 
             if (AttackCtrl.IsAttacking)
-                return;
+            {
+                if (!args.HitDatas.AttackDatas.ForceHurt)
+                    return;
+
+                AttackCtrl.CancelAttack();
+                _currAction.Reset();
+            }
 
             _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas);
             StartCoroutine(_hurtCoroutine = HurtCoroutine());

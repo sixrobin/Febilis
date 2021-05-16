@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3822653669306996304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3822653669306996306}
+  - component: {fileID: 3822653669306996307}
+  m_Layer: 0
+  m_Name: Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3822653669306996306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822653669306996304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3822653669306996307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822653669306996304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37480a2050f4c9f42bab3fbc0bcc72f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroy: 0
+  _verbose: 0
+  _pooledObjects:
+  - _id: DoubleJump_Puff
+    _gameObject: {fileID: 1349905492933044248, guid: 9432c447a8a61c440a2ff50b36827616,
+      type: 3}
+    _quantity: 3
+  - _id: Hit
+    _gameObject: {fileID: 689691094357144013, guid: 28054e9fcec27414aab1d5a21dc6a5ab,
+      type: 3}
+    _quantity: 10
+  - _id: Jump_Puff
+    _gameObject: {fileID: 1349905492933044248, guid: 0fc830367c0e6c147bb80ba419ad874b,
+      type: 3}
+    _quantity: 3
+  - _id: Land_Puff
+    _gameObject: {fileID: 1349905492933044248, guid: 1c0419291703ce34d81ae82e0ad2babf,
+      type: 3}
+    _quantity: 3
+  - _id: Roll_Puff
+    _gameObject: {fileID: 1349905492933044248, guid: 8f70f11872da7f84fafaaf543731e273,
+      type: 3}
+    _quantity: 3
+  - _id: Sleep_Sign
+    _gameObject: {fileID: 2784556869522552009, guid: 990a1bd35c452f34bb3d1b8a750d986d,
+      type: 3}
+    _quantity: 10

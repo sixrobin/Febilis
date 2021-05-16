@@ -66,7 +66,7 @@
             PlayerHealthCtrl.PlayerCtrl = this;
             PlayerHealthCtrl.Init(_baseHealth, OnUnitHealthChanged, OnUnitKilled);
 
-            ComputeJumpPhysics();
+            JumpCtrl.ComputeJumpPhysics();
 
             if (checkpoint != null)
                 transform.position = checkpoint.RespawnPos.AddY(Templar.Physics.RaycastsController.SKIN_WIDTH * 10f);
@@ -214,12 +214,6 @@
             _currentRecoil = null;
 
             StartDeadFadeCoroutine();
-        }
-
-        [ContextMenu("Compute Jump Physics")]
-        private void ComputeJumpPhysics()
-        {
-            JumpCtrl.ComputeJumpPhysics();
         }
 
         private void ResetVelocity()

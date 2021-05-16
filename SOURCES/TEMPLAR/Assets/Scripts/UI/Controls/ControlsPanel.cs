@@ -106,6 +106,9 @@
         private void LocateBindingPanels()
         {
             _bindingPanels = FindObjectsOfType<KeyBindingPanel>().OrderBy(o => o.transform.GetSiblingIndex()).ToArray();
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
+#endif
         }
     }
 }

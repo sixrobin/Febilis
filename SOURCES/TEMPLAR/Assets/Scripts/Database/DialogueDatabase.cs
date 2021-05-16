@@ -155,6 +155,7 @@
             _portraits = portraits.ToArray();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+            RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
 #endif
 

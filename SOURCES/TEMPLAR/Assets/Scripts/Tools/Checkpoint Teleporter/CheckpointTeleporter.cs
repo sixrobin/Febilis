@@ -18,11 +18,6 @@
 
         public static bool IsOpen { get; private set; }
 
-        private void ShowCheckpoints()
-        {
-            _checkpoints = FindObjectsOfType<Interaction.Checkpoint.CheckpointController>();
-        }
-
         private void OnTeleportButtonClicked(string checkpointId)
         {
             Interaction.Checkpoint.CheckpointController checkpoint = _checkpoints.Where(o => o.Id == checkpointId).First();
@@ -39,16 +34,14 @@
             if (_playerCtrl == null)
                 _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
 
-            _checkpoints = FindObjectsOfType<Interaction.Checkpoint.CheckpointController>();
+            _checkpoints = FindObjectsOfType<Interaction.Checkpoint.CheckpointController>().OrderBy(o => o.transform.name).ToArray();
             _teleportPanels = new CheckpointTeleportPanel[_checkpoints.Length];
 
-            for (int i = _checkpoints.Length - 1; i >= 0; --i)
+            for (int i = 0; i < _checkpoints.Length; ++i)
             {
                 _teleportPanels[i] = Instantiate(_teleportPanelTemplate, _teleportPanelsContainer);
                 _teleportPanels[i].Init(_checkpoints[i].Id, OnTeleportButtonClicked);
             }
-
-            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
         }
 
         private void Update()
@@ -57,6 +50,9 @@
             {
                 IsOpen = !IsOpen;
                 _canvas.enabled = IsOpen;
+
+                if (IsOpen)
+                    UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(_canvas.GetComponent<RectTransform>());
             }
         }
 

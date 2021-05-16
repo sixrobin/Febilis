@@ -41,7 +41,7 @@
             while (true)
             {
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(_signAppearanceRate);
-                StartCoroutine(SleepSignCoroutine(Instantiate(_sleepSignPrefab).transform)); // [TODO] Pooling.
+                StartCoroutine(SleepSignCoroutine(RSLib.Framework.Pool.Get(_sleepSignPrefab).transform));
             }
         }
 
@@ -60,7 +60,7 @@
                 yield return null;
             }
 
-            Destroy(sign.gameObject);
+            sign.gameObject.SetActive(false);
         }
 
         [ContextMenu("Toggle On")]

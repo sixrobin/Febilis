@@ -54,6 +54,7 @@
             _animationClips = clips.OrderBy(o => o.name).ToArray();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+            RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
 #endif
     }

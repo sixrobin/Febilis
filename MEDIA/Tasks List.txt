@@ -2,7 +2,6 @@
 	- Code pour faire durer le roll tant que le joueur ne peut se relever.
 	- Meilleur manager de sauvegarde.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
-	- Ramasser un item à la con, puis petite séquence de combat stylée contre 2 squelettes dans un genre d'arène.
 	- Première passe de sound design.
 
 
@@ -19,7 +18,8 @@
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
-	- Paramètre "ForceHurt" dans PlayerAttackDatas.
+	- Objets destructibles par la roulade ou l'attaque.
+	- Roll: courbe pour le Gravity multiplier.
 	
 
 
@@ -34,6 +34,7 @@
 	- Effectors.
 	- Templar_LookUp & Templar_LookDown.
 	- Templar_Attack_Up.
+	- Templar_Edge (façon Celeste).
 	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).
 	- Cellules de heal qui sont consommées/restorées (attendre d'avoir un graph plus def pour faire une anim autre qu'un placeholder).
 	- Templar_Death-Spikes.
@@ -56,5 +57,5 @@
 	
 	
 ///// WORKFLOW :
-	- RSLib : prefab dirty https://forum.unity.com/threads/can-prefabs-be-set-to-dirty-in-an-editor-script.598321/
+	- OnValidate sur PlayerController pour refresh RollDatas et JumpDatas (pour les changements de ref de SO).
 	- Importer la Debug Console et setup quelques commandes.

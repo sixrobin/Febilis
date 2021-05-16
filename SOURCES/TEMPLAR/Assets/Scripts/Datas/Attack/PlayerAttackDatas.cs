@@ -36,6 +36,8 @@
         public float MoveSpeed { get; private set; }
         public float Gravity { get; private set; }
 
+        public string OverrideMotionVFXId { get; private set; }
+
         public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
@@ -62,6 +64,9 @@
                 UnityEngine.Assertions.Assert.IsNotNull(gravityElement, "ControlVelocity must have a Gravity element.");
                 Gravity = gravityElement.ValueToFloat();
             }
+
+            XElement overrideMotionVFXIdElement = attackElement.Element("OverrideMotionVFXId");
+            OverrideMotionVFXId = overrideMotionVFXIdElement?.Value ?? string.Empty;
         }
     }
 }

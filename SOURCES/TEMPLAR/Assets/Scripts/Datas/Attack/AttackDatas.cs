@@ -47,6 +47,7 @@
         public Templar.Attack.HitDirComputationType HitDirComputationType { get; protected set; }
 
         public bool Unstoppable { get; private set; }
+        public bool ForceHurt { get; private set; }
 
         public RecoilDatas RecoilDatas { get; private set; }
 
@@ -86,6 +87,7 @@
             HitDirComputationType = hitDirComputationTypeElement?.ValueToEnum<Templar.Attack.HitDirComputationType>() ?? Templar.Attack.HitDirComputationType.ATTACK_DIR;
 
             Unstoppable = attackElement.Element("Unstoppable") != null;
+            ForceHurt = attackElement.Element("ForceHurt") != null;
 
             XElement recoilElement = attackElement.Element("Recoil");
             UnityEngine.Assertions.Assert.IsFalse(recoilElement.IsNullOrEmpty(), $"Recoil element is null or empty for attack {Id}.");

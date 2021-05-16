@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 5374643636102408335}
   - component: {fileID: 5374643636102408336}
   m_Layer: 11
-  m_Name: Gravestone Checkpoint 00
+  m_Name: Gravestone Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,7 +318,7 @@ MonoBehaviour:
   _checkpointView: {fileID: 5374643635582267456}
   _highlight: {fileID: 5374643637353166026}
   _id: First
-  _respawnOffset: {x: 2.2, y: 0.2}
+  _respawnOffset: {x: 2.2, y: 1}
   _debugColor: {fileID: 11400000, guid: fd429ad202fecb7448d967fad2704ace, type: 2}
 --- !u!1 &5374643636272465684
 GameObject:
