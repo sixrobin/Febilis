@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Templar Jump Datas_Test
   m_EditorClassIdentifier: 
   _jumpHeightMax: 2.3
-  _jumpHeightMin: 0.5
+  _jumpHeightMin: 0.8
   _jumpApexDur: 0.3
   _fallMultiplier: 1.05
   _airborneDamping: 0.05
