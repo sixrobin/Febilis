@@ -1,0 +1,33 @@
+Classe abstraite Item
+- Id
+- Category (weapon, usable, quest, misc, etc.)
+
+
+Classe Inventory
+- Liste de InventoryItem
+	- est un Item
+	- a une quantité
+	- paramètre "droppable" pour les objets de quête/stuff de base du perso (épée, potions)
+- Méthode Add()
+	- vérifie qu'un objet du même Id n'est pas déjà dans l'inventaire, et si c'est le cas, alors augmenter la quantité de celui-ci
+- Méthode Drop()
+- Méthode Remove() (pour supprimer de l'inventaire sans drop par terre).
+	
+	
+Sauvegarde :
+- Dans le xml, tag <Inventory>
+- Dans ce tag, lister chaque item avec son Id, et la quantité
+Au load, simplement créer des InventoryItem
+
+
+Classe InventoryView
+- Au moins autant de slots qu'il y a d'items dans le jeu
+
+
+
+Besoin d'un xml pour les noms et descriptions des items, par Id
+
+Prévoir un outil de debug :
+- pouvoir ajouter un item par Id
+- pouvoir ajuster les quantités d'un item
+- rendre toutes les actions (drop, use, etc.) dispos

@@ -3,6 +3,8 @@
 	- Meilleur manager de sauvegarde.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Première passe de sound design.
+	- Réfléchir à une façon d'adapter le visuel de l'UI aux différentes palettes.
+		- Shader ? Construction dynamique de Tex2D ?
 
 
 
@@ -22,11 +24,15 @@
 	- Roll: courbe pour le Gravity multiplier.
 	- Navigation manette pour l'UI.
 	- Rendre générique le "MoveToDialoguePos" pour un "MoveToInteractionPos".
+	- Système de monnaie.
+		- Drop sur les ennemis/objets détruits.
+		- Récolte.
+		- Affichage à l'écran.
+		- Sauvegarde.
 	
 
 
 ///// CONCEPTS
-	- Inventaire (quand on saura un peu plus ce qu'il y aura dedans).
 	- Options.
 	- Variante du Guardian avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc.
 

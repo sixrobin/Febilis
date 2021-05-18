@@ -22,7 +22,7 @@
         [SerializeField, Min(0f)] private float _cooldown = 0.1f;
 
         [Tooltip("Multiplier applied to gravity while controller is rolling airborne.")]
-        [SerializeField, Min(0f)] private float _gravityMult = 1f;
+        [SerializeField, Min(0f)] private AnimationCurve _gravityMultCurve = RSLib.AnimationCurves.One;
 
         [Tooltip("Multiplier applied to roll animation speed.")]
         [SerializeField] private float _animMult = 1f;
@@ -33,7 +33,7 @@
         public AnimationCurve SpeedCurve => _speedCurve;
         public float Cooldown => _cooldown;
         public bool HasCooldown => Cooldown > 0;
-        public float GravityMult => _gravityMult;
+        public AnimationCurve GravityMultCurve => _gravityMultCurve;
         public float AnimMult => _animMult;
     }
 }

@@ -33,11 +33,5 @@
 
             Instance._freezeFrameCoroutine = null;
         }
-
-        private void Update()
-        {
-            if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.F))
-                FreezeFrame(0, 2f);
-        }
     }
 }
