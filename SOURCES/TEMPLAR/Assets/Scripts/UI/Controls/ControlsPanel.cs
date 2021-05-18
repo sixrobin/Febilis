@@ -13,6 +13,7 @@
         [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
         [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
+        [SerializeField] private UnityEngine.UI.Button _backBtn = null;
 
         private KeyBindingPanel _currentlyAssignedPanel;
         private RectTransform _rectTransform;
@@ -39,6 +40,41 @@
             {
                 UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
                 _controlsScrollBar.value = 1f;
+            }
+        }
+
+        private void InitBindingsPanelsNavigation()
+        {
+            for (int i = 0; i < _bindingPanels.Length; ++i)
+            {
+                bool first = i == 0;
+                bool last = i == _bindingPanels.Length - 1 || !_bindingPanels[i + 1].gameObject.activeSelf;
+
+                if (first)
+                    _bindingPanels[i].SetUpNavigation(_backBtn);
+                else
+                    _bindingPanels[i].SetUpNavigation(_bindingPanels[i - 1]);
+
+                if (!last)
+                {
+                    _bindingPanels[i].SetDownNavigation(_bindingPanels[i + 1]);
+                    continue;
+                }
+
+                _bindingPanels[i].SetDownNavigation(_resetBindingsBtn);
+
+                UnityEngine.UI.Navigation nav = new UnityEngine.UI.Navigation()
+                {
+                    mode = UnityEngine.UI.Navigation.Mode.Explicit,
+                    selectOnUp = _bindingPanels[i],
+                    selectOnDown = _resetBindingsBtn.navigation.selectOnDown,
+                    selectOnLeft = _resetBindingsBtn.navigation.selectOnLeft,
+                    selectOnRight = _resetBindingsBtn.navigation.selectOnRight
+                };
+
+                _resetBindingsBtn.navigation = nav;
+
+                break;
             }
         }
 
@@ -95,6 +131,7 @@
             }
 
             UpdateAllBindingsPanels();
+            InitBindingsPanelsNavigation();
         }
 
         private void OnDestroy()

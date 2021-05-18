@@ -5,6 +5,7 @@
     public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
     {
         [SerializeField] private UI.ControlsPanel _controlsPanel = null;
+        [SerializeField] private GameObject _selectedObjectOnOpen = null;
 
         public delegate void OptionsToggleEventHandler();
 
@@ -22,6 +23,8 @@
         {
             OptionsPanelDisplayed = true;
             _controlsPanel.Display(true);
+
+            UI.Navigation.UINavigationManager.Select(_selectedObjectOnOpen);
 
             OptionsOpened?.Invoke();
         }

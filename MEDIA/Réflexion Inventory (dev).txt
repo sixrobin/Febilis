@@ -19,6 +19,8 @@ Sauvegarde :
 - Dans ce tag, lister chaque item avec son Id, et la quantité
 Au load, simplement créer des InventoryItem
 
+- Need un "InitInventory" xml pour initialiser l'inventaire au premier lancement.
+
 
 Classe InventoryView
 - Au moins autant de slots qu'il y a d'items dans le jeu

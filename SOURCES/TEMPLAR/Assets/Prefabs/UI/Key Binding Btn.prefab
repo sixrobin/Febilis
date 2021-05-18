@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5054912848307908122}
   - component: {fileID: 8563730210752693341}
   - component: {fileID: 6211617073966300150}
-  - component: {fileID: 7891059360370397662}
+  - component: {fileID: 5731819616687949304}
   m_Layer: 5
   m_Name: Key Binding Btn
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7891059360370397662
+--- !u!114 &5731819616687949304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,16 +85,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5116579580543232499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2abeac4fd1fef24fa120ab12903a779, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b2c30dfebc10b647a1d4a8257276c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -150,8 +150,8 @@ MonoBehaviour:
   _onInteractableChanged:
     m_PersistentCalls:
       m_Calls: []
-  _buttonText: {fileID: 0}
-  _nonInteractableTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _buttonText: {fileID: 6691157606448856822}
+  _nonInteractableTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7648295666318492114
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@
             for (int i = _enabledOnLightBurst.Length - 1; i >= 0; --i)
                 _enabledOnLightBurst[i].SetActive(true);
         }
-
+        
         public void PlayOnAnimation()
         {
             _animator.SetTrigger(ON);
