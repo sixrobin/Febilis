@@ -490,7 +490,7 @@
             if (IsDialoguing)
                 return;
 
-            if (_inputsAllowed && !Tools.CheckpointTeleporter.IsOpen && !Manager.OptionsManager.OptionsPanelDisplayed)
+            if (_inputsAllowed && !Tools.CheckpointTeleporter.IsOpen && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame())
                 InputCtrl.Update();
 
             if (IsDead)

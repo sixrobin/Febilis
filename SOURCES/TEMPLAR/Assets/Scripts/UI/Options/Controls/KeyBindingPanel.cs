@@ -1,4 +1,4 @@
-﻿namespace Templar.UI
+﻿namespace Templar.UI.Options.Controls   
 {
     using RSLib.Extensions;
     using UnityEngine;

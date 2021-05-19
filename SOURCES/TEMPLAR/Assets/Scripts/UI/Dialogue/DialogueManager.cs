@@ -41,7 +41,10 @@
 
         public static bool CheckSkipInput()
         {
-            return RSLib.Framework.InputSystem.InputManager.GetAnyInputDown(Unit.Player.PlayerInputController.JUMP, Unit.Player.PlayerInputController.ATTACK);
+            return RSLib.Framework.InputSystem.InputManager.GetAnyInputDown(
+                Unit.Player.PlayerInputController.JUMP,
+                Unit.Player.PlayerInputController.INTERACT,
+                Unit.Player.PlayerInputController.ATTACK);
         }
 
         public static void MarkSentenceAsSkipped()

@@ -29,13 +29,22 @@
 		- Récolte.
 		- Affichage à l'écran.
 		- Sauvegarde.
-	- Navigation UI
-		- Switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
-		- Filer une interface "IUIPanel" au UINavManager pour faciliter le code et la lecture.
-		- Interface IUIPanel
-			- FirstSelected: GameObject
-			- OnBackButtonPressed: void() -> (appelée dans UINavManager ?)
+	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non ?
 	
+
+
+///// OPTIONS
+	- Audio
+		- Master
+		- SFX
+		- UI
+		- Music
+	- Video
+		- Pixel perfect
+		- Shake amount
+		- Screen size ?
+		- Target frame rate (15, 30, 60, max)
+
 
 
 ///// CONCEPTS
@@ -72,3 +81,4 @@
 	
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
+	- Bouton "Debug" dans les options pour pouvoir debugger certains trucs à la manette ? Et pour aussi tout regrouper dans un même menu.

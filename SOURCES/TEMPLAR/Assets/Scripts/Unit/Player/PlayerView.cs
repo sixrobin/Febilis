@@ -252,7 +252,7 @@
 
         private void UpdateIdleBreakAndSleeping()
         {
-            if (Manager.OptionsManager.OptionsPanelDisplayed)
+            if (Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame())
                 return;
 
             _previousStateHash = _currStateHash;

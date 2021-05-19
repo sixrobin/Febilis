@@ -1,4 +1,4 @@
-﻿namespace Templar.UI
+﻿namespace Templar.UI.Options.Controls
 {
     using RSLib.Extensions;
     using RSLib.Framework.InputSystem;
@@ -6,17 +6,14 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public class ControlsPanel : MonoBehaviour
+    public class ControlsPanel : OptionPanelBase
     {
-        [SerializeField] private Canvas _canvas = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _controlsScrollBar = null;
         [SerializeField] private KeyBindingPanel[] _bindingPanels = null;
         [SerializeField] private GameObject _assignKeyScreen = null;
         [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
         [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _backBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _quitBtn = null;
 
         private KeyBindingPanel _currentlyAssignedPanel;
         private RectTransform _rectTransform;
@@ -26,21 +23,29 @@
             get
             {
                 if (_rectTransform == null)
-                    _rectTransform = _canvas.GetComponent<RectTransform>();
+                    _rectTransform = Canvas.GetComponent<RectTransform>();
 
                 return _rectTransform;
             }
         }
 
-        public UnityEngine.UI.Button BackBtn => _backBtn;
-        public UnityEngine.UI.Button QuitBtn => _quitBtn;
+        public override GameObject FirstSelected => BackBtn.gameObject;
 
-        public bool Displayed { get; private set; }
-
-        public void Display(bool show)
+        public override void OnBackButtonPressed()
         {
-            Displayed = show;
-            _canvas.enabled = Displayed;
+            // Players may want to assign the key that is used to go back.
+            if (InputManager.IsAssigningKey)
+                return;
+
+            base.OnBackButtonPressed();
+
+            InputManager.SaveCurrentMap(); // [TODO] Validate popup ? Or just don't save ?
+            Manager.OptionsManager.Instance.OpenSettings();
+        }
+
+        public override void Display(bool show)
+        {
+            base.Display(show);
 
             if (show)
             {
@@ -58,8 +63,8 @@
 
                 if (first)
                 {
-                    _bindingPanels[i].BaseBtnButton.SetSelectOnUp(_backBtn);
-                    _bindingPanels[i].AltBtnButton.SetSelectOnUp(_quitBtn);
+                    _bindingPanels[i].BaseBtnButton.SetSelectOnUp(BackBtn);
+                    _bindingPanels[i].AltBtnButton.SetSelectOnUp(QuitBtn);
                 }
                 else
                 {
@@ -121,8 +126,10 @@
             UpdateAllBindingsPanels();
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             _resetBindingsBtn.onClick.AddListener(ResetBindings);
 
             for (int i = 0; i < _bindingPanels.Length; ++i)
