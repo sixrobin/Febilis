@@ -24,6 +24,7 @@
             OptionsPanelDisplayed = true;
             _controlsPanel.Display(true);
 
+            // [TMP] Working only while controls panel is the only one existing.
             UI.Navigation.UINavigationManager.Select(_selectedObjectOnOpen);
 
             OptionsOpened?.Invoke();
@@ -31,11 +32,25 @@
 
         public void Close()
         {
+            StartCoroutine(CloseAtEndOfFrame());
+        }
+
+        private System.Collections.IEnumerator CloseAtEndOfFrame()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+
             OptionsPanelDisplayed = false;
             _controlsPanel.Display(false);
             RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
 
             OptionsClosed?.Invoke();
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _controlsPanel.QuitBtn.onClick.AddListener(Close);
         }
 
         private void Update()
@@ -50,6 +65,11 @@
                 else
                     Open();
             }
+        }
+
+        private void OnDestroy()
+        {
+            _controlsPanel.QuitBtn.onClick.RemoveListener(Close);
         }
     }
 }

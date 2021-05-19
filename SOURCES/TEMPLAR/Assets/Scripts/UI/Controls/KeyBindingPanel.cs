@@ -1,67 +1,70 @@
 ﻿namespace Templar.UI
 {
+    using RSLib.Extensions;
     using UnityEngine;
 
+    [DisallowMultipleComponent]
     public class KeyBindingPanel : UnityEngine.UI.Selectable, UnityEngine.EventSystems.ISelectHandler
     {
         [SerializeField] private TMPro.TextMeshProUGUI _actionName = null;
-        [SerializeField] private TMPro.TextMeshProUGUI _btnName = null;
-        [SerializeField] private TMPro.TextMeshProUGUI _altBtnName = null;
-
-        [SerializeField] private KeyBindingButton _baseBtnButton = null;
-        [SerializeField] private KeyBindingButton _altBtnButton = null;
+        [SerializeField] private KeyBindingButton _baseBtn = null;
+        [SerializeField] private KeyBindingButton _altBtn = null;
 
         private (KeyCode btn, KeyCode altBtn) _btns;
 
         public string ActionId { get; private set; }
 
-        public UnityEngine.UI.Button BaseBtnButton => _baseBtnButton;
-        public UnityEngine.UI.Button AltBtnButton => _altBtnButton;
+        public UnityEngine.UI.Button BaseBtnButton => _baseBtn;
+        public UnityEngine.UI.Button AltBtnButton => _altBtn;
 
+        /// <summary>Redirects the UI navigation to the base button, so that the panel can be set as a selectable.</summary>
+        /// <param name="eventData">Navigation event data.</param>
         public override void OnSelect(UnityEngine.EventSystems.BaseEventData eventData)
         {
             base.OnSelect(eventData);
-            UI.Navigation.UINavigationManager.Select(_baseBtnButton.gameObject);
+            Navigation.UINavigationManager.Select(_baseBtn.gameObject);
         }
 
         public void Init(string actionId, (KeyCode btn, KeyCode alt) btns)
         {
-            _baseBtnButton.SetHorizontalNavigation(_altBtnButton);
-            _altBtnButton.SetHorizontalNavigation(_baseBtnButton);
-
             ActionId = actionId;
             _btns = btns;
 
+            _baseBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _altBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _baseBtn.SetSelectOnRight(_altBtn);
+            _altBtn.SetSelectOnLeft(_baseBtn);
+
             // [TODO] Need some sprites or localized texts for some KeyCodes (like JoystickButton0, LeftAlt etc.).
             _actionName.text = ActionId.ToString();
-            _btnName.text = _btns.btn != KeyCode.None ? _btns.btn.ToString() : string.Empty;
-            _altBtnName.text = _btns.altBtn != KeyCode.None ? _btns.altBtn.ToString() : string.Empty;
+            _baseBtn.SetText(_btns.btn != KeyCode.None ? _btns.btn.ToString() : string.Empty);
+            _altBtn.SetText(_btns.altBtn != KeyCode.None ? _btns.altBtn.ToString() : string.Empty);
 
             Show();
         }
 
-        public void SetUpNavigation(UnityEngine.UI.Selectable selectable)
+        public void SetSelectOnUp(UnityEngine.UI.Selectable selectable)
         {
-            _baseBtnButton.SetUpNavigation(selectable);
-            _altBtnButton.SetUpNavigation(selectable);
+            _baseBtn.SetSelectOnUp(selectable);
+            _altBtn.SetSelectOnUp(selectable);
         }
 
-        public void SetUpNavigation(KeyBindingPanel bindingPanel)
+        public void SetPanelOnUp(KeyBindingPanel bindingPanel)
         {
-            _baseBtnButton.SetUpNavigation(bindingPanel.BaseBtnButton);
-            _altBtnButton.SetUpNavigation(bindingPanel.AltBtnButton);
+            _baseBtn.SetSelectOnUp(bindingPanel.BaseBtnButton);
+            _altBtn.SetSelectOnUp(bindingPanel.AltBtnButton);
         }
 
-        public void SetDownNavigation(UnityEngine.UI.Selectable selectable)
+        public void SetSelectOnDown(UnityEngine.UI.Selectable selectable)
         {
-            _baseBtnButton.SetDownNavigation(selectable);
-            _altBtnButton.SetDownNavigation(selectable);
+            _baseBtn.SetSelectOnDown(selectable);
+            _altBtn.SetSelectOnDown(selectable);
         }
 
-        public void SetDownNavigation(KeyBindingPanel bindingPanel)
+        public void SetPanelOnDown(KeyBindingPanel bindingPanel)
         {
-            _baseBtnButton.SetDownNavigation(bindingPanel.BaseBtnButton);
-            _altBtnButton.SetDownNavigation(bindingPanel.AltBtnButton);
+            _baseBtn.SetSelectOnDown(bindingPanel.BaseBtnButton);
+            _altBtn.SetSelectOnDown(bindingPanel.AltBtnButton);
         }
 
         public void OverrideKey(KeyCode btn, bool alt)
@@ -71,8 +74,8 @@
             else
                 _btns.btn = btn;
 
-            _btnName.text = _btns.btn.ToString();
-            _altBtnName.text = _btns.altBtn.ToString();
+            _baseBtn.SetText(_btns.btn.ToString());
+            _altBtn.SetText(_btns.altBtn.ToString());
         }
 
         public void Show()

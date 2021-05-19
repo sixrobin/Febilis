@@ -21,9 +21,9 @@
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
 	- Objets destructibles par la roulade ou l'attaque.
-	- Navigation manette pour l'UI.
-	- Rendre générique le "MoveToDialoguePos" pour un "MoveToInteractionPos".
+	- Méthode LookAt() dans UnitController qui flip le sprite ou non et change la CurrDir.
 	- Controls : bouton pour valider (et ne PAS valider les modifs si on fait juste un retour).
+		- Réutiliser la coroutine Assign de InputManager en lui filant une Map custom et override la map ensuite ?
 	- Système de monnaie.
 		- Drop sur les ennemis/objets détruits.
 		- Récolte.
@@ -31,11 +31,10 @@
 		- Sauvegarde.
 	- Navigation UI
 		- Switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
-		- Controls : navigation up/down entre les buttons doit se faire entre base et alternate.
-		- Méthode générique dans RSLib pour override les selectable des navigations (extension de Selectable).
-		- Pas de navigation droite gauche entre les bindings entre les bords.
-		- Pouvoir revenir avec B (interface IUIBack qui file au UINavManager le bouton à listen ou truc du genre ?).
-			- Attention à ne pas faire comme EtG et bien avoir une coroutine qui ne quitte pas sur la même frame que l'input.
+		- Filer une interface "IUIPanel" au UINavManager pour faciliter le code et la lecture.
+		- Interface IUIPanel
+			- FirstSelected: GameObject
+			- OnBackButtonPressed: void() -> (appelée dans UINavManager ?)
 	
 
 

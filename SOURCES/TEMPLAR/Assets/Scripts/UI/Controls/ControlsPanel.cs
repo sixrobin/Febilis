@@ -1,9 +1,11 @@
 ﻿namespace Templar.UI
 {
+    using RSLib.Extensions;
     using RSLib.Framework.InputSystem;
     using System.Linq;
     using UnityEngine;
 
+    [DisallowMultipleComponent]
     public class ControlsPanel : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas = null;
@@ -14,6 +16,7 @@
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
         [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
         [SerializeField] private UnityEngine.UI.Button _backBtn = null;
+        [SerializeField] private UnityEngine.UI.Button _quitBtn = null;
 
         private KeyBindingPanel _currentlyAssignedPanel;
         private RectTransform _rectTransform;
@@ -28,6 +31,9 @@
                 return _rectTransform;
             }
         }
+
+        public UnityEngine.UI.Button BackBtn => _backBtn;
+        public UnityEngine.UI.Button QuitBtn => _quitBtn;
 
         public bool Displayed { get; private set; }
 
@@ -51,28 +57,24 @@
                 bool last = i == _bindingPanels.Length - 1 || !_bindingPanels[i + 1].gameObject.activeSelf;
 
                 if (first)
-                    _bindingPanels[i].SetUpNavigation(_backBtn);
+                {
+                    _bindingPanels[i].BaseBtnButton.SetSelectOnUp(_backBtn);
+                    _bindingPanels[i].AltBtnButton.SetSelectOnUp(_quitBtn);
+                }
                 else
-                    _bindingPanels[i].SetUpNavigation(_bindingPanels[i - 1]);
+                {
+                    _bindingPanels[i].SetPanelOnUp(_bindingPanels[i - 1]);
+                }
 
                 if (!last)
                 {
-                    _bindingPanels[i].SetDownNavigation(_bindingPanels[i + 1]);
+                    _bindingPanels[i].SetPanelOnDown(_bindingPanels[i + 1]);
                     continue;
                 }
 
-                _bindingPanels[i].SetDownNavigation(_resetBindingsBtn);
-
-                UnityEngine.UI.Navigation nav = new UnityEngine.UI.Navigation()
-                {
-                    mode = UnityEngine.UI.Navigation.Mode.Explicit,
-                    selectOnUp = _bindingPanels[i],
-                    selectOnDown = _resetBindingsBtn.navigation.selectOnDown,
-                    selectOnLeft = _resetBindingsBtn.navigation.selectOnLeft,
-                    selectOnRight = _resetBindingsBtn.navigation.selectOnRight
-                };
-
-                _resetBindingsBtn.navigation = nav;
+                _resetBindingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+                _resetBindingsBtn.SetSelectOnUp(_bindingPanels[i]);
+                _bindingPanels[i].SetSelectOnDown(_resetBindingsBtn);
 
                 break;
             }

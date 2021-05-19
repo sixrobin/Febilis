@@ -68,7 +68,7 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
 
             if (sourceSpeaker is Interaction.Dialogue.INpcSpeaker npcSpeaker)
-                yield return Manager.GameManager.PlayerCtrl.PrepareDialogueCoroutine(npcSpeaker);
+                yield return Manager.GameManager.PlayerCtrl.GoToInteractionPosition(npcSpeaker.SpeakerPos, npcSpeaker.PlayerDialoguePivot);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
             Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();

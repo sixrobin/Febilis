@@ -390,24 +390,27 @@
             JumpCtrl.JumpAllowedThisFrame = false;
         }
 
-        public System.Collections.IEnumerator PrepareDialogueCoroutine(Interaction.Dialogue.INpcSpeaker npcSpeaker)
+        /// <summary>Moves the player to a given position before doing an interaction.</summary>
+        /// <param name="interactablePos">Source interaction position, that the player will look at.</param>
+        /// <param name="playerInteractionPivot">Position the player will reach before looking at interactable source, and interacting with it. Can be null.</param>
+        public System.Collections.IEnumerator GoToInteractionPosition(Vector3 interactablePos, Transform playerInteractionPivot)
         {
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
 
             AttackCtrl.CancelAttack();
             RollCtrl.Interrupt();
 
-            if (npcSpeaker.PlayerDialoguePivot == null)
+            if (playerInteractionPivot == null)
             {
-                CurrDir = Mathf.Sign(npcSpeaker.SpeakerPos.x - transform.position.x);
+                CurrDir = Mathf.Sign(interactablePos.x - transform.position.x);
                 PlayerView.FlipX(CurrDir < 0f);
                 yield break;
             }
 
-            CurrDir = Mathf.Sign(npcSpeaker.PlayerDialoguePivot.position.x - transform.position.x);
+            CurrDir = Mathf.Sign(playerInteractionPivot.position.x - transform.position.x);
             PlayerView.PlayRunAnimation(CurrDir);
 
-            while (Mathf.Abs(transform.position.x - npcSpeaker.PlayerDialoguePivot.position.x) > CtrlDatas.RunSpeed * Time.deltaTime + 0.05f)
+            while (Mathf.Abs(transform.position.x - playerInteractionPivot.position.x) > CtrlDatas.RunSpeed * Time.deltaTime + 0.05f)
             {
                 // [TMP] Not sure if actually TMP, but maybe we should think of a better way to do this because it currently
                 // is just a copy/paste of the Move() method.
@@ -426,12 +429,12 @@
                 yield return null;
             }
 
-            transform.SetPositionX(npcSpeaker.PlayerDialoguePivot.position.x);
+            transform.SetPositionX(playerInteractionPivot.position.x);
             PlayerView.StopRunAnimation();
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
 
-            CurrDir = Mathf.Sign(npcSpeaker.SpeakerPos.x - transform.position.x);
+            CurrDir = Mathf.Sign(interactablePos.x - transform.position.x);
             PlayerView.FlipX(CurrDir < 0f);
         }
 
