@@ -39,6 +39,12 @@
             Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown);
         }
 
+        public void LookAt(Vector3 target)
+        {
+            CurrDir = Mathf.Sign(target.x - transform.position.x);
+            UnitView.FlipX(CurrDir < 0f);
+        }
+
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
             if (collisionInfos.Hit && KillTrigger.SharedKillTriggers.ContainsKey(collisionInfos.Hit.collider))

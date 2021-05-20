@@ -67,6 +67,11 @@
             _altBtn.SetSelectOnDown(bindingPanel.AltBtnButton);
         }
 
+        public bool IsKeyDifferent(KeyCode btn, bool alt)
+        {
+            return alt ? _btns.altBtn != btn : _btns.btn != btn;
+        }
+
         public void OverrideKey(KeyCode btn, bool alt)
         {
             if (alt)

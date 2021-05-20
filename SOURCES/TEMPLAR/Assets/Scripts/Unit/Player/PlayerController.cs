@@ -402,8 +402,7 @@
 
             if (playerInteractionPivot == null)
             {
-                CurrDir = Mathf.Sign(interactablePos.x - transform.position.x);
-                PlayerView.FlipX(CurrDir < 0f);
+                LookAt(interactablePos);
                 yield break;
             }
 
@@ -434,8 +433,7 @@
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
 
-            CurrDir = Mathf.Sign(interactablePos.x - transform.position.x);
-            PlayerView.FlipX(CurrDir < 0f);
+            LookAt(interactablePos);
         }
 
         private System.Collections.IEnumerator HurtCoroutine(float dir)

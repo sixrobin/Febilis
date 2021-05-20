@@ -21,9 +21,7 @@
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
 	- Objets destructibles par la roulade ou l'attaque.
-	- Méthode LookAt() dans UnitController qui flip le sprite ou non et change la CurrDir.
-	- Controls : bouton pour valider (et ne PAS valider les modifs si on fait juste un retour).
-		- Réutiliser la coroutine Assign de InputManager en lui filant une Map custom et override la map ensuite ?
+	- Controls : popup de confirm quand on fait un retour arrière/close avec des modifs non sauvegardées.
 	- Système de monnaie.
 		- Drop sur les ennemis/objets détruits.
 		- Récolte.

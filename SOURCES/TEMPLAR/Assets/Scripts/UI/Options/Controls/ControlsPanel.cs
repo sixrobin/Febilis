@@ -14,9 +14,14 @@
         [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
         [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
+        [SerializeField] private UnityEngine.UI.Button _saveBindingsBtn = null;
 
+        private InputMap _editedMap;
         private KeyBindingPanel _currentlyAssignedPanel;
         private RectTransform _rectTransform;
+
+        private bool _navigationInit;
+        private bool _uncommittedChanged;
 
         private RectTransform RectTransform
         {
@@ -37,9 +42,10 @@
             if (InputManager.IsAssigningKey)
                 return;
 
-            base.OnBackButtonPressed();
+            if (_uncommittedChanged)
+                Debug.Log("Controls panel quit without committing changes. Open confirmation popup ?");
 
-            InputManager.SaveCurrentMap(); // [TODO] Validate popup ? Or just don't save ?
+            base.OnBackButtonPressed();
             Manager.OptionsManager.Instance.OpenSettings();
         }
 
@@ -49,13 +55,27 @@
 
             if (show)
             {
+                ResetEditedMap();
+                InitBindingsPanelsNavigation();
+
                 UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
                 _controlsScrollBar.value = 1f;
+                _uncommittedChanged = false;
             }
+        }
+
+        private void SaveBindings()
+        {
+            InputManager.SetMap(_editedMap);
+            InputManager.SaveCurrentMap();
+            OnBackButtonPressed();
         }
 
         private void InitBindingsPanelsNavigation()
         {
+            if (_navigationInit)
+                return;
+
             for (int i = 0; i < _bindingPanels.Length; ++i)
             {
                 bool first = i == 0;
@@ -78,17 +98,27 @@
                 }
 
                 _resetBindingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
-                _resetBindingsBtn.SetSelectOnUp(_bindingPanels[i]);
-                _bindingPanels[i].SetSelectOnDown(_resetBindingsBtn);
+                _saveBindingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+
+                _resetBindingsBtn.SetSelectOnUp(_bindingPanels[i].BaseBtnButton);
+                _saveBindingsBtn.SetSelectOnUp(_bindingPanels[i].AltBtnButton);
+
+                _bindingPanels[i].BaseBtnButton.SetSelectOnDown(_resetBindingsBtn);
+                _bindingPanels[i].AltBtnButton.SetSelectOnDown(_saveBindingsBtn);
 
                 break;
             }
+
+            _navigationInit = true;
         }
 
         private void OnKeyAssigned(string actionId, KeyCode btn, bool alt)
         {
             UnityEngine.Assertions.Assert.IsNotNull(_currentlyAssignedPanel, "Trying to assign button to a null panel.");
             UnityEngine.Assertions.Assert.IsTrue(actionId == _currentlyAssignedPanel.ActionId, "Assigned panel action Id and system assigned action Id are not the same.");
+
+            if (!_uncommittedChanged && _currentlyAssignedPanel.IsKeyDifferent(btn, alt))
+                _uncommittedChanged = true;
 
             _currentlyAssignedPanel.OverrideKey(btn, alt);
             _currentlyAssignedPanel = null;
@@ -105,32 +135,41 @@
             _currentlyAssignedPanel = bindingPanel;
             _assignKeyScreen.SetActive(true);
             _assignKeyText.text = $"Assign key to <color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>...";
-            InputManager.AssignKey(_currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
+
+            InputManager.AssignKey(_editedMap, _currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
 
         private void UpdateAllBindingsPanels()
         {
             int i = 0;
-            System.Collections.Generic.Dictionary<string, (KeyCode btn, KeyCode altBtn)> allBindings = InputManager.GetMapCopy();
 
-            foreach (System.Collections.Generic.KeyValuePair<string, (KeyCode btn, KeyCode altBtn)> binding in allBindings)
+            foreach (System.Collections.Generic.KeyValuePair<string, (KeyCode btn, KeyCode altBtn)> binding in _editedMap.MapCopy)
                 _bindingPanels[i++].Init(binding.Key, binding.Value);
 
             for (; i < _bindingPanels.Length; ++i)
                 _bindingPanels[i].Hide();
         }
 
-        private void ResetBindings()
+        private void ResetEditedMap()
         {
-            InputManager.RestoreDefaultMap();
+            _editedMap = new InputMap(InputManager.GetMapCopy());
             UpdateAllBindingsPanels();
+        }
+
+        private void ResetDefaultMap()
+        {
+            _editedMap = InputManager.GetDefaultMapCopy();
+            UpdateAllBindingsPanels();
+
+            _uncommittedChanged = true;
         }
 
         protected override void Start()
         {
             base.Start();
 
-            _resetBindingsBtn.onClick.AddListener(ResetBindings);
+            _resetBindingsBtn.onClick.AddListener(ResetDefaultMap);
+            _saveBindingsBtn.onClick.AddListener(SaveBindings);
 
             for (int i = 0; i < _bindingPanels.Length; ++i)
             {
@@ -138,14 +177,12 @@
                 _bindingPanels[i].BaseBtnButton.onClick.AddListener(() => AssignKey(panel, false));
                 _bindingPanels[i].AltBtnButton.onClick.AddListener(() => AssignKey(panel, true));
             }
-
-            UpdateAllBindingsPanels();
-            InitBindingsPanelsNavigation();
         }
 
         private void OnDestroy()
         {
-            _resetBindingsBtn.onClick.RemoveAllListeners();
+            _resetBindingsBtn.onClick.RemoveListener(ResetDefaultMap);
+            _saveBindingsBtn.onClick.RemoveListener(SaveBindings);
         }
 
         [ContextMenu("Locate binding panels")]
