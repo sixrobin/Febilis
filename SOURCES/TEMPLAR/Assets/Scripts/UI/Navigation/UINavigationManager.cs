@@ -5,16 +5,40 @@
 
     public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
     {
+        private const string INPUT_BACK = "UICancel";
+
+        [SerializeField] private ConfirmationPopup _confirmationPopup = null;
+
 #if UNITY_EDITOR
         [Header("DEBUG")]
         [SerializeField] private GameObject _currSelection = null;
 #endif
 
-        private static IUIPanel _currOpenPanel;
+        private static UIPanel _currOpenPanel;
 
-        public static void OpenAndSelect(IUIPanel uiPanel)
+        public static ConfirmationPopup ConfirmationPopup
+        {
+            get
+            {
+                if (Instance._confirmationPopup == null)
+                {
+                    Instance.LogWarning("ConfirmationPopup reference is missing, trying to get it dynamically...", Instance.gameObject);
+                    Instance._confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+
+                    if (Instance._confirmationPopup == null)
+                        Instance.LogError("No ConfirmationPopup instance has been found in the scene!", Instance.gameObject);
+                }
+
+                return Instance._confirmationPopup;
+            }
+        }
+
+        public static GameObject CurrentlySelected => EventSystem.current.currentSelectedGameObject;
+
+        public static void OpenAndSelect(UIPanel uiPanel)
         {
             UnityEngine.Assertions.Assert.IsNotNull(uiPanel, "Trying to open a null panel.");
+            Instance.Log($"Opening {uiPanel.transform.name}.", uiPanel.gameObject);
 
             _currOpenPanel = uiPanel;
             _currOpenPanel.Open();
@@ -26,10 +50,9 @@
             if (_currOpenPanel == null)
                 return;
 
+            Instance.Log($"Closing {_currOpenPanel.transform.name}.", _currOpenPanel.gameObject);
             _currOpenPanel.Close();
             _currOpenPanel = null;
-
-            NullifySelected();
         }
 
         public static void Select(GameObject selected)
@@ -47,12 +70,14 @@
             if (_currOpenPanel == null)
                 return;
 
-            if (Input.GetButtonDown("UICancel")) // [TMP] Hardcoded input string.
+            if (Input.GetButtonDown(INPUT_BACK))
                 _currOpenPanel.OnBackButtonPressed();
         }
 
         private static void SetSelectedGameObject(GameObject selected)
         {
+            Instance.Log($"Selecting {selected?.transform.name ?? "none"}.", selected?.gameObject ?? null);
+
             if (EventSystem.current.alreadySelecting)
             {
                 Instance.StartCoroutine(Instance.SetSelectedGameObjectDelayed(selected));
@@ -75,6 +100,13 @@
 #if UNITY_EDITOR
             _currSelection = EventSystem.current.currentSelectedGameObject;
 #endif
+        }
+
+        [ContextMenu("Locate Confirmation Popup")]
+        private void LocateConfirmationPopup()
+        {
+            _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
 }

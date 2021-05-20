@@ -21,17 +21,24 @@
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
 	- Objets destructibles par la roulade ou l'attaque.
-	- Controls : popup de confirm quand on fait un retour arrière/close avec des modifs non sauvegardées.
 	- Système de monnaie.
 		- Drop sur les ennemis/objets détruits.
 		- Récolte.
 		- Affichage à l'écran.
 		- Sauvegarde.
-	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non ?
+	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
+		- Interface/Component INavigationModeSwitcher qui change quand on détecte OnPointerEnter/OnSelected (= respectivement events curseur/manette) ?
+		- Voir si repasser la navigation en None garde en mémoire les SelectOnDirection, pour quand on repasse en Explicit ensuite.
+		- ConfirmationPopup : Back input revient en arrière, sans valider quoi que ce soit, et resélectionne le dernier objet.
 	
 
 
 ///// OPTIONS
+	- La routine CloseAtEndOfFrame() de OptionsManager est bien mais elle close le panel actuel, qui lui-même, en se fermant, appelle cette coroutine. Ca ne boucle pas à l'infini car il y a des early return sur des null checks, mais ça vaut le coup de noter ça ici pour se rappeler que c'est un chouïa bancal même si ça fonctionne très bien.
+	- Gameplay/General
+		- Axis dead zone
+		- Show tutorials
+		- Show enemies life
 	- Audio
 		- Master
 		- SFX
@@ -42,6 +49,12 @@
 		- Shake amount
 		- Screen size ?
 		- Target frame rate (15, 30, 60, max)
+		
+	- Debug Panel
+		- Reload current scene
+		- Go to checkpoint
+		- Kill save
+		- Set color palette
 
 
 
@@ -64,6 +77,9 @@
 	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
+	- Ecran "Assign key to..."
+		- Utiliser le generic background.
+		- Préciser Base ou Alternate dans le texte.
 
 
 

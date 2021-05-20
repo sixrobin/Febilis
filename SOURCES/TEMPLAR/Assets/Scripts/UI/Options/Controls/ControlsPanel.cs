@@ -20,8 +20,12 @@
         private KeyBindingPanel _currentlyAssignedPanel;
         private RectTransform _rectTransform;
 
+        private ConfirmationPopup.PopupTextsDatas _uncommittedChangesPopupTexts
+            = new ConfirmationPopup.PopupTextsDatas("Save changes ?", "Yes", "No");
+
         private bool _navigationInit;
-        private bool _uncommittedChanged;
+
+        public override GameObject FirstSelected => BackBtn.gameObject;
 
         private RectTransform RectTransform
         {
@@ -34,7 +38,29 @@
             }
         }
 
-        public override GameObject FirstSelected => BackBtn.gameObject;
+        public bool UncommittedChanges { get; private set; }
+
+        public override void Close()
+        {
+            if (!UncommittedChanges)
+            {
+                base.Close();
+                return;
+            }
+
+            Navigation.UINavigationManager.ConfirmationPopup.AskForConfirmation(
+                _uncommittedChangesPopupTexts,
+                () =>
+                {
+                    SaveBindings();
+                    Close();
+                },
+                () =>
+                {
+                    UncommittedChanges = false;
+                    Close();
+                });
+        }
 
         public override void OnBackButtonPressed()
         {
@@ -42,11 +68,25 @@
             if (InputManager.IsAssigningKey)
                 return;
 
-            if (_uncommittedChanged)
-                Debug.Log("Controls panel quit without committing changes. Open confirmation popup ?");
+            if (!UncommittedChanges)
+            {
+                base.OnBackButtonPressed();
+                Manager.OptionsManager.Instance.OpenSettings();
+                return;
+            }
 
-            base.OnBackButtonPressed();
-            Manager.OptionsManager.Instance.OpenSettings();
+            Navigation.UINavigationManager.ConfirmationPopup.AskForConfirmation(
+                _uncommittedChangesPopupTexts,
+                () =>
+                {
+                    SaveBindings();
+                    OnBackButtonPressed();
+                },
+                () =>
+                {
+                    UncommittedChanges = false;
+                    OnBackButtonPressed();
+                });
         }
 
         public override void Display(bool show)
@@ -60,7 +100,7 @@
 
                 UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
                 _controlsScrollBar.value = 1f;
-                _uncommittedChanged = false;
+                UncommittedChanges = false;
             }
         }
 
@@ -68,7 +108,7 @@
         {
             InputManager.SetMap(_editedMap);
             InputManager.SaveCurrentMap();
-            OnBackButtonPressed();
+            UncommittedChanges = false;
         }
 
         private void InitBindingsPanelsNavigation()
@@ -117,8 +157,8 @@
             UnityEngine.Assertions.Assert.IsNotNull(_currentlyAssignedPanel, "Trying to assign button to a null panel.");
             UnityEngine.Assertions.Assert.IsTrue(actionId == _currentlyAssignedPanel.ActionId, "Assigned panel action Id and system assigned action Id are not the same.");
 
-            if (!_uncommittedChanged && _currentlyAssignedPanel.IsKeyDifferent(btn, alt))
-                _uncommittedChanged = true;
+            if (!UncommittedChanges && _currentlyAssignedPanel.IsKeyDifferent(btn, alt))
+                UncommittedChanges = true;
 
             _currentlyAssignedPanel.OverrideKey(btn, alt);
             _currentlyAssignedPanel = null;
@@ -160,8 +200,7 @@
         {
             _editedMap = InputManager.GetDefaultMapCopy();
             UpdateAllBindingsPanels();
-
-            _uncommittedChanged = true;
+            UncommittedChanges = true;
         }
 
         protected override void Start()
@@ -170,6 +209,7 @@
 
             _resetBindingsBtn.onClick.AddListener(ResetDefaultMap);
             _saveBindingsBtn.onClick.AddListener(SaveBindings);
+            _saveBindingsBtn.onClick.AddListener(OnBackButtonPressed);
 
             for (int i = 0; i < _bindingPanels.Length; ++i)
             {
@@ -183,6 +223,7 @@
         {
             _resetBindingsBtn.onClick.RemoveListener(ResetDefaultMap);
             _saveBindingsBtn.onClick.RemoveListener(SaveBindings);
+            _saveBindingsBtn.onClick.RemoveListener(OnBackButtonPressed);
         }
 
         [ContextMenu("Locate binding panels")]

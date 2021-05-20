@@ -7,41 +7,18 @@
     /// Manages the basic canvas display state, contains the main navigation buttons and main navigation methods. 
     /// </summary>
     [DisallowMultipleComponent]
-    public abstract class OptionPanelBase : MonoBehaviour, Navigation.IUIPanel
+    public abstract class OptionPanelBase : UIPanel
     {
-        [Header("PANEL BASE")]
-        [SerializeField] private Canvas _canvas = null;
         [SerializeField] private UnityEngine.UI.Button _backBtn = null;
         [SerializeField] private UnityEngine.UI.Button _quitBtn = null;
 
-        public abstract GameObject FirstSelected { get; }
-
-        public bool Displayed { get; private set; }
-
-        public Canvas Canvas => _canvas;
         public UnityEngine.UI.Button BackBtn => _backBtn;
         public UnityEngine.UI.Button QuitBtn => _quitBtn;
 
-        public virtual void Display(bool show)
+        public override void Close()
         {
-            Displayed = show;
-            _canvas.enabled = Displayed;
-        }
-
-        public virtual void Open()
-        {
-            Display(true);
-        }
-
-        public virtual void Close()
-        {
-            Display(false);
+            base.Close();
             Manager.OptionsManager.Instance.Close();
-        }
-
-        public virtual void OnBackButtonPressed()
-        {
-            Display(false);
         }
 
         protected virtual void Start()

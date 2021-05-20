@@ -51,7 +51,8 @@
 
         public void Close()
         {
-            StartCoroutine(CloseAtEndOfFrame());
+            if (!ClosedThisFrame)
+                StartCoroutine(CloseAtEndOfFrame());
         }
 
         private void InitOptionsButtons()
@@ -102,7 +103,6 @@
 
             UI.Navigation.UINavigationManager.CloseCurrentPanel();
             UI.Navigation.UINavigationManager.NullifySelected();
-
             ClosedThisFrame = false;
 
             OptionsClosed?.Invoke();
@@ -127,7 +127,7 @@
                     return;
                 }
 
-                Close();
+                UI.Navigation.UINavigationManager.CloseCurrentPanel();
             }
         }
 
