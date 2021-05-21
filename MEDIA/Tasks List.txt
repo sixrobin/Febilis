@@ -3,8 +3,7 @@
 	- Meilleur manager de sauvegarde.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Première passe de sound design.
-	- Réfléchir à une façon d'adapter le visuel de l'UI aux différentes palettes.
-		- Shader ? Construction dynamique de Tex2D ?
+	- Réfléchir à une façon d'adapter les couleurs des textes aux palettes.
 
 
 
@@ -34,7 +33,6 @@
 
 
 ///// OPTIONS
-	- La routine CloseAtEndOfFrame() de OptionsManager est bien mais elle close le panel actuel, qui lui-même, en se fermant, appelle cette coroutine. Ca ne boucle pas à l'infini car il y a des early return sur des null checks, mais ça vaut le coup de noter ça ici pour se rappeler que c'est un chouïa bancal même si ça fonctionne très bien.
 	- Gameplay/General
 		- Axis dead zone
 		- Show tutorials
@@ -49,7 +47,6 @@
 		- Shake amount
 		- Screen size ?
 		- Target frame rate (15, 30, 60, max)
-		
 	- Debug Panel
 		- Reload current scene
 		- Go to checkpoint
@@ -77,9 +74,7 @@
 	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
-	- Ecran "Assign key to..."
-		- Utiliser le generic background.
-		- Préciser Base ou Alternate dans le texte.
+	- Ecran "Assign key to..." : préciser Base ou Alternate dans le texte.
 
 
 
@@ -96,3 +91,4 @@
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
 	- Bouton "Debug" dans les options pour pouvoir debugger certains trucs à la manette ? Et pour aussi tout regrouper dans un même menu.
+	- Créer un tool pour appliquer un material sur tous les éléments d'UI enfants d'objects sélectionnés.

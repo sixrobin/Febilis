@@ -1,0 +1,12 @@
+0/ Trucs à checker avant un build
+	- Raycast targets.
+	- Plus de boutons de debug style F1, F2, etc.
+
+
+1/ Options
+	- La routine CloseAtEndOfFrame() de OptionsManager est bien mais elle close le panel actuel, qui lui-même, en se fermant, appelle cette coroutine. Ca ne boucle pas à l'infini car il y a des early return sur des null checks, mais ça vaut le coup de noter ça ici pour se rappeler que c'est un chouïa bancal même si ça fonctionne très bien.
+	
+	
+2/ UI Ramp
+	- Création de texture dynamique : fonctionne mais dynamique seulement à la création, qui est beaucoup trop longue donc c'est mort pour cette solution.
+	- Marche nickel sauf pour les éléments masqués.
