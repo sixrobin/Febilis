@@ -53,9 +53,7 @@
 
         public bool CheckInput(ButtonCategory btnCategory)
         {
-            return btnCategory == ButtonCategory.ANY
-                ? _delayedInputs != ButtonCategory.NONE
-                : (_delayedInputs & btnCategory) == btnCategory;
+            return btnCategory == ButtonCategory.ANY ? _delayedInputs != ButtonCategory.NONE : _delayedInputs.HasFlag(btnCategory);
         }
 
         public bool CheckJumpInput()

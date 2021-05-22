@@ -16,7 +16,11 @@
 
         [SerializeField] private string _id = string.Empty;
 
-        private static System.Collections.Generic.Dictionary<Collider2D, IHittable> s_sharedKnownHittables = new System.Collections.Generic.Dictionary<Collider2D, IHittable>();
+        private static System.Collections.Generic.Dictionary<Collider2D, IHittable> s_sharedKnownHittables
+            = new System.Collections.Generic.Dictionary<Collider2D, IHittable>();
+
+        private static System.Collections.Generic.Dictionary<Collider2D, Templar.Physics.Destroyables.IDestroyableObject> s_sharedKnownDestroyables
+            = new System.Collections.Generic.Dictionary<Collider2D, Templar.Physics.Destroyables.IDestroyableObject>();
 
         private System.Collections.Generic.List<IHittable> _hitThisTime = new System.Collections.Generic.List<IHittable>();
         private Datas.Attack.AttackDatas _attackDatas;
@@ -61,13 +65,20 @@
             UnityEngine.Assertions.Assert.IsNotNull(_hitbox, $"No collider found on attack hitbox {transform.name}.");
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collider)
         {
             UnityEngine.Assertions.Assert.IsNotNull(_attackDatas, "Hitbox triggered something even though attack datas have not been set.");
 
-            if (!s_sharedKnownHittables.TryGetValue(collision, out IHittable hittable))
-                if (collision.TryGetComponent(out hittable))
-                    s_sharedKnownHittables.Add(collision, hittable);
+            if (!s_sharedKnownDestroyables.TryGetValue(collider, out Templar.Physics.Destroyables.IDestroyableObject destroyable))
+                if (collider.TryGetComponent(out destroyable))
+                    s_sharedKnownDestroyables.Add(collider, destroyable);
+
+            if (destroyable != null && destroyable.ValidSourcesTypes.HasFlag(Templar.Physics.Destroyables.DestroyableSourceType.ATTACK))
+                destroyable.Destroy(Templar.Physics.Destroyables.DestroyableSourceType.ATTACK);
+
+            if (!s_sharedKnownHittables.TryGetValue(collider, out IHittable hittable))
+                if (collider.TryGetComponent(out hittable))
+                    s_sharedKnownHittables.Add(collider, hittable);
 
             if (hittable == null || !hittable.CanBeHit || (_attackDatas.HitLayer & hittable.HitLayer) == 0 || _hitThisTime.Contains(hittable))
                 return;

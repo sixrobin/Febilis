@@ -33,6 +33,11 @@
             CurrRampIndex = rampIndex;
         }
 
+        public Texture2D GetCurrentRamp()
+        {
+            return _ramps[CurrRampIndex];
+        }
+
         private void Awake()
         {
             if (CurrRampIndex == -1)
@@ -50,7 +55,8 @@
 
         private void OnDestroy()
         {
-            // Reset material when leaving play mode. Still need to check out how it's behaving with scenes loading.
+            // Reset material when leaving play mode.
+            // Still need to check out how it's behaving with scenes loading.
             _uiRampMat.SetTexture(RAMP_TEX_SHADER_PARAM, _initUIRampTex);
         }
     }

@@ -45,6 +45,7 @@
                 _settingsBtns[i].SetSelectOnRight(QuitBtn);
             }
 
+            QuitBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);   
             QuitBtn.SetSelectOnLeft(_settingsBtns[0]);
             QuitBtn.SetSelectOnDown(_settingsBtns[0]);
             QuitBtn.SetSelectOnUp(_settingsBtns[_settingsBtns.Length - 1]);

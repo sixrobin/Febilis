@@ -106,7 +106,9 @@
         private void LocateConfirmationPopup()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+#if UNITY_EDITOR
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
         }
     }
 }

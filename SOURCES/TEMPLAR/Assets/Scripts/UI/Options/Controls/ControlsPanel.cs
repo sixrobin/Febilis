@@ -174,8 +174,8 @@
 
             _currentlyAssignedPanel = bindingPanel;
             _assignKeyScreen.SetActive(true);
-            _assignKeyText.text = $"Assign key to <color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>...";
-
+            _assignKeyText.text = $"Assign {(alt ? "alt" : "base")} key to\n<color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>...";
+            
             InputManager.AssignKey(_editedMap, _currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
 

@@ -39,6 +39,8 @@
         public PlayerRollController RollCtrl { get; private set; }
         public Attack.PlayerAttackController AttackCtrl { get; private set; }
 
+        public bool IsFalling => _currVel.y < 0f && !CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW);
+
         public bool IsBeingHurt => _hurtCoroutine != null;
         public bool IsHealing => _healCoroutine != null;
 

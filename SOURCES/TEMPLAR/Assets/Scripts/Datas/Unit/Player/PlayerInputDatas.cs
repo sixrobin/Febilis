@@ -7,6 +7,7 @@
     {
         [Header("INPUT")]
         [Tooltip("Maximum value below which left stick inclinaison is ignored.")]
+        // [TODO] Use this as base dead zone but make it tweakable in options.
         [SerializeField, Range(0f, 1f)] private float _leftJoystickDeadZone = 0.4f;
 
         [Tooltip("Duration during which the jump input is stored and can be applied.")]

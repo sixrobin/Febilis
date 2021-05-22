@@ -107,6 +107,9 @@
         private static System.Collections.Generic.Dictionary<Collider2D, PlatformEffector> s_sharedKnownEffectors
             = new System.Collections.Generic.Dictionary<Collider2D, PlatformEffector>();
 
+        private static System.Collections.Generic.Dictionary<Collider2D, Destroyables.IDestroyableObject> s_sharedKnownDestroyables
+            = new System.Collections.Generic.Dictionary<Collider2D, Destroyables.IDestroyableObject>();
+
         public CollisionsController(BoxCollider2D boxCollider2D, LayerMask collisionMask) : base(boxCollider2D)
         {
             _collisionMask = collisionMask;
@@ -215,6 +218,13 @@
                     continue;
                 }
 
+                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.IDestroyableObject destroyable))
+                    if (hit.collider.TryGetComponent(out destroyable))
+                        s_sharedKnownDestroyables.Add(hit.collider, destroyable);
+
+                if (destroyable != null)
+                    TryDestroy(destroyable);
+
                 if (hit.collider.isTrigger)
                     continue;
 
@@ -242,7 +252,7 @@
                 CurrentStates.SetCollision(CollisionOrigin.RIGHT, sign == 1f);
 
                 if (triggerEvents)
-                    RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
+                    RegisterCollision(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.LEFT) ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT, hit));
 
                 return;
             }
@@ -263,6 +273,13 @@
                     Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.yellow);
                     continue;
                 }
+
+                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.IDestroyableObject destroyable))
+                    if (hit.collider.TryGetComponent(out destroyable))
+                        s_sharedKnownDestroyables.Add(hit.collider, destroyable);
+
+                if (destroyable != null)
+                    TryDestroy(destroyable);
 
                 if (hit.collider.isTrigger)
                     continue;
@@ -299,7 +316,7 @@
                 CurrentStates.SetCollision(CollisionOrigin.BELOW, sign == -1f);
 
                 if (triggerEvents)
-                    RegisterCollisionForEvent(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
+                    RegisterCollision(new CollisionInfos(CurrentStates.GetCollisionState(CollisionOrigin.ABOVE) ? CollisionOrigin.ABOVE : CollisionOrigin.BELOW, hit));
 
                 return;
             }
@@ -319,7 +336,7 @@
                 CurrentStates.SetCollision(CollisionOrigin.EDGE, true);
 
                 if (triggerEvents)
-                    RegisterCollisionForEvent(new CollisionInfos(CollisionOrigin.EDGE, hit));
+                    RegisterCollision(new CollisionInfos(CollisionOrigin.EDGE, hit));
             }
         }
 
@@ -328,7 +345,11 @@
             PreviousStates.Copy(CurrentStates);
         }
 
-        private void RegisterCollisionForEvent(CollisionInfos collisionInfos)
+        protected virtual void TryDestroy(Destroyables.IDestroyableObject destroyable)
+        {
+        }
+
+        private void RegisterCollision(CollisionInfos collisionInfos)
         {
             // [TODO] CollisionInfos pooling ?
             _detectedCollisionsForEvent.Enqueue(collisionInfos);

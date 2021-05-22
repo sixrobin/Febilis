@@ -4,12 +4,23 @@
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Première passe de sound design.
 	- Réfléchir à une façon d'adapter les couleurs des textes aux palettes.
+		- Component PaletteText pour les textes de base, et méthode PaletteSelector.GetColor() pour les dynamiques ?
 
 
 
 ///// BUG TRACKER
 	- On peut faire un jump après avoir fait une roulade dans le vide.
 	- HUD qui repop rapidement au reload de la scène après la mort.
+	
+	
+	
+///// CODE
+	- Refactoriser les s_sharedKnownSmth dans CollisionsCtrl pour ne pas devoir faire les mêmes calculs dans ComputeHor et Ver.
+	- Objets destructibles.
+		- Il y a un SharedKnownDestroyables dans AttackHitbox ET dans CollisionsController. On n'en veut sans doute qu'un seul, mais où ?
+		- Classe abstraite Destroyable qui a surtout une méthode IsSourceValid(Source) - qui doit aussi être dans IDestroyable du coup - et aussi les autres attributs communs ?
+		- Ce serait INCROYABLE de pouvoir paramétrer les sources diverses dans l'inspector : https://forum.unity.com/threads/multiple-enum-select-from-inspector.184729/
+		- On voudra aussi sans doute un paramètre dans Destroy() pour connaître la direction dans laquelle on met les particules et tout ça (0 pour le fall).
 
 
 
@@ -19,9 +30,10 @@
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
-	- Objets destructibles par la roulade ou l'attaque.
+	- Interaction "Check" qui affiche juste un dialogue du perso qui décrit ce qu'il voit.
+		- Possible de juste en faire un dialogue ?
 	- Système de monnaie.
-		- Drop sur les ennemis/objets détruits.
+		- Drop sur les ennemis/objets détruits. Interface IMoneyContainer ? ILootable ?
 		- Récolte.
 		- Affichage à l'écran.
 		- Sauvegarde.
@@ -74,7 +86,11 @@
 	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
-	- Ecran "Assign key to..." : préciser Base ou Alternate dans le texte.
+	- Dialogue : changer l'affichage pour la technique RedBlueGames : tout afficher et décaler une balise <alpha=00> pour que les mots soient déjà à la ligne comme il faut.
+	- Objets destructibles
+		- crânes/squelettes : animation de destroy + particules de poussière + quelques débris physiqués ?
+		- caisses (anim de destruction https://www.youtube.com/watch?v=EgNV0PWVaS8) et particules de bois ?
+		- panneaux : étape intermédiaire bien plié en deux, puis détruit = quelques morceaux de panneaux physiqués et particules de bois
 
 
 
