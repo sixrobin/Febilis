@@ -2,9 +2,10 @@
 {
     public enum DestroyableSourceType
     {
-        ATTACK = 0,
-        ROLL = 1,
-        FALL = 2,
+        NONE = 0,
+        ATTACK = 1,
+        ROLL = 2,
+        FALL = 4,
         ALL = ATTACK | ROLL | FALL
     }
 }

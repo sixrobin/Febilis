@@ -261,7 +261,7 @@ MonoBehaviour:
   _healthCtrl: {fileID: 2727861839271538949}
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 5376
   _debugCollisionsState: 
   _playerView: {fileID: 2727861838613788317}
   _cameraCtrl: {fileID: 0}
@@ -269,7 +269,7 @@ MonoBehaviour:
   _interacter: {fileID: 8964628234823463603}
   _rollCollisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4352
   _baseHealth: 100
 --- !u!114 &653416431510758932
 MonoBehaviour:

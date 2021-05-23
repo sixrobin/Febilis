@@ -19,8 +19,8 @@
         private static System.Collections.Generic.Dictionary<Collider2D, IHittable> s_sharedKnownHittables
             = new System.Collections.Generic.Dictionary<Collider2D, IHittable>();
 
-        private static System.Collections.Generic.Dictionary<Collider2D, Templar.Physics.Destroyables.IDestroyableObject> s_sharedKnownDestroyables
-            = new System.Collections.Generic.Dictionary<Collider2D, Templar.Physics.Destroyables.IDestroyableObject>();
+        private static System.Collections.Generic.Dictionary<Collider2D, Templar.Physics.Destroyables.DestroyableObject> s_sharedKnownDestroyables
+            = new System.Collections.Generic.Dictionary<Collider2D, Templar.Physics.Destroyables.DestroyableObject>();
 
         private System.Collections.Generic.List<IHittable> _hitThisTime = new System.Collections.Generic.List<IHittable>();
         private Datas.Attack.AttackDatas _attackDatas;
@@ -69,12 +69,11 @@
         {
             UnityEngine.Assertions.Assert.IsNotNull(_attackDatas, "Hitbox triggered something even though attack datas have not been set.");
 
-            if (!s_sharedKnownDestroyables.TryGetValue(collider, out Templar.Physics.Destroyables.IDestroyableObject destroyable))
+            if (!s_sharedKnownDestroyables.TryGetValue(collider, out Templar.Physics.Destroyables.DestroyableObject destroyable))
                 if (collider.TryGetComponent(out destroyable))
                     s_sharedKnownDestroyables.Add(collider, destroyable);
 
-            if (destroyable != null && destroyable.ValidSourcesTypes.HasFlag(Templar.Physics.Destroyables.DestroyableSourceType.ATTACK))
-                destroyable.Destroy(Templar.Physics.Destroyables.DestroyableSourceType.ATTACK);
+            destroyable?.TryDestroy(Templar.Physics.Destroyables.DestroyableSourceType.ATTACK);
 
             if (!s_sharedKnownHittables.TryGetValue(collider, out IHittable hittable))
                 if (collider.TryGetComponent(out hittable))

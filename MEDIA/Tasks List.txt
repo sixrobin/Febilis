@@ -3,6 +3,7 @@
 	- Meilleur manager de sauvegarde.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Première passe de sound design.
+	- Destroyables : préparer des "sets" à placer avec déjà quelques objets mis en scène les uns sur les autres ou côte à côte
 	- Réfléchir à une façon d'adapter les couleurs des textes aux palettes.
 		- Component PaletteText pour les textes de base, et méthode PaletteSelector.GetColor() pour les dynamiques ?
 
@@ -15,11 +16,16 @@
 	
 	
 ///// CODE
+	- Architecturer correctement le code qui applique la palette sur l'UI (UIPalette actuellement seulement sur les panels de debug).
+	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant).
+	- Refactoriser les datas communs à plusieurs xsd (liste non exhaustive) :
+		- TraumaDatas & TraumaAddType
 	- Refactoriser les s_sharedKnownSmth dans CollisionsCtrl pour ne pas devoir faire les mêmes calculs dans ComputeHor et Ver.
 	- Objets destructibles.
+		- Gérer les Destroyables qui sont posés les uns sur les autres.
+			- Destruction récursive ? Gérer avec le parentage Unity ?
+		- Ajouter la possibilité de tous les reset avec un bouton de debug.
 		- Il y a un SharedKnownDestroyables dans AttackHitbox ET dans CollisionsController. On n'en veut sans doute qu'un seul, mais où ?
-		- Classe abstraite Destroyable qui a surtout une méthode IsSourceValid(Source) - qui doit aussi être dans IDestroyable du coup - et aussi les autres attributs communs ?
-		- Ce serait INCROYABLE de pouvoir paramétrer les sources diverses dans l'inspector : https://forum.unity.com/threads/multiple-enum-select-from-inspector.184729/
 		- On voudra aussi sans doute un paramètre dans Destroy() pour connaître la direction dans laquelle on met les particules et tout ça (0 pour le fall).
 
 
@@ -64,6 +70,8 @@
 		- Go to checkpoint
 		- Kill save
 		- Set color palette
+		- Restore destroyables
+		- Restore enemies
 
 
 
@@ -87,10 +95,8 @@
 	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
 	- Dialogue : changer l'affichage pour la technique RedBlueGames : tout afficher et décaler une balise <alpha=00> pour que les mots soient déjà à la ligne comme il faut.
-	- Objets destructibles
-		- crânes/squelettes : animation de destroy + particules de poussière + quelques débris physiqués ?
-		- caisses (anim de destruction https://www.youtube.com/watch?v=EgNV0PWVaS8) et particules de bois ?
-		- panneaux : étape intermédiaire bien plié en deux, puis détruit = quelques morceaux de panneaux physiqués et particules de bois
+	- Generic Burst Particles.
+	- Generic puff.
 
 
 

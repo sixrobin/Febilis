@@ -107,8 +107,8 @@
         private static System.Collections.Generic.Dictionary<Collider2D, PlatformEffector> s_sharedKnownEffectors
             = new System.Collections.Generic.Dictionary<Collider2D, PlatformEffector>();
 
-        private static System.Collections.Generic.Dictionary<Collider2D, Destroyables.IDestroyableObject> s_sharedKnownDestroyables
-            = new System.Collections.Generic.Dictionary<Collider2D, Destroyables.IDestroyableObject>();
+        private static System.Collections.Generic.Dictionary<Collider2D, Destroyables.DestroyableObject> s_sharedKnownDestroyables
+            = new System.Collections.Generic.Dictionary<Collider2D, Destroyables.DestroyableObject>();
 
         public CollisionsController(BoxCollider2D boxCollider2D, LayerMask collisionMask) : base(boxCollider2D)
         {
@@ -218,14 +218,12 @@
                     continue;
                 }
 
-                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.IDestroyableObject destroyable))
+                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable))
                     if (hit.collider.TryGetComponent(out destroyable))
                         s_sharedKnownDestroyables.Add(hit.collider, destroyable);
 
-                if (destroyable != null)
-                    TryDestroy(destroyable);
-
-                if (hit.collider.isTrigger)
+                bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
+                if (hit.collider.isTrigger || destroySuccess)
                     continue;
 
                 if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
@@ -274,14 +272,12 @@
                     continue;
                 }
 
-                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.IDestroyableObject destroyable))
+                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable))
                     if (hit.collider.TryGetComponent(out destroyable))
                         s_sharedKnownDestroyables.Add(hit.collider, destroyable);
 
-                if (destroyable != null)
-                    TryDestroy(destroyable);
-
-                if (hit.collider.isTrigger)
+                bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
+                if (hit.collider.isTrigger || destroySuccess)
                     continue;
 
                 if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
@@ -345,8 +341,9 @@
             PreviousStates.Copy(CurrentStates);
         }
 
-        protected virtual void TryDestroy(Destroyables.IDestroyableObject destroyable)
+        protected virtual bool TryDestroy(Destroyables.DestroyableObject destroyable)
         {
+            return true;
         }
 
         private void RegisterCollision(CollisionInfos collisionInfos)

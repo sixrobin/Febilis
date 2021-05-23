@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+   <xs:element name="DestroyablesDatas">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="DestroyableDatas" minOccurs="0" maxOccurs="unbounded">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element name="ValidSources" minOccurs="0" maxOccurs ="1">
+                        <xs:complexType>
+                           <xs:sequence>
+                              <xs:element name="SourceType" type="DestroySourceType" minOccurs="1" maxOccurs ="unbounded"/>
+                           </xs:sequence>
+                        </xs:complexType>
+                     </xs:element>
+                     <xs:element name="OnDestroy" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                           <xs:sequence>
+                              <xs:element name="Trauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="SpawnFromPool" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+                           </xs:sequence>
+                        </xs:complexType>
+                     </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Id" type="xs:token" use="required"/>
+               </xs:complexType>
+            </xs:element>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:simpleType name="DestroySourceType" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="ATTACK"/>
+         <xs:enumeration value="ROLL"/>
+         <xs:enumeration value="FALL"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="TraumaDatas">
+      <xs:attribute name="X" type="xs:float" use="required"/>
+      <xs:attribute name="Y" type="xs:float" use="required"/>
+      <xs:attribute name="AddType" type="TraumaAddType" use="required"/>
+      <xs:attribute name="ShakeId" type="xs:token" use="optional"/>
+   </xs:complexType>
+
+   <xs:simpleType name="TraumaAddType" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="ADDITIVE"/>
+         <xs:enumeration value="OVERRIDE"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+</xs:schema>

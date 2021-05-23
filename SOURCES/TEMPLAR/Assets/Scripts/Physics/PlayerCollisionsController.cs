@@ -19,16 +19,17 @@
             return _playerCtrl.RollCtrl.IsRolling ? _rollCollisionMask : base.ComputeCollisionMask();
         }
 
-        protected override void TryDestroy(Destroyables.IDestroyableObject destroyable)
+        protected override bool TryDestroy(Destroyables.DestroyableObject destroyable)
         {
-            if (_playerCtrl.RollCtrl.IsRolling && destroyable.ValidSourcesTypes.HasFlag(Destroyables.DestroyableSourceType.ROLL))
-            {
-                destroyable.Destroy(Destroyables.DestroyableSourceType.ROLL);
-                return;
-            }
+            bool success = false;
 
-            if (_playerCtrl.IsFalling && destroyable.ValidSourcesTypes.HasFlag(Destroyables.DestroyableSourceType.FALL))
-                destroyable.Destroy(Destroyables.DestroyableSourceType.FALL);
+            if (_playerCtrl.RollCtrl.IsRolling)
+                success = destroyable.TryDestroy(Destroyables.DestroyableSourceType.ROLL);
+
+            if (!success && _playerCtrl.IsFalling)
+                success = destroyable.TryDestroy(Destroyables.DestroyableSourceType.FALL);
+
+            return success;
         }
     }
 }

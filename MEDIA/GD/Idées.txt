@@ -95,3 +95,5 @@ Idées générales
 	- Mob au début qui fait office de tuto pour l'attaque, mais qui est inoffensif. En l'ignorant, le joueur peut peut-être secrètement se rendre service, comme Muffet dans Undertale qui est plus simple si on a acheté des trucs aux araignées.
 - Permettre de faire croire au joueur qu'il peut modifier une valeur de monnaie dans les fichiers du jeu, le détecter et lui balancer un boss infect.
 	- Le joueur peut être tenté de faire ça soit pour tricher, soit parce qu'il y a un item dans le jeu qui coûte GIGA cher. Le joueur ne gagne pas l'argent de la triche sauf qu'il parvient à no hit le boss.
+	
+- Puisqu'il y a des crânes dans les objets random qu'on peut péter, on peut imaginer un crâne qui soit un vrai ennemi qui sort du sol si on le tape.

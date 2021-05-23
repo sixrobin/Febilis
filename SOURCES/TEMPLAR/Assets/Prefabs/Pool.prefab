@@ -70,3 +70,31 @@ MonoBehaviour:
     _gameObject: {fileID: 2784556869522552009, guid: 990a1bd35c452f34bb3d1b8a750d986d,
       type: 3}
     _quantity: 10
+  - _id: Crate_Particles_00
+    _gameObject: {fileID: 4674415281824310778, guid: 8b7d593cd58a1364bab3f404bb004d8a,
+      type: 3}
+    _quantity: 5
+  - _id: Crate_Particles_01
+    _gameObject: {fileID: 8060691422917317331, guid: 8c13c1c7eed0f9b4f9edb83325c61ce2,
+      type: 3}
+    _quantity: 5
+  - _id: Crate_Particles_02
+    _gameObject: {fileID: 5040278648691014644, guid: 25c5eb9d475a61343b90dabfbbd2c462,
+      type: 3}
+    _quantity: 5
+  - _id: Skull_Particles_00
+    _gameObject: {fileID: 7320542234525746627, guid: 23366b1ffef425843acdb9b9a216bc9a,
+      type: 3}
+    _quantity: 5
+  - _id: Skull_Particles_01
+    _gameObject: {fileID: 6048362223528114636, guid: e96d8eaf4fbf85243848dd4a05522d41,
+      type: 3}
+    _quantity: 5
+  - _id: Sign_Particles_00
+    _gameObject: {fileID: 8556750752010047622, guid: 235a30dffb98df74db09f059341cd795,
+      type: 3}
+    _quantity: 5
+  - _id: Sign_Particles_01
+    _gameObject: {fileID: 7763803943035030618, guid: 2b84131d7f723c043b3deea24dbc072b,
+      type: 3}
+    _quantity: 5

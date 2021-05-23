@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2922812218923040062
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7491186539554326088, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8969a421964f2e546a5b0b238257a6e7,
+        type: 3}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: _destroyedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 99d3112ab3d5b594fac88a5e53ca56f4,
+        type: 3}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: _id
+      value: Crate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.7222222
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.7222222
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.53846157
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.027777791
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.33427924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.5148002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6685585
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326133, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Name
+      value: Destroyable Crate 01 Large
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdbab8e504933fc41a04031a4862cf82, type: 3}

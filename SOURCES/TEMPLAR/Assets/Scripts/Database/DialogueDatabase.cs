@@ -158,11 +158,5 @@
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
 #endif
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-        }
     }
 }
