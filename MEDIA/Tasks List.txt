@@ -17,9 +17,8 @@
 	
 ///// CODE
 	- Architecturer correctement le code qui applique la palette sur l'UI (UIPalette actuellement seulement sur les panels de debug).
+		- C'est fait mais il faudrait aussi le faire pour une image qui est masquée pour appliquer le changement sur le mat généré auto ?
 	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant).
-	- Refactoriser les datas communs à plusieurs xsd (liste non exhaustive) :
-		- TraumaDatas & TraumaAddType
 	- Refactoriser les s_sharedKnownSmth dans CollisionsCtrl pour ne pas devoir faire les mêmes calculs dans ComputeHor et Ver.
 	- Objets destructibles.
 		- Gérer les Destroyables qui sont posés les uns sur les autres.

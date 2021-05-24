@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3773283566733635531}
   - component: {fileID: 1490980622402523232}
   - component: {fileID: 163845735207038283}
-  - component: {fileID: 2620796408332131907}
   m_Layer: 5
   m_Name: Teleport Button
   m_TagString: Untagged
@@ -121,18 +120,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2620796408332131907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397618784405537381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87a21322e5c9c1e4fa086d7a7122c08f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2927667731490335300
 GameObject:
   m_ObjectHideFlags: 0

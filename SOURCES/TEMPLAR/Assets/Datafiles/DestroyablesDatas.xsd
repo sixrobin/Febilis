@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+   <xs:include schemaLocation="SharedDatas.xsd"/>
+
    <xs:element name="DestroyablesDatas">
       <xs:complexType>
          <xs:sequence>
@@ -35,20 +37,6 @@
          <xs:enumeration value="ATTACK"/>
          <xs:enumeration value="ROLL"/>
          <xs:enumeration value="FALL"/>
-      </xs:restriction>
-   </xs:simpleType>
-
-   <xs:complexType name="TraumaDatas">
-      <xs:attribute name="X" type="xs:float" use="required"/>
-      <xs:attribute name="Y" type="xs:float" use="required"/>
-      <xs:attribute name="AddType" type="TraumaAddType" use="required"/>
-      <xs:attribute name="ShakeId" type="xs:token" use="optional"/>
-   </xs:complexType>
-
-   <xs:simpleType name="TraumaAddType" final="restriction">
-      <xs:restriction base="xs:string">
-         <xs:enumeration value="ADDITIVE"/>
-         <xs:enumeration value="OVERRIDE"/>
       </xs:restriction>
    </xs:simpleType>
 
