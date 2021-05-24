@@ -3,7 +3,6 @@
 	- Meilleur manager de sauvegarde.
 	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Première passe de sound design.
-	- Destroyables : préparer des "sets" à placer avec déjà quelques objets mis en scène les uns sur les autres ou côte à côte
 	- Réfléchir à une façon d'adapter les couleurs des textes aux palettes.
 		- Component PaletteText pour les textes de base, et méthode PaletteSelector.GetColor() pour les dynamiques ?
 
@@ -16,20 +15,19 @@
 	
 	
 ///// CODE
-	- Architecturer correctement le code qui applique la palette sur l'UI (UIPalette actuellement seulement sur les panels de debug).
-		- C'est fait mais il faudrait aussi le faire pour une image qui est masquée pour appliquer le changement sur le mat généré auto ?
-	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant).
+	- Fix la property PlayerController.IsFalling (j'ai mis un commentaire dans le code).
+	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant). Sans doute un LootDatas dans SharedDatas ?
 	- Refactoriser les s_sharedKnownSmth dans CollisionsCtrl pour ne pas devoir faire les mêmes calculs dans ComputeHor et Ver.
 	- Objets destructibles.
-		- Gérer les Destroyables qui sont posés les uns sur les autres.
-			- Destruction récursive ? Gérer avec le parentage Unity ?
 		- Ajouter la possibilité de tous les reset avec un bouton de debug.
 		- Il y a un SharedKnownDestroyables dans AttackHitbox ET dans CollisionsController. On n'en veut sans doute qu'un seul, mais où ?
 		- On voudra aussi sans doute un paramètre dans Destroy() pour connaître la direction dans laquelle on met les particules et tout ça (0 pour le fall).
+			- Pas pour l'instant, mais à mettre dans les notes en même temps que la façon dont il faut setup les destroyables communs.
 
 
 
 ///// GAMEPLAY
+	- Enemis attack motion.
 	- Permettre de casser la séquence de heal après l'anticipation ?
 	- Attaque up du templier (sur place).
 	- Slopes (avec un roll automatique à la fin ?).

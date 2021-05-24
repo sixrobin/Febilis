@@ -1,6 +1,7 @@
 ﻿namespace Templar.Physics.Destroyables
 {
     using RSLib.Extensions;
+    using System.Linq;
     using Templar.Interaction.Checkpoint;
     using UnityEngine;
 
@@ -12,9 +13,15 @@
         [SerializeField] private Sprite _destroyedSprite = null;
         [SerializeField] private LayerMask _groundLayer = 0;
 
+        [Header("CHAIN DESTRUCTION")]
+        [Tooltip("Destroyables that are immediatly destroyed with this one.")]
+        [SerializeField] private DestroyableObject[] _children = null;
+
         protected Datas.DestroyableDatas _destroyableDatas;
         private Collider2D _collider2D;
         private Sprite _baseSprite;
+
+        private bool _destroyed;
 
         public void OnCheckpointInteracted(CheckpointController checkpointCtrl)
         {
@@ -26,12 +33,15 @@
             if (!_destroyableDatas.IsSourceValid(sourceType))
                 return false;
 
-            Destroy(sourceType);
+            Destroy(); // We may want to specify sourceType + direction someday, if we want more specific feedback.
             return true;
         }
 
-        protected void Destroy(DestroyableSourceType sourceType)
+        protected void Destroy()
         {
+            if (_destroyed)
+                return;
+
             if (_destroyableDatas.TraumaDatas != null)
                 FindObjectOfType<Templar.Camera.CameraController>().ApplyShakeFromDatas(_destroyableDatas.TraumaDatas); // [TMP] Find.
 
@@ -46,13 +56,15 @@
             _spriteRenderer.sprite = hit ? _destroyedSprite : null;
 
             _collider2D.enabled = false;
+            _destroyed = true;
 
-            // [TODO] If some destroyables should be destroyed with this one, do it here.
-            // Maybe register them and destroy them in LateUpdate only if they haven't already been destroyed in the same blow ?
+            for (int i = _children.Length - 1; i >= 0; --i)
+                _children[i].Destroy();
         }
 
         private void ResetDestroyable()
         {
+            _destroyed = false;
             _spriteRenderer.sprite = _baseSprite;
             _collider2D.enabled = true;
         }
@@ -66,6 +78,23 @@
 
             _collider2D = collider2D;
             _baseSprite = _spriteRenderer.sprite;
+        }
+
+        [ContextMenu("Get Children Destroyables")]
+        private void GetChildrenDestroyables()
+        {
+            _children = GetComponentsInChildren<DestroyableObject>().Where(o => o.transform.parent == transform).ToArray();
+            RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
+        }
+
+        [ContextMenu("Get Children Destroyables Recursive")]
+        private void GetChildrenDestroyablesRecursive()
+        {
+            _children = GetComponentsInChildren<DestroyableObject>().Where(o => o.transform.parent == transform).ToArray();
+            for (int i = _children.Length - 1; i >= 0; --i)
+                _children[i].GetChildrenDestroyables();
+
+            RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
     }
 }

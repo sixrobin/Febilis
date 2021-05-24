@@ -39,6 +39,10 @@
         public PlayerRollController RollCtrl { get; private set; }
         public Attack.PlayerAttackController AttackCtrl { get; private set; }
 
+        // [TODO]
+        // This is wrong! We should evaluate the current Below state and not the previous one, but I did this for destroyable
+        // objets because they're destroyed during the collisions, so BEFORE the state is refreshed.
+        // I should definitely store them and destroy them after collision state has been update so that this property is correct.
         public bool IsFalling => _currVel.y < 0f && !CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW);
 
         public bool IsBeingHurt => _hurtCoroutine != null;
