@@ -26,7 +26,7 @@
             if (_playerCtrl.RollCtrl.IsRolling)
                 success = destroyable.TryDestroy(Destroyables.DestroyableSourceType.ROLL);
 
-            if (!success && _playerCtrl.IsFalling)
+            if (!success && _playerCtrl.WasFallingLastFrame)
                 success = destroyable.TryDestroy(Destroyables.DestroyableSourceType.FALL);
 
             return success;

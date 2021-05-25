@@ -102,8 +102,7 @@
             else
                 _healthBlink.fillAmount = _playerHealthCtrl.HealthSystem.HealthPercentage;
 
-            _healthBarUpdateCoroutine = BlinkHealthBarCoroutine(args.IsLoss);
-            StartCoroutine(_healthBarUpdateCoroutine);
+            StartCoroutine(_healthBarUpdateCoroutine = BlinkHealthBarCoroutine(args.IsLoss));
         }
 
         private void OnKilled()

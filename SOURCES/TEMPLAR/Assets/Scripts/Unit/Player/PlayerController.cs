@@ -39,11 +39,7 @@
         public PlayerRollController RollCtrl { get; private set; }
         public Attack.PlayerAttackController AttackCtrl { get; private set; }
 
-        // [TODO]
-        // This is wrong! We should evaluate the current Below state and not the previous one, but I did this for destroyable
-        // objets because they're destroyed during the collisions, so BEFORE the state is refreshed.
-        // I should definitely store them and destroy them after collision state has been update so that this property is correct.
-        public bool IsFalling => _currVel.y < 0f && !CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW);
+        public bool WasFallingLastFrame => _currVel.y < 0f && !CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW);
 
         public bool IsBeingHurt => _hurtCoroutine != null;
         public bool IsHealing => _healCoroutine != null;
@@ -239,7 +235,12 @@
 
             RollCtrl.Roll(
                 InputCtrl.Horizontal != 0f ? Mathf.Sign(InputCtrl.Horizontal) : CurrDir,
-                (args) => _currVel = args.Vel);
+                (args) =>
+                {
+                    _currVel = args.Vel;
+                    if (!CollisionsCtrl.Below)
+                        JumpCtrl.JumpsLeft--;
+                });
         }
 
         private void TryAttack()
@@ -509,6 +510,7 @@
             ApplyCurrentRecoil();
 
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
+
             PlayerView.UpdateView(flip: CurrDir != 1f, _currVel, _prevVel);
         }
 

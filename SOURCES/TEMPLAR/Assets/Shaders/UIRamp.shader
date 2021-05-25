@@ -117,7 +117,7 @@ Shader "Templar/UI Ramp"
             {
                 half4 color = (tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd) * IN.color;
 
-				fixed4 original = tex2D(_MainTex, IN.texcoord);
+				fixed4 original = tex2D(_MainTex, IN.texcoord) * IN.color;
 				fixed grayscale = Luminance(original.rgb);
 				half2 remap = half2(grayscale + _RampOffset, 0.5);
 				float weight = clamp(_RampWeight, 0, 1);

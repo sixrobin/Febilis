@@ -37,11 +37,11 @@
             if (!_destroyableDatas.IsSourceValid(sourceType))
                 return false;
 
-            Destroy(); // We may want to specify sourceType + direction someday, if we want more specific feedback.
+            Destroy(sourceType); // We may want to specify sourceType + direction someday, if we want more specific feedback.
             return true;
         }
 
-        protected void Destroy()
+        private void Destroy(DestroyableSourceType sourceType)
         {
             if (_destroyed)
                 return;
@@ -63,7 +63,7 @@
             _destroyed = true;
 
             for (int i = _children.Length - 1; i >= 0; --i)
-                _children[i].Destroy();
+                _children[i].Destroy(sourceType);
         }
 
         private void ResetDestroyable()

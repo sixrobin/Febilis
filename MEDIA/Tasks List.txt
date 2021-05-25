@@ -9,19 +9,15 @@
 
 
 ///// BUG TRACKER
-	- On peut faire un jump après avoir fait une roulade dans le vide.
 	- HUD qui repop rapidement au reload de la scène après la mort.
 	
 	
 	
 ///// CODE
-	- Fix la property PlayerController.IsFalling (j'ai mis un commentaire dans le code).
-		- Potentiellement la rename WasFallingLastFrame, c'est moche mais c'est valide.
+	- Ne pas référencer la caméra dans PlayerController.
 	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant). Sans doute un LootDatas dans SharedDatas ?
 	- Objets destructibles.
 		- Ajouter la possibilité de tous les reset avec un bouton de debug.
-		- On voudra aussi sans doute un paramètre dans Destroy() pour connaître la direction dans laquelle on met les particules et tout ça (0 pour le fall).
-			- Pas pour l'instant, mais à mettre dans les notes en même temps que la façon dont il faut setup les destroyables communs.
 
 
 

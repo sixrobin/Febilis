@@ -10,3 +10,10 @@
 2/ UI Ramp
 	- Création de texture dynamique : fonctionne mais dynamique seulement à la création, qui est beaucoup trop longue donc c'est mort pour cette solution.
 	- Marche nickel sauf pour les éléments masqués.
+	
+	
+3/ Destroyables
+	- J'ai du créer une property WasFallingLastFrame dans PlayerController : pas possible de détecter les destroyables et les détruire en évaluant l'état actuel du controller, car la détection se fait pendant les collisions, donc on ne sait pas encore quelle vitesse le perso a (et donc s'il peut péter un destroyable en tombant dessus).
+	- J'ai essayé de les stocker dans une queue pour les détruire après avoir fait toutes les détections, or j'ai besoin de savoir s'ils sont détruits ou non au moment de les détecter, afin de pouvoir adapter la vélocité du perso -> si je peux détruire un destroyable en dessous, alors je dois le savoir de suite pour que le perso continue à tomber, mais pour savoir si le perso est en train de tomber, je dois attendre d'avoir fait tous les checks... donc plus simple de regarder l'état précédent du fall.
+	
+	- Pour setup les destroyables posés les uns sur les autres, il y a une liste sur la classe qui contient les objets "enfants", ceux posés au dessus, qui doivent donc être détruits avec leur parent, pour éviter les objets volants. Il y a des méthodes ContextMenu qui récupèrent tout ça récursivement, en se basant sur le parentage Unity (puisqu'on suppose de toute façon qu'un objet posé sur un autre sera déplacé avec lui).

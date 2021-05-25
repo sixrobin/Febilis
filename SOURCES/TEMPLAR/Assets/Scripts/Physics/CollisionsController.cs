@@ -98,9 +98,6 @@
 
         private LayerMask _collisionMask;
 
-        // Used to trigger events manually after movement has been applied.
-        private System.Collections.Generic.Queue<CollisionInfos> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionInfos>();
-
         private static System.Collections.Generic.Dictionary<Collider2D, SideTriggerOverrider> s_sharedKnownSideTriggerOverriders
             = new System.Collections.Generic.Dictionary<Collider2D, SideTriggerOverrider>();
 
@@ -111,6 +108,9 @@
         {
             _collisionMask = collisionMask;
         }
+
+        // Values stored to do something after movement has been applied and collision state updated.
+        private System.Collections.Generic.Queue<CollisionInfos> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionInfos>();
 
         public delegate void CollisionDetectedEventHandler(CollisionInfos collisionInfos);
         public event CollisionDetectedEventHandler CollisionDetected;
@@ -295,10 +295,10 @@
         {
             PreviousStates.Copy(CurrentStates);
         }
-
+        
         protected virtual bool TryDestroy(Destroyables.DestroyableObject destroyable)
         {
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -322,7 +322,10 @@
             Destroyables.DestroyableObject.SharedDestroyableObjectsByColliders.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable);
 
             bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
-            if (hit.collider.isTrigger || destroySuccess)
+            if (destroySuccess)
+                return false;
+
+            if (hit.collider.isTrigger)
                 return false;
 
             return true;
