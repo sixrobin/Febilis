@@ -107,9 +107,6 @@
         private static System.Collections.Generic.Dictionary<Collider2D, PlatformEffector> s_sharedKnownEffectors
             = new System.Collections.Generic.Dictionary<Collider2D, PlatformEffector>();
 
-        private static System.Collections.Generic.Dictionary<Collider2D, Destroyables.DestroyableObject> s_sharedKnownDestroyables
-            = new System.Collections.Generic.Dictionary<Collider2D, Destroyables.DestroyableObject>();
-
         public CollisionsController(BoxCollider2D boxCollider2D, LayerMask collisionMask) : base(boxCollider2D)
         {
             _collisionMask = collisionMask;
@@ -218,24 +215,7 @@
                     continue;
                 }
 
-                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable))
-                    if (hit.collider.TryGetComponent(out destroyable))
-                        s_sharedKnownDestroyables.Add(hit.collider, destroyable);
-
-                bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
-                if (hit.collider.isTrigger || destroySuccess)
-                    continue;
-
-                if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
-                    if (hit.collider.TryGetComponent(out sideTriggerOverrider))
-                        s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
-
-                if (!s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector))
-                    if (hit.collider.TryGetComponent(out effector))
-                        s_sharedKnownEffectors.Add(hit.collider, effector);
-
-                if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT) ?? false
-                    || effector != null)
+                if (!ComputeHorizontalHit(hit, sign))
                     continue;
 
                 Debug.DrawRay(rayOrigin, Vector2.right * sign, Color.red);
@@ -272,32 +252,7 @@
                     continue;
                 }
 
-                if (!s_sharedKnownDestroyables.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable))
-                    if (hit.collider.TryGetComponent(out destroyable))
-                        s_sharedKnownDestroyables.Add(hit.collider, destroyable);
-
-                bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
-                if (hit.collider.isTrigger || destroySuccess)
-                    continue;
-
-                if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
-                    if (hit.collider.TryGetComponent(out sideTriggerOverrider))
-                        s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
-
-                if (!s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector))
-                    if (hit.collider.TryGetComponent(out effector))
-                        s_sharedKnownEffectors.Add(hit.collider, effector);
-
-                AboveEffector = sign == -1f && effector != null;
-
-                if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.BELOW : CollisionOrigin.ABOVE) ?? false)
-                    continue;
-
-                // Effector detected but going up, so we can get through it.
-                if (effector != null && sign == 1f)
-                    continue;
-
-                if (downEffector && AboveEffector && !effector.BlockDown)
+                if (!ComputeVerticalHit(hit, sign, downEffector))
                     continue;
 
                 Debug.DrawRay(rayOrigin, Vector2.up * sign, Color.red);
@@ -343,6 +298,87 @@
 
         protected virtual bool TryDestroy(Destroyables.DestroyableObject destroyable)
         {
+            return true;
+        }
+
+        /// <summary>
+        /// Computes informations related to any hit, vertical or horizontal.
+        /// Checks if specifics components are found on colliders, to handle effector, destroyable objects, etc. and do the early return checks
+        /// that are not related to a specific hit direction.
+        /// </summary>
+        /// <param name="hit">RaycastHit2D to compute.</param>
+        /// <param name="sign">Direction sign.</param>
+        /// <returns>True if hit should stop movement, else false.</returns>
+        private bool ComputeHitBase(RaycastHit2D hit, float sign)
+        {
+            if (!s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider))
+                if (hit.collider.TryGetComponent(out sideTriggerOverrider))
+                    s_sharedKnownSideTriggerOverriders.Add(hit.collider, sideTriggerOverrider);
+
+            if (!s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector))
+                if (hit.collider.TryGetComponent(out effector))
+                    s_sharedKnownEffectors.Add(hit.collider, effector);
+
+            Destroyables.DestroyableObject.SharedDestroyableObjectsByColliders.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable);
+
+            bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
+            if (hit.collider.isTrigger || destroySuccess)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Computes informations related to horizontal movement after.
+        /// First checks base computations, then do specific ones.
+        /// </summary>
+        /// <param name="hit">RaycastHit2D to compute.</param>
+        /// <param name="sign">Direction sign.</param>
+        /// <returns>True if hit should stop movement, else false.</returns>
+        private bool ComputeHorizontalHit(RaycastHit2D hit, float sign)
+        {
+            if (!ComputeHitBase(hit, sign))
+                return false;
+
+            s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider);
+            s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector);
+
+            if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.LEFT : CollisionOrigin.RIGHT) ?? false)
+                return false;
+
+            if (effector != null)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Computes informations related to vertical movement after.
+        /// First checks base computations, then do specific ones.
+        /// </summary>
+        /// <param name="hit">RaycastHit2D to compute.</param>
+        /// <param name="sign">Direction sign.</param>
+        /// <param name="downEffector">Is the player trying to get down through a platform effector.</param>
+        /// <returns>True if hit should stop movement, else false.</returns>
+        private bool ComputeVerticalHit(RaycastHit2D hit, float sign, bool downEffector)
+        {
+            if (!ComputeHitBase(hit, sign))
+                return false;
+
+            s_sharedKnownSideTriggerOverriders.TryGetValue(hit.collider, out SideTriggerOverrider sideTriggerOverrider);
+            s_sharedKnownEffectors.TryGetValue(hit.collider, out PlatformEffector effector);
+
+            if (sideTriggerOverrider?.IsSideSetAsTrigger(sign == 1f ? CollisionOrigin.BELOW : CollisionOrigin.ABOVE) ?? false)
+                return false;
+
+            // Effector detected but going up, so we can get through it.
+            if (effector != null && sign == 1f)
+                return false;
+
+            AboveEffector = sign == -1f && effector != null;
+            if (downEffector && AboveEffector && !effector.BlockDown)
+                return false;
+
             return true;
         }
 

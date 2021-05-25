@@ -16,11 +16,10 @@
 	
 ///// CODE
 	- Fix la property PlayerController.IsFalling (j'ai mis un commentaire dans le code).
+		- Potentiellement la rename WasFallingLastFrame, c'est moche mais c'est valide.
 	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant). Sans doute un LootDatas dans SharedDatas ?
-	- Refactoriser les s_sharedKnownSmth dans CollisionsCtrl pour ne pas devoir faire les mêmes calculs dans ComputeHor et Ver.
 	- Objets destructibles.
 		- Ajouter la possibilité de tous les reset avec un bouton de debug.
-		- Il y a un SharedKnownDestroyables dans AttackHitbox ET dans CollisionsController. On n'en veut sans doute qu'un seul, mais où ?
 		- On voudra aussi sans doute un paramètre dans Destroy() pour connaître la direction dans laquelle on met les particules et tout ça (0 pour le fall).
 			- Pas pour l'instant, mais à mettre dans les notes en même temps que la façon dont il faut setup les destroyables communs.
 
@@ -62,13 +61,14 @@
 		- Shake amount
 		- Screen size ?
 		- Target frame rate (15, 30, 60, max)
-	- Debug Panel
-		- Reload current scene
+	- Debug Panels
+		- Select Palette
 		- Go to checkpoint
 		- Kill save
 		- Set color palette
-		- Restore destroyables
-		- Restore enemies
+		- Reset destroyables
+		- Reset enemies
+		- Toggle invulnerability
 
 
 

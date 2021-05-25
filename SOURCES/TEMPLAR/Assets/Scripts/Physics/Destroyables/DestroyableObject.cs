@@ -23,6 +23,10 @@
 
         private bool _destroyed;
 
+        /// <summary>Shared dictionary allowing collision detections across the game to check if collider has a related destroyable.</summary>
+        public static System.Collections.Generic.Dictionary<Collider2D, DestroyableObject> SharedDestroyableObjectsByColliders { get; private set; }
+            = new System.Collections.Generic.Dictionary<Collider2D, DestroyableObject>();
+
         public void OnCheckpointInteracted(CheckpointController checkpointCtrl)
         {
             ResetDestroyable();
@@ -78,6 +82,13 @@
 
             _collider2D = collider2D;
             _baseSprite = _spriteRenderer.sprite;
+
+            SharedDestroyableObjectsByColliders.Add(_collider2D, this);
+        }
+
+        private void OnDestroy()
+        {
+            SharedDestroyableObjectsByColliders.Remove(_collider2D);
         }
 
         [ContextMenu("Get Children Destroyables")]

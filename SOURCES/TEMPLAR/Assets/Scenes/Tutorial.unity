@@ -51809,6 +51809,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1842198896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5022502469741716053, guid: d7d9249b13ae72349b28b7cebae78933,
+    type: 3}
+  m_PrefabInstance: {fileID: 5022502470365258226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1854598029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53996,12 +54008,12 @@ PrefabInstance:
     - target: {fileID: 2727861838001810202, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.6800003
+      value: 13.58
       objectReference: {fileID: 0}
     - target: {fileID: 2727861838001810202, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.98
+      value: 12.11
       objectReference: {fileID: 0}
     - target: {fileID: 2727861838001810202, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
         type: 3}
@@ -54557,6 +54569,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1478647873}
     m_Modifications:
+    - target: {fileID: 5022502469741716053, guid: d7d9249b13ae72349b28b7cebae78933,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022502469741716053, guid: d7d9249b13ae72349b28b7cebae78933,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022502469741716053, guid: d7d9249b13ae72349b28b7cebae78933,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5022502469741716053, guid: d7d9249b13ae72349b28b7cebae78933,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 5022502469828054288, guid: d7d9249b13ae72349b28b7cebae78933,
         type: 3}
       propertyPath: m_Name
@@ -54778,6 +54810,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5856756617589124188, guid: af0bdd51d77cc0243826679887b76cbd,
+        type: 3}
+      propertyPath: _templateTexts.Array.data[0]
+      value: 
+      objectReference: {fileID: 1842198896}
     - target: {fileID: 5856756617589124189, guid: af0bdd51d77cc0243826679887b76cbd,
         type: 3}
       propertyPath: m_LocalPosition.x
