@@ -18,6 +18,7 @@
 	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant). Sans doute un LootDatas dans SharedDatas ?
 	- Objets destructibles.
 		- Ajouter la possibilité de tous les reset avec un bouton de debug.
+	- Tool pour spawner des pièces à l'endroit du clic souris (peut-être pas au clic vu que ça déclenche une attaque).
 
 
 

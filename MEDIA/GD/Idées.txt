@@ -99,3 +99,6 @@ Idées générales
 	- Le joueur peut être tenté de faire ça soit pour tricher, soit parce qu'il y a un item dans le jeu qui coûte GIGA cher. Le joueur ne gagne pas l'argent de la triche sauf qu'il parvient à no hit le boss.
 	
 - Puisqu'il y a des crânes dans les objets random qu'on peut péter, on peut imaginer un crâne qui soit un vrai ennemi qui sort du sol si on le tape.
+- Les pièces sont physiquées :
+	- pourquoi pas avoir une pièce qui saute toute seule et fuit le joueur pour l'attirer dans un piège (c'est juste drôle mais bon il faut le justifier en terme de lore et tout ça sans doute).
+	- idée à la con de Twitter mais marrante : un compagnon pièce qui te suit et qui te parle. Ca peut être marrant qu'il trigger des dialogues et parle énormément pour faire chier mais qu'en contrepartie il ait un putain de powerup ou autre.
