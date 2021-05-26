@@ -62,6 +62,8 @@ Idées 15/02/2021 - Histoire de rêves, de folie, tout ça.
 
 Idées générales
 	
+- Ca serait cool de pouvoir réaffronter les boss, il faudra trouver une justification avec le lore mais j'aime bien le fait de pouvoir refaire les fights pour s'entraîner/chercher le no hit, etc.
+	- Pas forcément besoin de pouvoir le refaire de suite, mais ne serait-ce qu'un item qui permet ça, avec une description du style "permet de réaffronter les fantômes du passé..." bref un truc un peu stylé, et une interaction avec les cadavres des boss ensuite ?
 - Boss qui, lorsqu'il attaque, laisse une instance de lui-même à sa dernière position qui réattaque avant de disparaître.
 - Dans le monde parallèle, des gens auraient essayé de se pendre pour en finir mais ne peuvent mourir et sont bloqués pendus à jamais.
 - Combat contre un "juge de la folie" pour pouvoir sortir de ce monde ? Une version de soi pure qui nous ramènerait dans le monde normal si on perd contre lui, sinon, si on gagne, alors on s'enferme en fait à jamais dans le monde de la folie (on mourrait, pensant devoir retourner se battre contre le boss, mais il n'est plus là). Tuer sa version pure condamnerait complètement le personnage dans ce monde, il pourrait donc y accéder et en découvrir tous ses secrets, mais cela ne lui servirait "plus à rien".

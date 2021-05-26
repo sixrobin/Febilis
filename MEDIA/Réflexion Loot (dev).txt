@@ -1,0 +1,29 @@
+Façon Hollow Knight, on fait pop des pièces physiquées qui peuvent tomber, et qui ne vont pas super loin non plus.
+Un ou deux rebonds pas plus, et pas beaucoup de mouvement en x pour rester sur la zone de la source.
+	- Physique Unity ou physique à la mano ? Unity dans un premier temps et voir ce que ça rend.
+
+Besoin de paramétrer une valeur avec de l'aléatoire.
+Balise xml type="Loot"
+	- soit value pour un loot similaire à chaque fois
+	- soit minmax (avec max inclusif) pour un loot random
+Prévoir de quoi ajouter des objets spécifiques, si jamais on souhaite drop une clef sur un mob, par exemple (et il faudra alors penser à ne pas drop la clef deux fois, si jamais elle est sur un mob qui respawn).
+
+Spawner des pièces, et jouer leur idle en commençant à une frame random pour casse le rythme global.
+-> Besoin d'un pooling !
+
+Gestion du pickup :
+Quand le joueur trigger une pièce, ou quand une pièce trigger le joueur ?
+	- Peut-être mieux que ce soit la pièce qui le gère, le controller s'en fout un peu de la monnaie. 
+	- Collision avec joueur : pickup.
+	- Collision avec pics/truc qui tue divers : disparaît.
+Les pièces ne disparaissent pas. Ca serait même super cool qu'elles restent après les chargements et tout, mais dans un premier temps on peut déjà faire en sorte à ce qu'elles ne disparaissent qu'au changement de scène.
+	- Si on veut les sauvegarder, on peut garder une trace dans le xml des pièces avec pour chacune sa position, la scène dans laquelle elle se trouve, et les spawn une fois que le joueur relance la bonne scène.
+Au pickup :
+	- petit fx + disparition de la pièce.
+	- feedback sur l'UI (icon qui blink ?)
+	
+Pour l'UI, ça serait cool d'avoir une valeur à côté pour afficher les thunes obtenues/dépensées et un tween entre cette valeur qui va vers 0, et la valeur de l'argent réel qui tween en même temps vers sa vraie valeur.
+	
+Il faut sauvegarder les thunes du joueur.
+	- Sauvegarder quand on fait un achat (et sauvegarder l'item acheté forcément)
+	- Est-ce qu'on sauvegarde les pièces obtenues depuis le dernier checkpoint si le joueur quitte ?
