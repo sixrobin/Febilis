@@ -9,7 +9,7 @@
 
         public static System.Collections.Generic.Dictionary<string, Datas.DestroyableDatas> DestroyablesDatas { get; private set; }
 
-        public void Load()
+        void IDatabase.Load()
         {
             DeserializeDestroyablesDatas();
         }

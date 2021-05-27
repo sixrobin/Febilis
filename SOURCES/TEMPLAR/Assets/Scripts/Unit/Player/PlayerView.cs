@@ -113,14 +113,14 @@
 
             if (dir != 0f)
             {
-                Transform jumpPuffInstance = RSLib.Framework.Pool.Get(_jumpPuffPrefab).transform;
+                Transform jumpPuffInstance = RSLib.Framework.Pooling.Pool.Get(_jumpPuffPrefab).transform;
                 jumpPuffInstance.position = transform.position;
                 jumpPuffInstance.SetScaleX(dir);
             }
             else
             {
                 // We might probably want to use another prefab to have another VFX.
-                RSLib.Framework.Pool.Get(_landPuffPrefab).transform.position = transform.position;
+                RSLib.Framework.Pooling.Pool.Get(_landPuffPrefab).transform.position = transform.position;
             }
 
             LogAnimationPlayIfRequired("Jump");
@@ -129,7 +129,7 @@
         public void PlayDoubleJumpAnimation()
         {
             _animator.SetTrigger(JUMP);
-            RSLib.Framework.Pool.Get(_doubleJumpPuffPrefab).transform.position = transform.position;
+            RSLib.Framework.Pooling.Pool.Get(_doubleJumpPuffPrefab).transform.position = transform.position;
             LogAnimationPlayIfRequired("Double Jump");
         }
 
@@ -144,7 +144,7 @@
 
         public void PlayLandVFX()
         {
-            RSLib.Framework.Pool.Get(_landPuffPrefab).transform.position = transform.position;
+            RSLib.Framework.Pooling.Pool.Get(_landPuffPrefab).transform.position = transform.position;
         }
 
         public void PlayRollAnimation(float dir)
@@ -153,7 +153,7 @@
             _animator.SetTrigger(ROLL);
             _animator.SetFloat(MULT_ROLL, TemplarCtrl.CtrlDatas.Roll.AnimMult);
 
-            GameObject rollPuffInstance = RSLib.Framework.Pool.Get(_rollPuffPrefab);
+            GameObject rollPuffInstance = RSLib.Framework.Pooling.Pool.Get(_rollPuffPrefab);
             rollPuffInstance.transform.position = transform.position;
             rollPuffInstance.transform.SetScaleX(dir);
 
@@ -170,14 +170,14 @@
             }
             else
             {
-                if (!RSLib.Framework.Pool.ContainsId(overrideId))
+                if (!RSLib.Framework.Pooling.Pool.ContainsId(overrideId))
                 {
-                    CProLogger.LogWarning(this, $"Object Pooler doesn't have a pool with Id {overrideId}. Known Ids are : {string.Join(",", RSLib.Framework.Pool.GetPoolsIds())}.");
+                    CProLogger.LogWarning(this, $"Object Pooler doesn't have a pool with Id {overrideId}. Known Ids are : {string.Join(",", RSLib.Framework.Pooling.Pool.GetPoolsIds())}.");
                     smallPuffInstance = Instantiate(_attackPuffPrefab);
                 }
                 else
                 {
-                   smallPuffInstance = RSLib.Framework.Pool.Get(overrideId);
+                   smallPuffInstance = RSLib.Framework.Pooling.Pool.Get(overrideId);
                 }
             }
 
@@ -187,7 +187,7 @@
 
         public void PlayHitVFX(float dir)
         {
-            Transform hitInstance = RSLib.Framework.Pool.Get(_hitPrefab).transform;
+            Transform hitInstance = RSLib.Framework.Pooling.Pool.Get(_hitPrefab).transform;
             hitInstance.position = _hitVFXPivot.position;
             hitInstance.SetScaleX(dir);
         }
@@ -201,7 +201,7 @@
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
             // [TMP] We probably want a puff VFX made especially for hurt feedback.
-            Transform jumpPuffInstance = RSLib.Framework.Pool.Get(_jumpPuffPrefab).transform;
+            Transform jumpPuffInstance = RSLib.Framework.Pooling.Pool.Get(_jumpPuffPrefab).transform;
             jumpPuffInstance.position = transform.position;
             jumpPuffInstance.transform.SetScaleX(dir);
 

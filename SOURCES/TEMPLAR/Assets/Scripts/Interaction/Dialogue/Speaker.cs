@@ -16,6 +16,14 @@
         public Transform PlayerDialoguePivot => _playerDialoguePivot;
         public Vector3 SpeakerPos => transform.position;
         
+        void ISpeaker.OnSentenceStart()
+        {
+        }
+
+        void ISpeaker.OnSentenceEnd()
+        {
+        }
+
         private void OnDialogueOver(string dialogueId)
         {
             IsDialoguing = false;
@@ -43,15 +51,6 @@
             IsDialoguing = true;
             UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, this);
         }
-
-        public void OnSentenceStart()
-        {
-        }
-
-        public void OnSentenceEnd()
-        {
-        }
-
         private void Start()
         {
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;

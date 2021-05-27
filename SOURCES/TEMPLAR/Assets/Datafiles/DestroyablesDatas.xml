@@ -8,6 +8,10 @@
          <SourceType>FALL</SourceType>
       </ValidSources>
       <OnDestroy>
+         <Loot>
+            <Value>3</Value>
+            <Chance>0.33</Chance>
+         </Loot>
          <Trauma X="0.3" Y ="0.3" AddType="ADDITIVE" ShakeId="Small"/>
          <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_00</SpawnFromPool>
@@ -34,6 +38,10 @@
          <SourceType>FALL</SourceType>
       </ValidSources>
       <OnDestroy>
+         <Loot>
+            <Value>2</Value>
+            <Chance>0.1</Chance>
+         </Loot>
          <Trauma X="0.25" Y ="0.25" AddType="ADDITIVE" ShakeId="Small"/>
          <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
          <SpawnFromPool>Skull_Particles_00</SpawnFromPool>

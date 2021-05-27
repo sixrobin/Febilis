@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class PaletteSelector : MonoBehaviour
+    public class PaletteSelector : RSLib.Framework.ConsoleProSingleton<PaletteSelector>
     {
         private const string RAMP_TEX_SHADER_PARAM = "_RampTex";
 
@@ -11,44 +11,37 @@
         public delegate void PaletteChangeEventHandler(Texture2D rampTex);
         public event PaletteChangeEventHandler PaletteChanged;
         
-        private int _currRampIndex = -1;
-        public int CurrRampIndex
+        private static int s_currRampIndex = -1;
+        public static int CurrRampIndex
         {
-            get => _currRampIndex;
+            get => s_currRampIndex;
             private set
             {
-                _currRampIndex = RSLib.Helpers.Mod(value, _ramps.Length);
+                s_currRampIndex = RSLib.Helpers.Mod(value, Instance._ramps.Length);
 
-                Manager.GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp.OverrideRamp(_ramps[_currRampIndex]);
-                PaletteChanged?.Invoke(_ramps[_currRampIndex]);
+                Manager.GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp.OverrideRamp(Instance._ramps[s_currRampIndex]);
+                Instance.PaletteChanged?.Invoke(Instance._ramps[s_currRampIndex]);
             }
         }
 
-        /// <summary>
-        /// Used to set the current checkpoint Id from save file.
-        /// Should only be called by a save manager of some sort.
-        /// </summary>
-        public void LoadPalette(int rampIndex)
+        public static void SetPalette(int rampIndex)
         {
             CurrRampIndex = rampIndex;
         }
 
-        public Texture2D GetCurrentRamp()
+        public static Texture2D GetCurrentRamp()
         {
-            return _ramps[CurrRampIndex];
+            return Instance._ramps[CurrRampIndex];
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if (CurrRampIndex == -1)
                 CurrRampIndex = System.Array.IndexOf(_ramps, Manager.GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp.TextureRamp);
-        }
 
-        private void Update()
-        {
-            // [TOOD] Remove this and do a debug panel.
-            if (Input.GetKeyDown(KeyCode.F1))
-                CurrRampIndex++;
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<int>("RampIndex", "Sets the color ramp index.", (index) => SetPalette(index)));
         }
     }
 }

@@ -36,7 +36,7 @@
 
             s_instance = this;
 
-            FindObjectOfType<PaletteSelector>().PaletteChanged += ChangePalette; // [TMP] Find.
+            PaletteSelector.Instance.PaletteChanged += ChangePalette;
             _mats = _templateGraphics.Select(o => o.materialForRendering).ToArray();
             _initRampTex = _mats[0].GetTexture(RAMP_TEX_SHADER_PARAM) as Texture2D;
         }

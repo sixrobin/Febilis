@@ -13,7 +13,7 @@
 
         public static AnimationCurve DefaultPlayerAttackCurve => Instance._defaultPlayerAttackCurve;
 
-        public void Load()
+        void IDatabase.Load()
         {
             DeserializeAttacksDatas();
         }

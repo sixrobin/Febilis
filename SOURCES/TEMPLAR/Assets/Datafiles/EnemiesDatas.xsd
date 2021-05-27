@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+   <xs:include schemaLocation="SharedDatas.xsd"/>
+
    <xs:element name="EnemiesDatas">
       <xs:complexType>
          <xs:sequence>
@@ -29,6 +31,7 @@
                         </xs:complexType>
                      </xs:element>
                      <xs:element name="OnKilledTrauma" type="xs:float" minOccurs="0" maxOccurs="1"/>
+                     <xs:element name="OnKilledLoot" type="LootDatas" minOccurs="0" maxOccurs="1"/>
                   </xs:sequence>
                   <xs:attribute name="Id" type="xs:token" use="required"/>
                </xs:complexType>

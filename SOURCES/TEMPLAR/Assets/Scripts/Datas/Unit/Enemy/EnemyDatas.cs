@@ -21,6 +21,7 @@
         public float PlayerDetectionDistSqr => PlayerDetectionDist * PlayerDetectionDist;
         public float PlayerLoseDistSqr => PlayerLoseDist * PlayerLoseDist;
 
+        public LootDatas OnKilledLoot { get; private set; }
         public float OnKilledTrauma { get; private set; }
 
         public System.Collections.Generic.List<EnemyBehaviourDatas> Behaviours { get; private set; }
@@ -69,6 +70,10 @@
             XElement onKilledTraumaElement = enemyElement.Element("OnKilledTrauma");
             if (onKilledTraumaElement != null)
                 OnKilledTrauma = onKilledTraumaElement.ValueToFloat();
+
+            XElement onKilledLootElement = enemyElement.Element("OnKilledLoot");
+            if (onKilledLootElement != null)
+                OnKilledLoot = new LootDatas(onKilledLootElement);
         }
     }
 }

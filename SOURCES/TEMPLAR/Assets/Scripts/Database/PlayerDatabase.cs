@@ -14,7 +14,7 @@
 
         public static System.Collections.Generic.Dictionary<string, AnimationClip> AnimationClips { get; private set; }
 
-        public void Load()
+        void IDatabase.Load()
         {
             GenerateClipsDictionary();
         }

@@ -20,7 +20,7 @@
             XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
             container.Add(checkpointIdElement);
 
-            XElement paletteIndexElement = new XElement("PaletteIndex", FindObjectOfType<PaletteSelector>().CurrRampIndex); // [TMP] Find.
+            XElement paletteIndexElement = new XElement("PaletteIndex", PaletteSelector.CurrRampIndex);
             container.Add(paletteIndexElement);
 
             try
@@ -77,7 +77,7 @@
 
                 XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
                 if (paletteIndexElement != null)
-                    FindObjectOfType<PaletteSelector>().LoadPalette(paletteIndexElement.ValueToInt()); // [TMP] Find.
+                    PaletteSelector.SetPalette(paletteIndexElement.ValueToInt());
             }
             catch (System.Exception e)
             {
@@ -97,6 +97,8 @@
             try
             {
                 System.IO.File.Delete(SavePath);
+
+                Interaction.Checkpoint.CheckpointController.ForceRemoveCurrentCheckpoint();
             }
             catch (System.Exception e)
             {
@@ -114,6 +116,9 @@
 
             if (!_disableLoading)
                 TryLoad();
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("Save", "Saves game progression.", Save));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("EraseSave", "Erases save file if it exists.", () => EraseSave()));
         }
     }
 }

@@ -13,6 +13,8 @@
 
         public Physics.Destroyables.DestroyableSourceType ValidSources { get; private set; } = Physics.Destroyables.DestroyableSourceType.NONE;
 
+        public LootDatas LootDatas { get; private set; }
+
         public ShakeTraumaDatas TraumaDatas { get; protected set; }
         public System.Collections.Generic.List<string> ToSpawnFromPool { get; private set; }
 
@@ -34,9 +36,13 @@
             ToSpawnFromPool = new System.Collections.Generic.List<string>();
 
             XElement onDestroyElement = destroyableElement.Element("OnDestroy");
-
             if (onDestroyElement != null)
             {
+
+                XElement lootElement = onDestroyElement.Element("Loot");
+                if (lootElement != null)
+                    LootDatas = new LootDatas(lootElement);
+
                 XElement traumaElement = onDestroyElement.Element("Trauma");
                 if (traumaElement != null)
                     TraumaDatas = new ShakeTraumaDatas(traumaElement);

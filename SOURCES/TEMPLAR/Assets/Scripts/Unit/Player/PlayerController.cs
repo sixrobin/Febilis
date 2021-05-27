@@ -48,11 +48,21 @@
         public string SpeakerId => PLAYER_SPEAKER_ID;
         public Vector3 SpeakerPos => transform.position;
 
-        public void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
+        void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             HealthCtrl.HealFull();
             PlayerHealthCtrl.RestoreCells();
             AllowInputs(true);
+        }
+
+        void Interaction.Dialogue.ISpeaker.OnSentenceStart()
+        {
+            PlayerView.PlayDialogueTalkAnimation();
+        }
+
+        void Interaction.Dialogue.ISpeaker.OnSentenceEnd()
+        {
+            PlayerView.PlayDialogueIdleAnimation();
         }
 
         public void Init(Interaction.Checkpoint.CheckpointController checkpoint = null)
@@ -97,16 +107,6 @@
         public void JumpWithVariousVelocity()
         {
             _currVel.y = InputCtrl.CheckJumpInput() ? JumpCtrl.JumpVelMax : JumpCtrl.JumpVelMin;
-        }
-
-        public void OnSentenceStart()
-        {
-            PlayerView.PlayDialogueTalkAnimation();
-        }
-
-        public void OnSentenceEnd()
-        {
-            PlayerView.PlayDialogueIdleAnimation();
         }
 
         public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)

@@ -46,6 +46,14 @@ MonoBehaviour:
   _dontDestroy: 0
   _verbose: 0
   _pooledObjects:
+  - _id: Coin
+    _gameObject: {fileID: 7536936413643913275, guid: a115b72ace6a61841bb07ea87c2f899b,
+      type: 3}
+    _quantity: 500
+  - _id: Coin_Pickup_Particles
+    _gameObject: {fileID: 5495030605211771356, guid: b333906f13f6dcd4ba5413d7b450be6f,
+      type: 3}
+    _quantity: 20
   - _id: DoubleJump_Puff
     _gameObject: {fileID: 1349905492933044248, guid: 9432c447a8a61c440a2ff50b36827616,
       type: 3}

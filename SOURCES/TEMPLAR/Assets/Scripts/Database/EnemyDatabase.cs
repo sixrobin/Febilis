@@ -17,7 +17,7 @@
         public static System.Collections.Generic.Dictionary<string, Datas.Unit.Enemy.EnemyDatas> EnemiesDatas { get; private set; }
         public static System.Collections.Generic.Dictionary<string, AnimationClip> AnimationClips { get; private set; }
 
-        public void Load()
+        void IDatabase.Load()
         {
             DeserializeEnemyDatas();
             GenerateClipsDictionary();

@@ -41,7 +41,7 @@
             while (true)
             {
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(_signAppearanceRate);
-                StartCoroutine(SleepSignCoroutine(RSLib.Framework.Pool.Get(_sleepSignPrefab).transform));
+                StartCoroutine(SleepSignCoroutine(RSLib.Framework.Pooling.Pool.Get(_sleepSignPrefab).transform));
             }
         }
 

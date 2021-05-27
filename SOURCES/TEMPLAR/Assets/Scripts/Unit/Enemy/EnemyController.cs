@@ -1,5 +1,6 @@
 ﻿namespace Templar.Unit.Enemy
 {
+    using RSLib.Extensions;
     using UnityEngine;
 
     [DisallowMultipleComponent]
@@ -69,7 +70,7 @@
         
         public bool BeingHurt => _hurtCoroutine != null;
 
-        public void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
+        void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
             enemyHealthCtrl.ResetController();
@@ -139,6 +140,9 @@
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
         {
             AttackCtrl.CancelAttack();
+
+            if (EnemyDatas.OnKilledLoot != null)
+                Manager.LootManager.SpawnLoot(EnemyDatas.OnKilledLoot, transform.position.AddY(0.2f));
 
             FindObjectOfType<Templar.Camera.CameraController>().GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.

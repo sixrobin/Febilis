@@ -27,7 +27,7 @@
         public static System.Collections.Generic.Dictionary<Collider2D, DestroyableObject> SharedDestroyableObjectsByColliders { get; private set; }
             = new System.Collections.Generic.Dictionary<Collider2D, DestroyableObject>();
 
-        public void OnCheckpointInteracted(CheckpointController checkpointCtrl)
+        void ICheckpointListener.OnCheckpointInteracted(CheckpointController checkpointCtrl)
         {
             ResetDestroyable();
         }
@@ -46,12 +46,15 @@
             if (_destroyed)
                 return;
 
+            if (_destroyableDatas.LootDatas != null)
+                Manager.LootManager.SpawnLoot(_destroyableDatas.LootDatas, transform.position.AddY(0.2f));
+
             if (_destroyableDatas.TraumaDatas != null)
                 FindObjectOfType<Templar.Camera.CameraController>().ApplyShakeFromDatas(_destroyableDatas.TraumaDatas); // [TMP] Find.
 
             for (int i = _destroyableDatas.ToSpawnFromPool.Count - 1; i >= 0; --i)
             {
-                GameObject vfxInstance = RSLib.Framework.Pool.Get(_destroyableDatas.ToSpawnFromPool[i]);
+                GameObject vfxInstance = RSLib.Framework.Pooling.Pool.Get(_destroyableDatas.ToSpawnFromPool[i]);
                 vfxInstance.transform.position = transform.position;
             }
 

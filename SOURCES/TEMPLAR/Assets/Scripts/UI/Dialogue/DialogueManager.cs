@@ -84,7 +84,6 @@
                 }
                 else if (dialogueDatas.SequenceElementsDatas[i] is Datas.Dialogue.DialoguePauseDatas pauseDatas)
                 {
-                    // [TODO] Param in xml to hide panel or not ?
                     _dialogueView.Display(false);
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
                 }

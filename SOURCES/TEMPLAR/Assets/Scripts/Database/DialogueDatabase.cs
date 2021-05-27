@@ -25,7 +25,7 @@
         public static System.Collections.Generic.Dictionary<string, Sprite> Portraits { get; private set; }
         public static Sprite DefaultPortrait => Instance._defaultPortrait;
 
-        public void Load()
+        void IDatabase.Load()
         {
             DeserializeDialoguesDatas();
             DeserializeSpeakersDisplayDatas();

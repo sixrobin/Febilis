@@ -24,4 +24,11 @@
       </xs:sequence>
    </xs:complexType>
 
+   <xs:complexType name="LootDatas">
+      <xs:sequence>
+         <xs:element name="Value" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Chance" type="xs:float" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+
 </xs:schema>

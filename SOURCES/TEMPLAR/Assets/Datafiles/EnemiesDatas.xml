@@ -58,6 +58,9 @@
          <OnPlayerDeath/>
       </EventBehaviours>-->
       <OnKilledTrauma>0.4</OnKilledTrauma>
+      <OnKilledLoot>
+         <Value>5</Value>
+      </OnKilledLoot>
    </EnemyDatas>
 
    <EnemyDatas Id="Rat">
@@ -95,6 +98,9 @@
             </Actions>
          </Behaviour>
       </Behaviours>
+      <!--<OnKilledLoot>
+         <Value>3</Value>
+      </OnKilledLoot>-->
    </EnemyDatas>
    
 </EnemiesDatas>

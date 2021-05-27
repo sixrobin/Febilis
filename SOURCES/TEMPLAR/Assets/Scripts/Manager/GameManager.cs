@@ -101,16 +101,6 @@
             RSLib.SceneReloader.BeforeReload += SaveManager.Save;
         }
 
-        private void Update()
-        {
-            // [TMP]
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                SaveManager.EraseSave();
-                Interaction.Checkpoint.CheckpointController.ForceRemoveCurrentCheckpoint();
-            }
-        }
-
         private void OnDestroy()
         {
             // [TMP]
