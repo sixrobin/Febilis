@@ -10,16 +10,17 @@
 
 ///// BUG TRACKER
 	- HUD qui repop rapidement au reload de la scène après la mort.
+	- Un SleepSign semble ne pas avoir été détruit, peut-être parce que j'ai cut le sleep ?
 	
 	
 	
 ///// CODE
 	- Ne pas référencer la caméra dans PlayerController.
 	- Gestion du loot (juste de la monnaie drop sur les destroyables et ennemis pour l'instant). Sans doute un LootDatas dans SharedDatas ?
+	- Tool pour spawner des pièces à l'endroit du clic souris (peut-être pas au clic vu que ça déclenche une attaque).
 	- Objets destructibles.
 		- Ajouter la possibilité de tous les reset avec un bouton de debug.
-	- Tool pour spawner des pièces à l'endroit du clic souris (peut-être pas au clic vu que ça déclenche une attaque).
-
+	
 
 
 ///// GAMEPLAY

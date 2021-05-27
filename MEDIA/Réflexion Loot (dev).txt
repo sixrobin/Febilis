@@ -8,8 +8,14 @@ Balise xml type="Loot"
 	- soit minmax (avec max inclusif) pour un loot random
 Prévoir de quoi ajouter des objets spécifiques, si jamais on souhaite drop une clef sur un mob, par exemple (et il faudra alors penser à ne pas drop la clef deux fois, si jamais elle est sur un mob qui respawn).
 
+Ca serait bien de gérer les datas en paramétrant une valeur et ensuite de la splitter naturellement en pièces/autres. Par exemple :
+	- une pièce = 1
+	- un joyau = 3
+	- pour un loot de 5 -> générer un joyau + 2 pièces
+
 Spawner des pièces, et jouer leur idle en commençant à une frame random pour casse le rythme global.
 -> Besoin d'un pooling !
+- Le pooling contient les pièces individuellement, et on spawn ensuite à une position donnée x pièces, mais PAS de prefab "Coins container" ou truc du genre.
 
 Gestion du pickup :
 Quand le joueur trigger une pièce, ou quand une pièce trigger le joueur ?
