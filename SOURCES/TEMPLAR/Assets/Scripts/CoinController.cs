@@ -24,6 +24,17 @@
             BurstOut();
         }
 
+        private void Loot()
+        {
+            Manager.CurrencyManager.GetCurrency(1);
+        }
+
+        private void Disable()
+        {
+            RSLib.Framework.Pooling.Pool.Get(_pickupParticlesPrefab).transform.position = transform.position;
+            gameObject.SetActive(false);
+        }
+
         private void BurstOut()
         {
             _animator.Play(_idleStateHash, 0, Random.value);
@@ -39,15 +50,14 @@
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            RSLib.Framework.Pooling.Pool.Get(_pickupParticlesPrefab).transform.position = transform.position;
-            gameObject.SetActive(false);
+            Loot();
+            Disable();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            // Kill triggers are not triggers to kill the player but coins should be destroyed too.
             if (KillTrigger.SharedKillTriggers.ContainsKey(collision.collider))
-                OnTriggerEnter2D(collision.collider);
+                Disable();
         }
     }
 }

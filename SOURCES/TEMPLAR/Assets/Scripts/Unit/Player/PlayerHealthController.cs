@@ -13,7 +13,7 @@
         public delegate void HealsLeftChangedEventHandler(int healsLeft);
         public event HealsLeftChangedEventHandler HealsLeftChanged;
 
-        public override bool CanBeHit => base.CanBeHit && !PlayerCtrl.RollCtrl.IsRolling;
+        public override bool CanBeHit => base.CanBeHit && !PlayerCtrl.RollCtrl.IsRolling && !GodMode;
 
         private int _healsLeft;
         public int HealsLeft
@@ -36,7 +36,8 @@
         public override Attack.HitLayer HitLayer => Attack.HitLayer.PLAYER;
 
         public bool DebugMode => _debugMode;
-
+        public bool GodMode { get; private set; }
+        
         public bool CanHeal()
         {
             return !PlayerCtrl.RollCtrl.IsRolling
@@ -46,6 +47,14 @@
                 && !PlayerCtrl.IsHealing
                 && (!PlayerCtrl.HealthCtrl.HealthSystem.IsFull && HealsLeft > 0 || DebugMode)
                 && PlayerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL);
+        }
+
+        public override void Kill()
+        {
+            if (GodMode)
+                return;
+
+            base.Kill();
         }
 
         public override void Init(int health)
@@ -59,12 +68,17 @@
             UnitHealthChanged += onUnitHealthChanged;
             UnitKilled += onUnitKilled;
             Init(health);
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("tgm", "Toggles god mode.", () => GodMode = !GodMode));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<int>("health", "Sets health.", (value) => HealthSystem.CurrentHealth = value));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("restoreHealCells", "Restore all heal cells.", RestoreCells));
         }
-        
+
         public override void OnHit(Attack.HitInfos hitDatas)
         {
             UnityEngine.Assertions.Assert.IsNotNull(PlayerCtrl, "PlayerController must be referenced to handle PlayerHealthController.");
-            if (PlayerCtrl.RollCtrl.IsRolling || PlayerCtrl.IsBeingHurt)
+            if (GodMode || PlayerCtrl.RollCtrl.IsRolling || PlayerCtrl.IsBeingHurt)
                 return;
 
             base.OnHit(hitDatas);

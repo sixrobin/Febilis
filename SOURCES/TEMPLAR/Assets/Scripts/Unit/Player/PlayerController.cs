@@ -180,6 +180,12 @@
             if (!args.IsLoss)
                 return;
 
+            if (args.HitDatas == null)
+            {
+                CProLogger.LogWarning(this, "Player health changed but HitDatas is null. Allowing it but make sure it's for debugging purpose.");
+                return;
+            }
+
             if (IsHealing)
             {
                 StopCoroutine(_healCoroutine);

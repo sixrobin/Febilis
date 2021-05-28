@@ -20,6 +20,8 @@
 
 
 ///// GAMEPLAY
+	- Rentrer dans une maison.
+	- Changer de scène.
 	- Enemis attack motion.
 	- Permettre de casser la séquence de heal après l'anticipation ?
 	- Attaque up du templier (sur place).
@@ -29,8 +31,8 @@
 	- Interaction "Check" qui affiche juste un dialogue du perso qui décrit ce qu'il voit.
 		- Possible de juste en faire un dialogue ?
 	- Système de monnaie.
-		- Stocker la valeur quelque part et affichage à l'écran.
 		- Sauvegarde.
+		- Meilleure view avec un tween pour afficher la monnaie gagnée/perdue.
 	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
 		- Interface/Component INavigationModeSwitcher qui change quand on détecte OnPointerEnter/OnSelected (= respectivement events curseur/manette) ?
 		- Voir si repasser la navigation en None garde en mémoire les SelectOnDirection, pour quand on repasse en Explicit ensuite.
@@ -43,6 +45,7 @@
 		- Axis dead zone
 		- Show tutorials
 		- Show enemies life
+		- Always display money
 	- Audio
 		- Master
 		- SFX
@@ -94,17 +97,11 @@
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
 		- Mode tcl
-		- Mode tgm
 		- Mode one shot
 		- SetSpeed [float]
-		- Heal [float]
 		- Restore heals
 		- Reset enemies
-		- Reset destroyables
-		- PlayDialogue [string id] (le sourceSpeaker devrait pouvoir être null)
 		- SetGold (pas encore possible)
 		- AddItem (pas encore possible)
 		- SetComboLength ? (voir une fois qu'on aura géré le combo et son évolution)
-		
-	- Bouton "Debug" dans les options pour pouvoir debugger certains trucs à la manette ? Et pour aussi tout regrouper dans un même menu.
 	- Créer un tool pour appliquer un material sur tous les éléments d'UI enfants d'objects sélectionnés.

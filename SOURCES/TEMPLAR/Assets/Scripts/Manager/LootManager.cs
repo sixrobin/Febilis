@@ -3,6 +3,10 @@
     using RSLib.Extensions;
     using UnityEngine;
 
+    /// <summary>
+    /// Manages the loot spawn but has nothing to do with the actual currency count and management.
+    /// Can be used to spawn loot, split loot between different prefabs (like coins, gems, etc.).
+    /// </summary>
     public class LootManager : RSLib.Framework.ConsoleProSingleton<LootManager>
     {
         [SerializeField] private GameObject _coinPrefab = null;

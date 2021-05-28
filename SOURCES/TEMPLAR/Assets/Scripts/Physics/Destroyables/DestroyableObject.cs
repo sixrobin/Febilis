@@ -87,6 +87,11 @@
             _baseSprite = _spriteRenderer.sprite;
 
             SharedDestroyableObjectsByColliders.Add(_collider2D, this);
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand(
+                "ResetDestroyables",
+                "Reset all destroyable objects.",
+                () => FindObjectsOfType<DestroyableObject>().ToList().ForEach(o => o.ResetDestroyable())));
         }
 
         private void OnDestroy()

@@ -78,6 +78,11 @@
             _collider.enabled = true;
         }
 
+        public virtual void Kill()
+        {
+            HealthSystem.Kill();
+        }
+
         protected virtual void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
         {
             UnitHealthChanged?.Invoke(new UnitHealthChangedEventArgs(args, _lastHitDatas));

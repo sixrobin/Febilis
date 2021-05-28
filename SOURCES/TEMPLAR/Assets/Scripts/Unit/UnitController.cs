@@ -48,7 +48,7 @@
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
             if (collisionInfos.Hit && KillTrigger.SharedKillTriggers.ContainsKey(collisionInfos.Hit.collider))
-                HealthCtrl.HealthSystem.Kill();
+                HealthCtrl.Kill();
         }
         
         protected void ApplyCurrentRecoil()

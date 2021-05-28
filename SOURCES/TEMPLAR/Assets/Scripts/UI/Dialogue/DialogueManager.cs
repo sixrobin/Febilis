@@ -23,12 +23,12 @@
 
         public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
-        public static void PlayDialogue(string id, Interaction.Dialogue.ISpeaker sourceSpeaker)
+        public static void PlayDialogue(string id, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
             PlayDialogue(Database.DialogueDatabase.DialoguesDatas[id], sourceSpeaker);
         }
 
-        public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker)
+        public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
             UnityEngine.Assertions.Assert.IsNull(
                 Instance._dialogueCoroutine,
@@ -62,7 +62,7 @@
             Log($"Registered {_speakers.Count} speaker(s) is scene : {string.Join(",", _speakers.Keys)}.");
         }
 
-        private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker)
+        private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
             Log($"Playing dialogue {dialogueDatas.Id}...");
 
@@ -210,6 +210,8 @@
         {
             base.Awake();
             RegisterSpeakersInScene();
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
         }
     }
 }
