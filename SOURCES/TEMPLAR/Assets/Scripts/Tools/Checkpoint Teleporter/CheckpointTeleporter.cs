@@ -53,8 +53,8 @@
                 _teleportPanels[i].Init(_checkpoints[i].Id, OnTeleportButtonClicked);
             }
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("OpenCheckpointTeleporter", "Opens checkpoint teleporter panel.", TogglePanel));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<string>("GoToCheckpoint", "Teleports player to a checkpoint.", (id) => OnTeleportButtonClicked(id)));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("OpenCheckpointTeleporter", "Opens checkpoint teleporter panel.", TogglePanel));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("GoToCheckpoint", "Teleports player to a checkpoint.", (id) => OnTeleportButtonClicked(id)));
         }
 
         private void OnDestroy()

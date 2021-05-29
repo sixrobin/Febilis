@@ -211,7 +211,7 @@
             base.Awake();
             RegisterSpeakersInScene();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
         }
     }
 }

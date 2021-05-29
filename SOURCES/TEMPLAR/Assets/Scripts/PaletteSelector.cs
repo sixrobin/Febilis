@@ -41,7 +41,7 @@
             if (CurrRampIndex == -1)
                 CurrRampIndex = System.Array.IndexOf(_ramps, Manager.GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp.TextureRamp);
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<int>("RampIndex", "Sets the color ramp index.", (index) => SetPalette(index)));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("RampIndex", "Sets the color ramp index.", (index) => SetPalette(index)));
         }
     }
 }

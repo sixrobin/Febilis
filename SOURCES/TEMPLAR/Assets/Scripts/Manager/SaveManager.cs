@@ -15,16 +15,19 @@
         {
             Instance.Log("Saving game progression...");
 
-            XContainer container = new XElement("GameSave");
-
-            XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
-            container.Add(checkpointIdElement);
-
-            XElement paletteIndexElement = new XElement("PaletteIndex", PaletteSelector.CurrRampIndex);
-            container.Add(paletteIndexElement);
-
             try
             {
+                XContainer container = new XElement("GameSave");
+
+                XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
+                container.Add(checkpointIdElement);
+
+                XElement paletteIndexElement = new XElement("PaletteIndex", PaletteSelector.CurrRampIndex);
+                container.Add(paletteIndexElement);
+
+                XElement currencyElement = new XElement("Currency", CurrencyManager.Currency);
+                container.Add(currencyElement);
+
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(SavePath);
                 if (!fileInfo.Directory.Exists)
                     System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
@@ -78,6 +81,10 @@
                 XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
                 if (paletteIndexElement != null)
                     PaletteSelector.SetPalette(paletteIndexElement.ValueToInt());
+
+                XElement currencyElement = gameSaveElement.Element("Currency");
+                if (currencyElement != null)
+                    CurrencyManager.LoadCurrency(currencyElement.ValueToLong());
             }
             catch (System.Exception e)
             {
@@ -117,8 +124,8 @@
             if (!_disableLoading)
                 TryLoad();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("Save", "Saves game progression.", Save));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("EraseSave", "Erases save file if it exists.", () => EraseSave()));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Save", "Saves game progression.", Save));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseSave", "Erases save file if it exists.", () => EraseSave()));
         }
     }
 }

@@ -202,13 +202,9 @@
             _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
             GenerateShakesDictionary();
             PositionInstantly();
-        }
 
-        private void Update()
-        {
-            // [TMP] Should be in an option panel.
-            if (Input.GetKeyDown(KeyCode.F3))
-                GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled = !GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled;
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command(
+                "PixelPerfectToggle", "Toggles pixel perfect camera.", () => GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled = !GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled));
         }
 
         private void LateUpdate()

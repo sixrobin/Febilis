@@ -69,10 +69,10 @@
             UnitKilled += onUnitKilled;
             Init(health);
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("tgm", "Toggles god mode.", () => GodMode = !GodMode));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand<int>("health", "Sets health.", (value) => HealthSystem.CurrentHealth = value));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.DebugCommand("restoreHealCells", "Restore all heal cells.", RestoreCells));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("tgm", "Toggles god mode.", () => GodMode = !GodMode));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("health", "Sets health.", (value) => HealthSystem.CurrentHealth = value));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("restoreHealCells", "Restore all heal cells.", RestoreCells));
         }
 
         public override void OnHit(Attack.HitInfos hitDatas)
