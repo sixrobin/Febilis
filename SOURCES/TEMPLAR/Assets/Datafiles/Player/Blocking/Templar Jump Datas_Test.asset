@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpHeightMax: 2.3
   _jumpHeightMin: 0.8
-  _jumpApexDur: 0.3
+  _jumpApexDur: 0.35
   _fallMultiplier: 1.05
   _airborneDamping: 0.05
   _jumpAnticipationSpeedMult: 0.9

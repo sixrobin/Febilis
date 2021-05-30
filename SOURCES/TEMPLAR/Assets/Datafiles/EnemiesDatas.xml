@@ -90,10 +90,10 @@
                   </Conditions>
                </Chase>
                <BackAndForth>
-                  <Range>6</Range>
+                  <Range>3</Range>
                   <Pause Min="0.2" Max="0.5"/>
                   <!--Make the range random between 2 and 8, but always from the same origin point.-->
-                  <RangeFluctuationOnPause>3</RangeFluctuationOnPause>
+                  <RangeFluctuationOnPause>2</RangeFluctuationOnPause>
                </BackAndForth>
             </Actions>
          </Behaviour>
