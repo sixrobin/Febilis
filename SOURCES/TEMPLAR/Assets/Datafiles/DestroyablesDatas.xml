@@ -20,6 +20,44 @@
       </OnDestroy>
    </DestroyableDatas>
 
+   <DestroyableDatas Id="CrateWithGold">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+         <SourceType>ROLL</SourceType>
+         <SourceType>FALL</SourceType>
+      </ValidSources>
+      <OnDestroy>
+         <Loot>
+            <Value>3</Value>
+            <Chance>1</Chance>
+         </Loot>
+         <Trauma X="0.3" Y ="0.3" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
+         <SpawnFromPool>Crate_Particles_00</SpawnFromPool>
+         <SpawnFromPool>Crate_Particles_01</SpawnFromPool>
+         <SpawnFromPool>Crate_Particles_02</SpawnFromPool>
+      </OnDestroy>
+   </DestroyableDatas>
+
+   <DestroyableDatas Id="CrateZeroGold">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+         <SourceType>ROLL</SourceType>
+         <SourceType>FALL</SourceType>
+      </ValidSources>
+      <OnDestroy>
+         <Loot>
+            <Value>0</Value>
+            <Chance>0</Chance>
+         </Loot>
+         <Trauma X="0.3" Y ="0.3" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
+         <SpawnFromPool>Crate_Particles_00</SpawnFromPool>
+         <SpawnFromPool>Crate_Particles_01</SpawnFromPool>
+         <SpawnFromPool>Crate_Particles_02</SpawnFromPool>
+      </OnDestroy>
+   </DestroyableDatas>
+
    <DestroyableDatas Id="Sign">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
