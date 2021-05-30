@@ -11,10 +11,13 @@
 ///// BUG TRACKER
 	- HUD qui repop rapidement au reload de la scène après la mort.
 	- Un SleepSign semble ne pas avoir été détruit, peut-être parce que j'ai cut le sleep ?
+	- Portraits qui devraient suivre la position des speakers
 	
 	
 	
 ///// CODE
+	- Param dans EnemyDatas pour qu'ils restent bloqués ou non aux bords quand on les tape.
+	- Appliquer la gravité aux ennemis (paramétrer dans les datas).
 	- Ne pas référencer la caméra dans PlayerController.
 	
 
@@ -63,6 +66,8 @@
 
 
 ///// ANIMATION / VIEW
+	- Spikes down.
+	- Spikes/Ground qui forcent à rouler en dessous.
 	- Effectors.
 	- Templar_LookUp & Templar_LookDown.
 	- Templar_Attack_Up.
@@ -102,3 +107,4 @@
 		- AddItem (pas encore possible)
 		- SetComboLength ? (voir une fois qu'on aura géré le combo et son évolution)
 	- Créer un tool pour appliquer un material sur tous les éléments d'UI enfants d'objects sélectionnés.
+	- Garder une scène Template quelque part qui comporte tout ce qu'il faut pour setup un niveau.
