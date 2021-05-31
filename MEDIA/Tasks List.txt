@@ -12,14 +12,13 @@
 	- HUD qui repop rapidement au reload de la scène après la mort.
 	- Un SleepSign semble ne pas avoir été détruit, peut-être parce que j'ai cut le sleep ?
 	- Portraits qui devraient suivre la position des speakers
+	- Les coins ne sont pas reset aux changements de scènes car elles sont enfants de la pool qui n'est pas détruite.
+		- Stocker les "coinsNotPickedUp" dans LootManager et les disable aux moments voulus ?
 	
 	
 	
 ///// CODE
-	- Appliquer la gravité aux ennemis (paramétrer dans les datas).
-		- Paramétrer comme pour le joueur avec apex time et height ? Ou juste gravity ?
-		- On voudra peut-être des ennemis qui sautent, donc autant prévoir ça d'un coup.
-		- Voir si on le fait pour chaque EnemyAction ou non ? Si oui, juste une valeur en update qui augmente avec la gravité, sinon, un paramètre <ApplyGravity/> dans les datas des actions, qu'on évalue en update de EnemyController.
+	- Ajouter un paramètre aux EnemyAction pour choisir de ne pas appliquer la gravité (juste un <tag/> à mettre du style <DontApplyGravity/>).
 	- Ne pas référencer la caméra dans PlayerController.
 	
 

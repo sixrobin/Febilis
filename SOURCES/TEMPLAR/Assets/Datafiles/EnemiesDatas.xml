@@ -9,6 +9,10 @@
       <PlayerDetectionDist>3.5</PlayerDetectionDist>
       <PlayerLoseDist>5</PlayerLoseDist>
       <Physics>
+         <Jump>
+            <Height>2</Height>
+            <ApexDur>0.3</ApexDur>
+         </Jump>
          <HurtCheckEdge>true</HurtCheckEdge>
       </Physics>
       <Behaviours>
@@ -74,7 +78,11 @@
       <PlayerDetectionDist>4</PlayerDetectionDist>
       <PlayerLoseDist>10</PlayerLoseDist>
       <Physics>
-         <HurtCheckEdge>false</HurtCheckEdge>
+         <Jump>
+            <Height>2</Height>
+            <ApexDur>0.3</ApexDur>
+         </Jump>
+         <HurtCheckEdge>true</HurtCheckEdge>
       </Physics>
       <Behaviours>
          <Behaviour Name="Base">

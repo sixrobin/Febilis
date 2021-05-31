@@ -22,6 +22,9 @@
         public float PlayerLoseDistSqr => PlayerLoseDist * PlayerLoseDist;
 
         public bool HurtCheckEdge { get; private set; }
+        public float JumpHeight { get; private set; }
+        public float JumpApexDur { get; private set; }
+        public float JumpApexDurSqr => JumpApexDur * JumpApexDur;
 
         public LootDatas OnKilledLoot { get; private set; }
         public float OnKilledTrauma { get; private set; }
@@ -64,10 +67,7 @@
 
             XElement physicsElement = enemyElement.Element("Physics");
             UnityEngine.Assertions.Assert.IsNotNull(physicsElement, $"EnemyDatas {Id} must have a Physics element.");
-
-            XElement hurtCheckEdgeElement = physicsElement.Element("HurtCheckEdge");
-            UnityEngine.Assertions.Assert.IsNotNull(hurtCheckEdgeElement, $"EnemyDatas {Id} Physics datas must have a HurtCheckEdge element.");
-            HurtCheckEdge = hurtCheckEdgeElement.ValueToBool();
+            DeserializePhysicsDatas(physicsElement);
 
             XElement behavioursElement = enemyElement.Element("Behaviours");
             UnityEngine.Assertions.Assert.IsNotNull(behavioursElement, $"EnemyDatas {Id} must have a Behaviours element.");
@@ -83,6 +83,24 @@
             XElement onKilledLootElement = enemyElement.Element("OnKilledLoot");
             if (onKilledLootElement != null)
                 OnKilledLoot = new LootDatas(onKilledLootElement);
+        }
+
+        private void DeserializePhysicsDatas(XElement physicsElement)
+        {
+            XElement jumpElement = physicsElement.Element("Jump");
+            UnityEngine.Assertions.Assert.IsNotNull(jumpElement, $"EnemyDatas {Id} Physics datas must have a Jump element.");
+
+            XElement jumpHeightElement = jumpElement.Element("Height");
+            UnityEngine.Assertions.Assert.IsNotNull(jumpHeightElement, $"EnemyDatas {Id} Jump datas must have a Height element.");
+            JumpHeight = jumpHeightElement.ValueToFloat();
+
+            XElement jumpApexDurElement = jumpElement.Element("ApexDur");
+            UnityEngine.Assertions.Assert.IsNotNull(jumpApexDurElement, $"EnemyDatas {Id} Jump datas must have an ApexDur element.");
+            JumpApexDur = jumpApexDurElement.ValueToFloat();
+
+            XElement hurtCheckEdgeElement = physicsElement.Element("HurtCheckEdge");
+            UnityEngine.Assertions.Assert.IsNotNull(hurtCheckEdgeElement, $"EnemyDatas {Id} Physics datas must have a HurtCheckEdge element.");
+            HurtCheckEdge = hurtCheckEdgeElement.ValueToBool();
         }
     }
 }

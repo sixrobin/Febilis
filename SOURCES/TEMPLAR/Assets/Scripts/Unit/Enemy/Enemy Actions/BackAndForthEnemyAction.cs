@@ -91,6 +91,9 @@
             _sideCollision = EnemyCtrl.CurrDir == 1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.RIGHT
                 || EnemyCtrl.CurrDir == -1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.LEFT
                 || collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.EDGE;
+
+            //if (_sideCollision)
+            //    CProLogger.Log(EnemyCtrl, collisionInfos.Origin.ToString(), EnemyCtrl.gameObject);
         }
 
         private void ComputeNextPauseDuration()

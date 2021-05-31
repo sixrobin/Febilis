@@ -27,6 +27,10 @@
 
         private Vector3 _initPos;
 
+        private float _gravity;
+        private float _jumpVel;
+        private float _currVelY;
+
         private System.Collections.IEnumerator _hurtCoroutine;
 
         private EnemyBehaviour _currBehaviour;
@@ -153,6 +157,16 @@
             StartDeadFadeCoroutine();
         }
 
+        private void ComputeJumpPhysics()
+        {
+            // This code is a duplicate from PlayerJumpController.
+            // We might want a UnitJumpController to handle this, and the variables,
+            // but it's okay for now since those lines are constant maths computations and thus don't need to be changed.
+
+            _gravity = -(2f * EnemyDatas.JumpHeight) / EnemyDatas.JumpApexDurSqr;
+            _jumpVel = Mathf.Abs(_gravity) * EnemyDatas.JumpApexDur;
+        }
+
         private void UpdateCurrentBehaviour()
         {
             for (int i = 0; i < Behaviours.Length; ++i)
@@ -223,6 +237,8 @@
             UnityEngine.Assertions.Assert.IsTrue(Database.EnemyDatabase.EnemiesDatas.ContainsKey(_id), $"Unknown enemy Id {_id}.");
             EnemyDatas = Database.EnemyDatabase.EnemiesDatas[_id];
 
+            ComputeJumpPhysics();
+
             AttackCtrl = new Attack.EnemyAttackController(this);
             CollisionsCtrl = new Templar.Physics.CollisionsController(BoxCollider2D, CollisionMask);
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
@@ -256,6 +272,9 @@
 
             IsPlayerAbove &= CollisionsCtrl.CurrentStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.ABOVE);
 
+            if (CollisionsCtrl.Below)
+                _currVelY = 0f;
+
             CollisionsCtrl.BackupCurrentState();
             CollisionsCtrl.ComputeRaycastOrigins();
             CollisionsCtrl.CurrentStates.Reset();
@@ -276,9 +295,11 @@
                 }
             }
 
+            _currVelY += _gravity * Time.deltaTime;
+            Translate(0f, _currVelY);
+
             CurrAction.Execute();
 
-            // [TODO] Apply gravity.
             ApplyCurrentRecoil();
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
         }
