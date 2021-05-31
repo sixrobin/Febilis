@@ -15,6 +15,13 @@
                      <xs:element name="HurtDur" type="xs:float" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="PlayerDetectionDist" type="xs:float" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="PlayerLoseDist" type="xs:float" minOccurs="1" maxOccurs="1"/>
+                     <xs:element name="Physics" minOccurs="1" maxOccurs="1">
+                        <xs:complexType>
+                           <xs:sequence>
+                              <xs:element name="HurtCheckEdge" minOccurs="1" maxOccurs="1"/>
+                           </xs:sequence>
+                        </xs:complexType>
+                     </xs:element>
                      <xs:element name="Behaviours" minOccurs="1" maxOccurs="1">
                         <xs:complexType>
                            <xs:sequence>

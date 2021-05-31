@@ -5,17 +5,20 @@
     public class Recoil
     {
         private Datas.Attack.RecoilDatas _recoilDatas;
+        private bool? _overrideCheckEdge;
 
-        public Recoil(float dir, Datas.Attack.RecoilDatas recoilDatas)
+        public Recoil(float dir, Datas.Attack.RecoilDatas recoilDatas, bool? overrideCheckEdge = null)
         {
             _recoilDatas = recoilDatas;
+            _overrideCheckEdge = overrideCheckEdge;
+
             Dur = _recoilDatas.Dur;
             Dir = dir;
         }
 
         public float Force => _recoilDatas.Force;
         public float AirborneMult => _recoilDatas.AirborneMult;
-        public bool CheckEdge => _recoilDatas.CheckEdge;
+        public bool CheckEdge => _overrideCheckEdge ?? _recoilDatas.CheckEdge;
 
         public float Dur { get; private set; }
 

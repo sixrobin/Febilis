@@ -8,6 +8,9 @@
       <HurtDur>0.25</HurtDur>
       <PlayerDetectionDist>3.5</PlayerDetectionDist>
       <PlayerLoseDist>5</PlayerLoseDist>
+      <Physics>
+         <HurtCheckEdge>true</HurtCheckEdge>
+      </Physics>
       <Behaviours>
          <!--<Behaviour Name="Flee">
             <Conditions>
@@ -70,6 +73,9 @@
       <HurtDur>0.15</HurtDur>
       <PlayerDetectionDist>4</PlayerDetectionDist>
       <PlayerLoseDist>10</PlayerLoseDist>
+      <Physics>
+         <HurtCheckEdge>false</HurtCheckEdge>
+      </Physics>
       <Behaviours>
          <Behaviour Name="Base">
             <Actions>

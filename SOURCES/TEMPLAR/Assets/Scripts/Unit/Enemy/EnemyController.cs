@@ -133,7 +133,7 @@
                 _currAction.Reset();
             }
 
-            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas);
+            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
             StartCoroutine(_hurtCoroutine = HurtCoroutine());
         }
 
@@ -278,6 +278,7 @@
 
             CurrAction.Execute();
 
+            // [TODO] Apply gravity.
             ApplyCurrentRecoil();
             CollisionsCtrl.TriggerDetectedCollisionsEvents();
         }

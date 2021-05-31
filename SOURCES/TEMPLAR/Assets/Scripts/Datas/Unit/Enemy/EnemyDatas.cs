@@ -21,6 +21,8 @@
         public float PlayerDetectionDistSqr => PlayerDetectionDist * PlayerDetectionDist;
         public float PlayerLoseDistSqr => PlayerLoseDist * PlayerLoseDist;
 
+        public bool HurtCheckEdge { get; private set; }
+
         public LootDatas OnKilledLoot { get; private set; }
         public float OnKilledTrauma { get; private set; }
 
@@ -59,6 +61,13 @@
             XElement playerLoseDistElement = enemyElement.Element("PlayerLoseDist");
             UnityEngine.Assertions.Assert.IsNotNull(playerLoseDistElement, $"EnemyDatas {Id} must have a PlayerLoseDist element.");
             PlayerLoseDist = playerLoseDistElement.ValueToFloat();
+
+            XElement physicsElement = enemyElement.Element("Physics");
+            UnityEngine.Assertions.Assert.IsNotNull(physicsElement, $"EnemyDatas {Id} must have a Physics element.");
+
+            XElement hurtCheckEdgeElement = physicsElement.Element("HurtCheckEdge");
+            UnityEngine.Assertions.Assert.IsNotNull(hurtCheckEdgeElement, $"EnemyDatas {Id} Physics datas must have a HurtCheckEdge element.");
+            HurtCheckEdge = hurtCheckEdgeElement.ValueToBool();
 
             XElement behavioursElement = enemyElement.Element("Behaviours");
             UnityEngine.Assertions.Assert.IsNotNull(behavioursElement, $"EnemyDatas {Id} must have a Behaviours element.");

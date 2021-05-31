@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Templar Controller
   m_EditorClassIdentifier: 
   _playerInputDatas: {fileID: 11400000, guid: dd68a487e2d47784e98fd2c8de6b814e, type: 2}
-  _playerJumpDatas: {fileID: 11400000, guid: adce7efc25ce98f44bb1940f861245da, type: 2}
+  _playerJumpDatas: {fileID: 11400000, guid: 83636384324a9e94b8a0f358f2ab53d2, type: 2}
   _playerRollDatas: {fileID: 11400000, guid: e29db7ca8186b664f91ce0be9afabe21, type: 2}
   _baseComboIds:
   - Attack_Base_00

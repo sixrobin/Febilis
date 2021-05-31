@@ -16,8 +16,10 @@
 	
 	
 ///// CODE
-	- Param dans EnemyDatas pour qu'ils restent bloqués ou non aux bords quand on les tape.
 	- Appliquer la gravité aux ennemis (paramétrer dans les datas).
+		- Paramétrer comme pour le joueur avec apex time et height ? Ou juste gravity ?
+		- On voudra peut-être des ennemis qui sautent, donc autant prévoir ça d'un coup.
+		- Voir si on le fait pour chaque EnemyAction ou non ? Si oui, juste une valeur en update qui augmente avec la gravité, sinon, un paramètre <ApplyGravity/> dans les datas des actions, qu'on évalue en update de EnemyController.
 	- Ne pas référencer la caméra dans PlayerController.
 	
 
