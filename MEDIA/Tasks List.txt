@@ -20,10 +20,6 @@
 ///// CODE
 	- Ajouter un paramètre aux EnemyAction pour choisir de ne pas appliquer la gravité (juste un <tag/> à mettre du style <DontApplyGravity/>).
 	- Ne pas référencer la caméra dans PlayerController.
-	
-
-
-///// GAMEPLAY
 	- Rentrer dans une maison.
 	- Changer de scène.
 	- Enemis attack motion.
@@ -84,6 +80,10 @@
 	- Dialogue : changer l'affichage pour la technique RedBlueGames : tout afficher et décaler une balise <alpha=00> pour que les mots soient déjà à la ligne comme il faut.
 	- Generic Burst Particles.
 	- Generic puff.
+	- Enemies fall.
+	- UI
+		- Generic toggle.
+		- Generic slider.
 
 
 
@@ -103,8 +103,6 @@
 		- Mode one shot
 		- SetSpeed [float]
 		- Restore heals
-		- Reset enemies
-		- SetGold (pas encore possible)
 		- AddItem (pas encore possible)
 		- SetComboLength ? (voir une fois qu'on aura géré le combo et son évolution)
 	- Créer un tool pour appliquer un material sur tous les éléments d'UI enfants d'objects sélectionnés.

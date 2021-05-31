@@ -1,6 +1,7 @@
 ﻿namespace Templar.Unit.Enemy
 {
     using RSLib.Extensions;
+    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
@@ -76,13 +77,7 @@
 
         void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
-            EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
-            enemyHealthCtrl.ResetController();
-            AttackCtrl.CancelAttack();
-
-            EnemyView.PlayIdleAnimation();
-            transform.position = _initPos;
-            BoxCollider2D.enabled = true;
+            ResetEnemy();
         }
 
         public void SetDirection(float dir)
@@ -155,6 +150,17 @@
             BoxCollider2D.enabled = false;
 
             StartDeadFadeCoroutine();
+        }
+
+        private void ResetEnemy()
+        {
+            EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
+            enemyHealthCtrl.ResetController();
+            AttackCtrl.CancelAttack();
+
+            EnemyView.PlayIdleAnimation();
+            transform.position = _initPos;
+            BoxCollider2D.enabled = true;
         }
 
         private void ComputeJumpPhysics()
@@ -230,6 +236,11 @@
 
             EnemyView.Init(_id);
             StartCoroutine(UpdateSleepCoroutine());
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command(
+                "ResetEnemies",
+                "Reset all enemies.",
+                () => FindObjectsOfType<EnemyController>().ToList().ForEach(o => o.ResetEnemy())));
         }
 
         private void Start()
