@@ -18,8 +18,16 @@
 	
 	
 ///// CODE
+	- Etendre les Destroyables et en faire des Hittables tout court
+		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois.
+		- Ajouter des LootDatas pour des coffres sur lesquels on peut taper, par exemple.
+		- Avoir un <SwitchSprite> ou un truc du genre pour paramétrer le visuel.
 	- Ajouter un paramètre aux EnemyAction pour choisir de ne pas appliquer la gravité (juste un <tag/> à mettre du style <DontApplyGravity/>).
 	- Ne pas référencer la caméra dans PlayerController.
+	- Système de tableaux.
+		- Manager qui gère les liens et affiche un DrawLine.
+		- Système d'Id pour les changements de scènes.
+		- Prévoir vers le haut et vers le bas.
 	- Rentrer dans une maison.
 	- Changer de scène.
 	- Enemis attack motion.
@@ -66,7 +74,6 @@
 	- Spikes down.
 	- Spikes/Ground qui forcent à rouler en dessous.
 	- Effectors.
-	- Templar_LookUp & Templar_LookDown.
 	- Templar_Attack_Up.
 	- Templar_Edge (titube sur les bords façon Celeste/Spelunky).
 	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).

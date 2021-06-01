@@ -46,6 +46,7 @@
                </Attack>
                <Chase>
                   <Conditions>
+                     <MaxHeightOffset Offset="0.2"/>
                      <PlayerAlive/>
                      <PlayerDetected/>
                   </Conditions>

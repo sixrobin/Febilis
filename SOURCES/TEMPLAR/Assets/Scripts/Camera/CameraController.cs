@@ -136,12 +136,20 @@
             {
                 _nonNullLookVerticalTimer += Time.deltaTime;
                 if (_nonNullLookVerticalTimer > _cameraDatas.VerticalLookAheadDelay)
+                {
                     _targetLookVertical = _playerCtrl.InputCtrl.CurrentVerticalDir * _cameraDatas.VerticalLookAheadDist;
+
+                    if (Mathf.Sign(_targetLookVertical) > 0f)
+                        _playerCtrl.PlayerView.PlayLookUpAnimation();
+                    else
+                        _playerCtrl.PlayerView.PlayLookDownAnimation();
+                }
             }
             else
             {
                 _targetLookVertical = 0f;
                 _nonNullLookVerticalTimer = 0f;
+                _playerCtrl.PlayerView.StopLookUpOrDownAnimation();
             }
 
             _currLookVertical = Mathf.SmoothDamp(_currLookVertical, _targetLookVertical, ref _refLookAheadVertical, _cameraDatas.VerticalLookAheadDamping);

@@ -3228,7 +3228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &310258037
 Transform:
   m_ObjectHideFlags: 0
@@ -31886,11 +31886,11 @@ CompositeCollider2D:
         Y: -30000000
       - X: 710000000
         Y: -20000000
-      - X: 650000100
+      - X: 660000100
         Y: -20000000
-      - X: 650000100
+      - X: 660000100
         Y: -19999959
-      - X: 650000041
+      - X: 660000041
         Y: -19999900
       - X: 629999959
         Y: -19999900
@@ -32044,11 +32044,11 @@ CompositeCollider2D:
         Y: -310000000
       - X: 970000000
         Y: -310000000
-    - - X: 490000100
+    - - X: 510000100
         Y: 59999959
-      - X: 490000100
+      - X: 510000100
         Y: 70000041
-      - X: 490000041
+      - X: 510000041
         Y: 70000100
       - X: 389999959
         Y: 70000100
@@ -32058,7 +32058,7 @@ CompositeCollider2D:
         Y: 59999959
       - X: 389999959
         Y: 59999900
-      - X: 490000041
+      - X: 510000041
         Y: 59999900
     - - X: 200000000
         Y: 60000000
@@ -32148,14 +32148,6 @@ CompositeCollider2D:
         Y: -25000000
       - X: 1100000000
         Y: -25000000
-    - - X: 930000000
-        Y: -20000000
-      - X: 920000000
-        Y: -20000000
-      - X: 920000000
-        Y: -25000000
-      - X: 930000000
-        Y: -25000000
     - - X: 900000000
         Y: -20000000
       - X: 890000000
@@ -32163,6 +32155,14 @@ CompositeCollider2D:
       - X: 890000000
         Y: -25000000
       - X: 900000000
+        Y: -25000000
+    - - X: 930000000
+        Y: -20000000
+      - X: 920000000
+        Y: -20000000
+      - X: 920000000
+        Y: -25000000
+      - X: 930000000
         Y: -25000000
     - - X: 1140000000
         Y: -50000000
@@ -32326,8 +32326,8 @@ CompositeCollider2D:
       - {x: 54.000034, y: -19}
       - {x: 74, y: -19.000029}
       - {x: 74.00003, y: -31}
-    - - {x: 48.999973, y: 5.99999}
-      - {x: 48.999973, y: 7.0000095}
+    - - {x: 50.999973, y: 5.99999}
+      - {x: 50.999973, y: 7.0000095}
       - {x: 38.999992, y: 6.9999743}
       - {x: 39.000027, y: 5.99999}
     - - {x: 19.999971, y: 5}
@@ -50274,6 +50274,24 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
+      m_TileSpriteIndex: 6
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741826
+  - first: {x: 49, y: 6, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 15
+      m_TileSpriteIndex: 6
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741826
+  - first: {x: 50, y: 6, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 15
       m_TileSpriteIndex: 9
       m_TileMatrixIndex: 1
       m_TileColorIndex: 1
@@ -50518,7 +50536,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2001
+  - m_RefCount: 2003
     m_Data: {fileID: 11400000, guid: 290926c10ec2a454fb6a6b3f8656b643, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 18
@@ -50533,7 +50551,7 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 3b25de86c1254344f86a57dd269e91c0, type: 3}
   - m_RefCount: 19
     m_Data: {fileID: 21300000, guid: 83c0f829dfa255042ada18508188c347, type: 3}
-  - m_RefCount: 29
+  - m_RefCount: 31
     m_Data: {fileID: 21300000, guid: b0418c0486b7f3a44ab2712b8edeb95b, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 21300000, guid: aebdcf44ae752e64e94e1a2a33b2e6ff, type: 3}
@@ -50630,7 +50648,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 5.68e-43
-  - m_RefCount: 1960
+  - m_RefCount: 1962
     m_Data:
       e00: 1
       e01: 0
@@ -50688,7 +50706,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: -0.0000000014514434, g: -0.0000000014514434, b: -0.0000000014514434,
       a: -0.0000000014514434}
-  - m_RefCount: 2001
+  - m_RefCount: 2003
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -52721,7 +52739,7 @@ PrefabInstance:
     - target: {fileID: 2172086489425217636, guid: 047afec9ad02d634c9dcd0664ec128d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 47.77
+      value: 49.69
       objectReference: {fileID: 0}
     - target: {fileID: 2172086489425217636, guid: 047afec9ad02d634c9dcd0664ec128d4,
         type: 3}

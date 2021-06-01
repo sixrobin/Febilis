@@ -21,8 +21,10 @@
         private const string HEAL = "Heal";
         private const string DIALOGUE_IDLE = "DialogueIdle";
         private const string DIALOGUE_TALK = "DialogueTalk";
+        private const string LOOK_UP = "LookUp";
+        private const string LOOK_DOWN = "LookDown";
         private const string MULT_ROLL = "Mult_Roll";
-
+        
         [Header("MOTION")]
         [SerializeField] private GameObject _jumpPuffPrefab = null;
         [SerializeField] private GameObject _doubleJumpPuffPrefab = null;
@@ -231,6 +233,24 @@
             // [TODO] Only if NOT currently talking. Use AnimationHash things?
             _animator.SetTrigger(DIALOGUE_TALK);
             LogAnimationPlayIfRequired("Dialogue Talk");
+        }
+
+        public void PlayLookUpAnimation()
+        {
+            _animator.SetBool(LOOK_UP, true);
+            LogAnimationPlayIfRequired("Look Up");
+        }
+
+        public void PlayLookDownAnimation()
+        {
+            _animator.SetBool(LOOK_DOWN, true);
+            LogAnimationPlayIfRequired("Look Down");
+        }
+
+        public void StopLookUpOrDownAnimation()
+        {
+            _animator.SetBool(LOOK_UP, false);
+            _animator.SetBool(LOOK_DOWN, false);
         }
 
         public override void PlayDeathAnimation(float dir)
