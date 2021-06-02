@@ -12,12 +12,14 @@
         private Datas.RampFadeDatas _fadeDatas;
         private FadeEventHandler _callback;
 
-        private System.Collections.IEnumerator _fadeCoroutine;
+        private static System.Collections.IEnumerator _fadeCoroutine;
 
         public delegate void FadeEventHandler();
 
         public event FadeEventHandler FadeBegan;
         public event FadeEventHandler FadeOver;
+
+        public static bool IsFading => _fadeCoroutine != null;
 
         public static bool TimeScaleDependent
         {
@@ -29,7 +31,7 @@
         {
             UnityEngine.Assertions.Assert.IsTrue(fadeDatas.StepValue > 0f, "Fade step value is set to 0 or less, meaning fade effect would never move on.");
 
-            if (Instance._fadeCoroutine != null)
+            if (_fadeCoroutine != null)
             {
                 Instance.LogWarning("Trying to fade while fade coroutine is already running.");
                 return;
@@ -39,7 +41,7 @@
             Instance._fadeDatas = fadeDatas;
             Instance._callback = callback;
 
-            Instance.StartCoroutine(Instance._fadeCoroutine = Instance.FadeCoroutine(delays));
+            Instance.StartCoroutine(_fadeCoroutine = Instance.FadeCoroutine(delays));
         }
 
         public static void Fade(RSLib.ImageEffects.CameraGrayscaleRamp ramp, float targetOffset, float stepDur, float stepValue, (float, float) delays, FadeEventHandler callback = null)
@@ -92,7 +94,7 @@
             FadeOver?.Invoke();
             _callback?.Invoke();
 
-            Instance._fadeCoroutine = null;
+            _fadeCoroutine = null;
         }
     }
 }

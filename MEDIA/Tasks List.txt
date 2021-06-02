@@ -28,6 +28,7 @@
 		- Manager qui gère les liens et affiche un DrawLine.
 		- Système d'Id pour les changements de scènes.
 		- Prévoir vers le haut et vers le bas.
+		- Setup une scène avec toutes les transitions envisageables.
 	- Rentrer dans une maison.
 	- Changer de scène.
 	- Enemis attack motion.

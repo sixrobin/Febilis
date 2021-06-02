@@ -220,7 +220,7 @@
             PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
             CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // [TMP] Hard coded value.
-            Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
+            Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "InBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
             _currentRecoil = null;
 
             StartDeadFadeCoroutine();
@@ -498,7 +498,7 @@
             ResetCurrentState();
 
             // Can't use the _inputsAllowed field for dialogue while this Update() is updating the view.
-            if (IsDialoguing)
+            if (IsDialoguing || Manager.BoardsManager.IsInBoardTransition)
                 return;
 
             if (_inputsAllowed && !Tools.CheckpointTeleporter.IsOpen && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame())

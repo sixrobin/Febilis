@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc578a793a8282a4b907f63afbc602cc, type: 3}
   m_Name: Fade In Slow
   m_EditorClassIdentifier: 
-  _targetOffset: 0
+  _targetOffset: -1
   _stepDur: 0.2
   _stepValue: 0.08
-  _overrideInitOffset: 1
-  _initOffset: -1
+  _overrideInitOffset: 0
+  _initOffset: 0

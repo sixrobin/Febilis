@@ -76,7 +76,7 @@
             SpawnPlayer();
 
             if (_fadeOnRespawn && _playerCtrl.CameraCtrl.GrayscaleRamp.enabled)
-                RampFadeManager.Fade(_playerCtrl.CameraCtrl.GrayscaleRamp, "InBase", (0.1f, 0f), () => _playerCtrl.AllowInputs(true));
+                RampFadeManager.Fade(_playerCtrl.CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), () => _playerCtrl.AllowInputs(true));
             else
                 _playerCtrl.AllowInputs(true);
         }
