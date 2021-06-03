@@ -26,6 +26,19 @@
             StartCoroutine(_diffUpdateCoroutine = UpdateDifferenceCoroutine());
         }
 
+        private void OnFadeBegan(bool fadeIn)
+        {
+            Display(false);
+        }
+
+        private void OnFadeOver(bool fadeIn)
+        {
+            if (fadeIn)
+                return;
+
+            Display(true);
+        }
+
         private void UpdateTexts()
         {
             _currencyText.text = _displayedCurrency.ToString();
@@ -73,8 +86,8 @@
         {
             Manager.CurrencyManager.Instance.CurrencyChanged += OnCurrencyChanged;
 
-            Manager.RampFadeManager.Instance.FadeBegan += () => Display(false);
-            Manager.RampFadeManager.Instance.FadeOver += () => Display(true);
+            Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
+            Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
 
             Manager.OptionsManager.Instance.OptionsOpened += () => Display(false);
             Manager.OptionsManager.Instance.OptionsClosed += () => Display(true);
@@ -90,8 +103,8 @@
 
             if (Manager.RampFadeManager.Exists())
             {
-                Manager.RampFadeManager.Instance.FadeBegan -= () => Display(false);
-                Manager.RampFadeManager.Instance.FadeOver -= () => Display(true);
+                Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
+                Manager.RampFadeManager.Instance.FadeOver -= OnFadeOver;
             }
 
             if (Manager.OptionsManager.Exists())

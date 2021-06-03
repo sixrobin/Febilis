@@ -109,6 +109,11 @@
             _currVel.y = InputCtrl.CheckJumpInput() ? JumpCtrl.JumpVelMax : JumpCtrl.JumpVelMin;
         }
 
+        public void ResetVelocity()
+        {
+            _currVel = Vector3.zero;
+        }
+
         public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
         {
             // We don't want to use the base method because it computes both direction and then translates, which can result
@@ -220,15 +225,10 @@
             PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
             CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // [TMP] Hard coded value.
-            Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "InBase", (1.5f, 1f), RSLib.SceneReloader.ReloadScene);
+            Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "InBase", (1.5f, 1f), (fadeIn) => RSLib.SceneReloader.ReloadScene());
             _currentRecoil = null;
 
             StartDeadFadeCoroutine();
-        }
-
-        private void ResetVelocity()
-        {
-            _currVel = Vector3.zero;
         }
 
         private void TryRoll()
@@ -449,6 +449,38 @@
             LookAt(interactablePos);
         }
 
+        public System.Collections.IEnumerator MoveToDirection(float dir, float dur)
+        {
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
+            yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling && CollisionsCtrl.Below);
+
+            CurrDir = dir;
+
+            float timer = 0f;
+            while (timer < dur)
+            {
+                if (CollisionsCtrl.Below)
+                {
+                    PlayerView.PlayRunAnimation(CurrDir);
+                    _currVel.y = 0f;
+                }
+
+                float grav = JumpCtrl.Gravity * Time.deltaTime;
+                if (_currVel.y < 0f)
+                    grav *= CtrlDatas.Jump.FallMultiplier;
+
+                _currVel.x = CtrlDatas.RunSpeed * CurrDir;
+                _currVel.y += grav;
+
+                Translate(_currVel);
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            PlayerView.StopRunAnimation();
+        }
+
         private System.Collections.IEnumerator HurtCoroutine(float dir)
         {
             PlayerView.PlayHurtAnimation(dir);
@@ -498,10 +530,13 @@
             ResetCurrentState();
 
             // Can't use the _inputsAllowed field for dialogue while this Update() is updating the view.
-            if (IsDialoguing || Manager.BoardsManager.IsInBoardTransition)
+            if (IsDialoguing)
                 return;
 
-            if (_inputsAllowed && !Tools.CheckpointTeleporter.IsOpen && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame())
+            if (_inputsAllowed
+                && !Tools.CheckpointTeleporter.IsOpen
+                && !Manager.BoardsManager.IsInBoardTransition
+                && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame())
                 InputCtrl.Update();
 
             if (IsDead)

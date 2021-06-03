@@ -14,7 +14,7 @@
 
         private static System.Collections.IEnumerator _fadeCoroutine;
 
-        public delegate void FadeEventHandler();
+        public delegate void FadeEventHandler(bool fadeIn);
 
         public event FadeEventHandler FadeBegan;
         public event FadeEventHandler FadeOver;
@@ -66,10 +66,10 @@
             if (delays.Item1 > 0f)
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(delays.Item1);
 
-            FadeBegan?.Invoke();
-
             _ramp.Offset = _fadeDatas.InitOffset;
             float sign = Mathf.Sign(_fadeDatas.TargetOffset - _ramp.Offset);
+
+            FadeBegan?.Invoke(sign < 0f);
 
             while (sign == 1f ? _ramp.Offset < _fadeDatas.TargetOffset : _ramp.Offset > _fadeDatas.TargetOffset)
             {
@@ -91,8 +91,8 @@
             if (delays.Item2 > 0f)
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(delays.Item2);
 
-            FadeOver?.Invoke();
-            _callback?.Invoke();
+            FadeOver?.Invoke(sign < 0f);
+            _callback?.Invoke(sign < 0f);
 
             _fadeCoroutine = null;
         }

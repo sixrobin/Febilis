@@ -17,14 +17,18 @@
         [SerializeField] private BoardsLinkPair[] _links = null;
         // [TODO] SceneLoaders[]
 
+        [Header("TRANSITION VIEW")]
         [SerializeField] private Datas.RampFadeDatas _fadeInDatas = null;
         [SerializeField] private Datas.RampFadeDatas _fadeOutDatas = null;
+        [SerializeField] private float _fadedInDur = 0.5f;
 
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
 
         private static System.Collections.Generic.Dictionary<BoardsLink, BoardsLink> s_linksPairs = new System.Collections.Generic.Dictionary<BoardsLink, BoardsLink>();
+
         private static System.Collections.IEnumerator s_boardTransitionCoroutine;
+        private static System.Collections.IEnumerator s_playerMovementCoroutine;
 
         public static bool IsInBoardTransition => s_boardTransitionCoroutine != null;
 
@@ -44,30 +48,60 @@
             target.gameObject.SetActive(false);
 
             GameManager.PlayerCtrl.AllowInputs(false);
-            // Make player runs/jump/fall to a given point (let him just fall if link is set to SOUTH, not to have strange y vel change ?).
+
+            switch (source.ExitDir)
+            {
+                case CardinalDirection.EAST:
+                case CardinalDirection.WEST:
+                    Vector2 outDir = source.ExitDir.ConvertToVector2();
+                    Instance.StartCoroutine(s_playerMovementCoroutine = GameManager.PlayerCtrl.MoveToDirection(outDir.x, 0.4f));
+                    break;
+
+                case CardinalDirection.NORTH:
+                    // [TODO] Jump in.
+                    break;
+
+                case CardinalDirection.SOUTH:
+                    // Just let player fall.
+                    break;
+            }
 
             RampFadeManager.Fade(GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
             yield return new WaitUntil(() => !RampFadeManager.IsFading);
 
-            GameManager.PlayerCtrl.transform.position = target.transform.position;
-            GameManager.PlayerCtrl.CollisionsCtrl.Ground(GameManager.PlayerCtrl.transform); // Doesn't seem to work ?
+            if (s_playerMovementCoroutine != null)
+                Instance.StopCoroutine(s_playerMovementCoroutine);
 
-            yield return new WaitForSeconds(0.5f); // [TODO] Expose.
+            // This is fucking ugly, but for now we need to wait a frame after we reset the velocity and then
+            // set the position again before groundind the character. Without waiting, we set the position, but the potential
+            // fall velocity will make the character fall under the ground, and the Groud method won't work properly.
+            GameManager.PlayerCtrl.ResetVelocity();
+            GameManager.PlayerCtrl.transform.position = target.transform.position;
+            yield return null;
+            GameManager.PlayerCtrl.transform.position = target.transform.position;
+            GameManager.PlayerCtrl.CollisionsCtrl.Ground(GameManager.PlayerCtrl.transform, true);
+            
+            yield return new WaitForSeconds(Instance._fadedInDur);
 
             RampFadeManager.Fade(GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
+            GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
-            Vector2 inDir = target.EnterDir.ConvertToVector2();
-
-            // [TODO] Not if falling.
-            // [TODO] If going up, a teleport for now, but a scripted jump later ?
-
-            // This looks terrible, but we should use a coroutine in PlayerController to handle all of this a better way.
-            // So for now we let it as it is.
-            for (float t = 0f; t < 1f; t += Time.deltaTime / 0.5f)
+            switch (target.EnterDir)
             {
-                GameManager.PlayerCtrl.Translate(inDir * 5f, true, true, false);
-                yield return null;
+                case CardinalDirection.EAST:
+                case CardinalDirection.WEST:
+                    Vector2 inDir = target.EnterDir.ConvertToVector2();
+                    Instance.StartCoroutine(s_playerMovementCoroutine = GameManager.PlayerCtrl.MoveToDirection(inDir.x, 0.4f));
+                    break;
+
+                case CardinalDirection.NORTH:
+                    // [TODO] Jump in.
+                    break;
+
+                case CardinalDirection.SOUTH:
+                    // Just let player fall.
+                    break;
             }
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
@@ -79,6 +113,7 @@
             target.gameObject.SetActive(true);
 
             s_boardTransitionCoroutine = null;
+            s_playerMovementCoroutine = null;
         }
 
         protected override void Awake()

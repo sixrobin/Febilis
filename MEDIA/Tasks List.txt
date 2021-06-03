@@ -24,6 +24,7 @@
 		- Avoir un <SwitchSprite> ou un truc du genre pour paramétrer le visuel.
 	- Ajouter un paramètre aux EnemyAction pour choisir de ne pas appliquer la gravité (juste un <tag/> à mettre du style <DontApplyGravity/>).
 	- Ne pas référencer la caméra dans PlayerController.
+	- Tester de faire partir les raycasts de la méthode Ground() de l'edge up pour voir si ça aide un peu d'ajouter un offset naturel.
 	- Système de tableaux.
 		- Manager qui gère les liens et affiche un DrawLine.
 		- Système d'Id pour les changements de scènes.

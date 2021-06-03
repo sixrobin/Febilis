@@ -59,13 +59,16 @@
             }
         }
 
-        private void OnFadeBegan()
+        private void OnFadeBegan(bool fadeIn)
         {
             _healthBarCanvas.enabled = false;
         }
 
-        private void OnFadeOver()
+        private void OnFadeOver(bool fadeIn)
         {
+            if (fadeIn)
+                return;
+
             // [TMP] Should have a better HUD management. This case is too specific.
             if (!_playerHealthCtrl.HealthSystem.IsDead)
                 _healthBarCanvas.enabled = true;
