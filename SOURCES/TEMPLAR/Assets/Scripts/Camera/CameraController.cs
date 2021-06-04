@@ -23,7 +23,6 @@
         [SerializeField] private Camera _camera = null;
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
-        [SerializeField] private BoxCollider2D _levelBounds = null;
 
         [Header("SHAKES")]
         [SerializeField] private ShakeComponent[] _shakes = null;
@@ -60,6 +59,8 @@
 
         public RSLib.ImageEffects.CameraGrayscaleRamp GrayscaleRamp => _grayscaleRamp;
 
+        public BoxCollider2D CurrBoardBounds { get; private set; }
+
         public void ApplyShakeFromDatas(Templar.Datas.ShakeTraumaDatas shakeDatas)
         {
             if (shakeDatas == null)
@@ -80,6 +81,16 @@
         public void PositionInstantly()
         {
             transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
+        }
+
+        public void SetBoardBounds(Boards.Board board)
+        {
+            CurrBoardBounds = board.CameraBounds;
+        }
+
+        public void SetBounds(BoxCollider2D box)
+        {
+            CurrBoardBounds = box;
         }
 
         private void GenerateShakesDictionary()
@@ -163,20 +174,18 @@
                 pos.y = Mathf.SmoothDamp(transform.position.y, pos.y, ref _refY, _cameraDatas.VerticalDamping);
         }
 
-        private void ComputeLevelBoundsPosition(ref Vector3 pos)
+        private void ComputeBoundedPosition(ref Vector3 pos)
         {
-            if (_levelBounds == null)
-            {
+            if (CurrBoardBounds == null)
                 return;
-            }
 
             float halfHeight = _camera.orthographicSize;
             float halfWidth = halfHeight * Screen.width / Screen.height;
 
-            float xMin = _levelBounds.bounds.min.x + halfWidth;
-            float xMax = _levelBounds.bounds.max.x - halfWidth;
-            float yMin = _levelBounds.bounds.min.y + halfHeight;
-            float yMax = _levelBounds.bounds.max.y - halfHeight;
+            float xMin = CurrBoardBounds.bounds.min.x + halfWidth;
+            float xMax = CurrBoardBounds.bounds.max.x - halfWidth;
+            float yMin = CurrBoardBounds.bounds.min.y + halfHeight;
+            float yMax = CurrBoardBounds.bounds.max.y - halfHeight;
 
             pos.x = Mathf.Clamp(pos.x, xMin, xMax);
             pos.y = Mathf.Clamp(pos.y, yMin, yMax);
@@ -233,7 +242,7 @@
             ComputeLookVerticalPosition(ref targetPosition);
             ComputeShakePosition(ref targetPosition);
             ComputeDampedPosition(ref targetPosition);
-            ComputeLevelBoundsPosition(ref targetPosition);
+            ComputeBoundedPosition(ref targetPosition);
 
             transform.position = targetPosition.WithZ(transform.position.z);
 

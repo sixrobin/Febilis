@@ -1,6 +1,6 @@
 ﻿namespace Templar
 {
-    public enum CardinalDirection
+    public enum BoardDirection
     {
         NONE,
         NORTH,
@@ -11,40 +11,40 @@
 
     public static class CardinalDirectionExtensions
     {
-        public static CardinalDirection Opposite(this CardinalDirection dir)
+        public static BoardDirection Opposite(this BoardDirection dir)
         {
             switch (dir)
             {
-                case CardinalDirection.NORTH:
-                    return CardinalDirection.SOUTH;
+                case BoardDirection.NORTH:
+                    return BoardDirection.SOUTH;
 
-                case CardinalDirection.SOUTH:
-                    return CardinalDirection.NORTH;
+                case BoardDirection.SOUTH:
+                    return BoardDirection.NORTH;
 
-                case CardinalDirection.EAST:
-                    return CardinalDirection.WEST;
+                case BoardDirection.EAST:
+                    return BoardDirection.WEST;
 
-                case CardinalDirection.WEST:
-                    return CardinalDirection.EAST;
+                case BoardDirection.WEST:
+                    return BoardDirection.EAST;
             }
 
-            return CardinalDirection.NONE;
+            return BoardDirection.NONE;
         }
 
-        public static UnityEngine.Vector2 ConvertToVector2(this CardinalDirection dir)
+        public static UnityEngine.Vector2 ConvertToVector2(this BoardDirection dir)
         {
             switch (dir)
             {
-                case CardinalDirection.NORTH:
+                case BoardDirection.NORTH:
                     return new UnityEngine.Vector2(0f, 1f);
 
-                case CardinalDirection.SOUTH:
+                case BoardDirection.SOUTH:
                     return new UnityEngine.Vector2(0f, -1f);
 
-                case CardinalDirection.EAST:
+                case BoardDirection.EAST:
                     return new UnityEngine.Vector2(1f, 0f);
 
-                case CardinalDirection.WEST:
+                case BoardDirection.WEST:
                     return new UnityEngine.Vector2(-1f, 0f);
             }
 

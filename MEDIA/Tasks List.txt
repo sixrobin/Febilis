@@ -18,6 +18,7 @@
 	
 	
 ///// CODE
+	- Cacher le HUD quand le perso dort.
 	- Etendre les Destroyables et en faire des Hittables tout court
 		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois.
 		- Ajouter des LootDatas pour des coffres sur lesquels on peut taper, par exemple.

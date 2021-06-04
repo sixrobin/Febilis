@@ -1,4 +1,4 @@
-﻿namespace Templar
+﻿namespace Templar.Boards
 {
     using UnityEngine;
 
@@ -6,7 +6,15 @@
     public class Board : MonoBehaviour
     {
         [SerializeField] private BoardsLink[] _boardsLinks = null;
-        // [TODO] Reference board camera bounds to update it.
+        [SerializeField] private BoxCollider2D _cameraBounds = null;
+
+        public BoxCollider2D CameraBounds => _cameraBounds;
+
+        private void Awake()
+        {
+            for (int i = _boardsLinks.Length - 1; i >= 0; --i)
+                _boardsLinks[i].SetOwnerBoard(this);
+        }
 
         [ContextMenu("Locate Boards Links in Children")]
         private void LocateBoardsLinksInChildren()
