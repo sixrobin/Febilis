@@ -16,19 +16,19 @@
             public BoardsLink Second => _second;
         }
 
-        [SerializeField] private Board _initBoard = null;
+        [SerializeField] private Board _initBoard = null; // [TODO] Auto detect using camera bounds to check if player is inside ?
         [SerializeField] private BoardsLinkPair[] _links = null;
-        // [TODO] SceneLoaders[]
+        // [TODO] SceneLoaders[] <=> BoardsLinkPair that leads to another scene.
 
         [Header("TRANSITION VIEW")]
         [SerializeField] private Datas.RampFadeDatas _fadeInDatas = null;
         [SerializeField] private Datas.RampFadeDatas _fadeOutDatas = null;
         [SerializeField] private float _fadedInDur = 0.5f;
-        [SerializeField] private float _northRespawnYOffset = 1f;
-        [SerializeField] private float _southRespawnYOffset = 1f;
+        [SerializeField] private float _downRespawnHeightOffset = 1f;
 
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
+        [SerializeField] private RSLib.DataColor _respawnDebugColor = null;
 
         private static System.Collections.Generic.Dictionary<BoardsLink, BoardsLink> s_linksPairs = new System.Collections.Generic.Dictionary<BoardsLink, BoardsLink>();
 
@@ -36,6 +36,8 @@
         private static System.Collections.IEnumerator s_playerMovementCoroutine;
 
         public static bool IsInBoardTransition => s_boardTransitionCoroutine != null;
+
+        public static RSLib.DataColor RespawnDebugColor => Instance._respawnDebugColor;
 
         public static void TriggerLink(BoardsLink link)
         {
@@ -56,19 +58,23 @@
 
             switch (source.ExitDir)
             {
-                case BoardDirection.EAST:
-                case BoardDirection.WEST:
+                case ScreenDirection.RIGHT:
+                case ScreenDirection.LEFT:
                     Vector2 outDir = source.ExitDir.ConvertToVector2();
                     Instance.StartCoroutine(s_playerMovementCoroutine = GameManager.PlayerCtrl.MoveToDirection(outDir.x, 0.4f));
                     break;
 
-                case BoardDirection.NORTH:
-                    // [TODO] Jump in.
+                case ScreenDirection.UP:
+                    Instance.StartCoroutine(s_playerMovementCoroutine = GameManager.PlayerCtrl.KeepUpwardMovement(0.4f));
                     break;
 
-                case BoardDirection.SOUTH:
+                case ScreenDirection.DOWN:
                     // Just let player fall.
                     break;
+
+                default:
+                    Instance.LogError($"Invalid exit direction {source.ExitDir.ToString()} for board link {source.transform.name}.", source.gameObject);
+                    yield break;
             }
 
             RampFadeManager.Fade(GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
@@ -81,17 +87,19 @@
             yield return new WaitForSeconds(Instance._fadedInDur);
 
             GameManager.PlayerCtrl.ResetVelocity();
-            GameManager.PlayerCtrl.transform.position = target.transform.position;
+            GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.
 
+            yield return null;
             GameManager.PlayerCtrl.CameraCtrl.SetBoardBounds(target.OwnerBoard);
             GameManager.PlayerCtrl.CameraCtrl.PositionInstantly();
 
+            yield return null;
             RampFadeManager.Fade(GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
 
             switch (target.EnterDir)
             {
-                case BoardDirection.EAST:
-                case BoardDirection.WEST:
+                case ScreenDirection.RIGHT:
+                case ScreenDirection.LEFT:
                 {
                     // This is fucking ugly, but for now we need to wait a frame after we reset the velocity and then
                     // set the position again before groundind the character. Without waiting, we set the position, but the potential
@@ -106,15 +114,17 @@
                     break;
                 }
 
-                case BoardDirection.NORTH:
-                    GameManager.PlayerCtrl.transform.AddPositionY(Instance._northRespawnYOffset);
-
-                    // [TODO] Jump in.
+                case ScreenDirection.UP:
+                    UnityEngine.Assertions.Assert.IsNotNull(target.OverrideRespawnPos, $"BoardsLink with enter direction {target.EnterDir} must have an OverrideRespawnPos.");
                     break;
 
-                case BoardDirection.SOUTH:
-                    GameManager.PlayerCtrl.transform.AddPositionY(Instance._southRespawnYOffset);
+                case ScreenDirection.DOWN:
+                    GameManager.PlayerCtrl.transform.AddPositionY(Instance._downRespawnHeightOffset);
                     break;
+
+                default:
+                    Instance.LogError($"Invalid enter direction {target.EnterDir.ToString()} for board link {target.transform.name}.", target.gameObject);
+                    yield break;
             }
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;

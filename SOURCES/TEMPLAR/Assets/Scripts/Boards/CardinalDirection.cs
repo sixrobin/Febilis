@@ -1,54 +1,50 @@
 ﻿namespace Templar
 {
-    public enum BoardDirection
+    public enum ScreenDirection
     {
         NONE,
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT
     }
 
     public static class CardinalDirectionExtensions
     {
-        public static BoardDirection Opposite(this BoardDirection dir)
+        public static ScreenDirection Opposite(this ScreenDirection dir)
         {
             switch (dir)
             {
-                case BoardDirection.NORTH:
-                    return BoardDirection.SOUTH;
+                case ScreenDirection.UP:
+                    return ScreenDirection.DOWN;
+                case ScreenDirection.DOWN:
+                    return ScreenDirection.UP;
+                case ScreenDirection.RIGHT:
+                    return ScreenDirection.LEFT;
+                case ScreenDirection.LEFT:
+                    return ScreenDirection.RIGHT;
 
-                case BoardDirection.SOUTH:
-                    return BoardDirection.NORTH;
-
-                case BoardDirection.EAST:
-                    return BoardDirection.WEST;
-
-                case BoardDirection.WEST:
-                    return BoardDirection.EAST;
+                default:
+                    return ScreenDirection.NONE;
             }
-
-            return BoardDirection.NONE;
         }
 
-        public static UnityEngine.Vector2 ConvertToVector2(this BoardDirection dir)
+        public static UnityEngine.Vector2 ConvertToVector2(this ScreenDirection dir)
         {
             switch (dir)
             {
-                case BoardDirection.NORTH:
+                case ScreenDirection.UP:
                     return new UnityEngine.Vector2(0f, 1f);
-
-                case BoardDirection.SOUTH:
+                case ScreenDirection.DOWN:
                     return new UnityEngine.Vector2(0f, -1f);
-
-                case BoardDirection.EAST:
+                case ScreenDirection.RIGHT:
                     return new UnityEngine.Vector2(1f, 0f);
-
-                case BoardDirection.WEST:
+                case ScreenDirection.LEFT:
                     return new UnityEngine.Vector2(-1f, 0f);
-            }
 
-            return UnityEngine.Vector2.zero;
+                default:
+                    return UnityEngine.Vector2.zero;
+            }
         }
     }
 }

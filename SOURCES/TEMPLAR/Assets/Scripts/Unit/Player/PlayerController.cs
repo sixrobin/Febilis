@@ -480,6 +480,21 @@
 
             PlayerView.StopRunAnimation();
         }
+        
+        public System.Collections.IEnumerator KeepUpwardMovement(float dur)
+        {
+            float yVel = _currVel.y;
+
+            float timer = 0f;
+            while (timer < dur)
+            {
+                _currVel = new Vector3(0f, yVel);
+                Translate(_currVel);
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+        }
 
         private System.Collections.IEnumerator HurtCoroutine(float dir)
         {

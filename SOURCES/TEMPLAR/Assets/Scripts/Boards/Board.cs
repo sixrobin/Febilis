@@ -12,8 +12,14 @@
 
         private void Awake()
         {
+#if UNITY_EDITOR
+            int childrenLinksCount = GetComponentsInChildren<BoardsLink>().Length;
+            if (childrenLinksCount != _boardsLinks.Length)
+                CProLogger.LogWarning(this, $"{_boardsLinks.Length} links are referenced while {childrenLinksCount} have been found in children for board {transform.name}.", gameObject);
+#endif
+
             for (int i = _boardsLinks.Length - 1; i >= 0; --i)
-                _boardsLinks[i].SetOwnerBoard(this);
+                _boardsLinks[i].OwnerBoard = this;
         }
 
         [ContextMenu("Locate Boards Links in Children")]

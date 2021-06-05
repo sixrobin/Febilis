@@ -1,30 +1,51 @@
 ﻿namespace Templar.Boards
 {
+    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
     public class BoardsLink : MonoBehaviour
     {
-        [SerializeField] private BoardDirection _exitDir = BoardDirection.NONE;
+        [SerializeField] private ScreenDirection _exitDir = ScreenDirection.NONE;
+        [SerializeField] private Transform _overrideRespawnPos = null;
 
-        public BoardDirection ExitDir => _exitDir;
-        public BoardDirection EnterDir => _exitDir.Opposite();
+        [Header("DEBUG")]
+        [SerializeField] private SpriteRenderer _visualizer = null;
 
-        public Board OwnerBoard { get; private set; }
+        public ScreenDirection ExitDir => _exitDir;
+        public ScreenDirection EnterDir => _exitDir.Opposite();
 
-        public void SetOwnerBoard(Board board)
+        public Transform OverrideRespawnPos => _overrideRespawnPos;
+
+        public Board OwnerBoard { get; set; }
+
+        private static void DisplayVisualizers(bool state)
         {
-            OwnerBoard = board;
+            FindObjectsOfType<BoardsLink>().ToList().ForEach(o => o._visualizer.enabled = state);
+        }
+
+        private void Awake()
+        {
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("VisualizeBoardsLinks", "Shows the board links hitboxes.", DisplayVisualizers));
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             UnityEngine.Assertions.Assert.IsFalse(
-                _exitDir == BoardDirection.NONE,
+                _exitDir == ScreenDirection.NONE,
                 $"Boards Link instance on {transform.name} exit direction has an invalid value {_exitDir.ToString()}.");
 
             if (other.GetComponent<Unit.Player.PlayerController>())
                 Manager.BoardsManager.TriggerLink(this);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (OverrideRespawnPos == null)
+                return;
+
+            Gizmos.color = Manager.BoardsManager.RespawnDebugColor?.Color ?? Color.yellow;
+            Gizmos.DrawLine(OverrideRespawnPos.position, transform.position);
         }
     }
 }

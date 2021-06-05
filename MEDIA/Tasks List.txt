@@ -14,10 +14,12 @@
 	- Portraits qui devraient suivre la position des speakers
 	- Les coins ne sont pas reset aux changements de scènes car elles sont enfants de la pool qui n'est pas détruite.
 		- Stocker les "coinsNotPickedUp" dans LootManager et les disable aux moments voulus ?
+	- Dans la scène Boards Transitions, petit bug quand on passe de l'écran de droite à celui tout à gauche (caméra qui fait un mini shake après un petit délai) ?
 	
 	
 	
 ///// CODE
+	- Détecter automatiquement le InitBoard de BoardsManager.
 	- Cacher le HUD quand le perso dort.
 	- Etendre les Destroyables et en faire des Hittables tout court
 		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois.
@@ -26,13 +28,10 @@
 	- Ajouter un paramètre aux EnemyAction pour choisir de ne pas appliquer la gravité (juste un <tag/> à mettre du style <DontApplyGravity/>).
 	- Ne pas référencer la caméra dans PlayerController.
 	- Tester de faire partir les raycasts de la méthode Ground() de l'edge up pour voir si ça aide un peu d'ajouter un offset naturel.
-	- Système de tableaux.
-		- Manager qui gère les liens et affiche un DrawLine.
-		- Système d'Id pour les changements de scènes.
-		- Prévoir vers le haut et vers le bas.
-		- Setup une scène avec toutes les transitions envisageables.
+	- Système de tableaux
+		- Gérer les transitions entre scènes.
+		- Transition In avec opposite Out pour rentrer dans des maisons, passer des portes, etc. à l'interaction seulement.
 	- Rentrer dans une maison.
-	- Changer de scène.
 	- Enemis attack motion.
 	- Permettre de casser la séquence de heal après l'anticipation ?
 	- Attaque up du templier (sur place).
