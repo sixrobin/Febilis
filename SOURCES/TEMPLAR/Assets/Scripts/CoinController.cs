@@ -19,6 +19,9 @@
 
         private int _idleStateHash;
 
+        public delegate void CoinDisabledEventHandler(CoinController coin);
+        public static CoinDisabledEventHandler CoinDisabled;
+
         void RSLib.Framework.Pooling.IPoolItem.OnGetFromPool()
         {
             BurstOut();
@@ -33,6 +36,8 @@
         {
             RSLib.Framework.Pooling.Pool.Get(_pickupParticlesPrefab).transform.position = transform.position;
             gameObject.SetActive(false);
+
+            CoinDisabled?.Invoke(this);
         }
 
         private void BurstOut()

@@ -56,6 +56,11 @@
         private float _idleBreakTimer;
         private int _idleBreaksCounter;
 
+        public delegate void SleepAnimationEventHandler();
+
+        public event SleepAnimationEventHandler SleepAnimationBegan;
+        public event SleepAnimationEventHandler SleepAnimationOver;
+
         public PlayerController TemplarCtrl { get; set; }
 
         public override float DeadFadeDelay => DEAD_FADE_DELAY;
@@ -280,8 +285,12 @@
 
             if (_currStateHash == _idleSleepingStateHash)
                 return;
-            else if (_previousStateHash == _idleSleepingStateHash)
+
+            if (_previousStateHash == _idleSleepingStateHash)
+            {
                 _sleepFeedback.Toggle(false);
+                SleepAnimationOver?.Invoke();
+            }
 
             if (_currStateHash != _idleStateHash)
             {
@@ -302,6 +311,8 @@
                 {
                     _animator.SetTrigger(IDLE_SLEEPING);
                     _sleepFeedback.Toggle(true);
+
+                    SleepAnimationBegan?.Invoke();
                     LogAnimationPlayIfRequired("Idle Sleeping");
                 }
                 else

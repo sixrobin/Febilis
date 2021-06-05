@@ -85,6 +85,16 @@
                 _healthBarCanvas.enabled = true;
         }
 
+        private void OnSleepAnimationBegan()
+        {
+            _healthBarCanvas.enabled = false;
+        }
+
+        private void OnSleepAnimationOver()
+        {
+            _healthBarCanvas.enabled = true;
+        }
+
         private void OnDialogueStarted(string dialogueId)
         {
             _healthBarCanvas.enabled = false;
@@ -173,6 +183,9 @@
             Manager.OptionsManager.Instance.OptionsOpened += OnOptionsOpened;
             Manager.OptionsManager.Instance.OptionsClosed += OnOptionsClosed;
 
+            Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
+            Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
+
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
@@ -195,6 +208,12 @@
             {
                 Manager.OptionsManager.Instance.OptionsOpened -= OnOptionsOpened;
                 Manager.OptionsManager.Instance.OptionsClosed -= OnOptionsClosed;
+            }
+
+            if (Manager.GameManager.Exists() && Manager.GameManager.PlayerCtrl != null)
+            {
+                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
+                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
             }
 
             if (UI.Dialogue.DialogueManager.Exists())

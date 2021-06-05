@@ -39,6 +39,16 @@
             Display(true);
         }
 
+        private void OnSleepAnimationBegan()
+        {
+            Display(false);
+        }
+
+        private void OnSleepAnimationOver()
+        {
+            Display(true);
+        }
+
         private void UpdateTexts()
         {
             _currencyText.text = _displayedCurrency.ToString();
@@ -92,6 +102,9 @@
             Manager.OptionsManager.Instance.OptionsOpened += () => Display(false);
             Manager.OptionsManager.Instance.OptionsClosed += () => Display(true);
 
+            Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
+            Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
+
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueId) => Display(false);
             UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueId) => Display(true);
         }
@@ -111,6 +124,12 @@
             {
                 Manager.OptionsManager.Instance.OptionsOpened -= () => Display(false);
                 Manager.OptionsManager.Instance.OptionsClosed -= () => Display(true);
+            }
+
+            if (Manager.GameManager.Exists() && Manager.GameManager.PlayerCtrl != null)
+            {
+                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
+                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
             }
 
             if (UI.Dialogue.DialogueManager.Exists())
