@@ -17,6 +17,7 @@
 	
 	
 ///// CODE
+	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
 	- Détecter automatiquement le InitBoard de BoardsManager.
 	- Etendre les Destroyables et en faire des Triggerable tout court
 		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois.
