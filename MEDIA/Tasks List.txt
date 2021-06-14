@@ -13,6 +13,7 @@
 	- Un SleepSign semble ne pas avoir été détruit, peut-être parce que j'ai cut le sleep ?
 	- Portraits qui devraient suivre la position relative des speakers.
 	- Dans la scène Boards Transitions, petit bug quand on passe de l'écran de droite à celui tout à gauche (caméra qui fait un mini shake après un petit délai) ?
+	- Bug sur la scène Blocking avec les transitions entre tableaux, le perso reste sur la même frame d'anim.
 	
 	
 	
