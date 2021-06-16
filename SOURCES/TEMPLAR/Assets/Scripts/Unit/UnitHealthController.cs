@@ -107,12 +107,14 @@
             HealthSystem.Killed -= OnKilled;
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Damage with default AttackDatas")]
         private void DebugDamageDefault()
         {
             OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform));
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Damage with infinite damage")]
         private void DebugDamageInfinite()
         {

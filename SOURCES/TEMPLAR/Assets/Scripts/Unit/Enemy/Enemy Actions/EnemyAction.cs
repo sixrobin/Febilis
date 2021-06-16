@@ -11,6 +11,8 @@
 
         public T ActionDatas { get; private set; }
 
+        public virtual bool ShouldApplyGravity => !ActionDatas.DontApplyGravity;
+
         public abstract bool CanExit();
         public abstract void Execute();
 

@@ -306,8 +306,11 @@
                 }
             }
 
-            _currVelY += _gravity * Time.deltaTime;
-            Translate(0f, _currVelY);
+            if (CurrAction.ShouldApplyGravity)
+            {
+                _currVelY += _gravity * Time.deltaTime;
+                Translate(0f, _currVelY);
+            }
 
             CurrAction.Execute();
 

@@ -14,6 +14,7 @@
             transform.SetScaleX(Mathf.Sign(dir));
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Get Hitboxes in Children")]
         private void GetHitboxesInChildren()
         {

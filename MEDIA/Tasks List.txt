@@ -13,18 +13,15 @@
 	- Un SleepSign semble ne pas avoir été détruit, peut-être parce que j'ai cut le sleep ?
 	- Portraits qui devraient suivre la position relative des speakers.
 	- Dans la scène Boards Transitions, petit bug quand on passe de l'écran de droite à celui tout à gauche (caméra qui fait un mini shake après un petit délai) ?
-	- Bug sur la scène Blocking avec les transitions entre tableaux, le perso reste sur la même frame d'anim.
 	
 	
 	
 ///// CODE
 	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
-	- Détecter automatiquement le InitBoard de BoardsManager.
 	- Etendre les Destroyables et en faire des Triggerable tout court
 		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois.
 		- Ajouter des LootDatas pour des coffres sur lesquels on peut taper, par exemple.
 		- Avoir un <SwitchSprite> ou un truc du genre pour paramétrer le visuel.
-	- Ajouter un paramètre aux EnemyAction pour choisir de ne pas appliquer la gravité (juste un <tag/> à mettre du style <DontApplyGravity/>).
 	- Ne pas référencer la caméra dans PlayerController.
 	- Système de tableaux
 		- Gérer les transitions entre scènes (scènes additives ?)
@@ -90,9 +87,6 @@
 	- Generic puff.
 	- Visuel quelconque pour justifier le fait que le perso puisse remonter hors d'un tableau (une corde, une échelle, etc.).
 	- Enemies fall.
-	- UI
-		- Generic toggle.
-		- Generic slider.
 
 
 

@@ -84,6 +84,7 @@
             base.OnHit(hitDatas);
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Restore cells")]
         public void RestoreCells()
         {

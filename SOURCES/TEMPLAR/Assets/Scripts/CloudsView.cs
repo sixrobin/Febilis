@@ -73,6 +73,7 @@
         }
 
 #if UNITY_EDITOR
+        // [TODO] Editor button.
         [ContextMenu("Find Clouds in children")]
         private void FindCloudsInChildren()
         {
@@ -80,6 +81,7 @@
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Compute size range")]
         private void ComputeSizeRange()
         {

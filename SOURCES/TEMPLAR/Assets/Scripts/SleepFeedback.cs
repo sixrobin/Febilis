@@ -63,12 +63,14 @@
             sign.gameObject.SetActive(false);
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Toggle On")]
         private void ToggleOn()
         {
             Toggle(true);
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Toggle Off")]
         private void ToggleOff()
         {

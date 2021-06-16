@@ -162,5 +162,35 @@
                 if (_links[i].First != null && _links[i].Second != null)
                     Gizmos.DrawLine(_links[i].First.transform.position, _links[i].Second.transform.position);
         }
+
+        // [TODO] Editor button.
+        [ContextMenu("Auto Detect Init Board")]
+        private void AutoDetectInitBoard()
+        {
+            Board[] boards = FindObjectsOfType<Board>();
+            Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+
+            for (int i = boards.Length - 1; i >= 0; --i)
+            {
+                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
+                {
+                    Log($"Detected board {boards[i].transform.name} as the init board.", gameObject);
+                    _initBoard = boards[i];
+                    return;
+                }
+            }
+
+            LogWarning($"No board has been fonud as the init board.", gameObject);
+        }
+
+        public static void DebugForceRefreshBoard()
+        {
+            Board[] boards = FindObjectsOfType<Board>();
+            Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+
+            for (int i = boards.Length - 1; i >= 0; --i)
+                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
+                    playerCtrl.CameraCtrl.SetBoardBounds(boards[i]);
+        }
     }
 }

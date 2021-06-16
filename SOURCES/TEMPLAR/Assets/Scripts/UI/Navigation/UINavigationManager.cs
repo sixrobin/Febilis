@@ -102,6 +102,7 @@
 #endif
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Locate Confirmation Popup")]
         private void LocateConfirmationPopup()
         {

@@ -36,6 +36,7 @@
         }
 
 #if UNITY_EDITOR
+        // [TODO] Editor button.
         [ContextMenu("Get AnimationClips from Assets")]
         private void GetAnimationClipsFromAssets()
         {

@@ -455,6 +455,7 @@
             yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling && CollisionsCtrl.Below);
 
             CurrDir = dir;
+            PlayerView.PlayIdleAnimation();
 
             float timer = 0f;
             while (timer < dur)

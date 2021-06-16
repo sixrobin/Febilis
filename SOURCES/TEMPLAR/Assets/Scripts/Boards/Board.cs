@@ -22,6 +22,7 @@
                 _boardsLinks[i].OwnerBoard = this;
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Locate Boards Links in Children")]
         private void LocateBoardsLinksInChildren()
         {

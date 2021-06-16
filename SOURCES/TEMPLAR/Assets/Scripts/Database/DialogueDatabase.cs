@@ -141,6 +141,7 @@
         }
 
 #if UNITY_EDITOR
+        // [TODO] Editor button.
         [ContextMenu("Get Portraits from Assets")]
         private void GetPortraitsFromAssets()
         {

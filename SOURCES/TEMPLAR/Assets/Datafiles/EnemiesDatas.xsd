@@ -161,6 +161,7 @@
    <xs:complexType name="Action">
       <xs:sequence>
          <xs:element name="Conditions" type="Conditions" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="DontApplyGravity" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 

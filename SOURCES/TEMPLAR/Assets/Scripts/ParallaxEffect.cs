@@ -71,6 +71,7 @@
             t.SetPositionX(_initCamPos.x - initOffset.x + TravelDistX * travelFactor);
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Check duplicates")]
         private void CheckDuplicates()
         {

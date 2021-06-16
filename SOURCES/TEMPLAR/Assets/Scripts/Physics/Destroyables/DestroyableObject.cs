@@ -99,6 +99,7 @@
             SharedDestroyableObjectsByColliders.Remove(_collider2D);
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Get Children Destroyables")]
         private void GetChildrenDestroyables()
         {
@@ -106,6 +107,7 @@
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Get Children Destroyables Recursive")]
         private void GetChildrenDestroyablesRecursive()
         {

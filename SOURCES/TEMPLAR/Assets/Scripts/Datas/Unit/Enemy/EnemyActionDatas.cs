@@ -8,6 +8,16 @@
         public EnemyActionDatas(XContainer container) : base(container)
         {
         }
+
+        public bool DontApplyGravity { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement actionElement = container as XElement;
+            DontApplyGravity = actionElement.Element("DontApplyGravity") != null;
+        }
     }
 
 

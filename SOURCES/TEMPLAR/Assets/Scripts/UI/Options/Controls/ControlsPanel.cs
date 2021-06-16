@@ -226,6 +226,7 @@
             _saveBindingsBtn.onClick.RemoveListener(OnBackButtonPressed);
         }
 
+        // [TODO] Editor button.
         [ContextMenu("Locate binding panels")]
         private void LocateBindingPanels()
         {
