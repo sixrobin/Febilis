@@ -4,6 +4,9 @@
     using System.Linq;
     using Templar.Interaction.Checkpoint;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class DestroyableObject : MonoBehaviour, ICheckpointListener
@@ -99,17 +102,13 @@
             SharedDestroyableObjectsByColliders.Remove(_collider2D);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Get Children Destroyables")]
-        private void GetChildrenDestroyables()
+        public void GetChildrenDestroyables()
         {
             _children = GetComponentsInChildren<DestroyableObject>().Where(o => o.transform.parent == transform).ToArray();
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Get Children Destroyables Recursive")]
-        private void GetChildrenDestroyablesRecursive()
+        public void GetChildrenDestroyablesRecursive()
         {
             _children = GetComponentsInChildren<DestroyableObject>().Where(o => o.transform.parent == transform).ToArray();
             for (int i = _children.Length - 1; i >= 0; --i)
@@ -118,4 +117,16 @@
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(DestroyableObject))]
+    public class DestroyableObjectEditor : RSLib.EditorUtilities.ButtonProviderEditor<DestroyableObject>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Get Children Destroyables", Obj.GetChildrenDestroyables);
+            DrawButton("Get Children Destroyables Recursive", Obj.GetChildrenDestroyablesRecursive);
+        }
+    }
+#endif
 }

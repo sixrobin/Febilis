@@ -2,6 +2,9 @@
 {
     using RSLib.Extensions;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class CloudsView : MonoBehaviour
     {
@@ -73,17 +76,13 @@
         }
 
 #if UNITY_EDITOR
-        // [TODO] Editor button.
-        [ContextMenu("Find Clouds in children")]
-        private void FindCloudsInChildren()
+        public void FindCloudsInChildren()
         {
             _clouds = GetComponentsInChildren<SpriteRenderer>();
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Compute size range")]
-        private void ComputeSizeRange()
+        public void ComputeSizeRange()
         {
             float min = float.MaxValue;
             float max = float.MinValue;
@@ -99,4 +98,16 @@
         }
 #endif
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(CloudsView))]
+    public class CloudsViewEditor : RSLib.EditorUtilities.ButtonProviderEditor<CloudsView>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Find Clouds in Children", Obj.FindCloudsInChildren);
+            DrawButton("Compute Size Range", Obj.ComputeSizeRange);
+        }
+    }
+#endif
 }

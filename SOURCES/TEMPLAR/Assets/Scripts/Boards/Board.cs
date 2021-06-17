@@ -1,6 +1,9 @@
 ﻿namespace Templar.Boards
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class Board : MonoBehaviour
@@ -22,13 +25,22 @@
                 _boardsLinks[i].OwnerBoard = this;
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Locate Boards Links in Children")]
-        private void LocateBoardsLinksInChildren()
+        public void LocateBoardsLinksInChildren()
         {
             _boardsLinks = GetComponentsInChildren<BoardsLink>();
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(Board))]
+    public class BoardEditor : RSLib.EditorUtilities.ButtonProviderEditor<Board>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Locate Boards Links in Children", Obj.LocateBoardsLinksInChildren);
+        }
+    }
+#endif
 }

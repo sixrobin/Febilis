@@ -2,6 +2,9 @@
 {
     using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public partial class PlayerDatabase : RSLib.Framework.ConsoleProSingleton<PlayerDatabase>, IDatabase
     {
@@ -36,9 +39,7 @@
         }
 
 #if UNITY_EDITOR
-        // [TODO] Editor button.
-        [ContextMenu("Get AnimationClips from Assets")]
-        private void GetAnimationClipsFromAssets()
+        public void GetAnimationClipsFromAssets()
         {
             Instance.Log($"Getting animation clips in subfolders of path {clipsAssetsRootPath}...");
 
@@ -59,4 +60,15 @@
         }
 #endif
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(PlayerDatabase))]
+    public class PlayerDatabaseEditor : RSLib.EditorUtilities.ButtonProviderEditor<PlayerDatabase>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Get Animation Clips from Assets", Obj.GetAnimationClipsFromAssets);
+        }
+    }
+#endif
 }

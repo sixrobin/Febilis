@@ -3,6 +3,9 @@
     using Boards;
     using RSLib.Extensions;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class BoardsManager : RSLib.Framework.ConsoleProSingleton<BoardsManager>
     {
@@ -163,9 +166,7 @@
                     Gizmos.DrawLine(_links[i].First.transform.position, _links[i].Second.transform.position);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Auto Detect Init Board")]
-        private void AutoDetectInitBoard()
+        public static void DebugAutoDetectInitBoard()
         {
             Board[] boards = FindObjectsOfType<Board>();
             Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
@@ -174,13 +175,13 @@
             {
                 if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
                 {
-                    Log($"Detected board {boards[i].transform.name} as the init board.", gameObject);
-                    _initBoard = boards[i];
+                    Instance.Log($"Detected board {boards[i].transform.name} as the init board.", Instance.gameObject);
+                    Instance._initBoard = boards[i];
                     return;
                 }
             }
 
-            LogWarning($"No board has been fonud as the init board.", gameObject);
+            Instance.LogWarning($"No board has been fonud as the init board.", Instance.gameObject);
         }
 
         public static void DebugForceRefreshBoard()
@@ -193,4 +194,16 @@
                     playerCtrl.CameraCtrl.SetBoardBounds(boards[i]);
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(BoardsManager))]
+    public class BoardsManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsManager>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Auto Detect Init Board", BoardsManager.DebugAutoDetectInitBoard);
+            DrawButton("Refresh Current Board", BoardsManager.DebugForceRefreshBoard);
+        }
+    }
+#endif
 }

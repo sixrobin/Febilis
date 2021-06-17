@@ -2,6 +2,9 @@
 {
     using System.Xml.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public partial class DialogueDatabase : RSLib.Framework.ConsoleProSingleton<DialogueDatabase>, IDatabase
     {
@@ -13,7 +16,6 @@
         [SerializeField] private Sprite _defaultPortrait = null;
 
 #if UNITY_EDITOR
-        [Header("DEBUG")]
         [SerializeField] private string portraitsAssetsRootPath = "Assets/Textures/UI/Dialogue/Portraits";
 #endif
 
@@ -141,9 +143,7 @@
         }
 
 #if UNITY_EDITOR
-        // [TODO] Editor button.
-        [ContextMenu("Get Portraits from Assets")]
-        private void GetPortraitsFromAssets()
+        public void GetPortraitsFromAssets()
         {
             Instance.Log($"Getting portraits in folder {portraitsAssetsRootPath}...");
 
@@ -160,4 +160,15 @@
         }
 #endif
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(DialogueDatabase))]
+    public class DialogueDatabaseEditor : RSLib.EditorUtilities.ButtonProviderEditor<DialogueDatabase>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Get Portraits from Assets", Obj.GetPortraitsFromAssets);
+        }
+    }
+#endif
 }
