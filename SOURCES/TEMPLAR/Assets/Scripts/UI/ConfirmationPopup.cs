@@ -23,20 +23,29 @@
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _confirmBtn = null;
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _cancelBtn = null;
 
+        private UIPanel _sourcePanel;
+        private GameObject _sourceSelected;
+
         public delegate void ConfirmedEventHandler();
 
-        public ConfirmedEventHandler _confirmCallback;
-        public ConfirmedEventHandler _cancelCallback;
+        private ConfirmedEventHandler _confirmCallback;
+        private ConfirmedEventHandler _cancelCallback;
 
         public override GameObject FirstSelected => _cancelBtn.gameObject;
 
         public override void OnBackButtonPressed()
         {
-            // [TODO] Cancel confirmation and just go back.
+            Close();
+
+            Navigation.UINavigationManager.SetPanelAsCurrent(_sourcePanel);
+            Navigation.UINavigationManager.Select(_sourceSelected);
         }
 
         public void AskForConfirmation(PopupTextsDatas textsDatas, ConfirmedEventHandler confirmCallback, ConfirmedEventHandler cancelCallback)
         {
+            _sourcePanel = Navigation.UINavigationManager.CurrentlyOpenPanel;
+            _sourceSelected = Navigation.UINavigationManager.CurrentlySelected;
+
             Navigation.UINavigationManager.OpenAndSelect(this);
 
             _confirmCallback = confirmCallback.Invoke;

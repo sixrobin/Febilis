@@ -9,7 +9,6 @@
 
         [Header("PLAYER")]
         [SerializeField] private PlayerView _playerView = null;
-        [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null; // [TMP] Player should not reference the camera.
         [SerializeField] private Datas.Unit.Player.PlayerControllerDatas _ctrlDatas = null;
         [SerializeField] private Interaction.Interacter _interacter = null;
         [SerializeField] private LayerMask _rollCollisionMask = 0;
@@ -29,7 +28,6 @@
         public PlayerView PlayerView => _playerView;
         public override UnitView UnitView => _playerView;
 
-        public Templar.Camera.CameraController CameraCtrl => _cameraCtrl;
         public Datas.Unit.Player.PlayerControllerDatas CtrlDatas => _ctrlDatas;
 
         public PlayerHealthController PlayerHealthCtrl => HealthCtrl as PlayerHealthController;
@@ -224,8 +222,8 @@
             CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
             PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
-            CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // [TMP] Hard coded value.
-            Manager.RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "InBase", (1.5f, 1f), (fadeIn) => RSLib.SceneReloader.ReloadScene());
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // [TMP] Hard coded value.
+            Manager.RampFadeManager.Fade(Manager.GameManager.CameraCtrl.GrayscaleRamp, "InBase", (1.5f, 1f), (fadeIn) => RSLib.SceneReloader.ReloadScene());
             _currentRecoil = null;
 
             StartDeadFadeCoroutine();
@@ -518,7 +516,7 @@
 
             HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
 
-            CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
             _currentRecoil = new Templar.Physics.Recoil(-CurrDir, new Datas.Attack.RecoilDatas(1f, 0.1f)); // [TODO] Hardcoded values.
 
             PlayerView.PlayHealAnimation();

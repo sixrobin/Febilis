@@ -1,6 +1,9 @@
 ﻿namespace Templar
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class SleepFeedback : MonoBehaviour
@@ -63,18 +66,26 @@
             sign.gameObject.SetActive(false);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Toggle On")]
-        private void ToggleOn()
+        public void DebugToggleOn()
         {
             Toggle(true);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Toggle Off")]
-        private void ToggleOff()
+        public void DebugToggleOff()
         {
             Toggle(false);
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(SleepFeedback))]
+    public class SleepFeedbackEditor : RSLib.EditorUtilities.ButtonProviderEditor<SleepFeedback>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Toggle On", Obj.DebugToggleOn);
+            DrawButton("Toggle Off", Obj.DebugToggleOff);
+        }
+    }
+#endif
 }

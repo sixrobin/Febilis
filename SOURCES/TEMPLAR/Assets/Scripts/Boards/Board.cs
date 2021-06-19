@@ -28,8 +28,10 @@
         public void LocateBoardsLinksInChildren()
         {
             _boardsLinks = GetComponentsInChildren<BoardsLink>();
+#if UNITY_EDITOR
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
         }
     }
 

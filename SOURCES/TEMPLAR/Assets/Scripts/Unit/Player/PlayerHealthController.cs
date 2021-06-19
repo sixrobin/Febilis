@@ -1,6 +1,9 @@
 ﻿namespace Templar.Unit.Player
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class PlayerHealthController : UnitHealthController
     {
@@ -84,12 +87,22 @@
             base.OnHit(hitDatas);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Restore cells")]
         public void RestoreCells()
         {
             // [TMP] Need to load, or get it from datas, etc.
             HealsLeft = _baseHealsLeft;
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(PlayerHealthController))]
+    public class PlayerHealthControllerEditor : UnitHealthControllerEditor<PlayerHealthController>
+    {
+        protected override void DrawButtons()
+        {
+            base.DrawButtons();
+            DrawButton("Restore cells", Obj.RestoreCells);
+        }
+    }
+#endif
 }

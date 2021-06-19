@@ -110,7 +110,7 @@
             CProLogger.Log(this, $"Landing at a speed of {fallSpeedAbs.ToString("f2")} => Computed impact duration of {impactDur.ToString("f2")}s and a speed mult of {LandImpactSpeedMult.ToString("f2")}.");
 
             // [TMP] Hardcoded values : shake should probably scale with impact strength.
-            _playerCtrl.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0f, 0.3f);
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0f, 0.3f);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(impactDur);
             _landImpactCoroutine = null;

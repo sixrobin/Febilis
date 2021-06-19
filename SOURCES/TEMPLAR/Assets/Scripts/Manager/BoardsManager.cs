@@ -80,7 +80,7 @@
                     yield break;
             }
 
-            RampFadeManager.Fade(GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
+            RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
             yield return new WaitUntil(() => !RampFadeManager.IsFading);
 
@@ -93,11 +93,11 @@
             GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.
 
             yield return null;
-            GameManager.PlayerCtrl.CameraCtrl.SetBoardBounds(target.OwnerBoard);
-            GameManager.PlayerCtrl.CameraCtrl.PositionInstantly();
+            GameManager.CameraCtrl.SetBoardBounds(target.OwnerBoard);
+            GameManager.CameraCtrl.PositionInstantly();
 
             yield return null;
-            RampFadeManager.Fade(GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
+            RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
 
             switch (target.EnterDir)
             {
@@ -151,7 +151,7 @@
             }
 
             if (_initBoard != null)
-                GameManager.PlayerCtrl.CameraCtrl.SetBoardBounds(_initBoard);
+                GameManager.CameraCtrl.SetBoardBounds(_initBoard);
         }
 
         private void OnDrawGizmos()
@@ -191,7 +191,7 @@
 
             for (int i = boards.Length - 1; i >= 0; --i)
                 if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
-                    playerCtrl.CameraCtrl.SetBoardBounds(boards[i]);
+                    Manager.GameManager.CameraCtrl.SetBoardBounds(boards[i]);
         }
     }
 

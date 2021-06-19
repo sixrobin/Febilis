@@ -4,6 +4,9 @@
     using RSLib.Framework.InputSystem;
     using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class ControlsPanel : OptionPanelBase
@@ -226,9 +229,7 @@
             _saveBindingsBtn.onClick.RemoveListener(OnBackButtonPressed);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Locate binding panels")]
-        private void LocateBindingPanels()
+        public void LocateBindingPanels()
         {
             _bindingPanels = FindObjectsOfType<KeyBindingPanel>().OrderBy(o => o.transform.GetSiblingIndex()).ToArray();
 #if UNITY_EDITOR
@@ -236,4 +237,15 @@
 #endif
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(ControlsPanel))]
+    public class ControlsPanelEditor : RSLib.EditorUtilities.ButtonProviderEditor<ControlsPanel>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Locate Binding Panels", Obj.LocateBindingPanels);
+        }
+    }
+#endif
 }

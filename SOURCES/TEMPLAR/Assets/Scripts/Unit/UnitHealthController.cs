@@ -1,6 +1,9 @@
 ﻿namespace Templar.Unit
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public abstract class UnitHealthController : MonoBehaviour, Attack.IHittable
     {
@@ -107,18 +110,25 @@
             HealthSystem.Killed -= OnKilled;
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Damage with default AttackDatas")]
-        private void DebugDamageDefault()
+        public void DebugDamageDefault()
         {
             OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform));
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Damage with infinite damage")]
-        private void DebugDamageInfinite()
+        public void DebugDamageInfinite()
         {
             OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.InfiniteDamage, 1f, transform));
         }
     }
+
+#if UNITY_EDITOR
+    public abstract class UnitHealthControllerEditor<T> : RSLib.EditorUtilities.ButtonProviderEditor<T> where T : UnitHealthController
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Damage with infinite damage", Obj.DebugDamageDefault);
+            DrawButton("Damage with default AttackDatas", Obj.DebugDamageInfinite);
+        }
+    }
+#endif
 }

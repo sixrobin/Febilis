@@ -25,7 +25,7 @@
 
             _playerCtrl.transform.position = checkpoint.RespawnPos.AddY(Templar.Physics.RaycastsController.SKIN_WIDTH * 10f);
             _playerCtrl.CollisionsCtrl.Ground(_playerCtrl.transform);
-            _playerCtrl.CameraCtrl.PositionInstantly();
+            Manager.GameManager.CameraCtrl.PositionInstantly();
 
             if (Manager.BoardsManager.Exists())
                 Manager.BoardsManager.DebugForceRefreshBoard();

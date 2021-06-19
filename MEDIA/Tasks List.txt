@@ -19,10 +19,9 @@
 ///// CODE
 	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
 	- Etendre les Destroyables et en faire des Triggerable tout court
-		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois.
+		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois (ou mieux, un compteur)
 		- Ajouter des LootDatas pour des coffres sur lesquels on peut taper, par exemple.
 		- Avoir un <SwitchSprite> ou un truc du genre pour paramétrer le visuel.
-	- Ne pas référencer la caméra dans PlayerController.
 	- Système de tableaux
 		- Gérer les transitions entre scènes (scènes additives ?)
 		- Transition In avec opposite Out pour rentrer dans des maisons, passer des portes, etc. à l'interaction seulement.
@@ -39,7 +38,6 @@
 	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
 		- Interface/Component INavigationModeSwitcher qui change quand on détecte OnPointerEnter/OnSelected (= respectivement events curseur/manette) ?
 		- Voir si repasser la navigation en None garde en mémoire les SelectOnDirection, pour quand on repasse en Explicit ensuite.
-		- ConfirmationPopup : Back input revient en arrière, sans valider quoi que ce soit, et resélectionne le dernier objet.
 	
 
 

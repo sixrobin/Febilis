@@ -51719,6 +51719,7 @@ MonoBehaviour:
   _overrideLogPrefix: 
   _overrideCheckpoint: {fileID: 0}
   _playerCtrl: {fileID: 327885998}
+  _cameraCtrl: {fileID: 519420033}
   _fadeOnRespawn: 1
 --- !u!1 &1734240999
 GameObject:
@@ -52925,7 +52926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 0
+  _verbose: 1
   _overrideLogPrefix: 
   _confirmationPopup: {fileID: 1979929948446069053}
   _currSelection: {fileID: 0}

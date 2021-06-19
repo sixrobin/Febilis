@@ -2,6 +2,9 @@
 {
     using RSLib.Extensions;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class ParallaxEffect : MonoBehaviour
@@ -71,45 +74,6 @@
             t.SetPositionX(_initCamPos.x - initOffset.x + TravelDistX * travelFactor);
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Check duplicates")]
-        private void CheckDuplicates()
-        {
-            System.Collections.Generic.Dictionary<Transform, int> transformsCounters = new System.Collections.Generic.Dictionary<Transform, int>();
-
-            for (int i = _layers.Length - 1; i >= 0; --i)
-            {
-                if (!transformsCounters.ContainsKey(_layers[i]))
-                    transformsCounters.Add(_layers[i], 0);
-
-                transformsCounters[_layers[i]]++;
-            }
-
-            for (int i = _individualsObjectsParents.Length - 1; i >= 0; --i)
-            {
-                for (int j = _individualsObjectsParents[i].childCount - 1; j >= 0; --j)
-                {
-                    if (!transformsCounters.ContainsKey(_individualsObjectsParents[i].GetChild(j)))
-                        transformsCounters.Add(_individualsObjectsParents[i].GetChild(j), 0);
-
-                    transformsCounters[_individualsObjectsParents[i].GetChild(j)]++;
-                }
-            }
-
-            bool anyDuplicataFound = false;
-            foreach (System.Collections.Generic.KeyValuePair<Transform, int> counter in transformsCounters)
-            {
-                if (counter.Value > 1)
-                {
-                    CProLogger.Log(this, $"Duplicata found for {counter.Key.name} ({counter.Value} occurences).");
-                    anyDuplicataFound = true;
-                }
-            }
-
-            if (!anyDuplicataFound)
-                CProLogger.Log(this, $"No duplicata found.");
-        }
-
         private void Start()
         {
             _initCamPos = _camTransform.position;
@@ -159,5 +123,53 @@
             for (int i = _individualTransforms.Length - 1; i >= 0; --i)
                 Position(_individualTransforms[i], _individualTransformsOffsets[i], _individualTransformsDepths[i]);
         }
+
+        public void DebugCheckDuplicates()
+        {
+            System.Collections.Generic.Dictionary<Transform, int> transformsCounters = new System.Collections.Generic.Dictionary<Transform, int>();
+
+            for (int i = _layers.Length - 1; i >= 0; --i)
+            {
+                if (!transformsCounters.ContainsKey(_layers[i]))
+                    transformsCounters.Add(_layers[i], 0);
+
+                transformsCounters[_layers[i]]++;
+            }
+
+            for (int i = _individualsObjectsParents.Length - 1; i >= 0; --i)
+            {
+                for (int j = _individualsObjectsParents[i].childCount - 1; j >= 0; --j)
+                {
+                    if (!transformsCounters.ContainsKey(_individualsObjectsParents[i].GetChild(j)))
+                        transformsCounters.Add(_individualsObjectsParents[i].GetChild(j), 0);
+
+                    transformsCounters[_individualsObjectsParents[i].GetChild(j)]++;
+                }
+            }
+
+            bool anyDuplicataFound = false;
+            foreach (System.Collections.Generic.KeyValuePair<Transform, int> counter in transformsCounters)
+            {
+                if (counter.Value > 1)
+                {
+                    CProLogger.Log(this, $"Duplicata found for {counter.Key.name} ({counter.Value} occurences).");
+                    anyDuplicataFound = true;
+                }
+            }
+
+            if (!anyDuplicataFound)
+                CProLogger.Log(this, $"No duplicata found.");
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(ParallaxEffect))]
+    public class ParallaxEffectEditor : RSLib.EditorUtilities.ButtonProviderEditor<ParallaxEffect>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Check Duplicates", Obj.DebugCheckDuplicates);
+        }
+    }
+#endif
 }

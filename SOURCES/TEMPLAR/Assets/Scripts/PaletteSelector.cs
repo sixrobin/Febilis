@@ -19,7 +19,7 @@
             {
                 s_currRampIndex = RSLib.Helpers.Mod(value, Instance._ramps.Length);
 
-                Manager.GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp.OverrideRamp(Instance._ramps[s_currRampIndex]);
+                Manager.GameManager.CameraCtrl.GrayscaleRamp.OverrideRamp(Instance._ramps[s_currRampIndex]);
                 Instance.PaletteChanged?.Invoke(Instance._ramps[s_currRampIndex]);
             }
         }
@@ -39,7 +39,7 @@
             base.Awake();
 
             if (CurrRampIndex == -1)
-                CurrRampIndex = System.Array.IndexOf(_ramps, Manager.GameManager.PlayerCtrl.CameraCtrl.GrayscaleRamp.TextureRamp);
+                CurrRampIndex = System.Array.IndexOf(_ramps, Manager.GameManager.CameraCtrl.GrayscaleRamp.TextureRamp);
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("RampIndex", "Sets the color ramp index.", (index) => SetPalette(index)));
         }

@@ -9,11 +9,13 @@
         [SerializeField] private Interaction.Checkpoint.CheckpointController _overrideCheckpoint = null;
 
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
+        [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
         [SerializeField] private bool _fadeOnRespawn = false;
 
         private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
 
         public static Unit.Player.PlayerController PlayerCtrl => Instance._playerCtrl;
+        public static Templar.Camera.CameraController CameraCtrl => Instance._cameraCtrl;
         public static Interaction.Checkpoint.CheckpointController OverrideCheckpoint => Instance._overrideCheckpoint;
 
         public static void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpoint)
@@ -65,9 +67,18 @@
                 }
             }
 
-            if (_fadeOnRespawn && _playerCtrl.CameraCtrl.GrayscaleRamp.enabled)
+            if (_cameraCtrl == null)
             {
-                RampFadeManager.SetRampOffset(_playerCtrl.CameraCtrl.GrayscaleRamp, -1f);
+                LogWarning("Reference to CameraController is missing, trying to find it using FindObjectOfType.");
+                _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
+
+                if (_cameraCtrl == null)
+                    LogError("No CameraController seems to be in the scene.");
+            }
+
+            if (_fadeOnRespawn && Manager.GameManager.CameraCtrl.GrayscaleRamp.enabled)
+            {
+                RampFadeManager.SetRampOffset(Manager.GameManager.CameraCtrl.GrayscaleRamp, -1f);
                 // [TODO] Hide player HUD.
             }
 
@@ -75,8 +86,8 @@
 
             SpawnPlayer();
 
-            if (_fadeOnRespawn && _playerCtrl.CameraCtrl.GrayscaleRamp.enabled)
-                RampFadeManager.Fade(_playerCtrl.CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));
+            if (_fadeOnRespawn && Manager.GameManager.CameraCtrl.GrayscaleRamp.enabled)
+                RampFadeManager.Fade(Manager.GameManager.CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));
             else
                 _playerCtrl.AllowInputs(true);
         }

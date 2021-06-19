@@ -2,6 +2,9 @@
 {
     using UnityEngine;
     using UnityEngine.EventSystems;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
     {
@@ -14,7 +17,7 @@
         [SerializeField] private GameObject _currSelection = null;
 #endif
 
-        private static UIPanel _currOpenPanel;
+        public static UIPanel CurrentlyOpenPanel { get; private set; }
 
         public static ConfirmationPopup ConfirmationPopup
         {
@@ -40,24 +43,29 @@
             UnityEngine.Assertions.Assert.IsNotNull(uiPanel, "Trying to open a null panel.");
             Instance.Log($"Opening {uiPanel.transform.name}.", uiPanel.gameObject);
 
-            _currOpenPanel = uiPanel;
-            _currOpenPanel.Open();
-            Select(_currOpenPanel.FirstSelected);
+            SetPanelAsCurrent(uiPanel);
+            CurrentlyOpenPanel.Open();
+            Select(CurrentlyOpenPanel.FirstSelected);
         }
 
         public static void CloseCurrentPanel()
         {
-            if (_currOpenPanel == null)
+            if (CurrentlyOpenPanel == null)
                 return;
 
-            Instance.Log($"Closing {_currOpenPanel.transform.name}.", _currOpenPanel.gameObject);
-            _currOpenPanel.Close();
-            _currOpenPanel = null;
+            Instance.Log($"Closing {CurrentlyOpenPanel.transform.name}.", CurrentlyOpenPanel.gameObject);
+            CurrentlyOpenPanel.Close();
+            CurrentlyOpenPanel = null;
         }
 
         public static void Select(GameObject selected)
         {
             SetSelectedGameObject(selected);
+        }
+
+        public static void SetPanelAsCurrent(UIPanel uiPanel)
+        {
+            CurrentlyOpenPanel = uiPanel;
         }
 
         public static void NullifySelected()
@@ -67,11 +75,11 @@
 
         private static void TryHandleBackInput()
         {
-            if (_currOpenPanel == null)
+            if (CurrentlyOpenPanel == null)
                 return;
 
             if (Input.GetButtonDown(INPUT_BACK))
-                _currOpenPanel.OnBackButtonPressed();
+                CurrentlyOpenPanel.OnBackButtonPressed();
         }
 
         private static void SetSelectedGameObject(GameObject selected)
@@ -102,9 +110,7 @@
 #endif
         }
 
-        // [TODO] Editor button.
-        [ContextMenu("Locate Confirmation Popup")]
-        private void LocateConfirmationPopup()
+        public void LocateConfirmationPopup()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
 #if UNITY_EDITOR
@@ -112,4 +118,15 @@
 #endif
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(UINavigationManager))]
+    public class UINavigationManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<UINavigationManager>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Locate Confirmation Popup", Obj.LocateConfirmationPopup);
+        }
+    }
+#endif
 }

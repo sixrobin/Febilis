@@ -19,7 +19,7 @@
         protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
         {
             UnityEngine.Assertions.Assert.IsNotNull(_currAttackDatas, "An attack hit has been triggered but enemy attack datas are null.");
-            Manager.GameManager.PlayerCtrl.CameraCtrl.ApplyShakeFromDatas(_currAttackDatas.HitTraumaDatas);
+            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(_currAttackDatas.HitTraumaDatas);
             Manager.FreezeFrameManager.FreezeFrame(0, _currAttackDatas.HitFreezeFrameDur);
         }
 
