@@ -87,7 +87,7 @@
             if (s_playerMovementCoroutine != null)
                 Instance.StopCoroutine(s_playerMovementCoroutine);
 
-            yield return new WaitForSeconds(Instance._fadedInDur);
+            yield return new WaitForSeconds(source.OverrideExitFadedIn ? source.OverrideExitFadedInDur : Instance._fadedInDur);
 
             GameManager.PlayerCtrl.ResetVelocity();
             GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.

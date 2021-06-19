@@ -72,13 +72,14 @@
                 vfxInstance.transform.position = transform.position;
             }
 
-            // Only show destroyed particles if grounded.
-            RaycastHit2D hit = Physics2D.Raycast(transform.position.AddY(0.2f), Vector2.down, 0.3f, _groundLayer);
-            _spriteRenderer.sprite = hit ? _triggerSpritesLoop[++_currentSpriteIndex % _triggerSpritesLoop.Length] : null;
-
             _triggersCounter++;
             _collider2D.enabled = !NotTriggerableAnymore;
 
+            RaycastHit2D groundHit = Physics2D.Raycast(transform.position.AddY(0.2f), Vector2.down, 0.3f, _groundLayer);
+            _spriteRenderer.sprite = groundHit || !NotTriggerableAnymore
+                ? _triggerSpritesLoop[++_currentSpriteIndex % _triggerSpritesLoop.Length]
+                : null;
+            
             for (int i = _children.Length - 1; i >= 0; --i)
                 _children[i].Trigger(sourceType);
         }

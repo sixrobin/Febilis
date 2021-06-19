@@ -2529,6 +2529,75 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &188903849
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1715389029}
+    m_Modifications:
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 113.998
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.499
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326133, guid: 8eafbb696278b8744aa88cd9946f06dd,
+        type: 3}
+      propertyPath: m_Name
+      value: Triggerable Lever (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8eafbb696278b8744aa88cd9946f06dd, type: 3}
 --- !u!1 &192007245
 GameObject:
   m_ObjectHideFlags: 0
@@ -51675,6 +51744,7 @@ Transform:
   - {fileID: 1456091773}
   - {fileID: 59618348}
   - {fileID: 1628774537}
+  - {fileID: 2052968587}
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53995,6 +54065,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &2052968587 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7491186539554326089, guid: 8eafbb696278b8744aa88cd9946f06dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 188903849}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2053340264
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿namespace Templar.Datas
 {
     using RSLib.Extensions;
+    using static RSLib.Maths.Easing;
     using System.Xml.Linq;
 
     public class TriggerableDatas : Datas

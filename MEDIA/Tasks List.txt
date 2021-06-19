@@ -16,18 +16,15 @@
 	
 	
 ///// CODE
+	- Camera shakes library : créer des scriptables plutôt que d'avoir tout en dur dans l'inspector.
+	- Triggerables : param <CanReset>, pour les coffres si on veut les rendre uniques par exemple. Il faudra aussi le sauvegarder du coup.
 	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
-	- Etendre les Destroyables et en faire des Triggerable tout court
-		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois (ou mieux, un compteur)
-		- Ajouter des LootDatas pour des coffres sur lesquels on peut taper, par exemple.
-		- Avoir un <SwitchSprite> ou <SpritesLoop> ou un truc du genre pour paramétrer le visuel (qui boucle avec un modulo et stoppe avec le compteur au besoin).
 	- Système de tableaux
 		- Gérer les transitions entre scènes (scènes additives ?)
 		- Transition In avec opposite Out pour rentrer dans des maisons, passer des portes, etc. à l'interaction seulement.
 			- Faudrait voir pour une interface IInteractable du coup parce que pas possible d'hériter de Interactable et BoardLink.
 		- Rentrer dans une maison.
-	- Enemis attack motion.
-	- Permettre de casser la séquence de heal après l'anticipation ?
+	- Enemies attack motion.
 	- Attaque up du templier (sur place).
 	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
@@ -84,6 +81,11 @@
 	- Generic puff.
 	- Visuel quelconque pour justifier le fait que le perso puisse remonter hors d'un tableau (une corde, une échelle, etc.).
 	- Enemies fall.
+	- Bridge break :
+		- spawn x particules randomly dans un rectangle.
+		- spawn les morceaux cassés du pont et leur appliquer une force random vers le bas et un torque.
+		- poser les morceaux pétés au sol sur le tableau suivant.
+		- tester d'animer un squelette qui détruit le pont.
 
 
 

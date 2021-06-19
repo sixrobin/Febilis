@@ -17,6 +17,8 @@
 	- script qui déclenche la transition vers un autre tableau dans OnTriggerEnter2D
 	- à attacher donc à un Collider2D
 	- paramétrer dessus la direction de SORTIE, la direction d'entrée sera automatiquement la direction opposée.
+	- possibilité de paramétrer une durée custom pour la durée de l'écran noir en exit (pour par exemple faker une transition plus longue géographiquement parlant, etc.).
+		- par défaut la valeur est à -1 ce qui veut dire qu'on ne change rien, et l'override se fait dès qu'on est >= 0.
 	- par défaut, le player est téléporté sur le transform du script. Mais, si le OverrideRespawnPos est référencé, alors on utilise ce transform.
 		• /!\ Pour le respawn vers le haut, il est obligatoire de le référencer, sinon le joueur se téléporte sur le trigger, et tombe car il est dans le vide.
 		

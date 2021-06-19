@@ -8,6 +8,7 @@
     {
         [SerializeField] private ScreenDirection _exitDir = ScreenDirection.NONE;
         [SerializeField] private Transform _overrideRespawnPos = null;
+        [SerializeField, Min(-1f)] private float _overrideExitFadedInDur = -1f;
 
         [Header("DEBUG")]
         [SerializeField] private SpriteRenderer _visualizer = null;
@@ -16,6 +17,9 @@
         public ScreenDirection EnterDir => _exitDir.Opposite();
 
         public Transform OverrideRespawnPos => _overrideRespawnPos;
+
+        public bool OverrideExitFadedIn => OverrideExitFadedInDur >= 0f;
+        public float OverrideExitFadedInDur => _overrideExitFadedInDur;
 
         public Board OwnerBoard { get; set; }
 
