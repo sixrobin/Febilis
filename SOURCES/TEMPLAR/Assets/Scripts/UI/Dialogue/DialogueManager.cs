@@ -11,7 +11,7 @@
         private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
         private System.Collections.IEnumerator _dialogueCoroutine;
-        private string _currDialogueId;
+        private Datas.Dialogue.DialogueDatas _currentDialogue;
 
         private bool _skippedSentenceSequence;
         private string _currSentenceProgress;
@@ -30,13 +30,12 @@
 
         public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
-            UnityEngine.Assertions.Assert.IsNull(
-                Instance._dialogueCoroutine,
-                $"Trying to play dialogue {dialogueDatas.Id} while dialogue {Instance._currDialogueId} is already playing.");
+            UnityEngine.Assertions.Assert.IsFalse(
+                DialogueRunning,
+                $"Trying to play dialogue {dialogueDatas.Id} while dialogue {Instance._currentDialogue?.Id} is already playing.");
 
-            Instance._currDialogueId = dialogueDatas.Id;
-
-            Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueDatas, sourceSpeaker));
+            Instance._currentDialogue = dialogueDatas;
+            Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(sourceSpeaker));
         }
 
         public static bool CheckSkipInput()
@@ -62,11 +61,10 @@
             Log($"Registered {_speakers.Count} speaker(s) is scene : {string.Join(",", _speakers.Keys)}.");
         }
 
-        private System.Collections.IEnumerator PlayDialogueCoroutine(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
+        private System.Collections.IEnumerator PlayDialogueCoroutine(Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
-            Log($"Playing dialogue {dialogueDatas.Id}...");
-
-            DialogueStarted?.Invoke(dialogueDatas.Id);
+            Log($"Playing dialogue {_currentDialogue.Id}...");
+            DialogueStarted?.Invoke(_currentDialogue.Id);
 
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
 
@@ -76,20 +74,20 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
             Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();
 
-            for (int i = 0; i < dialogueDatas.SequenceElementsDatas.Length; ++i)
+            for (int i = 0; i < _currentDialogue.SequenceElementsDatas.Length; ++i)
             {
-                if (dialogueDatas.SequenceElementsDatas[i] is Datas.Dialogue.SentenceDatas sentenceDatas)
+                if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.SentenceDatas sentenceDatas)
                 {
                     yield return PlaySentenceCoroutine(sentenceDatas);
                 }
-                else if (dialogueDatas.SequenceElementsDatas[i] is Datas.Dialogue.DialoguePauseDatas pauseDatas)
+                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialoguePauseDatas pauseDatas)
                 {
                     _dialogueView.Display(false);
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
                 }
                 else
                 {
-                    LogError($"Unhandled dialogue datas type {dialogueDatas.SequenceElementsDatas[i].GetType().Name} encountered during dialogue {dialogueDatas.Id} sequence.");
+                    LogError($"Unhandled dialogue datas type {_currentDialogue.SequenceElementsDatas[i].GetType().Name} encountered during dialogue {_currentDialogue.Id} sequence.");
                     yield break;
                 }
             }
@@ -100,11 +98,11 @@
             Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
             _dialogueCoroutine = null;
-            _currDialogueId = string.Empty;
+            _currentDialogue = null;
 
-            DialogueOver?.Invoke(dialogueDatas.Id);
+            DialogueOver?.Invoke(_currentDialogue.Id);
 
-            Log($"Dialogue {dialogueDatas.Id} sequence is over.");
+            Log($"Dialogue {_currentDialogue.Id} sequence is over.");
         }
 
         private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceDatas)
@@ -114,7 +112,7 @@
                 $"Speaker Id {sentenceDatas.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
 
             _dialogueView.ClearText();
-            _dialogueView.SetPortraitAndAnchors(sentenceDatas);
+            _dialogueView.SetPortraitAndAnchors(sentenceDatas, _currentDialogue.InvertPortraitsAnchors);
             _dialogueView.Display(true);
 
             _skippedSentenceSequence = false;

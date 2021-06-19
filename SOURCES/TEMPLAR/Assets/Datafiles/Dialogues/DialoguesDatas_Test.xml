@@ -2,15 +2,17 @@
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
 
    <DialogueDatas Id="NPCDial_00">
-      <Sentence Id="NPCDial_00_Sentence_00"/>
-      <Pause Dur="0.5"/>
-      <Sentence Id="NPCDial_00_Sentence_01"/>
-      <Sentence Id="NPCDial_00_Sentence_02"/>
-      <Sentence Id="NPCDial_00_Sentence_NameReveal"/>
-      <Sentence Id="NPCDial_00_Sentence_03"/>
-      <Pause Dur="0.5"/>
-      <Sentence Id="NPC_Ellipsis"/>
-      <Sentence Id="NPCDial_00_Sentence_04"/>
+      <Sequence>
+         <Sentence Id="NPCDial_00_Sentence_00"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="NPCDial_00_Sentence_01"/>
+         <Sentence Id="NPCDial_00_Sentence_02"/>
+         <Sentence Id="NPCDial_00_Sentence_NameReveal"/>
+         <Sentence Id="NPCDial_00_Sentence_03"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="NPC_Ellipsis"/>
+         <Sentence Id="NPCDial_00_Sentence_04"/>
+      </Sequence>
    </DialogueDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_00">

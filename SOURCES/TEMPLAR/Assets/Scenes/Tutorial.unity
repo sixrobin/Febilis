@@ -55589,6 +55589,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4206304114253380132, guid: 7f82ba86d68147f4191afe6724e352f5,
+        type: 3}
+      propertyPath: _dialoguesDatas.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4206304114665369684, guid: 7f82ba86d68147f4191afe6724e352f5,
         type: 3}
       propertyPath: m_Name

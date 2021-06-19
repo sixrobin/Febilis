@@ -2,14 +2,17 @@
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
 
    <DialogueDatas Id="Twitter">
-      <Sentence Id="Twitter_00"/>
-      <Pause Dur="0.5"/>
-      <Sentence Id="Twitter_01"/>
-      <Sentence Id="Twitter_02"/>
-      <Sentence Id="Twitter_03"/>
-      <Sentence Id="Twitter_04"/>
-      <Pause Dur="0.5"/>
-      <Sentence Id="Twitter_05"/>
+      <InvertPortraitsAnchors/>
+      <Sequence>
+         <Sentence Id="Twitter_00"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="Twitter_01"/>
+         <Sentence Id="Twitter_02"/>
+         <Sentence Id="Twitter_03"/>
+         <Sentence Id="Twitter_04"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="Twitter_05"/>
+      </Sequence>
    </DialogueDatas>
 
    <SentenceDatas Id="Twitter_00">

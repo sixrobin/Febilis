@@ -1,6 +1,5 @@
 ﻿namespace Templar.UI.Dialogue
 {
-    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
@@ -72,11 +71,13 @@
             _text.text = string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
         }
 
-        public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas)
+        public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas, bool invertAnchors)
         {
             _portrait.sprite = Database.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
 
             Datas.Dialogue.PortraitAnchor portraitAnchor = Database.DialogueDatabase.GetSpeakerPortraitAnchor(sentenceDatas);
+            if (invertAnchors)
+                portraitAnchor = Datas.Dialogue.PortraitAnchorExtensions.GetOpposite(portraitAnchor);
 
             float portraitBoxY = _portraitBox.anchoredPosition.y;
             float textBoxY = _textBox.anchoredPosition.y;

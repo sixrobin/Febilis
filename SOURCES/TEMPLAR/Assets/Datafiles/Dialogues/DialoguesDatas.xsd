@@ -11,25 +11,32 @@
    </xs:element>
 
    <xs:complexType name="DialogueDatas">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-         <xs:element name="Sentence">
+      <xs:sequence>
+         <xs:element name="InvertPortraitsAnchors" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Sequence" minOccurs="1" maxOccurs="1">
             <xs:complexType>
-               <xs:sequence>
-                  <!--Override anchor, override speaker name, etc.-->
-               </xs:sequence>
-               <xs:attribute name="Id" type="xs:token" use="required"/>
+               <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="Sentence">
+                     <xs:complexType>
+                        <xs:sequence>
+                           <!--Override anchor, override speaker name, etc.-->
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:token" use="required"/>
+                     </xs:complexType>
+                  </xs:element>
+                  <xs:element name="Pause">
+                     <xs:complexType>
+                        <xs:sequence>
+                           <!--Hide panel or not ?-->
+                        </xs:sequence>
+                        <xs:attribute name="Dur" type="xs:float" use="required"/>
+                     </xs:complexType>
+                  </xs:element>
+                  <!--Element event?-->
+               </xs:choice>
             </xs:complexType>
          </xs:element>
-         <xs:element name="Pause">
-            <xs:complexType>
-               <xs:sequence>
-                  <!--Hide panel or not ?-->
-               </xs:sequence>
-               <xs:attribute name="Dur" type="xs:float" use="required"/>
-            </xs:complexType>
-         </xs:element>
-         <!--Element event?-->
-      </xs:choice>
+      </xs:sequence>
       <xs:attribute name="Id" type="xs:token" use="required"/>
    </xs:complexType>
 
