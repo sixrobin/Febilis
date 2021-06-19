@@ -20,7 +20,7 @@
 	- Etendre les Destroyables et en faire des Triggerable tout court
 		- Paramétrer ou non la désactivation du collider pour ceux que l'on veut pouvoir frapper plusieurs fois (ou mieux, un compteur)
 		- Ajouter des LootDatas pour des coffres sur lesquels on peut taper, par exemple.
-		- Avoir un <SwitchSprite> ou un truc du genre pour paramétrer le visuel.
+		- Avoir un <SwitchSprite> ou <SpritesLoop> ou un truc du genre pour paramétrer le visuel (qui boucle avec un modulo et stoppe avec le compteur au besoin).
 	- Système de tableaux
 		- Gérer les transitions entre scènes (scènes additives ?)
 		- Transition In avec opposite Out pour rentrer dans des maisons, passer des portes, etc. à l'interaction seulement.

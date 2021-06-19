@@ -3,20 +3,21 @@
 
    <xs:include schemaLocation="SharedDatas.xsd"/>
 
-   <xs:element name="DestroyablesDatas">
+   <xs:element name="TriggerablesDatas">
       <xs:complexType>
          <xs:sequence>
-            <xs:element name="DestroyableDatas" minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="TriggerableDatas" minOccurs="0" maxOccurs="unbounded">
                <xs:complexType>
                   <xs:sequence>
                      <xs:element name="ValidSources" minOccurs="0" maxOccurs ="1">
                         <xs:complexType>
                            <xs:sequence>
-                              <xs:element name="SourceType" type="DestroySourceType" minOccurs="1" maxOccurs ="unbounded"/>
+                              <xs:element name="SourceType" type="TriggerSourceType" minOccurs="1" maxOccurs ="unbounded"/>
                            </xs:sequence>
                         </xs:complexType>
                      </xs:element>
-                     <xs:element name="OnDestroy" minOccurs="0" maxOccurs="1">
+                     <xs:element name="MaxTriggersCount" type="xs:positiveInteger" minOccurs="0" maxOccurs="1"/>
+                     <xs:element name="OnTrigger" minOccurs="0" maxOccurs="1">
                         <xs:complexType>
                            <xs:sequence>
                               <xs:element name="Loot" type="LootDatas" minOccurs="0" maxOccurs="1"/>
@@ -33,7 +34,7 @@
       </xs:complexType>
    </xs:element>
 
-   <xs:simpleType name="DestroySourceType" final="restriction">
+   <xs:simpleType name="TriggerSourceType" final="restriction">
       <xs:restriction base="xs:string">
          <xs:enumeration value="ATTACK"/>
          <xs:enumeration value="ROLL"/>

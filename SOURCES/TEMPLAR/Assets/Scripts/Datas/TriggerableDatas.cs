@@ -3,15 +3,16 @@
     using RSLib.Extensions;
     using System.Xml.Linq;
 
-    public class DestroyableDatas : Datas
+    public class TriggerableDatas : Datas
     {
-        public DestroyableDatas(XContainer container) : base(container)
+        public TriggerableDatas(XContainer container) : base(container)
         {
         }
 
         public string Id { get; private set; }
 
-        public Physics.Destroyables.DestroyableSourceType ValidSources { get; private set; } = Physics.Destroyables.DestroyableSourceType.NONE;
+        public Physics.Triggerables.TriggerableSourceType ValidSources { get; private set; } = Physics.Triggerables.TriggerableSourceType.NONE;
+        public int MaxTriggersCount { get; private set; }
 
         public LootDatas LootDatas { get; private set; }
 
@@ -20,25 +21,27 @@
 
         public override void Deserialize(XContainer container)
         {
-            XElement destroyableElement = container as XElement;
+            XElement triggerableElement = container as XElement;
 
-            XAttribute idAttribute = destroyableElement.Attribute("Id");
-            UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Destroyable Id attribute is null or empty.");
+            XAttribute idAttribute = triggerableElement.Attribute("Id");
+            UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Triggerable Id attribute is null or empty.");
             Id = idAttribute.Value;
 
-            XElement validSourcesElement = destroyableElement.Element("ValidSources");
+            XElement validSourcesElement = triggerableElement.Element("ValidSources");
             if (validSourcesElement == null)
-                ValidSources = Physics.Destroyables.DestroyableSourceType.ALL;
+                ValidSources = Physics.Triggerables.TriggerableSourceType.ALL;
             else
                 foreach (XElement validSourceElement in validSourcesElement.Elements("SourceType"))
-                    ValidSources |= validSourceElement.ValueToEnum<Physics.Destroyables.DestroyableSourceType>();
+                    ValidSources |= validSourceElement.ValueToEnum<Physics.Triggerables.TriggerableSourceType>();
+
+            XElement maxTriggersCount = triggerableElement.Element("MaxTriggersCount");
+            MaxTriggersCount = maxTriggersCount?.ValueToInt() ?? -1;
 
             ToSpawnFromPool = new System.Collections.Generic.List<string>();
 
-            XElement onDestroyElement = destroyableElement.Element("OnDestroy");
+            XElement onDestroyElement = triggerableElement.Element("OnTrigger");
             if (onDestroyElement != null)
             {
-
                 XElement lootElement = onDestroyElement.Element("Loot");
                 if (lootElement != null)
                     LootDatas = new LootDatas(lootElement);
@@ -52,7 +55,7 @@
             }
         }
 
-        public bool IsSourceValid(Physics.Destroyables.DestroyableSourceType source)
+        public bool IsSourceValid(Physics.Triggerables.TriggerableSourceType source)
         {
             return (ValidSources & source) != 0;
         }

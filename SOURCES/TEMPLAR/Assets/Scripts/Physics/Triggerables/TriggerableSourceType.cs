@@ -1,6 +1,6 @@
-﻿namespace Templar.Physics.Destroyables
+﻿namespace Templar.Physics.Triggerables
 {
-    public enum DestroyableSourceType
+    public enum TriggerableSourceType
     {
         NONE = 0,
         ATTACK = 1,

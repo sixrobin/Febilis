@@ -66,8 +66,8 @@
         {
             UnityEngine.Assertions.Assert.IsNotNull(_attackDatas, "Hitbox triggered something even though attack datas have not been set.");
 
-            Templar.Physics.Destroyables.DestroyableObject.SharedDestroyableObjectsByColliders.TryGetValue(collider, out Templar.Physics.Destroyables.DestroyableObject destroyable);
-            destroyable?.TryDestroy(Templar.Physics.Destroyables.DestroyableSourceType.ATTACK);
+            Templar.Physics.Triggerables.TriggerableObject.SharedTriggerablesByColliders.TryGetValue(collider, out Templar.Physics.Triggerables.TriggerableObject triggerable);
+            triggerable?.TryTrigger(Templar.Physics.Triggerables.TriggerableSourceType.ATTACK);
 
             if (!s_sharedKnownHittables.TryGetValue(collider, out IHittable hittable))
                 if (collider.TryGetComponent(out hittable))

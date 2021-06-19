@@ -11,7 +11,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 59f8e38ff58c8c14c8ef83574d3e1aa9,
+      objectReference: {fileID: 21300000, guid: ea0d236a6492b8b479a03170b80cdbc6,
         type: 3}
     - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
@@ -35,59 +35,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
+      propertyPath: _triggerSpritesLoop.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
       propertyPath: _destroyedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: c7d76a4ad1d0a7643adec9e5d52a8d00,
+      objectReference: {fileID: 21300000, guid: 0292453d99cda3748a01086d85ef4c9d,
         type: 3}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: _id
-      value: Sign
+      value: Skull
       objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: _triggerSpritesLoop.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0292453d99cda3748a01086d85ef4c9d,
+        type: 3}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: -0
+      value: 0.11111111
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.9444444
+      value: 0.5555556
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3333334
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.7763812
+      value: 0.1351529
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.67794365
+      value: 0.32179776
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.76842105
+      value: 0.38141692
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Offset.x
-      value: -0.0020464957
-      objectReference: {fileID: 0}
-    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.47058824
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326133, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Sign 01
+      value: Destroyable Skull 01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdbab8e504933fc41a04031a4862cf82, type: 3}

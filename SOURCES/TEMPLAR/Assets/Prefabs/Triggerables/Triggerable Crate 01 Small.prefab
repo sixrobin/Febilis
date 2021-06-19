@@ -11,7 +11,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8969a421964f2e546a5b0b238257a6e7,
+      objectReference: {fileID: 21300000, guid: c4b94f9d68a33af43904687457b8640c,
         type: 3}
     - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
@@ -35,34 +35,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
+      propertyPath: _triggerSpritesLoop.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
       propertyPath: _destroyedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 99d3112ab3d5b594fac88a5e53ca56f4,
+      objectReference: {fileID: 21300000, guid: 23f99fe1e1cb3114baacfa25ea9c3d69,
         type: 3}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: _id
       value: Crate
       objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: _triggerSpritesLoop.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 23f99fe1e1cb3114baacfa25ea9c3d69,
+        type: 3}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.7222222
+      value: 0.6111111
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.7222222
+      value: 0.6111111
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.53846157
+      value: 0.54545456
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
@@ -72,22 +83,22 @@ PrefabInstance:
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.33427924
+      value: 0.2777215
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.6111785
+      value: 0.502248
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.6685585
+      value: 0.555443
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326133, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 01 Large
+      value: Destroyable Crate 01 Small
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdbab8e504933fc41a04031a4862cf82, type: 3}

@@ -35,6 +35,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
+      propertyPath: _triggerSpritesLoop.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
       propertyPath: _destroyedSprite
       value: 
       objectReference: {fileID: 21300000, guid: ecf416b8ce1136d4687e34e362935bda,
@@ -44,6 +49,12 @@ PrefabInstance:
       propertyPath: _id
       value: Skull
       objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: _triggerSpritesLoop.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ecf416b8ce1136d4687e34e362935bda,
+        type: 3}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y

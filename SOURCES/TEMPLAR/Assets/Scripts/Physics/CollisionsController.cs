@@ -296,14 +296,14 @@
             PreviousStates.Copy(CurrentStates);
         }
         
-        protected virtual bool TryDestroy(Destroyables.DestroyableObject destroyable)
+        protected virtual bool TryDestroy(Triggerables.TriggerableObject triggerable)
         {
             return false;
         }
 
         /// <summary>
         /// Computes informations related to any hit, vertical or horizontal.
-        /// Checks if specifics components are found on colliders, to handle effector, destroyable objects, etc. and do the early return checks
+        /// Checks if specifics components are found on colliders, to handle effector, triggerable objects, etc. and do the early return checks
         /// that are not related to a specific hit direction.
         /// </summary>
         /// <param name="hit">RaycastHit2D to compute.</param>
@@ -319,9 +319,9 @@
                 if (hit.collider.TryGetComponent(out effector))
                     s_sharedKnownEffectors.Add(hit.collider, effector);
 
-            Destroyables.DestroyableObject.SharedDestroyableObjectsByColliders.TryGetValue(hit.collider, out Destroyables.DestroyableObject destroyable);
+            Triggerables.TriggerableObject.SharedTriggerablesByColliders.TryGetValue(hit.collider, out Triggerables.TriggerableObject triggerable);
 
-            bool destroySuccess = destroyable != null ? TryDestroy(destroyable) : false;
+            bool destroySuccess = triggerable != null ? TryDestroy(triggerable) : false;
             if (destroySuccess)
                 return false;
 

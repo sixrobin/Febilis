@@ -19,15 +19,15 @@
             return _playerCtrl.RollCtrl.IsRolling ? _rollCollisionMask : base.ComputeCollisionMask();
         }
 
-        protected override bool TryDestroy(Destroyables.DestroyableObject destroyable)
+        protected override bool TryDestroy(Triggerables.TriggerableObject triggerable)
         {
             bool success = false;
 
             if (_playerCtrl.RollCtrl.IsRolling)
-                success = destroyable.TryDestroy(Destroyables.DestroyableSourceType.ROLL);
+                success = triggerable.TryTrigger(Triggerables.TriggerableSourceType.ROLL);
 
             if (!success && _playerCtrl.WasFallingLastFrame)
-                success = destroyable.TryDestroy(Destroyables.DestroyableSourceType.FALL);
+                success = triggerable.TryTrigger(Triggerables.TriggerableSourceType.FALL);
 
             return success;
         }

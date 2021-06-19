@@ -11,7 +11,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5ae0d36b18ffb734e8597add1b67a6b4,
+      objectReference: {fileID: 21300000, guid: 86996c66d1e93514c9178277590c84ba,
         type: 3}
     - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
@@ -35,15 +35,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
+      propertyPath: _triggerSpritesLoop.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
       propertyPath: _destroyedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: d229a30276d03e34ea7f123e807004c9,
+      objectReference: {fileID: 21300000, guid: 99d3112ab3d5b594fac88a5e53ca56f4,
         type: 3}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: _id
-      value: Sign
+      value: Crate
       objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: _triggerSpritesLoop.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 99d3112ab3d5b594fac88a5e53ca56f4,
+        type: 3}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -52,42 +63,42 @@ PrefabInstance:
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0555556
+      value: 0.9444444
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.3333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: 0.7763812
-      objectReference: {fileID: 0}
-    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.72940624
-      objectReference: {fileID: 0}
-    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.76842105
-      objectReference: {fileID: 0}
-    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.027777791
+      value: 0.7222222
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.5263158
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.027777791
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.33455056
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.83363676
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6691011
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326133, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Sign 00
+      value: Destroyable Crate 00 Large
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdbab8e504933fc41a04031a4862cf82, type: 3}

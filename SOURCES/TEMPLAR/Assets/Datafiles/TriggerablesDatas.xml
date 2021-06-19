@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<DestroyablesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DestroyablesDatas.xsd">
+<TriggerablesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="TriggerablesDatas.xsd">
 
-   <DestroyableDatas Id="Crate">
+   <TriggerableDatas Id="Crate">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
          <SourceType>ROLL</SourceType>
          <SourceType>FALL</SourceType>
       </ValidSources>
-      <OnDestroy>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
          <Loot>
             <Value>3</Value>
             <Chance>0.33</Chance>
@@ -17,16 +18,17 @@
          <SpawnFromPool>Crate_Particles_00</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_01</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_02</SpawnFromPool>
-      </OnDestroy>
-   </DestroyableDatas>
+      </OnTrigger>
+   </TriggerableDatas>
 
-   <DestroyableDatas Id="CrateWithGold">
+   <TriggerableDatas Id="CrateWithGold">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
          <SourceType>ROLL</SourceType>
          <SourceType>FALL</SourceType>
       </ValidSources>
-      <OnDestroy>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
          <Loot>
             <Value>3</Value>
             <Chance>1</Chance>
@@ -36,16 +38,17 @@
          <SpawnFromPool>Crate_Particles_00</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_01</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_02</SpawnFromPool>
-      </OnDestroy>
-   </DestroyableDatas>
+      </OnTrigger>
+   </TriggerableDatas>
 
-   <DestroyableDatas Id="CrateZeroGold">
+   <TriggerableDatas Id="CrateZeroGold">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
          <SourceType>ROLL</SourceType>
          <SourceType>FALL</SourceType>
       </ValidSources>
-      <OnDestroy>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
          <Loot>
             <Value>0</Value>
             <Chance>0</Chance>
@@ -55,27 +58,29 @@
          <SpawnFromPool>Crate_Particles_00</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_01</SpawnFromPool>
          <SpawnFromPool>Crate_Particles_02</SpawnFromPool>
-      </OnDestroy>
-   </DestroyableDatas>
+      </OnTrigger>
+   </TriggerableDatas>
 
-   <DestroyableDatas Id="Sign">
+   <TriggerableDatas Id="Sign">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
       </ValidSources>
-      <OnDestroy>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
          <Trauma X="0.25" Y ="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
          <SpawnFromPool>Sign_Particles_00</SpawnFromPool>
          <SpawnFromPool>Sign_Particles_01</SpawnFromPool>
-      </OnDestroy>
-   </DestroyableDatas>
+      </OnTrigger>
+   </TriggerableDatas>
 
-   <DestroyableDatas Id="Skull">
+   <TriggerableDatas Id="Skull">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
          <SourceType>ROLL</SourceType>
          <SourceType>FALL</SourceType>
       </ValidSources>
-      <OnDestroy>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
          <Loot>
             <Value>2</Value>
             <Chance>0.1</Chance>
@@ -84,7 +89,18 @@
          <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
          <SpawnFromPool>Skull_Particles_00</SpawnFromPool>
          <SpawnFromPool>Skull_Particles_01</SpawnFromPool>
-      </OnDestroy>
-   </DestroyableDatas>
+      </OnTrigger>
+   </TriggerableDatas>
 
-</DestroyablesDatas>
+   <TriggerableDatas Id="Lever">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+      </ValidSources>
+      <OnTrigger>
+         <Trauma X="0.25" Y ="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
+         <SpawnFromPool>Hit</SpawnFromPool>
+         <SpawnFromPool>Land_Puff</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
+</TriggerablesDatas>
