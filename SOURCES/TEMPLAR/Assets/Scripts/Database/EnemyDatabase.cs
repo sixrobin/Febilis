@@ -60,7 +60,7 @@
 #if UNITY_EDITOR
         public void GetAnimationClipsFromAssets()
         {
-            Instance.Log($"Getting animation clips in subfolders of path {clipsAssetsRootPath}...");
+            Instance.Log($"Getting animation clips in subfolders of path {clipsAssetsRootPath}...", true);
 
             System.Collections.Generic.List<AnimationClip> clips = new System.Collections.Generic.List<AnimationClip>();
 
@@ -68,7 +68,7 @@
                 foreach (AnimationClip clip in RSLib.EditorUtilities.AssetDatabaseUtilities.GetAllAssetsAtFolderPath<AnimationClip>(subDirectory))
                     clips.Add(clip);
 
-            Instance.Log($"Found {clips.Count} clip(s).");
+            Instance.Log($"Found {clips.Count} clip(s).", true);
             _animationClips = clips.OrderBy(o => o.name).ToArray();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();

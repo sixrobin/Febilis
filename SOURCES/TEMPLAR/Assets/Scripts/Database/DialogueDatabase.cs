@@ -145,14 +145,14 @@
 #if UNITY_EDITOR
         public void GetPortraitsFromAssets()
         {
-            Instance.Log($"Getting portraits in folder {portraitsAssetsRootPath}...");
+            Instance.Log($"Getting portraits in folder {portraitsAssetsRootPath}...", true);
 
             System.Collections.Generic.List<Sprite> portraits = new System.Collections.Generic.List<Sprite>();
 
             foreach (Sprite portrait in RSLib.EditorUtilities.AssetDatabaseUtilities.GetAllAssetsAtFolderPath<Sprite>(portraitsAssetsRootPath))
                 portraits.Add(portrait);
 
-            Instance.Log($"Found {portraits.Count} portraits.");
+            Instance.Log($"Found {portraits.Count} portraits.", true);
             _portraits = portraits.ToArray();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();

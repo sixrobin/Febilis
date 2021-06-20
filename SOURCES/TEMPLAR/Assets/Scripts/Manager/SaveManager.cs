@@ -13,7 +13,7 @@
 
         public static void Save()
         {
-            Instance.Log("Saving game progression...");
+            Instance.Log("Saving game progression...", true);
 
             try
             {
@@ -59,7 +59,7 @@
                 return;
             }
 
-            Instance.Log("Game saved successfully !");
+            Instance.Log("Game saved successfully !", true);
         }
 
         public static bool TryLoad()
@@ -67,7 +67,7 @@
             if (!System.IO.File.Exists(SavePath))
                 return false;
 
-            Instance.Log("Loading game progression...");
+            Instance.Log("Loading game progression...", true);
 
             try
             {
@@ -92,7 +92,7 @@
                 return false;
             }
 
-            Instance.Log("Game loaded successfully !");
+            Instance.Log("Game loaded successfully !", true);
             return true;
         }
 
@@ -113,7 +113,7 @@
                 return false;
             }
 
-            Instance.Log("Game save erased successfully !");
+            Instance.Log("Game save erased successfully !", true);
             return true;
         }
 

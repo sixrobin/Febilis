@@ -78,14 +78,9 @@
 	- Faire en sorte à ce que la font soit pixel perfect.
 	- Dialogue : changer l'affichage pour la technique RedBlueGames : tout afficher et décaler une balise <alpha=00> pour que les mots soient déjà à la ligne comme il faut.
 	- Generic Burst Particles.
-	- Generic puff.
 	- Visuel quelconque pour justifier le fait que le perso puisse remonter hors d'un tableau (une corde, une échelle, etc.).
 	- Enemies fall.
-	- Bridge break :
-		- spawn x particules randomly dans un rectangle.
-		- spawn les morceaux cassés du pont et leur appliquer une force random vers le bas et un torque.
-		- poser les morceaux pétés au sol sur le tableau suivant.
-		- tester d'animer un squelette qui détruit le pont.
+	- Bridge break : tester d'animer un squelette qui détruit le pont.
 
 
 
