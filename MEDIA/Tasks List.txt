@@ -31,6 +31,7 @@
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
 	- Interaction "Check" qui affiche juste un dialogue du perso qui décrit ce qu'il voit.
 		- Possible de juste en faire un dialogue ?
+		- faudrait la possibilité de ne pas afficher de portrait.
 	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
 		- Interface/Component INavigationModeSwitcher qui change quand on détecte OnPointerEnter/OnSelected (= respectivement events curseur/manette) ?
 		- Voir si repasser la navigation en None garde en mémoire les SelectOnDirection, pour quand on repasse en Explicit ensuite.

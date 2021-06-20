@@ -339,7 +339,7 @@ MonoBehaviour:
   _collider2D: {fileID: 7349478606859936214}
   _spriteRenderer: {fileID: 7349478606859936215}
   _brokenSprite: {fileID: 21300000, guid: 89f88fa53521ffa4f8f95c587fed8fc8, type: 3}
-  _trauma: {x: 1, y: 1}
+  _trauma: {x: 0.65, y: 0.65}
   _brokenParts:
   - {fileID: 585471049367781487}
   - {fileID: 270327492059867164}
