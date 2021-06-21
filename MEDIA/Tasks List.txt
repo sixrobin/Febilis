@@ -16,6 +16,8 @@
 	
 	
 ///// CODE
+	- Plateformes mouvantes.
+	- Echelles.
 	- Camera shakes library : créer des scriptables plutôt que d'avoir tout en dur dans l'inspector.
 	- Triggerables : param <CanReset>, pour les coffres si on veut les rendre uniques par exemple. Il faudra aussi le sauvegarder du coup.
 	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
@@ -54,12 +56,6 @@
 		- Shake amount
 		- Screen size ?
 		- Target frame rate (15, 30, 60, max)
-
-
-
-///// CONCEPTS
-	- Options.
-	- Variante du Guardian avec la palette rouge, ambiance plus cursed avec de la pluie, des spikes, etc.
 
 
 
