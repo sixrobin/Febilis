@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TriggerablesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="TriggerablesDatas.xsd">
 
+   <TriggerableDatas Id="Chest">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Loot>
+            <Value>50</Value>
+            <Chance>1</Chance>
+         </Loot>
+         <Trauma X="0.3" Y ="0.3" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>Generic_Puff</SpawnFromPool>
+         <SpawnFromPool>Hit</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
    <TriggerableDatas Id="Crate">
       <ValidSources>
          <SourceType>ATTACK</SourceType>

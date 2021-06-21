@@ -25,8 +25,13 @@
         public event InteractionEventHandler Unfocused;
         public event InteractionEventHandler Interacted;
 
+        public bool InteractionDisabled { get; protected set; }
+
         public virtual void Focus()
         {
+            if (InteractionDisabled)
+                return;
+
             CProLogger.Log(this, $"Focusing {transform.name}.", gameObject);
             Focused?.Invoke(new InteractionEventArgs(this));
             _onFocused?.Invoke();
@@ -41,6 +46,9 @@
 
         public virtual void Interact()
         {
+            if (InteractionDisabled)
+                return;
+
             CProLogger.Log(this, $"Interacting with {transform.name}.", gameObject);
             Interacted?.Invoke(new InteractionEventArgs(this));
             _onInteracted?.Invoke();

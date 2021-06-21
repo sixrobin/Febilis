@@ -11,10 +11,23 @@
     [DisallowMultipleComponent]
     public class TriggerableObject : MonoBehaviour, ICheckpointListener
     {
+        public class TriggerEventArgs : System.EventArgs
+        {
+            public TriggerEventArgs(TriggerableObject source)
+            {
+                Source = source;
+            }
+
+            public TriggerableObject Source { get; private set; }
+        }
+
         [SerializeField] private string _id = string.Empty;
         [SerializeField] private SpriteRenderer _spriteRenderer = null;
         [SerializeField] private Sprite[] _triggerSpritesLoop = null;
         [SerializeField] private LayerMask _groundLayer = 0;
+
+        [Header("LINKED INTERACTION")]
+        [SerializeField] private Interaction.Interactable _linkedInteractable = null;
 
         [Header("CHAIN DESTRUCTION")]
         [Tooltip("Triggerables that are immediatly triggered with this one.")]
@@ -27,6 +40,11 @@
         private int _currentSpriteIndex = -1;
         private int _triggersCounter;
 
+        public delegate void TriggerableEventHandler(TriggerEventArgs args);
+
+        public event TriggerableEventHandler Triggered;
+        public event TriggerableEventHandler Reset;
+        
         /// <summary>Shared dictionary allowing collision detections across the game to check if collider has a related destroyable.</summary>
         public static System.Collections.Generic.Dictionary<Collider2D, TriggerableObject> SharedTriggerablesByColliders { get; private set; }
             = new System.Collections.Generic.Dictionary<Collider2D, TriggerableObject>();
@@ -38,9 +56,9 @@
             ResetTriggerable();
         }
 
-        public bool TryTrigger(TriggerableSourceType sourceType)
+        public bool TryTrigger(TriggerableSourceType sourceType, bool force = false)
         {
-            if (!_triggerableDatas.IsSourceValid(sourceType))
+            if (!force && !_triggerableDatas.IsSourceValid(sourceType))
                 return false;
 
             Trigger(sourceType); // We may want to specify sourceType + direction someday, if we want more specific feedback.
@@ -53,6 +71,13 @@
             _currentSpriteIndex = -1;
             _spriteRenderer.sprite = _baseSprite;
             _collider2D.enabled = true;
+
+            Reset?.Invoke(new TriggerEventArgs(this));
+        }
+
+        private void OnLinkedInteractableInteracted(Interaction.Interactable.InteractionEventArgs args)
+        {
+            Trigger(TriggerableSourceType.NONE);
         }
 
         private void Trigger(TriggerableSourceType sourceType)
@@ -75,6 +100,8 @@
             _triggersCounter++;
             _collider2D.enabled = !NotTriggerableAnymore;
 
+            Triggered?.Invoke(new TriggerEventArgs(this));
+
             RaycastHit2D groundHit = Physics2D.Raycast(transform.position.AddY(0.2f), Vector2.down, 0.3f, _groundLayer);
             _spriteRenderer.sprite = groundHit || !NotTriggerableAnymore
                 ? _triggerSpritesLoop[++_currentSpriteIndex % _triggerSpritesLoop.Length]
@@ -86,6 +113,9 @@
 
         private void Awake()
         {
+            if (_linkedInteractable != null)
+                _linkedInteractable.Interacted += OnLinkedInteractableInteracted;
+
             _triggerableDatas = Database.TriggerablesDatabase.TriggerablesDatas[_id];
 
             if (!TryGetComponent(out Collider2D collider2D))
@@ -104,6 +134,9 @@
 
         private void OnDestroy()
         {
+            if (_linkedInteractable != null)
+                _linkedInteractable.Interacted -= OnLinkedInteractableInteracted;
+
             SharedTriggerablesByColliders.Remove(_collider2D);
         }
 
