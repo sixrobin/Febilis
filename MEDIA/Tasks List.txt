@@ -1,85 +1,22 @@
 ///// MISC / TO PUT AWAY
 	- Code pour faire durer le roll tant que le joueur ne peut se relever.
 	- Meilleur manager de sauvegarde.
-	- Quand un rat est attaqué, tous ceux autour sont triggered aussi.
 	- Première passe de sound design.
-	- Réfléchir à une façon d'adapter les couleurs des textes aux palettes.
-		- Component PaletteText pour les textes de base, et méthode PaletteSelector.GetColor() pour les dynamiques ?
-
-
-
-///// BUG TRACKER
-	- HUD qui repop rapidement au reload de la scène après la mort.
-	- Un SleepSign semble ne pas avoir été détruit, peut-être parce que j'ai cut le sleep ?
-	- Dans la scène Boards Transitions, petit bug quand on passe de l'écran de droite à celui tout à gauche (caméra qui fait un mini shake après un petit délai) ?
-	
-	
 	
 ///// CODE
-	- Plateformes mouvantes.
-	- Echelles.
-	- Camera shakes library : créer des scriptables plutôt que d'avoir tout en dur dans l'inspector.
-	- Triggerables : param <CanReset>, pour les coffres si on veut les rendre uniques par exemple. Il faudra aussi le sauvegarder du coup.
 	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
-	- Système de tableaux
-		- Gérer les transitions entre scènes (scènes additives ?)
-		- Transition In avec opposite Out pour rentrer dans des maisons, passer des portes, etc. à l'interaction seulement.
-			- Faudrait voir pour une interface IInteractable du coup parce que pas possible d'hériter de Interactable et BoardLink.
-		- Rentrer dans une maison.
-	- Enemies attack motion.
-	- Attaque up du templier (sur place).
-	- Slopes (avec un roll automatique à la fin ?).
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
 	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
-	- Interaction "Check" qui affiche juste un dialogue du perso qui décrit ce qu'il voit.
-		- Possible de juste en faire un dialogue ?
-		- faudrait la possibilité de ne pas afficher de portrait.
 	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
 		- Interface/Component INavigationModeSwitcher qui change quand on détecte OnPointerEnter/OnSelected (= respectivement events curseur/manette) ?
 		- Voir si repasser la navigation en None garde en mémoire les SelectOnDirection, pour quand on repasse en Explicit ensuite.
-	
-
-
-///// OPTIONS
-	- Gameplay/General
-		- Axis dead zone
-		- Show tutorials
-		- Show enemies life
-		- Always display money
-	- Audio
-		- Master
-		- SFX
-		- UI
-		- Music
-	- Video
-		- Pixel perfect
-		- Shake amount
-		- Screen size ?
-		- Target frame rate (15, 30, 60, max)
-
-
 
 ///// ANIMATION / VIEW
-	- Spikes down.
 	- Spikes/Ground qui forcent à rouler en dessous.
-	- Effectors.
-	- Templar_Attack_Up.
-	- Templar_Edge (titube sur les bords façon Celeste/Spelunky).
-	- Templar_Interaction (Ce serait cool sur les Interactable d'avoir un paramètre pour définir l'anim d'interaction à jouer (on ne voudra pas la même pour un checkpoint, ramasser un item, dialoguer, etc.) et dire que s'il n'y a pas de paramètre défini, on ne joue pas d'anim, interaction instantanée).
-	- Cellules de heal qui sont consommées/restorées (attendre d'avoir un graph plus def pour faire une anim autre qu'un placeholder).
-	- Templar_Death-Spikes.
 	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
-	- Améliorer le VFX des checkpoints (ajouter des éclairs sur le faisceau).
-	- Animer les portraits des dialogues ? (au moins un idle, et à terme différencier l'idle et le talk quand un dialogue est en train d'être écrit).
-	- Versions "hidden" des portraits ? Nécessitera un peu de code sans doute mais rien de méchant.
 	- Faire en sorte à ce que la font soit pixel perfect.
 	- Dialogue : changer l'affichage pour la technique RedBlueGames : tout afficher et décaler une balise <alpha=00> pour que les mots soient déjà à la ligne comme il faut.
 	- Generic Burst Particles.
-	- Visuel quelconque pour justifier le fait que le perso puisse remonter hors d'un tableau (une corde, une échelle, etc.).
-	- Enemies fall.
-	- Bridge break : tester d'animer un squelette qui détruit le pont.
-
-
 
 ///// ENVIRONMENT :
 	- Meilleur setup des orders (layers background, playground, foreground).
@@ -88,8 +25,6 @@
 	- Variantes des tiles qui n'en ont pas encore, au moins 3 par tile.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
-	
-	
 	
 ///// WORKFLOW :
 	- Importer la Debug Console et setup quelques commandes.
