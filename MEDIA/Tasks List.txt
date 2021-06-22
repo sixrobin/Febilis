@@ -1,27 +1,19 @@
 ///// MISC / TO PUT AWAY
 	- Code pour faire durer le roll tant que le joueur ne peut se relever.
 	- Meilleur manager de sauvegarde.
-	- Première passe de sound design.
 	
 ///// CODE
 	- Pour les changements de tableau, voir si stopper la caméra permet de corriger le souci des bounds (qui fait que deux sorties dans une même direction doivent être au même niveau par rapport au fait que les bounds de la caméra sont un BoxCollider2D.
 	- Trouver une solution pour que les ennemis ne s'entassent pas comme des débiles.
-	- Setup de quoi paramétrer le combo du joueur (base + évolutions).
-	- Navigation UI : switcher entre Navigation Explicit/Auto et None selon si le joueur joue à la manette ou non.
-		- Interface/Component INavigationModeSwitcher qui change quand on détecte OnPointerEnter/OnSelected (= respectivement events curseur/manette) ?
-		- Voir si repasser la navigation en None garde en mémoire les SelectOnDirection, pour quand on repasse en Explicit ensuite.
 
 ///// ANIMATION / VIEW
 	- Spikes/Ground qui forcent à rouler en dessous.
 	- Le rat devrait ouvrir sa gueule sur la frame avant le hit.
-	- Faire en sorte à ce que la font soit pixel perfect.
 	- Dialogue : changer l'affichage pour la technique RedBlueGames : tout afficher et décaler une balise <alpha=00> pour que les mots soient déjà à la ligne comme il faut.
 	- Generic Burst Particles.
 
 ///// ENVIRONMENT :
-	- Meilleur setup des orders (layers background, playground, foreground).
 	- Background.
-	- Effet de shine sur les spikes.
 	- Variantes des tiles qui n'en ont pas encore, au moins 3 par tile.
 	- Branches/lianes à accrocher aux grounds up.
 	- Animations et events random sur les éléments de l'enviro pour le rendre vivant (genre un oiseau qui se pose sur une branche et repart).
@@ -34,5 +26,4 @@
 		- Restore heals
 		- AddItem (pas encore possible)
 		- SetComboLength ? (voir une fois qu'on aura géré le combo et son évolution)
-	- Créer un tool pour appliquer un material sur tous les éléments d'UI enfants d'objects sélectionnés.
 	- Garder une scène Template quelque part qui comporte tout ce qu'il faut pour setup un niveau.
