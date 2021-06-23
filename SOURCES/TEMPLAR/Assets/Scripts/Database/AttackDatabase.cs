@@ -3,7 +3,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public partial class AttackDatabase : RSLib.Framework.ConsoleProSingleton<AttackDatabase>, IDatabase
+    public class AttackDatabase : RSLib.Framework.ConsoleProSingleton<AttackDatabase>, IDatabase
     {
         [SerializeField] private TextAsset[] _attacksDatas = null;
         [SerializeField] private AnimationCurve _defaultPlayerAttackCurve = RSLib.AnimationCurves.LinearReversed;

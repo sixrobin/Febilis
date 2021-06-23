@@ -7,7 +7,7 @@
     using UnityEditor;
 #endif
 
-    public partial class EnemyDatabase : RSLib.Framework.ConsoleProSingleton<EnemyDatabase>, IDatabase
+    public class EnemyDatabase : RSLib.Framework.ConsoleProSingleton<EnemyDatabase>, IDatabase
     {
         [SerializeField] private TextAsset _enemiesDatas = null;
         [SerializeField] private AnimationClip[] _animationClips = null;
@@ -54,7 +54,7 @@
                 AnimationClips.Add(_animationClips[i].name, _animationClips[i]);
             }
 
-            Log($"Generated {AnimationClips.Count} animation clips.");
+            Log($"Generated {AnimationClips.Count} animation clips dictionary entries.");
         }
 
 #if UNITY_EDITOR

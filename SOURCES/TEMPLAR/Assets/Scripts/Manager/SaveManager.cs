@@ -5,7 +5,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public partial class SaveManager : RSLib.Framework.ConsoleProSingleton<SaveManager>
+    public class SaveManager : RSLib.Framework.ConsoleProSingleton<SaveManager>
     {
         [SerializeField] private bool _disableLoading = false;
 

@@ -55747,11 +55747,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4206304114253380132, guid: 7f82ba86d68147f4191afe6724e352f5,
-        type: 3}
-      propertyPath: _dialoguesDatas.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4206304114665369684, guid: 7f82ba86d68147f4191afe6724e352f5,
         type: 3}
       propertyPath: m_Name
@@ -55811,11 +55806,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9077425030145777720, guid: 7f82ba86d68147f4191afe6724e352f5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f82ba86d68147f4191afe6724e352f5, type: 3}
@@ -55979,7 +55969,7 @@ PrefabInstance:
     - target: {fileID: 419224146369230379, guid: fd6f1a1819bbb124991fbe7cd0971156,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.0000019073486
       objectReference: {fileID: 0}
     - target: {fileID: 419224146369230379, guid: fd6f1a1819bbb124991fbe7cd0971156,
         type: 3}

@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2249707862340903018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7802611346248292210}
+  - component: {fileID: 3920348548752555629}
+  m_Layer: 0
+  m_Name: Item Database
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7802611346248292210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2249707862340903018}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4206304114665369707}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3920348548752555629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2249707862340903018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd1bace6a8c38e488a9a43ee796ae4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroy: 0
+  _verbose: 0
+  _overrideLogPrefix: 
+  _sprites:
+  - {fileID: 21300000, guid: 157aa5c6e632d2d41a607b4996123953, type: 3}
+  - {fileID: 21300000, guid: b4b95362617860443bceca5a41aeab1e, type: 3}
+  - {fileID: 21300000, guid: 57212da8139807243a6bc3a3c67b9888, type: 3}
+  - {fileID: 21300000, guid: b281557c6d8dbd54193c07df1fb8a354, type: 3}
+  - {fileID: 21300000, guid: 4b00cf3d338fe9741935d3687f6fbb90, type: 3}
+  clipsAssetsRootPath: Assets/Textures/Item
 --- !u!1 &4206304113133527370
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +208,7 @@ Transform:
   - {fileID: 8732904687100455674}
   - {fileID: 4206304114253380133}
   - {fileID: 4206304113133527368}
+  - {fileID: 7802611346248292210}
   - {fileID: 6553871702937554353}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -282,7 +336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206304114665369707}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4555870621586572858
 MonoBehaviour:
