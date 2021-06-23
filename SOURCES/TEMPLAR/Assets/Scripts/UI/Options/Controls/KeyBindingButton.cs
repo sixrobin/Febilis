@@ -1,6 +1,5 @@
 ﻿namespace Templar.UI.Options.Controls
 {
-    using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
 #endif

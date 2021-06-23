@@ -1,5 +1,6 @@
 ﻿namespace Templar.UI.Inventory
 {
+    using System.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
@@ -8,11 +9,40 @@
     [DisallowMultipleComponent]
     public class InventoryView : MonoBehaviour
     {
-        [SerializeField] private InventorySlotView[] _slotsViews = null;
+        [SerializeField] private Item.InventoryController _inventoryCtrl = null;
+        [SerializeField] private InventorySlot[] _slotsViews = null;
+
+        private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
+        {
+            InventorySlot slot = GetItemSlot(args.ChangedItemId) ?? GetFirstEmptySlot();
+            slot.SetItem(args.ChangedItemId, args.NewQuantity);
+        }
+
+        private void OnInventoryCleared()
+        {
+            for (int i = _slotsViews.Length - 1; i >= 0; --i)
+                _slotsViews[i].Clear();
+        }
+
+        private InventorySlot GetItemSlot(string id)
+        {
+            return _slotsViews.Where(o => o.ItemId == id).FirstOrDefault();
+        }
+
+        private InventorySlot GetFirstEmptySlot()
+        {
+            return _slotsViews.Where(o => o.IsEmpty).First();
+        }
+
+        private void Awake()
+        {
+            _inventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            _inventoryCtrl.InventoryCleared += OnInventoryCleared;
+        }
 
         public void LocateSlotsInParentChildren()
         {
-            _slotsViews = transform.parent.GetComponentsInChildren<InventorySlotView>();
+            _slotsViews = transform.parent.GetComponentsInChildren<InventorySlot>();
 
 #if UNITY_EDITOR
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
