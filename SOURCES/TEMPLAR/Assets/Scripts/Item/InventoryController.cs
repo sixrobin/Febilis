@@ -30,6 +30,17 @@
 
         public System.Collections.Generic.Dictionary<string, int> Items = new System.Collections.Generic.Dictionary<string, int>();
 
+        public void Load()
+        {
+            // [TODO] Handle new game and loading cases.
+
+            // New game : generate native inventory.
+            foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
+            {
+                AddItem(nativeItem.Key, nativeItem.Value);
+            }
+        }
+
         public void AddItem(string id)
         {
             AddItem(id, 1);

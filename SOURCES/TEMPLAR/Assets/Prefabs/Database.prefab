@@ -46,7 +46,11 @@ MonoBehaviour:
   _dontDestroy: 0
   _verbose: 0
   _overrideLogPrefix: 
+  _inventoryDatas: {fileID: 4900000, guid: 57087286a7488de4bbbb573755f84bc5, type: 3}
+  _itemsDatas:
+  - {fileID: 4900000, guid: 520f61bfb42d96d47af70bdf948eb450, type: 3}
   _sprites:
+  - {fileID: 21300000, guid: 1e31cf0edd96c734fbb2bea513ace062, type: 3}
   - {fileID: 21300000, guid: 157aa5c6e632d2d41a607b4996123953, type: 3}
   - {fileID: 21300000, guid: b4b95362617860443bceca5a41aeab1e, type: 3}
   - {fileID: 21300000, guid: 57212da8139807243a6bc3a3c67b9888, type: 3}

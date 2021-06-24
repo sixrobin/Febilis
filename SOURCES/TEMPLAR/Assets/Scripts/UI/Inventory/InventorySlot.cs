@@ -31,6 +31,12 @@
             ItemId = id;
             Quantity = quantity;
 
+            if (Quantity == 0 && !Database.ItemDatabase.ItemsDatas[ItemId].AlwaysInInventory)
+            {
+                Clear();
+                return;
+            }
+
             Refresh();
         }
 
@@ -49,7 +55,7 @@
             _itemImage.enabled = true;
             _itemImage.sprite = Database.ItemDatabase.GetItemSprite(ItemId);
 
-            _quantityText.enabled = Quantity > 1;
+            _quantityText.enabled = Quantity > 1 || Database.ItemDatabase.ItemsDatas[ItemId].AlwaysShowQuantity;
             if (_quantityText.enabled)
                 _quantityText.text = Quantity.ToString();
         }

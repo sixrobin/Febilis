@@ -9,8 +9,8 @@
         {
         }
 
-        public int Value { get; protected set; }
-        public float Chance { get; protected set; }
+        public int Value { get; private set; }
+        public float Chance { get; private set; }
 
         public override void Deserialize(XContainer container)
         {

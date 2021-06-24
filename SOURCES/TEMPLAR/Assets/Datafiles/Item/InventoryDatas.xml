@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<InventoryDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="InventoryDatas.xsd">
+
+   <NativeContent>
+      <NativeItem Id="Sword" Quantity="1"/>
+      <NativeItem Id="Coin" Quantity="0"/>
+      <NativeItem Id="Potion" Quantity="2"/>
+   </NativeContent>
+   
+</InventoryDatas>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ItemsDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ItemsDatas.xsd">
+
+   <ItemDatas Id="Sword">
+      <Description>Some sword</Description>
+      <AlwaysInInventory/>
+   </ItemDatas>
+
+   <ItemDatas Id="Coin">
+      <Description>MONEY!</Description>
+      <AlwaysShowQuantity/>
+      <AlwaysInInventory/>
+   </ItemDatas>
+
+   <ItemDatas Id="Potion">
+      <Description>I can use this to heal...</Description>
+      <AlwaysShowQuantity/>
+      <AlwaysInInventory/>
+   </ItemDatas>
+
+   <ItemDatas Id="Key_00">
+      <Description>Just a normal key.</Description>
+   </ItemDatas>
+
+</ItemsDatas>

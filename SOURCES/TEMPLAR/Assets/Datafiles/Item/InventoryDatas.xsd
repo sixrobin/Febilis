@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+   <xs:include schemaLocation="../SharedDatas.xsd"/>
+
+   <xs:element name="InventoryDatas">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="NativeContent" minOccurs="1" maxOccurs="1">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element name="NativeItem" type="ItemDropDatas" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+</xs:schema>

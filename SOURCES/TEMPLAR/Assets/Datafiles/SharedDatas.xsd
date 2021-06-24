@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+   <xs:complexType name="ItemDropDatas">
+      <xs:attribute name="Id" type="xs:token" use="required"/>
+      <xs:attribute name="Quantity" type="xs:nonNegativeInteger" use="required"/>
+   </xs:complexType>
+      
    <xs:complexType name="TraumaDatas">
       <xs:attribute name="X" type="xs:float" use="required"/>
       <xs:attribute name="Y" type="xs:float" use="required"/>

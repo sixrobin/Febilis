@@ -85,6 +85,8 @@
                 XElement currencyElement = gameSaveElement.Element("Currency");
                 if (currencyElement != null)
                     CurrencyManager.LoadCurrency(currencyElement.ValueToLong());
+
+                FindObjectOfType<Item.InventoryController>().Load(); // [TMP] Find + need to load datas.
             }
             catch (System.Exception e)
             {
