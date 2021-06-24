@@ -31,7 +31,9 @@
             GenerateSpritesDictionary();
             DeserializeInventoryDatas();
 
-            // [TODO] Check if all items have a sprite.
+#if UNITY_EDITOR
+            Scan();
+#endif
         }
 
         public static Sprite GetItemSprite(string id)
@@ -112,6 +114,25 @@
             }
             
             Log($"Deserialized {NativeInventoryItems.Count} native inventory items.");
+        }
+
+        private void Scan()
+        {
+            System.Collections.Generic.List<string> spritesKeys = ItemsSprites.Keys.ToList();
+            System.Collections.Generic.List<string> datasKeys = ItemsDatas.Keys.ToList();
+
+            if (spritesKeys.Count != datasKeys.Count)
+            {
+                Instance.LogError($"{GetType().Name} has a different amount of items sprites ({spritesKeys.Count}) than items datas ({datasKeys.Count}).");
+                return;
+            }
+
+            spritesKeys.Sort();
+            datasKeys.Sort();
+
+            for (int i = 0; i < spritesKeys.Count; ++i)
+                if (spritesKeys[i] != $"{ITEM_PREFIX}{datasKeys[i]}")
+                    Instance.LogWarning($"Difference found in {GetType().Name} when comparing sorted list of sprites and datas for keys {spritesKeys[i]} and {datasKeys[i]}.");
         }
 
 #if UNITY_EDITOR

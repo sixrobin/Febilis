@@ -1,14 +1,15 @@
 ﻿namespace Templar.Item
 {
-    public abstract class Item
+    public class Item
     {
-        public Item(string id, ItemType type)
+        public Item(string id)
         {
             Id = id;
-            Type = type;
+            Datas = Database.ItemDatabase.ItemsDatas[Id];
         }
 
         public string Id { get; private set; }
-        public ItemType Type { get; private set; }
+
+        public Datas.Item.ItemDatas Datas { get; private set; }
     }
 }

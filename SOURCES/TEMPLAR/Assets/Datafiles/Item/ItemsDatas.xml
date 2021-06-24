@@ -22,4 +22,12 @@
       <Description>Just a normal key.</Description>
    </ItemDatas>
 
+   <ItemDatas Id="Key_01">
+      <Description>Just a special key.</Description>
+   </ItemDatas>
+
+   <ItemDatas Id="Key_02">
+      <Description>A horned key.</Description>
+   </ItemDatas>
+
 </ItemsDatas>

@@ -13,25 +13,25 @@
         [SerializeField] private Sprite _emptySlotSprite = null;
         [SerializeField] private Sprite _takenSlotSprite = null;
 
-        public string ItemId { get; private set; }
+        public Item.Item Item { get; private set; }
         public int Quantity { get; private set; }
 
-        public bool IsEmpty => string.IsNullOrEmpty(ItemId);
+        public bool IsEmpty => Item == null;
 
         public void Clear()
         {
-            ItemId = null;
+            Item = null;
             Quantity = 0;
 
             Refresh();
         }
 
-        public void SetItem(string id, int quantity)
+        public void SetItem(Item.Item item, int quantity)
         {
-            ItemId = id;
+            Item = item;
             Quantity = quantity;
 
-            if (Quantity == 0 && !Database.ItemDatabase.ItemsDatas[ItemId].AlwaysInInventory)
+            if (Quantity == 0 && !Item.Datas.AlwaysInInventory)
             {
                 Clear();
                 return;
@@ -40,7 +40,7 @@
             Refresh();
         }
 
-        private void Refresh()
+        public void Refresh()
         {
             if (IsEmpty)
             {
@@ -53,11 +53,16 @@
 
             _slotBackgroundImage.sprite = _takenSlotSprite;
             _itemImage.enabled = true;
-            _itemImage.sprite = Database.ItemDatabase.GetItemSprite(ItemId);
+            _itemImage.sprite = Database.ItemDatabase.GetItemSprite(Item);
 
-            _quantityText.enabled = Quantity > 1 || Database.ItemDatabase.ItemsDatas[ItemId].AlwaysShowQuantity;
+            _quantityText.enabled = ShouldShowQuantity();
             if (_quantityText.enabled)
                 _quantityText.text = Quantity.ToString();
+        }
+
+        private bool ShouldShowQuantity()
+        {
+            return InventoryView.DebugForceShowItemsQuantity || Quantity > 1 || Item.Datas.AlwaysShowQuantity;
         }
     }
 }
