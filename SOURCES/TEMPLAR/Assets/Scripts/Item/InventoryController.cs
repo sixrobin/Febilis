@@ -1,11 +1,11 @@
 ﻿namespace Templar.Item
 {
+    using RSLib.Extensions;
     using System.Linq;
+    using System.Xml.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
-    using System.Xml.Linq;
-    using RSLib.Extensions;
 #endif
 
     [DisallowMultipleComponent]
@@ -31,6 +31,8 @@
         public event InventoryContentChangedEventHandler InventoryContentChanged;
         public event InventoryClearedEventHandler InventoryCleared;
 
+        // List of a custom class instead of <Item, Quantity> to store more infos, like the slot index ?
+        // InventorySlot, and change current class of this name to InventorySlotView ?
         public System.Collections.Generic.Dictionary<Item, int> Items = new System.Collections.Generic.Dictionary<Item, int>();
 
         public int GetItemQuantity(string id)

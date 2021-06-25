@@ -1,11 +1,11 @@
 ﻿namespace Templar.Database
 {
+    using RSLib.Extensions;
     using System.Linq;
+    using System.Xml.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
-    using System.Xml.Linq;
-    using RSLib.Extensions;
 #endif
 
     public class ItemDatabase : RSLib.Framework.ConsoleProSingleton<ItemDatabase>, IDatabase

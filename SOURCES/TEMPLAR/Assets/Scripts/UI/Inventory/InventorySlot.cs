@@ -25,13 +25,15 @@
 
         public bool IsEmpty => Item == null;
 
-        private void OnPointerEnter()
+        public RSLib.Framework.GUI.EnhancedButton Button => _button;
+
+        private void OnPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {
             _selector.SetActive(true);
             InventorySlotHovered(this);
         }
 
-        private void OnPointerExit()
+        private void OnPointerExit(RSLib.Framework.GUI.EnhancedButton source)
         {
             _selector.SetActive(false);
         }

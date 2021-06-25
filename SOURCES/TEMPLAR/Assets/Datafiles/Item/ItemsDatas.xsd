@@ -7,7 +7,7 @@
             <xs:element name="ItemDatas" minOccurs="0" maxOccurs="unbounded">
                <xs:complexType>
                   <xs:sequence>
-                     <!--Category-->
+                     <xs:element name="Type" type="xs:token" minOccurs="1" maxOccurs="1"/> <!--ENUM!-->
                      <xs:element name="Description" type="xs:token" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="AlwaysShowQuantity" minOccurs="0" maxOccurs="1"/>
                      <xs:element name="AlwaysInInventory" minOccurs="0" maxOccurs="1"/>

@@ -36,8 +36,8 @@
         public static bool CanToggleOptions()
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
-                && !UI.Dialogue.DialogueManager.DialogueRunning;
-            // [TODO] && !InventoryOpen
+                && !UI.Dialogue.DialogueManager.DialogueRunning
+                && !GameManager.InventoryView.Displayed;
         }
 
         public void OpenSettings()
