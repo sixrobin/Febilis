@@ -10,12 +10,14 @@
 
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
+        [SerializeField] private Item.InventoryController _inventoryCtrl = null;
         [SerializeField] private bool _fadeOnRespawn = false;
 
         private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
 
         public static Unit.Player.PlayerController PlayerCtrl => Instance._playerCtrl;
         public static Templar.Camera.CameraController CameraCtrl => Instance._cameraCtrl;
+        public static Item.InventoryController InventoryCtrl => Instance._inventoryCtrl;
         public static Interaction.Checkpoint.CheckpointController OverrideCheckpoint => Instance._overrideCheckpoint;
 
         public static void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpoint)

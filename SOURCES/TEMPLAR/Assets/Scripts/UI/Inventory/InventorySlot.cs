@@ -1,10 +1,14 @@
 ﻿namespace Templar.UI.Inventory
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class InventorySlot : MonoBehaviour
     {
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _button = null;
         [SerializeField] private UnityEngine.UI.Image _slotBackgroundImage = null;
         [SerializeField] private UnityEngine.UI.Image _itemImage = null;
         [SerializeField] private TMPro.TextMeshProUGUI _quantityText = null;
@@ -13,10 +17,24 @@
         [SerializeField] private Sprite _emptySlotSprite = null;
         [SerializeField] private Sprite _takenSlotSprite = null;
 
+        public delegate void InventorySlotHoveredEventHandler(InventorySlot slot);
+        public static event InventorySlotHoveredEventHandler InventorySlotHovered;
+
         public Item.Item Item { get; private set; }
         public int Quantity { get; private set; }
 
         public bool IsEmpty => Item == null;
+
+        private void OnPointerEnter()
+        {
+            _selector.SetActive(true);
+            InventorySlotHovered(this);
+        }
+
+        private void OnPointerExit()
+        {
+            _selector.SetActive(false);
+        }
 
         public void Clear()
         {
@@ -63,6 +81,12 @@
         private bool ShouldShowQuantity()
         {
             return InventoryView.DebugForceShowItemsQuantity || Quantity > 1 || Item.Datas.AlwaysShowQuantity;
+        }
+
+        private void Awake()
+        {
+            _button.PointerEnter += OnPointerEnter;
+            _button.PointerExit += OnPointerExit;
         }
     }
 }

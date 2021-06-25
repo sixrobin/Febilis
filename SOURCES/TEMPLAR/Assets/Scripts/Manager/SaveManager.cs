@@ -9,7 +9,7 @@
     {
         [SerializeField] private bool _disableLoading = false;
 
-        private static string SavePath => $"{Application.persistentDataPath}/Save/Game.xml";
+        private static string GameSavePath => $"{Application.persistentDataPath}/Save/Game.xml";
 
         public static void Save()
         {
@@ -28,7 +28,9 @@
                 XElement currencyElement = new XElement("Currency", CurrencyManager.Currency);
                 container.Add(currencyElement);
 
-                System.IO.FileInfo fileInfo = new System.IO.FileInfo(SavePath);
+                container.Add(GameManager.InventoryCtrl.Save());
+
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSavePath);
                 if (!fileInfo.Directory.Exists)
                     System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
 
@@ -47,7 +49,7 @@
 
                 using (System.IO.MemoryStream ms = new System.IO.MemoryStream(buffer))
                 {
-                    using (System.IO.FileStream diskStream = System.IO.File.Open(SavePath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+                    using (System.IO.FileStream diskStream = System.IO.File.Open(GameSavePath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
                     {
                         ms.CopyTo(diskStream);
                     }
@@ -64,14 +66,14 @@
 
         public static bool TryLoad()
         {
-            if (!System.IO.File.Exists(SavePath))
+            if (!System.IO.File.Exists(GameSavePath))
                 return false;
 
             Instance.Log("Loading game progression...", true);
 
             try
             {
-                XContainer container = XDocument.Parse(System.IO.File.ReadAllText(SavePath));
+                XContainer container = XDocument.Parse(System.IO.File.ReadAllText(GameSavePath));
 
                 XElement gameSaveElement = container.Element("GameSave");
 
@@ -86,7 +88,7 @@
                 if (currencyElement != null)
                     CurrencyManager.LoadCurrency(currencyElement.ValueToLong());
 
-                FindObjectOfType<Item.InventoryController>().Load(); // [TMP] Find + need to load datas.
+                GameManager.InventoryCtrl.Load(gameSaveElement?.Element("Inventory"));
             }
             catch (System.Exception e)
             {
@@ -100,12 +102,12 @@
 
         public static bool EraseSave()
         {
-            if (!System.IO.File.Exists(SavePath))
+            if (!System.IO.File.Exists(GameSavePath))
                 return false;
 
             try
             {
-                System.IO.File.Delete(SavePath);
+                System.IO.File.Delete(GameSavePath);
 
                 Interaction.Checkpoint.CheckpointController.ForceRemoveCurrentCheckpoint();
             }

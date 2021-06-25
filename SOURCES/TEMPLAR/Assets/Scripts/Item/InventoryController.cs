@@ -4,10 +4,12 @@
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
+    using System.Xml.Linq;
+    using RSLib.Extensions;
 #endif
 
     [DisallowMultipleComponent]
-    public class InventoryController : MonoBehaviour
+    public partial class InventoryController : MonoBehaviour
     {
         public class InventoryContentChangedEventArgs : System.EventArgs
         {
@@ -31,12 +33,12 @@
 
         public System.Collections.Generic.Dictionary<Item, int> Items = new System.Collections.Generic.Dictionary<Item, int>();
 
-        public void Load()
+        public int GetItemQuantity(string id)
         {
-            // [TODO] Load inventory if a save exists, and return, not to load native items.
+            if (TryGetOwnedItemKey(id, out Item item))
+                return Items[item];
 
-            foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
-                AddItem(nativeItem.Key, nativeItem.Value);
+            return 0;
         }
 
         public void AddItem(string id)
@@ -130,8 +132,35 @@
         }
     }
 
+    public partial class InventoryController : MonoBehaviour
+    {
+        public void Load(XElement inventoryElement = null)
+        {
+            if (inventoryElement == null)
+            {
+                foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
+                    AddItem(nativeItem.Key, nativeItem.Value);
+
+                return;
+            }
+
+            foreach (XElement itemElement in inventoryElement.Elements())
+                AddItem(itemElement.Name.LocalName, itemElement.ValueToInt());
+        }
+
+        public XElement Save()
+        {
+            XElement inventoryElement = new XElement("Inventory");
+
+            foreach (System.Collections.Generic.KeyValuePair<Item, int> item in Items)
+                inventoryElement.Add(new XElement(item.Key.Id, item.Value));
+
+            return inventoryElement;
+        }
+    }
+
 #if UNITY_EDITOR
-    [CustomEditor(typeof(InventoryController))]
+        [CustomEditor(typeof(InventoryController))]
     public class InventoryControllerEditor : RSLib.EditorUtilities.ButtonProviderEditor<InventoryController>
     {
         protected override void DrawButtons()
