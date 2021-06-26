@@ -5,7 +5,9 @@
         NONE = 0,
         QUEST = 1,
         WEAPON = 2,
-        LORE = 4
-        // etc.
+        CONSUMABLE = 4,
+        KEY = 8,
+        BOOK = 16,
+        MISC = 32
     }
 }

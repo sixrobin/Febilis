@@ -1,6 +1,8 @@
 ﻿namespace Templar.Unit.Player
 {
+    using System;
     using RSLib.Extensions;
+    using Templar.Item;
     using UnityEngine;
 
     public class PlayerHealthView : MonoBehaviour
@@ -34,10 +36,23 @@
             _healsContainer.DestroyChildren();
             _healViews.Clear();
 
-            for (int i = 0; i < _playerHealthCtrl.HealsLeft; ++i)
+            for (int i = 0; i < 10; ++i)
                 _healViews.Add(Instantiate(_healViewPrefab, _healsContainer));
 
+            UpdateHealViews();
+
             UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(_healsContainer);
+        }
+
+        private void UpdateHealViews()
+        {
+            for (int i = 0; i < _healViews.Count; ++i)
+            {
+                if (i == _healViews.Count)
+                    AddHealViews(1);
+
+                _healViews[i].SetActive(i < _playerHealthCtrl.HealsLeft);
+            }
         }
 
         private void AddHealViews(int count)
@@ -46,17 +61,6 @@
                 _healViews.Add(Instantiate(_healViewPrefab, _healsContainer));
 
             UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(_healsContainer);
-        }
-
-        private void OnHealsLeftChanged(int healsLeft)
-        {
-            for (int i = 0; i < _healViews.Count; ++i)
-            {
-                if (i == _healViews.Count)
-                    AddHealViews(1);
-
-                _healViews[i].SetActive(i < healsLeft);
-            }
         }
 
         private void OnFadeBegan(bool fadeIn)
@@ -93,6 +97,19 @@
         private void OnSleepAnimationOver()
         {
             _healthBarCanvas.enabled = true;
+        }
+
+        private void OnInventoryContentChanged(InventoryController.InventoryContentChangedEventArgs args)
+        {
+            if (args.Item.Id != InventoryController.ITEM_ID_POTION)
+                return;
+
+            UpdateHealViews();
+        }
+
+        private void OnInventoryDisplayChanged(bool displayed)
+        {
+            _healthBarCanvas.enabled = !displayed;
         }
 
         private void OnDialogueStarted(string dialogueId)
@@ -168,7 +185,6 @@
         {
             yield return new WaitUntil(() => _playerHealthCtrl.HealthSystem != null);
 
-            _playerHealthCtrl.HealsLeftChanged += OnHealsLeftChanged;
             _playerHealthCtrl.HealthSystem.HealthChanged += OnHealthChanged;
             _playerHealthCtrl.HealthSystem.Killed += OnKilled;
 
@@ -186,6 +202,9 @@
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
 
+            Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
+
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
@@ -194,7 +213,6 @@
 
         private void OnDestroy()
         {
-            _playerHealthCtrl.HealsLeftChanged -= OnHealsLeftChanged;
             _playerHealthCtrl.HealthSystem.HealthChanged -= OnHealthChanged;
             _playerHealthCtrl.HealthSystem.Killed -= OnKilled;
 
@@ -210,10 +228,16 @@
                 Manager.OptionsManager.Instance.OptionsClosed -= OnOptionsClosed;
             }
 
-            if (Manager.GameManager.Exists() && Manager.GameManager.PlayerCtrl != null)
+            if (Manager.GameManager.Exists())
             {
-                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
-                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
+                Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
+                Manager.GameManager.InventoryView.DisplayChanged -= OnInventoryDisplayChanged;
+
+                if (Manager.GameManager.PlayerCtrl != null)
+                {
+                    Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
+                    Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
+                }
             }
 
             if (UI.Dialogue.DialogueManager.Exists())

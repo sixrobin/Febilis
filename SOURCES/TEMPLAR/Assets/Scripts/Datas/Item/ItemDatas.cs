@@ -12,7 +12,7 @@
         public string Id { get; private set; }
 
         public string Description { get; private set; }
-        public string Type { get; private set; } // [TODO] Enum, with flag for QUEST ?
+        public Templar.Item.ItemType Type { get; private set; }
         public bool AlwaysShowQuantity { get; private set; }
         public bool AlwaysInInventory { get; private set; }
 
@@ -26,7 +26,7 @@
 
             XElement typeElement = itemElement.Element("Type");
             UnityEngine.Assertions.Assert.IsFalse(typeElement.IsNullOrEmpty(), "Item Type element is null or empty.");
-            Type = typeElement.Value;
+            Type = typeElement.ValueToEnum<Templar.Item.ItemType>();
 
             XElement descriptionElement = itemElement.Element("Description");
             UnityEngine.Assertions.Assert.IsFalse(descriptionElement.IsNullOrEmpty(), "Item Description element is null or empty.");

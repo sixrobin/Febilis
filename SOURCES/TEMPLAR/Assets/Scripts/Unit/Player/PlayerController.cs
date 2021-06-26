@@ -49,7 +49,7 @@
         void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             HealthCtrl.HealFull();
-            PlayerHealthCtrl.RestoreCells();
+            // Restore potions.
             AllowInputs(true);
         }
 

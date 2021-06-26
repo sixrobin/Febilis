@@ -29,7 +29,7 @@
 
         private void Loot()
         {
-            Manager.CurrencyManager.GetCurrency(1);
+            Manager.GameManager.InventoryCtrl.AddItem(Item.InventoryController.ITEM_ID_COIN, 1);
         }
 
         private void Disable()

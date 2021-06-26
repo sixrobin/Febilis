@@ -1,5 +1,6 @@
 ﻿namespace Templar.UI
 {
+    using Templar.Item;
     using UnityEngine;
 
     public class CurrencyView : MonoBehaviour
@@ -10,17 +11,20 @@
 
         [Header("DIFF UPDATE")]
         [SerializeField] private float _startUpdateDiffDelay = 1.5f;
-        [SerializeField] private long _stepMax = 3;
+        [SerializeField] private int _stepMax = 3;
         [SerializeField] private float _stepInterval = 0.05f;
 
         private System.Collections.IEnumerator _diffUpdateCoroutine;
 
-        private long _displayedCurrency = 0;
-        private long _diff = 0;
+        private int _displayedCurrency = 0;
+        private int _diff = 0;
 
-        private void OnCurrencyChanged(long previous, long current)
+        private void OnInventoryContentChanged(InventoryController.InventoryContentChangedEventArgs args)
         {
-            _diff += current - previous;
+            if (args.Item.Id != InventoryController.ITEM_ID_COIN)
+                return;
+
+            _diff += args.NewQuantity - args.PrevQuantity;
 
             KillUpdateDifferenceCoroutine();
             StartCoroutine(_diffUpdateCoroutine = UpdateDifferenceCoroutine());
@@ -49,6 +53,11 @@
             Display(true);
         }
 
+        private void OnInventoryDisplayChanged(bool displayed)
+        {
+            Display(!displayed);
+        }
+
         private void UpdateTexts()
         {
             _currencyText.text = _displayedCurrency.ToString();
@@ -61,7 +70,10 @@
         private void Display(bool state)
         {
             _currencyCanvas.enabled = state;
-            _displayedCurrency = Manager.CurrencyManager.Currency;
+            _displayedCurrency = Manager.GameManager.InventoryCtrl.GetItemQuantity(InventoryController.ITEM_ID_COIN);
+            _diff = 0;
+
+            KillUpdateDifferenceCoroutine();
 
             UpdateTexts();
         }
@@ -77,7 +89,7 @@
             UpdateTexts();
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_startUpdateDiffDelay);
 
-            long step = 0;
+            int step = 0;
 
             while (_diff != 0)
             {
@@ -94,8 +106,6 @@
 
         private void Awake()
         {
-            Manager.CurrencyManager.Instance.CurrencyChanged += OnCurrencyChanged;
-
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
             Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
 
@@ -105,14 +115,17 @@
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
 
+            Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
+
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueId) => Display(false);
             UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueId) => Display(true);
         }
 
         private void OnDestroy()
         {
-            if (Manager.CurrencyManager.Exists())
-                Manager.CurrencyManager.Instance.CurrencyChanged -= OnCurrencyChanged;
+            if (Manager.GameManager.Exists())
+                Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
 
             if (Manager.RampFadeManager.Exists())
             {
@@ -126,10 +139,16 @@
                 Manager.OptionsManager.Instance.OptionsClosed -= () => Display(true);
             }
 
-            if (Manager.GameManager.Exists() && Manager.GameManager.PlayerCtrl != null)
+            if (Manager.GameManager.Exists())
             {
-                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
-                Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
+                Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
+                Manager.GameManager.InventoryView.DisplayChanged -= OnInventoryDisplayChanged;
+
+                if (Manager.GameManager.PlayerCtrl != null)
+                {
+                    Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
+                    Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
+                }
             }
 
             if (UI.Dialogue.DialogueManager.Exists())

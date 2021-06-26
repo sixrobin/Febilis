@@ -7,7 +7,7 @@
             <xs:element name="ItemDatas" minOccurs="0" maxOccurs="unbounded">
                <xs:complexType>
                   <xs:sequence>
-                     <xs:element name="Type" type="xs:token" minOccurs="1" maxOccurs="1"/> <!--ENUM!-->
+                     <xs:element name="Type" type="ItemType" minOccurs="1" maxOccurs="unbounded"/>
                      <xs:element name="Description" type="xs:token" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="AlwaysShowQuantity" minOccurs="0" maxOccurs="1"/>
                      <xs:element name="AlwaysInInventory" minOccurs="0" maxOccurs="1"/>
@@ -18,5 +18,16 @@
          </xs:sequence>
       </xs:complexType>
    </xs:element>
+
+   <xs:simpleType name="ItemType" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="QUEST"/>
+         <xs:enumeration value="WEAPON"/>
+         <xs:enumeration value="CONSUMABLE"/>
+         <xs:enumeration value="KEY"/>
+         <xs:enumeration value="BOOK"/>
+         <xs:enumeration value="MISC"/>
+      </xs:restriction>
+   </xs:simpleType>
 
 </xs:schema>

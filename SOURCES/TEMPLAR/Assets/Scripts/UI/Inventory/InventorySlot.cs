@@ -19,6 +19,7 @@
 
         public delegate void InventorySlotHoveredEventHandler(InventorySlot slot);
         public static event InventorySlotHoveredEventHandler InventorySlotHovered;
+        public static event InventorySlotHoveredEventHandler InventorySlotExit;
 
         public Item.Item Item { get; private set; }
         public int Quantity { get; private set; }
@@ -30,12 +31,13 @@
         private void OnPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {
             _selector.SetActive(true);
-            InventorySlotHovered(this);
+            InventorySlotHovered?.Invoke(this);
         }
 
         private void OnPointerExit(RSLib.Framework.GUI.EnhancedButton source)
         {
             _selector.SetActive(false);
+            InventorySlotExit?.Invoke(this);
         }
 
         public void Clear()

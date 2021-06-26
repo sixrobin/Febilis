@@ -25,6 +25,9 @@
             public int NewQuantity { get; private set; }
         }
 
+        public const string ITEM_ID_COIN = "Coin";
+        public const string ITEM_ID_POTION = "Potion";
+
         public delegate void InventoryContentChangedEventHandler(InventoryContentChangedEventArgs args);
         public delegate void InventoryClearedEventHandler();
         

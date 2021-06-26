@@ -12,9 +12,21 @@
         [Header("PANEL BASE")]
         [SerializeField] private Canvas _canvas = null;
 
+        public delegate void DisplayChangedEventHandler(bool displayed);
+        public event DisplayChangedEventHandler DisplayChanged;
+
         public abstract GameObject FirstSelected { get; }
 
-        public bool Displayed { get; private set; }
+        private bool _displayed;
+        public bool Displayed
+        {
+            get => _displayed;
+            private set
+            {
+                _displayed = value;
+                DisplayChanged?.Invoke(_displayed);
+            }
+        }
 
         public Canvas Canvas => _canvas;
 

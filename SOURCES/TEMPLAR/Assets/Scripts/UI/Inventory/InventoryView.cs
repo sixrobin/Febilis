@@ -21,13 +21,15 @@
         [SerializeField] private GameObject _firstSelected = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemName = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemType = null;
+        [SerializeField] private UnityEngine.UI.Image _itemTypeIcon = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemDesc = null;
 
         [Header("UI NAVIGATION")]
         [SerializeField, Min(1)] private int _slotsRowLength = 3;
         [SerializeField] private RectTransform _slotsViewport = null;
         [SerializeField] private RectTransform _slotsContent = null;
-        [SerializeField] private UnityEngine.UI.Scrollbar _scrollBar = null;
+        [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
+        [SerializeField] private RectTransform _scrollHandle = null;
 
         private Vector3[] _slotsViewportWorldCorners = new Vector3[4];
 
@@ -40,6 +42,32 @@
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !Dialogue.DialogueManager.DialogueRunning
                 && !Manager.OptionsManager.AnyPanelOpen();
+        }
+
+        public GameObject GetClosestSlotToScrollHandle()
+        {
+            RectTransform closestSlot = null;
+            float sqrClosestDist = Mathf.Infinity;
+            
+            Vector3[] scrollHandleWorldCorners = new Vector3[4];
+            _scrollHandle.GetWorldCorners(scrollHandleWorldCorners);
+            Vector3 scrollHandleCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(scrollHandleWorldCorners);
+
+            foreach (RectTransform target in _slotsViews.Select(o => o.GetComponent<RectTransform>()))
+            {
+                Vector3[] slotWorldCorners = new Vector3[4];
+                target.GetWorldCorners(slotWorldCorners);
+                Vector3 slotCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(slotWorldCorners);
+
+                float sqrTargetDist = (slotCenterWorld - scrollHandleCenterWorld).sqrMagnitude;
+                if (sqrTargetDist > sqrClosestDist)
+                    continue;
+
+                sqrClosestDist = sqrTargetDist;
+                closestSlot = target;
+            }
+
+            return closestSlot.gameObject;
         }
 
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
@@ -59,17 +87,21 @@
         private void OnInventorySlotHovered(InventorySlot slot)
         {
             if (slot.Item == null)
-            {
-                _itemName.text = EMPTY_SLOT_NAME;
-                _itemDesc.text = EMPTY_SLOT_DESC;
-                _itemType.text = EMPTY_SLOT_TYPE;
                 return;
-            }
 
             _itemName.text = $"{slot.Item.Id} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
             _itemDesc.text = slot.Item.Datas.Description;
-            _itemType.text = slot.Item.Datas.Type;
-            // [TODO] Type icon. Get it from database base on Enum value.
+            _itemType.text = slot.Item.Datas.Type.ToString().ToLower().UpperFirst();
+            _itemTypeIcon.enabled = true;
+            _itemTypeIcon.sprite = Database.ItemDatabase.GetItemTypeSprite(slot.Item);
+        }
+
+        private void OnInventorySlotExit(InventorySlot slot)
+        {
+            _itemName.text = EMPTY_SLOT_NAME;
+            _itemDesc.text = EMPTY_SLOT_DESC;
+            _itemType.text = EMPTY_SLOT_TYPE;
+            _itemTypeIcon.enabled = false;
         }
 
         private void OnSlotViewPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
@@ -86,20 +118,20 @@
 
             while (sourceCorners[1].y > _slotsViewportWorldCorners[1].y)
             {
-                _scrollBar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
+                _scrollbar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
                 sourceRectTransform.GetWorldCorners(sourceCorners);
             }
 
             while (sourceCorners[0].y < _slotsViewportWorldCorners[0].y)
             {
-                _scrollBar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
+                _scrollbar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
                 sourceRectTransform.GetWorldCorners(sourceCorners);
             }
 
-            if (_scrollBar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
-                _scrollBar.value = 0f;
-            else if (_scrollBar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
-                _scrollBar.value = 1f;
+            if (_scrollbar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
+                _scrollbar.value = 0f;
+            else if (_scrollbar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
+                _scrollbar.value = 1f;
         }
 
         private void InitNavigation()
@@ -120,7 +152,7 @@
                 else if ((i - (_slotsRowLength - 1)) % _slotsRowLength == 0) // Right side.
                 {
                     _slotsViews[i].Button.SetSelectOnLeft(_slotsViews[i - 1].Button);
-                    _slotsViews[i].Button.SetSelectOnRight(_scrollBar);
+                    _slotsViews[i].Button.SetSelectOnRight(_scrollbar);
                 }
                 else
                 {
@@ -143,9 +175,9 @@
                 }
             }
 
-            // [TODO] Scrollbar selects top left corner slot. We may want to select a better one depending on the current viewport state.
-            _scrollBar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
-            _scrollBar.SetSelectOnLeft(_slotsViews[_slotsRowLength - 1].Button);
+            //// [TODO] Scrollbar selects top left corner slot. We may want to select a better one depending on the current viewport state.
+            //_scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            //_scrollbar.SetSelectOnLeft(_slotsViews[_slotsRowLength - 1].Button);
         }
 
         private InventorySlot GetItemSlot(Item.Item item)
@@ -163,6 +195,7 @@
             _inventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared += OnInventoryCleared;
             InventorySlot.InventorySlotHovered += OnInventorySlotHovered;
+            InventorySlot.InventorySlotExit += OnInventorySlotExit;
 
             InitNavigation();
 
@@ -185,7 +218,7 @@
                 if (!Displayed)
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);
-                    _scrollBar.value = 1f;
+                    _scrollbar.value = 1f;
                     Display(true);
 
                     return;
@@ -200,6 +233,7 @@
             _inventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared -= OnInventoryCleared;
             InventorySlot.InventorySlotHovered -= OnInventorySlotHovered;
+            InventorySlot.InventorySlotExit -= OnInventorySlotExit;
         }
 
         public void LocateSlotsInParentChildren()

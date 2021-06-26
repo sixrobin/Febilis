@@ -25,9 +25,6 @@
                 XElement paletteIndexElement = new XElement("PaletteIndex", PaletteSelector.CurrRampIndex);
                 container.Add(paletteIndexElement);
 
-                XElement currencyElement = new XElement("Currency", CurrencyManager.Currency);
-                container.Add(currencyElement);
-
                 container.Add(GameManager.InventoryCtrl.Save());
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSavePath);
@@ -67,7 +64,10 @@
         public static bool TryLoad()
         {
             if (!System.IO.File.Exists(GameSavePath))
+            {
+                LoadNewGame();
                 return false;
+            }
 
             Instance.Log("Loading game progression...", true);
 
@@ -84,11 +84,7 @@
                 if (paletteIndexElement != null)
                     PaletteSelector.SetPalette(paletteIndexElement.ValueToInt());
 
-                XElement currencyElement = gameSaveElement.Element("Currency");
-                if (currencyElement != null)
-                    CurrencyManager.LoadCurrency(currencyElement.ValueToLong());
-
-                GameManager.InventoryCtrl.Load(gameSaveElement?.Element("Inventory"));
+                GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
             }
             catch (System.Exception e)
             {
@@ -98,6 +94,13 @@
 
             Instance.Log("Game loaded successfully !", true);
             return true;
+        }
+
+        public static void LoadNewGame()
+        {
+            Instance.Log("Loading new game.", true);
+
+            GameManager.InventoryCtrl.Load();
         }
 
         public static bool EraseSave()

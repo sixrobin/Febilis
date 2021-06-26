@@ -13,22 +13,15 @@
         [Header("DEBUG")]
         [SerializeField] private bool _debugMode = false;
 
-        public delegate void HealsLeftChangedEventHandler(int healsLeft);
-        public event HealsLeftChangedEventHandler HealsLeftChanged;
-
         public override bool CanBeHit => base.CanBeHit && !PlayerCtrl.RollCtrl.IsRolling && !GodMode;
 
-        private int _healsLeft;
         public int HealsLeft
         {
-            get => _healsLeft;
+            get => Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION);
             set
             {
-                if (DebugMode)
-                    return;
-
-                _healsLeft = Mathf.Max(0, value);
-                HealsLeftChanged?.Invoke(_healsLeft);
+                if (!DebugMode)
+                    Manager.GameManager.InventoryCtrl.RemoveItem(Item.InventoryController.ITEM_ID_POTION);
             }
         }
 
@@ -60,12 +53,6 @@
             base.Kill();
         }
 
-        public override void Init(int health)
-        {
-            base.Init(health);
-            RestoreCells();
-        }
-
         public void Init(int health, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled)
         {
             UnitHealthChanged += onUnitHealthChanged;
@@ -75,7 +62,6 @@
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("tgm", "Toggles god mode.", () => GodMode = !GodMode));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("health", "Sets health.", (value) => HealthSystem.CurrentHealth = value));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("restoreHealCells", "Restore all heal cells.", RestoreCells));
         }
 
         public override void OnHit(Attack.HitInfos hitDatas)
@@ -86,12 +72,6 @@
 
             base.OnHit(hitDatas);
         }
-
-        public void RestoreCells()
-        {
-            // [TMP] Need to load, or get it from datas, etc.
-            HealsLeft = _baseHealsLeft;
-        }
     }
 
 #if UNITY_EDITOR
@@ -101,7 +81,7 @@
         protected override void DrawButtons()
         {
             base.DrawButtons();
-            DrawButton("Restore cells", Obj.RestoreCells);
+            DrawButton("Add Potion", () => Manager.GameManager.InventoryCtrl.AddItem(Item.InventoryController.ITEM_ID_POTION));
         }
     }
 #endif

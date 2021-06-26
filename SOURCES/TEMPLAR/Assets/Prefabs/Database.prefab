@@ -50,13 +50,26 @@ MonoBehaviour:
   _itemsDatas:
   - {fileID: 4900000, guid: 520f61bfb42d96d47af70bdf948eb450, type: 3}
   _sprites:
+  - {fileID: 21300000, guid: a216ca51609d6c4428633d5a0061addb, type: 3}
+  - {fileID: 21300000, guid: 675a6790432da6c47b7a214e46088df4, type: 3}
   - {fileID: 21300000, guid: 1e31cf0edd96c734fbb2bea513ace062, type: 3}
   - {fileID: 21300000, guid: 157aa5c6e632d2d41a607b4996123953, type: 3}
   - {fileID: 21300000, guid: b4b95362617860443bceca5a41aeab1e, type: 3}
   - {fileID: 21300000, guid: 57212da8139807243a6bc3a3c67b9888, type: 3}
   - {fileID: 21300000, guid: b281557c6d8dbd54193c07df1fb8a354, type: 3}
+  - {fileID: 21300000, guid: 8bdcabe0d0f29594aa26ff878791bf19, type: 3}
+  - {fileID: 21300000, guid: 89051c1ddcfa8db439a959f525c29b96, type: 3}
+  - {fileID: 21300000, guid: 183fd9348737ac045a7c8b39ebb37a94, type: 3}
   - {fileID: 21300000, guid: 4b00cf3d338fe9741935d3687f6fbb90, type: 3}
-  clipsAssetsRootPath: Assets/Textures/Item
+  _typesSprites:
+  - {fileID: 21300000, guid: b015d5ad4d785e54d8ae14e014c0b778, type: 3}
+  - {fileID: 21300000, guid: 9f1054ff069294c4f9a6ae9b045545b6, type: 3}
+  - {fileID: 21300000, guid: 056e0805ba41e964180ebe551b10ab53, type: 3}
+  - {fileID: 21300000, guid: e4ea973bed5535c4baa4daae63507609, type: 3}
+  - {fileID: 21300000, guid: 1c9b0205bde311f44a8ecb9d1f5cca8b, type: 3}
+  - {fileID: 21300000, guid: 3efca827de3e28443968fd6eedc171cb, type: 3}
+  spritesAssetsRootPath: Assets/Textures/Item
+  typesIconsSubFolderName: Type Icons
 --- !u!1 &4206304113133527370
 GameObject:
   m_ObjectHideFlags: 0
