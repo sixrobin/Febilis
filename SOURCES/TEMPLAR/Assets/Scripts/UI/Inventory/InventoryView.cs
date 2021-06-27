@@ -25,7 +25,7 @@
         [SerializeField] private TMPro.TextMeshProUGUI _itemDesc = null;
 
         [Header("ITEM CONTEXT MENU")]
-        [SerializeField] private ItemContextMenu _contextMenu = null;
+        [SerializeField] private ContextMenu.ItemContextMenu _contextMenu = null;
 
         [Header("UI NAVIGATION")]
         [SerializeField, Min(1)] private int _slotsRowLength = 3;
@@ -112,7 +112,8 @@
             if (slot.IsEmpty)
                 return;
 
-            _contextMenu.Open(slot);
+            _contextMenu.SetSlotContext(slot);
+            Navigation.UINavigationManager.OpenAndSelect(_contextMenu);
         }
 
         private void OnSlotViewPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
