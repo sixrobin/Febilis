@@ -24,6 +24,9 @@
         [SerializeField] private UnityEngine.UI.Image _itemTypeIcon = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemDesc = null;
 
+        [Header("ITEM CONTEXT MENU")]
+        [SerializeField] private ItemContextMenu _contextMenu = null;
+
         [Header("UI NAVIGATION")]
         [SerializeField, Min(1)] private int _slotsRowLength = 3;
         [SerializeField] private RectTransform _slotsViewport = null;
@@ -102,6 +105,14 @@
             _itemDesc.text = EMPTY_SLOT_DESC;
             _itemType.text = EMPTY_SLOT_TYPE;
             _itemTypeIcon.enabled = false;
+        }
+
+        private void OnInventorySlotButtonClicked(InventorySlot slot)
+        {
+            if (slot.IsEmpty)
+                return;
+
+            _contextMenu.Open(slot);
         }
 
         private void OnSlotViewPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
@@ -197,6 +208,12 @@
             InventorySlot.InventorySlotHovered += OnInventorySlotHovered;
             InventorySlot.InventorySlotExit += OnInventorySlotExit;
 
+            for (int i = _slotsViews.Length - 1; i >= 0; --i)
+            {
+                InventorySlot slotView = _slotsViews[i];
+                slotView.Button.onClick.AddListener(() => OnInventorySlotButtonClicked(slotView));
+            }
+
             InitNavigation();
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("ForceShowItemsQuantity", "Forces inventory to display items quantity.",
@@ -234,6 +251,12 @@
             _inventoryCtrl.InventoryCleared -= OnInventoryCleared;
             InventorySlot.InventorySlotHovered -= OnInventorySlotHovered;
             InventorySlot.InventorySlotExit -= OnInventorySlotExit;
+
+            for (int i = _slotsViews.Length - 1; i >= 0; --i)
+            {
+                InventorySlot slotView = _slotsViews[i];
+                slotView.Button.onClick.RemoveListener(() => OnInventorySlotButtonClicked(slotView));
+            }
         }
 
         public void LocateSlotsInParentChildren()

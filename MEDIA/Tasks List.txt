@@ -23,7 +23,5 @@
 		- Mode tcl
 		- Mode one shot
 		- SetSpeed [float]
-		- Restore heals
-		- AddItem (pas encore possible)
 		- SetComboLength ? (voir une fois qu'on aura géré le combo et son évolution)
 	- Garder une scène Template quelque part qui comporte tout ce qu'il faut pour setup un niveau.
