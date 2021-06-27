@@ -7,7 +7,7 @@
     {
         protected override bool IsActionAllowed()
         {
-            return !Slot.Item.Datas.AlwaysInInventory;
+            return !Slot.Item.Datas.AlwaysInInventory; // && !"IsQuestItem"
         }
 
         protected override void TriggerAction()
