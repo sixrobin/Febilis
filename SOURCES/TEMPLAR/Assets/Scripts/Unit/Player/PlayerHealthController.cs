@@ -7,7 +7,7 @@
 
     public class PlayerHealthController : UnitHealthController
     {
-        [SerializeField] private int _baseHealsLeft = 2;
+        //[SerializeField] private int _baseHealsLeft = 2;
         [SerializeField] private int _healAmount = 50;
 
         [Header("DEBUG")]

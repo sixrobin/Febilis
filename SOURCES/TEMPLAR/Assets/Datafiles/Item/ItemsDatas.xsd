@@ -11,6 +11,16 @@
                      <xs:element name="Description" type="xs:token" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="AlwaysShowQuantity" minOccurs="0" maxOccurs="1"/>
                      <xs:element name="AlwaysInInventory" minOccurs="0" maxOccurs="1"/>
+                     <xs:element name="ActionsConditions" minOccurs="0" maxOccurs="1">
+                        <xs:complexType>
+                           <xs:sequence>
+                              <xs:element name="Use" type="Conditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Equip" type="Conditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Drop" type="Conditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Move" type="Conditions" minOccurs="0" maxOccurs="1"/>
+                           </xs:sequence>
+                        </xs:complexType>
+                     </xs:element>
                   </xs:sequence>
                   <xs:attribute name="Id" use="required"/>
                </xs:complexType>
@@ -24,10 +34,33 @@
          <xs:enumeration value="QUEST"/>
          <xs:enumeration value="WEAPON"/>
          <xs:enumeration value="CONSUMABLE"/>
+         <xs:enumeration value="EQUIPABLE"/>
          <xs:enumeration value="KEY"/>
          <xs:enumeration value="BOOK"/>
          <xs:enumeration value="MISC"/>
       </xs:restriction>
    </xs:simpleType>
+
+
+
+   <!-- ████████████ -->
+   <!--  CONDITIONS  -->
+   <!-- ████████████ -->
+
+   <xs:complexType name="Conditions">
+      <xs:sequence>
+         <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="Condition">
+      <xs:attribute name="Negate" type="xs:boolean" use="optional"/>
+   </xs:complexType>
+
+   <xs:complexType name="FullHealthCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition"/>
+      </xs:complexContent>
+   </xs:complexType>
 
 </xs:schema>

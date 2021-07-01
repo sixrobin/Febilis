@@ -16,6 +16,11 @@
         public bool AlwaysShowQuantity { get; private set; }
         public bool AlwaysInInventory { get; private set; }
 
+        public ItemActionConditionsCheckerDatas UseConditionsCheckerDatas { get; private set; }
+        public ItemActionConditionsCheckerDatas EquipConditionsCheckerDatas { get; private set; }
+        public ItemActionConditionsCheckerDatas DropConditionsCheckerDatas { get; private set; }
+        public ItemActionConditionsCheckerDatas MoveConditionsCheckerDatas { get; private set; }
+
         public override void Deserialize(XContainer container)
         {
             XElement itemElement = container as XElement;
@@ -34,6 +39,27 @@
 
             AlwaysShowQuantity = itemElement.Element("AlwaysShowQuantity") != null;
             AlwaysInInventory = itemElement.Element("AlwaysInInventory") != null;
+
+            XElement actionsConditionsElement = itemElement.Element("ActionsConditions");
+            if (actionsConditionsElement != null)
+            {
+                XElement useConditionsElement = actionsConditionsElement.Element("Use");
+                XElement equipConditionsElement = actionsConditionsElement.Element("Equip");
+                XElement dropConditionsElement = actionsConditionsElement.Element("Drop");
+                XElement moveConditionsElement = actionsConditionsElement.Element("Move");
+
+                if (useConditionsElement != null)
+                    UseConditionsCheckerDatas = new ItemActionConditionsCheckerDatas(useConditionsElement);
+
+                if (equipConditionsElement != null)
+                    EquipConditionsCheckerDatas = new ItemActionConditionsCheckerDatas(equipConditionsElement);
+
+                if (dropConditionsElement != null)
+                    DropConditionsCheckerDatas = new ItemActionConditionsCheckerDatas(dropConditionsElement);
+
+                if (moveConditionsElement != null)
+                    MoveConditionsCheckerDatas = new ItemActionConditionsCheckerDatas(moveConditionsElement);
+            }
         }
     }
 }

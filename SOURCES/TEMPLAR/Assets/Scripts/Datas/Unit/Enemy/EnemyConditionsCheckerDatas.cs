@@ -61,7 +61,7 @@
                         break;
 
                     default:
-                        Database.EnemyDatabase.Instance.LogError($"Unknown condition Id {conditionElement.Name.LocalName}.");
+                        Database.EnemyDatabase.Instance.LogError($"Unknown Enemy Condition Id {conditionElement.Name.LocalName}.");
                         break;
                 }
             }

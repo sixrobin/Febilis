@@ -63,6 +63,7 @@ MonoBehaviour:
   _typesSprites:
   - {fileID: 21300000, guid: b015d5ad4d785e54d8ae14e014c0b778, type: 3}
   - {fileID: 21300000, guid: 9f1054ff069294c4f9a6ae9b045545b6, type: 3}
+  - {fileID: 21300000, guid: 0431b77a79f01b54f9481327251969e8, type: 3}
   - {fileID: 21300000, guid: 056e0805ba41e964180ebe551b10ab53, type: 3}
   - {fileID: 21300000, guid: e4ea973bed5535c4baa4daae63507609, type: 3}
   - {fileID: 21300000, guid: 1c9b0205bde311f44a8ecb9d1f5cca8b, type: 3}

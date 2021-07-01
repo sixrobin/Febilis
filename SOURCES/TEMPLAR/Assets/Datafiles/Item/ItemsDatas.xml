@@ -19,6 +19,11 @@
       <Description>I can use this to heal.</Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
+      <ActionsConditions>
+         <Use>
+            <FullHealth Negate="true"/>
+         </Use>
+      </ActionsConditions>
    </ItemDatas>
 
    <ItemDatas Id="Key_00">
@@ -42,12 +47,12 @@
    </ItemDatas>
 
    <ItemDatas Id="Ring_00">
-      <Type>MISC</Type>
+      <Type>EQUIPABLE</Type>
       <Description>What a beautiful ring.</Description>
    </ItemDatas>
    
    <ItemDatas Id="Ring_01">
-      <Type>MISC</Type>
+      <Type>EQUIPABLE</Type>
       <Description>What a beautiful ring.</Description>
    </ItemDatas>
 

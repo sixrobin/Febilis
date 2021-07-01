@@ -7,7 +7,11 @@
     {
         protected override bool IsActionAllowed()
         {
+            CProLogger.LogWarning(this, "NOT IMPLEMENTED");
             return false;
+
+            return Slot.Item.Datas.Type == Item.ItemType.EQUIPABLE
+                && Slot.Item.EquipConditionsChecker.CheckConditions();
         }
 
         protected override void TriggerAction()

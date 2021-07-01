@@ -7,12 +7,19 @@
     {
         protected override bool IsActionAllowed()
         {
-            return true;
+            return Slot.Item.UseConditionsChecker.CheckConditions();
         }
 
         protected override void TriggerAction()
         {
-            Debug.Log($"Using {Slot.Item.Id}.");
+            CProLogger.Log(this, $"Using {Slot.Item.Id}.");
+
+            // [TODO] This is hardcoded, we might want xml tags like <Heal/> or something, probably.
+            if (Slot.Item.Id == Item.InventoryController.ITEM_ID_POTION)
+            {
+                _contextMenu.Close(); // Closes all inventory panel.
+                Manager.GameManager.PlayerCtrl.TriggerHeal();
+            }
         }
     }
 }

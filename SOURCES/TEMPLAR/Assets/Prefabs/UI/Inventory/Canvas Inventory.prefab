@@ -1666,7 +1666,6 @@ MonoBehaviour:
   _contextMenu: {fileID: 151915061712832517}
   _slotsRowLength: 3
   _slotsViewport: {fileID: 4643932446336880414}
-  _slotsContent: {fileID: 419224146369230379}
   _scrollbar: {fileID: 1260373569683551237}
   _scrollHandle: {fileID: 3925034277061857944}
 --- !u!114 &2424425244949869713
@@ -1987,6 +1986,7 @@ MonoBehaviour:
   - {fileID: 2928151069748948209}
   - {fileID: 1334528387607620324}
   - {fileID: 5949291702019543542}
+  _posOffset: {x: -9, y: 26}
 --- !u!1001 &471702472479818418
 PrefabInstance:
   m_ObjectHideFlags: 0

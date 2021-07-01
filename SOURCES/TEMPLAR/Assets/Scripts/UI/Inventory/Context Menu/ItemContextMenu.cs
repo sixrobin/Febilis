@@ -11,8 +11,9 @@
     public class ItemContextMenu : UIPanel
     {
         [SerializeField] private ItemContextMenuAction[] _contextActions = null;
+        [SerializeField] private Vector2 _posOffset = Vector2.zero;
 
-        public override GameObject FirstSelected => GetFirstAllowedAction().gameObject;
+        public override GameObject FirstSelected => GetFirstAllowedAction()?.gameObject ?? null;
 
         public InventorySlot Slot { get; private set; }
 
@@ -45,15 +46,20 @@
                 actionButton.SetSelectOnUp(i == 0 ? allowedActions.Last().Button : allowedActions[i - 1].Button);
                 actionButton.SetSelectOnDown(i == allowedActions.Length - 1 ? allowedActions[0].Button : allowedActions[i + 1].Button);
             }
+
+            SetPosition();
         }
 
         public override void Close()
         {
             base.Close();
 
-            UI.Navigation.UINavigationManager.SetPanelAsCurrent(Manager.GameManager.InventoryView);
-            UI.Navigation.UINavigationManager.CloseCurrentPanel();
+            // Immediatly close inventory.
+            Navigation.UINavigationManager.SetPanelAsCurrent(Manager.GameManager.InventoryView);
+            Navigation.UINavigationManager.CloseCurrentPanel();
+            Navigation.UINavigationManager.NullifySelected();
 
+            Slot.DisplaySelector(false);
             Slot = null;
         }
 
@@ -61,8 +67,8 @@
         {
             base.OnBackButtonPressed();
 
-            UI.Navigation.UINavigationManager.SetPanelAsCurrent(Manager.GameManager.InventoryView);
-            UI.Navigation.UINavigationManager.Select(Slot.gameObject);
+            Navigation.UINavigationManager.SetPanelAsCurrent(Manager.GameManager.InventoryView);
+            Navigation.UINavigationManager.Select(Slot.gameObject);
 
             Slot = null;
         }
@@ -70,6 +76,17 @@
         public void SetSlotContext(InventorySlot slot)
         {
             Slot = slot;
+        }
+
+        private void SetPosition()
+        {
+            RectTransform.anchoredPosition = Slot.RectTransform.anchoredPosition + _posOffset;
+        }
+
+        private void Awake()
+        {
+            for (int i = _contextActions.Length - 1; i >= 0; --i)
+                _contextActions[i].SetContextMenu(this);
         }
 
         public void LocateActionsInChildren()

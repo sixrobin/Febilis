@@ -17,6 +17,8 @@
         [SerializeField] private Sprite _emptySlotSprite = null;
         [SerializeField] private Sprite _takenSlotSprite = null;
 
+        private InventoryView _inventoryView;
+
         public delegate void InventorySlotHoveredEventHandler(InventorySlot slot);
         public static event InventorySlotHoveredEventHandler InventorySlotHovered;
         public static event InventorySlotHoveredEventHandler InventorySlotExit;
@@ -28,15 +30,30 @@
 
         public RSLib.Framework.GUI.EnhancedButton Button => _button;
 
+        public RectTransform RectTransform { get; private set; }
+
+        public void SetInventoryView(InventoryView inventoryView)
+        {
+            _inventoryView = inventoryView;
+        }
+
+        public void DisplaySelector(bool show)
+        {
+            _selector.SetActive(show);
+        }
+
         private void OnPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {
-            _selector.SetActive(true);
+            DisplaySelector(true);
             InventorySlotHovered?.Invoke(this);
         }
 
         private void OnPointerExit(RSLib.Framework.GUI.EnhancedButton source)
         {
-            _selector.SetActive(false);
+            if (_inventoryView.IsContextMenuDisplayed) // Current slot context menu is open, don't hide selector.
+                return;
+
+            DisplaySelector(false);
             InventorySlotExit?.Invoke(this);
         }
 
@@ -91,6 +108,8 @@
         {
             _button.PointerEnter += OnPointerEnter;
             _button.PointerExit += OnPointerExit;
+
+            RectTransform = GetComponent<RectTransform>();
         }
     }
 }

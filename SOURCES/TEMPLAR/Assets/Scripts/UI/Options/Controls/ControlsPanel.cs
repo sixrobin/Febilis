@@ -21,7 +21,6 @@
 
         private InputMap _editedMap;
         private KeyBindingPanel _currentlyAssignedPanel;
-        private RectTransform _rectTransform;
 
         private ConfirmationPopup.PopupTextsDatas _uncommittedChangesPopupTexts
             = new ConfirmationPopup.PopupTextsDatas("Save changes ?", "Yes", "No");
@@ -29,17 +28,6 @@
         private bool _navigationInit;
 
         public override GameObject FirstSelected => BackBtn.gameObject;
-
-        private RectTransform RectTransform
-        {
-            get
-            {
-                if (_rectTransform == null)
-                    _rectTransform = Canvas.GetComponent<RectTransform>();
-
-                return _rectTransform;
-            }
-        }
 
         public bool UncommittedChanges { get; private set; }
 

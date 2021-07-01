@@ -46,7 +46,7 @@
                 else if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.RandomChanceConditionDatas rndChanceCondition)
                     Conditions[i] = new RandomChanceEnemyCondition(EnemyCtrl, rndChanceCondition);
                 else
-                    CProLogger.LogError(this, $"Unknown condition type {Conditions[i].GetType().FullName}");
+                    CProLogger.LogError(this, $"Unknown Enemy Condition type {Conditions[i].GetType().FullName}");
             }
         }
 

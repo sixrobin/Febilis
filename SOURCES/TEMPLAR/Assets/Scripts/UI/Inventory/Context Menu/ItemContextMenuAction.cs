@@ -9,6 +9,7 @@
 
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _btn = null;
 
+        protected ItemContextMenu _contextMenu;
         private string _initBtnText;
 
         public RSLib.Framework.GUI.EnhancedButton Button => _btn;
@@ -19,6 +20,11 @@
 
         protected abstract bool IsActionAllowed();
         protected abstract void TriggerAction();
+
+        public void SetContextMenu(ItemContextMenu contextMenu)
+        {
+            _contextMenu = contextMenu;
+        }
 
         private void OnButtonPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {

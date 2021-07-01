@@ -7,7 +7,12 @@
     {
         protected override bool IsActionAllowed()
         {
-            return !Slot.Item.Datas.AlwaysInInventory; // && !"IsQuestItem"
+            CProLogger.LogWarning(this, "NOT IMPLEMENTED");
+            return false;
+
+            return !Slot.Item.Datas.AlwaysInInventory
+                && Slot.Item.DropConditionsChecker.CheckConditions();
+                // && !"IsQuestItem"
         }
 
         protected override void TriggerAction()

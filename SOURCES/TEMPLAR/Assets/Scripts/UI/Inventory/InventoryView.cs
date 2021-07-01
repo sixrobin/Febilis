@@ -30,7 +30,6 @@
         [Header("UI NAVIGATION")]
         [SerializeField, Min(1)] private int _slotsRowLength = 3;
         [SerializeField] private RectTransform _slotsViewport = null;
-        [SerializeField] private RectTransform _slotsContent = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
         [SerializeField] private RectTransform _scrollHandle = null;
 
@@ -40,11 +39,19 @@
 
         public override GameObject FirstSelected => _firstSelected;
 
+        public bool IsContextMenuDisplayed => _contextMenu.Displayed;
+
         public static bool CanToggleInventory()
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !Dialogue.DialogueManager.DialogueRunning
                 && !Manager.OptionsManager.AnyPanelOpen();
+        }
+
+        public override void OnBackButtonPressed()
+        {
+            base.OnBackButtonPressed();
+            Navigation.UINavigationManager.NullifySelected();
         }
 
         public GameObject GetClosestSlotToScrollHandle()
@@ -101,6 +108,9 @@
 
         private void OnInventorySlotExit(InventorySlot slot)
         {
+            if (IsContextMenuDisplayed)
+                return;
+
             _itemName.text = EMPTY_SLOT_NAME;
             _itemDesc.text = EMPTY_SLOT_DESC;
             _itemType.text = EMPTY_SLOT_TYPE;
@@ -213,6 +223,7 @@
             {
                 InventorySlot slotView = _slotsViews[i];
                 slotView.Button.onClick.AddListener(() => OnInventorySlotButtonClicked(slotView));
+                slotView.SetInventoryView(this);
             }
 
             InitNavigation();
@@ -237,12 +248,13 @@
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);
                     _scrollbar.value = 1f;
-                    Display(true);
+                    Open();
 
                     return;
                 }
 
                 Navigation.UINavigationManager.CloseCurrentPanel();
+                Navigation.UINavigationManager.NullifySelected();
             }
         }
 

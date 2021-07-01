@@ -6,8 +6,9 @@
         QUEST = 1,
         WEAPON = 2,
         CONSUMABLE = 4,
-        KEY = 8,
-        BOOK = 16,
-        MISC = 32
+        EQUIPABLE = 8,
+        KEY = 16,
+        BOOK = 32,
+        MISC = 64
     }
 }

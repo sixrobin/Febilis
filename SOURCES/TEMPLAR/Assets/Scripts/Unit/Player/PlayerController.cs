@@ -137,6 +137,12 @@
             }
         }
 
+        public void TriggerHeal()
+        {
+            InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.HEAL);
+            StartCoroutine(_healCoroutine = HealCoroutine());
+        }
+
         protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
             base.OnCollisionDetected(collisionInfos);
@@ -289,11 +295,8 @@
 
         private void TryHeal()
         {
-            if (!PlayerHealthCtrl.CanHeal())
-                return;
-
-            InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.HEAL);
-            StartCoroutine(_healCoroutine = HealCoroutine());
+            if (PlayerHealthCtrl.CanHeal())
+                TriggerHeal();
         }
 
         private void Move()
