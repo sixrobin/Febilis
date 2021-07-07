@@ -1,8 +1,5 @@
 (Idée de lore durant les vacs)
 
-
-////// Notes du carnet :
-
 - Un prêtre/évêque qui empoisonne tous les habitants d'un village pour les confiner et les contrôler, en les regroupant en bonne partie dans un hotêl-Dieu, pendant qu'il s'adonne à ses occupations malfaisantes.
 - Le village a transmis le poison dans la cité d'à côté, et donc des gardes surveillent le confinement et les frontières.
 - Prélève du sang à l'hôtel-Dieu ? Je sais pas trop pourquoi mais ça rentrerait bien dans le côté horrifique.
@@ -20,4 +17,44 @@
 	- Mon rêve : rénover un orgue et pouvoir en jouer dans une autre partie.
 - Le perso arrive trop tard et constate la réssurection + le prêtre qui tombe dans les pommes.
 	- Possibilité d'aller l'aider ou de se casser, avec conséquences différentes ?
+- Une grande bibliothèque avec la possibilité de lire des livres qui racontent l'histoire de la religion, de la cité, etc.
 	
+
+
+
+
+Idées concernant l'histoire de la religion qui domine sur le monde :
+- Au début, il n'y avait rien, et 3 entités divines sont nées avec pour mission de créer un monde en x jours, au terme desquels elles mourront. Ces trois entités divines sont connues sont le noms de "Créateurs".
+	- Le Créateur d'Ébène a créé la terre, les montagnes, les grottes, etc. On lui attribue aussi la création de la gravité.
+	- Le Créateur Pourpre a créé le soleil, le feu, l'atmosphère, la vie, la volonté, le feu qui anime les vivants.
+	- Le Créateur Pâle a créé le corps mortel des hommes, des animaux, la reproduction.
+- Conscients qu'ils ne pourraient accomplir leur mission dans les temps, les Créateurs ont donné naissance à des Dieux, moins importants et puissants qu'eux, mais qui leur ont permis de déléguer les tâches.
+	- Febilis, le Dieu de la Maladie, enfant du Créateur Pâle, qui a créé les maladies, les virus, leur propagation.
+		- Plus jeune que les autres, une naissance honteuse, qui va à l'encontre de la création.
+		- Note : son sang serait potentiellement le remède à toute maladie.
+	- Amare, le Dieu de l'Amour, enfant du Créateur Pâle, qui a créé les relations entre les individus, bonnes ou mauvaises. (La reproduction ?)
+	- Freidus, le Dieu des Cycles, enfant du Créateur Pourpre, à qui on attribue la création des saisons, de la nuit. Aussi appelé le dieu du Temps.
+	- Altum, le Dieu des Profondeurs, enfant du Créateur d'Ébène, responsable de la création des océans.
+	- Pluma, le Dieu des Arts, enfant du Créateur Pourpre, qui écrivit notamment le Récit de la Création (un peu notre Bible actuelle en gros).
+		- Expliquer pourquoi un Dieu des Arts existait avant les hommes, ou alors c'est un Dieu plus jeune.
+	- etc.
+- Le monde créé par les Créateurs et leurs Dieux est ce que nous connaissons comme étant la Terre.
+- Certains récits évoquent la possibilité d'autres mondes similaires au nôtre créés par d'autres Créateurs, et sous entendent l'existence d'entités cosmiques bien plus majeures que les Créateurs eux-mêmes. La plupart des hommes refusent cette théorie, et les minorités qui y adhèrent le cachent, ou se font massacrer/emprisonner.
+- Au terme de leur accomplissement, les Créateurs et les Dieux mourrurent, mais leur enveloppe physique n'a pas quitté la Terre. Les millénaires qui se sont écoulés ont dispersés et perdus leurs carcasses, mais leurs corps sont toujours là. Au plus profond des abysses, très haut en altitude, congelés dans des glaciers perdus à des milliers de kilomètres de toute civilisation, ou, pour certains, pas si loin de la vie.
+- Le clergé ordonne à toute personne retrouvant l'un de ces corps à leur en faire part. Seuls quelques corps de dieux ont été retrouvés, parfois partiellement, et rapatriés à la Maison de la Création, l'équivalent du Saint-Siège catholique, bien qu'il soit lié à un lieu et non à un Pape. Les corps sont conservés comme des reliques et sont sous une protection si ferme que le plus protégé des rois de la planète n'imaginerait pas qu'elle existe.
+- Toute personne ne faisant pas part d'une découverte pareille au clergé est punie par la peine de mort.
+- Ca serait cool de trouver un truc pour expliquer la mort des Créateurs, du genre leurs esprits quittent leurs enveloppes physiques mais èrent toujours quelque part, etc. Ca pourrait aussi être l'explication de la mort d'après les croyants, nos esprits retournent aux Créateurs après notre passage sur Terre.
+
+
+
+Retour au jeu :
+- Une maladie fait rage sur la planète, très similaire à la Peste. Les habitants ne sortent que peu, et les petits villages sont particulièrement sujets à la maladie étant donné l'insalubrité comparé aux grandes cités.
+- Le corps de Febilis, Dieu de la Maladie, est retrouvé dans la crypte d'une petite église locale. La personne le retrouvant (qui ?) prévient directement le prêtre/évêque de la grande cité d'à côté, Prosperare. En apprenant la nouvelle, il use de son autorité pour fermer temporairement l'église par la force, en fait également sortir le prêtre, et rapatrie discrètement le corps via les immenses galeries souterraines jusqu'aux catacombes de la cité, elles-mêmes liées à la grande cathédrale.
+- Il décide de ne pas prévenir le clergé, car il souhaite conserver le corps du Dieu pour l'utiliser. Son but est d'utiliser le corps du Dieu de la Maladie pour combattre la maladie qui fait rage, et devenir le héros qui a trouvé le remède (on peut supposer que la science et la médecine sont relativement développées).
+- Après plusieurs semaines d'expérimentations, l'évêque pense avoir trouvé un remède. Afin de l'essayer, il en distribua aux habitants du petit village dont il avait fermé l'église, pour voir les résultats et effets secondaires avant de le distribuer dans tout Prosperare.
+- Le remède semble efficace rapidement. Les sujets de test ne montrant pas d'effet secondaire dans les premiers jours suivant l'administration du remède, l'évêque s'empresse de répandre la nouvelle dans la cité et de distribuer le remède. La production du remède est relativement lente, ainsi, soigner toute la cité prend du temps.
+- Malheureusement, après quelques semaines, des effets secondaires terribles font leur apparition dans le village ayant servi de crash test. Les habitants qui ont reçu l'administration du remède sont soit morts, le corps putréfié, desséché à vitesse grand V, soit transformés en abominations cherchant à se nourrir d'animaux ou d'autres humains encore en bon état, bref, des zombies.
+	- Au moment de l'arrivée du joueur, les monstres sont encore dans le village, seuls quelques habitants qui ont réussi à s'enfermer dans leurs maisons y restent, et ne sortent qu'en cas de besoin vital.
+	- Pour justifier le fait que les monstres ne disparaissent pas, peut-être qu'on pourrait dire que ce sont vraiment des zombies et qu'ils peuvent transformer les autres avec des morsures, comme ils peuvent aussi tuer tout simplement.
+- Dévasté par la nouvelle, l'évêque s'enferme dans la cathédrale afin de ne pas affronter les habitants de la cité qui vont connaître le même destin. Les habitants n'ont même pas le temps de se révolter et d'aller voir l'évêque, la malédiction s'abat sur eux quelques jours après, et les monstres sont dorénavant dans la cité. Les gens s'enferment, pleurent, ou tentent de fuir, les gardes combattent les monstres et protègent les entrées de la cité et de la cathédrale, tout semble s'arrêter.
+- Ne trouvant pas de solution pour tuer les zombies ou les soigner, l'évêque se met en tête de se lancer dans une ultime entreprise : réssusciter le Dieu de la Maladie afin de lui demander, en échange de sa vie retrouvée, de bannir la maladie de la surface du globe.
