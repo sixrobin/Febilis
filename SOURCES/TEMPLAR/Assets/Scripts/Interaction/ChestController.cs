@@ -4,18 +4,21 @@
 
     public class ChestController : Interactable
     {
+        [SerializeField] private Collider2D _interactionCollider = null;
         [SerializeField] private GameObject _highlight = null;
         [SerializeField] private Templar.Physics.Triggerables.TriggerableObject _triggerableChest = null;
 
         private void OnChestTriggered(Templar.Physics.Triggerables.TriggerableObject.TriggerEventArgs args)
         {
             InteractionDisabled = true;
+            _interactionCollider.enabled = false;
             _highlight.SetActive(false);
         }
 
         private void OnChestReset(Templar.Physics.Triggerables.TriggerableObject.TriggerEventArgs args)
         {
             InteractionDisabled = false;
+            _interactionCollider.enabled = true;
         }
 
         public override void Focus()
@@ -41,6 +44,7 @@
 
             base.Interact();
             InteractionDisabled = true;
+            _interactionCollider.enabled = false;
 
             _highlight.SetActive(false);
         }

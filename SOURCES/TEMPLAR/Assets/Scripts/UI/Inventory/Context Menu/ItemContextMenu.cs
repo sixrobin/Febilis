@@ -78,9 +78,20 @@
             Slot = slot;
         }
 
+        public void CloseAtEndOfFrame()
+        {
+            StartCoroutine(CloseAtEndOfFrameCoroutine());
+        }
+
         private void SetPosition()
         {
             RectTransform.anchoredPosition = Slot.RectTransform.anchoredPosition + _posOffset;
+        }
+
+        private System.Collections.IEnumerator CloseAtEndOfFrameCoroutine()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+            Close();
         }
 
         private void Awake()

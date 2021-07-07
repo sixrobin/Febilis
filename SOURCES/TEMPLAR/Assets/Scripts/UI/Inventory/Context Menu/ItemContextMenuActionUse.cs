@@ -16,7 +16,7 @@
             // [TODO] This is hardcoded, we might want xml tags like <Heal/> or something, probably.
             if (Slot.Item.Id == Item.InventoryController.ITEM_ID_POTION)
             {
-                _contextMenu.Close(); // Closes all inventory panel.
+                _contextMenu.CloseAtEndOfFrame(); // Closes all inventory panel.
                 Manager.GameManager.PlayerCtrl.TriggerHeal();
             }
         }

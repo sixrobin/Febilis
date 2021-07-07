@@ -17,7 +17,7 @@
 
         protected override void TriggerAction()
         {
-            _contextMenu.Close(); // Closes all inventory panel.
+            _contextMenu.CloseAtEndOfFrame(); // Closes all inventory panel.
 
             Manager.LootManager.SpawnItem(
                 Slot.Item.Id,

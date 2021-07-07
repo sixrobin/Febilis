@@ -292,5 +292,6 @@ MonoBehaviour:
   _onInteracted:
     m_PersistentCalls:
       m_Calls: []
+  _interactionCollider: {fileID: 7491186539554326091}
   _highlight: {fileID: 7024888632340637674}
   _triggerableChest: {fileID: 963337968985385419}
