@@ -31,8 +31,24 @@
 
    <xs:complexType name="LootDatas">
       <xs:sequence>
-         <xs:element name="Value" type="xs:nonNegativeInteger" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="Chance" type="xs:float" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Coins" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+               <xs:simpleContent>
+                  <xs:extension base="xs:nonNegativeInteger">
+                     <xs:attribute name="Chance" type="xs:float" use="optional"/>
+                  </xs:extension>
+               </xs:simpleContent>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="Item" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+               <xs:simpleContent>
+                  <xs:extension base="xs:token">
+                     <xs:attribute name="Chance" type="xs:float" use="optional"/>
+                  </xs:extension>
+               </xs:simpleContent>
+            </xs:complexType>
+         </xs:element>
       </xs:sequence>
    </xs:complexType>
 

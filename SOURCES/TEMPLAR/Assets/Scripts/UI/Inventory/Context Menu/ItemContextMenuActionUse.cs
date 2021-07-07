@@ -2,7 +2,6 @@
 {
     using UnityEngine;
 
-    [DisallowMultipleComponent]
     public class ItemContextMenuActionUse : ItemContextMenuAction
     {
         protected override bool IsActionAllowed()

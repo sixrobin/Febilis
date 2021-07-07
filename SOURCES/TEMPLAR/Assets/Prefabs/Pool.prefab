@@ -78,6 +78,10 @@ MonoBehaviour:
     _gameObject: {fileID: 689691094357144013, guid: 28054e9fcec27414aab1d5a21dc6a5ab,
       type: 3}
     _quantity: 10
+  - _id: Item_Collectable
+    _gameObject: {fileID: 673298380953083230, guid: 97e45a968a0b59340b86f8d0eab58d77,
+      type: 3}
+    _quantity: 30
   - _id: Jump_Puff
     _gameObject: {fileID: 1349905492933044248, guid: 0fc830367c0e6c147bb80ba419ad874b,
       type: 3}

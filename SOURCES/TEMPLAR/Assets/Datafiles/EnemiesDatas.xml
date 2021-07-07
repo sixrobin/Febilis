@@ -67,7 +67,7 @@
       </EventBehaviours>-->
       <OnKilledTrauma>0.4</OnKilledTrauma>
       <OnKilledLoot>
-         <Value>5</Value>
+         <Coins>5</Coins>
       </OnKilledLoot>
    </EnemyDatas>
 
@@ -114,7 +114,7 @@
          </Behaviour>
       </Behaviours>
       <OnKilledLoot>
-         <Value>2</Value>
+         <Coins>2</Coins>
       </OnKilledLoot>
    </EnemyDatas>
    
