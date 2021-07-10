@@ -45,7 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _overrideLogPrefix: 
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
   _inventoryDatas: {fileID: 4900000, guid: 57087286a7488de4bbbb573755f84bc5, type: 3}
   _itemsDatas:
   - {fileID: 4900000, guid: 520f61bfb42d96d47af70bdf948eb450, type: 3}
@@ -115,7 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _overrideLogPrefix: 
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
   _enemiesDatas: {fileID: 4900000, guid: baf44483c3f4d6a4188f4d88a2e7d401, type: 3}
   _animationClips:
   - {fileID: 7400000, guid: 5a5198a519bb09541964fe9b5771c2fc, type: 2}
@@ -181,7 +185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _overrideLogPrefix: 
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
   _dialoguesDatas:
   - {fileID: 4900000, guid: 79cfd422ddd797841b2b3476d4780aad, type: 3}
   - {fileID: 4900000, guid: 77d0594acff28f746bce6a1bfeebe690, type: 3}
@@ -287,7 +293,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _overrideLogPrefix: 
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
   _attacksDatas:
   - {fileID: 4900000, guid: dad4125d0125c6f48af807d3fdbf7c8e, type: 3}
   - {fileID: 4900000, guid: 45044d615f1e909478f96dc24a32acf8, type: 3}
@@ -369,7 +377,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _overrideLogPrefix: 
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
   _animationClips:
   - {fileID: 7400000, guid: fd4fa236f157b7d47807ffc9fea0ae23, type: 2}
   - {fileID: 7400000, guid: a134f2d6b65893b4396de223ad8fe778, type: 2}
@@ -438,5 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 0
   _verbose: 0
-  _overrideLogPrefix: 
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
   _triggerablesDatas: {fileID: 4900000, guid: 7436d6231abe0844aa616944a75b3ba8, type: 3}

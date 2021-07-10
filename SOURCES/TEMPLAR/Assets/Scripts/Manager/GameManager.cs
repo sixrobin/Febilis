@@ -5,9 +5,7 @@
 
     public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
     {
-        [Tooltip("Checkpoint to use on game start. Can be null to use default behaviour.")]
-        [SerializeField] private Interaction.Checkpoint.CheckpointController _overrideCheckpoint = null;
-
+        [SerializeField] private Interaction.Checkpoint.OptionalCheckpointController _overrideCheckpoint = new Interaction.Checkpoint.OptionalCheckpointController();
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
         [SerializeField] private Item.InventoryController _inventoryCtrl = null;
@@ -20,7 +18,7 @@
         public static Templar.Camera.CameraController CameraCtrl => Instance._cameraCtrl;
         public static Item.InventoryController InventoryCtrl => Instance._inventoryCtrl;
         public static UI.Inventory.InventoryView InventoryView => Instance._inventoryView;
-        public static Interaction.Checkpoint.CheckpointController OverrideCheckpoint => Instance._overrideCheckpoint;
+        public static Interaction.Checkpoint.OptionalCheckpointController OptionalCheckpoint => Instance._overrideCheckpoint;
 
         public static void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpoint)
         {
@@ -51,10 +49,10 @@
 
         private void SpawnPlayer()
         {
-            if (OverrideCheckpoint != null)
-                LogWarning($"Spawning player to an overridden checkpoint {OverrideCheckpoint.transform.name}.");
+            if (OptionalCheckpoint.Enabled)
+                LogWarning($"Spawning player to an overridden checkpoint {OptionalCheckpoint.Value.transform.name}.");
 
-            _playerCtrl.Init(OverrideCheckpoint ?? Interaction.Checkpoint.CheckpointController.CurrCheckpoint);
+            _playerCtrl.Init(OptionalCheckpoint.Enabled ? OptionalCheckpoint.Value : Interaction.Checkpoint.CheckpointController.CurrCheckpoint);
         }
 
         private System.Collections.IEnumerator SpawnPlayerCoroutine()
@@ -105,6 +103,22 @@
 #endif
 
             StartCoroutine(SpawnPlayerCoroutine());
+
+            if (_inventoryCtrl == null)
+            {
+                LogWarning("Reference to InventoryController is missing, trying to find it using FindObjectOfType.");
+                _inventoryCtrl = FindObjectOfType<Item.InventoryController>();
+                if (_inventoryCtrl == null)
+                    LogError("No InventoryController seems to be in the scene.");
+            }
+
+            if (_inventoryView == null)
+            {
+                LogWarning("Reference to InventoryView is missing, trying to find it using FindObjectOfType.");
+                _inventoryView = FindObjectOfType<UI.Inventory.InventoryView>();
+                if (_inventoryView == null)
+                    LogError("No InventoryView seems to be in the scene.");
+            }
         }
 
         private void Start()
