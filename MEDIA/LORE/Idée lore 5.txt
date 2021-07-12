@@ -1,0 +1,103 @@
+(Idée de lore durant les vacs)
+
+- Un prêtre/évêque qui empoisonne tous les habitants d'un village pour les confiner et les contrôler, en les regroupant en bonne partie dans un hotêl-Dieu, pendant qu'il s'adonne à ses occupations malfaisantes.
+- Le village a transmis le poison dans la cité d'à côté, et donc des gardes surveillent le confinement et les frontières.
+- Prélève du sang à l'hôtel-Dieu ? Je sais pas trop pourquoi mais ça rentrerait bien dans le côté horrifique.
+- Acteur d'un acte de plus grande envergure, de prélèvement de sang pour nourrir un truc ? Le Coeur ? Ou réssusciter un genre de créature/monstre/néphilim façon TR6 ?
+- Le perso est envoyé en mission d'investigation et perd sa missive, qu'il retrouvera plus tard (histoire de redonner un but au joueur après une première quête).
+- L'église du village est fermée et il faut y accéder par un accès autre que la porte principale.
+- Grand bassin réceptacle pour le sang qui est en lien avec les villages voisins et la cité voisine.
+- Le prêtre du village sait qu'il participe à un truc pourri mais ne sait pas quoi, et ça le torture.
+- Qu'est-ce que l'antagoniste pourrait vouloir réssusciter ? Le cadavre d'un Saint ? Une créature antique ?
+- Une relique sainte qui est arrivée récemment et qui corromp les esprits ?
+- Mise en scène comme dans Skyrim à Markarth où le perso doit aller en prison pour la quête.
+- Peut-être que la garde royale/croyante est corrompue, sans forcément le savoir, ce qui justifierait qu'elle soit ennemie.
+- Le prêtre veut réssusciter un cadeau qui lui a été fait par le clergé, car sa cathédrale a fait un truc particulier qui méritait le cadeau.
+- Truc qu'on peut rénover en faisant un don, ce qui aurait une conséquence quelconque sur la partie en cours mais rénoverait vraiment le truc dans une partie future.
+	- Mon rêve : rénover un orgue et pouvoir en jouer dans une autre partie.
+- Le perso arrive trop tard et constate la réssurection + le prêtre qui tombe dans les pommes.
+	- Possibilité d'aller l'aider ou de se casser, avec conséquences différentes ?
+	
+
+
+
+
+///////////////////////////////
+/// HISTOIRE DE LA RELIGION ///
+///////////////////////////////
+
+- Au début, il n'y avait rien, et 3 entités divines sont nées avec pour mission de créer un monde en x jours, au terme desquels elles mourront. Ces trois entités divines sont connues sont le noms de "Créateurs".
+	- Le Créateur d'Ébène a créé la terre, les montagnes, les grottes, etc. On lui attribue aussi la création de la gravité.
+	- Le Créateur Pourpre a créé le soleil, le feu, l'atmosphère, la vie, la volonté, le feu qui anime les vivants.
+	- Le Créateur Pâle a créé le corps mortel des hommes, des animaux, la reproduction.
+- Conscients qu'ils ne pourraient accomplir leur mission dans les temps, les Créateurs ont donné naissance à des Dieux, moins importants et puissants qu'eux, mais qui leur ont permis de déléguer les tâches.
+	- Febilis, le Dieu de la Maladie, enfant du Créateur Pâle, qui a créé les maladies, les virus, leur propagation.
+		- Plus jeune que les autres, une naissance honteuse, qui va à l'encontre de la création.
+		- Note : son sang serait potentiellement le remède à toute maladie.
+	- Amare, le Dieu de l'Amour, enfant du Créateur Pâle, qui a créé les relations entre les individus, bonnes ou mauvaises. (La reproduction ?)
+	- Freidus, le Dieu des Cycles, enfant du Créateur Pourpre, à qui on attribue la création des saisons, de la nuit. Aussi appelé le dieu du Temps.
+	- Altum, le Dieu des Profondeurs, enfant du Créateur d'Ébène, responsable de la création des océans.
+	- Pluma, le Dieu des Arts, enfant du Créateur Pourpre, qui écrivit notamment le Récit de la Création (un peu notre Bible actuelle en gros).
+		- Expliquer pourquoi un Dieu des Arts existait avant les hommes, ou alors c'est un Dieu plus jeune.
+	- etc.
+- Le monde créé par les Créateurs et leurs Dieux est ce que nous connaissons comme étant la Terre.
+- Certains récits évoquent la possibilité d'autres mondes similaires au nôtre créés par d'autres Créateurs, et sous entendent l'existence d'entités cosmiques bien plus majeures que les Créateurs eux-mêmes. La plupart des hommes refusent cette théorie, et les minorités qui y adhèrent le cachent, ou se font massacrer/emprisonner.
+- Au terme de leur accomplissement, les Créateurs mourrurent, mais leur enveloppe physique n'a pas quitté la Terre. Les millénaires qui se sont écoulés ont dispersés et perdus leurs carcasses, mais leurs corps sont toujours là. Les Dieux en revanche ne sont pas morts, à l'exception de ceux qui ont préféré quitté le monde qu'ils avaient créé en même temps que leurs parents. Ceux qui sont encore en vie aujourd'hui sont isolés ou cachés parmi la population, un peu comme les Dieux grecs, ils peuvent prendre l'apparence qu'ils veulent.
+- Le clergé ordonne à toute personne retrouvant l'un de ces corps à leur en faire part. Seuls quelques corps de dieux ont été retrouvés, parfois partiellement, et rapatriés à la Maison de la Création, l'équivalent du Saint-Siège catholique, bien qu'il soit lié à un lieu et non à un Pape. Les corps sont conservés comme des reliques et sont sous une protection si ferme que le plus protégé des rois de la planète n'imaginerait pas qu'elle existe.
+- Toute personne ne faisant pas part d'une découverte pareille au clergé est punie par la peine de mort.
+- Ca serait cool de trouver un truc pour expliquer la mort des Créateurs, du genre leurs esprits quittent leurs enveloppes physiques mais èrent toujours quelque part, etc. Ca pourrait aussi être l'explication de la mort d'après les croyants, nos esprits retournent aux Créateurs après notre passage sur Terre.
+- Il y aurait plusieures branches au "Créationisme" : les "Tribistes" qui pensent que les Dieux n'ont pas existé et qu'ils sont le fruit des 3 Créateurs uniquement, et les "Deulitistes" qui pensent que les Dieux ont existé. La raison de la séparation est liée à la date des écrits concernant l'histoire de la religion ; les écrits les plus anciens retrouvés concernant les Dieux ne datent pas de la même époque que ceux concernant les Créateurs, et bien qu'étant authentiques, cela a suffit pour créer une discorde et séparer les croyants en deux groupes.
+	- Pourquoi pas une troisième branche, plus mineure, les "Nilhimortistes" avec des gens qui pensent que les Créateurs ne sont pas morts, car on n'a jamais retrouvé leurs corps.
+
+
+
+
+
+////////////////////////////
+/// HISTOIRE DE LA VILLE ///
+////////////////////////////
+
+- Il y a plusieurs siècles, Prosperare était une seule et unique cité, circulaire et en paix. Elle est constituée d'un centre, autour duquel il y a quelques murs, et l'anneau extérieur est constitué de plusieurs villages. Sa position géographique stratégique en faisait un point très important de la carte du globe que tous les royaumes convoitaient pour la guerre.
+- Malheureusement, les guerres de religion ne l'ont pas épargnée (truc du genre cathos vs protestants ?), et la cité fut en grande partie ravagée : la partie extérieure n'était plus que ruine à part quelques villages miraculés, la partie intérieure fut grandement touchée bien que toujours plus ou moins habitable, et la grande cathédrale centrale fut envahie et partiellement détruite.
+- Il y a évidemment eu énormément de morts, dont l'évêque de la cathédrale.
+- La ville s'est reconstruite depuis, plus petite, et s'est barricadée de plus belle afin de prévoir de potentielles futures guerres. La cathédrale a été en partie rénovée, surtout les parties les plus visibles et accessibles, mais il reste encore des salles dans le même état que juste après le carnage.
+- Certains des quelques habitants qui vivaient dans les villages hors des murs ont restaurés les ruines qu'ils pouvaient et vivent depuis à l'extérieur des murs de la ville (un peu la même gueule que Fordhiver en gros, hyper exposé, encore des ruines visibles, etc.).
+- Le réseau souterrain qui était présent sous toute la cité est encore relativement intact, permettant un lien entre la cité et les villages.
+
+
+
+
+
+///////////////////////////////
+/// EVENEMENTS AVANT LE JEU ///
+///////////////////////////////
+
+- On est dans un univers dark fantasy où vivent des créatures diverses autres que les hommes, où les hommes sont de tailles/statures très variables, où la science et la magie sont présents.
+- Une maladie fait rage sur la planète, très similaire à la Peste. Les habitants ne sortent que peu, et les petits villages sont particulièrement sujets à la maladie étant donné l'insalubrité comparé aux grandes cités.
+- Le corps de Febilis, Dieu de la Maladie, est retrouvé dans la crypte d'une petite église locale. La personne le retrouvant (qui ?) prévient directement le prêtre/évêque de la grande cité d'à côté, Prosperare. En apprenant la nouvelle, il use de son autorité pour fermer temporairement l'église par la force, en fait également sortir le prêtre, et rapatrie discrètement le corps via les immenses galeries souterraines jusqu'aux catacombes de la cité, elles-mêmes liées à la grande cathédrale.
+- Il décide de ne pas prévenir le clergé, car il souhaite conserver le corps du Dieu pour l'utiliser. Son but est d'utiliser le corps du Dieu de la Maladie pour combattre la maladie qui fait rage, et devenir le héros qui a trouvé le remède (on peut supposer que la science et la médecine sont relativement développées). En effet, bien qu'étant le Dieu de la maladie, Febilis est une dualité, càd qu'il crée les maladies, mais son sang serait connu comme étant le remède à toutes les maladies. Cependant, il s'agit d'une légende et étant mort depuis longtemps, son sang n'est plus utilisable, mais la piste est à explorer selon l'évêque.
+- Après plusieurs semaines d'expérimentations, l'évêque pense avoir trouvé un remède. Afin de l'essayer, il en distribua aux habitants du petit village dont il avait fermé l'église, pour voir les résultats et effets secondaires avant de le distribuer dans tout Prosperare.
+- Le remède semble efficace rapidement. Les sujets de test ne montrant pas d'effet secondaire dans les premiers jours suivant l'administration du remède, l'évêque s'empresse de répandre la nouvelle dans la cité et de distribuer le remède. La production du remède est relativement lente, ainsi, soigner toute la cité prend du temps.
+- Malheureusement, après quelques semaines, des effets secondaires terribles font leur apparition dans le village ayant servi de crash test. Les habitants qui ont reçu l'administration du remède sont soit morts, le corps putréfié, desséché à vitesse grand V, soit transformés en abominations cherchant à se nourrir d'animaux ou d'autres humains encore en bon état, bref, des zombies.
+	- Au moment de l'arrivée du joueur, les monstres sont encore dans le village, seuls quelques habitants qui ont réussi à s'enfermer dans leurs maisons y restent, et ne sortent qu'en cas de besoin vital.
+	- Pour justifier le fait que les monstres ne disparaissent pas, peut-être qu'on pourrait dire que ce sont vraiment des zombies et qu'ils peuvent transformer les autres avec des morsures, comme ils peuvent aussi tuer tout simplement.
+- Dévasté par la nouvelle, l'évêque s'enferme dans la cathédrale afin de ne pas affronter les habitants de la cité qui vont connaître le même destin. Les habitants n'ont même pas le temps de se révolter et d'aller voir l'évêque, la malédiction s'abat sur eux quelques jours après, et les monstres sont dorénavant dans la cité. Les gens s'enferment, pleurent, ou tentent de fuir, les gardes combattent les monstres et protègent les entrées de la cité et de la cathédrale, tout semble s'arrêter.
+- Ne trouvant pas de solution pour tuer les zombies ou les soigner, l'évêque se met en tête de se lancer dans une ultime entreprise : réssusciter le Dieu de la Maladie afin de lui demander, en échange de sa vie retrouvée, de bannir la maladie de la surface du globe.
+- Ayant eu vent de la fermeture soudaine et inexpliquée de l'église, le clergé décide d'envoyer un soldat pour un simple contrôle, avec un mandat d'interrogatoire pour l'évêque. Ce soldat se fait très vite capturer par la garde de la cathédrale, sous les ordres de l'antagoniste qui souhaite taire l'histoire le temps de la régler.
+	- Il faudrait que le soldat soit mort lorsque le joueur le retrouve, on pourrait imaginer qu'il était nourri en prison mais que les gardes ont été contaminés eux aussi et que les détenus ont été abandonnés à leur triste sort (sauf que du coup pourquoi le joueur irait en taule). Il pourrait avoir écrit quelque chose au dos de sa missive ?
+- N'ayant donc pas de nouvelle du soldat envoyé, le clergé décide de faire appel à un soldat plus compétent, avec cette fois-ci un mandat d'arrêt : le personnage jouable.
+
+
+
+
+
+////////////////////////////
+/// TRANSMISSION DU LORE ///
+////////////////////////////
+
+- Une bibliothèque, qui serait optionnelle/accessible via clef histoire de cacher un peu la zone et ne l'offrir qu'aux plus dévoués, dans laquelle on pourrait lire des livres sur l'histoire de la religion et l'histoire de la cité, etc.
+- Pouvoir discuter avec les NPC de sujets particuliers, comme dans The Messenger.
+- "Flavor texts" pour les items avec du lore ou des citations.
+- Un temple souterrain caché, abandonné, accessible si vraiment on cherche à y aller.
+- Un vétéran des guerres de religion encore en vie (faudrait voir l'âge qu'il a, et si on admet que certains hommes peuvent vivre très longtemps).
+- Une partie spéciale au cimetière pour les morts durant la guerre de religions.
