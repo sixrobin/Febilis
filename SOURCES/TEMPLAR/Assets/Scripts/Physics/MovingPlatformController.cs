@@ -5,17 +5,37 @@
     [DisallowMultipleComponent]
     public class MovingPlatformController : MonoBehaviour
     {
+        private struct PassengerVelocity
+        {
+            public PassengerVelocity(IPlatformPassenger passenger, Vector3 vel, bool standingOnPlatform, bool moveBeforePlatform)
+            {
+                Passenger = passenger;
+                Velocity = vel;
+                StandingOnPlatform = standingOnPlatform;
+                MoveBeforePlatform = moveBeforePlatform;
+            }
+            
+            public IPlatformPassenger Passenger { get; private set; }
+            public Vector3 Velocity { get; private set; }
+            public bool StandingOnPlatform { get; private set; }
+            public bool MoveBeforePlatform { get; private set; }
+        }
+
         [SerializeField] private BoxCollider2D _boxCollider2D = null;
         [SerializeField] private LayerMask _passengersMask = 0;
         [SerializeField] private Vector2 _velocity = Vector2.zero;
 
         private RaycastsController _raycastsCtrl;
 
-        private System.Collections.Generic.HashSet<Transform> _movedPassengers = new System.Collections.Generic.HashSet<Transform>();
+        private static System.Collections.Generic.Dictionary<Collider2D, IPlatformPassenger> s_alreadyKnownPassengers = new System.Collections.Generic.Dictionary<Collider2D, IPlatformPassenger>();
 
-        private void MovePassengers(Vector3 vel)
+        private System.Collections.Generic.HashSet<IPlatformPassenger> _movedPassengers = new System.Collections.Generic.HashSet<IPlatformPassenger>();
+        private System.Collections.Generic.List<PassengerVelocity> _passengersVelocities = new System.Collections.Generic.List<PassengerVelocity>();
+
+        private void ComputePassengersVelocity(Vector3 vel)
         {
             _movedPassengers.Clear();
+            _passengersVelocities.Clear();
 
             float signX = Mathf.Sign(vel.x);
             float signY = Mathf.Sign(vel.y);
@@ -31,14 +51,18 @@
 
                     if (hit)
                     {
-                        if (_movedPassengers.Contains(hit.transform))
+                        if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IPlatformPassenger passenger))
+                            if (hit.collider.TryGetComponent(out passenger))
+                                s_alreadyKnownPassengers.Add(hit.collider, passenger);
+
+                        if (passenger == null || _movedPassengers.Contains(passenger))
                             continue;
 
-                        _movedPassengers.Add(hit.transform);
+                        _movedPassengers.Add(passenger);
 
                         float pushX = signY == 1f ? vel.x : 0f;
                         float pushY = vel.y - (hit.distance - RaycastsController.SKIN_WIDTH) * signY;
-                        hit.transform.Translate(new Vector3(pushX, pushY));
+                        _passengersVelocities.Add(new PassengerVelocity(passenger, new Vector3(pushX, pushY), signY == 1f, true));
                     }
                 }
             }
@@ -54,13 +78,17 @@
 
                     if (hit)
                     {
-                        if (_movedPassengers.Contains(hit.transform))
+                        if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IPlatformPassenger passenger))
+                            if (hit.collider.TryGetComponent(out passenger))
+                                s_alreadyKnownPassengers.Add(hit.collider, passenger);
+
+                        if (passenger == null || _movedPassengers.Contains(passenger))
                             continue;
 
-                        _movedPassengers.Add(hit.transform);
+                        _movedPassengers.Add(passenger);
 
                         float pushX = vel.x - (hit.distance - RaycastsController.SKIN_WIDTH) * signX;
-                        hit.transform.Translate(new Vector3(pushX, 0f));
+                        _passengersVelocities.Add(new PassengerVelocity(passenger, new Vector3(pushX, 0f), false, true));
                     }
                 }
             }
@@ -77,14 +105,25 @@
 
                     if (hit)
                     {
-                        if (_movedPassengers.Contains(hit.transform))
+                        if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IPlatformPassenger passenger))
+                            if (hit.collider.TryGetComponent(out passenger))
+                                s_alreadyKnownPassengers.Add(hit.collider, passenger);
+
+                        if (passenger == null || _movedPassengers.Contains(passenger))
                             continue;
 
-                        _movedPassengers.Add(hit.transform);
-                        hit.transform.Translate(vel);
+                        _movedPassengers.Add(passenger);
+                        _passengersVelocities.Add(new PassengerVelocity(passenger, vel, true, false));
                     }
                 }
             }
+        }
+
+        private void ApplyPassengersVelocity(bool moveBeforePlatform)
+        {
+            foreach (PassengerVelocity passengerVel in _passengersVelocities)
+                if (passengerVel.MoveBeforePlatform == moveBeforePlatform)
+                    passengerVel.Passenger.OnPlatformMoved(passengerVel.Velocity, passengerVel.StandingOnPlatform);
         }
 
         private void Awake()
@@ -96,10 +135,13 @@
         {
             _raycastsCtrl.ComputeRaycastOrigins();
 
-            Vector3 vel = _velocity * Time.deltaTime;
+            Vector3 vel = _velocity;
 
-            MovePassengers(vel);
-            transform.Translate(vel);
+            ComputePassengersVelocity(vel);
+
+            ApplyPassengersVelocity(true);
+            transform.Translate(vel * Time.deltaTime);
+            ApplyPassengersVelocity(false);
         }
     }
 }

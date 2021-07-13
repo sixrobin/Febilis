@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public abstract class UnitController : MonoBehaviour
+    public abstract class UnitController : MonoBehaviour, Templar.Physics.IPlatformPassenger
     {
         [Header("UNIT BASE")]
         [SerializeField] private BoxCollider2D _boxCollider2D = null;
@@ -28,13 +28,18 @@
 
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
-        public virtual void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
+        void Templar.Physics.IPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
-            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, triggerEvents, checkEdge, effectorDown);
+            Translate(vel, false, standingOnPlatform: standingOnPlatform);
+        }
+
+        public virtual void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
+        {
+            vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, triggerEvents, checkEdge, effectorDown, standingOnPlatform);
             transform.Translate(vel);
         }
 
-        public void Translate(float x, float y, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
+        public void Translate(float x, float y, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
             Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown);
         }

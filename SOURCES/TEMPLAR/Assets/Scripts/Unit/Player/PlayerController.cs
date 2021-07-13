@@ -112,7 +112,7 @@
             _currVel = Vector3.zero;
         }
 
-        public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
+        public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
             // We don't want to use the base method because it computes both direction and then translates, which can result
             // in glitchy corners collisions. This is fine for enemies, but for the player we want to check any direction first, translate
@@ -120,6 +120,9 @@
 
             CollisionsCtrl.ComputeRaycastOrigins();
             CollisionsCtrl.CurrentStates.Reset();
+
+            if (standingOnPlatform)
+                CollisionsCtrl.CurrentStates.SetCollision(Templar.Physics.CollisionsController.CollisionOrigin.BELOW);
 
             vel *= Time.deltaTime;
 
@@ -315,6 +318,7 @@
                 }
 
                 effectorDown = InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP) && InputCtrl.Vertical == -1f;
+                // [TODO] This is causing trouble with jumping on a upward moving platform.
                 if (!effectorDown)
                     _currVel.y = 0f;
             }
