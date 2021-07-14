@@ -319,8 +319,9 @@
 
                 effectorDown = InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP) && InputCtrl.Vertical == -1f;
                 // [TODO] This is causing trouble with jumping on a upward moving platform.
-                if (!effectorDown)
-                    _currVel.y = 0f;
+                // Need to UNCOMMENT this, but change condition ?
+                //if (!effectorDown)
+                //    _currVel.y = 0f;
             }
 
             if (InputCtrl.Horizontal != 0f && !IsHealing)
