@@ -17,10 +17,10 @@ TagManager:
   - Player
   - Enemy
   - Interaction
-  - Destroyable
+  - Triggerable
   - Pickup
-  - 
-  - 
+  - MovingPlatform
+  - MovingPlatformPassenger
   - 
   - 
   - 

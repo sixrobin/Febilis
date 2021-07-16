@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 7536936413643913252}
   - component: {fileID: 7536936413643913248}
   - component: {fileID: 7536936413643913253}
+  - component: {fileID: 6943956505292946110}
   m_Layer: 13
   m_Name: Coin
   m_TagString: Untagged
@@ -190,3 +191,16 @@ MonoBehaviour:
   _initDirRandomAngle: 50
   _pickupParticlesPrefab: {fileID: 5495030605211771356, guid: b333906f13f6dcd4ba5413d7b450be6f,
     type: 3}
+--- !u!114 &6943956505292946110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7536936413643913275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c7ff465f5a1834e80a2c528e9f05ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rb: {fileID: 7536936413643913252}
