@@ -30,7 +30,7 @@
 
         void Templar.Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
-            Translate(vel, false, standingOnPlatform: standingOnPlatform);
+            Translate(vel, triggerEvents: false, standingOnPlatform: standingOnPlatform);
         }
 
         public virtual void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)

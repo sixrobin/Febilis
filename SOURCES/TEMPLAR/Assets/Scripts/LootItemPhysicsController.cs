@@ -4,9 +4,7 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public abstract class LootItemPhysicsController : MonoBehaviour,
-        RSLib.Framework.Pooling.IPoolItem,
-        Physics.MovingPlatform.IMovingPlatformPassenger
+    public abstract class LootItemPhysicsController : MonoBehaviour, RSLib.Framework.Pooling.IPoolItem
     {
         [Header("REFS")]
         [SerializeField] private Rigidbody2D _rb = null;
@@ -17,12 +15,6 @@
         [SerializeField] private float _initDirRandomAngle = 50f;
 
         private int _idleStateHash;
-
-        void Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
-        {
-            //_rb.MovePosition(_rb.position + (Vector2)vel * Time.deltaTime);
-            transform.Translate(vel * Time.deltaTime);
-        }
 
         public virtual void OnGetFromPool(params object[] args)
         {

@@ -54,7 +54,7 @@
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = _dbgColor?.Color ?? Color.yellow;
+            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
 
             if (_wayPositions != null)
             {
@@ -63,6 +63,11 @@
                     Vector3 globalPos = Application.isPlaying ? _globalWayPositions[i] : (Vector3)_wayPositions[i] + transform.position;
                     Gizmos.DrawWireSphere(globalPos, _waypointsGizmosRadius);
                 }
+
+                if (Application.isPlaying)
+                    RSLib.Helpers.DrawVectorsPath(_globalWayPositions, Cyclic);
+                else
+                    RSLib.Helpers.DrawVectorsPath(_wayPositions, transform.position, Cyclic);
             }
         }
     }

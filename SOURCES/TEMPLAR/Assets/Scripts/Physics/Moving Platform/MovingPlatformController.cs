@@ -1,6 +1,9 @@
 ﻿namespace Templar.Physics.MovingPlatform
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class MovingPlatformController : MonoBehaviour
@@ -25,6 +28,14 @@
         [SerializeField] private LayerMask _passengersMask = 0;
         [SerializeField] private MovingPlatformWaypoints _waypoints = null;
         [SerializeField] private float _speed = 5f;
+        [SerializeField, Tooltip("Should be checked if objects are placed on the platform.")] private bool _raycastAll = false;
+
+        [Header("INIT VALUES")]
+        [SerializeField] private RSLib.Framework.OptionalFloat _initPercentage = new RSLib.Framework.OptionalFloat(0f, false);
+        [SerializeField] private RSLib.Framework.OptionalInt _initFromIndex = new RSLib.Framework.OptionalInt(0, false);
+
+        [Header("DEBUG")]
+        [SerializeField] private RSLib.DataColor _raycastsColor = null;
 
         private RaycastsController _raycastsCtrl;
 
@@ -37,6 +48,13 @@
 
         private System.Collections.Generic.HashSet<IMovingPlatformPassenger> _movedPassengers = new System.Collections.Generic.HashSet<IMovingPlatformPassenger>();
         private System.Collections.Generic.List<PassengerVelocity> _passengersVelocities = new System.Collections.Generic.List<PassengerVelocity>();
+
+        public void ResetPlatform()
+        {
+            _currWaypointsPercentage = _initPercentage.Enabled ? _initPercentage.Value : 0f;
+            _fromWaypointIndex = _initFromIndex.Enabled ? _initFromIndex.Value : 0;
+            _toWaypointIndex = 0;
+        }
 
         private Vector3 ComputePlatformVelocity()
         {
@@ -82,57 +100,67 @@
 
             if (vel.y != 0f)
             {
-                float length = Mathf.Abs(vel.y) + RaycastsController.SKIN_WIDTH;
+                float length = Mathf.Abs(vel.y) * Time.deltaTime + RaycastsController.SKIN_WIDTH;
 
                 for (int i = 0; i < _raycastsCtrl.VerticalRaycastsCount; ++i)
                 {
                     Vector2 rayOrigin = (signY == 1f ? _raycastsCtrl.RaycastsOrigins.TopLeft : _raycastsCtrl.RaycastsOrigins.BottomLeft) + Vector2.right * i * _raycastsCtrl.VerticalRaycastsSpacing;
-                    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * signY, length, _passengersMask);
+                    RaycastHit2D[] hits = _raycastAll
+                        ? Physics2D.RaycastAll(rayOrigin, Vector2.up * signY, length, _passengersMask)
+                        : (new RaycastHit2D[1] { Physics2D.Raycast(rayOrigin, Vector2.up * signY, length, _passengersMask) });
 
-                    Debug.DrawLine(rayOrigin, rayOrigin + length * signY * Vector2.up, Color.yellow);
-
-                    if (hit)
+                    for (int j = hits.Length - 1; j >= 0; --j)
                     {
-                        if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
-                            if (hit.collider.TryGetComponent(out passenger))
-                                s_alreadyKnownPassengers.Add(hit.collider, passenger);
+                        RaycastHit2D hit = hits[j];
+                        if (hit)
+                        {
+                            if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
+                                if (hit.collider.TryGetComponent(out passenger))
+                                    s_alreadyKnownPassengers.Add(hit.collider, passenger);
 
-                        if (passenger == null || _movedPassengers.Contains(passenger))
-                            continue;
+                            if (passenger == null || _movedPassengers.Contains(passenger))
+                                continue;
 
-                        _movedPassengers.Add(passenger);
+                            _movedPassengers.Add(passenger);
 
-                        float pushX = signY == 1f ? vel.x : 0f;
-                        float pushY = vel.y - (hit.distance - RaycastsController.SKIN_WIDTH) * signY;
-                        _passengersVelocities.Add(new PassengerVelocity(passenger, new Vector3(pushX, pushY), signY == 1f, true));
+                            float pushX = signY == 1f ? vel.x : 0f;
+                            float pushY = vel.y - (hit.distance - RaycastsController.SKIN_WIDTH) * signY;
+                            _passengersVelocities.Add(new PassengerVelocity(passenger, new Vector3(pushX, pushY), signY == 1f, true));
+                        }
                     }
                 }
             }
 
             if (vel.x != 0f)
             {
-                float length = Mathf.Abs(vel.x) + RaycastsController.SKIN_WIDTH;
+                float length = Mathf.Abs(vel.x) * Time.deltaTime + RaycastsController.SKIN_WIDTH;
 
                 for (int i = 0; i < _raycastsCtrl.HorizontalRaycastsCount; ++i)
                 {
                     Vector2 rayOrigin = (signX == 1f ? _raycastsCtrl.RaycastsOrigins.BottomRight : _raycastsCtrl.RaycastsOrigins.BottomLeft) + Vector2.up * i * _raycastsCtrl.HorizontalRaycastsSpacing;
-                    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * signX, length, _passengersMask);
+                    RaycastHit2D[] hits = _raycastAll
+                        ? Physics2D.RaycastAll(rayOrigin, Vector2.right * signX, length, _passengersMask)
+                        : (new RaycastHit2D[1] { Physics2D.Raycast(rayOrigin, Vector2.right * signX, length, _passengersMask) });
 
-                    Debug.DrawLine(rayOrigin, rayOrigin + Vector2.up * signX, Color.yellow);
+                    Debug.DrawLine(rayOrigin, rayOrigin + length * signX * Vector2.right, _raycastsColor?.Color ?? RSLib.DataColor.Default);
 
-                    if (hit)
+                    for (int j = hits.Length - 1; j >= 0; --j)
                     {
-                        if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
-                            if (hit.collider.TryGetComponent(out passenger))
-                                s_alreadyKnownPassengers.Add(hit.collider, passenger);
+                        RaycastHit2D hit = hits[j];
+                        if (hit)
+                        {
+                            if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
+                                if (hit.collider.TryGetComponent(out passenger))
+                                    s_alreadyKnownPassengers.Add(hit.collider, passenger);
 
-                        if (passenger == null || _movedPassengers.Contains(passenger))
-                            continue;
+                            if (passenger == null || _movedPassengers.Contains(passenger))
+                                continue;
 
-                        _movedPassengers.Add(passenger);
+                            _movedPassengers.Add(passenger);
 
-                        float pushX = vel.x - (hit.distance - RaycastsController.SKIN_WIDTH) * signX;
-                        _passengersVelocities.Add(new PassengerVelocity(passenger, new Vector3(pushX, 0f), false, true));
+                            float pushX = vel.x - (hit.distance - RaycastsController.SKIN_WIDTH) * signX;
+                            _passengersVelocities.Add(new PassengerVelocity(passenger, new Vector3(pushX, 0f), false, true));
+                        }
                     }
                 }
             }
@@ -145,19 +173,25 @@
                 for (int i = 0; i < _raycastsCtrl.VerticalRaycastsCount; ++i)
                 {
                     Vector2 rayOrigin = _raycastsCtrl.RaycastsOrigins.TopLeft + _raycastsCtrl.VerticalRaycastsSpacing * i * Vector2.right;
-                    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, length, _passengersMask);
+                    RaycastHit2D[] hits = _raycastAll
+                        ? Physics2D.RaycastAll(rayOrigin, Vector2.up, length, _passengersMask)
+                        : (new RaycastHit2D[1] { Physics2D.Raycast(rayOrigin, Vector2.up, length, _passengersMask) });
 
-                    if (hit)
+                    for (int j = hits.Length - 1; j >= 0; --j)
                     {
-                        if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
-                            if (hit.collider.TryGetComponent(out passenger))
-                                s_alreadyKnownPassengers.Add(hit.collider, passenger);
+                        RaycastHit2D hit = hits[j];
+                        if (hit)
+                        {
+                            if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
+                                if (hit.collider.TryGetComponent(out passenger))
+                                    s_alreadyKnownPassengers.Add(hit.collider, passenger);
 
-                        if (passenger == null || _movedPassengers.Contains(passenger))
-                            continue;
+                            if (passenger == null || _movedPassengers.Contains(passenger))
+                                continue;
 
-                        _movedPassengers.Add(passenger);
-                        _passengersVelocities.Add(new PassengerVelocity(passenger, vel, true, false));
+                            _movedPassengers.Add(passenger);
+                            _passengersVelocities.Add(new PassengerVelocity(passenger, vel, true, false));
+                        }
                     }
                 }
             }
@@ -179,6 +213,7 @@
 
         private void Awake()
         {
+            ResetPlatform();
             _raycastsCtrl = new RaycastsController(_boxCollider2D);
         }
 
@@ -194,4 +229,15 @@
             ApplyPassengersVelocity(false);
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(MovingPlatformController))]
+    public class MovingPlatformControllerEditor : RSLib.EditorUtilities.ButtonProviderEditor<MovingPlatformController>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Reset Platform", Obj.ResetPlatform);
+        }
+    }
+#endif
 }
