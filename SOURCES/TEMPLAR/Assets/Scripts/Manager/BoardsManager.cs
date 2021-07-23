@@ -54,10 +54,14 @@
 
         private static System.Collections.IEnumerator BoardTransitionCoroutine(BoardsLink source, BoardsLink target)
         {
-            source.gameObject.SetActive(false);
-            target.gameObject.SetActive(false);
+            source.OnBoardsTransitionBegan();
+            target.OnBoardsTransitionBegan();
 
             GameManager.PlayerCtrl.AllowInputs(false);
+
+            // [TODO] This works but camera will follow a bit too harshly. Block it?
+            if (source.EnterTeleportPos != null)
+                GameManager.PlayerCtrl.transform.position = source.EnterTeleportPos.position;
 
             switch (source.ExitDir)
             {
@@ -75,10 +79,18 @@
                     // Just let player fall.
                     break;
 
+                case ScreenDirection.IN:
+                case ScreenDirection.OUT:
+                    Instance.LogWarning("Should play player in/out animation here.");
+                    break;
+
                 default:
-                    Instance.LogError($"Invalid exit direction {source.ExitDir.ToString()} for board link {source.transform.name}.", source.gameObject);
+                    Instance.LogError($"Unhandled exit direction {source.ExitDir.ToString()} for board link {source.transform.name}.", source.gameObject);
                     yield break;
             }
+
+            if (source.OverrideFadedInDelay)
+                yield return RSLib.Yield.SharedYields.WaitForSeconds(source.OverrideFadedInDelayDur);
 
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
@@ -125,8 +137,13 @@
                     GameManager.PlayerCtrl.transform.AddPositionY(Instance._downRespawnHeightOffset);
                     break;
 
+                case ScreenDirection.IN:
+                case ScreenDirection.OUT:
+                    Instance.LogWarning("Should play player in/out animation here.");
+                    break;
+
                 default:
-                    Instance.LogError($"Invalid enter direction {target.EnterDir.ToString()} for board link {target.transform.name}.", target.gameObject);
+                    Instance.LogError($"Unhandled enter direction {target.EnterDir.ToString()} for board link {target.transform.name}.", target.gameObject);
                     yield break;
             }
 
@@ -135,8 +152,8 @@
 
             GameManager.PlayerCtrl.AllowInputs(true);
 
-            source.gameObject.SetActive(true);
-            target.gameObject.SetActive(true);
+            source.OnBoardsTransitionOver();
+            target.OnBoardsTransitionOver();
 
             s_boardTransitionCoroutine = null;
             s_playerMovementCoroutine = null;

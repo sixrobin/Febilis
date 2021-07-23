@@ -5,8 +5,8 @@
     [DisallowMultipleComponent]
     public class Interacter : MonoBehaviour
     {
-        private System.Collections.Generic.Dictionary<Collider2D, Interactable> _knownInteractables = new System.Collections.Generic.Dictionary<Collider2D, Interactable>();
-        private Interactable _currInteractable;
+        private System.Collections.Generic.Dictionary<Collider2D, IInteractable> _knownInteractables = new System.Collections.Generic.Dictionary<Collider2D, IInteractable>();
+        private IInteractable _currInteractable;
 
         public void TryInteract()
         {
@@ -23,7 +23,7 @@
                 _currInteractable = null;
             }
 
-            if (!_knownInteractables.TryGetValue(collision, out Interactable interactable))
+            if (!_knownInteractables.TryGetValue(collision, out IInteractable interactable))
                 if (collision.TryGetComponent(out interactable))
                     _knownInteractables.Add(collision, interactable);
 
@@ -37,10 +37,10 @@
         private void OnTriggerExit2D(Collider2D collision)
         {
             UnityEngine.Assertions.Assert.IsFalse(
-                collision.GetComponent<Interactable>() != null && !_knownInteractables.ContainsKey(collision),
+                collision.GetComponent<IInteractable>() != null && !_knownInteractables.ContainsKey(collision),
                 "Exiting a trigger that has an Interactable component that was not recorded in the known interactables.");
 
-            if (_knownInteractables.TryGetValue(collision, out Interactable interactable))
+            if (_knownInteractables.TryGetValue(collision, out IInteractable interactable))
             {
                 interactable.Unfocus();
                 if (interactable == _currInteractable)

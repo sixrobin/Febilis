@@ -6,10 +6,12 @@
         UP,
         DOWN,
         RIGHT,
-        LEFT
+        LEFT,
+        IN,
+        OUT
     }
 
-    public static class CardinalDirectionExtensions
+    public static class ScreenDirectionExtensions
     {
         public static ScreenDirection Opposite(this ScreenDirection dir)
         {
@@ -23,8 +25,13 @@
                     return ScreenDirection.LEFT;
                 case ScreenDirection.LEFT:
                     return ScreenDirection.RIGHT;
+                case ScreenDirection.IN:
+                    return ScreenDirection.OUT;
+                case ScreenDirection.OUT:
+                    return ScreenDirection.IN;
 
                 default:
+                    UnityEngine.Debug.LogWarning($"Unhandled ScreenDirection {dir}.");
                     return ScreenDirection.NONE;
             }
         }
@@ -43,6 +50,7 @@
                     return new UnityEngine.Vector2(-1f, 0f);
 
                 default:
+                    UnityEngine.Debug.LogWarning($"Unhandled ScreenDirection {dir}.");
                     return UnityEngine.Vector2.zero;
             }
         }

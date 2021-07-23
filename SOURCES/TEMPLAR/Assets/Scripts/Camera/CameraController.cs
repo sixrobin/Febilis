@@ -85,7 +85,7 @@
 
         public void SetBoardBounds(Boards.Board board)
         {
-            CurrBoardBounds = board.CameraBounds;
+            CurrBoardBounds = board?.CameraBounds;
         }
 
         public void SetBounds(BoxCollider2D box)
