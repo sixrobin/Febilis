@@ -5163,7 +5163,7 @@ GameObject:
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   m_Layer: 0
-  m_Name: Templar Camera
+  m_Name: Camera Controller
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5271,19 +5271,7 @@ MonoBehaviour:
   _camera: {fileID: 519420031}
   _playerCtrl: {fileID: 327885998}
   _grayscaleRamp: {fileID: 519420034}
-  _shakes:
-  - _id: Small
-    _shakeSettings:
-      _radius: 0.5
-      _speed: 2.5
-  - _id: Medium
-    _shakeSettings:
-      _radius: 0.7
-      _speed: 2
-  - _id: Big
-    _shakeSettings:
-      _radius: 1
-      _speed: 1.8
+  _shakesLibrary: {fileID: 11400000, guid: f85cc66a23892ff47a4bdb5a2aa3b37b, type: 2}
   _toggleManualFix: 1
   _referenceResolution: {x: 160, y: 144}
   _assetsPixelsPerUnit: 18

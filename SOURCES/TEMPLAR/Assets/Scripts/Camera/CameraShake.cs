@@ -9,47 +9,13 @@
         public const string ID_MEDIUM = "Medium";
         public const string ID_BIG = "Big";
 
-        [System.Serializable]
-        public class Settings
-        {
-            [SerializeField] private float _radius = 0.3f;
-            [SerializeField] private float _speed = 2f;
-
-            public Settings(float radius, float speed)
-            {
-                _radius = radius;
-                _speed = speed;
-            }
-
-            public Settings(Settings template)
-            {
-                _radius = template.Radius;
-                _speed = template.Speed;
-            }
-
-            public static Settings Default => new Settings(0.3f, 2f);
-
-            public float Radius => _radius;
-            public float Speed => _speed;
-        }
-
-        private Settings _shakeSettings;
+        private Templar.Datas.ShakeSettingsDatas _shakeSettings;
 
         public Vector2 Trauma { get; private set; }
 
-        public CameraShake(Settings shakeSettings)
+        public CameraShake(Templar.Datas.ShakeSettingsDatas shakeSettings)
         {
-            _shakeSettings = new Settings(shakeSettings);
-        }
-
-        public void SetSettings(float radius, float speed)
-        {
-            _shakeSettings = new Settings(radius, speed);
-        }
-
-        public void SetSettings(Settings template)
-        {
-            _shakeSettings = new Settings(template);
+            _shakeSettings = shakeSettings;
         }
 
         public void AddTrauma(float value)
