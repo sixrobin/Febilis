@@ -61,6 +61,8 @@
 
         public BoxCollider2D CurrBoardBounds { get; private set; }
 
+        public bool Frozen { get; private set; }
+
         public void ApplyShakeFromDatas(Templar.Datas.ShakeTraumaDatas shakeDatas)
         {
             if (shakeDatas == null)
@@ -81,6 +83,11 @@
         public void PositionInstantly()
         {
             transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
+        }
+
+        public void ToggleFreeze(bool state)
+        {
+            Frozen = state;
         }
 
         public void SetBoardBounds(Boards.Board board)
@@ -233,6 +240,9 @@
             // [TODO] Visualize all shakes traumas.
             //_currTraumaVisualizer = Shake.Trauma;
 #endif
+
+            if (Frozen)
+                return;
 
             _focusArea.Update();
 

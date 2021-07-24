@@ -59,9 +59,11 @@
 
             GameManager.PlayerCtrl.AllowInputs(false);
 
-            // [TODO] This works but camera will follow a bit too harshly. Block it?
             if (source.EnterTeleportPos != null)
+            {
                 GameManager.PlayerCtrl.transform.position = source.EnterTeleportPos.position;
+                GameManager.CameraCtrl.ToggleFreeze(true);
+            }
 
             switch (source.ExitDir)
             {
@@ -80,12 +82,11 @@
                     break;
 
                 case ScreenDirection.IN:
-                case ScreenDirection.OUT:
-                    Instance.LogWarning("Should play player in/out animation here.");
+                    GameManager.PlayerCtrl.PlayerView.PlayTransitionInAnimation();
                     break;
 
                 default:
-                    Instance.LogError($"Unhandled exit direction {source.ExitDir.ToString()} for board link {source.transform.name}.", source.gameObject);
+                    Instance.LogError($"Unhandled exit direction {source.ExitDir} for board link {source.transform.name}.", source.gameObject);
                     yield break;
             }
 
@@ -105,6 +106,8 @@
             GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.
 
             yield return null;
+
+            GameManager.CameraCtrl.ToggleFreeze(false);
             GameManager.CameraCtrl.SetBoardBounds(target.OwnerBoard);
             GameManager.CameraCtrl.PositionInstantly();
 
@@ -137,13 +140,12 @@
                     GameManager.PlayerCtrl.transform.AddPositionY(Instance._downRespawnHeightOffset);
                     break;
 
-                case ScreenDirection.IN:
                 case ScreenDirection.OUT:
-                    Instance.LogWarning("Should play player in/out animation here.");
+                    GameManager.PlayerCtrl.PlayerView.PlayTransitionOutAnimation();
                     break;
 
                 default:
-                    Instance.LogError($"Unhandled enter direction {target.EnterDir.ToString()} for board link {target.transform.name}.", target.gameObject);
+                    Instance.LogError($"Unhandled enter direction {target.EnterDir} for board link {target.transform.name}.", target.gameObject);
                     yield break;
             }
 
@@ -179,8 +181,14 @@
             Gizmos.color = _debugColor?.Color ?? Color.yellow;
 
             for (int i = _links.Length - 1; i >= 0; --i)
+            {
                 if (_links[i].First != null && _links[i].Second != null)
+                {
                     Gizmos.DrawLine(_links[i].First.transform.position, _links[i].Second.transform.position);
+                    Gizmos.DrawWireSphere(_links[i].First.transform.position, 0.3f);
+                    Gizmos.DrawWireSphere(_links[i].Second.transform.position, 0.3f);
+                }
+            }
         }
 
         public static void DebugAutoDetectInitBoard()

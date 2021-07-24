@@ -64,13 +64,13 @@
 
             _diffText.enabled = _diff != 0;
             if (_diffText.enabled)
-                _diffText.text = $"{(System.Math.Sign(_diff) > 0 ? "+" : "-")}{System.Math.Abs(_diff).ToString()}";
+                _diffText.text = $"{(System.Math.Sign(_diff) > 0 ? "+" : "-")}{System.Math.Abs(_diff)}";
         }
 
         private void Display(bool state)
         {
             _currencyCanvas.enabled = state;
-            _displayedCurrency = Manager.GameManager.InventoryCtrl.GetItemQuantity(InventoryController.ITEM_ID_COIN);
+            _displayedCurrency = Manager.GameManager.InventoryCtrl?.GetItemQuantity(InventoryController.ITEM_ID_COIN) ?? 999;
             _diff = 0;
 
             KillUpdateDifferenceCoroutine();
@@ -115,8 +115,11 @@
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
 
-            Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
-            Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
+            if (Manager.GameManager.InventoryCtrl != null)
+                Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            
+            if (Manager.GameManager.InventoryView != null)
+                Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
 
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueId) => Display(false);
             UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueId) => Display(true);
@@ -141,7 +144,10 @@
 
             if (Manager.GameManager.Exists())
             {
+            if (Manager.GameManager.InventoryCtrl != null)
                 Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
+            
+                if (Manager.GameManager.InventoryView != null)
                 Manager.GameManager.InventoryView.DisplayChanged -= OnInventoryDisplayChanged;
 
                 if (Manager.GameManager.PlayerCtrl != null)

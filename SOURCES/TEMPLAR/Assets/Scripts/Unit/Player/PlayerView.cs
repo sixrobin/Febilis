@@ -23,6 +23,8 @@
         private const string DIALOGUE_TALK = "DialogueTalk";
         private const string LOOK_UP = "LookUp";
         private const string LOOK_DOWN = "LookDown";
+        private const string TRANSITION_IN = "TransitionIn";
+        private const string TRANSITION_OUT = "TransitionOut";
         private const string MULT_ROLL = "Mult_Roll";
         
         [Header("MOTION")]
@@ -266,6 +268,18 @@
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
             LogAnimationPlayIfRequired("Death");
+        }
+
+        public void PlayTransitionInAnimation()
+        {
+            _animator.SetTrigger(TRANSITION_IN);
+            LogAnimationPlayIfRequired("Transition In");
+        }
+
+        public void PlayTransitionOutAnimation()
+        {
+            _animator.SetTrigger(TRANSITION_OUT);
+            LogAnimationPlayIfRequired("Transition Out");
         }
 
         private void UpdateAttackAnimation(float dir = 0f)

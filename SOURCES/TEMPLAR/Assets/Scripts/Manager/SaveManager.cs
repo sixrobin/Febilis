@@ -100,7 +100,10 @@
         {
             Instance.Log("Loading new game.", true);
 
-            GameManager.InventoryCtrl.Load();
+            if (GameManager.InventoryCtrl == null)
+                Instance.LogWarning("InventoryCtrl could not be found, cannot load it.");
+            else
+               GameManager.InventoryCtrl.Load();
         }
 
         public static bool EraseSave()

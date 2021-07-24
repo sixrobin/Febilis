@@ -37,7 +37,7 @@
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !UI.Dialogue.DialogueManager.DialogueRunning
-                && !GameManager.InventoryView.Displayed;
+                && (!GameManager.InventoryView?.Displayed ?? true);
         }
 
         public void OpenSettings()
