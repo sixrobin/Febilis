@@ -54,10 +54,16 @@
 
         private static System.Collections.IEnumerator BoardTransitionCoroutine(BoardsLink source, BoardsLink target)
         {
-            source.gameObject.SetActive(false);
-            target.gameObject.SetActive(false);
+            source.OnBoardsTransitionBegan();
+            target.OnBoardsTransitionBegan();
 
             GameManager.PlayerCtrl.AllowInputs(false);
+
+            if (source.EnterTeleportPos != null)
+            {
+                GameManager.PlayerCtrl.transform.position = source.EnterTeleportPos.position;
+                GameManager.CameraCtrl.ToggleFreeze(true);
+            }
 
             switch (source.ExitDir)
             {
@@ -75,10 +81,17 @@
                     // Just let player fall.
                     break;
 
+                case ScreenDirection.IN:
+                    GameManager.PlayerCtrl.PlayerView.PlayTransitionInAnimation();
+                    break;
+
                 default:
-                    Instance.LogError($"Invalid exit direction {source.ExitDir.ToString()} for board link {source.transform.name}.", source.gameObject);
+                    Instance.LogError($"Unhandled exit direction {source.ExitDir} for board link {source.transform.name}.", source.gameObject);
                     yield break;
             }
+
+            if (source.OverrideFadedInDelay)
+                yield return RSLib.Yield.SharedYields.WaitForSeconds(source.OverrideFadedInDelayDur);
 
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
@@ -93,6 +106,8 @@
             GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.
 
             yield return null;
+
+            GameManager.CameraCtrl.ToggleFreeze(false);
             GameManager.CameraCtrl.SetBoardBounds(target.OwnerBoard);
             GameManager.CameraCtrl.PositionInstantly();
 
@@ -125,8 +140,12 @@
                     GameManager.PlayerCtrl.transform.AddPositionY(Instance._downRespawnHeightOffset);
                     break;
 
+                case ScreenDirection.OUT:
+                    GameManager.PlayerCtrl.PlayerView.PlayTransitionOutAnimation();
+                    break;
+
                 default:
-                    Instance.LogError($"Invalid enter direction {target.EnterDir.ToString()} for board link {target.transform.name}.", target.gameObject);
+                    Instance.LogError($"Unhandled enter direction {target.EnterDir} for board link {target.transform.name}.", target.gameObject);
                     yield break;
             }
 
@@ -135,8 +154,8 @@
 
             GameManager.PlayerCtrl.AllowInputs(true);
 
-            source.gameObject.SetActive(true);
-            target.gameObject.SetActive(true);
+            source.OnBoardsTransitionOver();
+            target.OnBoardsTransitionOver();
 
             s_boardTransitionCoroutine = null;
             s_playerMovementCoroutine = null;
@@ -162,8 +181,14 @@
             Gizmos.color = _debugColor?.Color ?? Color.yellow;
 
             for (int i = _links.Length - 1; i >= 0; --i)
+            {
                 if (_links[i].First != null && _links[i].Second != null)
+                {
                     Gizmos.DrawLine(_links[i].First.transform.position, _links[i].Second.transform.position);
+                    Gizmos.DrawWireSphere(_links[i].First.transform.position, 0.3f);
+                    Gizmos.DrawWireSphere(_links[i].Second.transform.position, 0.3f);
+                }
+            }
         }
 
         public static void DebugAutoDetectInitBoard()

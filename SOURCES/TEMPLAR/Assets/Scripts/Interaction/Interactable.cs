@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public abstract class Interactable : MonoBehaviour
+    public abstract class Interactable : MonoBehaviour, IInteractable
     {
         public class InteractionEventArgs : System.EventArgs
         {

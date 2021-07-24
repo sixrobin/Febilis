@@ -202,8 +202,11 @@
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
 
-            Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
-            Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
+            if (Manager.GameManager.InventoryCtrl != null)
+                Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            
+            if (Manager.GameManager.InventoryView != null)
+                Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
 
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
@@ -230,7 +233,10 @@
 
             if (Manager.GameManager.Exists())
             {
+            if (Manager.GameManager.InventoryCtrl != null)
                 Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
+
+            if (Manager.GameManager.InventoryView != null)
                 Manager.GameManager.InventoryView.DisplayChanged -= OnInventoryDisplayChanged;
 
                 if (Manager.GameManager.PlayerCtrl != null)

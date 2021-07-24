@@ -17,7 +17,7 @@
 
         public int HealsLeft
         {
-            get => Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION);
+            get => Manager.GameManager.InventoryCtrl?.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION) ?? 10;
             set
             {
                 if (!DebugMode)

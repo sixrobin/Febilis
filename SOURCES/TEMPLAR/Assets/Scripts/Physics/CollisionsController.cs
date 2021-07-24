@@ -177,12 +177,12 @@
             CProLogger.LogWarning(this, $"No ground has been found to ground {transform.name}.");
         }
 
-        public void ComputeCollisions(ref Vector3 vel, bool checkEdge = false, bool downEffector = false)
+        public void ComputeCollisions(ref Vector3 vel, bool checkEdge = false, bool downEffector = false, bool standingOnPlatform = false)
         {
-            vel = ComputeCollisions(vel, checkEdge, downEffector);
+            vel = ComputeCollisions(vel, checkEdge, downEffector, standingOnPlatform);
         }
 
-        public Vector3 ComputeCollisions(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool downEffector = false)
+        public Vector3 ComputeCollisions(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool downEffector = false, bool standingOnPlatform = false)
         {
             ComputeRaycastOrigins();
             CurrentStates.Reset();
@@ -192,6 +192,9 @@
 
             if (vel.y != 0f)
                 ComputeVerticalCollisions(ref vel, downEffector, triggerEvents);
+
+            if (standingOnPlatform)
+                CurrentStates.SetCollision(CollisionOrigin.BELOW);
 
             return vel;
         }
@@ -284,7 +287,7 @@
             {
                 vel.x = 0f;
 
-                CurrentStates.SetCollision(CollisionOrigin.EDGE, true);
+                CurrentStates.SetCollision(CollisionOrigin.EDGE);
 
                 if (triggerEvents)
                     RegisterCollision(new CollisionInfos(CollisionOrigin.EDGE, hit));

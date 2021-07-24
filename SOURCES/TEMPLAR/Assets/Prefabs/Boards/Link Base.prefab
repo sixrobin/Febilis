@@ -144,5 +144,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _exitDir: 0
-  _overrideRespawnPos: {fileID: 0}
-  _visualizer: {fileID: 3072696565671550024}
+  _overrideRespawnPos:
+    _value: {fileID: 0}
+    _enabled: 0
+  _overrideExitFadedInDur:
+    _value: 1
+    _enabled: 1
+  _dbgVisualizer: {fileID: 3072696565671550024}

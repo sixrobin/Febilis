@@ -6,6 +6,7 @@
     public class PlayerController : UnitController, ICheckpointListener, Interaction.Dialogue.ISpeaker
     {
         private const string PLAYER_SPEAKER_ID = "Templar";
+        private const int EFFECTOR_DOWN_FRAME_DUR = 10;
 
         [Header("PLAYER")]
         [SerializeField] private PlayerView _playerView = null;
@@ -18,6 +19,7 @@
 
         private System.Collections.IEnumerator _hurtCoroutine;
         private System.Collections.IEnumerator _healCoroutine;
+        private System.Collections.IEnumerator _effectorDownCoroutine;
 
         private Vector3 _currVel;
         private Vector3 _prevVel;
@@ -41,6 +43,7 @@
 
         public bool IsBeingHurt => _hurtCoroutine != null;
         public bool IsHealing => _healCoroutine != null;
+        public bool EffectorDown => _effectorDownCoroutine != null;
 
         public bool IsDialoguing { get; set; }
         public string SpeakerId => PLAYER_SPEAKER_ID;
@@ -112,7 +115,7 @@
             _currVel = Vector3.zero;
         }
 
-        public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false)
+        public override void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
             // We don't want to use the base method because it computes both direction and then translates, which can result
             // in glitchy corners collisions. This is fine for enemies, but for the player we want to check any direction first, translate
@@ -120,6 +123,9 @@
 
             CollisionsCtrl.ComputeRaycastOrigins();
             CollisionsCtrl.CurrentStates.Reset();
+
+            if (standingOnPlatform)
+                CollisionsCtrl.CurrentStates.SetCollision(Templar.Physics.CollisionsController.CollisionOrigin.BELOW);
 
             vel *= Time.deltaTime;
 
@@ -314,16 +320,20 @@
                     AttackCtrl.ResetAirborneAttack();
                 }
 
-                effectorDown = InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP) && InputCtrl.Vertical == -1f;
-                if (!effectorDown)
+                if (InputCtrl.CheckInput(PlayerInputController.ButtonCategory.JUMP) && InputCtrl.Vertical == -1f)
+                    StartCoroutine(_effectorDownCoroutine = EffectorDownCoroutine());
+
+                if (!EffectorDown)
                     _currVel.y = 0f;
+                else
+                    Debug.Log("OUI");
             }
 
             if (InputCtrl.Horizontal != 0f && !IsHealing)
                 CurrDir = InputCtrl.CurrentHorizontalDir;
 
             // Jump.
-            if (JumpCtrl.CanJump() && (!effectorDown || !CollisionsCtrl.AboveEffector))
+            if (JumpCtrl.CanJump() && (!EffectorDown || !CollisionsCtrl.AboveEffector))
             {
                 JumpCtrl.JumpAllowedThisFrame = true;
                 InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
@@ -357,7 +367,7 @@
             if (!CollisionsCtrl.Below && !JumpCtrl.IsAnticipatingJump && !InputCtrl.CheckJumpInput() && _currVel.y > JumpCtrl.JumpVelMin)
                 _currVel.y = JumpCtrl.JumpVelMin;
 
-            if (effectorDown && CollisionsCtrl.AboveEffector)
+            if (EffectorDown && CollisionsCtrl.AboveEffector)
                 StartCoroutine(ResetJumpInputAfterDownEffector());
 
             float targetVelX = CtrlDatas.RunSpeed;
@@ -385,7 +395,7 @@
             // Doing this here makes events being well triggered but causes the tennis ball bug.
             //_currVel += GetCurrentRecoil();
 
-            Translate(_currVel, checkEdge: false, effectorDown: effectorDown);
+            Translate(_currVel, checkEdge: false, effectorDown: EffectorDown);
 
             // Doing a grounded jump or falling will trigger this condition and remove one jump left. We need to do this after the ComputeCollisions call.
             if (!CollisionsCtrl.Below && CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW))
@@ -536,6 +546,14 @@
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.JUMP);
         }
 
+        private System.Collections.IEnumerator EffectorDownCoroutine()
+        {
+            // Allow player to fall down even if on a downward moving platform.
+            // Coroutine duration should be based on platform velocity, but this should be okay for most of the cases.
+            yield return RSLib.Yield.SharedYields.WaitForFrames(EFFECTOR_DOWN_FRAME_DUR);
+            _effectorDownCoroutine = null;
+        }
+
         protected override void Update()
         {
             if (!Initialized)
@@ -554,7 +572,7 @@
                 && !Tools.CheckpointTeleporter.IsOpen
                 && !Manager.BoardsManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame()
-                && !Manager.GameManager.InventoryView.Displayed)
+                && (!Manager.GameManager.InventoryView?.Displayed ?? true))
                 InputCtrl.Update();
 
             if (IsDead)
