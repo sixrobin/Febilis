@@ -29,7 +29,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
   m_Name: Passage Door Test
   m_EditorClassIdentifier: 
-  _targetPassage: {fileID: -5038822523804888175, guid: 1fe09a35e25a2e947862631c0b0cfef1,
-    type: 2}
+  _targetPassage: {fileID: 0}
   _targetSceneName:
-    _value: Village Scenes Passages Handler
+    _value: 

@@ -60124,6 +60124,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5288407546716378192, guid: 512acdd3b3a9487448a7997c52b7d2a3,
+        type: 3}
+      propertyPath: _targetBoardLink._enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288407546716378192, guid: 512acdd3b3a9487448a7997c52b7d2a3,
+        type: 3}
+      propertyPath: _targetScenePassage._enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288407546716378192, guid: 512acdd3b3a9487448a7997c52b7d2a3,
+        type: 3}
+      propertyPath: _targetBoardsLink._enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5288407546716378193, guid: 512acdd3b3a9487448a7997c52b7d2a3,
         type: 3}
       propertyPath: m_LocalPosition.x

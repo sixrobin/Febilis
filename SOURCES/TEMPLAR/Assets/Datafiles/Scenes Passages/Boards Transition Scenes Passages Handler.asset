@@ -29,7 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
   m_Name: Passage Door Tuto
   m_EditorClassIdentifier: 
-  _targetPassage: {fileID: -5038822523804888175, guid: 1fe09a35e25a2e947862631c0b0cfef1,
+  _targetPassage: {fileID: 4825152226941029160, guid: 7a8b06d8ae96b304bb088a20e1f103dc,
     type: 2}
   _targetSceneName:
-    _value: Blocking Scenes Passages Handler
+    _value: 

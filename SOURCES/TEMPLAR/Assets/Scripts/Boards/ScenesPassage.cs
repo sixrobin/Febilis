@@ -30,9 +30,14 @@
             _passagesHandlerContainer.DeleteSubAsset(this);
         }
 
-        private void OnValidate()
+        private void UpdateTargetSceneName()
         {
             _targetSceneName = new DisabledString(TargetPassage?._passagesHandlerContainer?.name ?? string.Empty);
+        }
+
+        private void OnValidate()
+        {
+            UpdateTargetSceneName();
         }
     }
 
@@ -46,8 +51,6 @@
                 Obj.Delete();
         }
     }
-
-
 
     [System.Serializable]
     public struct DisabledString

@@ -2,6 +2,9 @@
 {
     using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class BoardsLink : MonoBehaviour
@@ -12,6 +15,10 @@
         [SerializeField] private RSLib.Framework.OptionalFloat _overrideExitFadedInDur = new RSLib.Framework.OptionalFloat(1f);
         [SerializeField] private RSLib.Framework.OptionalFloat _overrideFadeInDelayDur = new RSLib.Framework.OptionalFloat(0.5f, false);
 
+        [Header("TEST")]
+        [SerializeField] private Templar.Tools.OptionalBoardsLink _targetBoardsLink = new Templar.Tools.OptionalBoardsLink(null, true);
+        [SerializeField] private Templar.Tools.OptionalScenesPassage _targetScenePassage = new Templar.Tools.OptionalScenesPassage(null, false);
+
         [Header("DEBUG")]
         [SerializeField] private SpriteRenderer _dbgVisualizer = null;
 
@@ -20,6 +27,9 @@
 
         public Transform OverrideRespawnPos => _overrideRespawnPos.Enabled ? _overrideRespawnPos.Value : null;
         public Transform EnterTeleportPos => _enterTeleportPos.Enabled ? _enterTeleportPos.Value : null;
+
+        public Templar.Tools.OptionalBoardsLink TargetBoardsLink => _targetBoardsLink;
+        public Templar.Tools.OptionalScenesPassage TargetScenePassage => _targetScenePassage;
 
         public bool OverrideExitFadedIn => _overrideExitFadedInDur.Enabled;
         public float OverrideExitFadedInDur => _overrideExitFadedInDur.Value;
@@ -72,4 +82,25 @@
             Gizmos.DrawLine(OverrideRespawnPos.position, transform.position);
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(BoardsLink))]
+    public class BoardsLinkEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsLink>
+    {
+        public override void OnInspectorGUI()
+        {
+            if (Obj.TargetBoardsLink.Enabled && Obj.TargetScenePassage.Enabled)
+                EditorGUILayout.HelpBox("Only one of the boards transitions references must be enabled.", MessageType.Error);
+            else if (!Obj.TargetBoardsLink.Enabled && !Obj.TargetScenePassage.Enabled)
+                EditorGUILayout.HelpBox("Exactly one of the boards transitions references must be enabled.", MessageType.Error);
+
+            base.OnInspectorGUI();
+        }
+
+        protected override void DrawButtons()
+        {
+            // [TODO] Button to automatically set the opposite link.
+        }
+    }
+#endif
 }
