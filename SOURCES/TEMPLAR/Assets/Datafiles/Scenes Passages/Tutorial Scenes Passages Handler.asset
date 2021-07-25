@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6f287c695e70c45bb13a9004f19283, type: 3}
+  m_Name: Tutorial Scenes Passages Handler
+  m_EditorClassIdentifier: 
+  _scene:
+    _sceneAsset: {fileID: 102900000, guid: fdcb741ce4d5aa140836295373aa8008, type: 3}
+    _sceneName: Develop
+  _passages:
+  - {fileID: 4825152226941029160}
+--- !u!114 &4825152226941029160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
+  m_Name: Passage Door Test
+  m_EditorClassIdentifier: 
+  _targetPassage: {fileID: -5038822523804888175, guid: 1fe09a35e25a2e947862631c0b0cfef1,
+    type: 2}
+  _targetSceneName:
+    _value: Village Scenes Passages Handler

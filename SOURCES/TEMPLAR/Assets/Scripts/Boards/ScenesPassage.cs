@@ -1,38 +1,44 @@
-﻿namespace Templar.Tmp
+﻿namespace Templar.Boards
 {
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
 #endif
 
-    [CreateAssetMenu(fileName = "New SubAsset", menuName = "Templar/Scene Passage", order = 0)]
-    public class ScenePassage : ScriptableObject
+    public class ScenesPassage : ScriptableObject
     {
-        public ScenePassage targetPassage;
-        public DisabledString targetSceneName;
+        [SerializeField] private ScenesPassage _targetPassage;
+        [SerializeField] private DisabledString _targetSceneName;
 
-        public void Init(ScenePassages container, int subAssetIndex)
+        private ScenesPassagesHandler _passagesHandlerContainer;
+
+        public void Init(ScenesPassagesHandler container, int subAssetIndex)
         {
             name = $"Passage {subAssetIndex}";
-            _container = container;
+            SetContainer(container);
         }
 
-        private ScenePassages _container;
+        public ScenesPassage TargetPassage => _targetPassage;
+
+        public void SetContainer(ScenesPassagesHandler container)
+        {
+            _passagesHandlerContainer = container;
+        }
 
         public void Delete()
         {
-            _container.DeleteSubAsset(this);
+            _passagesHandlerContainer.DeleteSubAsset(this);
         }
 
         private void OnValidate()
         {
-            targetSceneName = new DisabledString(targetPassage?._container.name ?? string.Empty);
+            _targetSceneName = new DisabledString(TargetPassage?._passagesHandlerContainer?.name ?? string.Empty);
         }
     }
 
 #if UNITY_EDITOR
-    [CustomEditor(typeof(ScenePassage))]
-    public class ScenePassageEditor : RSLib.EditorUtilities.ButtonProviderEditor<ScenePassage>
+    [CustomEditor(typeof(ScenesPassage))]
+    public class ScenePassageEditor : RSLib.EditorUtilities.ButtonProviderEditor<ScenesPassage>
     {
         protected override void DrawButtons()
         {
