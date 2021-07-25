@@ -5,32 +5,16 @@
 
     public class CameraController : MonoBehaviour
     {
-        [System.Serializable]
-        public class ShakeComponent
-        {
-            [SerializeField] private string _id = string.Empty;
-            [SerializeField] private CameraShake.Settings _shakeSettings = CameraShake.Settings.Default;
-
-            public string Id => _id;
-
-            public CameraShake GetShakeFromSettings()
-            {
-                return new CameraShake(_shakeSettings);
-            }
-        }
-
         [SerializeField] private Datas.CameraDatas _cameraDatas = null;
         [SerializeField] private Camera _camera = null;
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
+        [SerializeField] private Templar.Datas.ShakeSettingsLibrary _shakesLibrary = null;
 
-        [Header("SHAKES")]
-        [SerializeField] private ShakeComponent[] _shakes = null;
-
-        [Header("PIXEL PERFECT FIX")]
-        [SerializeField] private bool _toggleManualFix = true;
-        [SerializeField] private Vector2Int _referenceResolution = new Vector2Int(160, 144);
-        [SerializeField, Min(1)] private int _assetsPixelsPerUnit = 100;
+        //[Header("PIXEL PERFECT FIX")]
+        //[SerializeField] private bool _toggleManualFix = true;
+        //[SerializeField] private Vector2Int _referenceResolution = new Vector2Int(160, 144);
+        //[SerializeField, Min(1)] private int _assetsPixelsPerUnit = 100;
 
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
@@ -103,8 +87,8 @@
         private void GenerateShakesDictionary()
         {
             _shakesDictionary = new System.Collections.Generic.Dictionary<string, CameraShake>();
-            for (int i = _shakes.Length - 1; i >= 0; --i)
-                _shakesDictionary.Add(_shakes[i].Id, _shakes[i].GetShakeFromSettings());
+            foreach (System.Collections.Generic.KeyValuePair<string, Templar.Datas.ShakeSettingsDatas> shakeSettings in _shakesLibrary.GetShakes())
+                _shakesDictionary.Add(shakeSettings.Key, new CameraShake(shakeSettings.Value));
         }
 
         private Vector3 ComputeBaseTargetPosition()
@@ -204,22 +188,22 @@
                 pos += shake.Value.GetShake();
         }
 
-        private void UpdatePixelPerfectCameraSize()
-        {
-            // Test method to fix pixel perfect jitter.
+        //private void UpdatePixelPerfectCameraSize()
+        //{
+        //    // Test method to fix pixel perfect jitter.
 
-            if (!_toggleManualFix)
-                return;
+        //    if (!_toggleManualFix)
+        //        return;
 
-            int w = _camera.targetTexture?.width ?? Screen.width;
-            int h = _camera.targetTexture?.height ?? Screen.height;
+        //    int w = _camera.targetTexture?.width ?? Screen.width;
+        //    int h = _camera.targetTexture?.height ?? Screen.height;
 
-            int verticalZoom = h / _referenceResolution.y;
-            int horizontalZoom = w / _referenceResolution.x;
-            int zoom = Mathf.Max(1, Mathf.Min(verticalZoom, horizontalZoom));
+        //    int verticalZoom = h / _referenceResolution.y;
+        //    int horizontalZoom = w / _referenceResolution.x;
+        //    int zoom = Mathf.Max(1, Mathf.Min(verticalZoom, horizontalZoom));
 
-            _camera.orthographicSize = h * 0.5f / (zoom * _assetsPixelsPerUnit);
-        }
+        //    _camera.orthographicSize = h * 0.5f / (zoom * _assetsPixelsPerUnit);
+        //}
 
         private void Awake()
         {
@@ -281,7 +265,7 @@
             if (!UnityEditor.EditorApplication.isPlaying)
                 return;
 
-            if (_shakes != null)
+            if (_shakesDictionary != null)
                 GenerateShakesDictionary();
         }
 #endif
