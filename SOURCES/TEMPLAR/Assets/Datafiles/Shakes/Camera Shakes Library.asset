@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b3505491b7e3f4c8810477c841a624, type: 3}
+  m_Name: Camera Shakes Library
+  m_EditorClassIdentifier: 
+  _shakes:
+  - _id: Small
+    _shakeSettings: {fileID: 11400000, guid: 27779d6fc0f47e24a9c5697d29cf3508, type: 2}
+  - _id: Medium
+    _shakeSettings: {fileID: 11400000, guid: 690dad35cf686b24fb66e2bf9e73fc1c, type: 2}
+  - _id: Big
+    _shakeSettings: {fileID: 11400000, guid: 86e73f06879bd494d8bd395a7c408d05, type: 2}
