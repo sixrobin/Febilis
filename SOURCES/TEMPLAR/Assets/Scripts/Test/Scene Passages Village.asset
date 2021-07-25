@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8676719853874515497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
+  m_Name: Passage Door Shop
+  m_EditorClassIdentifier: 
+  targetPassage: {fileID: 0}
+  targetSceneName:
+    _value: 
+--- !u!114 &-7859460778929141885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
+  m_Name: Passage Up 2
+  m_EditorClassIdentifier: 
+  targetPassage: {fileID: 0}
+  targetSceneName:
+    _value: 
+--- !u!114 &-6523768995777670905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
+  m_Name: Passage Right
+  m_EditorClassIdentifier: 
+  targetPassage: {fileID: -8676719853874515497, guid: 215a9599f29fe2a4fa810d602cbebb2b,
+    type: 2}
+  targetSceneName:
+    _value: Scene Passages Tutorial
+--- !u!114 &-2342320119991963031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
+  m_Name: Passage Left
+  m_EditorClassIdentifier: 
+  targetPassage: {fileID: 0}
+  targetSceneName:
+    _value: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6f287c695e70c45bb13a9004f19283, type: 3}
+  m_Name: Scene Passages Village
+  m_EditorClassIdentifier: 
+  subAssets:
+  - {fileID: -2342320119991963031}
+  - {fileID: 2761502043216647074}
+  - {fileID: -7859460778929141885}
+  - {fileID: -8676719853874515497}
+  - {fileID: -6523768995777670905}
+--- !u!114 &2761502043216647074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
+  m_Name: Passage Up 1
+  m_EditorClassIdentifier: 
+  targetPassage: {fileID: 0}
+  targetSceneName:
+    _value: 
