@@ -1,11 +1,10 @@
 ﻿namespace Templar.Manager
 {
-    using Boards;
     using RSLib.Extensions;
+    using System.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
-    using System.Linq;
 #endif
 
     public class BoardsTransitionManager : RSLib.Framework.ConsoleProSingleton<BoardsTransitionManager>
@@ -31,18 +30,18 @@
 
         public static RSLib.DataColor RespawnDebugColor => Instance._respawnDebugColor;
 
-        public static void TriggerLink(BoardsLink link)
+        public static void TriggerLink(Boards.BoardsLink link)
         {
             Instance.Log($"{link.transform.name} triggered.", link.gameObject);
             Instance.StartCoroutine(s_boardTransitionCoroutine = BoardTransitionCoroutine(link));
         }
 
-        private static System.Collections.IEnumerator BoardTransitionCoroutine(BoardsLink source)
+        private static System.Collections.IEnumerator BoardTransitionCoroutine(Boards.BoardsLink source)
         {
-            IBoardTransitionHandler target = source.GetTarget();
-            BoardsLink targetBoardsLink = target as BoardsLink;
-            ScenesPassage targetScenesPassage = target as ScenesPassage;
-            
+            Boards.IBoardTransitionHandler target = source.GetTarget();
+            Boards.BoardsLink targetBoardsLink = target as Boards.BoardsLink;
+            Boards.ScenesPassage targetScenesPassage = target as Boards.ScenesPassage;
+
             source.OnBoardsTransitionBegan();
             target.OnBoardsTransitionBegan();
 
@@ -99,7 +98,7 @@
             target.OnBoardsTransitionOver();
         }
 
-        private static System.Collections.IEnumerator WaitForFadeIn(BoardsLink source)
+        private static System.Collections.IEnumerator WaitForFadeIn(Boards.BoardsLink source)
         {
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
@@ -107,7 +106,7 @@
             yield return new WaitForSeconds(source.OverrideExitFadedIn ? source.OverrideExitFadedInDur : Instance._fadedInDur);
         }
 
-        private static System.Collections.IEnumerator TransitionOutToBoardsLink(BoardsLink source, BoardsLink target)
+        private static System.Collections.IEnumerator TransitionOutToBoardsLink(Boards.BoardsLink source, Boards.BoardsLink target)
         {
             GameManager.PlayerCtrl.ResetVelocity();
             GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.
@@ -162,19 +161,19 @@
             GameManager.PlayerCtrl.AllowInputs(true);
         }
 
-        private static System.Collections.IEnumerator TransitionOutToScenesPassage(BoardsLink source, ScenesPassage target)
+        private static System.Collections.IEnumerator TransitionOutToScenesPassage(Boards.BoardsLink source, Boards.ScenesPassage target)
         {
-            ScenesPassage sourceScenesPassage = source.GetTarget() as ScenesPassage;
+            Boards.ScenesPassage sourceScenesPassage = source.GetTarget() as Boards.ScenesPassage;
             UnityEngine.SceneManagement.SceneManager.LoadScene(target.TargetPassage.GetTargetScene());
 
-            // [TMP] Generic coroutine. Also make sure this always works. And compare scene index and not name.
+            // [TMP] Generic coroutine. Also make sure this always works. And compare scene id
             while (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != target.GetTargetScene().SceneName)
                 yield return null;
             yield return null;
 
             // [TMP] Find. Store BoardsLinks in a local manager ? It could also contain a method GetAccuratePassage() or something that
             // handles the Where() done here, and make it more readable with summary, etc.
-            BoardsLink targetBoardsLink = FindObjectsOfType<BoardsLink>()
+            Boards.BoardsLink targetBoardsLink = FindObjectsOfType<Boards.BoardsLink>()
                 .Where(o => o.ComparePassage(sourceScenesPassage))
                 .FirstOrDefault();
 
@@ -209,7 +208,7 @@
 
         public static void DebugAutoDetectInitBoard()
         {
-            Board[] boards = FindObjectsOfType<Board>();
+            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
             Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
 
             for (int i = boards.Length - 1; i >= 0; --i)
@@ -227,7 +226,7 @@
 
         public static void DebugForceRefreshBoard()
         {
-            Board[] boards = FindObjectsOfType<Board>();
+            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
             Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
 
             for (int i = boards.Length - 1; i >= 0; --i)
