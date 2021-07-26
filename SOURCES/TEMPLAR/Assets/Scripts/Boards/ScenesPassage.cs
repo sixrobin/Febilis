@@ -5,12 +5,25 @@
     using UnityEditor;
 #endif
 
-    public class ScenesPassage : ScriptableObject
+    public class ScenesPassage : ScriptableObject, IBoardTransitionHandler
     {
-        [SerializeField] private ScenesPassage _targetPassage;
-        [SerializeField] private DisabledString _targetSceneName;
+        [SerializeField] private ScenesPassage _targetPassage = null;
+        [SerializeField] private DisabledString _targetSceneName = new DisabledString(string.Empty); // Visualizer only.
 
         private ScenesPassagesHandler _passagesHandlerContainer;
+
+        void IBoardTransitionHandler.OnBoardsTransitionBegan()
+        {
+        }
+
+        void IBoardTransitionHandler.OnBoardsTransitionOver()
+        {
+        }
+
+        public RSLib.Framework.SceneField GetTargetScene()
+        {
+            return _passagesHandlerContainer.Scene;
+        }
 
         public void Init(ScenesPassagesHandler container, int subAssetIndex)
         {

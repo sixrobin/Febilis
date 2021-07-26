@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Boards Transition Scenes Passages Handler
   m_EditorClassIdentifier: 
   _scene:
-    _sceneAsset: {fileID: 102900000, guid: fdcb741ce4d5aa140836295373aa8008, type: 3}
-    _sceneName: Develop
+    _sceneAsset: {fileID: 102900000, guid: ecc239819b785d64b9fbee2f3a6737f7, type: 3}
+    _sceneName: Boards Transitions
   _passages:
   - {fileID: 4825152226941029160}
 --- !u!114 &4825152226941029160
@@ -27,9 +27,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
-  m_Name: Passage Door Tuto
+  m_Name: Passage Door Labyrinth
   m_EditorClassIdentifier: 
   _targetPassage: {fileID: 4825152226941029160, guid: 7a8b06d8ae96b304bb088a20e1f103dc,
     type: 2}
   _targetSceneName:
-    _value: 
+    _value: Develop Scenes Passages Handler

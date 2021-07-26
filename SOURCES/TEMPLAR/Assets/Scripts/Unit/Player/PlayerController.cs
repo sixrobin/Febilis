@@ -570,7 +570,7 @@
 
             if (_inputsAllowed
                 && !Tools.CheckpointTeleporter.IsOpen
-                && !Manager.BoardsManager.IsInBoardTransition
+                && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame()
                 && (!Manager.GameManager.InventoryView?.Displayed ?? true))
                 InputCtrl.Update();

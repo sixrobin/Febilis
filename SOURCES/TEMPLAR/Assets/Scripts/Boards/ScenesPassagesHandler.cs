@@ -11,6 +11,8 @@
         [SerializeField] private RSLib.Framework.SceneField _scene = null;
         [SerializeField] private System.Collections.Generic.List<ScenesPassage> _passages = new System.Collections.Generic.List<ScenesPassage>();
 
+        public RSLib.Framework.SceneField Scene => _scene;
+
         public void CreatePassageSubAsset()
         {
             ScenesPassage subAsset = CreateInstance<ScenesPassage>();
