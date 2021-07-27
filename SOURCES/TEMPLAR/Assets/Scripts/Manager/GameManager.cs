@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
+    public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>, Templar.Tools.IManagerReferencesHandler
     {
         [SerializeField] private Interaction.Checkpoint.OptionalCheckpointController _overrideCheckpoint = new Interaction.Checkpoint.OptionalCheckpointController();
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;

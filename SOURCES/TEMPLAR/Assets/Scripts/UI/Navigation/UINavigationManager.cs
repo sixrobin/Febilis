@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
+    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>, Templar.Tools.IManagerReferencesHandler
     {
         private const string INPUT_BACK = "UICancel";
 

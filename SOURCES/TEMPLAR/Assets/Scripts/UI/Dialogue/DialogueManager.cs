@@ -7,7 +7,7 @@
 #endif
 
     [DisallowMultipleComponent]
-    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
+    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>, Templar.Tools.IManagerReferencesHandler
     {
         [SerializeField] private DialogueView _dialogueView = null;
 

@@ -10,7 +10,7 @@
         [SerializeField] private ScenesPassage _targetPassage = null;
         [SerializeField] private DisabledString _targetSceneName = new DisabledString(string.Empty); // Visualizer only.
 
-        private ScenesPassagesHandler _passagesHandlerContainer;
+        [SerializeField, HideInInspector] private ScenesPassagesHandler _passagesHandlerContainer;
 
         void IBoardTransitionHandler.OnBoardsTransitionBegan()
         {
@@ -46,6 +46,12 @@
         private void UpdateTargetSceneName()
         {
             _targetSceneName = new DisabledString(TargetPassage?._passagesHandlerContainer?.name ?? string.Empty);
+        }
+
+        private void Awake()
+        {
+            UpdateTargetSceneName();
+            Debug.Log($"Loading {name}...");
         }
 
         private void OnValidate()
