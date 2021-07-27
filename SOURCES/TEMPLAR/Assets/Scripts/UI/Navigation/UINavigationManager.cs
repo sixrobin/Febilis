@@ -110,9 +110,19 @@
 #endif
         }
 
-        public void LocateConfirmationPopup()
+        public void DebugFindAllReferences()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _confirmationPopup = _confirmationPopup ?? FindObjectOfType<ConfirmationPopup>();
+
 #if UNITY_EDITOR
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
 #endif
@@ -125,7 +135,8 @@
     {
         protected override void DrawButtons()
         {
-            DrawButton("Locate Confirmation Popup", Obj.LocateConfirmationPopup);
+            DrawButton("Find All References", Obj.DebugFindAllReferences);
+            DrawButton("Find Missing References", Obj.DebugFindMissingReferences);
         }
     }
 #endif

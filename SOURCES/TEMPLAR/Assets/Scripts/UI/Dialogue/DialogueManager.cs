@@ -2,6 +2,9 @@
 {
     using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
     public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
@@ -211,5 +214,35 @@
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
         }
+
+        public void DebugFindAllReferences()
+        {
+            _dialogueView = FindObjectOfType<DialogueView>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _dialogueView = _dialogueView ?? FindObjectOfType<DialogueView>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(DialogueManager))]
+    public class DialogueManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<DialogueManager>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Find All References", Obj.DebugFindAllReferences);
+            DrawButton("Find Missing References", Obj.DebugFindMissingReferences);
+        }
+    }
+#endif
 }

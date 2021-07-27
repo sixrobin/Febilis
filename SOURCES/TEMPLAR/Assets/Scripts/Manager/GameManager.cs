@@ -2,6 +2,9 @@
 {
     using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
     {
@@ -135,5 +138,44 @@
             // [TMP]
             RSLib.SceneReloader.BeforeReload -= SaveManager.Save;
         }
+
+        public void DebugFindAllReferences()
+        {
+            _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+            _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
+            _inventoryCtrl = FindObjectOfType<Item.InventoryController>();
+            _inventoryView = FindObjectOfType<UI.Inventory.InventoryView>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _playerCtrl = _playerCtrl ?? FindObjectOfType<Unit.Player.PlayerController>();
+            _cameraCtrl = _cameraCtrl ?? FindObjectOfType<Templar.Camera.CameraController>();
+            _inventoryCtrl = _inventoryCtrl ?? FindObjectOfType<Item.InventoryController>();
+            _inventoryView = _inventoryView ?? FindObjectOfType<UI.Inventory.InventoryView>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(GameManager))]
+    public class GameManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<GameManager>
+    {
+        protected override void DrawButtons()
+        {
+            if (GUILayout.Button("Find All References"))
+                Obj.DebugFindAllReferences();
+
+            if (GUILayout.Button("Find Missing References"))
+                Obj.DebugFindMissingReferences();
+        }
+    }
+#endif
 }

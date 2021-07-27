@@ -1,6 +1,9 @@
 ﻿namespace Templar.Manager
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
     {
@@ -135,5 +138,35 @@
         {
             CleanupOptionsButtons();
         }
+
+        public void DebugFindAllReferences()
+        {
+            _settingsPanel = FindObjectOfType<UI.Options.SettingsPanel>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _settingsPanel = _settingsPanel ?? FindObjectOfType<UI.Options.SettingsPanel>();
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(OptionsManager))]
+    public class OptionsManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<OptionsManager>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Find All References", Obj.DebugFindAllReferences);
+            DrawButton("Find Missing References", Obj.DebugFindMissingReferences);
+        }
+    }
+#endif
 }
