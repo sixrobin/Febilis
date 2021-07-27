@@ -10271,18 +10271,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1086850695 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7025694884218247300, guid: c8439dca299fd8447bd7cc8b57e768ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 7025694885304049155}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d43b2c1f7ab1244ae04289d5340ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1104791908
 GameObject:
   m_ObjectHideFlags: 0
@@ -12134,51 +12122,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8874774588189541608, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: _settingsPanel
-      value: 
-      objectReference: {fileID: 5654668400681910715}
-    - target: {fileID: 8874774588189541608, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: _controlsPanel
-      value: 
-      objectReference: {fileID: 1086850695}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8874774589448705548, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
       propertyPath: m_RootOrder
@@ -55637,6 +55580,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 653416431510758932, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
+        type: 3}
+      propertyPath: _jump
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2727861838001810200, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
         type: 3}
       propertyPath: m_Offset.x
@@ -55662,16 +55610,6 @@ PrefabInstance:
       propertyPath: _cameraCtrl
       value: 
       objectReference: {fileID: 519420033}
-    - target: {fileID: 2727861838001810201, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
-        type: 3}
-      propertyPath: _collisionMask.m_Bits
-      value: 21760
-      objectReference: {fileID: 0}
-    - target: {fileID: 2727861838001810201, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
-        type: 3}
-      propertyPath: _rollCollisionMask.m_Bits
-      value: 20736
-      objectReference: {fileID: 0}
     - target: {fileID: 2727861838001810202, guid: 1d502bf84a55c6c4383c4b64f7a241ad,
         type: 3}
       propertyPath: m_RootOrder
@@ -56228,18 +56166,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edf430e1f38f2da4ba159e6b5251b166, type: 3}
---- !u!114 &5654668400681910715 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3456832350365032376, guid: c8439dca299fd8447bd7cc8b57e768ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 7025694885304049155}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 086520883ce79594bbd1133162a823a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6123819257592586354
 PrefabInstance:
   m_ObjectHideFlags: 0

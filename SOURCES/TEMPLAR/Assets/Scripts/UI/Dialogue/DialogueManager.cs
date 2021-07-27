@@ -11,6 +11,8 @@
     {
         [SerializeField] private DialogueView _dialogueView = null;
 
+        [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
+
         private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
         private System.Collections.IEnumerator _dialogueCoroutine;
@@ -38,6 +40,8 @@
                 $"Trying to play dialogue {dialogueDatas.Id} while dialogue {Instance._currentDialogue?.Id} is already playing.");
 
             Instance._currentDialogue = dialogueDatas;
+            Instance._currentDialogueId = new RSLib.Framework.DisabledString(dialogueDatas.Id);
+
             Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(sourceSpeaker));
         }
 

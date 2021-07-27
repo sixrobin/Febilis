@@ -261,15 +261,14 @@ MonoBehaviour:
   _healthCtrl: {fileID: 2727861839271538949}
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 5376
+    m_Bits: 21760
   _debugCollisionsState: 
   _playerView: {fileID: 2727861838613788317}
-  _cameraCtrl: {fileID: 0}
   _ctrlDatas: {fileID: 11400000, guid: 3b3f60e9f46d8e24b8396b0070567726, type: 2}
   _interacter: {fileID: 8964628234823463603}
   _rollCollisionMask:
     serializedVersion: 2
-    m_Bits: 4352
+    m_Bits: 20736
   _baseHealth: 100
 --- !u!114 &653416431510758932
 MonoBehaviour:
@@ -778,7 +777,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 2727861839271538948}
-  _baseHealsLeft: 2
   _healAmount: 50
   _debugMode: 0
 --- !u!1 &2727861839411020231

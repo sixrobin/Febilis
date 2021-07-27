@@ -14,7 +14,7 @@
 
 #if UNITY_EDITOR
         [Header("DEBUG")]
-        [SerializeField] private GameObject _currSelection = null;
+        [SerializeField] private RSLib.Framework.DisabledGameObject _currSelection = new RSLib.Framework.DisabledGameObject(null);
 #endif
 
         public static UIPanel CurrentlyOpenPanel { get; private set; }
@@ -106,7 +106,7 @@
             TryHandleBackInput();
 
 #if UNITY_EDITOR
-            _currSelection = EventSystem.current.currentSelectedGameObject;
+            _currSelection = new RSLib.Framework.DisabledGameObject(EventSystem.current.currentSelectedGameObject);
 #endif
         }
 
