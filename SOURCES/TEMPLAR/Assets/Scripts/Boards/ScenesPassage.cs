@@ -43,6 +43,35 @@
             _passagesHandlerContainer.DeleteSubAsset(this);
         }
 
+        public void AutoSetOppositePassage(bool force)
+        {
+            if (TargetPassage == null)
+            {
+                Debug.LogWarning("Cannot automatically set the opposite passage while target passage is not referenced.");
+                return;
+            }
+
+            if (TargetPassage.TargetPassage != null)
+            {
+                if (TargetPassage.TargetPassage == this)
+                {
+                    Debug.Log($"Passage of {TargetPassage.name} is already set to {name}.");
+                    return;
+                }
+
+                if (force)
+                {
+                    Debug.LogWarning($"Automatically setting target passage of {TargetPassage.name} to {name}, overriding previous one {TargetPassage.TargetPassage.name}.");
+                    TargetPassage._targetPassage = this;
+                }
+            }
+            else
+            {
+                Debug.Log($"Automatically setting target passage of {TargetPassage.name} to {name}.");
+                TargetPassage._targetPassage = this;
+            }
+        }
+
         private void UpdateTargetSceneName()
         {
             _targetSceneName = new RSLib.Framework.DisabledString(TargetPassage?._passagesHandlerContainer?.name ?? string.Empty);
@@ -65,8 +94,9 @@
     {
         protected override void DrawButtons()
         {
-            if (GUILayout.Button("Delete"))
-                Obj.Delete();
+            DrawButton("Delete", Obj.Delete);
+            DrawButton("Autoset Opposite Passage (if null)", () => Obj.AutoSetOppositePassage(false));
+            DrawButton("Autoset Opposite Passage (forced)", () => Obj.AutoSetOppositePassage(true));
         }
     }
 #endif
