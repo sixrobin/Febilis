@@ -62,30 +62,9 @@
 
         private System.Collections.IEnumerator SpawnPlayerCoroutine()
         {
-            if (_playerCtrl == null)
+            if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
             {
-                LogWarning("Reference to PlayerController is missing, trying to find it using FindObjectOfType.");
-                _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
-
-                if (_playerCtrl == null)
-                {
-                    LogError("No PlayerController seems to be in the scene.");
-                    yield break;
-                }
-            }
-
-            if (_cameraCtrl == null)
-            {
-                LogWarning("Reference to CameraController is missing, trying to find it using FindObjectOfType.");
-                _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
-
-                if (_cameraCtrl == null)
-                    LogError("No CameraController seems to be in the scene.");
-            }
-
-            if (_fadeOnRespawn && Manager.GameManager.CameraCtrl.GrayscaleRamp.enabled)
-            {
-                RampFadeManager.SetRampOffset(Manager.GameManager.CameraCtrl.GrayscaleRamp, -1f);
+                RampFadeManager.SetRampOffset(CameraCtrl.GrayscaleRamp, -1f);
                 // [TODO] Hide player HUD.
             }
 
@@ -93,8 +72,8 @@
 
             SpawnPlayer();
 
-            if (_fadeOnRespawn && Manager.GameManager.CameraCtrl.GrayscaleRamp.enabled)
-                RampFadeManager.Fade(Manager.GameManager.CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));
+            if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
+                RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));
             else
                 _playerCtrl.AllowInputs(true);
         }
@@ -107,7 +86,23 @@
             CheckDuplicateCheckpointIds();
 #endif
 
-            StartCoroutine(SpawnPlayerCoroutine());
+            if (_playerCtrl == null)
+            {
+                LogWarning("Reference to PlayerController is missing, trying to find it using FindObjectOfType.");
+                _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+
+                if (_playerCtrl == null)
+                    LogError("No PlayerController seems to be in the scene.");
+            }
+
+            if (_cameraCtrl == null)
+            {
+                LogWarning("Reference to CameraController is missing, trying to find it using FindObjectOfType.");
+                _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
+
+                if (_cameraCtrl == null)
+                    LogError("No CameraController seems to be in the scene.");
+            }
 
             if (_inventoryCtrl == null)
             {
@@ -124,12 +119,18 @@
                 if (_inventoryView == null)
                     LogError("No InventoryView seems to be in the scene.");
             }
+
+            // Being in board transitions here means we're entering the scene from another gameplay scene, not from editor or a menu.
+            if (!BoardsTransitionManager.IsInBoardTransition && _playerCtrl != null)
+                StartCoroutine(SpawnPlayerCoroutine());
+            else
+                _playerCtrl.Init();
         }
 
         private void Start()
         {
             KillTrigger.ResetSharedTriggers();
-            _checkpointListeners = FindObjectsOfType<MonoBehaviour>().OfType<ICheckpointListener>();
+            _checkpointListeners = RSLib.Helpers.FindInstancesOfType<ICheckpointListener>();
 
             // [TMP]
             RSLib.SceneReloader.BeforeReload += SaveManager.Save;
