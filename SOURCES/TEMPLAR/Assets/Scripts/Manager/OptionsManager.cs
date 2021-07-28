@@ -21,6 +21,8 @@
 
         public static bool ClosedThisFrame { get; private set; }
 
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
+
         public static bool AnyPanelOpen()
         {
             // [TODO] Remove those null checks once panels are implemented.
@@ -162,13 +164,8 @@
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(OptionsManager))]
-    public class OptionsManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<OptionsManager>
+    public class OptionsManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<OptionsManager>
     {
-        protected override void DrawButtons()
-        {
-            DrawButton("Find All References", Obj.DebugFindAllReferences);
-            DrawButton("Find Missing References", Obj.DebugFindMissingReferences);
-        }
     }
 #endif
 }

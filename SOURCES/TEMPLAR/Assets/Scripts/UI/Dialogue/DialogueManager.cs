@@ -10,7 +10,6 @@
     public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>, Templar.Tools.IManagerReferencesHandler
     {
         [SerializeField] private DialogueView _dialogueView = null;
-
         [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
 
         private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
@@ -25,6 +24,8 @@
 
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
+
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
@@ -240,13 +241,8 @@
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(DialogueManager))]
-    public class DialogueManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<DialogueManager>
+    public class DialogueManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<DialogueManager>
     {
-        protected override void DrawButtons()
-        {
-            DrawButton("Find All References", Obj.DebugFindAllReferences);
-            DrawButton("Find Missing References", Obj.DebugFindMissingReferences);
-        }
     }
 #endif
 }

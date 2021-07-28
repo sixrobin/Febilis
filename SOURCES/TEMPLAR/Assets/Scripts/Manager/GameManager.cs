@@ -17,6 +17,8 @@
 
         private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
 
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
+
         public static Unit.Player.PlayerController PlayerCtrl => Instance._playerCtrl;
         public static Templar.Camera.CameraController CameraCtrl => Instance._cameraCtrl;
         public static Item.InventoryController InventoryCtrl => Instance._inventoryCtrl;
@@ -166,16 +168,8 @@
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(GameManager))]
-    public class GameManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<GameManager>
+    public class GameManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<GameManager>
     {
-        protected override void DrawButtons()
-        {
-            if (GUILayout.Button("Find All References"))
-                Obj.DebugFindAllReferences();
-
-            if (GUILayout.Button("Find Missing References"))
-                Obj.DebugFindMissingReferences();
-        }
     }
 #endif
 }

@@ -49,6 +49,8 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _dialogueView: {fileID: 0}
+  _currentDialogueId:
+    _value: 
 --- !u!1 &8874774588189541611
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,12 +252,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 1
+  _verbose: 0
   _overrideLogPrefix:
     _value: 
     _enabled: 0
   _confirmationPopup: {fileID: 0}
-  _currSelection: {fileID: 0}
+  _currSelection:
+    _value: {fileID: 0}
 --- !u!1 &8874774589448705551
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8874774589448705548}
   m_Layer: 0
-  m_Name: Local Managers
+  m_Name: Managers Local
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

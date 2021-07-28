@@ -17,6 +17,8 @@
         [SerializeField] private RSLib.Framework.DisabledGameObject _currSelection = new RSLib.Framework.DisabledGameObject(null);
 #endif
 
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
+
         public static UIPanel CurrentlyOpenPanel { get; private set; }
 
         public static ConfirmationPopup ConfirmationPopup
@@ -131,13 +133,8 @@
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(UINavigationManager))]
-    public class UINavigationManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<UINavigationManager>
+    public class UINavigationManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<UINavigationManager>
     {
-        protected override void DrawButtons()
-        {
-            DrawButton("Find All References", Obj.DebugFindAllReferences);
-            DrawButton("Find Missing References", Obj.DebugFindMissingReferences);
-        }
     }
 #endif
 }

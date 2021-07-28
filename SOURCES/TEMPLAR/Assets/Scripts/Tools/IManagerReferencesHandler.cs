@@ -6,6 +6,8 @@
     /// </summary>
     public interface IManagerReferencesHandler
     {
+        UnityEngine.GameObject PrefabInstanceRoot { get; }
+
         void DebugFindAllReferences();
         void DebugFindMissingReferences();
     }
