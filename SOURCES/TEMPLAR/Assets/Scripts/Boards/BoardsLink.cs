@@ -104,6 +104,10 @@
                 Debug.Log($"Automatically setting target link of {_targetBoardsLink.Value.name} to {name}.");
                 _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
             }
+
+#if UNITY_EDITOR
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+#endif
         }
 
         private void Awake()

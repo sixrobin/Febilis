@@ -31825,7 +31825,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _targetScenePassage._value
       value: 
-      objectReference: {fileID: -6090061821401970469, guid: 7a8b06d8ae96b304bb088a20e1f103dc,
+      objectReference: {fileID: -3297141173114932707, guid: 7a8b06d8ae96b304bb088a20e1f103dc,
         type: 2}
     - target: {fileID: 5288407546716378193, guid: 512acdd3b3a9487448a7997c52b7d2a3,
         type: 3}
@@ -53117,7 +53117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _targetScenePassage._value
       value: 
-      objectReference: {fileID: -5120694233239836796, guid: 7a8b06d8ae96b304bb088a20e1f103dc,
+      objectReference: {fileID: -8858551285623299396, guid: 7a8b06d8ae96b304bb088a20e1f103dc,
         type: 2}
     - target: {fileID: 5288407546716378193, guid: 512acdd3b3a9487448a7997c52b7d2a3,
         type: 3}
@@ -56132,7 +56132,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _targetBoardsLink._value
       value: 
-      objectReference: {fileID: 818920833}
+      objectReference: {fileID: 0}
     - target: {fileID: 4021704600292865941, guid: e2b060a4b601a4f479ffb9a1875bfd4e,
         type: 3}
       propertyPath: m_LocalPosition.x

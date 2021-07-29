@@ -21562,6 +21562,16 @@ PrefabInstance:
       propertyPath: _targetBoardsLink._value
       value: 
       objectReference: {fileID: 845652988}
+    - target: {fileID: 7778512258856538553, guid: f77f33457dad56b4d834572b8be31185,
+        type: 3}
+      propertyPath: _overrideRespawnPos._enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778512258856538553, guid: f77f33457dad56b4d834572b8be31185,
+        type: 3}
+      propertyPath: _overrideRespawnPos._value
+      value: 
+      objectReference: {fileID: 1982560867}
     - target: {fileID: 7778512258856538555, guid: f77f33457dad56b4d834572b8be31185,
         type: 3}
       propertyPath: m_Enabled
@@ -21627,11 +21637,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8755458750144182492, guid: f77f33457dad56b4d834572b8be31185,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f77f33457dad56b4d834572b8be31185, type: 3}
 --- !u!4 &1982560866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7778512258856538559, guid: f77f33457dad56b4d834572b8be31185,
+    type: 3}
+  m_PrefabInstance: {fileID: 1982560865}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1982560867 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8755458750144182492, guid: f77f33457dad56b4d834572b8be31185,
     type: 3}
   m_PrefabInstance: {fileID: 1982560865}
   m_PrefabAsset: {fileID: 0}

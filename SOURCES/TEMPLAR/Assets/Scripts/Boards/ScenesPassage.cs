@@ -27,9 +27,9 @@
             return _passagesHandlerContainer.Scene;
         }
 
-        public void Init(ScenesPassagesContainer container, int subAssetIndex)
+        public void Init(ScenesPassagesContainer container)
         {
-            name = $"Passage {subAssetIndex}";
+            name = $"New Scenes Passage";
             SetContainer(container);
         }
 

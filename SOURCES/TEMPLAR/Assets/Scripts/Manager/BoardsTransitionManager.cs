@@ -1,7 +1,6 @@
 ﻿namespace Templar.Manager
 {
     using RSLib.Extensions;
-    using System.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
