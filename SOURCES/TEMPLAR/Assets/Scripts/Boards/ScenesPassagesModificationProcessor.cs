@@ -8,7 +8,7 @@
         // Workaround to make asset renaming work (https://www.youtube.com/watch?v=26Czu393xbQ).
         static AssetMoveResult OnWillMoveAsset(string sourcePath, string destinationPath)
         {
-            ScenesPassagesHandler scenePassage = AssetDatabase.LoadMainAssetAtPath(sourcePath) as ScenesPassagesHandler;
+            ScenesPassagesContainer scenePassage = AssetDatabase.LoadMainAssetAtPath(sourcePath) as ScenesPassagesContainer;
             if (scenePassage == null)
                 return AssetMoveResult.DidNotMove;
 

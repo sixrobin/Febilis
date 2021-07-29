@@ -1,6 +1,5 @@
 ﻿namespace Templar.Manager
 {
-    using System.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
@@ -148,10 +147,6 @@
             _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
             _inventoryCtrl = FindObjectOfType<Item.InventoryController>();
             _inventoryView = FindObjectOfType<UI.Inventory.InventoryView>();
-
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
 
         public void DebugFindMissingReferences()
@@ -160,10 +155,6 @@
             _cameraCtrl = _cameraCtrl ?? FindObjectOfType<Templar.Camera.CameraController>();
             _inventoryCtrl = _inventoryCtrl ?? FindObjectOfType<Item.InventoryController>();
             _inventoryView = _inventoryView ?? FindObjectOfType<UI.Inventory.InventoryView>();
-
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
     }
 

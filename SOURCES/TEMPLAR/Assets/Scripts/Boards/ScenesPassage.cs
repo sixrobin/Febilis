@@ -10,14 +10,16 @@
         [SerializeField] private ScenesPassage _targetPassage = null;
         [SerializeField] private RSLib.Framework.DisabledString _targetSceneName = new RSLib.Framework.DisabledString(string.Empty); // Visualizer only.
 
-        [SerializeField, HideInInspector] private ScenesPassagesHandler _passagesHandlerContainer;
+        [SerializeField, HideInInspector] private ScenesPassagesContainer _passagesHandlerContainer;
 
         void IBoardTransitionHandler.OnBoardsTransitionBegan()
         {
+            // No callback is needed, this class only implements the interface so that it can be converted.
         }
 
         void IBoardTransitionHandler.OnBoardsTransitionOver()
         {
+            // No callback is needed, this class only implements the interface so that it can be converted.
         }
 
         public RSLib.Framework.SceneField GetTargetScene()
@@ -25,7 +27,7 @@
             return _passagesHandlerContainer.Scene;
         }
 
-        public void Init(ScenesPassagesHandler container, int subAssetIndex)
+        public void Init(ScenesPassagesContainer container, int subAssetIndex)
         {
             name = $"Passage {subAssetIndex}";
             SetContainer(container);
@@ -33,7 +35,7 @@
 
         public ScenesPassage TargetPassage => _targetPassage;
 
-        public void SetContainer(ScenesPassagesHandler container)
+        public void SetContainer(ScenesPassagesContainer container)
         {
             _passagesHandlerContainer = container;
         }

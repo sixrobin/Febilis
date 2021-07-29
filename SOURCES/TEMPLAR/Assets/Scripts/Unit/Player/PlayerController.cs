@@ -325,8 +325,6 @@
 
                 if (!EffectorDown)
                     _currVel.y = 0f;
-                else
-                    Debug.Log("OUI");
             }
 
             if (InputCtrl.Horizontal != 0f && !IsHealing)

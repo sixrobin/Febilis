@@ -6,7 +6,7 @@
 #endif
 
     [CreateAssetMenu(fileName = "New Scenes Passages Handler", menuName = "Scene Passages")]
-    public class ScenesPassagesHandler : ScriptableObject
+    public class ScenesPassagesContainer : ScriptableObject
     {
         [SerializeField] private RSLib.Framework.SceneField _scene = null;
         [SerializeField] private System.Collections.Generic.List<ScenesPassage> _passages = new System.Collections.Generic.List<ScenesPassage>();
@@ -55,17 +55,14 @@
     }
 
 #if UNITY_EDITOR
-    [CustomEditor(typeof(ScenesPassagesHandler))]
-    public class ScriptableSubAssetEditor : RSLib.EditorUtilities.ButtonProviderEditor<ScenesPassagesHandler>
+    [CustomEditor(typeof(ScenesPassagesContainer))]
+    public class ScenesPassagesHandlerEditor : RSLib.EditorUtilities.ButtonProviderEditor<ScenesPassagesContainer>
     {
         protected override void DrawButtons()
         {
-            if (GUILayout.Button("Create Passage Sub Asset"))
-                Obj.CreatePassageSubAsset();
-
-            if (GUILayout.Button("Clear Passages"))
-                Obj.ClearPassages();
+            DrawButton("Create Passage Sub Asset", Obj.CreatePassageSubAsset);
+            DrawButton("Clear Passages", Obj.ClearPassages);
         }
     }
 #endif
-}
+} 

@@ -145,20 +145,12 @@
         {
             _settingsPanel = FindObjectOfType<UI.Options.SettingsPanel>();
             _controlsPanel = FindObjectOfType<UI.Options.Controls.ControlsPanel>();
-
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
 
         public void DebugFindMissingReferences()
         {
             _settingsPanel = _settingsPanel ?? FindObjectOfType<UI.Options.SettingsPanel>();
             _controlsPanel = _controlsPanel ?? FindObjectOfType<UI.Options.Controls.ControlsPanel>();
-
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
     }
 

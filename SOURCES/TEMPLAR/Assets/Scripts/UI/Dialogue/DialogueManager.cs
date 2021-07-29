@@ -223,19 +223,11 @@
         public void DebugFindAllReferences()
         {
             _dialogueView = FindObjectOfType<DialogueView>();
-
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
 
         public void DebugFindMissingReferences()
         {
             _dialogueView = _dialogueView ?? FindObjectOfType<DialogueView>();
-
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
     }
 

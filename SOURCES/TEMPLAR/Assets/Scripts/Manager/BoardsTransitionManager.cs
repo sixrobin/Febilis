@@ -70,6 +70,8 @@
                     break;
 
                 case ScreenDirection.IN:
+                    GameManager.PlayerCtrl.RollCtrl.Interrupt();
+                    GameManager.PlayerCtrl.AttackCtrl.CancelAttack();
                     GameManager.PlayerCtrl.PlayerView.PlayTransitionInAnimation();
                     break;
 
@@ -108,6 +110,8 @@
 
         private static System.Collections.IEnumerator TransitionOutToBoardsLink(Boards.BoardsLink source, Boards.BoardsLink target)
         {
+            RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
+
             GameManager.PlayerCtrl.ResetVelocity();
             GameManager.PlayerCtrl.transform.position = target.OverrideRespawnPos != null ? target.OverrideRespawnPos.position : target.transform.position; // ?? operator does not seem to work.
 
@@ -118,7 +122,6 @@
             GameManager.CameraCtrl.PositionInstantly();
 
             yield return null;
-            RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
 
             switch (target.EnterDir)
             {
@@ -163,20 +166,17 @@
 
         private static System.Collections.IEnumerator TransitionOutToScenesPassage(Boards.BoardsLink source, Boards.ScenesPassage target)
         {
+            // GetTarget() must be called here, because the source referenced will be missing after loading scene.
             Boards.ScenesPassage sourceScenesPassage = source.GetTarget() as Boards.ScenesPassage;
+
             UnityEngine.SceneManagement.SceneManager.LoadScene(target.TargetPassage.GetTargetScene());
 
-            // [TMP] Generic coroutine. Also make sure this always works. And compare scene id
+            // [TMP] Generic coroutine. Also make sure this always works. And compare scene id instead of name.
             while (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != target.GetTargetScene().SceneName)
                 yield return null;
             yield return null;
 
-            // [TMP] Find. Store BoardsLinks in a local manager ? It could also contain a method GetAccuratePassage() or something that
-            // handles the Where() done here, and make it more readable with summary, etc.
-            Boards.BoardsLink targetBoardsLink = FindObjectsOfType<Boards.BoardsLink>()
-                .Where(o => o.ComparePassage(sourceScenesPassage))
-                .FirstOrDefault();
-
+            Boards.BoardsLink targetBoardsLink = BoardsLinksManager.GetLinkRelatedToScenesPassage(sourceScenesPassage);
             yield return TransitionOutToBoardsLink(source, targetBoardsLink);
         }
 
@@ -187,24 +187,6 @@
             if (_initBoard.Enabled)
                 GameManager.CameraCtrl.SetBoardBounds(_initBoard.Value);
         }
-
-        //private void OnDrawGizmos()
-        //{
-        //    if (_links == null || _links.Length == 0)
-        //        return;
-
-        //    Gizmos.color = _debugColor?.Color ?? Color.yellow;
-
-        //    for (int i = _links.Length - 1; i >= 0; --i)
-        //    {
-        //        if (_links[i].First != null && _links[i].Second != null)
-        //        {
-        //            Gizmos.DrawLine(_links[i].First.transform.position, _links[i].Second.transform.position);
-        //            Gizmos.DrawWireSphere(_links[i].First.transform.position, 0.3f);
-        //            Gizmos.DrawWireSphere(_links[i].Second.transform.position, 0.3f);
-        //        }
-        //    }
-        //}
 
         public static void DebugAutoDetectInitBoard()
         {

@@ -52,7 +52,7 @@
             gameObject.SetActive(true);
         }
 
-        public bool ComparePassage(ScenesPassage passage)
+        public bool CompareTargetPassage(ScenesPassage passage)
         {
             return GetTarget() is ScenesPassage scenesPassage && scenesPassage.TargetPassage == passage;
         }
@@ -70,20 +70,14 @@
                 return null;
             }
 
-            // Cast must be left here so that Unity can compile.
             return _targetBoardsLink.Enabled
                 ? (IBoardTransitionHandler)_targetBoardsLink.Value
                 : (IBoardTransitionHandler)_targetScenePassage.Value;
         }
 
-        private static void DisplayVisualizers(bool state)
-        {
-            FindObjectsOfType<BoardsLink>().Where(o => o._dbgVisualizer != null).ToList().ForEach(o => o._dbgVisualizer.enabled = state);
-        }
-
         private void Awake()
         {
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("VisualizeBoardsLinks", "Shows the board links hitboxes.", DisplayVisualizers));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("VisualizeBoardsLinks", "Shows the board links hitboxes.", DebugDisplayVisualizers));
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -103,6 +97,11 @@
 
             Gizmos.color = Manager.BoardsTransitionManager.RespawnDebugColor?.Color ?? RSLib.DataColor.Default;
             Gizmos.DrawLine(OverrideRespawnPos.position, transform.position);
+        }
+
+        private static void DebugDisplayVisualizers(bool state)
+        {
+            FindObjectsOfType<BoardsLink>().Where(o => o._dbgVisualizer != null).ToList().ForEach(o => o._dbgVisualizer.enabled = state);
         }
     }
 
