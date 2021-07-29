@@ -72,6 +72,8 @@
                 Debug.Log($"Automatically setting target passage of {TargetPassage.name} to {name}.");
                 TargetPassage._targetPassage = this;
             }
+
+            TargetPassage.UpdateTargetSceneName();
         }
 
         private void UpdateTargetSceneName()

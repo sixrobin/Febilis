@@ -75,6 +75,37 @@
                 : (IBoardTransitionHandler)_targetScenePassage.Value;
         }
 
+        public void AutoSetOppositeBoardsLink(bool force)
+        {
+            BoardsLink otherTargetLink = _targetBoardsLink.Value._targetBoardsLink.Value;
+
+            if (_targetBoardsLink.Value == null)
+            {
+                Debug.LogWarning("Cannot automatically set the opposite link while target BoardsLink is not referenced.");
+                return;
+            }
+
+            if (otherTargetLink != null)
+            {
+                if (otherTargetLink == this)
+                {
+                    Debug.Log($"Target BoardsLink of {otherTargetLink.name} is already set to {name}.");
+                    return;
+                }
+
+                if (force)
+                {
+                    Debug.LogWarning($"Automatically setting target passage of {_targetBoardsLink.Value.name} to {name}, overriding previous one {otherTargetLink.name}.");
+                    _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
+                }
+            }
+            else
+            {
+                Debug.Log($"Automatically setting target link of {_targetBoardsLink.Value.name} to {name}.");
+                _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
+            }
+        }
+
         private void Awake()
         {
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("VisualizeBoardsLinks", "Shows the board links hitboxes.", DebugDisplayVisualizers));
@@ -128,7 +159,8 @@
 
         protected override void DrawButtons()
         {
-            // [TODO] Button to automatically set the opposite link.
+            DrawButton("Autoset Opposite BoardsLink (if null)", () => Obj.AutoSetOppositeBoardsLink(false));
+            DrawButton("Autoset Opposite BoardsLink (forced)", () => Obj.AutoSetOppositeBoardsLink(true));
         }
     }
 #endif
