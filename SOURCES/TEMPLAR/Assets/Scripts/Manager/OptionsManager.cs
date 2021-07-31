@@ -1,8 +1,11 @@
 ﻿namespace Templar.Manager
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
-    public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
+    public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>, Templar.Tools.IManagerReferencesHandler
     {
         [Header("OPTIONS PANELS")]
         [SerializeField] private UI.Options.SettingsPanel _settingsPanel = null;
@@ -17,6 +20,8 @@
         public event OptionsToggleEventHandler OptionsClosed;
 
         public static bool ClosedThisFrame { get; private set; }
+
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static bool AnyPanelOpen()
         {
@@ -135,5 +140,24 @@
         {
             CleanupOptionsButtons();
         }
+
+        public void DebugFindAllReferences()
+        {
+            _settingsPanel = FindObjectOfType<UI.Options.SettingsPanel>();
+            _controlsPanel = FindObjectOfType<UI.Options.Controls.ControlsPanel>();
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _settingsPanel = _settingsPanel ?? FindObjectOfType<UI.Options.SettingsPanel>();
+            _controlsPanel = _controlsPanel ?? FindObjectOfType<UI.Options.Controls.ControlsPanel>();
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(OptionsManager))]
+    public class OptionsManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<OptionsManager>
+    {
+    }
+#endif
 }

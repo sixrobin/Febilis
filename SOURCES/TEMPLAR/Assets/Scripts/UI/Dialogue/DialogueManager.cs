@@ -2,11 +2,15 @@
 {
     using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     [DisallowMultipleComponent]
-    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
+    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>, Templar.Tools.IManagerReferencesHandler
     {
         [SerializeField] private DialogueView _dialogueView = null;
+        [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
 
         private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
@@ -20,6 +24,8 @@
 
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
+
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
@@ -35,6 +41,8 @@
                 $"Trying to play dialogue {dialogueDatas.Id} while dialogue {Instance._currentDialogue?.Id} is already playing.");
 
             Instance._currentDialogue = dialogueDatas;
+            Instance._currentDialogueId = new RSLib.Framework.DisabledString(dialogueDatas.Id);
+
             Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(sourceSpeaker));
         }
 
@@ -211,5 +219,22 @@
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
         }
+
+        public void DebugFindAllReferences()
+        {
+            _dialogueView = FindObjectOfType<DialogueView>();
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _dialogueView = _dialogueView ?? FindObjectOfType<DialogueView>();
+        }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(DialogueManager))]
+    public class DialogueManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<DialogueManager>
+    {
+    }
+#endif
 }

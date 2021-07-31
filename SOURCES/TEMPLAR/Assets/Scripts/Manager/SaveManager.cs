@@ -22,7 +22,7 @@
                 XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
                 container.Add(checkpointIdElement);
 
-                XElement paletteIndexElement = new XElement("PaletteIndex", PaletteSelector.CurrRampIndex);
+                XElement paletteIndexElement = new XElement("PaletteIndex", PaletteManager.CurrRampIndex);
                 container.Add(paletteIndexElement);
 
                 container.Add(GameManager.InventoryCtrl.Save());
@@ -82,7 +82,7 @@
 
                 XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
                 if (paletteIndexElement != null)
-                    PaletteSelector.SetPalette(paletteIndexElement.ValueToInt());
+                    PaletteManager.SetPalette(paletteIndexElement.ValueToInt());
 
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
             }

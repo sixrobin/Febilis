@@ -1,0 +1,1 @@
+Un tableau dans lequel le fade out se fait lentement, pour représenter le joueur qui s'habitue lentement à l'obscurité.

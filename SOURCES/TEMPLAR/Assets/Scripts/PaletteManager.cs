@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class PaletteSelector : RSLib.Framework.ConsoleProSingleton<PaletteSelector>
+    public class PaletteManager : RSLib.Framework.ConsoleProSingleton<PaletteManager>
     {
         private const string RAMP_TEX_SHADER_PARAM = "_RampTex";
 
