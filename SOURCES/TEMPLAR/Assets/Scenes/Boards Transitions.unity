@@ -17848,7 +17848,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _targetScenePassage._value
       value: 
-      objectReference: {fileID: -5583282215853614968, guid: 3da3b6af48df7ba4cbc6e462507b4fac,
+      objectReference: {fileID: -9043965466207528488, guid: 3da3b6af48df7ba4cbc6e462507b4fac,
         type: 2}
     - target: {fileID: 5288407546716378193, guid: 512acdd3b3a9487448a7997c52b7d2a3,
         type: 3}

@@ -165,18 +165,14 @@
 
         private static System.Collections.IEnumerator TransitionOutToScenesPassage(Boards.BoardsLink source, Boards.ScenesPassage target)
         {
-            // GetTarget() must be called here, because the source referenced will be missing after loading scene.
+            // Source's target must be get here, because the source ref will be missing after scene load.
             Boards.ScenesPassage sourceScenesPassage = source.GetTarget() as Boards.ScenesPassage;
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene(target.TargetPassage.GetTargetScene());
+            string sceneName = target.TargetPassage.GetTargetScene().SceneName;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+            yield return RSLib.Yield.SharedYields.WaitForSceneLoad(sceneName);
 
-            // [TMP] Generic coroutine. Also make sure this always works. And compare scene id instead of name.
-            while (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != target.GetTargetScene().SceneName)
-                yield return null;
-            yield return null;
-
-            Boards.BoardsLink targetBoardsLink = BoardsLinksManager.GetLinkRelatedToScenesPassage(sourceScenesPassage);
-            yield return TransitionOutToBoardsLink(source, targetBoardsLink);
+            yield return TransitionOutToBoardsLink(source, BoardsLinksManager.GetLinkRelatedToScenesPassage(sourceScenesPassage));
         }
 
         protected override void Awake()
