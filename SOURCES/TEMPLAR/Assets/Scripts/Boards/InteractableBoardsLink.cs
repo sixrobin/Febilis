@@ -1,6 +1,9 @@
 ﻿namespace Templar.Boards
 {
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
+#endif
 
     public class InteractableBoardsLink : BoardsLink, Interaction.IInteractable
     {
@@ -45,4 +48,11 @@
             _baseSprite = _spriteRenderer.sprite;
         }
     }
+
+#if UNITY_EDITOR
+    [CustomEditor(typeof(InteractableBoardsLink))]
+    public class InteractableBoardsLinkEditor : BoardsLinkEditor
+    {
+    }
+#endif
 }

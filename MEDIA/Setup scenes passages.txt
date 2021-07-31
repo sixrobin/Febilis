@@ -1,0 +1,27 @@
+# Setup des transitions entre les scènes.
+
+-> ScenesPassagesContainer.
+	- ScriptableObject dans lequel il faut référencer une scène Unity, et les ScenesPassages (voir ci dessous) qui appartiennent à cette scène. La liste des passages n'est pas éditable, car pour des raisons de sérialisation, editor, etc. c'est plus pratique de la manipuler via les boutons dans la catégorie EDITOR UTILITIES :
+		• Create Passage : crée un nouveau ScenesPassages dans le container et l'ajoute à la liste.
+		• Clear Passages : détruit tous les ScenesPassages contenus et clear la liste.
+		
+-> ScenesPassages.
+	- ScriptableObject (non créable via le CreateAssetMenu) créé en tant que sub asset de son container. Il contient une référence vers le passage auquel il mène. Ce passage DOIT appartenir à un autre ScenesPassagesContainer = à une autre scène.
+	- Le champ Target Scene Name est juste un visualiseur qui permet d'afficher le nom de la scène de destination. Il peut arriver que le nom soit mal refresh (en lançant le moteur, en dupliquant un asset, etc.) mais ça ne veut pas dire que c'est cassé.
+	- Description des quelques options dans la catégorie EDITOR UTILITIES :
+		• Delete : supprime ce passage, détruisant le sub asset et le supprimant de la liste dans son container.
+		• Autoset Opposite Passage (if null) : affecte automatiquement l'aller retour entre ce passage et sa destination si elle est manquante.
+		• Autoset Opposite Passage (forced) : affecte l'aller retour entre ce passage et sa destination, et l'écrasant si nécessaire.
+
+-> BoardsLink.
+	- La transition entre deux scènes est déclenchée par la même classe qui déclenche les transitions entre les tableaux d'une même scène. Cette classe a un peu changé, et il est maintenant possible d'y référencer :
+		• soit un autre BoardsLink, pour une transition au sein de la scène.
+		• soit un ScenesPassages, pour une transition vers une autre scène.
+	- /!\ Une seule des deux références doit être activée. Des erreurs/warnings sont affichées dans l'inspector si le setup n'est pas correct, mais il sera quand même possible de lancer le jeu (ce qui créera des erreurs plus tard de toute façon).
+	
+-> Algo des passages.
+	- Quand un BoardsLink est triggered, et qu'il référence un ScenesPassages.
+	- On récupère ce passage A, et on récupère le passage B auquel il mène.
+	- On récupère la scène à laquelle appartient le passage B, et on la load (après anim de transition, fade, etc.).
+	- Une fois dans la scène, on récupère le BoardsLink lié au passage B.
+	- On déclenche la transition d'entrée à la position du BoardsLink qui a été trouvé.

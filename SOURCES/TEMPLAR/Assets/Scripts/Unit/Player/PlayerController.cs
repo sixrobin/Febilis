@@ -325,8 +325,6 @@
 
                 if (!EffectorDown)
                     _currVel.y = 0f;
-                else
-                    Debug.Log("OUI");
             }
 
             if (InputCtrl.Horizontal != 0f && !IsHealing)
@@ -570,7 +568,7 @@
 
             if (_inputsAllowed
                 && !Tools.CheckpointTeleporter.IsOpen
-                && !Manager.BoardsManager.IsInBoardTransition
+                && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame()
                 && (!Manager.GameManager.InventoryView?.Displayed ?? true))
                 InputCtrl.Update();

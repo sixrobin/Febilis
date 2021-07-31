@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
+    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>, Templar.Tools.IManagerReferencesHandler
     {
         private const string INPUT_BACK = "UICancel";
 
@@ -14,8 +14,10 @@
 
 #if UNITY_EDITOR
         [Header("DEBUG")]
-        [SerializeField] private GameObject _currSelection = null;
+        [SerializeField] private RSLib.Framework.DisabledGameObject _currSelection = new RSLib.Framework.DisabledGameObject(null);
 #endif
+
+        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static UIPanel CurrentlyOpenPanel { get; private set; }
 
@@ -106,27 +108,25 @@
             TryHandleBackInput();
 
 #if UNITY_EDITOR
-            _currSelection = EventSystem.current.currentSelectedGameObject;
+            _currSelection = new RSLib.Framework.DisabledGameObject(EventSystem.current.currentSelectedGameObject);
 #endif
         }
 
-        public void LocateConfirmationPopup()
+        public void DebugFindAllReferences()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
+        }
+
+        public void DebugFindMissingReferences()
+        {
+            _confirmationPopup = _confirmationPopup ?? FindObjectOfType<ConfirmationPopup>();
         }
     }
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(UINavigationManager))]
-    public class UINavigationManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<UINavigationManager>
+    public class UINavigationManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<UINavigationManager>
     {
-        protected override void DrawButtons()
-        {
-            DrawButton("Locate Confirmation Popup", Obj.LocateConfirmationPopup);
-        }
     }
 #endif
 }

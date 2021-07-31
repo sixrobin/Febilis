@@ -46,7 +46,7 @@
 
         public virtual void CancelAttack()
         {
-            if (_attackCoroutine == null)
+            if (!IsAttacking)
                 return;
 
             _attackCoroutineRunner.StopCoroutine(_attackCoroutine);

@@ -51,7 +51,7 @@
 
         public void Interrupt()
         {
-            if (_rollCoroutine == null)
+            if (!IsRolling)
                 return;
 
             _playerCtrl.StopCoroutine(_rollCoroutine);
