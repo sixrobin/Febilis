@@ -39,7 +39,7 @@
 
             ComputeAttackDirection();
 
-            _enemyCtrl.EnemyView.SetupAttackAnimationsDatas(attackAction.ActionDatas.AnimatorId, _currAttackDatas);
+            _enemyCtrl.EnemyView.SetupAttackAnimationsDatas(attackAction, _currAttackDatas);
             _enemyCtrl.EnemyView.PlayAttackAnticipationAnimation();
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AnticipationDur);

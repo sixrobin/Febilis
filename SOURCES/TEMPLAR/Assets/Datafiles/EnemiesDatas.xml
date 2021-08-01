@@ -142,6 +142,7 @@
                   </Conditions>
                   <Delay Min="0.3" Max="0.4"/>
                   <AnimatorId>Base</AnimatorId>
+                  <AnimatorEnemyIdOverride>Rat</AnimatorEnemyIdOverride>
                </Attack>
                <Chase>
                   <Conditions>

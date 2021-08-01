@@ -1,8 +1,5 @@
 ﻿namespace Templar.Unit.Enemy
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-
     public class EnemyView : UnitView
     {
         private const float DEAD_FADE_DELAY = 0.8f;
@@ -30,10 +27,12 @@
             _animator.SetBool(IS_WALKING, state);
         }
 
-        public void SetupAttackAnimationsDatas(string id, Datas.Attack.AttackDatas attackDatas)
+        public void SetupAttackAnimationsDatas(Actions.AttackEnemyAction attackAction, Datas.Attack.AttackDatas attackDatas)
         {
-            string attackClipName = string.Format(ATTACK_CLIP_NAME_FORMAT, EnemyId, id);
-            string attackAnticipationClipName = string.Format(ATTACK_ANTICIPATION_CLIP_NAME_FORMAT, EnemyId, id);
+            string enemyId = attackAction.ActionDatas.AnimatorEnemyIdOverride ?? EnemyId;
+
+            string attackClipName = string.Format(ATTACK_CLIP_NAME_FORMAT, enemyId, attackAction.ActionDatas.AnimatorId);
+            string attackAnticipationClipName = string.Format(ATTACK_ANTICIPATION_CLIP_NAME_FORMAT, enemyId, attackAction.ActionDatas.AnimatorId);
 
             UnityEngine.Assertions.Assert.IsTrue(Database.EnemyDatabase.AnimationClips.ContainsKey(attackClipName), $"Animation clip {attackClipName} was not found in {Database.EnemyDatabase.Instance.GetType().Name}.");
             UnityEngine.Assertions.Assert.IsTrue(Database.EnemyDatabase.AnimationClips.ContainsKey(attackAnticipationClipName), $"Animation clip {attackAnticipationClipName} was not found in {Database.EnemyDatabase.Instance.GetType().Name}.");

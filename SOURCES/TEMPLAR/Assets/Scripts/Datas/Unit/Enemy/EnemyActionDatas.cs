@@ -34,6 +34,7 @@
         public (float min, float max) Delay { get; private set; }
 
         public string AnimatorId { get; private set; }
+        public string AnimatorEnemyIdOverride { get; private set; }
 
         public override void Deserialize(XContainer container)
         {
@@ -50,7 +51,10 @@
                 Delay = delayElement.MinMaxAttributesToFloats();
 
             XElement animatorSuffixElement = attackElement.Element("AnimatorId");
-            AnimatorId = animatorSuffixElement?.Value ?? string.Empty;
+            AnimatorId = animatorSuffixElement?.Value ?? null;
+
+            XElement animatorEnemyIdOverrideElement = attackElement.Element("AnimatorEnemyIdOverride");
+            AnimatorEnemyIdOverride = animatorEnemyIdOverrideElement?.Value ?? null;
         }
     }
 
