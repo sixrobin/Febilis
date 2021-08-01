@@ -117,5 +117,50 @@
          <Coins>2</Coins>
       </OnKilledLoot>
    </EnemyDatas>
+
+   <EnemyDatas Id="EnragedRat">
+      <Health>60</Health>
+      <WalkSpeed>3.5</WalkSpeed>
+      <RunSpeed>6</RunSpeed>
+      <HurtDur>0.15</HurtDur>
+      <PlayerDetectionDist>4</PlayerDetectionDist>
+      <PlayerLoseDist>10</PlayerLoseDist>
+      <Physics>
+         <Jump>
+            <Height>2</Height>
+            <ApexDur>0.3</ApexDur>
+         </Jump>
+         <HurtCheckEdge>true</HurtCheckEdge>
+      </Physics>
+      <Behaviours>
+         <Behaviour Name="Base">
+            <Actions>
+               <Attack Id="rat_atk_base">
+                  <Conditions>
+                     <PlayerAlive/>
+                     <PlayerInRange Range="1.5"/>
+                  </Conditions>
+                  <Delay Min="0.3" Max="0.4"/>
+                  <AnimatorId>Base</AnimatorId>
+               </Attack>
+               <Chase>
+                  <Conditions>
+                     <MaxHeightOffset Offset="0.5"/>
+                     <PlayerDetected/>
+                  </Conditions>
+               </Chase>
+               <BackAndForth>
+                  <Range>3</Range>
+                  <Pause Min="0.2" Max="0.5"/>
+                  <!--Make the range random between 2 and 8, but always from the same origin point.-->
+                  <RangeFluctuationOnPause>2</RangeFluctuationOnPause>
+               </BackAndForth>
+            </Actions>
+         </Behaviour>
+      </Behaviours>
+      <OnKilledLoot>
+         <Coins>2</Coins>
+      </OnKilledLoot>
+   </EnemyDatas>
    
 </EnemiesDatas>
