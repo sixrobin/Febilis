@@ -6,11 +6,9 @@
     using UnityEditor;
 #endif
 
-    public class BoardsLinksManager : RSLib.Framework.ConsoleProSingleton<BoardsLinksManager>, Templar.Tools.IManagerReferencesHandler
+    public class BoardsLinksManager : RSLib.Framework.ConsoleProSingleton<BoardsLinksManager>
     {
         [SerializeField] private Boards.BoardsLink[] _boardsLinks = null;
-
-        public GameObject PrefabInstanceRoot => gameObject;
 
         /// <summary>
         /// Tries to get the BoardsLinks the given ScenesPassage leads to.
@@ -33,24 +31,19 @@
             return boardsLinks.First();
         }
 
-        // [TODO] OnDrawGizmos to visualize links.
-
-        public void DebugFindAllReferences()
+        [ContextMenu("Find All References")]
+        private void DebugFindAllReferences()
         {
             _boardsLinks = FindObjectsOfType<Boards.BoardsLink>();
         }
 
-        public void DebugFindMissingReferences()
+        [ContextMenu("Find Missing References")]
+        private void DebugFindMissingReferences()
         {
             if (_boardsLinks == null || _boardsLinks.Length == 0 || _boardsLinks.Where(o => o != null).Count() == 0)
                 _boardsLinks = FindObjectsOfType<Boards.BoardsLink>();
         }
-    }
 
-#if UNITY_EDITOR
-    [CustomEditor(typeof(BoardsLinksManager))]
-    public class BoardsLinksManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<BoardsLinksManager>
-    {
+        // [TODO] OnDrawGizmos to visualize links.
     }
-#endif
 }

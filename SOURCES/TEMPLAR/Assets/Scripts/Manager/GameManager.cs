@@ -5,7 +5,7 @@
     using UnityEditor;
 #endif
 
-    public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>, Templar.Tools.IManagerReferencesHandler
+    public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
     {
         [SerializeField] private Interaction.Checkpoint.OptionalCheckpointController _overrideCheckpoint = new Interaction.Checkpoint.OptionalCheckpointController();
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
@@ -15,8 +15,6 @@
         [SerializeField] private bool _fadeOnRespawn = false;
 
         private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
-
-        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static Unit.Player.PlayerController PlayerCtrl => Instance._playerCtrl;
         public static Templar.Camera.CameraController CameraCtrl => Instance._cameraCtrl;
@@ -141,7 +139,8 @@
             RSLib.SceneReloader.BeforeReload -= SaveManager.Save;
         }
 
-        public void DebugFindAllReferences()
+        [ContextMenu("Find All References")]
+        private void DebugFindAllReferences()
         {
             _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
             _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
@@ -149,7 +148,8 @@
             _inventoryView = FindObjectOfType<UI.Inventory.InventoryView>();
         }
 
-        public void DebugFindMissingReferences()
+        [ContextMenu("Find Missing References")]
+        private void DebugFindMissingReferences()
         {
             _playerCtrl = _playerCtrl ?? FindObjectOfType<Unit.Player.PlayerController>();
             _cameraCtrl = _cameraCtrl ?? FindObjectOfType<Templar.Camera.CameraController>();
@@ -157,11 +157,4 @@
             _inventoryView = _inventoryView ?? FindObjectOfType<UI.Inventory.InventoryView>();
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(GameManager))]
-    public class GameManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<GameManager>
-    {
-    }
-#endif
 }

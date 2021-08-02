@@ -48,26 +48,7 @@ MonoBehaviour:
   _overrideLogPrefix:
     _value: 
     _enabled: 0
-  _boardsLinks:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _boardsLinks: []
 --- !u!1 &8874774588063780281
 GameObject:
   m_ObjectHideFlags: 0

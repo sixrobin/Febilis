@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c736878aebdc75d4faf9cdd4b8d6b26e, type: 3}
   m_Name: Moving Platform Debug Color
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0.6849411, b: 0.24056602, a: 1}
+  _color: {r: 1, g: 0.41020894, b: 0, a: 1}

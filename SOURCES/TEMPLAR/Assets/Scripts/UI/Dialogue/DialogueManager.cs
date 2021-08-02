@@ -7,7 +7,7 @@
 #endif
 
     [DisallowMultipleComponent]
-    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>, Templar.Tools.IManagerReferencesHandler
+    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
     {
         [SerializeField] private DialogueView _dialogueView = null;
         [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
@@ -24,8 +24,6 @@
 
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
-
-        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
@@ -220,21 +218,16 @@
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
         }
 
-        public void DebugFindAllReferences()
+        [ContextMenu("Find All References")]
+        private void DebugFindAllReferences()
         {
             _dialogueView = FindObjectOfType<DialogueView>();
         }
 
-        public void DebugFindMissingReferences()
+        [ContextMenu("Find Missing References")]
+        private void DebugFindMissingReferences()
         {
             _dialogueView = _dialogueView ?? FindObjectOfType<DialogueView>();
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(DialogueManager))]
-    public class DialogueManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<DialogueManager>
-    {
-    }
-#endif
 }
