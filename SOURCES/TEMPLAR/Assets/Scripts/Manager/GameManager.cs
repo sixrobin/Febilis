@@ -7,12 +7,16 @@
 
     public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
     {
-        [SerializeField] private Interaction.Checkpoint.OptionalCheckpointController _overrideCheckpoint = new Interaction.Checkpoint.OptionalCheckpointController();
+        [Header("REFS")]
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
         [SerializeField] private Item.InventoryController _inventoryCtrl = null;
         [SerializeField] private UI.Inventory.InventoryView _inventoryView = null;
-        [SerializeField] private bool _fadeOnRespawn = false;
+
+        [Header("SPAWN DEBUG")]
+        [SerializeField] private Interaction.Checkpoint.OptionalCheckpointController _overrideCheckpoint = new Interaction.Checkpoint.OptionalCheckpointController();
+        [SerializeField] private bool _fadeOnRespawn = true;
+        [SerializeField] private bool _stayAtSceneWindowPos = false;
 
         private System.Collections.Generic.IEnumerable<ICheckpointListener> _checkpointListeners;
 
@@ -51,10 +55,13 @@
 
         private void SpawnPlayer()
         {
-            if (OptionalCheckpoint.Enabled)
+            if (!_stayAtSceneWindowPos && OptionalCheckpoint.Enabled)
                 LogWarning($"Spawning player to an overridden checkpoint {OptionalCheckpoint.Value.transform.name}.");
 
-            _playerCtrl.Init(OptionalCheckpoint.Enabled ? OptionalCheckpoint.Value : Interaction.Checkpoint.CheckpointController.CurrCheckpoint);
+            if (_stayAtSceneWindowPos)
+                _playerCtrl.Init();
+            else
+                _playerCtrl.Init(OptionalCheckpoint.Enabled ? OptionalCheckpoint.Value : Interaction.Checkpoint.CheckpointController.CurrCheckpoint);
         }
 
         private System.Collections.IEnumerator SpawnPlayerCoroutine()
@@ -68,6 +75,7 @@
             yield return new WaitForEndOfFrame(); // Wait for checkpoints initialization.
 
             SpawnPlayer();
+            BoardsManager.DebugForceRefreshBoard(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
 
             if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
                 RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));

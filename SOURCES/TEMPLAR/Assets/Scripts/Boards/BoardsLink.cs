@@ -130,7 +130,7 @@
             if (OverrideRespawnPos == null)
                 return;
 
-            Gizmos.color = Manager.BoardsTransitionManager.RespawnDebugColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.color = Manager.BoardsManager.DebugColor?.Color ?? RSLib.DataColor.Default;
             Gizmos.DrawLine(OverrideRespawnPos.position, transform.position);
         }
 

@@ -12254,6 +12254,11 @@ PrefabInstance:
       propertyPath: _inventoryView
       value: 
       objectReference: {fileID: 1344956295}
+    - target: {fileID: 8874774588630882536, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
+        type: 3}
+      propertyPath: _overrideCheckpoint._enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8874774588995794889, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
       propertyPath: _confirmationPopup

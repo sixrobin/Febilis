@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 960823007228912291}
   - component: {fileID: 8235242648858092370}
   m_Layer: 0
-  m_Name: Boards Links Manager
+  m_Name: Boards Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _boardsLinks: []
+  _debugColor: {fileID: 0}
 --- !u!1 &8874774588063780281
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,14 +250,15 @@ MonoBehaviour:
   _overrideLogPrefix:
     _value: 
     _enabled: 0
-  _overrideCheckpoint:
-    _value: {fileID: 0}
-    _enabled: 0
   _playerCtrl: {fileID: 0}
   _cameraCtrl: {fileID: 0}
   _inventoryCtrl: {fileID: 0}
   _inventoryView: {fileID: 0}
+  _overrideCheckpoint:
+    _value: {fileID: 0}
+    _enabled: 0
   _fadeOnRespawn: 1
+  _stayAtSceneWindowPos: 0
 --- !u!1 &8874774588995794891
 GameObject:
   m_ObjectHideFlags: 0

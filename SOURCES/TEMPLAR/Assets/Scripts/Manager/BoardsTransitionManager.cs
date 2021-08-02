@@ -2,32 +2,19 @@
 {
     using RSLib.Extensions;
     using UnityEngine;
-#if UNITY_EDITOR
-    using UnityEditor;
-#endif
 
     public class BoardsTransitionManager : RSLib.Framework.ConsoleProSingleton<BoardsTransitionManager>
     {
-        [Header("INIT BOARD ON SCENE START")]
-        // [TODO] Auto detect using camera bounds to check if player is inside ?
-        [SerializeField] private Templar.Tools.OptionalBoard _initBoard = new Templar.Tools.OptionalBoard(null, false); 
-
         [Header("TRANSITION VIEW")]
         [SerializeField] private Datas.RampFadeDatas _fadeInDatas = null;
         [SerializeField] private Datas.RampFadeDatas _fadeOutDatas = null;
         [SerializeField, Min(0f)] private float _fadedInDur = 0.5f;
         [SerializeField] private float _downRespawnHeightOffset = 1f;
 
-        [Header("DEBUG")]
-        [SerializeField] private RSLib.DataColor _debugColor = null;
-        [SerializeField] private RSLib.DataColor _respawnDebugColor = null;
-
         private static System.Collections.IEnumerator s_boardTransitionCoroutine;
         private static System.Collections.IEnumerator s_playerMovementCoroutine;
 
         public static bool IsInBoardTransition => s_boardTransitionCoroutine != null;
-
-        public static RSLib.DataColor RespawnDebugColor => Instance._respawnDebugColor;
 
         public static void TriggerLink(Boards.BoardsLink link)
         {
@@ -172,55 +159,7 @@
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
             yield return RSLib.Yield.SharedYields.WaitForSceneLoad(sceneName);
 
-            yield return TransitionOutToBoardsLinkCoroutine(source, BoardsLinksManager.GetLinkRelatedToScenesPassage(sourceScenesPassage));
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (_initBoard.Enabled)
-                GameManager.CameraCtrl.SetBoardBounds(_initBoard.Value);
-        }
-
-        public static void DebugAutoDetectInitBoard()
-        {
-            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
-            Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
-
-            for (int i = boards.Length - 1; i >= 0; --i)
-            {
-                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
-                {
-                    Instance.Log($"Detected board {boards[i].transform.name} as the init board.", Instance.gameObject);
-                    Instance._initBoard = new Templar.Tools.OptionalBoard(boards[i], true);
-                    return;
-                }
-            }
-
-            Instance.LogWarning($"No board has been fonud as the init board.", Instance.gameObject);
-        }
-
-        public static void DebugForceRefreshBoard()
-        {
-            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
-            Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
-
-            for (int i = boards.Length - 1; i >= 0; --i)
-                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
-                    Manager.GameManager.CameraCtrl.SetBoardBounds(boards[i]);
+            yield return TransitionOutToBoardsLinkCoroutine(source, BoardsManager.GetLinkRelatedToScenesPassage(sourceScenesPassage));
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(BoardsTransitionManager))]
-    public class BoardsManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsTransitionManager>
-    {
-        protected override void DrawButtons()
-        {
-            DrawButton("Auto Detect Init Board", BoardsTransitionManager.DebugAutoDetectInitBoard);
-            DrawButton("Refresh Current Board", BoardsTransitionManager.DebugForceRefreshBoard);
-        }
-    }
-#endif
 }
