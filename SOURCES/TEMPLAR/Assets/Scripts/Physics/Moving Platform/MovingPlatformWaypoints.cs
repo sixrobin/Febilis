@@ -20,7 +20,12 @@
         public RSLib.Framework.OptionalFloat PauseDur => _pauseDur;
         public int PathLength => _globalWayPositions.Length;
 
-        public Vector3 GetPointAt(int index)
+        public Vector3 GetLocalWaypointAt(int index)
+        {
+            return _wayPositions[index];
+        }
+
+        public Vector3 GetGlobalWaypointAt(int index)
         {
             return _globalWayPositions[index];
         }

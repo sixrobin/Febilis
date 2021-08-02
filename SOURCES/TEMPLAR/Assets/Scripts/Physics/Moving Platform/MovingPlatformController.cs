@@ -35,6 +35,7 @@
         [SerializeField] private RSLib.Framework.OptionalInt _initFromIndex = new RSLib.Framework.OptionalInt(0, false);
 
         [Header("DEBUG")]
+        [SerializeField] private RSLib.DataColor _dbgColor = null;
         [SerializeField] private RSLib.DataColor _raycastsColor = null;
 
         private RaycastsController _raycastsCtrl;
@@ -68,8 +69,8 @@
             _currWaypointsPercentage += Mathf.Clamp01(_speed * Time.deltaTime / waypointsDist);
 
             Vector3 nextPos = Vector3.Lerp(
-                _waypoints.GetPointAt(_fromWaypointIndex),
-                _waypoints.GetPointAt(_toWaypointIndex),
+                _waypoints.GetGlobalWaypointAt(_fromWaypointIndex),
+                _waypoints.GetGlobalWaypointAt(_toWaypointIndex),
                 _waypoints.GetEasedPercentage(_currWaypointsPercentage));
 
             if (_currWaypointsPercentage >= 1f)
@@ -227,6 +228,29 @@
             ApplyPassengersVelocity(true);
             transform.Translate(vel);
             ApplyPassengersVelocity(false);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!_initFromIndex.Enabled && !_initPercentage.Enabled || Application.isPlaying)
+                return;
+
+            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+
+            Vector3 initPointPos = _waypoints.GetLocalWaypointAt(_initFromIndex.Enabled ? _initFromIndex.Value : 0);
+            if (_initPercentage.Enabled)
+            {
+                Vector3 initNextPointPos = _waypoints.GetLocalWaypointAt((_initFromIndex.Enabled ? _initFromIndex.Value : 0) + 1);
+                initPointPos += (initNextPointPos - initPointPos) * _initPercentage.Value;
+            }
+
+            Gizmos.DrawWireSphere(transform.position + initPointPos, 0.2f);
+        }
+
+        private void OnValidate()
+        {
+            _initPercentage = new RSLib.Framework.OptionalFloat(Mathf.Clamp01(_initPercentage.Value), _initPercentage.Enabled);
+            _initFromIndex = new RSLib.Framework.OptionalInt(Mathf.Max(0, _initFromIndex.Value), _initFromIndex.Enabled);
         }
     }
 
