@@ -2,9 +2,9 @@
 {
     public interface IHittable
     {
-        bool CanBeHit { get; }
         HitLayer HitLayer { get; }
 
+        bool CanBeHit();
         void OnHit(HitInfos hitDatas);
     }
 }

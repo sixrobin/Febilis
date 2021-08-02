@@ -23,10 +23,10 @@
         [Header("DEBUG")]
         [SerializeField] private SpriteRenderer _dbgVisualizer = null;
 
-        [System.Obsolete("Not technically obsolete, but should only be used in editor classes. Use GetTarget method instead.")]
+        [System.Obsolete("Not technically obsolete, but should only be used in editor/debug classes. Use GetTarget method instead.")]
         public Templar.Tools.OptionalBoardsLink TargetBoardsLink => _targetBoardsLink;
 
-        [System.Obsolete("Not technically obsolete, but should only be used in editor classes. Use GetTarget method instead.")]
+        [System.Obsolete("Not technically obsolete, but should only be used in editor/debug classes. Use GetTarget method instead.")]
         public Templar.Tools.OptionalScenesPassage TargetScenePassage => _targetScenePassage;
 
         public ScreenDirection ExitDir => _exitDir;
@@ -75,40 +75,54 @@
                 : (IBoardTransitionHandler)_targetScenePassage.Value;
         }
 
-        public void AutoSetOppositeBoardsLink(bool force)
-        {
-            BoardsLink otherTargetLink = _targetBoardsLink.Value._targetBoardsLink.Value;
+//        All those methods do not seem to work with prefab apply shit, even though they are called from ContextMenu...
 
-            if (_targetBoardsLink.Value == null)
-            {
-                Debug.LogWarning("Cannot automatically set the opposite link while target BoardsLink is not referenced.");
-                return;
-            }
+//        [ContextMenu("Autoset Opposite Link (forced)")]
+//        private void AutoSetOppositeBoardsLinkForced()
+//        {
+//            AutoSetOppositeBoardsLink(true);
+//        }
 
-            if (otherTargetLink != null)
-            {
-                if (otherTargetLink == this)
-                {
-                    Debug.Log($"Target BoardsLink of {otherTargetLink.name} is already set to {name}.");
-                    return;
-                }
+//        [ContextMenu("Autoset Opposite Link (if null)")]
+//        private void AutoSetOppositeBoardsLinkIfNull()
+//        {
+//            AutoSetOppositeBoardsLink(false);
+//        }
 
-                if (force)
-                {
-                    Debug.LogWarning($"Automatically setting target passage of {_targetBoardsLink.Value.name} to {name}, overriding previous one {otherTargetLink.name}.");
-                    _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
-                }
-            }
-            else
-            {
-                Debug.Log($"Automatically setting target link of {_targetBoardsLink.Value.name} to {name}.");
-                _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
-            }
+//        private void AutoSetOppositeBoardsLink(bool force)
+//        {
+//            BoardsLink otherTargetLink = _targetBoardsLink.Value._targetBoardsLink.Value;
 
-#if UNITY_EDITOR
-            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
-        }
+//            if (_targetBoardsLink.Value == null)
+//            {
+//                Debug.LogWarning("Cannot automatically set the opposite link while target BoardsLink is not referenced.");
+//                return;
+//            }
+
+//            if (otherTargetLink != null)
+//            {
+//                if (otherTargetLink == this)
+//                {
+//                    Debug.Log($"Target BoardsLink of {otherTargetLink.name} is already set to {name}.");
+//                    return;
+//                }
+
+//                if (force)
+//                {
+//                    Debug.LogWarning($"Automatically setting target passage of {_targetBoardsLink.Value.name} to {name}, overriding previous one {otherTargetLink.name}.");
+//                    _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
+//                }
+//            }
+//            else
+//            {
+//                Debug.Log($"Automatically setting target link of {_targetBoardsLink.Value.name} to {name}.");
+//                _targetBoardsLink.Value._targetBoardsLink = new Templar.Tools.OptionalBoardsLink(this, _targetBoardsLink.Enabled);
+//            }
+
+//#if UNITY_EDITOR
+//            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+//#endif
+//        }
 
         private void Awake()
         {
@@ -123,6 +137,18 @@
 
             if (other.GetComponent<Unit.Player.PlayerController>()) // [TODO] Remove GetComponent.
                 Trigger();
+        }
+
+        public void DebugDrawLineToTarget()
+        {
+#pragma warning disable CS0618
+            if (!TargetBoardsLink.Enabled || TargetBoardsLink.Value == null)
+                return;
+
+            Gizmos.color = Manager.BoardsManager.DebugColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.DrawLine(TargetBoardsLink.Value.transform.position, transform.position);
+            Gizmos.DrawWireSphere(transform.position, 0.2f);
+#pragma warning restore CS0618
         }
 
         private void OnDrawGizmos()
@@ -142,8 +168,15 @@
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(BoardsLink))]
-    public class BoardsLinkEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsLink>
+    public class BoardsLinkEditor : Editor
     {
+        protected BoardsLink Obj { get; private set; }
+
+        protected virtual void OnEnable()
+        {
+            Obj = (BoardsLink)target;
+        }
+
         public override void OnInspectorGUI()
         {
 #pragma warning disable CS0618
@@ -159,12 +192,6 @@
 #pragma warning restore CS0618
 
             base.OnInspectorGUI();
-        }
-
-        protected override void DrawButtons()
-        {
-            DrawButton("Autoset Opposite BoardsLink (if null)", () => Obj.AutoSetOppositeBoardsLink(false));
-            DrawButton("Autoset Opposite BoardsLink (forced)", () => Obj.AutoSetOppositeBoardsLink(true));
         }
     }
 #endif

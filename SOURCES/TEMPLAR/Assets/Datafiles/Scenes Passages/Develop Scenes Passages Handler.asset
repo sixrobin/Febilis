@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e0eca6b5390614fbd52a52301b93be, type: 3}
   m_Name: Passage 1
   m_EditorClassIdentifier: 
-  _targetPassage: {fileID: 0}
+  _targetPassage: {fileID: 5371489922276520418, guid: 3da3b6af48df7ba4cbc6e462507b4fac,
+    type: 2}
   _targetSceneName:
-    _value: 
+    _value: Boards Transition Scenes Passages Handler
   _passagesHandlerContainer: {fileID: 11400000}
 --- !u!114 &-3297141173114932707
 MonoBehaviour:

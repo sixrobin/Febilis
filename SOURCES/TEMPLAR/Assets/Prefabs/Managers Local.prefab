@@ -49,7 +49,7 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _boardsLinks: []
-  _debugColor: {fileID: 0}
+  _debugColor: {fileID: 11400000, guid: 6fa09264cf8367148bc12d429a89b107, type: 2}
 --- !u!1 &8874774588063780281
 GameObject:
   m_ObjectHideFlags: 0

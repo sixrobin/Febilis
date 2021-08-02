@@ -60,7 +60,11 @@
                 _boardsLinks = FindObjectsOfType<Boards.BoardsLink>();
         }
 
-        // [TODO] OnDrawGizmos to visualize links.
+        private void OnDrawGizmos()
+        {
+            for (int i = _boardsLinks.Length - 1; i >= 0; --i)
+                _boardsLinks[i].DebugDrawLineToTarget();
+        }
     }
 
 #if UNITY_EDITOR
