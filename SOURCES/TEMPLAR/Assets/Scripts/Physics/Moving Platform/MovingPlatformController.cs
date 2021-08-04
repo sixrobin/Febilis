@@ -34,11 +34,16 @@
         [SerializeField] private RSLib.Framework.OptionalFloat _initPercentage = new RSLib.Framework.OptionalFloat(0f, false);
         [SerializeField] private RSLib.Framework.OptionalInt _initFromIndex = new RSLib.Framework.OptionalInt(0, false);
 
+        [Header("TRIGGER")]
+        [SerializeField] private Templar.Tools.OptionalTriggerableObject _movementTrigger = new Templar.Tools.OptionalTriggerableObject(null, false);
+        
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _dbgColor = null;
         [SerializeField] private RSLib.DataColor _raycastsColor = null;
 
         private RaycastsController _raycastsCtrl;
+
+        private bool _movementTriggered;
 
         private int _fromWaypointIndex;
         private int _toWaypointIndex;
@@ -55,6 +60,11 @@
             _currWaypointsPercentage = _initPercentage.Enabled ? _initPercentage.Value : 0f;
             _fromWaypointIndex = _initFromIndex.Enabled ? _initFromIndex.Value : 0;
             _toWaypointIndex = 0;
+        }
+
+        private void OnMovementTriggerTriggered(Triggerables.TriggerableObject.TriggerEventArgs args)
+        {
+            _movementTriggered = true;
         }
 
         private Vector3 ComputePlatformVelocity()
@@ -216,10 +226,19 @@
         {
             ResetPlatform();
             _raycastsCtrl = new RaycastsController(_boxCollider2D);
+            _movementTriggered = !_movementTrigger.Enabled || _movementTrigger.Value == null; // [TODO] Or if loading a platform already triggered.
+        
+            if (_movementTrigger.Enabled && _movementTrigger.Value != null)
+            {
+                _movementTrigger.Value.Triggered += OnMovementTriggerTriggered;
+            }
         }
 
         private void Update()
         {
+            if (!_movementTriggered)
+                return;
+
             _raycastsCtrl.ComputeRaycastOrigins();
 
             Vector3 vel = ComputePlatformVelocity();
@@ -231,6 +250,16 @@
         }
 
         private void OnDrawGizmos()
+        {
+            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+
+            if (_movementTrigger.Enabled && _movementTrigger.Value != null)
+                Gizmos.DrawLine(transform.position, _movementTrigger.Value.transform.position);
+
+            DrawWaypointsStartGizmos();
+        }
+
+        private void DrawWaypointsStartGizmos()
         {
             if (!_initFromIndex.Enabled && !_initPercentage.Enabled || Application.isPlaying)
                 return;

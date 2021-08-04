@@ -126,4 +126,16 @@
       </OnTrigger>
    </TriggerableDatas>
 
+   <TriggerableDatas Id="LeverOnce">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Trauma X="0.25" Y ="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
+         <SpawnFromPool>Hit</SpawnFromPool>
+         <SpawnFromPool>Land_Puff</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
 </TriggerablesDatas>
