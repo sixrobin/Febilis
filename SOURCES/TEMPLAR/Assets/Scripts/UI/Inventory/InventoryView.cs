@@ -275,11 +275,8 @@
         public void LocateSlotsInParentChildren()
         {
             _slotsViews = transform.parent.GetComponentsInChildren<InventorySlot>();
-
-#if UNITY_EDITOR
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
-#endif
         }
     }
 

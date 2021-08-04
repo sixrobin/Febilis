@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
+   <xs:include schemaLocation="../SharedDatas.xsd"/>
+
    <xs:element name="DialoguesDatas">
       <xs:complexType>
          <xs:sequence>
@@ -27,12 +29,13 @@
                   <xs:element name="Pause">
                      <xs:complexType>
                         <xs:sequence>
-                           <!--Hide panel or not ?-->
                         </xs:sequence>
+                        <!--Hide panel or not (attribute) ?-->
                         <xs:attribute name="Dur" type="xs:float" use="required"/>
                      </xs:complexType>
                   </xs:element>
-                  <!--Element event?-->
+                  <xs:element name="AddItem" type="ItemDropDatas"/>
+                  <xs:element name="RemoveItem" type="ItemDropDatas"/>
                </xs:choice>
             </xs:complexType>
          </xs:element>

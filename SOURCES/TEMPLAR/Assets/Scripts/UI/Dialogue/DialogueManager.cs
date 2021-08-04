@@ -2,9 +2,6 @@
 {
     using System.Linq;
     using UnityEngine;
-#if UNITY_EDITOR
-    using UnityEditor;
-#endif
 
     [DisallowMultipleComponent]
     public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
@@ -91,6 +88,14 @@
                     _dialogueView.Display(false);
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
                 }
+                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialogueAddItemDatas addItemDatas)
+                {
+                    Manager.GameManager.InventoryCtrl.AddItem(addItemDatas.ItemId, addItemDatas.Quantity);
+                }
+                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialogueRemoveItemDatas removeItemDatas)
+                {
+                    Manager.GameManager.InventoryCtrl.RemoveItem(removeItemDatas.ItemId, removeItemDatas.Quantity);
+                }
                 else
                 {
                     LogError($"Unhandled dialogue datas type {_currentDialogue.SequenceElementsDatas[i].GetType().Name} encountered during dialogue {_currentDialogue.Id} sequence.");
@@ -103,12 +108,11 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = false;
             Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
+            DialogueOver?.Invoke(_currentDialogue.Id);
+            Log($"Dialogue {_currentDialogue.Id} sequence is over.");
+
             _dialogueCoroutine = null;
             _currentDialogue = null;
-
-            DialogueOver?.Invoke(_currentDialogue.Id);
-
-            Log($"Dialogue {_currentDialogue.Id} sequence is over.");
         }
 
         private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceDatas)
@@ -222,12 +226,14 @@
         private void DebugFindAllReferences()
         {
             _dialogueView = FindObjectOfType<DialogueView>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         [ContextMenu("Find Missing References")]
         private void DebugFindMissingReferences()
         {
             _dialogueView = _dialogueView ?? FindObjectOfType<DialogueView>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
 }

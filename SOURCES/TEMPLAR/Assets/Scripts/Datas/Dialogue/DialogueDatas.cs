@@ -6,6 +6,11 @@
 
     public class DialogueDatas : Datas
     {
+        private const string ELEMENT_NAME_SENTENCE = "Sentence";
+        private const string ELEMENT_NAME_PAUSE = "Pause";
+        private const string ELEMENT_NAME_ADD_ITEM = "AddItem";
+        private const string ELEMENT_NAME_REMOVE_ITEM = "RemoveItem";
+
         public DialogueDatas(XContainer container) : base(container)
         {
         }
@@ -35,7 +40,7 @@
             int i = 0;
             foreach (XElement sentenceElement in dialogueSequenceElements)
             {
-                if (sentenceElement.Name.LocalName == "Sentence")
+                if (sentenceElement.Name.LocalName == ELEMENT_NAME_SENTENCE)
                 {
                     // We may want to create a custom class containing SentenceDatas, like DialogueSentenceDatas
                     // to override datas from the base sentence.
@@ -44,9 +49,17 @@
                     UnityEngine.Assertions.Assert.IsNotNull(sentenceIdAttribute, "Dialogue Sentence element needs an Id attribute.");
                     SequenceElementsDatas[i] = Database.DialogueDatabase.SentencesDatas[sentenceIdAttribute.Value];
                 }
-                else if (sentenceElement.Name.LocalName == "Pause")
+                else if (sentenceElement.Name.LocalName == ELEMENT_NAME_PAUSE)
                 {
                     SequenceElementsDatas[i] = new DialoguePauseDatas(sentenceElement);
+                }
+                else if (sentenceElement.Name.LocalName == ELEMENT_NAME_ADD_ITEM)
+                {
+                    SequenceElementsDatas[i] = new DialogueAddItemDatas(sentenceElement);
+                }
+                else if (sentenceElement.Name.LocalName == ELEMENT_NAME_REMOVE_ITEM)
+                {
+                    SequenceElementsDatas[i] = new DialogueRemoveItemDatas(sentenceElement);
                 }
 
                 i++;

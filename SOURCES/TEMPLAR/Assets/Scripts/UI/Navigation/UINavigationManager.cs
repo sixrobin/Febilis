@@ -114,12 +114,14 @@
         private void DebugFindAllReferences()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         [ContextMenu("Find Missing References")]
         private void DebugFindMissingReferences()
         {
             _confirmationPopup = _confirmationPopup ?? FindObjectOfType<ConfirmationPopup>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
 }

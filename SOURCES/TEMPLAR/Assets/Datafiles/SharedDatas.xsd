@@ -3,7 +3,7 @@
 
    <xs:complexType name="ItemDropDatas">
       <xs:attribute name="Id" type="xs:token" use="required"/>
-      <xs:attribute name="Quantity" type="xs:nonNegativeInteger" use="required"/>
+      <xs:attribute name="Quantity" type="xs:nonNegativeInteger" use="optional" default="1"/>
    </xs:complexType>
       
    <xs:complexType name="TraumaDatas">

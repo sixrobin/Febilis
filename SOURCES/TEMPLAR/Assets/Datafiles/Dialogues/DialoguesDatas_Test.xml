@@ -6,6 +6,7 @@
          <Sentence Id="NPCDial_00_Sentence_00"/>
          <Pause Dur="0.5"/>
          <Sentence Id="NPCDial_00_Sentence_01"/>
+         <AddItem Id="Test"/>
          <Sentence Id="NPCDial_00_Sentence_02"/>
          <Sentence Id="NPCDial_00_Sentence_NameReveal"/>
          <Sentence Id="NPCDial_00_Sentence_03"/>

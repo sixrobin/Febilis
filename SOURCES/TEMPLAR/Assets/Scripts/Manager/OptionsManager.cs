@@ -144,6 +144,7 @@
         {
             _settingsPanel = FindObjectOfType<UI.Options.SettingsPanel>();
             _controlsPanel = FindObjectOfType<UI.Options.Controls.ControlsPanel>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         [ContextMenu("Find Missing References")]
@@ -151,6 +152,7 @@
         {
             _settingsPanel = _settingsPanel ?? FindObjectOfType<UI.Options.SettingsPanel>();
             _controlsPanel = _controlsPanel ?? FindObjectOfType<UI.Options.Controls.ControlsPanel>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
 }

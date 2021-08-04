@@ -103,10 +103,8 @@
         public void LocateActionsInChildren()
         {
             _contextActions = GetComponentsInChildren<ItemContextMenuAction>();
-#if UNITY_EDITOR
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
-#endif
         }
     }
 

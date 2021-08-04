@@ -51,6 +51,7 @@
         private void DebugFindAllReferences()
         {
             _boardsLinks = FindObjectsOfType<Boards.BoardsLink>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         [ContextMenu("Find Missing References")]
@@ -58,6 +59,8 @@
         {
             if (_boardsLinks == null || _boardsLinks.Length == 0 || _boardsLinks.Where(o => o != null).Count() == 0)
                 _boardsLinks = FindObjectsOfType<Boards.BoardsLink>();
+
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         private void OnDrawGizmos()

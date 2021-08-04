@@ -154,6 +154,8 @@
             _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
             _inventoryCtrl = FindObjectOfType<Item.InventoryController>();
             _inventoryView = FindObjectOfType<UI.Inventory.InventoryView>();
+
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         [ContextMenu("Find Missing References")]
@@ -163,6 +165,8 @@
             _cameraCtrl = _cameraCtrl ?? FindObjectOfType<Templar.Camera.CameraController>();
             _inventoryCtrl = _inventoryCtrl ?? FindObjectOfType<Item.InventoryController>();
             _inventoryView = _inventoryView ?? FindObjectOfType<UI.Inventory.InventoryView>();
+
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
 }
