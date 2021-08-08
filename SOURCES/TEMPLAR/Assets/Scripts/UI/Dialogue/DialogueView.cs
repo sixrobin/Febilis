@@ -139,6 +139,7 @@
         {
             Display(false);
             _skipInputInitY = _skipInputFeedback.anchoredPosition.y;
+
         }
     }
 }

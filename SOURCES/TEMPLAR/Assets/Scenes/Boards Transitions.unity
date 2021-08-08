@@ -20010,7 +20010,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _targetScenePassage._value
       value: 
-      objectReference: {fileID: -8738592224167289939, guid: 3da3b6af48df7ba4cbc6e462507b4fac,
+      objectReference: {fileID: 5371489922276520418, guid: 3da3b6af48df7ba4cbc6e462507b4fac,
         type: 2}
     - target: {fileID: 5288407546716378193, guid: 512acdd3b3a9487448a7997c52b7d2a3,
         type: 3}
@@ -22223,34 +22223,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
-      propertyPath: _boardsLinks.Array.data[0]
-      value: 
-      objectReference: {fileID: 1151277785}
+      propertyPath: _boardsLinks.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
-      propertyPath: _boardsLinks.Array.data[1]
+      propertyPath: _boardsLinks.Array.data[0]
       value: 
       objectReference: {fileID: 190633459}
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
-      propertyPath: _boardsLinks.Array.data[2]
+      propertyPath: _boardsLinks.Array.data[1]
       value: 
       objectReference: {fileID: 248800716}
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
-      propertyPath: _boardsLinks.Array.data[3]
+      propertyPath: _boardsLinks.Array.data[2]
       value: 
       objectReference: {fileID: 342142971}
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
-      propertyPath: _boardsLinks.Array.data[4]
+      propertyPath: _boardsLinks.Array.data[3]
       value: 
       objectReference: {fileID: 845652988}
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
-      propertyPath: _boardsLinks.Array.data[5]
+      propertyPath: _boardsLinks.Array.data[4]
       value: 
       objectReference: {fileID: 892947106}
+    - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
+        type: 3}
+      propertyPath: _boardsLinks.Array.data[5]
+      value: 
+      objectReference: {fileID: 1151277785}
     - target: {fileID: 8235242648858092370, guid: 575a1aaf9449a2c4cb31a4bc07eace01,
         type: 3}
       propertyPath: _boardsLinks.Array.data[6]

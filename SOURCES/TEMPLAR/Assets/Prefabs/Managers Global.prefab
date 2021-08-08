@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 746564495348402865}
   - component: {fileID: 746564495348402830}
   m_Layer: 0
-  m_Name: Boards Manager
+  m_Name: Boards Transition Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,15 +143,10 @@ MonoBehaviour:
   _overrideLogPrefix:
     _value: 
     _enabled: 0
-  _initBoard:
-    _value: {fileID: 0}
-    _enabled: 0
   _fadeInDatas: {fileID: 11400000, guid: f5ebf111ef14eec42949fe4b3d54497c, type: 2}
   _fadeOutDatas: {fileID: 11400000, guid: 3f5da20de646f194cbe614d768e90af5, type: 2}
   _fadedInDur: 0.5
   _downRespawnHeightOffset: 1
-  _debugColor: {fileID: 11400000, guid: 6fa09264cf8367148bc12d429a89b107, type: 2}
-  _respawnDebugColor: {fileID: 0}
 --- !u!1 &2391332496471002807
 GameObject:
   m_ObjectHideFlags: 0

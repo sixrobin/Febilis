@@ -73,7 +73,7 @@
                 if (collider.TryGetComponent(out hittable))
                     s_sharedKnownHittables.Add(collider, hittable);
 
-            if (hittable == null || !hittable.CanBeHit || (_attackDatas.HitLayer & hittable.HitLayer) == 0 || _hitThisTime.Contains(hittable))
+            if (hittable == null || !hittable.CanBeHit() || (_attackDatas.HitLayer & hittable.HitLayer) == 0 || _hitThisTime.Contains(hittable))
                 return;
 
             _hitThisTime.Add(hittable);

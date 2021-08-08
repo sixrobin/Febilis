@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>, Templar.Tools.IManagerReferencesHandler
+    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
     {
         private const string INPUT_BACK = "UICancel";
 
@@ -16,8 +16,6 @@
         [Header("DEBUG")]
         [SerializeField] private RSLib.Framework.DisabledGameObject _currSelection = new RSLib.Framework.DisabledGameObject(null);
 #endif
-
-        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static UIPanel CurrentlyOpenPanel { get; private set; }
 
@@ -112,21 +110,18 @@
 #endif
         }
 
-        public void DebugFindAllReferences()
+        [ContextMenu("Find All References")]
+        private void DebugFindAllReferences()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
-        public void DebugFindMissingReferences()
+        [ContextMenu("Find Missing References")]
+        private void DebugFindMissingReferences()
         {
             _confirmationPopup = _confirmationPopup ?? FindObjectOfType<ConfirmationPopup>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(UINavigationManager))]
-    public class UINavigationManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<UINavigationManager>
-    {
-    }
-#endif
 }

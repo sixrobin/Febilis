@@ -2,12 +2,9 @@
 {
     using System.Linq;
     using UnityEngine;
-#if UNITY_EDITOR
-    using UnityEditor;
-#endif
 
     [DisallowMultipleComponent]
-    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>, Templar.Tools.IManagerReferencesHandler
+    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
     {
         [SerializeField] private DialogueView _dialogueView = null;
         [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
@@ -24,8 +21,6 @@
 
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
-
-        GameObject Templar.Tools.IManagerReferencesHandler.PrefabInstanceRoot => gameObject;
 
         public static bool DialogueRunning => Instance._dialogueCoroutine != null;
 
@@ -93,6 +88,14 @@
                     _dialogueView.Display(false);
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
                 }
+                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialogueAddItemDatas addItemDatas)
+                {
+                    Manager.GameManager.InventoryCtrl.AddItem(addItemDatas.ItemId, addItemDatas.Quantity);
+                }
+                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialogueRemoveItemDatas removeItemDatas)
+                {
+                    Manager.GameManager.InventoryCtrl.RemoveItem(removeItemDatas.ItemId, removeItemDatas.Quantity);
+                }
                 else
                 {
                     LogError($"Unhandled dialogue datas type {_currentDialogue.SequenceElementsDatas[i].GetType().Name} encountered during dialogue {_currentDialogue.Id} sequence.");
@@ -105,12 +108,11 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = false;
             Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
+            DialogueOver?.Invoke(_currentDialogue.Id);
+            Log($"Dialogue {_currentDialogue.Id} sequence is over.");
+
             _dialogueCoroutine = null;
             _currentDialogue = null;
-
-            DialogueOver?.Invoke(_currentDialogue.Id);
-
-            Log($"Dialogue {_currentDialogue.Id} sequence is over.");
         }
 
         private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceDatas)
@@ -220,21 +222,18 @@
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
         }
 
-        public void DebugFindAllReferences()
+        [ContextMenu("Find All References")]
+        private void DebugFindAllReferences()
         {
             _dialogueView = FindObjectOfType<DialogueView>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
-        public void DebugFindMissingReferences()
+        [ContextMenu("Find Missing References")]
+        private void DebugFindMissingReferences()
         {
             _dialogueView = _dialogueView ?? FindObjectOfType<DialogueView>();
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(DialogueManager))]
-    public class DialogueManagerEditor : Templar.Tools.ManagerReferencesHandlerEditor<DialogueManager>
-    {
-    }
-#endif
 }

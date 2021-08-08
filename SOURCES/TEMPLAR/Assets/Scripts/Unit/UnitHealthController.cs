@@ -51,9 +51,12 @@
 
         public RSLib.HealthSystem HealthSystem { get; private set; }
 
-        public virtual bool CanBeHit => !HealthSystem.IsDead;
-
         public abstract Attack.HitLayer HitLayer { get; }
+
+        public virtual bool CanBeHit()
+        {
+            return !HealthSystem.IsDead;
+        }
 
         public virtual void OnHit(Attack.HitInfos hitDatas)
         {

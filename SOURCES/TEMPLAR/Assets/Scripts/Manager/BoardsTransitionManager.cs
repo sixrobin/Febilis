@@ -2,40 +2,27 @@
 {
     using RSLib.Extensions;
     using UnityEngine;
-#if UNITY_EDITOR
-    using UnityEditor;
-#endif
 
     public class BoardsTransitionManager : RSLib.Framework.ConsoleProSingleton<BoardsTransitionManager>
     {
-        [Header("INIT BOARD ON SCENE START")]
-        // [TODO] Auto detect using camera bounds to check if player is inside ?
-        [SerializeField] private Templar.Tools.OptionalBoard _initBoard = new Templar.Tools.OptionalBoard(null, false); 
-
         [Header("TRANSITION VIEW")]
         [SerializeField] private Datas.RampFadeDatas _fadeInDatas = null;
         [SerializeField] private Datas.RampFadeDatas _fadeOutDatas = null;
         [SerializeField, Min(0f)] private float _fadedInDur = 0.5f;
         [SerializeField] private float _downRespawnHeightOffset = 1f;
 
-        [Header("DEBUG")]
-        [SerializeField] private RSLib.DataColor _debugColor = null;
-        [SerializeField] private RSLib.DataColor _respawnDebugColor = null;
-
         private static System.Collections.IEnumerator s_boardTransitionCoroutine;
         private static System.Collections.IEnumerator s_playerMovementCoroutine;
 
         public static bool IsInBoardTransition => s_boardTransitionCoroutine != null;
 
-        public static RSLib.DataColor RespawnDebugColor => Instance._respawnDebugColor;
-
         public static void TriggerLink(Boards.BoardsLink link)
         {
             Instance.Log($"{link.transform.name} triggered.", link.gameObject);
-            Instance.StartCoroutine(s_boardTransitionCoroutine = BoardTransitionCoroutine(link));
+            Instance.StartCoroutine(s_boardTransitionCoroutine = TransitionInCoroutine(link));
         }
 
-        private static System.Collections.IEnumerator BoardTransitionCoroutine(Boards.BoardsLink source)
+        private static System.Collections.IEnumerator TransitionInCoroutine(Boards.BoardsLink source)
         {
             Boards.IBoardTransitionHandler target = source.GetTarget();
             Boards.BoardsLink targetBoardsLink = target as Boards.BoardsLink;
@@ -82,14 +69,14 @@
             if (source.OverrideFadedInDelay)
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(source.OverrideFadedInDelayDur);
 
-            yield return WaitForFadeIn(source);
+            yield return WaitForFadeInCoroutine(source);
 
             if (s_playerMovementCoroutine != null)
                 Instance.StopCoroutine(s_playerMovementCoroutine);
 
             yield return targetBoardsLink
-                ? TransitionOutToBoardsLink(source, targetBoardsLink)
-                : TransitionOutToScenesPassage(source, targetScenesPassage);
+                ? TransitionOutToBoardsLinkCoroutine(source, targetBoardsLink)
+                : TransitionOutToScenesPassageCoroutine(source, targetScenesPassage);
 
             s_boardTransitionCoroutine = null;
             s_playerMovementCoroutine = null;
@@ -99,7 +86,7 @@
             target.OnBoardsTransitionOver();
         }
 
-        private static System.Collections.IEnumerator WaitForFadeIn(Boards.BoardsLink source)
+        private static System.Collections.IEnumerator WaitForFadeInCoroutine(Boards.BoardsLink source)
         {
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
@@ -107,7 +94,7 @@
             yield return new WaitForSeconds(source.OverrideExitFadedIn ? source.OverrideExitFadedInDur : Instance._fadedInDur);
         }
 
-        private static System.Collections.IEnumerator TransitionOutToBoardsLink(Boards.BoardsLink source, Boards.BoardsLink target)
+        private static System.Collections.IEnumerator TransitionOutToBoardsLinkCoroutine(Boards.BoardsLink source, Boards.BoardsLink target)
         {
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
 
@@ -163,7 +150,7 @@
             GameManager.PlayerCtrl.AllowInputs(true);
         }
 
-        private static System.Collections.IEnumerator TransitionOutToScenesPassage(Boards.BoardsLink source, Boards.ScenesPassage target)
+        private static System.Collections.IEnumerator TransitionOutToScenesPassageCoroutine(Boards.BoardsLink source, Boards.ScenesPassage target)
         {
             // Source's target must be get here, because the source ref will be missing after scene load.
             Boards.ScenesPassage sourceScenesPassage = source.GetTarget() as Boards.ScenesPassage;
@@ -172,55 +159,7 @@
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
             yield return RSLib.Yield.SharedYields.WaitForSceneLoad(sceneName);
 
-            yield return TransitionOutToBoardsLink(source, BoardsLinksManager.GetLinkRelatedToScenesPassage(sourceScenesPassage));
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            if (_initBoard.Enabled)
-                GameManager.CameraCtrl.SetBoardBounds(_initBoard.Value);
-        }
-
-        public static void DebugAutoDetectInitBoard()
-        {
-            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
-            Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
-
-            for (int i = boards.Length - 1; i >= 0; --i)
-            {
-                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
-                {
-                    Instance.Log($"Detected board {boards[i].transform.name} as the init board.", Instance.gameObject);
-                    Instance._initBoard = new Templar.Tools.OptionalBoard(boards[i], true);
-                    return;
-                }
-            }
-
-            Instance.LogWarning($"No board has been fonud as the init board.", Instance.gameObject);
-        }
-
-        public static void DebugForceRefreshBoard()
-        {
-            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
-            Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
-
-            for (int i = boards.Length - 1; i >= 0; --i)
-                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
-                    Manager.GameManager.CameraCtrl.SetBoardBounds(boards[i]);
+            yield return TransitionOutToBoardsLinkCoroutine(source, BoardsManager.GetLinkRelatedToScenesPassage(sourceScenesPassage));
         }
     }
-
-#if UNITY_EDITOR
-    [CustomEditor(typeof(BoardsTransitionManager))]
-    public class BoardsManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsTransitionManager>
-    {
-        protected override void DrawButtons()
-        {
-            DrawButton("Auto Detect Init Board", BoardsTransitionManager.DebugAutoDetectInitBoard);
-            DrawButton("Refresh Current Board", BoardsTransitionManager.DebugForceRefreshBoard);
-        }
-    }
-#endif
 }

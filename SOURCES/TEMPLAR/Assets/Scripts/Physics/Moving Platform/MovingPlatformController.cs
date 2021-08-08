@@ -34,10 +34,16 @@
         [SerializeField] private RSLib.Framework.OptionalFloat _initPercentage = new RSLib.Framework.OptionalFloat(0f, false);
         [SerializeField] private RSLib.Framework.OptionalInt _initFromIndex = new RSLib.Framework.OptionalInt(0, false);
 
+        [Header("TRIGGER")]
+        [SerializeField] private Templar.Tools.OptionalTriggerableObject _movementTrigger = new Templar.Tools.OptionalTriggerableObject(null, false);
+        
         [Header("DEBUG")]
+        [SerializeField] private RSLib.DataColor _dbgColor = null;
         [SerializeField] private RSLib.DataColor _raycastsColor = null;
 
         private RaycastsController _raycastsCtrl;
+
+        private bool _movementTriggered;
 
         private int _fromWaypointIndex;
         private int _toWaypointIndex;
@@ -56,6 +62,11 @@
             _toWaypointIndex = 0;
         }
 
+        private void OnMovementTriggerTriggered(Triggerables.TriggerableObject.TriggerEventArgs args)
+        {
+            _movementTriggered = true;
+        }
+
         private Vector3 ComputePlatformVelocity()
         {
             if (_onWaypointPause)
@@ -68,8 +79,8 @@
             _currWaypointsPercentage += Mathf.Clamp01(_speed * Time.deltaTime / waypointsDist);
 
             Vector3 nextPos = Vector3.Lerp(
-                _waypoints.GetPointAt(_fromWaypointIndex),
-                _waypoints.GetPointAt(_toWaypointIndex),
+                _waypoints.GetGlobalWaypointAt(_fromWaypointIndex),
+                _waypoints.GetGlobalWaypointAt(_toWaypointIndex),
                 _waypoints.GetEasedPercentage(_currWaypointsPercentage));
 
             if (_currWaypointsPercentage >= 1f)
@@ -215,10 +226,19 @@
         {
             ResetPlatform();
             _raycastsCtrl = new RaycastsController(_boxCollider2D);
+            _movementTriggered = !_movementTrigger.Enabled || _movementTrigger.Value == null; // [TODO] Or if loading a platform already triggered.
+        
+            if (_movementTrigger.Enabled && _movementTrigger.Value != null)
+            {
+                _movementTrigger.Value.Triggered += OnMovementTriggerTriggered;
+            }
         }
 
         private void Update()
         {
+            if (!_movementTriggered)
+                return;
+
             _raycastsCtrl.ComputeRaycastOrigins();
 
             Vector3 vel = ComputePlatformVelocity();
@@ -227,6 +247,39 @@
             ApplyPassengersVelocity(true);
             transform.Translate(vel);
             ApplyPassengersVelocity(false);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+
+            if (_movementTrigger.Enabled && _movementTrigger.Value != null)
+                Gizmos.DrawLine(transform.position, _movementTrigger.Value.transform.position);
+
+            DrawWaypointsStartGizmos();
+        }
+
+        private void DrawWaypointsStartGizmos()
+        {
+            if (!_initFromIndex.Enabled && !_initPercentage.Enabled || Application.isPlaying)
+                return;
+
+            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+
+            Vector3 initPointPos = _waypoints.GetLocalWaypointAt(_initFromIndex.Enabled ? _initFromIndex.Value : 0);
+            if (_initPercentage.Enabled)
+            {
+                Vector3 initNextPointPos = _waypoints.GetLocalWaypointAt((_initFromIndex.Enabled ? _initFromIndex.Value : 0) + 1);
+                initPointPos += (initNextPointPos - initPointPos) * _initPercentage.Value;
+            }
+
+            Gizmos.DrawWireSphere(transform.position + initPointPos, 0.2f);
+        }
+
+        private void OnValidate()
+        {
+            _initPercentage = new RSLib.Framework.OptionalFloat(Mathf.Clamp01(_initPercentage.Value), _initPercentage.Enabled);
+            _initFromIndex = new RSLib.Framework.OptionalInt(Mathf.Max(0, _initFromIndex.Value), _initFromIndex.Enabled);
         }
     }
 
