@@ -5,8 +5,8 @@
 
     public class ItemCollectableController : Interactable
     {
-        [Header("NULLABLE ID (FOR ALREADY PLACED ITEMS)")]
-        [SerializeField] private string _itemId = string.Empty;
+        [Header("FOR ITEMS SET IN SCENE")]
+        [SerializeField] private RSLib.Framework.OptionalString _itemId = new RSLib.Framework.OptionalString(string.Empty, false);
 
         [Header("REFS")]
         [SerializeField] private GameObject _container = null;
@@ -85,8 +85,8 @@
 
         private void Awake()
         {
-            if (!string.IsNullOrEmpty(_itemId))
-                SetItemId(_itemId);
+            if (_itemId.Enabled && !string.IsNullOrEmpty(_itemId.Value))
+                SetItemId(_itemId.Value);
         }
     }
 }

@@ -10,7 +10,7 @@
         [SerializeField] private Attack.AttackHitboxesContainer _attackHitboxesContainer = null;
         [SerializeField] private UnitHealthController _healthCtrl = null;
         [SerializeField] private LayerMask _collisionMask = 0;
-        [SerializeField] private string _debugCollisionsState = string.Empty;
+        [SerializeField] private RSLib.Framework.DisabledString _debugCollisionsState = new RSLib.Framework.DisabledString();
 
         public BoxCollider2D BoxCollider2D => _boxCollider2D;
         public Attack.AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
@@ -102,7 +102,7 @@
         protected virtual void Update()
         {
 #if UNITY_EDITOR
-            _debugCollisionsState = CollisionsCtrl.CurrentStates.ToString();
+            _debugCollisionsState = new RSLib.Framework.DisabledString(CollisionsCtrl.CurrentStates.ToString());
 #endif
         }
     }

@@ -150,7 +150,9 @@ MonoBehaviour:
   _onInteracted:
     m_PersistentCalls:
       m_Calls: []
-  _itemId: 
+  _itemId:
+    _value: 
+    _enabled: 0
   _container: {fileID: 673298380953083230}
   _itemSprite: {fileID: 673298380953083216}
   _smoke: {fileID: 673298380322493562}

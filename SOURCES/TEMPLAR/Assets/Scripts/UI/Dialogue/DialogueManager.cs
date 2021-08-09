@@ -57,7 +57,9 @@
         private void RegisterSpeakersInScene()
         {
             _speakers = new System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker>();
-            System.Collections.Generic.IEnumerable<Interaction.Dialogue.ISpeaker> speakers = FindObjectsOfType<MonoBehaviour>().OfType<Interaction.Dialogue.ISpeaker>();
+            System.Collections.Generic.IEnumerable<Interaction.Dialogue.ISpeaker> speakers =
+                RSLib.Helpers.FindInstancesOfType<Interaction.Dialogue.ISpeaker>().Where(o => !string.IsNullOrEmpty(o.SpeakerId));
+            
             foreach (Interaction.Dialogue.ISpeaker speaker in speakers)
                 _speakers.Add(speaker.SpeakerId, speaker);
 

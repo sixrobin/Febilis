@@ -4,16 +4,16 @@
 
     public class Speaker : Interactable, INpcSpeaker
     {
-        [SerializeField] private string _speakerId = string.Empty;
+        [SerializeField] private RSLib.Framework.OptionalString _speakerId = new RSLib.Framework.OptionalString(string.Empty, false);
         [SerializeField] private string _dialogueId = string.Empty;
-        [SerializeField] private Transform _playerDialoguePivot = null;
+        [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
         [SerializeField] private GameObject _highlight = null;
 
-        public string SpeakerId => _speakerId;
+        public string SpeakerId => _speakerId.Enabled ? _speakerId.Value : string.Empty;
 
         public bool IsDialoguing { get; set; }
 
-        public Transform PlayerDialoguePivot => _playerDialoguePivot;
+        public Transform PlayerDialoguePivot => _playerDialoguePivot.Enabled ? _playerDialoguePivot.Value : null;
         public Vector3 SpeakerPos => transform.position;
         
         void ISpeaker.OnSentenceStart()
@@ -51,13 +51,10 @@
             IsDialoguing = true;
             UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, this);
         }
+
         private void Start()
         {
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
-
-            UnityEngine.Assertions.Assert.IsTrue(
-                Database.DialogueDatabase.SpeakersDisplayDatas.ContainsKey(SpeakerId),
-                $"Speaker Id {SpeakerId} isn't known by {Database.DialogueDatabase.Instance.GetType().Name}.");
         }
 
         private void OnDestroy()

@@ -61,6 +61,11 @@
                 {
                     SequenceElementsDatas[i] = new DialogueRemoveItemDatas(sentenceElement);
                 }
+                else
+                {
+                    CProLogger.LogError(this, $"Unhandled Dialogue sequence element name {sentenceElement.Name.LocalName}.");
+                    break;
+                }
 
                 i++;
             }

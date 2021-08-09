@@ -40,10 +40,7 @@
 
         public int GetItemQuantity(string id)
         {
-            if (TryGetOwnedItemKey(id, out Item item))
-                return Items[item];
-
-            return 0;
+            return TryGetOwnedItemKey(id, out Item item) ? Items[item] : 0;
         }
 
         public void AddItem(string id)
