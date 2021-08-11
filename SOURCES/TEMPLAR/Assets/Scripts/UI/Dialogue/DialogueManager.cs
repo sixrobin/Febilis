@@ -17,7 +17,7 @@
         private bool _skippedSentenceSequence;
         private string _currSentenceProgress;
 
-        public delegate void DialogueEventHandler(string dialogueId);
+        public delegate void DialogueEventHandler(Datas.Dialogue.DialogueDatas dialogueDatas);
 
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
@@ -69,7 +69,7 @@
         private System.Collections.IEnumerator PlayDialogueCoroutine(Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
             Log($"Playing dialogue {_currentDialogue.Id}...");
-            DialogueStarted?.Invoke(_currentDialogue.Id);
+            DialogueStarted?.Invoke(_currentDialogue);
 
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
 
@@ -110,7 +110,7 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = false;
             Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
-            DialogueOver?.Invoke(_currentDialogue.Id);
+            DialogueOver?.Invoke(_currentDialogue);
             Log($"Dialogue {_currentDialogue.Id} sequence is over.");
 
             _dialogueCoroutine = null;

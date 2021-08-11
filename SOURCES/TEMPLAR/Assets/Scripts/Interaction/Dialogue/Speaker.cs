@@ -24,7 +24,7 @@
         {
         }
 
-        private void OnDialogueOver(string dialogueId)
+        private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             IsDialoguing = false;
             _highlight.SetActive(false);

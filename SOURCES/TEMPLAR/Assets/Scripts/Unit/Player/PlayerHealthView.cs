@@ -112,12 +112,12 @@
             _healthBarCanvas.enabled = !displayed;
         }
 
-        private void OnDialogueStarted(string dialogueId)
+        private void OnDialogueStarted(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             _healthBarCanvas.enabled = false;
         }
 
-        private void OnDialogueOver(string dialogueId)
+        private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             _healthBarCanvas.enabled = true;
         }

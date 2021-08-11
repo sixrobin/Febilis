@@ -121,8 +121,8 @@
             if (Manager.GameManager.InventoryView != null)
                 Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
 
-            UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueId) => Display(false);
-            UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueId) => Display(true);
+            UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueDatas) => Display(false);
+            UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueDatas) => Display(true);
         }
 
         private void OnDestroy()

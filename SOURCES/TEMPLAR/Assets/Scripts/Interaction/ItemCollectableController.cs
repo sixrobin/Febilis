@@ -14,6 +14,9 @@
         [SerializeField] private SpriteRenderer _smoke = null;
         [SerializeField] private GameObject _highlight = null;
 
+        [Header("ITEM ADD")]
+        [SerializeField] private bool _addAfterFadeOut = false;
+
         [Header("SMOKE FADE OUT")]
         [SerializeField, Min(0f)] private float _fadeOutDur = 1f;
         [SerializeField, Range(0f, 1f)] private float _fadeOutPercentageStop = 0.8f;
@@ -55,12 +58,18 @@
             base.Interact();
             InteractionDisabled = true;
 
-            UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
-            Manager.GameManager.InventoryCtrl.AddItem(ItemId);
+            if (!_addAfterFadeOut)
+                Pickup();
 
             _highlight.SetActive(false);
             _itemSprite.enabled = false;
             StartCoroutine(FadeOutSmokeCoroutine());
+        }
+
+        private void Pickup()
+        {
+            UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
+            Manager.GameManager.InventoryCtrl.AddItem(ItemId);
         }
 
         private System.Collections.IEnumerator FadeOutSmokeCoroutine()
@@ -79,6 +88,9 @@
 
             for (int i = _fadeOverParticles.Length - 1; i >= 0; --i)
                 RSLib.Framework.Pooling.Pool.Get(_fadeOverParticles[i]).transform.position = transform.position;
+
+            if (_addAfterFadeOut)
+                Pickup();
 
             _container.SetActive(false);
         }
