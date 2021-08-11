@@ -6,7 +6,7 @@
    <!-- ████████████ -->
    
    <EnemyAttack Id="skeleton_atk_base">
-      <Dmg>25</Dmg>
+      <Dmg>40</Dmg>
       <Hit>
          <Dur>0.1</Dur>
          <Layer>PLAYER</Layer>
@@ -29,7 +29,7 @@
    </EnemyAttack>
 
    <EnemyAttack Id="skeleton_atk_above">
-      <Dmg>15</Dmg>
+      <Dmg>30</Dmg>
       <Hit>
          <Dur>0.1</Dur>
          <Layer>PLAYER</Layer>
@@ -58,7 +58,7 @@
    <!-- █████████ -->
 
    <EnemyAttack Id="rat_atk_base">
-      <Dmg>10</Dmg>
+      <Dmg>25</Dmg>
       <Hit>
          <Dur>0.1</Dur>
          <Layer>PLAYER</Layer>
