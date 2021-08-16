@@ -5266,7 +5266,13 @@ MonoBehaviour:
   _shakesLibrary: {fileID: 11400000, guid: f85cc66a23892ff47a4bdb5a2aa3b37b, type: 2}
   _debugOnSelectedOnly: 0
   _debugColor: {fileID: 11400000, guid: 0bc4dac2a1ed649449d963fee17371c5, type: 2}
-  _currTraumaVisualizer: {x: 0, y: 0}
+  _initBounds:
+    _value: {fileID: 0}
+    _enabled: 0
+  _currBoardBounds:
+    _value: {fileID: 0}
+  _currTraumaVisualizer:
+    _value: {x: 0, y: 0}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0

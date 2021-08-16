@@ -28,7 +28,7 @@
             Manager.GameManager.CameraCtrl.PositionInstantly();
 
             if (Manager.BoardsManager.Exists())
-                Manager.BoardsManager.DebugForceRefreshBoard();
+                Manager.BoardsManager.DebugForceRefreshBoardBounds();
         }
 
         private void TogglePanel()

@@ -75,7 +75,11 @@
             yield return new WaitForEndOfFrame(); // Wait for checkpoints initialization.
 
             SpawnPlayer();
-            BoardsManager.DebugForceRefreshBoard(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
+
+            if (CameraCtrl.InitBoardBounds.Enabled && CameraCtrl.InitBoardBounds.Value != null)
+                CameraCtrl.SetBoardBounds(CameraCtrl.InitBoardBounds.Value);
+            else
+               BoardsManager.DebugForceRefreshBoardBounds(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
 
             if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
                 RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));

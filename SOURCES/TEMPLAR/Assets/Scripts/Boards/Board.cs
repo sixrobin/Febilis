@@ -9,9 +9,6 @@
     public class Board : MonoBehaviour
     {
         [SerializeField] private BoardsLink[] _boardsLinks = null;
-        [SerializeField] private BoxCollider2D _cameraBounds = null;
-
-        public BoxCollider2D CameraBounds => _cameraBounds;
 
         private void Awake()
         {
@@ -20,9 +17,6 @@
             if (childrenLinksCount != _boardsLinks.Length)
                 CProLogger.LogWarning(this, $"{_boardsLinks.Length} links are referenced while {childrenLinksCount} have been found in children for board {transform.name}.", gameObject);
 #endif
-
-            for (int i = _boardsLinks.Length - 1; i >= 0; --i)
-                _boardsLinks[i].OwnerBoard = this;
         }
 
         public void LocateBoardsLinksInChildren()

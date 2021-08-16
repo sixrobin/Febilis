@@ -10,9 +10,11 @@
     {
         [Header("ALL SCENE BOARDS")]
         [SerializeField] private Boards.BoardsLink[] _boardsLinks = null;
-        
+
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
+
+        private static bool s_init;
 
         public static RSLib.DataColor DebugColor => Instance._debugColor;
 
@@ -37,14 +39,34 @@
             return boardsLinks.First();
         }
 
-        public static void DebugForceRefreshBoard()
+        public static void Init()
         {
-            Boards.Board[] boards = FindObjectsOfType<Boards.Board>();
+            if (s_init)
+                return;
+
+            for (int i = Instance._boardsLinks.Length - 1; i >= 0; --i)
+                if (Instance._boardsLinks[i].BoardBounds != null)
+                    for (int j = Instance._boardsLinks[i].BoardBounds.Switches.Length - 1; j >= 0; --j)
+                        Instance._boardsLinks[i].BoardBounds.Switches[j].Enable(true);
+
+            s_init = true;
+        }
+
+        public static void DebugForceRefreshBoardBounds()
+        {
+            Init();
+
+            Boards.BoardBounds[] boardsBounds = FindObjectsOfType<Boards.BoardBounds>();
             Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
 
-            for (int i = boards.Length - 1; i >= 0; --i)
-                if (boards[i].CameraBounds.bounds.Contains(playerCtrl.transform.position))
-                    Manager.GameManager.CameraCtrl.SetBoardBounds(boards[i]);
+            for (int i = boardsBounds.Length - 1; i >= 0; --i)
+                if (boardsBounds[i].Bounds.bounds.Contains(playerCtrl.transform.position))
+                        Manager.GameManager.CameraCtrl.SetBoardBounds(boardsBounds[i]);
+        }
+
+        protected override void Awake()
+        {
+            Init();
         }
 
         [ContextMenu("Find All References")]
@@ -76,7 +98,7 @@
     {
         protected override void DrawButtons()
         {
-            DrawButton("Refresh Current Board", BoardsManager.DebugForceRefreshBoard);
+            DrawButton("Refresh Current Board", BoardsManager.DebugForceRefreshBoardBounds);
         }
     }
 #endif

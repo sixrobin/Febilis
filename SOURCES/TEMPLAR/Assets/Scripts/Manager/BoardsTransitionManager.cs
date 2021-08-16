@@ -104,7 +104,7 @@
             yield return null;
 
             GameManager.CameraCtrl.ToggleFreeze(false);
-            GameManager.CameraCtrl.SetBoardBounds(target.OwnerBoard);
+            GameManager.CameraCtrl.SetBoardBounds(target.BoardBounds);
             GameManager.CameraCtrl.PositionInstantly();
 
             yield return null;
