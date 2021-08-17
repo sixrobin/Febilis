@@ -255,7 +255,7 @@
             CollisionsCtrl.Ground(transform);
 
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
-            enemyHealthCtrl.Init(EnemyDatas.Health);
+            enemyHealthCtrl.Init(EnemyDatas.Health, EnemyDatas.Health);
             enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
             enemyHealthCtrl.UnitKilled += OnUnitKilled;
 

@@ -188,6 +188,10 @@
             _playerHealthCtrl.HealthSystem.HealthChanged += OnHealthChanged;
             _playerHealthCtrl.HealthSystem.Killed += OnKilled;
 
+            // Instantly refresh the health, in case the players comes from another scene with already missing health.
+            _healthFill.fillAmount = _playerHealthCtrl.HealthSystem.HealthPercentage;
+            _healthBlink.fillAmount = _playerHealthCtrl.HealthSystem.HealthPercentage;
+
             InitHealViews();
         }
 

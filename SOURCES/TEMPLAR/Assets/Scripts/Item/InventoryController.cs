@@ -1,6 +1,7 @@
 ﻿namespace Templar.Item
 {
     using RSLib.Extensions;
+    using SceneLoadingDatasStorage;
     using System.Linq;
     using System.Xml.Linq;
     using UnityEngine;
@@ -9,20 +10,27 @@
 #endif
 
     [DisallowMultipleComponent]
-    public partial class InventoryController : MonoBehaviour
+    public partial class InventoryController : MonoBehaviour, ISceneLoadingDatasOwner<SceneLoadDatasInventory>
     {
         public class InventoryContentChangedEventArgs : System.EventArgs
         {
-            public InventoryContentChangedEventArgs(Item item, int prevQuantity, int newQuantity)
+            public InventoryContentChangedEventArgs(Item item, int prevQuantity, int newQuantity, bool onInit = false)
             {
                 Item = item;
                 PrevQuantity = prevQuantity;
                 NewQuantity = newQuantity;
+                OnInit = onInit;
             }
 
             public Item Item { get; private set; }
             public int PrevQuantity { get; private set; }
             public int NewQuantity { get; private set; }
+
+            /// <summary>
+            /// Determines if the item has been added in some initialization method.
+            /// If so, some events listeners might actually not do their behaviour.
+            /// </summary>
+            public bool OnInit { get; private set; }
         }
 
         public const string ITEM_ID_COIN = "Coin";
@@ -38,17 +46,31 @@
         // InventorySlot, and change current class of this name to InventorySlotView ?
         public System.Collections.Generic.Dictionary<Item, int> Items = new System.Collections.Generic.Dictionary<Item, int>();
 
+        public SceneLoadDatasInventory SaveDatasBeforeSceneLoading()
+        {
+            return new SceneLoadDatasInventory()
+            {
+                Items = Items.ToDictionary(o => o.Key.Id, o => o.Value)
+            };
+        }
+
+        public void LoadDatasAfterSceneLoading(SceneLoadDatasInventory datas)
+        {
+            foreach (System.Collections.Generic.KeyValuePair<string, int> item in datas.Items)
+                AddItem(item.Key, item.Value, true);
+        }
+
         public int GetItemQuantity(string id)
         {
             return TryGetOwnedItemKey(id, out Item item) ? Items[item] : 0;
         }
 
-        public void AddItem(string id)
+        public void AddItem(string id, bool onInit = false)
         {
-            AddItem(id, 1);
+            AddItem(id, 1, onInit);
         }
 
-        public void AddItem(string id, int quantity)
+        public void AddItem(string id, int quantity, bool onInit = false)
         {
             if (!TryGetOwnedItemKey(id, out Item item))
                 Items.Add(item = new Item(id), 0);
@@ -57,7 +79,7 @@
             Items[item] += quantity;
 
             CProLogger.Log(this, $"Added {quantity} {id}(s) to inventory, now has {Items[item]} copy(ies) of it.");
-            InventoryContentChanged?.Invoke(new InventoryContentChangedEventArgs(item, previousQuantity, Items[item]));
+            InventoryContentChanged?.Invoke(new InventoryContentChangedEventArgs(item, previousQuantity, Items[item], onInit));
         }
 
         public void RemoveItem(string id)
@@ -117,8 +139,8 @@
 
         private void Awake()
         {
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("AddItem", "Adds an item copy to the inventory.", AddItem));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string, int>("AddItem", "Adds item(s) copy(ies) to the inventory.", AddItem));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("AddItem", "Adds an item copy to the inventory.", (id) => AddItem(id)));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string, int>("AddItem", "Adds item(s) copy(ies) to the inventory.", (id, quantity) => AddItem(id, quantity)));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("RemoveItem", "Remove an item copy from the inventory.", RemoveItem));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string, int>("RemoveItem", "Remove item(s) copy(ies) from the inventory.", RemoveItem));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ClearInventory", "Clears the inventory.", Clear));
@@ -140,14 +162,15 @@
         {
             if (inventoryElement == null)
             {
+                CProLogger.Log(this, $"Loading native inventory items.");
                 foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
-                    AddItem(nativeItem.Key, nativeItem.Value);
+                    AddItem(nativeItem.Key, nativeItem.Value, true);
 
                 return;
             }
 
             foreach (XElement itemElement in inventoryElement.Elements())
-                AddItem(itemElement.Name.LocalName, itemElement.ValueToInt());
+                AddItem(itemElement.Name.LocalName, itemElement.ValueToInt(), true);
         }
 
         public XElement Save()

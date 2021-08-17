@@ -80,6 +80,25 @@
             return closestSlot.gameObject;
         }
 
+        private void UpdateContent()
+        {
+            Clear();
+
+            foreach (System.Collections.Generic.KeyValuePair<Item.Item, int> item in _inventoryCtrl.Items)
+            {
+                InventorySlot slot = GetFirstEmptySlot();
+                UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add item {item.Key}.");
+            
+                slot.SetItem(item.Key, item.Value);
+            }
+        }
+
+        private void Clear()
+        {
+            for (int i = _slotsViews.Length - 1; i >= 0; --i)
+                _slotsViews[i].Clear();
+        }
+
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
         {
             InventorySlot slot = GetItemSlot(args.Item) ?? GetFirstEmptySlot();
@@ -90,8 +109,7 @@
 
         private void OnInventoryCleared()
         {
-            for (int i = _slotsViews.Length - 1; i >= 0; --i)
-                _slotsViews[i].Clear();
+            Clear();
         }
 
         private void OnInventorySlotHovered(InventorySlot slot)
@@ -212,7 +230,7 @@
             return _slotsViews.Where(o => o.IsEmpty).FirstOrDefault();
         }
 
-        private void Awake()
+        private void Start()
         {
             _inventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared += OnInventoryCleared;
@@ -227,8 +245,13 @@
             }
 
             InitNavigation();
+            UpdateContent();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("ForceShowItemsQuantity", "Forces inventory to display items quantity.",
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ClearInventoryView", "Instantly clears the inventory view.", Clear));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("UpdateInventoryView", "Instantly refreshes the inventory view based on inventory content.", UpdateContent));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>(
+                "ForceShowItemsQuantity",
+                "Forces inventory to display items quantity.",
                 (show) =>
                 {
                     DebugForceShowItemsQuantity = show;

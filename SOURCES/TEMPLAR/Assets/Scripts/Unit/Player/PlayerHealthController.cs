@@ -70,11 +70,14 @@
             base.Kill();
         }
 
-        public void Init(int health, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled)
+        public void Init(int maxHealth, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled, int initHealth = -1)
         {
+            if (_init)
+                return;
+
             UnitHealthChanged += onUnitHealthChanged;
             UnitKilled += onUnitKilled;
-            Init(health);
+            Init(maxHealth, initHealth);
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("tgm", "Toggles god mode.", () => GodMode = !GodMode));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));

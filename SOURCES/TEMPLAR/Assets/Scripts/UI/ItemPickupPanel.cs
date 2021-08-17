@@ -21,7 +21,8 @@
 
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
         {
-            if (args.NewQuantity < args.PrevQuantity
+            if (args.OnInit
+                || args.NewQuantity < args.PrevQuantity
                 || args.Item.Datas.SkipPickupNotification
                 || Dialogue.DialogueManager.DialogueRunning)
                 return;
@@ -76,7 +77,7 @@
         private void Start()
         {
             Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
-            UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
+            Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
         }
 
         private void OnDestroy()

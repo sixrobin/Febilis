@@ -22,6 +22,7 @@
             HitFreezeFrameDur = 0f,
             BaseTraumaDatas = ShakeTraumaDatas.Default,
             HitTraumaDatas = ShakeTraumaDatas.Default,
+            RecoilDatas = RecoilDatas.NullRecoil,
             AnimSpeedMult = 1f
         };
 
@@ -34,6 +35,7 @@
             HitFreezeFrameDur = 0f,
             BaseTraumaDatas = ShakeTraumaDatas.Default,
             HitTraumaDatas = ShakeTraumaDatas.Default,
+            RecoilDatas = RecoilDatas.NullRecoil,
             AnimSpeedMult = 1f
         };
 
