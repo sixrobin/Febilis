@@ -8,6 +8,7 @@
 
         private bool _locked = true;
 
+        // Referenced in UnityEvent.
         public void SetLockedState(bool state)
         {
             _locked = state;

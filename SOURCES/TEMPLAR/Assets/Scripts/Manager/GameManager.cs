@@ -72,7 +72,7 @@
                 // [TODO] Hide player HUD.
             }
 
-            yield return new WaitForEndOfFrame(); // Wait for checkpoints initialization.
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Wait for checkpoints initialization.
 
             SpawnPlayer();
 
