@@ -101,6 +101,9 @@
 
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
         {
+            if (args.OnInit)
+                return; // Full content refresh is done on Start.
+
             InventorySlot slot = GetItemSlot(args.Item) ?? GetFirstEmptySlot();
             UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add or modify item {args.Item.Id}.");
 

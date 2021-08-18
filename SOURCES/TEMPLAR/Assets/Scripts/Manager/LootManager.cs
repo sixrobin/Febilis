@@ -17,7 +17,7 @@
         [SerializeField] private bool _spawnCoinsOnClickMode = false;
         [SerializeField] private string _spawnItemOnClickMode = string.Empty;
 
-        private static System.Collections.Generic.List<GameObject> s_waitingCoins = new System.Collections.Generic.List<GameObject>();
+        private static System.Collections.Generic.List<GameObject> s_waitingObjects = new System.Collections.Generic.List<GameObject>();
 
         public static void SpawnLoot(Datas.LootDatas lootDatas, Vector3 pos)
         {
@@ -50,7 +50,7 @@
             {
                 GameObject coinInstance = RSLib.Framework.Pooling.Pool.Get(Instance._coinPrefab);
                 coinInstance.transform.position = pos;
-                s_waitingCoins.Add(coinInstance);
+                s_waitingObjects.Add(coinInstance);
             }
         }
 
@@ -58,29 +58,39 @@
         {
             GameObject itemInstance = RSLib.Framework.Pooling.Pool.Get(Instance._itemPrefab, itemId);
             itemInstance.transform.position = pos;
-            // [TODO] Add to waiting items ?
+            s_waitingObjects.Add(itemInstance);
         }
 
-        public static void DisableWaitingCoins()
+        public static void DisableWaitingObjects()
         {
-            if (s_waitingCoins.Count == 0)
+            if (s_waitingObjects.Count == 0)
                 return;
 
-            Instance.Log($"Disabling {s_waitingCoins.Count} waiting coin(s).");
+            Instance.Log($"Disabling {s_waitingObjects.Count} waiting coin(s).");
 
-            for (int i = s_waitingCoins.Count - 1; i >= 0; --i)
-                s_waitingCoins[i].SetActive(false);
+            for (int i = s_waitingObjects.Count - 1; i >= 0; --i)
+                if (s_waitingObjects[i] != null)
+                    s_waitingObjects[i].SetActive(false);
 
-            s_waitingCoins.Clear();
+            s_waitingObjects.Clear();
         }
 
         private void OnCoinDisabled(CoinController coin)
         {
             UnityEngine.Assertions.Assert.IsTrue(
-                s_waitingCoins.Contains(coin.gameObject),
-                $"Coin {coin.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from coins pool.");
+                s_waitingObjects.Contains(coin.gameObject),
+                $"Coin {coin.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
 
-            s_waitingCoins.Remove(coin.gameObject);
+            s_waitingObjects.Remove(coin.gameObject);
+        }
+
+        private void OnItemPickedUp(ItemWorldController item)
+        {
+            UnityEngine.Assertions.Assert.IsTrue(
+                s_waitingObjects.Contains(item.gameObject),
+                $"Item {item.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
+
+            s_waitingObjects.Remove(item.gameObject);
         }
 
         protected override void Awake()
@@ -88,6 +98,7 @@
             base.Awake();
 
             CoinController.CoinDisabled += OnCoinDisabled;
+            ItemWorldController.ItemPickedUp += OnItemPickedUp;
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("LootForceChance", "Forces every random loot to happen.", (state) => _forceLootChance = state));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ToggleCoinsOnClick", "Spawns coins on click position.", () => _spawnCoinsOnClickMode = !_spawnCoinsOnClickMode));
@@ -110,7 +121,7 @@
         private void OnDestroy()
         {
             CoinController.CoinDisabled -= OnCoinDisabled;
-            DisableWaitingCoins();
+            DisableWaitingObjects();
         }
     }
 }
