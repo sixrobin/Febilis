@@ -104,7 +104,7 @@
             yield return null;
 
             GameManager.CameraCtrl.ToggleFreeze(false);
-            GameManager.CameraCtrl.SetBoardBounds(target.OwnerBoard);
+            GameManager.CameraCtrl.SetBoardBounds(target.BoardBounds);
             GameManager.CameraCtrl.PositionInstantly();
 
             yield return null;
@@ -152,12 +152,16 @@
 
         private static System.Collections.IEnumerator TransitionOutToScenesPassageCoroutine(Boards.BoardsLink source, Boards.ScenesPassage target)
         {
+            SceneLoadingDatasStorageManager.StoreDatas();
+
             // Source's target must be get here, because the source ref will be missing after scene load.
             Boards.ScenesPassage sourceScenesPassage = source.GetTarget() as Boards.ScenesPassage;
 
             string sceneName = target.TargetPassage.GetTargetScene().SceneName;
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
             yield return RSLib.Yield.SharedYields.WaitForSceneLoad(sceneName);
+
+            SceneLoadingDatasStorageManager.TryLoadDatas();
 
             yield return TransitionOutToBoardsLinkCoroutine(source, BoardsManager.GetLinkRelatedToScenesPassage(sourceScenesPassage));
         }

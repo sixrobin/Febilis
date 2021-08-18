@@ -162,9 +162,13 @@ MonoBehaviour:
   _onInteracted:
     m_PersistentCalls:
       m_Calls: []
-  _speakerId: SpeakerPlaceholder
+  _speakerId:
+    _value: 
+    _enabled: 0
   _dialogueId: Twitter
-  _playerDialoguePivot: {fileID: 8543433990354593130}
+  _playerDialoguePivot:
+    _value: {fileID: 8543433990354593130}
+    _enabled: 1
   _highlight: {fileID: 8543433988735487493}
 --- !u!1 &8543433988777665961
 GameObject:

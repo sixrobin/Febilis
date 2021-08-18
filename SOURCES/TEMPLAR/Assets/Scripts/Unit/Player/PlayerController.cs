@@ -1,9 +1,10 @@
 ﻿namespace Templar.Unit.Player
 {
     using RSLib.Extensions;
+    using SceneLoadingDatasStorage;
     using UnityEngine;
 
-    public class PlayerController : UnitController, ICheckpointListener, Interaction.Dialogue.ISpeaker
+    public class PlayerController : UnitController, ICheckpointListener, Interaction.Dialogue.ISpeaker, ISceneLoadingDatasOwner<SceneLoadDatasPlayer>
     {
         private const string PLAYER_SPEAKER_ID = "Templar";
         private const int EFFECTOR_DOWN_FRAME_DUR = 10;
@@ -49,6 +50,19 @@
         public string SpeakerId => PLAYER_SPEAKER_ID;
         public Vector3 SpeakerPos => transform.position;
 
+        public SceneLoadDatasPlayer SaveDatasBeforeSceneLoading()
+        {
+            return new SceneLoadDatasPlayer()
+            {
+                CurrentHealth = HealthCtrl.HealthSystem.CurrentHealth
+            };
+        }
+
+        public void LoadDatasAfterSceneLoading(SceneLoadDatasPlayer datas)
+        {
+            PlayerHealthCtrl.SetHealth(datas.CurrentHealth, false);
+        }
+
         void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             HealthCtrl.HealFull();
@@ -68,6 +82,9 @@
 
         public void Init(Interaction.Checkpoint.CheckpointController checkpoint = null)
         {
+            if (Initialized)
+                return;
+
             InputCtrl = new PlayerInputController(CtrlDatas.Input, this);
             JumpCtrl = new PlayerJumpController(this);
             RollCtrl = new PlayerRollController(this);
@@ -309,8 +326,6 @@
         {
             if (RollCtrl.IsRolling || AttackCtrl.IsAttacking && AttackCtrl.CurrAttackDatas.ControlVelocity || IsHealing)
                 return;
-
-            bool effectorDown = false;
 
             if (CollisionsCtrl.Vertical && !JumpCtrl.IsAnticipatingJump)
             {

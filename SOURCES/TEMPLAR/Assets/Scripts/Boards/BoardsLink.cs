@@ -12,6 +12,7 @@
         [Header("TRANSITION REFS")]
         [SerializeField] private Templar.Tools.OptionalBoardsLink _targetBoardsLink = new Templar.Tools.OptionalBoardsLink(null, true);
         [SerializeField] private Templar.Tools.OptionalScenesPassage _targetScenePassage = new Templar.Tools.OptionalScenesPassage(null, false);
+        [SerializeField] private BoardBounds _containingBounds = null;
 
         [Header("TRANSITION VIEW")]
         [SerializeField] private ScreenDirection _exitDir = ScreenDirection.NONE;
@@ -40,7 +41,7 @@
         public bool OverrideFadedInDelay => _overrideFadeInDelayDur.Enabled;
         public float OverrideFadedInDelayDur => _overrideFadeInDelayDur.Value;
 
-        public Board OwnerBoard { get; set; }
+        public BoardBounds BoardBounds => _containingBounds;
 
         public virtual void OnBoardsTransitionBegan()
         {

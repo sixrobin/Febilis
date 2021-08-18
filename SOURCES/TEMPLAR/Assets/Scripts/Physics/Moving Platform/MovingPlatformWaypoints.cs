@@ -70,9 +70,9 @@
                 }
 
                 if (Application.isPlaying)
-                    RSLib.Helpers.DrawVectorsPath(_globalWayPositions, Cyclic);
+                    RSLib.Debug.GizmosUtilities.DrawVectorsPath(_globalWayPositions, Cyclic);
                 else
-                    RSLib.Helpers.DrawVectorsPath(_wayPositions, transform.position, Cyclic);
+                    RSLib.Debug.GizmosUtilities.DrawVectorsPath(_wayPositions, transform.position, Cyclic);
             }
         }
     }

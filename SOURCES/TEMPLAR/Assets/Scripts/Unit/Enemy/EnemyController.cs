@@ -19,9 +19,8 @@
         [SerializeField] private float _behaviourUpdateRate = 0.5f;
 
         [Header("DEBUG")]
-        [SerializeField] private string _currBehaviourName = string.Empty;
-        [SerializeField] private string _currActionName = string.Empty;
-        [SerializeField] public string _tmpAttackDatasId = null;
+        [SerializeField] private RSLib.Framework.DisabledString _currBehaviourName = new RSLib.Framework.DisabledString();
+        [SerializeField] private RSLib.Framework.DisabledString _currActionName = new RSLib.Framework.DisabledString();
 
         private float _sleepUpdateTimer;
         private float _behaviourUpdateTimer;
@@ -41,7 +40,7 @@
             private set
             {
                 _currBehaviour = value;
-                _currBehaviourName = _currBehaviour.BehaviourDatas.Name;
+                _currBehaviourName = new RSLib.Framework.DisabledString(_currBehaviour.BehaviourDatas.Name);
             }
         }
 
@@ -56,7 +55,7 @@
 
                 _currAction?.Reset();
                 _currAction = value;
-                _currActionName = $"{_currAction.GetType().Name} (index: {System.Array.IndexOf(CurrBehaviour.Actions, _currAction)})";
+                _currActionName = new RSLib.Framework.DisabledString($"{_currAction.GetType().Name} (index: {System.Array.IndexOf(CurrBehaviour.Actions, _currAction)})");
             }
         }
 
@@ -256,7 +255,7 @@
             CollisionsCtrl.Ground(transform);
 
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
-            enemyHealthCtrl.Init(EnemyDatas.Health);
+            enemyHealthCtrl.Init(EnemyDatas.Health, EnemyDatas.Health);
             enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
             enemyHealthCtrl.UnitKilled += OnUnitKilled;
 

@@ -19,8 +19,10 @@
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
         [SerializeField] private RSLib.DataColor _debugColor = null;
+        [SerializeField] private Boards.OptionalBoardBounds _initBounds = new Boards.OptionalBoardBounds(null, false);
 #if UNITY_EDITOR
-        [SerializeField] private Vector2 _currTraumaVisualizer = Vector2.zero;
+        [SerializeField] private Boards.DisabledBoardBounds _currBoardBounds = new Boards.DisabledBoardBounds();
+        [SerializeField] private RSLib.Framework.DisabledVector2 _currTraumaVisualizer = new RSLib.Framework.DisabledVector2();
 #endif
 
         private RSLib.FocusArea _focusArea;
@@ -43,7 +45,9 @@
 
         public RSLib.ImageEffects.CameraGrayscaleRamp GrayscaleRamp => _grayscaleRamp;
 
-        public BoxCollider2D CurrBoardBounds { get; private set; }
+        public Boards.OptionalBoardBounds InitBoardBounds => _initBounds;
+
+        public Boards.BoardBounds CurrBoardBounds { get; private set; }
 
         public bool Frozen { get; private set; }
 
@@ -74,14 +78,23 @@
             Frozen = state;
         }
 
-        public void SetBoardBounds(Boards.Board board)
+        public void SetBoardBounds(Boards.BoardBounds boardBoundsDatas)
         {
-            CurrBoardBounds = board?.CameraBounds;
-        }
+            if (CurrBoardBounds != null)
+                for (int i = CurrBoardBounds.Switches.Length - 1; i >= 0; --i)
+                    CurrBoardBounds.Switches[i].Enable(true);
 
-        public void SetBounds(BoxCollider2D box)
-        {
-            CurrBoardBounds = box;
+            CurrBoardBounds = boardBoundsDatas;
+
+            if (CurrBoardBounds != null)
+            {
+                for (int i = CurrBoardBounds.Switches.Length - 1; i >= 0; --i)
+                    CurrBoardBounds.Switches[i].Enable(false);
+            }
+            else
+            {
+                CProLogger.Log(this, "CameraController bounds being set to null.");
+            }
         }
 
         private void GenerateShakesDictionary()
@@ -173,10 +186,10 @@
             float halfHeight = _camera.orthographicSize;
             float halfWidth = halfHeight * Screen.width / Screen.height;
 
-            float xMin = CurrBoardBounds.bounds.min.x + halfWidth;
-            float xMax = CurrBoardBounds.bounds.max.x - halfWidth;
-            float yMin = CurrBoardBounds.bounds.min.y + halfHeight;
-            float yMax = CurrBoardBounds.bounds.max.y - halfHeight;
+            float xMin = CurrBoardBounds.Bounds.bounds.min.x + halfWidth;
+            float xMax = CurrBoardBounds.Bounds.bounds.max.x - halfWidth;
+            float yMin = CurrBoardBounds.Bounds.bounds.min.y + halfHeight;
+            float yMax = CurrBoardBounds.Bounds.bounds.max.y - halfHeight;
 
             pos.x = Mathf.Clamp(pos.x, xMin, xMax);
             pos.y = Mathf.Clamp(pos.y, yMin, yMax);
@@ -221,8 +234,10 @@
             if (_focusArea.Size != _cameraDatas.FocusAreaSize)
                 _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
 
+            _currBoardBounds = new Boards.DisabledBoardBounds(CurrBoardBounds);
+
             // [TODO] Visualize all shakes traumas.
-            //_currTraumaVisualizer = Shake.Trauma;
+            //_currTraumaVisualizer = new RSLib.Framework.DisabledVector2(Shake.Trauma);
 #endif
 
             if (Frozen)

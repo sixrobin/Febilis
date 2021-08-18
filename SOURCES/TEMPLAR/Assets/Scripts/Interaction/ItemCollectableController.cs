@@ -5,14 +5,17 @@
 
     public class ItemCollectableController : Interactable
     {
-        [Header("NULLABLE ID (FOR ALREADY PLACED ITEMS)")]
-        [SerializeField] private string _itemId = string.Empty;
+        [Header("FOR ITEMS SET IN SCENE")]
+        [SerializeField] private RSLib.Framework.OptionalString _itemId = new RSLib.Framework.OptionalString(string.Empty, false);
 
         [Header("REFS")]
         [SerializeField] private GameObject _container = null;
         [SerializeField] private SpriteRenderer _itemSprite = null;
         [SerializeField] private SpriteRenderer _smoke = null;
         [SerializeField] private GameObject _highlight = null;
+
+        [Header("ITEM ADD")]
+        [SerializeField] private bool _addAfterFadeOut = false;
 
         [Header("SMOKE FADE OUT")]
         [SerializeField, Min(0f)] private float _fadeOutDur = 1f;
@@ -55,12 +58,18 @@
             base.Interact();
             InteractionDisabled = true;
 
-            UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
-            Manager.GameManager.InventoryCtrl.AddItem(ItemId);
+            if (!_addAfterFadeOut)
+                Pickup();
 
             _highlight.SetActive(false);
             _itemSprite.enabled = false;
             StartCoroutine(FadeOutSmokeCoroutine());
+        }
+
+        private void Pickup()
+        {
+            UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
+            Manager.GameManager.InventoryCtrl.AddItem(ItemId);
         }
 
         private System.Collections.IEnumerator FadeOutSmokeCoroutine()
@@ -80,13 +89,16 @@
             for (int i = _fadeOverParticles.Length - 1; i >= 0; --i)
                 RSLib.Framework.Pooling.Pool.Get(_fadeOverParticles[i]).transform.position = transform.position;
 
+            if (_addAfterFadeOut)
+                Pickup();
+
             _container.SetActive(false);
         }
 
         private void Awake()
         {
-            if (!string.IsNullOrEmpty(_itemId))
-                SetItemId(_itemId);
+            if (_itemId.Enabled && !string.IsNullOrEmpty(_itemId.Value))
+                SetItemId(_itemId.Value);
         }
     }
 }

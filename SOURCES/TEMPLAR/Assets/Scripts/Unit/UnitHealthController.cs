@@ -5,6 +5,7 @@
     using UnityEditor;
 #endif
 
+    [DisallowMultipleComponent]
     public abstract class UnitHealthController : MonoBehaviour, Attack.IHittable
     {
         public class UnitHealthChangedEventArgs : RSLib.HealthSystem.HealthChangedEventArgs
@@ -37,7 +38,7 @@
 
         [SerializeField] private Collider2D _collider = null;
 
-        private bool _init;
+        protected bool _init;
 
         // [TMP] This is probably not ideal : in case we receive damage not coming with AttackDatas,
         // this variable will still be used. It is reset to fix it, but it's more a workaround than a good solution.
@@ -66,12 +67,13 @@
             HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
         }
 
-        public virtual void Init(int health)
+        public virtual void Init(int maxHealth, int initHealth = -1)
         {
             if (_init)
                 return;
 
-            HealthSystem = new RSLib.HealthSystem(health);
+            HealthSystem = initHealth == -1 ? new RSLib.HealthSystem(maxHealth) : new RSLib.HealthSystem(maxHealth, initHealth);
+
             HealthSystem.HealthChanged += OnHealthChanged;
             HealthSystem.Killed += OnKilled;
 
@@ -89,6 +91,16 @@
             HealthSystem.Kill();
         }
 
+        public void HealFull()
+        {
+            HealthSystem.HealFull();
+        }
+
+        public void SetHealth(int value, bool triggerEvents = true)
+        {
+            HealthSystem.SetHealth(value, triggerEvents);
+        }
+
         protected virtual void OnHealthChanged(RSLib.HealthSystem.HealthChangedEventArgs args)
         {
             UnitHealthChanged?.Invoke(new UnitHealthChangedEventArgs(args, _lastHitDatas));
@@ -100,11 +112,6 @@
             UnitKilled?.Invoke(new UnitKilledEventArgs(_lastHitDatas));
             _lastHitDatas = null;
             _collider.enabled = false;
-        }
-
-        public void HealFull()
-        {
-            HealthSystem.HealFull();
         }
 
         protected virtual void OnDestroy()
@@ -129,8 +136,8 @@
     {
         protected override void DrawButtons()
         {
-            DrawButton("Damage with infinite damage", Obj.DebugDamageDefault);
-            DrawButton("Damage with default AttackDatas", Obj.DebugDamageInfinite);
+            DrawButton("Damage with infinite damage", Obj.DebugDamageInfinite);
+            DrawButton("Damage with default AttackDatas", Obj.DebugDamageDefault);
         }
     }
 #endif

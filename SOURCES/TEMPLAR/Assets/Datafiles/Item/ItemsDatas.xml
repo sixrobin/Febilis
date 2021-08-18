@@ -12,6 +12,7 @@
       <Description>Money ! Get away !</Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
+      <SkipPickupNotification/>
    </ItemDatas>
 
    <ItemDatas Id="Potion">

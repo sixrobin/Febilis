@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <DialogueDatas Id="LockedDoor">
+      <Sequence>
+         <Sentence Id="LockedDoor_Sentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <SentenceDatas Id="LockedDoor_Sentence_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>It's locked.</Value>
+   </SentenceDatas>
+   
+</DialoguesDatas>

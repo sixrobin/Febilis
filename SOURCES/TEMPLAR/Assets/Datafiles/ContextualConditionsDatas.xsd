@@ -1,0 +1,35 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+   <xs:include schemaLocation="SharedDatas.xsd"/>
+
+   <xs:element name="ContextualConditionsDatas">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="ContextualConditions" minOccurs="0" maxOccurs="unbounded">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element name="HasItem" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                           <xs:attribute name="Id" type="xs:token" use="required"/>
+                           <xs:attribute name="MinQuantity" type="xs:nonNegativeInteger" use="optional"/>
+                        </xs:complexType>
+                     </xs:element>
+                     <xs:element name="DoesntHaveItem" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                           <xs:attribute name="Id" type="xs:token" use="required"/>
+                        </xs:complexType>
+                     </xs:element>
+                     <!--LifeThreshold,
+                     BossKilled,
+                     DialogueDone,
+                     etc.-->
+                  </xs:sequence>
+                  <xs:attribute name="Id" type="xs:token" use="required"/>
+               </xs:complexType>
+            </xs:element>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   
+</xs:schema>

@@ -131,6 +131,9 @@
         {
             base.Awake();
 
+            if (!IsValid)
+                return;
+
             if (!_disableLoading)
                 TryLoad();
 

@@ -13,8 +13,10 @@
 
         public string Description { get; private set; }
         public Templar.Item.ItemType Type { get; private set; }
+
         public bool AlwaysShowQuantity { get; private set; }
         public bool AlwaysInInventory { get; private set; }
+        public bool SkipPickupNotification { get; private set; }
 
         public ItemActionConditionsCheckerDatas UseConditionsCheckerDatas { get; private set; }
         public ItemActionConditionsCheckerDatas EquipConditionsCheckerDatas { get; private set; }
@@ -39,6 +41,7 @@
 
             AlwaysShowQuantity = itemElement.Element("AlwaysShowQuantity") != null;
             AlwaysInInventory = itemElement.Element("AlwaysInInventory") != null;
+            SkipPickupNotification = itemElement.Element("SkipPickupNotification") != null;
 
             XElement actionsConditionsElement = itemElement.Element("ActionsConditions");
             if (actionsConditionsElement != null)
