@@ -16,9 +16,9 @@
         public int MaxTriggersCount { get; private set; }
 
         public LootDatas LootDatas { get; private set; }
-
         public ShakeTraumaDatas TraumaDatas { get; protected set; }
         public System.Collections.Generic.List<string> ToSpawnFromPool { get; private set; }
+        public string AnimatorTrigger { get; private set; }
 
         public override void Deserialize(XContainer container)
         {
@@ -40,18 +40,22 @@
 
             ToSpawnFromPool = new System.Collections.Generic.List<string>();
 
-            XElement onDestroyElement = triggerableElement.Element("OnTrigger");
-            if (onDestroyElement != null)
+            XElement onTriggerElement = triggerableElement.Element("OnTrigger");
+            if (onTriggerElement != null)
             {
-                XElement lootElement = onDestroyElement.Element("Loot");
+                XElement lootElement = onTriggerElement.Element("Loot");
                 if (lootElement != null)
                     LootDatas = new LootDatas(lootElement);
 
-                XElement traumaElement = onDestroyElement.Element("Trauma");
+                XElement traumaElement = onTriggerElement.Element("Trauma");
                 if (traumaElement != null)
                     TraumaDatas = new ShakeTraumaDatas(traumaElement);
 
-                foreach (XElement spawnFromPoolElement in onDestroyElement.Elements("SpawnFromPool"))
+                XElement animatorTriggerElement = onTriggerElement.Element("AnimatorTrigger");
+                if (animatorTriggerElement != null)
+                    AnimatorTrigger = animatorTriggerElement.Value;
+
+                foreach (XElement spawnFromPoolElement in onTriggerElement.Elements("SpawnFromPool"))
                     ToSpawnFromPool.Add(spawnFromPoolElement.Value);
             }
         }

@@ -138,4 +138,19 @@
       </OnTrigger>
    </TriggerableDatas>
 
+   <TriggerableDatas Id="Lamp">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+      </ValidSources>
+      <OnTrigger>
+         <!--Commented while we can't limit it to once spawn, without disabling all other callbacks.-->
+         <!--<Loot>
+            <Coins>8</Coins>
+         </Loot>-->
+         <Trauma X="0.2" Y ="0.2" AddType="ADDITIVE" ShakeId="Medium"/>
+         <SpawnFromPool>Hit</SpawnFromPool>
+         <AnimatorTrigger>Hit</AnimatorTrigger>
+      </OnTrigger>
+   </TriggerableDatas>
+
 </TriggerablesDatas>
