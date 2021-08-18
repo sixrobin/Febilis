@@ -23,6 +23,7 @@
                               <xs:element name="Loot" type="LootDatas" minOccurs="0" maxOccurs="1"/>
                               <xs:element name="Trauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
                               <xs:element name="SpawnFromPool" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+                              <xs:element name="AnimatorTrigger" type="xs:token" minOccurs="0" maxOccurs="1"/>
                            </xs:sequence>
                         </xs:complexType>
                      </xs:element>

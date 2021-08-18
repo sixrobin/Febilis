@@ -23,6 +23,7 @@
 
         [SerializeField] private string _id = string.Empty;
         [SerializeField] private SpriteRenderer _spriteRenderer = null;
+        [SerializeField] private RSLib.Framework.OptionalAnimator _animator = new RSLib.Framework.OptionalAnimator();
         [SerializeField] private Sprite[] _triggerSpritesLoop = null;
         [SerializeField] private LayerMask _groundLayer = 0;
 
@@ -80,32 +81,49 @@
             Trigger(TriggerableSourceType.NONE);
         }
 
-        private void Trigger(TriggerableSourceType sourceType)
+        private void ApplyOnTriggerDatasCallbacks()
         {
-            if (NotTriggerableAnymore)
-                return;
-
             if (_triggerableDatas.LootDatas != null)
                 Manager.LootManager.SpawnLoot(_triggerableDatas.LootDatas, transform.position.AddY(0.2f));
 
             if (_triggerableDatas.TraumaDatas != null)
                 Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(_triggerableDatas.TraumaDatas);
 
+            if (!string.IsNullOrEmpty(_triggerableDatas.AnimatorTrigger))
+            {
+                UnityEngine.Assertions.Assert.IsTrue(
+                    _animator.Enabled && _animator.Value != null,
+                    $"{_id} triggerable trying to set animator trigger {_triggerableDatas.AnimatorTrigger} but animator is disabled or missing.");
+
+                _animator.Value.SetTrigger(_triggerableDatas.AnimatorTrigger);
+            }
+
             for (int i = _triggerableDatas.ToSpawnFromPool.Count - 1; i >= 0; --i)
             {
                 GameObject vfxInstance = RSLib.Framework.Pooling.Pool.Get(_triggerableDatas.ToSpawnFromPool[i]);
                 vfxInstance.transform.position = transform.position;
             }
+        }
+
+        private void Trigger(TriggerableSourceType sourceType)
+        {
+            if (NotTriggerableAnymore)
+                return;
+
+            ApplyOnTriggerDatasCallbacks();
 
             _triggersCounter++;
             _collider2D.enabled = !NotTriggerableAnymore;
 
             Triggered?.Invoke(new TriggerEventArgs(this));
 
-            RaycastHit2D groundHit = Physics2D.Raycast(transform.position.AddY(0.2f), Vector2.down, 0.3f, _groundLayer);
-            _spriteRenderer.sprite = groundHit || !NotTriggerableAnymore
-                ? _triggerSpritesLoop[++_currentSpriteIndex % _triggerSpritesLoop.Length]
-                : null;
+            if (_triggerSpritesLoop != null && _triggerSpritesLoop.Length > 0)
+            {
+                RaycastHit2D groundHit = Physics2D.Raycast(transform.position.AddY(0.2f), Vector2.down, 0.3f, _groundLayer);
+                _spriteRenderer.sprite = groundHit || !NotTriggerableAnymore
+                    ? _triggerSpritesLoop[++_currentSpriteIndex % _triggerSpritesLoop.Length]
+                    : null;
+            }
             
             for (int i = _children.Length - 1; i >= 0; --i)
                 _children[i].Trigger(sourceType);
