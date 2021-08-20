@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <DialogueDatas Id="Godric_Greeting">
+      <Sequence>
+         <Sentence Id="Godric_Greeting_00"/>
+         <Sentence Id="Godric_Greeting_01"/>
+         <Sentence Id="Godric_Greeting_02"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <SentenceDatas Id="Godric_Greeting_00">
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>Hey, I'm Godric.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_01">
+      <Speaker Id="Godric"/>
+      <Value>Could you get my ring ? I forgot to take it from my house.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_02">
+      <Speaker Id="Godric"/>
+      <Value>I got a potion I can give you in reward... Not like I'm interested in using it.</Value>
+   </SentenceDatas>
+
+</DialoguesDatas>

@@ -1,14 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpeakersDisplayDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SpeakersDisplayDatas.xsd">
 
+   <SpeakerDisplayDatas Id="Templar">
+      <DisplayName>Templar</DisplayName>
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SpeakerDisplayDatas>
+
    <SpeakerDisplayDatas Id="SpeakerPlaceholder">
       <DisplayName>Some NPC</DisplayName>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
-   <SpeakerDisplayDatas Id="Templar">
-      <DisplayName>Templar</DisplayName>
-      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   <SpeakerDisplayDatas Id="Godric">
+      <DisplayName>Godric</DisplayName>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SpeakerDisplayDatas>
-   
+
 </SpeakersDisplayDatas>
