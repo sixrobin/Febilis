@@ -1,5 +1,6 @@
 ﻿namespace Templar.UI
 {
+    using System;
     using System.Linq;
     using UnityEngine;
 
@@ -40,6 +41,18 @@
                     AddItemToShow(addItemDatas.ItemId);
         }
 
+        private void OnFadeBegan(bool fadeIn)
+        {
+            if (!_coroutineRunning)
+                return;
+
+            StopAllCoroutines();
+
+            _itemsIdsToShow.Clear();
+            _coroutineRunning = false;
+            _canvas.enabled = false;
+        }
+
         private void AddItemToShow(string itemId)
         {
             _itemsIdsToShow.Enqueue(itemId);
@@ -78,6 +91,7 @@
         {
             Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
             Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
+            Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
         }
 
         private void OnDestroy()
@@ -88,6 +102,8 @@
             if (Dialogue.DialogueManager.Exists())
                 Dialogue.DialogueManager.Instance.DialogueOver -= OnDialogueOver;
 
+            if (Manager.RampFadeManager.Exists())
+                Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
         }
     }
 }
