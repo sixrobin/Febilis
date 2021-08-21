@@ -4,14 +4,14 @@
    <DialogueDatas Id="Twitter">
       <InvertPortraitsAnchors/>
       <Sequence>
-         <AddItem Id="Ring_00" Quantity="666"/>
-         <AddItem Id="Scroll"/>
+         <!--<AddItem Id="Ring_00" Quantity="666"/>-->
+         <!--<AddItem Id="Scroll"/>-->
          <Sentence Id="Twitter_00"/>
          <Pause Dur="0.5"/>
          <Sentence Id="Twitter_01"/>
          <Sentence Id="Twitter_02"/>
-         <RemoveItem Id="Ring_00" Quantity="333"/>
-         <RemoveItem Id="Ring_01" />
+         <!--<RemoveItem Id="Ring_00" Quantity="333"/>-->
+         <!--<RemoveItem Id="Ring_01" />-->
          <Sentence Id="Twitter_03"/>
          <Sentence Id="Twitter_04"/>
          <Pause Dur="0.5"/>

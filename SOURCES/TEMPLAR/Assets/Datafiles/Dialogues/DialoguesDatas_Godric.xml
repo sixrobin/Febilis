@@ -6,6 +6,8 @@
          <Sentence Id="Godric_Greeting_00"/>
          <Sentence Id="Godric_Greeting_01"/>
          <Sentence Id="Godric_Greeting_02"/>
+         <Sentence Id="Godric_Greeting_03"/>
+         <AddItem Id="Key_Godric_House"/>
       </Sequence>
    </DialogueDatas>
 
@@ -24,6 +26,11 @@
    <SentenceDatas Id="Godric_Greeting_02">
       <Speaker Id="Godric"/>
       <Value>I got a potion I can give you in reward... Not like I'm interested in using it.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_03">
+      <Speaker Id="Godric"/>
+      <Value>Here's the key.</Value>
    </SentenceDatas>
 
 </DialoguesDatas>

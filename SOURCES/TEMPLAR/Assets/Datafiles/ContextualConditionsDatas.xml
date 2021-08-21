@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContextualConditionsDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ContextualConditionsDatas.xsd">
 
-   <ContextualConditions Id="ChurchDoor">
-      <HasItem Id="Key_00"/>
+   <ContextualConditions Id="OpenGodricHouse">
+      <HasItem Id="Key_Godric_House"/>
    </ContextualConditions>
 
 </ContextualConditionsDatas>
