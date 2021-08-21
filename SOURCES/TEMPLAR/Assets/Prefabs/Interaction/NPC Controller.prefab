@@ -120,6 +120,7 @@ MonoBehaviour:
   _playerDialoguePivot:
     _value: {fileID: 2428089600568127496}
     _enabled: 1
+  _lookAtPlayer: 1
 --- !u!1 &2428089602186697575
 GameObject:
   m_ObjectHideFlags: 0

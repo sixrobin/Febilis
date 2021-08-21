@@ -17,6 +17,11 @@
         [SerializeField] private string _initDialogueId = string.Empty; // [TODO] "DialogueBranchingDatas".
         [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
 
+        [Header("GENERAL")]
+        [SerializeField] private bool _lookAtPlayer = false;
+
+        private Transform _player;
+
         public string SpeakerId => _speakerId;
 
         public bool IsDialoguing { get; set; }
@@ -73,6 +78,15 @@
         private void Start()
         {
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
+
+            _player = Manager.GameManager.PlayerCtrl.transform;
+        }
+
+        private void Update()
+        {
+            if (_lookAtPlayer)
+                for (int i = _spriteAnimatorPairs.Length - 1; i >= 0; --i)
+                    _spriteAnimatorPairs[i].SpriteRenderer.flipX = transform.position.x - _player.position.x < 0f;
         }
 
         private void OnDestroy()

@@ -1,7 +1,5 @@
 ﻿namespace Templar.UI
 {
-    using System;
-    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
