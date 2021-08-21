@@ -2,38 +2,50 @@
 {
     using UnityEngine;
 
-    public class Speaker : Interactable, INPCSpeaker
+    public class NPCController : Interactable, INPCSpeaker
     {
-        [SerializeField] private RSLib.Framework.OptionalString _speakerId = new RSLib.Framework.OptionalString(string.Empty, false);
-        [SerializeField] private string _dialogueId = string.Empty;
-        [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
-        [SerializeField] private GameObject _highlight = null;
+        private const string IDLE = "Idle";
+        private const string DIALOGUE_IDLE = "DialogueIdle";
+        private const string DIALOGUE_TALK = "DialogueTalk";
 
-        public string SpeakerId => _speakerId.Enabled ? _speakerId.Value : string.Empty;
+        [Header("REFS")]
+        [SerializeField] private RSLib.SpriteRendererAnimatorPair[] _spriteAnimatorPairs = null;
+        [SerializeField] private SpriteRenderer _highlight = null;
+
+        [Header("DIALOGUE SETTINGS")]
+        [SerializeField] private string _speakerId = string.Empty;
+        [SerializeField] private string _initDialogueId = string.Empty; // [TODO] "DialogueBranchingDatas".
+        [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
+
+        public string SpeakerId => _speakerId;
 
         public bool IsDialoguing { get; set; }
 
         public Transform PlayerDialoguePivot => _playerDialoguePivot.Enabled ? _playerDialoguePivot.Value : null;
         public Vector3 SpeakerPos => transform.position;
-        
+
         void ISpeaker.OnSentenceStart()
         {
+            SetTriggerOnAnimators(DIALOGUE_TALK);
         }
 
         void ISpeaker.OnSentenceEnd()
         {
+            SetTriggerOnAnimators(DIALOGUE_IDLE);
         }
 
         private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
+            SetTriggerOnAnimators(IDLE);
+
             IsDialoguing = false;
-            _highlight.SetActive(false);
+            _highlight.enabled = false;
         }
 
         public override void Focus()
         {
             base.Focus();
-            _highlight.SetActive(true);
+            _highlight.enabled = true;
         }
 
         public override void Unfocus()
@@ -41,7 +53,7 @@
             base.Unfocus();
 
             if (!IsDialoguing)
-                _highlight.SetActive(false);
+                _highlight.enabled = false;
         }
 
         public override void Interact()
@@ -49,7 +61,13 @@
             base.Interact();
 
             IsDialoguing = true;
-            UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, this);
+            UI.Dialogue.DialogueManager.PlayDialogue(_initDialogueId, this);
+        }
+
+        private void SetTriggerOnAnimators(string parameterId)
+        {
+            for (int i = _spriteAnimatorPairs.Length - 1; i >= 0; --i)
+                _spriteAnimatorPairs[i].Animator.SetTrigger(parameterId);
         }
 
         private void Start()

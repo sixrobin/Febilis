@@ -101,7 +101,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206304114665369707}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4206304113133527369
 MonoBehaviour:
@@ -169,7 +169,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206304114665369707}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4206304114253380132
 MonoBehaviour:
@@ -192,12 +192,14 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 79cfd422ddd797841b2b3476d4780aad, type: 3}
   - {fileID: 4900000, guid: 77d0594acff28f746bce6a1bfeebe690, type: 3}
   - {fileID: 4900000, guid: 92835456f9a5a014f859cbce3057336e, type: 3}
+  - {fileID: 4900000, guid: f1b1b729cc500b644a4c572d981d1a42, type: 3}
   _speakersDisplayDatas: {fileID: 4900000, guid: 4a862cfbd599fb345be9c37334a0cccb,
     type: 3}
   _portraits:
   - {fileID: 21300000, guid: 002536c19f1a7f342ab02816e429606c, type: 3}
   - {fileID: 21300000, guid: 7453fb0a0b438e64082266f3921b9e39, type: 3}
   - {fileID: 21300000, guid: 0eeeebd0985f9834eadd0983c18c5674, type: 3}
+  - {fileID: 21300000, guid: f2feb039aa20fc844912a592363d6569, type: 3}
   _defaultPortrait: {fileID: 21300000, guid: 002536c19f1a7f342ab02816e429606c, type: 3}
   portraitsAssetsRootPath: Assets/Textures/UI/Dialogue/Portraits
 --- !u!1 &4206304114665369684
@@ -230,9 +232,9 @@ Transform:
   m_Children:
   - {fileID: 4206304114793737256}
   - {fileID: 656751893338045660}
-  - {fileID: 8732904687100455674}
   - {fileID: 4206304114253380133}
   - {fileID: 4206304113133527368}
+  - {fileID: 8732904687100455674}
   - {fileID: 7802611346248292210}
   - {fileID: 6553871702937554353}
   m_Father: {fileID: 0}
@@ -484,7 +486,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4206304114665369707}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3642616297659909016
 MonoBehaviour:

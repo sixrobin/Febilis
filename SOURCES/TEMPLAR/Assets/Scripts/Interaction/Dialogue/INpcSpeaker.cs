@@ -1,6 +1,6 @@
 ﻿namespace Templar.Interaction.Dialogue
 {
-    public interface INpcSpeaker : ISpeaker
+    public interface INPCSpeaker : ISpeaker
     {
         UnityEngine.Transform PlayerDialoguePivot { get; }
     }
