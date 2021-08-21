@@ -27,34 +27,19 @@
       </ActionsConditions>
    </ItemDatas>
 
-   <ItemDatas Id="Key_00">
+   <ItemDatas Id="Key_Godric_House">
       <Type>KEY</Type>
-      <Description>Just a normal key.</Description>
+      <Description>The key of Godric's house. He told me that's where he forgot his ring.</Description>
    </ItemDatas>
 
-   <ItemDatas Id="Key_01">
-      <Type>KEY</Type>
-      <Description>Seems like a special key but I don't know what it opens for now.</Description>
-   </ItemDatas>
-
-   <ItemDatas Id="Key_02">
-      <Type>KEY</Type>
-      <Description>A key with... horns ?</Description>
+   <ItemDatas Id="Ring_Godric">
+      <Type>EQUIPABLE</Type>
+      <Description>What a beautiful ring. I wonder where Godric got it, but it doesn't look he wants to talk about it.</Description>
    </ItemDatas>
 
    <ItemDatas Id="Book">
       <Type>BOOK</Type>
       <Description>Haa... if only I could read.</Description>
-   </ItemDatas>
-
-   <ItemDatas Id="Ring_00">
-      <Type>EQUIPABLE</Type>
-      <Description>What a beautiful ring.</Description>
-   </ItemDatas>
-   
-   <ItemDatas Id="Ring_01">
-      <Type>EQUIPABLE</Type>
-      <Description>What a beautiful ring.</Description>
    </ItemDatas>
 
    <ItemDatas Id="Scroll">

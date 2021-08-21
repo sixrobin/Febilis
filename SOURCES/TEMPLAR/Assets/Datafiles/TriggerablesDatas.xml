@@ -16,7 +16,7 @@
       </OnTrigger>
    </TriggerableDatas>
 
-   <TriggerableDatas Id="Chest_Ring_00">
+   <!--<TriggerableDatas Id="Chest_Ring_00">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
       </ValidSources>
@@ -29,7 +29,7 @@
          <SpawnFromPool>Generic_Puff</SpawnFromPool>
          <SpawnFromPool>Hit</SpawnFromPool>
       </OnTrigger>
-   </TriggerableDatas>
+   </TriggerableDatas>-->
 
    <TriggerableDatas Id="Crate">
       <ValidSources>
