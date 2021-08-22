@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7324659281943587632
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2652323603523056896, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652323603523056896, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652323603523056896, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652323603523056896, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652323603523056897, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652323603523056903, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_Name
+      value: Lamp_Wall_Flip
+      objectReference: {fileID: 0}
+    - target: {fileID: 2652323603868134292, guid: 6e9dd0203b7fe5746ac257af91c584f4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.802
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e9dd0203b7fe5746ac257af91c584f4, type: 3}
