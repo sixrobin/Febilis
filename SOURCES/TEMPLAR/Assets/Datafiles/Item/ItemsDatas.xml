@@ -32,12 +32,32 @@
       <Description>The key of Godric's house. He told me that's where he forgot his ring.</Description>
    </ItemDatas>
 
+   <ItemDatas Id="Key_Priest">
+      <Type>KEY</Type>
+      <Description>a key</Description>
+   </ItemDatas>
+
+   <ItemDatas Id="Key_Catacombs">
+      <Type>KEY</Type>
+      <Description>a key</Description>
+   </ItemDatas>
+
    <ItemDatas Id="Ring_Godric">
       <Type>EQUIPABLE</Type>
       <Description>What a beautiful ring. I wonder where Godric got it, but it doesn't look he wants to talk about it.</Description>
    </ItemDatas>
 
    <ItemDatas Id="Book">
+      <Type>BOOK</Type>
+      <Description>Haa... if only I could read.</Description>
+   </ItemDatas>
+
+   <ItemDatas Id="Letter_Priest">
+      <Type>BOOK</Type>
+      <Description>Haa... if only I could read.</Description>
+   </ItemDatas>
+
+   <ItemDatas Id="Letter_Prisonner">
       <Type>BOOK</Type>
       <Description>Haa... if only I could read.</Description>
    </ItemDatas>
