@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2652323603523056897}
   - component: {fileID: 2652323603523056902}
   m_Layer: 0
-  m_Name: Lamp
+  m_Name: Lamp_Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 33c9ff594060462478b916fa52fd666f, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: e728ce384d5da82469b76f611aee5025, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 2652323603523056903}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 172da04aa90d9b145b9ac22069f2e2f5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 28a2205882883914da5c3a4d9fe9029d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 2652323603868134294}
   - component: {fileID: 2652323603868134295}
   m_Layer: 12
-  m_Name: Lamp Trigger
+  m_Name: Lamp_Wall Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2652323603868134293}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.752, y: 2.375, z: 0}
+  m_LocalPosition: {x: 0.802, y: -0.571, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2652323603523056896}
