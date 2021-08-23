@@ -14,12 +14,13 @@
 
         [Header("DIALOGUE SETTINGS")]
         [SerializeField] private string _speakerId = string.Empty;
-        [SerializeField] private string _initDialogueId = string.Empty; // [TODO] "DialogueBranchingDatas".
+        [SerializeField] private string _dialogueStructureId = string.Empty;
         [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
 
         [Header("GENERAL")]
         [SerializeField] private bool _lookAtPlayer = false;
 
+        private DialogueStructure.DialogueStructureController _dialogueStructureController;
         private Transform _player;
 
         public string SpeakerId => _speakerId;
@@ -66,7 +67,9 @@
             base.Interact();
 
             IsDialoguing = true;
-            UI.Dialogue.DialogueManager.PlayDialogue(_initDialogueId, this);
+
+            string dialogueToPlay = _dialogueStructureController.GetNextDialogueId();
+            UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
         }
 
         private void SetTriggerOnAnimators(string parameterId)
@@ -80,6 +83,7 @@
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
             _player = Manager.GameManager.PlayerCtrl.transform;
+            _dialogueStructureController = new DialogueStructure.DialogueStructureController( _dialogueStructureId);
         }
 
         private void Update()

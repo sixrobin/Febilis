@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+   <xs:include schemaLocation="../SharedDatas.xsd"/>
+
+   <xs:element name="DialoguesStructuresDatas">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="DialoguesStructureDatas" type="DialoguesStructureDatas" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:complexType name="DialoguesStructureDatas">
+      <xs:sequence>
+         <xs:element name="Dialogue" type="StructureDialogueDatas" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:token" use="required"/>
+   </xs:complexType>
+
+   <xs:complexType name="StructureDialogueDatas">
+      <xs:sequence>
+         <xs:element name="Conditions" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="DialogueNeverDone" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="PlayerHasItem" minOccurs="0" maxOccurs="unbounded">
+                     <xs:complexType>
+                        <xs:attribute name="Id" type="xs:token" use="required"/>
+                        <xs:attribute name="MinQuantity" type="xs:nonNegativeInteger" use="optional"/>
+                     </xs:complexType>
+                  </xs:element>
+                  <xs:element name="PlayerDoesntHaveItem" minOccurs="0" maxOccurs="unbounded">
+                     <xs:complexType>
+                        <xs:attribute name="Id" type="xs:token" use="required"/>
+                     </xs:complexType>
+                  </xs:element>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:token" use="required"/>
+   </xs:complexType>
+
+</xs:schema>

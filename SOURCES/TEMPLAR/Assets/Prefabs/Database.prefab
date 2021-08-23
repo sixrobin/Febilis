@@ -196,6 +196,8 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 77d0594acff28f746bce6a1bfeebe690, type: 3}
   - {fileID: 4900000, guid: 92835456f9a5a014f859cbce3057336e, type: 3}
   - {fileID: 4900000, guid: f1b1b729cc500b644a4c572d981d1a42, type: 3}
+  _dialoguesStructuresDatas:
+  - {fileID: 4900000, guid: ab4d73b2a806ebd40815ce49489358f9, type: 3}
   _speakersDisplayDatas: {fileID: 4900000, guid: 4a862cfbd599fb345be9c37334a0cccb,
     type: 3}
   _portraits:

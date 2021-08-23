@@ -116,7 +116,7 @@ MonoBehaviour:
   - {fileID: 6231849719135417168}
   _highlight: {fileID: 2428089602186697573}
   _speakerId: Godric
-  _initDialogueId: Godric_Greeting
+  _dialogueStructureId: Godric
   _playerDialoguePivot:
     _value: {fileID: 2428089600568127496}
     _enabled: 1

@@ -11,6 +11,12 @@
       </Sequence>
    </DialogueDatas>
 
+   <DialogueDatas Id="Godric_WaitingRing">
+      <Sequence>
+         <Sentence Id="Godric_WaitingRing_00"/>
+      </Sequence>
+   </DialogueDatas>
+
    <SentenceDatas Id="Godric_Greeting_00">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
@@ -31,6 +37,11 @@
    <SentenceDatas Id="Godric_Greeting_03">
       <Speaker Id="Godric"/>
       <Value>Here's the key.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_WaitingRing_00">
+      <Speaker Id="Godric"/>
+      <Value>Please, get my ring.</Value>
    </SentenceDatas>
 
 </DialoguesDatas>
