@@ -5,4 +5,12 @@
       <HasItem Id="Key_Godric_House"/>
    </ContextualConditions>
 
+   <ContextualConditions Id="OpenCatacombs">
+      <HasItem Id="Key_Catacombs"/>
+   </ContextualConditions>
+
+   <ContextualConditions Id="OpenPriestRoom">
+      <HasItem Id="Key_Priest"/>
+   </ContextualConditions>
+
 </ContextualConditionsDatas>
