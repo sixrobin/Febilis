@@ -3,15 +3,25 @@
 
    <DialoguesStructureDatas Id="Godric">
 
+      <Dialogue Id="Godric_Greeting_Ring">
+         <Conditions>
+            <DialogueNeverDone>Godric_Greeting</DialogueNeverDone>
+            <DialogueNeverDone>Godric_Greeting_Ring</DialogueNeverDone>
+            <PlayerHasItem Id="Ring_Godric" MinQuantity="1"/>
+         </Conditions>
+      </Dialogue>
+
       <Dialogue Id="Godric_Greeting">
          <Conditions>
             <DialogueNeverDone>Godric_Greeting</DialogueNeverDone>
+            <DialogueNeverDone>Godric_Greeting_Ring</DialogueNeverDone>
          </Conditions>
       </Dialogue>
 
       <Dialogue Id="Godric_WaitingRing">
          <Conditions>
             <DialogueNeverDone>Godric_RetrieveRing</DialogueNeverDone>
+            <DialogueNeverDone>Godric_Greeting_Ring</DialogueNeverDone>
             <PlayerDoesntHaveItem Id="Ring_Godric"/>
          </Conditions>
       </Dialogue>

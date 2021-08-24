@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
 
-   <!-- DIALOGUES -->
-   
+   <!-- ███████████ -->
+   <!--  DIALOGUES  -->
+   <!-- ███████████ -->
+
    <DialogueDatas Id="Godric_Greeting">
       <Sequence>
          <Sentence Id="Godric_Greeting_00"/>
@@ -10,6 +12,16 @@
          <Sentence Id="Godric_Greeting_02"/>
          <Sentence Id="Godric_Greeting_03"/>
          <AddItem Id="Key_Godric_House"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <DialogueDatas Id="Godric_Greeting_Ring">
+      <Sequence>
+         <Sentence Id="Godric_Greeting_Ring_00"/>
+         <Sentence Id="Godric_Greeting_Ring_01"/>
+         <Sentence Id="Godric_Greeting_Ring_02"/>
+         <Sentence Id="Godric_Greeting_Ring_03"/>
+         <RemoveItem Id="Ring_Godric"/>
       </Sequence>
    </DialogueDatas>
 
@@ -27,13 +39,16 @@
       </Sequence>
    </DialogueDatas>
 
-      <DialogueDatas Id="Godric_PostRetrieveRing">
+   <DialogueDatas Id="Godric_PostRetrieveRing">
       <Sequence>
          <Sentence Id="Godric_PostRetrieveRing_00"/>
       </Sequence>
    </DialogueDatas>
 
-   <!-- SENTENCES -->
+   
+   <!-- ███████████ -->
+   <!--  SENTENCES  -->
+   <!-- ███████████ -->
 
    <SentenceDatas Id="Godric_Greeting_00">
       <Speaker Id="Godric">
@@ -57,10 +72,39 @@
       <Value>Here's the key.</Value>
    </SentenceDatas>
 
+
+   <SentenceDatas Id="Godric_Greeting_Ring_00">
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>Hey, I'm... hm... Is is my ring ?</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_Ring_01">
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>Guess they completely destroyed my house, or you broke the door.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_Ring_02">
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>Anyway, not like I was getting back to it.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_Ring_03">
+      <Speaker Id="Godric"/>
+      <Value>My name's Godric. Thanks a lot for the ring though you did not know me.</Value>
+   </SentenceDatas>
+   
+   
    <SentenceDatas Id="Godric_WaitingRing_00">
       <Speaker Id="Godric"/>
       <Value>Please, get my ring.</Value>
    </SentenceDatas>
+   
    
    <SentenceDatas Id="Godric_RetrieveRing_00">
       <Speaker Id="Godric"/>
@@ -71,6 +115,7 @@
       <Speaker Id="Godric"/>
       <Value>That's impressive.[pause=1] Thank you, very much.</Value>
    </SentenceDatas>
+   
    
    <SentenceDatas Id="Godric_PostRetrieveRing_00">
       <Speaker Id="Godric"/>
