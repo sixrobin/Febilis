@@ -1,8 +1,9 @@
 ﻿namespace Templar.Interaction.Dialogue
 {
+    using Templar.SceneLoadingDatasStorage;
     using UnityEngine;
 
-    public class NPCController : Interactable, INPCSpeaker
+    public class NPCController : Interactable, INPCSpeaker, ISceneLoadingDatasOwner<SceneLoadDatasDialogueStructure>
     {
         private const string IDLE = "Idle";
         private const string DIALOGUE_IDLE = "DialogueIdle";
@@ -29,6 +30,19 @@
 
         public Transform PlayerDialoguePivot => _playerDialoguePivot.Enabled ? _playerDialoguePivot.Value : null;
         public Vector3 SpeakerPos => transform.position;
+
+        public SceneLoadDatasDialogueStructure SaveDatasBeforeSceneLoading()
+        {
+            return new SceneLoadDatasDialogueStructure()
+            {
+                DoneDialogues = _dialogueStructureController.GetDoneDialoguesCopy()
+            };
+        }
+
+        public void LoadDatasAfterSceneLoading(SceneLoadDatasDialogueStructure datas)
+        {
+            _dialogueStructureController.LoadDoneDialogues(datas.DoneDialogues);
+        }
 
         void ISpeaker.OnSentenceStart()
         {

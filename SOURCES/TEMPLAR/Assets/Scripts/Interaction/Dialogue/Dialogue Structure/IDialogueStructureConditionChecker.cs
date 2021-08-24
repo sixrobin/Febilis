@@ -2,6 +2,6 @@
 {
     public interface IDialogueStructureConditionChecker
     {
-        bool Check();
+        bool Check(DialogueStructureController dialogueStructureController);
     }
 }

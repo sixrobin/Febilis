@@ -11,6 +11,7 @@
 
       <Dialogue Id="Godric_WaitingRing">
          <Conditions>
+            <DialogueNeverDone>Godric_RetrieveRing</DialogueNeverDone>
             <PlayerDoesntHaveItem Id="Ring_Godric"/>
          </Conditions>
       </Dialogue>
@@ -22,9 +23,6 @@
       </Dialogue>
 
       <Dialogue Id="Godric_PostRetrieveRing">
-         <!--<Conditions>
-            <PlayerOwnsItem>Ring_Godric</PlayerOwnsItem>
-         </Conditions>-->
       </Dialogue>
       
    </DialoguesStructureDatas>

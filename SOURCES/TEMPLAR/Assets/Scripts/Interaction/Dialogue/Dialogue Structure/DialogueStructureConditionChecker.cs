@@ -10,7 +10,7 @@
             _conditionDatas = (T)conditionDatas;
         }
 
-        public abstract bool Check();
+        public abstract bool Check(DialogueStructureController dialogueStructureController);
     }
 
 
@@ -21,10 +21,9 @@
         {
         }
 
-        public override bool Check()
+        public override bool Check(DialogueStructureController dialogueStructureController)
         {
-            // [TODO] Check inside some "DialogueStructureProgression".
-            return true; 
+            return !dialogueStructureController.IsDialogueAlreadyDone(_conditionDatas.DialogueId); 
         }
     }
 
@@ -36,7 +35,7 @@
         {
         }
 
-        public override bool Check()
+        public override bool Check(DialogueStructureController dialogueStructureController)
         {
             return Manager.GameManager.InventoryCtrl.GetItemQuantity(_conditionDatas.ItemId) >= _conditionDatas.MinQuantity;
         }
@@ -50,7 +49,7 @@
         {
         }
 
-        public override bool Check()
+        public override bool Check(DialogueStructureController dialogueStructureController)
         {
             return Manager.GameManager.InventoryCtrl.GetItemQuantity(_conditionDatas.ItemId) == 0;
         }

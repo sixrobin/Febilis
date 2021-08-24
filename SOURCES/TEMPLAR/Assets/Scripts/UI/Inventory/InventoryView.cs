@@ -115,6 +115,11 @@
             Clear();
         }
 
+        private void OnInventoryInitialized()
+        {
+            UpdateContent();
+        }
+
         private void OnInventorySlotHovered(InventorySlot slot)
         {
             if (slot.Item == null)
@@ -237,6 +242,8 @@
         {
             _inventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared += OnInventoryCleared;
+            _inventoryCtrl.InventoryInitialized += OnInventoryInitialized;
+
             InventorySlot.InventorySlotHovered += OnInventorySlotHovered;
             InventorySlot.InventorySlotExit += OnInventorySlotExit;
 
@@ -288,6 +295,8 @@
         {
             _inventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared -= OnInventoryCleared;
+            _inventoryCtrl.InventoryInitialized -= OnInventoryInitialized;
+
             InventorySlot.InventorySlotHovered -= OnInventorySlotHovered;
             InventorySlot.InventorySlotExit -= OnInventorySlotExit;
 
