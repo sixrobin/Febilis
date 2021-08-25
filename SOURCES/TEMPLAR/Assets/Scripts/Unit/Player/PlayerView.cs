@@ -282,6 +282,15 @@
             LogAnimationPlayIfRequired("Transition Out");
         }
 
+        private void PlaySleepAnimation()
+        {
+            _animator.SetTrigger(IDLE_SLEEPING);
+            _sleepFeedback.Toggle(true);
+
+            SleepAnimationBegan?.Invoke();
+            LogAnimationPlayIfRequired("Idle Sleeping");
+        }
+
         private void UpdateAttackAnimation(float dir = 0f)
         {
             _animator.SetFloat(MULT_ATTACK, TemplarCtrl.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
@@ -323,11 +332,7 @@
 
                 if (_idleBreaksCounter == _breaksBeforeSleep + 1)
                 {
-                    _animator.SetTrigger(IDLE_SLEEPING);
-                    _sleepFeedback.Toggle(true);
-
-                    SleepAnimationBegan?.Invoke();
-                    LogAnimationPlayIfRequired("Idle Sleeping");
+                    PlaySleepAnimation();
                 }
                 else
                 {
@@ -353,14 +358,7 @@
 
             InitAnimatorOverrideController();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("PlayerSleep", "Plays sleep animation.", () => 
-            {
-                _animator.SetTrigger(IDLE_SLEEPING);
-                _sleepFeedback.Toggle(true);
-
-                SleepAnimationBegan?.Invoke();
-                LogAnimationPlayIfRequired("Idle Sleeping");
-            }));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("PlayerSleep", "Plays sleep animation.", PlaySleepAnimation));
         }
 
         private void Update()
