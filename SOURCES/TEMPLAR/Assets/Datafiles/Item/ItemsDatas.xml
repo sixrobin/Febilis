@@ -54,12 +54,12 @@
 
    <ItemDatas Id="Letter_Priest">
       <Type>BOOK</Type>
-      <Description>Haa... if only I could read.</Description>
+      <Description>It says: "The impious man has escaped, you must chase him to protect the secret."</Description>
    </ItemDatas>
 
    <ItemDatas Id="Letter_Prisonner">
       <Type>BOOK</Type>
-      <Description>Haa... if only I could read.</Description>
+      <Description>It’s written with blood : "FEBILIS"</Description>
    </ItemDatas>
 
    <ItemDatas Id="Scroll">

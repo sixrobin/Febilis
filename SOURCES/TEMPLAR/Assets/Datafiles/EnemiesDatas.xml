@@ -90,7 +90,6 @@
             <Actions>
                <Attack Id="rat_atk_base">
                   <Conditions>
-                     <FullHealth/>
                      <PlayerAlive/>
                      <PlayerInRange Range="1.5"/>
                   </Conditions>
@@ -99,7 +98,6 @@
                </Attack>
                <Chase>
                   <Conditions>
-                     <FullHealth Negate="true"/>
                      <MaxHeightOffset Offset="0.5"/>
                      <PlayerDetected/>
                   </Conditions>
