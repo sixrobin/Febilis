@@ -11,6 +11,7 @@
         public const string PORTRAIT_PREFIX = "Dialogue-Portrait_";
 
         [SerializeField] private TextAsset[] _dialoguesDatas = null;
+        [SerializeField] private TextAsset[] _dialoguesStructuresDatas = null;
         [SerializeField] private TextAsset _speakersDisplayDatas = null;
         [SerializeField] private Sprite[] _portraits = null;
         [SerializeField] private Sprite _defaultPortrait = null;
@@ -19,9 +20,10 @@
         [SerializeField] private string portraitsAssetsRootPath = "Assets/Textures/UI/Dialogue/Portraits";
 #endif
 
+        public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.DialogueStructure.DialoguesStructureDatas> DialoguesStructuresDatas { get; private set; }
         public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.DialogueDatas> DialoguesDatas { get; private set; }
         public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.SentenceDatas> SentencesDatas { get; private set; }
-
+        
         public static System.Collections.Generic.Dictionary<string, Datas.Dialogue.SpeakerDisplayDatas> SpeakersDisplayDatas { get; private set; }
 
         public static System.Collections.Generic.Dictionary<string, Sprite> Portraits { get; private set; }
@@ -29,6 +31,7 @@
 
         void IDatabase.Load()
         {
+            DeserializeDialoguesStructuresDatas();
             DeserializeDialoguesDatas();
             DeserializeSpeakersDisplayDatas();
             GeneratePortraitsDictionary();
@@ -108,6 +111,31 @@
             }
 
             Log($"Deserialized {SentencesDatas.Count} sentences datas and {DialoguesDatas.Count} dialogues datas.");
+        }
+
+        private void DeserializeDialoguesStructuresDatas()
+        {
+            DialoguesStructuresDatas = new System.Collections.Generic.Dictionary<string, Datas.Dialogue.DialogueStructure.DialoguesStructureDatas>();
+
+            System.Collections.Generic.List<XElement> allFilesElements = new System.Collections.Generic.List<XElement>();
+
+            // Gather all documents main element in a list.
+            for (int i = _dialoguesStructuresDatas.Length - 1; i >= 0; --i)
+            {
+                XDocument dialoguesStructuresDatasDoc = XDocument.Parse(_dialoguesStructuresDatas[i].text, LoadOptions.SetBaseUri);
+                allFilesElements.Add(dialoguesStructuresDatasDoc.Element("DialoguesStructuresDatas"));
+            }
+
+            for (int i = allFilesElements.Count - 1; i >= 0; --i)
+            {
+                foreach (XElement dialoguesStructureElement in allFilesElements[i].Elements("DialoguesStructureDatas"))
+                {
+                    Datas.Dialogue.DialogueStructure.DialoguesStructureDatas dialoguesStructureDatas = new Datas.Dialogue.DialogueStructure.DialoguesStructureDatas(dialoguesStructureElement);
+                    DialoguesStructuresDatas.Add(dialoguesStructureDatas.Id, dialoguesStructureDatas);
+                }
+            }
+
+            Log($"Deserialized {DialoguesStructuresDatas.Count} dialogues structures datas.");
         }
 
         private void DeserializeSpeakersDisplayDatas()

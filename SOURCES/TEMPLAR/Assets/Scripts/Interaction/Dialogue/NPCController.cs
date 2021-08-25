@@ -1,8 +1,9 @@
 ﻿namespace Templar.Interaction.Dialogue
 {
+    using Templar.SceneLoadingDatasStorage;
     using UnityEngine;
 
-    public class NPCController : Interactable, INPCSpeaker
+    public class NPCController : Interactable, INPCSpeaker, ISceneLoadingDatasOwner<SceneLoadDatasDialogueStructure>
     {
         private const string IDLE = "Idle";
         private const string DIALOGUE_IDLE = "DialogueIdle";
@@ -14,12 +15,13 @@
 
         [Header("DIALOGUE SETTINGS")]
         [SerializeField] private string _speakerId = string.Empty;
-        [SerializeField] private string _initDialogueId = string.Empty; // [TODO] "DialogueBranchingDatas".
+        [SerializeField] private string _dialogueStructureId = string.Empty;
         [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
 
         [Header("GENERAL")]
         [SerializeField] private bool _lookAtPlayer = false;
 
+        private DialogueStructure.DialogueStructureController _dialogueStructureController;
         private Transform _player;
 
         public string SpeakerId => _speakerId;
@@ -28,6 +30,19 @@
 
         public Transform PlayerDialoguePivot => _playerDialoguePivot.Enabled ? _playerDialoguePivot.Value : null;
         public Vector3 SpeakerPos => transform.position;
+
+        public SceneLoadDatasDialogueStructure SaveDatasBeforeSceneLoading()
+        {
+            return new SceneLoadDatasDialogueStructure()
+            {
+                DoneDialogues = _dialogueStructureController.GetDoneDialoguesCopy()
+            };
+        }
+
+        public void LoadDatasAfterSceneLoading(SceneLoadDatasDialogueStructure datas)
+        {
+            _dialogueStructureController.LoadDoneDialogues(datas.DoneDialogues);
+        }
 
         void ISpeaker.OnSentenceStart()
         {
@@ -66,7 +81,9 @@
             base.Interact();
 
             IsDialoguing = true;
-            UI.Dialogue.DialogueManager.PlayDialogue(_initDialogueId, this);
+
+            string dialogueToPlay = _dialogueStructureController.GetNextDialogueId();
+            UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
         }
 
         private void SetTriggerOnAnimators(string parameterId)
@@ -80,6 +97,7 @@
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
             _player = Manager.GameManager.PlayerCtrl.transform;
+            _dialogueStructureController = new DialogueStructure.DialogueStructureController( _dialogueStructureId);
         }
 
         private void Update()

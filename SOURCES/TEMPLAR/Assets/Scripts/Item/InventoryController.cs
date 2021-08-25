@@ -38,9 +38,11 @@
 
         public delegate void InventoryContentChangedEventHandler(InventoryContentChangedEventArgs args);
         public delegate void InventoryClearedEventHandler();
-        
+        public delegate void InventoryInitializedEventHandler();
+
         public event InventoryContentChangedEventHandler InventoryContentChanged;
         public event InventoryClearedEventHandler InventoryCleared;
+        public event InventoryInitializedEventHandler InventoryInitialized;
 
         // List of a custom class instead of <Item, Quantity> to store more infos, like the slot index ?
         // InventorySlot, and change current class of this name to InventorySlotView ?
@@ -58,6 +60,8 @@
         {
             foreach (System.Collections.Generic.KeyValuePair<string, int> item in datas.Items)
                 AddItem(item.Key, item.Value, true);
+
+            InventoryInitialized?.Invoke();
         }
 
         public int GetItemQuantity(string id)
@@ -171,6 +175,8 @@
 
             foreach (XElement itemElement in inventoryElement.Elements())
                 AddItem(itemElement.Name.LocalName, itemElement.ValueToInt(), true);
+
+            InventoryInitialized?.Invoke();
         }
 
         public XElement Save()

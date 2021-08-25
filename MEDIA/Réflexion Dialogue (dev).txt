@@ -21,13 +21,22 @@ Interface ISpeaker :
 	
 on aimerait sans doute une classe PlayerDialogueController pour ne pas encore foutre un truc dans PlayerController
 
+On voudra sans doute qu'au début ou à la fin de certains dialogues, le personnage gagne un objet, le donne, ou gagne du fric, etc.
+-> il faut donc réfléchir à une façon de gérer ça.
+	- pas dans DialoguesDatas.xml qui devrait plutôt gérer les phrases en elles-mêmes, les anims, tout ça
+	- réfléchir à un "DialoguesCallbacksDatas.xml" dans lequel, pour un DialogueId, on peut renseigner un PreCallback et PostCallback ?
 
 
 
 
 Il faut trouver une façon d'enchaîner les dialogues pour chaque NPC.
-
-On voudra sans doute qu'au début ou à la fin de certains dialogues, le personnage gagne un objet, le donne, ou gagne du fric, etc.
--> il faut donc réfléchir à une façon de gérer ça.
-	- pas dans DialoguesDatas.xml qui devrait plutôt gérer les phrases en elles-mêmes, les anims, tout ça
-	- réfléchir à un "DialoguesCallbacksDatas.xml" dans lequel, pour un DialogueId, on peut renseigner un PreCallback et PostCallback ?
+-> Les NPC ont un SpeakerId, qu'on peut utiliser pour récupérer leur arbre de dialogues.
+-> Je pense à un système de Behaviour Tree, où on prend dans l'ordre toutes les phrases existantes et on prend la première qui remplit des conditions données.
+-> Il faudrait donc des conditions (avec le negate) :
+	- DialogueAlreadyDone
+	- PlayerOwnsItem (quantity)
+	- CurrentZoneIdEquals
+	- DialogueNeverDone
+	- ...
+	
+Utiliser les ContextualConditions ?
