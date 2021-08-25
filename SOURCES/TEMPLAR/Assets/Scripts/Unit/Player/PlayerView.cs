@@ -352,6 +352,15 @@
             _idleSleepingStateHash = Animator.StringToHash("Idle-Sleeping");
 
             InitAnimatorOverrideController();
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("PlayerSleep", "Plays sleep animation.", () => 
+            {
+                _animator.SetTrigger(IDLE_SLEEPING);
+                _sleepFeedback.Toggle(true);
+
+                SleepAnimationBegan?.Invoke();
+                LogAnimationPlayIfRequired("Idle Sleeping");
+            }));
         }
 
         private void Update()
