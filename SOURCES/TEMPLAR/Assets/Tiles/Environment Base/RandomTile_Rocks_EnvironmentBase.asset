@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 535f8e525ff367c4ba67961e201a05ed, type: 3}
-  m_Name: RandomTile_Spikes
+  m_Name: RandomTile_Rocks_EnvironmentBase
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -35,5 +35,7 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   m_Sprites:
-  - {fileID: 21300000, guid: 0edfdff0cb4df4049ad5c0ab4903bccf, type: 3}
-  - {fileID: 21300000, guid: 578becb5029fb9146ae1b5623d32c9bc, type: 3}
+  - {fileID: 21300000, guid: 17a96c4f14039c74c9461fbe376ddb12, type: 3}
+  - {fileID: 21300000, guid: e0361e17695db6f48ac869e453dd14a0, type: 3}
+  - {fileID: 21300000, guid: 2e58d26ae379d96468ba6d6507c0a1d6, type: 3}
+  - {fileID: 21300000, guid: f565b006cef1f744abb71815e3049a5f, type: 3}
