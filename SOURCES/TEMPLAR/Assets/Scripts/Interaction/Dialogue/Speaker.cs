@@ -7,7 +7,7 @@
         [SerializeField] private RSLib.Framework.OptionalString _speakerId = new RSLib.Framework.OptionalString(string.Empty, false);
         [SerializeField] private string _dialogueId = string.Empty;
         [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
-        [SerializeField] private GameObject _highlight = null;
+        [SerializeField] protected GameObject _highlight = null;
 
         public string SpeakerId => _speakerId.Enabled ? _speakerId.Value : string.Empty;
 

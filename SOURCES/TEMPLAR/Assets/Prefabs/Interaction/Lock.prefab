@@ -92,6 +92,7 @@ MonoBehaviour:
   _onOpen:
     m_PersistentCalls:
       m_Calls: []
+  _animator: {fileID: 614507820698310876}
 --- !u!114 &3456342045103930702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ SpriteRenderer:
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: beb500fee93c7584590f7b539b6f4dd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.5555556, y: 0.9444444}
@@ -224,6 +225,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3456342045132175786}
   - component: {fileID: 3456342045132175785}
+  - component: {fileID: 614507820698310876}
+  - component: {fileID: 16272591903315853}
   m_Layer: 0
   m_Name: Lock View
   m_TagString: Untagged
@@ -287,7 +290,7 @@ SpriteRenderer:
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 01c8cd45b223b7948ab7f8ccf55bfb1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.5555556, y: 0.9444444}
@@ -296,3 +299,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &614507820698310876
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3456342045132175787}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c1f15b6b9d2d7b4ab513f7ad3df4d20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &16272591903315853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3456342045132175787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da6b7c4c76a1054eb7f2ebb3769ec5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lock: {fileID: 3456342045103930699}
