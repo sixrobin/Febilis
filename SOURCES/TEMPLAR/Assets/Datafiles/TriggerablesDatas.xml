@@ -16,6 +16,36 @@
       </OnTrigger>
    </TriggerableDatas>
 
+   <TriggerableDatas Id="Chest_Key_Priest">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Loot>
+            <Item>Key_Priest</Item>
+         </Loot>
+         <Trauma X="0.3" Y ="0.3" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>Generic_Puff</SpawnFromPool>
+         <SpawnFromPool>Hit</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
+   <TriggerableDatas Id="Chest_Key_Catacombs">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Loot>
+            <Item>Key_Catacombs</Item>
+         </Loot>
+         <Trauma X="0.3" Y ="0.3" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>Generic_Puff</SpawnFromPool>
+         <SpawnFromPool>Hit</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
    <!--<TriggerableDatas Id="Chest_Ring_00">
       <ValidSources>
          <SourceType>ATTACK</SourceType>
