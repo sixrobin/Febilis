@@ -13,6 +13,7 @@
         [SerializeField, Min(0.1f)] private float _signInitRandomAngle = 60f;
         [SerializeField, Min(0f)] private float _signTravelDist = 1.5f;
         [SerializeField, Min(0f)] private float _signLifespan = 1f;
+        [SerializeField] private bool _localSpace = true;
 
         private System.Collections.IEnumerator _sleepSignPopCoroutine;
         private bool _isOn;
@@ -51,8 +52,8 @@
         private System.Collections.IEnumerator SleepSignCoroutine(Transform sign)
         {
             Vector3 dir = Quaternion.Euler(0f, 0f, Random.Range(-_signInitRandomAngle * 0.5f, _signInitRandomAngle * 0.5f)) * transform.up;
-            Vector2 initPos = transform.position;
-            Vector2 targetPos = transform.position + dir * _signTravelDist;
+            Vector3 initPos = transform.position;
+            Vector3 targetPos = initPos + dir * _signTravelDist;
 
             sign.transform.localScale = Vector3.zero;
 
@@ -60,6 +61,9 @@
             {
                 sign.transform.localScale = t < 0.5f ? (Vector3.one * t * 2f) : (Vector3.one * (1f - (t - 0.5f) * 2f));
                 sign.transform.position = Vector3.Lerp(initPos, targetPos, t);
+                if (_localSpace)
+                    sign.transform.position += transform.position - initPos;
+
                 yield return null;
             }
 

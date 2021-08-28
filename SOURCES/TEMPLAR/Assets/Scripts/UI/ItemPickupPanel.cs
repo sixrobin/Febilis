@@ -7,6 +7,7 @@
     {
         [Header("REFS")]
         [SerializeField] private Canvas _canvas = null;
+        [SerializeField] private Inventory.InventoryView _inventoryView = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemNameText = null;
         [SerializeField] private UnityEngine.UI.Image _itemIcon = null;
 
@@ -29,6 +30,11 @@
             AddItemToShow(args.Item.Id);
         }
 
+        private void OnDialogueStarted(Datas.Dialogue.DialogueDatas dialogueDatas)
+        {
+            ClearItemsAndHide();
+        }
+
         private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             if (!_showDialogueItems)
@@ -39,7 +45,25 @@
                     AddItemToShow(addItemDatas.ItemId);
         }
 
+        private void OnInventoryViewDisplayChanged(bool displayed)
+        {
+            if (displayed)
+                ClearItemsAndHide();
+        }
+
         private void OnFadeBegan(bool fadeIn)
+        {
+            ClearItemsAndHide();
+        }
+
+        private void AddItemToShow(string itemId)
+        {
+            _itemsIdsToShow.Enqueue(itemId);
+            if (!_coroutineRunning)
+                StartCoroutine(ShowPickedUpItemsCoroutine());
+        }
+
+        private void ClearItemsAndHide()
         {
             if (!_coroutineRunning)
                 return;
@@ -49,13 +73,6 @@
             _itemsIdsToShow.Clear();
             _coroutineRunning = false;
             _canvas.enabled = false;
-        }
-
-        private void AddItemToShow(string itemId)
-        {
-            _itemsIdsToShow.Enqueue(itemId);
-            if (!_coroutineRunning)
-                StartCoroutine(ShowPickedUpItemsCoroutine());
         }
 
         private System.Collections.IEnumerator ShowPickedUpItemsCoroutine()
@@ -87,21 +104,35 @@
 
         private void Start()
         {
+            Manager.OptionsManager.Instance.OptionsOpened += ClearItemsAndHide;
             Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
+
+            if (_inventoryView != null)
+                _inventoryView.DisplayChanged += OnInventoryViewDisplayChanged;
         }
 
         private void OnDestroy()
         {
+            if (Manager.OptionsManager.Exists())
+                Manager.OptionsManager.Instance.OptionsOpened -= ClearItemsAndHide;
+
             if (Manager.GameManager.Exists())
                 Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
         
             if (Dialogue.DialogueManager.Exists())
+            {
+                Dialogue.DialogueManager.Instance.DialogueStarted -= OnDialogueStarted;
                 Dialogue.DialogueManager.Instance.DialogueOver -= OnDialogueOver;
+            }
 
             if (Manager.RampFadeManager.Exists())
                 Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
+
+            if (_inventoryView != null)
+                _inventoryView.DisplayChanged -= OnInventoryViewDisplayChanged;
         }
     }
 }
