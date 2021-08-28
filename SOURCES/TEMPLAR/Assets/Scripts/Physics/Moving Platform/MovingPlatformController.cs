@@ -40,6 +40,7 @@
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _dbgColor = null;
         [SerializeField] private RSLib.DataColor _raycastsColor = null;
+        [SerializeField] private bool _verbose = false;
 
         private RaycastsController _raycastsCtrl;
 
@@ -109,6 +110,9 @@
             float signX = Mathf.Sign(vel.x);
             float signY = Mathf.Sign(vel.y);
 
+            // NOTE: RaycastAll doesn't seem to care about max distance so manuel checks on RaycastHit2D.distance are added.
+            // KnP bug entry: https://app.hacknplan.com/p/148469/kanban?categoryId=8&boardId=392835&taskId=68&tabId=basicinfo.
+
             if (vel.y != 0f)
             {
                 float length = Mathf.Abs(vel.y) * Time.deltaTime + RaycastsController.SKIN_WIDTH;
@@ -123,7 +127,7 @@
                     for (int j = hits.Length - 1; j >= 0; --j)
                     {
                         RaycastHit2D hit = hits[j];
-                        if (hit)
+                        if (hit && hit.distance <= length)
                         {
                             if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
                                 if (hit.collider.TryGetComponent(out passenger))
@@ -131,6 +135,8 @@
 
                             if (passenger == null || _movedPassengers.Contains(passenger))
                                 continue;
+
+                            LogAddedPassenger(hit);
 
                             _movedPassengers.Add(passenger);
 
@@ -158,7 +164,7 @@
                     for (int j = hits.Length - 1; j >= 0; --j)
                     {
                         RaycastHit2D hit = hits[j];
-                        if (hit)
+                        if (hit && hit.distance <= length)
                         {
                             if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
                                 if (hit.collider.TryGetComponent(out passenger))
@@ -166,6 +172,8 @@
 
                             if (passenger == null || _movedPassengers.Contains(passenger))
                                 continue;
+
+                            LogAddedPassenger(hit);
 
                             _movedPassengers.Add(passenger);
 
@@ -191,7 +199,7 @@
                     for (int j = hits.Length - 1; j >= 0; --j)
                     {
                         RaycastHit2D hit = hits[j];
-                        if (hit)
+                        if (hit && hit.distance <= length)
                         {
                             if (!s_alreadyKnownPassengers.TryGetValue(hit.collider, out IMovingPlatformPassenger passenger))
                                 if (hit.collider.TryGetComponent(out passenger))
@@ -199,6 +207,8 @@
 
                             if (passenger == null || _movedPassengers.Contains(passenger))
                                 continue;
+
+                            LogAddedPassenger(hit);
 
                             _movedPassengers.Add(passenger);
                             _passengersVelocities.Add(new PassengerVelocity(passenger, vel, true, false));
@@ -217,6 +227,9 @@
 
         private System.Collections.IEnumerator WaypointPauseCoroutine()
         {
+            if (_verbose)
+                CProLogger.Log(this, $"{transform.name} pause.", gameObject);
+
             _onWaypointPause = true;
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_waypoints.PauseDur.Value);
             _onWaypointPause = false;
@@ -229,9 +242,7 @@
             _movementTriggered = !_movementTrigger.Enabled || _movementTrigger.Value == null; // [TODO] Or if loading a platform already triggered.
         
             if (_movementTrigger.Enabled && _movementTrigger.Value != null)
-            {
                 _movementTrigger.Value.Triggered += OnMovementTriggerTriggered;
-            }
         }
 
         private void Update()
@@ -274,6 +285,12 @@
             }
 
             Gizmos.DrawWireSphere(transform.position + initPointPos, 0.2f);
+        }
+
+        private void LogAddedPassenger(RaycastHit2D hit)
+        {
+            if (_verbose)
+                CProLogger.Log(this, $"{transform.name} adding passenger {hit.collider.transform.name} (hit distance: {hit.distance}).", gameObject);
         }
 
         private void OnValidate()
