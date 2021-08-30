@@ -6,7 +6,7 @@
     {
         protected override bool IsActionAllowed()
         {
-            CProLogger.LogWarning(this, "NOT IMPLEMENTED");
+            CProLogger.LogWarning(this, $"{GetType().Name} NOT IMPLEMENTED");
             return false;
 
             return Slot.Item.Datas.Type == Item.ItemType.EQUIPABLE

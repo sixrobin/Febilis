@@ -74,7 +74,6 @@
             _diff = 0;
 
             KillUpdateDifferenceCoroutine();
-
             UpdateTexts();
         }
 
@@ -123,6 +122,8 @@
 
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueDatas) => Display(false);
             UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueDatas) => Display(true);
+
+            Display(false);
         }
 
         private void OnDestroy()

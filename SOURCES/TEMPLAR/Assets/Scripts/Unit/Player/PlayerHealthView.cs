@@ -215,6 +215,7 @@
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
+            _healthBarCanvas.enabled = false;
             StartCoroutine(InitHealth());
         }
 

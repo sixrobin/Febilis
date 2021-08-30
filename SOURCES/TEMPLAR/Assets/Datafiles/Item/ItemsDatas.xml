@@ -9,7 +9,7 @@
 
    <ItemDatas Id="Coin">
       <Type>MISC</Type>
-      <Description>Money ! Get away !</Description>
+      <Description>I can use it to buy things I need and probably reinforce my weapon, if I got the right materials.</Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
       <SkipPickupNotification/>
@@ -59,7 +59,7 @@
 
    <ItemDatas Id="Letter_Prisonner">
       <Type>BOOK</Type>
-      <Description>It’s written with blood : "FEBILIS"</Description>
+      <Description>It’s written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
    </ItemDatas>
 
    <ItemDatas Id="Scroll">

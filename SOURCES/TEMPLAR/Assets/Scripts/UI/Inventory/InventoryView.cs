@@ -35,6 +35,9 @@
 
         private Vector3[] _slotsViewportWorldCorners = new Vector3[4];
 
+        public InventorySlot MovedSlotSource { get; private set; }
+        public bool IsMovingSlot => MovedSlotSource != null;
+
         public static bool DebugForceShowItemsQuantity { get; private set; }
 
         public override GameObject FirstSelected => _firstSelected;
@@ -80,23 +83,15 @@
             return closestSlot.gameObject;
         }
 
-        private void UpdateContent()
+        public void BeginMoveSlot(InventorySlot slot)
         {
-            Clear();
-
-            foreach (System.Collections.Generic.KeyValuePair<Item.Item, int> item in _inventoryCtrl.Items)
-            {
-                InventorySlot slot = GetFirstEmptySlot();
-                UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add item {item.Key}.");
-            
-                slot.SetItem(item.Key, item.Value);
-            }
+            Debug.Log($"Moving slot of item {slot.Item.Id}.");
+            MovedSlotSource = slot;
         }
 
-        private void Clear()
+        public void StopMoveSlot()
         {
-            for (int i = _slotsViews.Length - 1; i >= 0; --i)
-                _slotsViews[i].Clear();
+            MovedSlotSource = null;
         }
 
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
@@ -145,6 +140,20 @@
 
         private void OnInventorySlotButtonClicked(InventorySlot slot)
         {
+            if (IsMovingSlot)
+            {
+                CProLogger.Log(this, $"Moving item to slot {slot.transform.name}.", slot.gameObject);
+
+                // [TODO] Handle cancel case.
+
+                slot.Copy(MovedSlotSource);
+                MovedSlotSource.Clear();
+
+                StopMoveSlot();
+                
+                return;
+            }
+
             if (slot.IsEmpty)
                 return;
 
@@ -226,6 +235,25 @@
             //// [TODO] Scrollbar selects top left corner slot. We may want to select a better one depending on the current viewport state.
             //_scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
             //_scrollbar.SetSelectOnLeft(_slotsViews[_slotsRowLength - 1].Button);
+        }
+
+        private void UpdateContent()
+        {
+            Clear();
+
+            foreach (System.Collections.Generic.KeyValuePair<Item.Item, int> item in _inventoryCtrl.Items)
+            {
+                InventorySlot slot = GetFirstEmptySlot();
+                UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add item {item.Key}.");
+            
+                slot.SetItem(item.Key, item.Value);
+            }
+        }
+
+        private void Clear()
+        {
+            for (int i = _slotsViews.Length - 1; i >= 0; --i)
+                _slotsViews[i].Clear();
         }
 
         private InventorySlot GetItemSlot(Item.Item item)

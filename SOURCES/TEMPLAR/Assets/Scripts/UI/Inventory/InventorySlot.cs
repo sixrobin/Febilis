@@ -17,12 +17,11 @@
         [SerializeField] private Sprite _emptySlotSprite = null;
         [SerializeField] private Sprite _takenSlotSprite = null;
 
-        private InventoryView _inventoryView;
-
         public delegate void InventorySlotHoveredEventHandler(InventorySlot slot);
         public static event InventorySlotHoveredEventHandler InventorySlotHovered;
         public static event InventorySlotHoveredEventHandler InventorySlotExit;
 
+        public InventoryView InventoryView { get; private set; }
         public Item.Item Item { get; private set; }
         public int Quantity { get; private set; }
 
@@ -34,7 +33,7 @@
 
         public void SetInventoryView(InventoryView inventoryView)
         {
-            _inventoryView = inventoryView;
+            InventoryView = inventoryView;
         }
 
         public void DisplaySelector(bool show)
@@ -50,11 +49,16 @@
 
         private void OnPointerExit(RSLib.Framework.GUI.EnhancedButton source)
         {
-            if (_inventoryView.IsContextMenuDisplayed) // Current slot context menu is open, don't hide selector.
+            if (InventoryView.IsContextMenuDisplayed) // Current slot context menu is open, don't hide selector.
                 return;
 
             DisplaySelector(false);
             InventorySlotExit?.Invoke(this);
+        }
+
+        public void Copy(InventorySlot source)
+        {
+            SetItem(source.Item, source.Quantity);
         }
 
         public void Clear()
