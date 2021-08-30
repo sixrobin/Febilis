@@ -2,13 +2,14 @@
 {
     using RSLib.Extensions;
     using System.Linq;
+    using System.Xml.Linq;
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
 #endif
 
     [DisallowMultipleComponent]
-    public class InventoryView : UIPanel
+    public partial class InventoryView : UIPanel
     {
         private const string EMPTY_SLOT_NAME = "???";
         private const string EMPTY_SLOT_TYPE = "";
@@ -38,6 +39,8 @@
         public InventorySlot MovedSlotSource { get; private set; }
         public bool IsMovingSlot => MovedSlotSource != null;
 
+        public InventorySlot CurrentlyHoveredSlot { get; private set; }
+
         public static bool DebugForceShowItemsQuantity { get; private set; }
 
         public override GameObject FirstSelected => _firstSelected;
@@ -51,8 +54,25 @@
                 && !Manager.OptionsManager.AnyPanelOpen();
         }
 
+        public override void Close()
+        {
+            StopMoveSlot();
+            CurrentlyHoveredSlot = null;
+
+            base.Close();
+        }
+
         public override void OnBackButtonPressed()
         {
+            if (IsMovingSlot)
+            {
+                StopMoveSlot();
+                return;
+            }
+
+            StopMoveSlot();
+            CurrentlyHoveredSlot = null;
+
             base.OnBackButtonPressed();
             Navigation.UINavigationManager.NullifySelected();
         }
@@ -85,12 +105,15 @@
 
         public void BeginMoveSlot(InventorySlot slot)
         {
-            Debug.Log($"Moving slot of item {slot.Item.Id}.");
+            CProLogger.Log(this, $"Moving slot of item {slot.Item.Id}.", slot.gameObject);
             MovedSlotSource = slot;
         }
 
         public void StopMoveSlot()
         {
+            CurrentlyHoveredSlot.SetSelectorMovingAnimation(false);
+
+            MovedSlotSource?.DisplayMovedItemBackground(false);
             MovedSlotSource = null;
         }
 
@@ -117,6 +140,8 @@
 
         private void OnInventorySlotHovered(InventorySlot slot)
         {
+            CurrentlyHoveredSlot = slot;
+
             if (slot.Item == null)
                 return;
 
@@ -142,15 +167,28 @@
         {
             if (IsMovingSlot)
             {
-                CProLogger.Log(this, $"Moving item to slot {slot.transform.name}.", slot.gameObject);
+                UnityEngine.Assertions.Assert.IsNotNull(MovedSlotSource, $"Moving item slot but source slot is null.");
 
-                // [TODO] Handle cancel case.
+                if (slot == MovedSlotSource)
+                {
+                    StopMoveSlot();
+                    return;
+                }
 
-                slot.Copy(MovedSlotSource);
-                MovedSlotSource.Clear();
+
+                if (slot.IsEmpty)
+                {
+                    CProLogger.Log(this, $"Moving item to empty slot {slot.transform.name}.", slot.gameObject);
+                    slot.Copy(MovedSlotSource);
+                    MovedSlotSource.Clear();
+                }
+                else
+                {
+                    CProLogger.Log(this, $"Moving item to empty slot {slot.transform.name}, swapping with {slot.Item.Id}.", slot.gameObject);
+                    slot.Swap(MovedSlotSource);
+                }
 
                 StopMoveSlot();
-                
                 return;
             }
 
@@ -243,11 +281,14 @@
 
             foreach (System.Collections.Generic.KeyValuePair<Item.Item, int> item in _inventoryCtrl.Items)
             {
-                InventorySlot slot = GetFirstEmptySlot();
+                InventorySlot slot = _itemsSlotIndexesSave != null ? GetSlotAtIndex(_itemsSlotIndexesSave[item.Key.Id]) : GetFirstEmptySlot();
                 UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add item {item.Key}.");
+                UnityEngine.Assertions.Assert.IsTrue(slot.IsEmpty, $"Slot found to add item {item.Key} is not empty and holds item {slot.Item.Id}.");
             
                 slot.SetItem(item.Key, item.Value);
             }
+
+            _itemsSlotIndexesSave = null; // "Consume" saved slot indexes when updating, then clear because it should be done only once.
         }
 
         private void Clear()
@@ -264,6 +305,11 @@
         private InventorySlot GetFirstEmptySlot()
         {
             return _slotsViews.Where(o => o.IsEmpty).FirstOrDefault();
+        }
+
+        private InventorySlot GetSlotAtIndex(int index)
+        {
+            return _slotsViews[index];
         }
 
         private void Start()
@@ -340,6 +386,49 @@
             _slotsViews = transform.parent.GetComponentsInChildren<InventorySlot>();
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
+        }
+    }
+
+    public partial class InventoryView : UIPanel
+    {
+        private System.Collections.Generic.Dictionary<string, int> _itemsSlotIndexesSave;
+
+        public void Load(XElement inventoryViewElement = null)
+        {
+            if (inventoryViewElement == null)
+                return;
+
+            _itemsSlotIndexesSave = new System.Collections.Generic.Dictionary<string, int>();
+
+            foreach (XElement slotElement in inventoryViewElement.Elements("Slot"))
+            {
+                XAttribute itemIdAttribute = slotElement.Attribute("ItemId");
+
+                XAttribute indexAttribute = slotElement.Attribute("Index");
+                int index = indexAttribute.ValueToInt();
+
+                _itemsSlotIndexesSave.Add(itemIdAttribute.Value, index);
+            }
+        }
+
+        public XElement Save()
+        {
+            XElement inventoryViewElement = new XElement("InventoryView");
+
+            foreach (InventorySlot slotView in _slotsViews)
+            {
+                if (slotView.IsEmpty)
+                    continue;
+
+                XElement slotElement = new XElement("Slot");
+
+                slotElement.Add(new XAttribute("Index", slotView.transform.GetSiblingIndex()));
+                slotElement.Add(new XAttribute("ItemId", slotView.Item.Id));
+
+                inventoryViewElement.Add(slotElement);
+            }
+
+            return inventoryViewElement;
         }
     }
 

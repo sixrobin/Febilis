@@ -1,0 +1,28 @@
+//// Sprites order
+
+Du plus proche au plus lointain.
+Pas hésiter à mettre des valeurs avec de gros offsets pour pouvoir avoir des offsets "locaux" (entre les triggerables par exemple, ou les ennemis).
+
+. Foreground
+	. 10 - Trees
+	. 0 - Roots
+. Playground
+	. 100 - VFX
+	. 50 - Coins
+	. 0 - Player
+	. -10 - Items pickup
+	. -50 - Enemies
+	. -100 - NPCs
+	. -150 - Moving platforms
+		. -160 - Moving platforms waypoints
+	. -200 - Ground & effectors
+	. -250 - Triggerables & interactions
+	. -300 - Rocks, grass, etc.
+	. -350 - Spikes
+	. -400 - Doors
+	. -450 - Checkpoints
+. Background
+	. 0 - Bushes
+	. -30 - Trees
+	. -60 - Bushes (dithered)
+	. -100 - Clouds

@@ -9,7 +9,7 @@
 
         protected override void TriggerAction()
         {
-            Slot.InventoryView.BeginMoveSlot(Slot);
+            Slot.BeginMoveSlot();
 
             _contextMenu.OnBackButtonPressed();
         }

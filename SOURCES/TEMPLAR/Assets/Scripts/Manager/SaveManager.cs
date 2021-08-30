@@ -26,6 +26,7 @@
                 container.Add(paletteIndexElement);
 
                 container.Add(GameManager.InventoryCtrl.Save());
+                container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSavePath);
                 if (!fileInfo.Directory.Exists)
@@ -54,7 +55,7 @@
             }
             catch (System.Exception e)
             {
-                Instance.LogError($"Could not save game ! Exception message:\n{e.ToString()}");
+                Instance.LogError($"Could not save game ! Exception message:\n{e}");
                 return;
             }
 
@@ -85,6 +86,7 @@
                     PaletteManager.SetPalette(paletteIndexElement.ValueToInt());
 
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
+                FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
             }
             catch (System.Exception e)
             {
@@ -101,7 +103,7 @@
             Instance.Log("Loading new game.", true);
 
             if (GameManager.InventoryCtrl == null)
-                Instance.LogWarning("InventoryCtrl could not be found, cannot load it.");
+                Instance.LogWarning($"{nameof(GameManager.InventoryCtrl)} could not be found, cannot load it.");
             else
                GameManager.InventoryCtrl.Load();
         }
@@ -119,7 +121,7 @@
             }
             catch (System.Exception e)
             {
-                Instance.LogError($"Could not delete game save ! Exception message:\n{e.ToString()}");
+                Instance.LogError($"Could not delete game save ! Exception message:\n{e}");
                 return false;
             }
 

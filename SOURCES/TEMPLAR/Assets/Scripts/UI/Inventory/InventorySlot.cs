@@ -8,11 +8,14 @@
     [DisallowMultipleComponent]
     public class InventorySlot : MonoBehaviour
     {
+        private const string MOVING = "Moving";
+
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _button = null;
         [SerializeField] private UnityEngine.UI.Image _slotBackgroundImage = null;
         [SerializeField] private UnityEngine.UI.Image _itemImage = null;
         [SerializeField] private TMPro.TextMeshProUGUI _quantityText = null;
-        [SerializeField] private GameObject _selector = null;
+        [SerializeField] private Animator _selectorAnimator = null;
+        [SerializeField] private GameObject _movedItemBackground = null;
 
         [SerializeField] private Sprite _emptySlotSprite = null;
         [SerializeField] private Sprite _takenSlotSprite = null;
@@ -38,12 +41,25 @@
 
         public void DisplaySelector(bool show)
         {
-            _selector.SetActive(show);
+            _selectorAnimator.gameObject.SetActive(show);
+        }
+
+        public void DisplayMovedItemBackground(bool show)
+        {
+            _movedItemBackground.SetActive(show);
+        }
+
+        public void SetSelectorMovingAnimation(bool state)
+        {
+            _selectorAnimator.SetBool(MOVING, state);
         }
 
         private void OnPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {
             DisplaySelector(true);
+            if (InventoryView.IsMovingSlot)
+                SetSelectorMovingAnimation(true);
+
             InventorySlotHovered?.Invoke(this);
         }
 
@@ -53,12 +69,30 @@
                 return;
 
             DisplaySelector(false);
+            SetSelectorMovingAnimation(false);
             InventorySlotExit?.Invoke(this);
+        }
+
+        public void BeginMoveSlot()
+        {
+            InventoryView.BeginMoveSlot(this);
+            SetSelectorMovingAnimation(true);
+            DisplayMovedItemBackground(true);
         }
 
         public void Copy(InventorySlot source)
         {
             SetItem(source.Item, source.Quantity);
+        }
+
+        public void Swap(InventorySlot source)
+        {
+            // Backup datas.
+            Item.Item item = Item;
+            int quantity = Quantity;
+
+            Copy(source);
+            source.SetItem(item, quantity);
         }
 
         public void Clear()
