@@ -283,7 +283,7 @@
             {
                 InventorySlot slot = _itemsSlotIndexesSave != null ? GetSlotAtIndex(_itemsSlotIndexesSave[item.Key.Id]) : GetFirstEmptySlot();
                 UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add item {item.Key}.");
-                UnityEngine.Assertions.Assert.IsTrue(slot.IsEmpty, $"Slot found to add item {item.Key} is not empty and holds item {slot.Item.Id}.");
+                UnityEngine.Assertions.Assert.IsTrue(slot.IsEmpty, $"Slot found to add item {item.Key} is not empty and holds item {slot.Item?.Id}.");
             
                 slot.SetItem(item.Key, item.Value);
             }
