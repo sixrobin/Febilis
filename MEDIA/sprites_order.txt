@@ -3,11 +3,15 @@
 Du plus proche au plus lointain.
 Pas hésiter à mettre des valeurs avec de gros offsets pour pouvoir avoir des offsets "locaux" (entre les triggerables par exemple, ou les ennemis).
 
+. SpriteUI
+	. Enemies Health World
 . Foreground
 	. 10 - Trees
-	. 0 - Roots
+	. 5 - Roots
+. VFX
+	. -10 - Sleep Sign
+	. 0 - All
 . Playground
-	. 100 - VFX
 	. 50 - Coins
 	. 0 - Player
 	. -10 - Items pickup
@@ -16,11 +20,8 @@ Pas hésiter à mettre des valeurs avec de gros offsets pour pouvoir avoir des o
 	. -150 - Moving platforms
 		. -160 - Moving platforms waypoints
 	. -200 - Ground & effectors
-	. -250 - Triggerables & interactions
-	. -300 - Rocks, grass, etc.
-	. -350 - Spikes
-	. -400 - Doors
-	. -450 - Checkpoints
+	. -220 - Rocks, grass, etc.
+	. -250 - Triggerables, interactions, spikes
 . Background
 	. 0 - Bushes
 	. -30 - Trees

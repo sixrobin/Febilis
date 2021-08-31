@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1349905492933044249}
   - component: {fileID: 7963081549671017355}
   m_Layer: 0
-  m_Name: Small Puff
+  m_Name: Attack Puff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1021891059
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9f0a379ad5ebc644cb33228f36088021, type: 3}
   m_Color: {r: 0.7058824, g: 0.8705883, b: 0.62352943, a: 1}
   m_FlipX: 0

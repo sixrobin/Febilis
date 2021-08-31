@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6786652889762883169}
   - component: {fileID: 6786652889762883172}
   m_Layer: 8
-  m_Name: Effector
+  m_Name: Platform Effector Testing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -199
   m_Sprite: {fileID: 21300000, guid: dedcb0aeb6168474a9a959d0c9f70685, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4433e1823ae5b4786b0d0e37d4ad10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _blockDown: 0

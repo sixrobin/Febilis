@@ -69,7 +69,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -150
   m_Sprite: {fileID: 21300000, guid: a4d8ab7fcca006940ae389510266f626, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5447492925875921744}
   - component: {fileID: 5447492925875921838}
   m_Layer: 14
-  m_Name: Moving Platform
+  m_Name: Moving Platform - Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,12 @@ MonoBehaviour:
   _initFromIndex:
     _value: 0
     _enabled: 0
+  _movementTrigger:
+    _value: {fileID: 0}
+    _enabled: 0
+  _dbgColor: {fileID: 0}
   _raycastsColor: {fileID: 11400000, guid: 9f35e503991250d4b8ff77f46a3bf38f, type: 2}
+  _verbose: 0
 --- !u!114 &5447492925875921744
 MonoBehaviour:
   m_ObjectHideFlags: 0

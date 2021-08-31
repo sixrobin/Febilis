@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7491186539554326091}
   - component: {fileID: 7491186539554326090}
   m_Layer: 12
-  m_Name: Destroyable Base
+  m_Name: Triggerable Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -240
   m_Sprite: {fileID: 21300000, guid: 65e3a47038eeb1341ae16d0b9fb2bed0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -123,8 +123,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 
   _spriteRenderer: {fileID: 7491186539554326088}
-  _destroyedSprite: {fileID: 0}
+  _animator:
+    _value: {fileID: 0}
+    _enabled: 0
+  _triggerSpritesLoop: []
   _groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  _linkedInteractable: {fileID: 0}
   _children: []

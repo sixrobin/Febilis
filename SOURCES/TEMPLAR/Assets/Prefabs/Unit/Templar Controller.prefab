@@ -262,7 +262,8 @@ MonoBehaviour:
   _collisionMask:
     serializedVersion: 2
     m_Bits: 21760
-  _debugCollisionsState: 
+  _debugCollisionsState:
+    _value: 
   _playerView: {fileID: 2727861838613788317}
   _ctrlDatas: {fileID: 11400000, guid: 3b3f60e9f46d8e24b8396b0070567726, type: 2}
   _interacter: {fileID: 8964628234823463603}
@@ -282,12 +283,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd2928876ac13f4788afba7c9ae32d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jump: 0
-  _roll: 0
-  _attack: 0
-  _interaction: 0
-  _heal: 0
   _playerCtrl: {fileID: 2727861838001810201}
+  _jump:
+    _value: 0
+  _roll:
+    _value: 0
+  _attack:
+    _value: 0
+  _interaction:
+    _value: 0
+  _heal:
+    _value: 0
 --- !u!1 &2727861838046398926
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +523,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: becb4514bd808c34abc112eb219b7d9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

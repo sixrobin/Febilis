@@ -38,8 +38,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2518963531
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: VFX
+    uniqueID: 3273076237
+    locked: 0
+  - name: Foreground
+    uniqueID: 2342975757
     locked: 0
   - name: SpriteUI
     uniqueID: 2473928465

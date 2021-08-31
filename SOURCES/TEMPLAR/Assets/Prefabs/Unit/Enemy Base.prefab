@@ -5111,14 +5111,16 @@ MonoBehaviour:
   _collisionMask:
     serializedVersion: 2
     m_Bits: 768
-  _debugCollisionsState: 
+  _debugCollisionsState:
+    _value: 
   _playerCtrl: {fileID: 0}
   _enemyView: {fileID: 7435713418959382855}
   _id: 
   _behaviourUpdateRate: 0.5
-  _currBehaviourName: 
-  _currActionName: 
-  _tmpAttackDatas: {fileID: 11400000, guid: 76dcf6a97f2d9ad499f2f68ce7a919c7, type: 2}
+  _currBehaviourName:
+    _value: 
+  _currActionName:
+    _value: 
 --- !u!114 &1496673142350833529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5238,7 +5240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -50
   m_Sprite: {fileID: 21300000, guid: 0000bb4c63898354cbfbd35408cf66f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
