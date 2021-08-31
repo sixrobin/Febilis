@@ -44,7 +44,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: VFX
+  - name: FeedbackVFX
     uniqueID: 3273076237
     locked: 0
   - name: Foreground
