@@ -36,8 +36,11 @@
 
         public bool CheckConditions()
         {
+            if (ConditionsCheckerDatas == null)
+                return false; // Action is not defined, then not allowed.
+
             if (Conditions == null)
-                return true; // No condition.
+                return true; // Action is defined, but without needed condition.
 
             for (int i = Conditions.Length - 1; i >= 0; --i)
                 if (!Conditions[i].Check())

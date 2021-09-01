@@ -64,6 +64,9 @@
 
         public override void OnBackButtonPressed()
         {
+            if (!Displayed)
+                return;
+
             if (IsMovingSlot)
             {
                 StopMoveSlot();
@@ -111,7 +114,7 @@
 
         public void StopMoveSlot()
         {
-            CurrentlyHoveredSlot.SetSelectorMovingAnimation(false);
+            CurrentlyHoveredSlot?.SetSelectorMovingAnimation(false);
 
             MovedSlotSource?.DisplayMovedItemBackground(false);
             MovedSlotSource = null;

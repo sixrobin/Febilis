@@ -12,13 +12,13 @@
                      <xs:element name="AlwaysShowQuantity" minOccurs="0" maxOccurs="1"/>
                      <xs:element name="AlwaysInInventory" minOccurs="0" maxOccurs="1"/>
                      <xs:element name="SkipPickupNotification" minOccurs="0" maxOccurs="1"/>
-                     <xs:element name="ActionsConditions" minOccurs="0" maxOccurs="1">
+                     <xs:element name="Actions" minOccurs="0" maxOccurs="1">
                         <xs:complexType>
                            <xs:sequence>
-                              <xs:element name="Use" type="Conditions" minOccurs="0" maxOccurs="1"/>
-                              <xs:element name="Equip" type="Conditions" minOccurs="0" maxOccurs="1"/>
-                              <xs:element name="Drop" type="Conditions" minOccurs="0" maxOccurs="1"/>
-                              <xs:element name="Move" type="Conditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Use" type="ItemActionConditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Equip" type="ItemActionConditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Drop" type="ItemActionConditions" minOccurs="0" maxOccurs="1"/>
+                              <xs:element name="Move" type="ItemActionConditions" minOccurs="0" maxOccurs="1"/>
                            </xs:sequence>
                         </xs:complexType>
                      </xs:element>
@@ -48,7 +48,7 @@
    <!--  CONDITIONS  -->
    <!-- ████████████ -->
 
-   <xs:complexType name="Conditions">
+   <xs:complexType name="ItemActionConditions">
       <xs:sequence>
          <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>

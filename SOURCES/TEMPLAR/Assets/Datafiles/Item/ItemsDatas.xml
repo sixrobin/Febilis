@@ -5,6 +5,9 @@
       <Type>WEAPON</Type>
       <Description>My old sword. Not sure how it still in one part after all this time, but I should not complain about it.</Description>
       <AlwaysInInventory/>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Coin">
@@ -13,6 +16,9 @@
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
       <SkipPickupNotification/>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Potion">
@@ -20,51 +26,76 @@
       <Description>I can use this to heal.</Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
-      <ActionsConditions>
+      <Actions>
          <Use>
             <FullHealth Negate="true"/>
          </Use>
-      </ActionsConditions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Key_Godric_House">
       <Type>KEY</Type>
       <Description>The key of Godric's house. He told me that's where he forgot his ring.</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Key_Priest">
       <Type>KEY</Type>
       <Description>a key</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Key_Catacombs">
       <Type>KEY</Type>
       <Description>a key</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Ring_Godric">
       <Type>EQUIPABLE</Type>
       <Description>What a beautiful ring. I wonder where Godric got it, but it doesn't look he wants to talk about it.</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Book">
       <Type>BOOK</Type>
       <Description>Haa... if only I could read.</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Letter_Priest">
       <Type>BOOK</Type>
       <Description>It says: "The impious man has escaped, you must chase him to protect the secret."</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Letter_Prisonner">
       <Type>BOOK</Type>
       <Description>It’s written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
 
    <ItemDatas Id="Scroll">
       <Type>BOOK</Type>
       <Description>This contains an important message I should deliver to... someone, I guess.</Description>
+      <Actions>
+         <Move/>
+      </Actions>
    </ItemDatas>
    
 </ItemsDatas>

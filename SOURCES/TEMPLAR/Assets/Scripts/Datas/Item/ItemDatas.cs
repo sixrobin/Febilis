@@ -43,7 +43,7 @@
             AlwaysInInventory = itemElement.Element("AlwaysInInventory") != null;
             SkipPickupNotification = itemElement.Element("SkipPickupNotification") != null;
 
-            XElement actionsConditionsElement = itemElement.Element("ActionsConditions");
+            XElement actionsConditionsElement = itemElement.Element("Actions");
             if (actionsConditionsElement != null)
             {
                 XElement useConditionsElement = actionsConditionsElement.Element("Use");
