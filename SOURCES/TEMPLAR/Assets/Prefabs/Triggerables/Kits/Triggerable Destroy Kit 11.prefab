@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1898691526327614162}
   m_Layer: 0
-  m_Name: Destroyables Kit 11
+  m_Name: Triggerable Destroy Kit 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 8e188ed0c3a9512418f7025d85faf124,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 01 Large
+      value: Triggerable Crate 01 Large
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 8e188ed0c3a9512418f7025d85faf124,
         type: 3}
@@ -93,7 +93,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: fd0a92506d2cc7e42b7fa9f6593d3b10,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Sign 00
+      value: Triggerable Sign 00
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307638, guid: fd0a92506d2cc7e42b7fa9f6593d3b10,
         type: 3}
@@ -138,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 8166bde4af070b14db150f5bb1c02b3e,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 00 Small
+      value: Triggerable Crate 00 Small
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307638, guid: 8166bde4af070b14db150f5bb1c02b3e,
         type: 3}

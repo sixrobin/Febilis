@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6123819256770182137}
   m_Layer: 0
-  m_Name: Destroyables Kit 09
+  m_Name: Triggerable Destroy Kit 09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: fd0a92506d2cc7e42b7fa9f6593d3b10,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Sign 00
+      value: Triggerable Sign 00
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: fd0a92506d2cc7e42b7fa9f6593d3b10,
         type: 3}
@@ -82,12 +82,17 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Skull 01
+      value: Triggerable Skull 01
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307638, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726855024815307638, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -239
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}

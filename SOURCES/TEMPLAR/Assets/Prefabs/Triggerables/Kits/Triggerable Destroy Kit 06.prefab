@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 205558262757915447}
   m_Layer: 0
-  m_Name: Destroyables Kit 06
+  m_Name: Triggerable Destroy Kit 06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 27d5d3af07660544fbdffe7378ee7c49,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 01 Small
+      value: Triggerable Crate 01 Small
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 27d5d3af07660544fbdffe7378ee7c49,
         type: 3}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2432e1bcd60cda41af941c73fcc92b3, type: 3}
+  m_Script: {fileID: 11500000, guid: bb9ce71064e494941b77821cd0a3e156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &205558262879259766
@@ -112,7 +112,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 8166bde4af070b14db150f5bb1c02b3e,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 00 Small
+      value: Triggerable Crate 00 Small
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307636, guid: 8166bde4af070b14db150f5bb1c02b3e,
         type: 3}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2432e1bcd60cda41af941c73fcc92b3, type: 3}
+  m_Script: {fileID: 11500000, guid: bb9ce71064e494941b77821cd0a3e156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &205558262912346782
@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: c75143d976cd99d49afcd79ee17c4db2,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 00 Large
+      value: Triggerable Crate 00 Large
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307636, guid: c75143d976cd99d49afcd79ee17c4db2,
         type: 3}

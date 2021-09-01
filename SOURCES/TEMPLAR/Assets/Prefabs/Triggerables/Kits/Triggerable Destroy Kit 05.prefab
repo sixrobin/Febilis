@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4975396790269625435}
   m_Layer: 0
-  m_Name: Destroyables Kit 05
+  m_Name: Triggerable Destroy Kit 05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Skull 01
+      value: Triggerable Skull 01
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307636, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
@@ -58,6 +58,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726855024815307638, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -239
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
@@ -115,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2432e1bcd60cda41af941c73fcc92b3, type: 3}
+  m_Script: {fileID: 11500000, guid: bb9ce71064e494941b77821cd0a3e156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4975396790905943145
@@ -128,7 +133,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: c75143d976cd99d49afcd79ee17c4db2,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 00 Large
+      value: Triggerable Crate 00 Large
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307636, guid: c75143d976cd99d49afcd79ee17c4db2,
         type: 3}
@@ -193,12 +198,17 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 630ca45dfc7413d48be85196d2f84f10,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Skull 00
+      value: Triggerable Skull 00
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307638, guid: 630ca45dfc7413d48be85196d2f84f10,
         type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726855024815307638, guid: 630ca45dfc7413d48be85196d2f84f10,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -239
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 630ca45dfc7413d48be85196d2f84f10,
         type: 3}

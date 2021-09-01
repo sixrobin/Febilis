@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8894712553847267196}
   m_Layer: 0
-  m_Name: Destroyables Kit 03
+  m_Name: Triggerable Destroy Kit 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,12 +43,17 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Skull 01
+      value: Triggerable Skull 01
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307638, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726855024815307638, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -239
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 7fa2ebf06aa58b144a479b9c180d72bc,
         type: 3}
@@ -93,7 +98,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 8166bde4af070b14db150f5bb1c02b3e,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 00 Small
+      value: Triggerable Crate 00 Small
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 8166bde4af070b14db150f5bb1c02b3e,
         type: 3}
@@ -138,7 +143,7 @@ PrefabInstance:
     - target: {fileID: 5726855024815307595, guid: 8e188ed0c3a9512418f7025d85faf124,
         type: 3}
       propertyPath: m_Name
-      value: Destroyable Crate 01 Large
+      value: Triggerable Crate 01 Large
       objectReference: {fileID: 0}
     - target: {fileID: 5726855024815307639, guid: 8e188ed0c3a9512418f7025d85faf124,
         type: 3}
