@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <DialogueDatas Id="StoneSign_00">
+      <Sequence>
+         <Sentence Id="StoneSign_00_Sentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <DialogueDatas Id="StoneSign_01">
+      <Sequence>
+         <Sentence Id="StoneSign_01_Sentence_00"/>
+         <Sentence Id="StoneSign_01_Sentence_01"/>
+      </Sequence>
+   </DialogueDatas>
+
+   
+   <SentenceDatas Id="StoneSign_00_Sentence_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>"This is the place of the heretics, who may be forgotten, and so should their names."</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_01_Sentence_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>"This is the place of the ones who built the catacombs."</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_01_Sentence_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>"Once fated to death sentence, they redeemed themselves by putting up this place."</Value>
+   </SentenceDatas>
+
+</DialoguesDatas>
