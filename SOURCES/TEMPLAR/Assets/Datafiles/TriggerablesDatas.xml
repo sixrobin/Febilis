@@ -183,4 +183,53 @@
       </OnTrigger>
    </TriggerableDatas>
 
+   <TriggerableDatas Id="Urn_Small">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+         <SourceType>ROLL</SourceType>
+         <SourceType>FALL</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Trauma X="0.15" Y ="0.15" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
+         <SpawnFromPool>Urns_Particles_00</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
+   <TriggerableDatas Id="Urn_Medium">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+         <SourceType>ROLL</SourceType>
+         <SourceType>FALL</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Loot>
+            <Coins Chance="0.1">2</Coins>
+         </Loot>
+         <Trauma X="0.2" Y ="0.2" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>DoubleJump_Puff</SpawnFromPool>
+         <SpawnFromPool>Urns_Particles_00</SpawnFromPool>
+         <SpawnFromPool>Urns_Particles_01</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+
+   <TriggerableDatas Id="Urn_Big">
+      <ValidSources>
+         <SourceType>ATTACK</SourceType>
+         <SourceType>FALL</SourceType>
+      </ValidSources>
+      <MaxTriggersCount>1</MaxTriggersCount>
+      <OnTrigger>
+         <Loot>
+            <Coins Chance="0.2">4</Coins>
+         </Loot>
+         <Trauma X="0.25" Y ="0.25" AddType="ADDITIVE" ShakeId="Small"/>
+         <SpawnFromPool>Generic_Puff</SpawnFromPool>
+         <SpawnFromPool>Urns_Particles_01</SpawnFromPool>
+         <SpawnFromPool>Urns_Particles_02</SpawnFromPool>
+      </OnTrigger>
+   </TriggerableDatas>
+   
 </TriggerablesDatas>

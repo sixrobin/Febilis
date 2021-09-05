@@ -114,3 +114,15 @@ MonoBehaviour:
     _gameObject: {fileID: 2784556869522552009, guid: 990a1bd35c452f34bb3d1b8a750d986d,
       type: 3}
     _quantity: 10
+  - _id: Urns_Particles_00
+    _gameObject: {fileID: 6048362223528114636, guid: 45be4374cde09b74492b224804ff8b9f,
+      type: 3}
+    _quantity: 10
+  - _id: Urns_Particles_01
+    _gameObject: {fileID: 6048362223528114636, guid: 2263e9ad6ad345f40b3919b701516790,
+      type: 3}
+    _quantity: 10
+  - _id: Urns_Particles_02
+    _gameObject: {fileID: 6048362223528114636, guid: eff7a3815e9c4094891e27d8ca73ac89,
+      type: 3}
+    _quantity: 10
