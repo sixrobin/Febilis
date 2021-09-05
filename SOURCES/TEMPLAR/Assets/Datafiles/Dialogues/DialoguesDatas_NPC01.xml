@@ -7,6 +7,9 @@
          <Sentence Id="NPCDial_00_Sentence_00"/>
          <Pause Dur="0.5"/>
          <Sentence Id="NPCDial_00_Sentence_01"/>
+         <Sentence Id="NPCDial_00_Sentence_02"/>
+         <Sentence Id="NPCDial_00_Sentence_03"/>
+         <Sentence Id="NPCDial_00_Sentence_04"/>
       </Sequence>
    </DialogueDatas>
 
@@ -15,7 +18,7 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Taking a break from my duty...</Value>
+      <Value>Hello stranger...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_01">
@@ -23,7 +26,31 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Little advice, mind your own buisness okay ?</Value>
+      <Value>Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia, long time I didn't see this armor.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="NPCDial_00_Sentence_02">
+      <Speaker Id="SpeakerPlaceholder">
+         <OverrideDisplayName>???</OverrideDisplayName>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>I suppose you're heading to the village to inspect all the crazy shit.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="NPCDial_00_Sentence_03">
+      <Speaker Id="SpeakerPlaceholder">
+         <OverrideDisplayName>???</OverrideDisplayName>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>Little advice, even with your grade, stay low and mind your own buisness.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="NPCDial_00_Sentence_04">
+      <Speaker Id="SpeakerPlaceholder">
+         <OverrideDisplayName>???</OverrideDisplayName>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>Those are some strange times we're in...</Value>
    </SentenceDatas>
 
    

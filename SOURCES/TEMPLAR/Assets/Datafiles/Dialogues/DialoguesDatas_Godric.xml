@@ -11,7 +11,9 @@
          <Sentence Id="Godric_Greeting_01"/>
          <Sentence Id="Godric_Greeting_02"/>
          <Sentence Id="Godric_Greeting_03"/>
+         <Sentence Id="Godric_Greeting_04"/>
          <AddItem Id="Key_Godric_House"/>
+         <Sentence Id="Godric_Greeting_05"/>
       </Sequence>
    </DialogueDatas>
 
@@ -28,14 +30,19 @@
    <DialogueDatas Id="Godric_WaitingRing">
       <Sequence>
          <Sentence Id="Godric_WaitingRing_00"/>
+         <Sentence Id="Godric_WaitingRing_01"/>
       </Sequence>
    </DialogueDatas>
 
    <DialogueDatas Id="Godric_RetrieveRing">
       <Sequence>
          <Sentence Id="Godric_RetrieveRing_00"/>
-         <Sentence Id="Godric_RetrieveRing_01"/>
          <RemoveItem Id="Ring_Godric"/>
+         <Sentence Id="Godric_RetrieveRing_01"/>
+         <Sentence Id="Godric_RetrieveRing_02"/>
+         <Sentence Id="Godric_RetrieveRing_03"/>
+         <Sentence Id="Godric_RetrieveRing_04"/>
+         <AddItem Id="Potion"/>
       </Sequence>
    </DialogueDatas>
 
@@ -54,22 +61,42 @@
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Hey, I'm Godric.</Value>
+      <Value>Oh thank god you seem quite normal.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_01">
-      <Speaker Id="Godric"/>
-      <Value>Could you get my ring ? I forgot to take it from my house.</Value>
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>Listen I'm in despair, I forgot my ring earlier when I ran away from my home.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_02">
-      <Speaker Id="Godric"/>
-      <Value>I got a potion I can give you in reward... Not like I'm interested in using it.</Value>
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>If you could do me a favor and bring me back this ring.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_03">
-      <Speaker Id="Godric"/>
-      <Value>Here's the key.</Value>
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>I can give you something that can be useful for you in exchange.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_04">
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>Here's the key from my house, it's not far from here.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_Greeting_05">
+      <Speaker Id="Godric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+      <Value>And by the way, I'm Godric.</Value>
    </SentenceDatas>
 
 
@@ -102,24 +129,43 @@
    
    <SentenceDatas Id="Godric_WaitingRing_00">
       <Speaker Id="Godric"/>
-      <Value>Please, get my ring.</Value>
+      <Value>This ring is really important to me...</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_WaitingRing_01">
+      <Speaker Id="Godric"/>
+      <Value>Please.[pause=1]Help me.</Value>
    </SentenceDatas>
    
    
    <SentenceDatas Id="Godric_RetrieveRing_00">
       <Speaker Id="Godric"/>
-      <Value>God, you really made it. You saw them and you made it out alive...</Value>
+      <Value>That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5]That's my ring !</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_01">
       <Speaker Id="Godric"/>
-      <Value>That's impressive.[pause=1] Thank you, very much.</Value>
-   </SentenceDatas>
-   
-   
-   <SentenceDatas Id="Godric_PostRetrieveRing_00">
-      <Speaker Id="Godric"/>
-      <Value>Thank you again for my ring.</Value>
+      <Value>You've made it and you're alive !</Value>
    </SentenceDatas>
 
+   <SentenceDatas Id="Godric_RetrieveRing_02">
+      <Speaker Id="Godric"/>
+      <Value>Sorry for not letting you know about the monsters... </Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_RetrieveRing_03">
+      <Speaker Id="Godric"/>
+      <Value>I was too afraid of you declining my favor... </Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_RetrieveRing_04">
+      <Speaker Id="Godric"/>
+      <Value>Here as promised, you can take this, it will be more useful for you than for me.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_PostRetrieveRing_00">
+      <Speaker Id="Godric"/>
+      <Value>If only I could see you again Jeanne...</Value>
+   </SentenceDatas>
+   
 </DialoguesDatas>

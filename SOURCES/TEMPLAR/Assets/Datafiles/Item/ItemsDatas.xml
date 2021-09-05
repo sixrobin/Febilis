@@ -3,7 +3,8 @@
 
    <ItemDatas Id="Sword">
       <Type>WEAPON</Type>
-      <Description>My old sword. Not sure how it still in one part after all this time, but I should not complain about it.</Description>
+      <Description><![CDATA[A common sword, used by many soliders due to its ability to respond well at various situations.
+A blacksmith could upgrade it.]]></Description>
       <AlwaysInInventory/>
       <Actions>
          <Move/>
@@ -12,7 +13,7 @@
 
    <ItemDatas Id="Coin">
       <Type>MISC</Type>
-      <Description>I can use it to buy things I need and probably reinforce my weapon, if I got the right materials.</Description>
+      <Description>Money have lost a lot of it's value since all the wars, but some people still accept it to buy some goods.</Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
       <SkipPickupNotification/>
@@ -23,7 +24,9 @@
 
    <ItemDatas Id="Potion">
       <Type>CONSUMABLE</Type>
-      <Description>I can use this to heal.</Description>
+      <Description><![CDATA[Can be used to restore some HP.
+Filled with elexir at grave stone.
+Only a few know how to make these flasks.]]></Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
       <Actions>
@@ -37,7 +40,7 @@
 
    <ItemDatas Id="Key_Godric_House">
       <Type>KEY</Type>
-      <Description>The key of Godric's house. He told me that's where he forgot his ring.</Description>
+      <Description><![CDATA[Key to Godric's House.]]></Description>
       <Actions>
          <Move/>
       </Actions>
@@ -45,7 +48,8 @@
 
    <ItemDatas Id="Key_Priest">
       <Type>KEY</Type>
-      <Description>a key</Description>
+      <Description><![CDATA[Key to the catacombs cells.
+It's covered with blood.]]></Description>
       <Actions>
          <Move/>
       </Actions>
@@ -53,7 +57,8 @@
 
    <ItemDatas Id="Key_Catacombs">
       <Type>KEY</Type>
-      <Description>a key</Description>
+      <Description><![CDATA[Key to the entrance of the catacombs. 
+Belongs to the high priests of Prosperare.]]></Description>
       <Actions>
          <Move/>
       </Actions>
@@ -61,7 +66,7 @@
 
    <ItemDatas Id="Ring_Godric">
       <Type>EQUIPABLE</Type>
-      <Description>What a beautiful ring. I wonder where Godric got it, but it doesn't look he wants to talk about it.</Description>
+      <Description>The words "FOR JEANNE" are engraved on the ring.</Description>
       <Actions>
          <Move/>
       </Actions>
