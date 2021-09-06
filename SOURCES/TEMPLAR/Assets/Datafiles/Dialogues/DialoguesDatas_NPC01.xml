@@ -13,12 +13,20 @@
       </Sequence>
    </DialogueDatas>
 
+   <DialogueDatas Id="NPCDial_01">
+      <InvertPortraitsAnchors/>
+      <Sequence>
+         <Sentence Id="NPCDial_01_Sentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+   
    <SentenceDatas Id="NPCDial_00_Sentence_00">
       <Speaker Id="SpeakerPlaceholder">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Hello stranger...</Value>
+      <Value>Hello, stranger...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_01">
@@ -26,7 +34,7 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia, long time I didn't see this armor.</Value>
+      <Value>Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia. Long time I didn't see this armor.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_02">
@@ -34,7 +42,7 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>I suppose you're heading to the village to inspect all the crazy shit.</Value>
+      <Value>I suppose you're heading to the village to inspect all this crazy mess.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_03">
@@ -42,7 +50,7 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Little advice, even with your grade, stay low and mind your own buisness.</Value>
+      <Value>Quick advice, even with your grade, stay low and mind your own business.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_04">
@@ -53,5 +61,12 @@
       <Value>Those are some strange times we're in...</Value>
    </SentenceDatas>
 
-   
+   <SentenceDatas Id="NPCDial_01_Sentence_00">
+      <Speaker Id="SpeakerPlaceholder">
+         <OverrideDisplayName>???</OverrideDisplayName>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>Do not forget, stay low and mind your own business.</Value>
+   </SentenceDatas>
+
 </DialoguesDatas>

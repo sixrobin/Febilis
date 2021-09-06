@@ -61,42 +61,42 @@
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Oh thank god you seem quite normal.</Value>
+      <Value>Oh, thank god you seem quite normal.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_01">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Listen I'm in despair, I forgot my ring earlier when I ran away from my home.</Value>
+      <Value>Listen, I'm in despair, I forgot my ring earlier when I ran away from my home.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_02">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>If you could do me a favor and bring me back this ring.</Value>
+      <Value>If you could do me a favor, and bring me back this ring...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_03">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>I can give you something that can be useful for you in exchange.</Value>
+      <Value>I can give you something that you may find useful in exchange.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_04">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Here's the key from my house, it's not far from here.</Value>
+      <Value>Here's the key of my house, it's not far from here.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_05">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>And by the way, I'm Godric.</Value>
+      <Value>And, by the way, I'm Godric.</Value>
    </SentenceDatas>
 
 
@@ -150,22 +150,22 @@
 
    <SentenceDatas Id="Godric_RetrieveRing_02">
       <Speaker Id="Godric"/>
-      <Value>Sorry for not letting you know about the monsters... </Value>
+      <Value>Sorry for not letting you know about the monsters...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_03">
       <Speaker Id="Godric"/>
-      <Value>I was too afraid of you declining my favor... </Value>
+      <Value>I was too afraid of you declining my favor...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_04">
       <Speaker Id="Godric"/>
-      <Value>Here as promised, you can take this, it will be more useful for you than for me.</Value>
+      <Value>As promised, you can take this, it will be more useful to you than for me.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_PostRetrieveRing_00">
       <Speaker Id="Godric"/>
-      <Value>If only I could see you again Jeanne...</Value>
+      <Value>If only I could see you again, Jeanne...</Value>
    </SentenceDatas>
    
 </DialoguesDatas>
