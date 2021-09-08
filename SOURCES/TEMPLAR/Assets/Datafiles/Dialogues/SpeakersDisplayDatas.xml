@@ -6,7 +6,7 @@
       <PortraitAnchor>TOP_LEFT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
-   <SpeakerDisplayDatas Id="SpeakerPlaceholder">
+   <SpeakerDisplayDatas Id="NPC01">
       <DisplayName>Some NPC</DisplayName>
       <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SpeakerDisplayDatas>

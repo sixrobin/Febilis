@@ -22,7 +22,7 @@
 
    
    <SentenceDatas Id="NPCDial_00_Sentence_00">
-      <Speaker Id="SpeakerPlaceholder">
+      <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
@@ -30,7 +30,7 @@
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_01">
-      <Speaker Id="SpeakerPlaceholder">
+      <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
@@ -38,7 +38,7 @@
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_02">
-      <Speaker Id="SpeakerPlaceholder">
+      <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
@@ -46,7 +46,7 @@
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_03">
-      <Speaker Id="SpeakerPlaceholder">
+      <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
@@ -54,7 +54,7 @@
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_04">
-      <Speaker Id="SpeakerPlaceholder">
+      <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
@@ -62,7 +62,7 @@
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_01_Sentence_00">
-      <Speaker Id="SpeakerPlaceholder">
+      <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>

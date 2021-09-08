@@ -85,7 +85,8 @@
 
         private void SetPosition()
         {
-            RectTransform.anchoredPosition = Slot.RectTransform.anchoredPosition + _posOffset;
+            RectTransform.position = Slot.ContextMenuPivot.position;
+            RectTransform.anchoredPosition += _posOffset;
         }
 
         private System.Collections.IEnumerator CloseAtEndOfFrameCoroutine()

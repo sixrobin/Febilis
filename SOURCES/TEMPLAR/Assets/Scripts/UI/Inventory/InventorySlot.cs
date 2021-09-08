@@ -16,6 +16,7 @@
         [SerializeField] private TMPro.TextMeshProUGUI _quantityText = null;
         [SerializeField] private Animator _selectorAnimator = null;
         [SerializeField] private GameObject _movedItemBackground = null;
+        [SerializeField] private RectTransform _contextMenuPivot = null;
 
         [SerializeField] private Sprite _emptySlotSprite = null;
         [SerializeField] private Sprite _takenSlotSprite = null;
@@ -31,6 +32,7 @@
         public bool IsEmpty => Item == null;
 
         public RSLib.Framework.GUI.EnhancedButton Button => _button;
+        public RectTransform ContextMenuPivot => _contextMenuPivot;
 
         public RectTransform RectTransform { get; private set; }
 

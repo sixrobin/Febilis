@@ -3,7 +3,7 @@
 
    <ItemDatas Id="Sword">
       <Type>WEAPON</Type>
-      <Description><![CDATA[A common sword, used by many soliders due to its ability to respond well at various situations.
+      <Description><![CDATA[A common sword, used by many soldiers due to its ability to respond well at various situations.
 A blacksmith could upgrade it.]]></Description>
       <AlwaysInInventory/>
       <Actions>
@@ -90,7 +90,7 @@ Belongs to the high priests of Prosperare.]]></Description>
       </Actions>
    </ItemDatas>
 
-   <ItemDatas Id="Letter_Prisonner">
+   <ItemDatas Id="Letter_Prisoner">
       <Type>BOOK</Type>
       <Description>It’s written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
       <Actions>
