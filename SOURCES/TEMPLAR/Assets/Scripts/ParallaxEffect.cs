@@ -4,6 +4,7 @@
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
+    using System.Linq;
 #endif
 
     [DisallowMultipleComponent]
@@ -74,8 +75,25 @@
             t.SetPositionX(_initCamPos.x - initOffset.x + TravelDistX * travelFactor);
         }
 
+        private void Cleanup()
+        {
+            int individualObjectsParentsLength = _individualsObjectsParents.Length;
+            int layersLength = _layers.Length;
+
+            _individualsObjectsParents = _individualsObjectsParents.ToList().Where(o => o != null).ToArray();
+            _layers = _layers.ToList().Where(o => o != null).ToArray();
+
+            if (individualObjectsParentsLength != _individualsObjectsParents.Length)
+                CProLogger.LogWarning(this, $"Removed {individualObjectsParentsLength - _individualsObjectsParents.Length} missing references from {nameof(_individualsObjectsParents)} array.", gameObject);
+
+            if (layersLength != _layers.Length)
+                CProLogger.LogWarning(this, $"Removed {layersLength - _layers.Length} missing references from {nameof(_layers)} array.", gameObject);
+        }
+
         private void Start()
         {
+            Cleanup();
+
             _initCamPos = _camTransform.position;
 
             int i;

@@ -223,13 +223,18 @@
         {
             if (_playerCtrl == null)
             {
-                CProLogger.LogWarning(this, "Reference to PlayerController is missing, trying to find it using FindObjectOfType.");
-                _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+                _playerCtrl = Manager.GameManager.PlayerCtrl;
 
                 if (_playerCtrl == null)
                 {
-                    CProLogger.LogError(this, "No PlayerController seems to be in the scene.");
-                    return;
+                    CProLogger.LogWarning(this, "Reference to PlayerController is missing and wasn't find in GameManager neither, trying to find it using FindObjectOfType.");
+                    _playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
+
+                    if (_playerCtrl == null)
+                    {
+                        CProLogger.LogError(this, "No PlayerController seems to be in the scene.");
+                        return;
+                    }
                 }
             }
 

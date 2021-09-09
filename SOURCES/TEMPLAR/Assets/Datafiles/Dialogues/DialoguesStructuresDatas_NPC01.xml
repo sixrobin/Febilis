@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesStructuresDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesStructuresDatas.xsd">
+
+   <DialoguesStructureDatas Id="NPC01">
+
+      <Dialogue Id="NPC01_Greeting">
+         <Conditions>
+            <DialogueNeverDone>NPC01_Greeting</DialogueNeverDone>
+         </Conditions>
+      </Dialogue>
+
+      <Dialogue Id="NPC01_PostGreeting">
+      </Dialogue>
+      
+   </DialoguesStructureDatas>
+
+</DialoguesStructuresDatas>

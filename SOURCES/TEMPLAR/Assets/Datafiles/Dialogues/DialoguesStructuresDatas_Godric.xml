@@ -37,11 +37,4 @@
       
    </DialoguesStructureDatas>
 
-   <DialoguesStructureDatas Id="NPC01">
-
-      <Dialogue Id="NPCDial_00">
-      </Dialogue>
-
-   </DialoguesStructureDatas>
-
 </DialoguesStructuresDatas>
