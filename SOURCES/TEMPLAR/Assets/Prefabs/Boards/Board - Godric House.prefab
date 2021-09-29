@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boardsLinks:
   - {fileID: 6199996288336422893}
+  _backgroundColor: {fileID: 11400000, guid: 5a387fd62e512854aa7373dd45f16b98, type: 2}
 --- !u!1 &2265026265032928740
 GameObject:
   m_ObjectHideFlags: 0

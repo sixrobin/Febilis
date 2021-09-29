@@ -4,11 +4,17 @@
 #if UNITY_EDITOR
     using UnityEditor;
 #endif
-
+    
     [DisallowMultipleComponent]
+#if UNITY_EDITOR
+    [CanEditMultipleObjects]
+#endif
     public class Board : MonoBehaviour
     {
         [SerializeField] private BoardsLink[] _boardsLinks = null;
+        [SerializeField] private RSLib.DataColor _backgroundColor = null;
+
+        public Color BackgroundColor => _backgroundColor?.Color ?? Color.grey;
 
         private void Awake()
         {
@@ -17,6 +23,9 @@
             if (childrenLinksCount != _boardsLinks.Length)
                 CProLogger.LogWarning(this, $"{_boardsLinks.Length} links are referenced while {childrenLinksCount} have been found in children for board {transform.name}.", gameObject);
 #endif
+
+            for (int i = _boardsLinks.Length - 1; i >= 0; --i)
+                _boardsLinks[i].SetBoard(this);
         }
 
         public void LocateBoardsLinksInChildren()

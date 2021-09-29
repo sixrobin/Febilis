@@ -41,6 +41,7 @@
         public bool OverrideFadedInDelay => _overrideFadeInDelayDur.Enabled;
         public float OverrideFadedInDelayDur => _overrideFadeInDelayDur.Value;
 
+        public Board Board { get; private set; }
         public BoardBounds BoardBounds => _containingBounds;
 
         public virtual void OnBoardsTransitionBegan()
@@ -56,6 +57,11 @@
         public bool CompareTargetPassage(ScenesPassage passage)
         {
             return GetTarget() is ScenesPassage scenesPassage && scenesPassage.TargetPassage == passage;
+        }
+
+        public void SetBoard(Board board)
+        {
+            Board = board;
         }
 
         protected virtual void Trigger()

@@ -167,7 +167,7 @@ Transform:
   - {fileID: 4206304114253380133}
   - {fileID: 4206304113133527368}
   - {fileID: 8732904687100455674}
-  - {fileID: 984204578115406711}
+  - {fileID: 2249465603538390214}
   - {fileID: 6553871702937554353}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -268,81 +268,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &4220398121076446471
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 984204578115406711}
-  - component: {fileID: 6677078847249878442}
-  m_Layer: 0
-  m_Name: Item Database
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &984204578115406711
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4220398121076446471}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4206304114665369707}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6677078847249878442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4220398121076446471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd1bace6a8c38e488a9a43ee796ae4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dontDestroy: 0
-  _verbose: 0
-  _overrideLogPrefix:
-    _value: 
-    _enabled: 0
-  _inventoryDatas: {fileID: 4900000, guid: 57087286a7488de4bbbb573755f84bc5, type: 3}
-  _itemsDatas:
-  - {fileID: 4900000, guid: 520f61bfb42d96d47af70bdf948eb450, type: 3}
-  _sprites:
-  - {fileID: 21300000, guid: a216ca51609d6c4428633d5a0061addb, type: 3}
-  - {fileID: 21300000, guid: 675a6790432da6c47b7a214e46088df4, type: 3}
-  - {fileID: 21300000, guid: 1e31cf0edd96c734fbb2bea513ace062, type: 3}
-  - {fileID: 21300000, guid: 157aa5c6e632d2d41a607b4996123953, type: 3}
-  - {fileID: 21300000, guid: b4b95362617860443bceca5a41aeab1e, type: 3}
-  - {fileID: 21300000, guid: 1f8f373d6a45e7e4093afd23b3d9b597, type: 3}
-  - {fileID: 21300000, guid: b281557c6d8dbd54193c07df1fb8a354, type: 3}
-  - {fileID: 21300000, guid: 8bdcabe0d0f29594aa26ff878791bf19, type: 3}
-  - {fileID: 21300000, guid: def97fa439d5bc44f854d3dc994f6b6a, type: 3}
-  - {fileID: 21300000, guid: 183fd9348737ac045a7c8b39ebb37a94, type: 3}
-  - {fileID: 21300000, guid: 4b00cf3d338fe9741935d3687f6fbb90, type: 3}
-  - {fileID: 21300000, guid: cd4dde10132067c4289c246af73eac19, type: 3}
-  - {fileID: 21300000, guid: c369da2ab71f1ce4f85177597960eb71, type: 3}
-  _typesSprites:
-  - {fileID: 21300000, guid: b015d5ad4d785e54d8ae14e014c0b778, type: 3}
-  - {fileID: 21300000, guid: 9f1054ff069294c4f9a6ae9b045545b6, type: 3}
-  - {fileID: 21300000, guid: 0431b77a79f01b54f9481327251969e8, type: 3}
-  - {fileID: 21300000, guid: 056e0805ba41e964180ebe551b10ab53, type: 3}
-  - {fileID: 21300000, guid: e4ea973bed5535c4baa4daae63507609, type: 3}
-  - {fileID: 21300000, guid: 1c9b0205bde311f44a8ecb9d1f5cca8b, type: 3}
-  - {fileID: 21300000, guid: 3efca827de3e28443968fd6eedc171cb, type: 3}
-  spritesAssetsRootPath: Assets/Textures/Item
-  typesIconsSubFolderName: Type Icons
 --- !u!1 &5566038173608702657
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,3 +438,78 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _triggerablesDatas: {fileID: 4900000, guid: 7436d6231abe0844aa616944a75b3ba8, type: 3}
+--- !u!1 &6505426430970629577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2249465603538390214}
+  - component: {fileID: 4335141391955188009}
+  m_Layer: 0
+  m_Name: Item Database
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2249465603538390214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6505426430970629577}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4206304114665369707}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4335141391955188009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6505426430970629577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd1bace6a8c38e488a9a43ee796ae4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroy: 0
+  _verbose: 0
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
+  _inventoryDatas: {fileID: 4900000, guid: 57087286a7488de4bbbb573755f84bc5, type: 3}
+  _itemsDatas:
+  - {fileID: 4900000, guid: 520f61bfb42d96d47af70bdf948eb450, type: 3}
+  _sprites:
+  - {fileID: 21300000, guid: a216ca51609d6c4428633d5a0061addb, type: 3}
+  - {fileID: 21300000, guid: 675a6790432da6c47b7a214e46088df4, type: 3}
+  - {fileID: 21300000, guid: 1e31cf0edd96c734fbb2bea513ace062, type: 3}
+  - {fileID: 21300000, guid: b4b95362617860443bceca5a41aeab1e, type: 3}
+  - {fileID: 21300000, guid: 57212da8139807243a6bc3a3c67b9888, type: 3}
+  - {fileID: 21300000, guid: 1f8f373d6a45e7e4093afd23b3d9b597, type: 3}
+  - {fileID: 21300000, guid: b281557c6d8dbd54193c07df1fb8a354, type: 3}
+  - {fileID: 21300000, guid: 89051c1ddcfa8db439a959f525c29b96, type: 3}
+  - {fileID: 21300000, guid: def97fa439d5bc44f854d3dc994f6b6a, type: 3}
+  - {fileID: 21300000, guid: 183fd9348737ac045a7c8b39ebb37a94, type: 3}
+  - {fileID: 21300000, guid: 4b00cf3d338fe9741935d3687f6fbb90, type: 3}
+  - {fileID: 21300000, guid: cd4dde10132067c4289c246af73eac19, type: 3}
+  - {fileID: 21300000, guid: c369da2ab71f1ce4f85177597960eb71, type: 3}
+  _typesSprites:
+  - {fileID: 21300000, guid: b015d5ad4d785e54d8ae14e014c0b778, type: 3}
+  - {fileID: 21300000, guid: 9f1054ff069294c4f9a6ae9b045545b6, type: 3}
+  - {fileID: 21300000, guid: 0431b77a79f01b54f9481327251969e8, type: 3}
+  - {fileID: 21300000, guid: 056e0805ba41e964180ebe551b10ab53, type: 3}
+  - {fileID: 21300000, guid: e4ea973bed5535c4baa4daae63507609, type: 3}
+  - {fileID: 21300000, guid: 1c9b0205bde311f44a8ecb9d1f5cca8b, type: 3}
+  - {fileID: 21300000, guid: 3efca827de3e28443968fd6eedc171cb, type: 3}
+  spritesAssetsRootPath: Assets/Textures/Item
+  typesIconsSubFolderName: Type Icons

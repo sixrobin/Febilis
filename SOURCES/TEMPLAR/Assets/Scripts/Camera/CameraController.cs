@@ -97,6 +97,11 @@
             }
         }
 
+        public void SetColor(Color color)
+        {
+            _camera.backgroundColor = color;
+        }
+
         private void GenerateShakesDictionary()
         {
             _shakesDictionary = new System.Collections.Generic.Dictionary<string, CameraShake>();
