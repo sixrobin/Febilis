@@ -78,13 +78,13 @@
             Frozen = state;
         }
 
-        public void SetBoardBounds(Boards.BoardBounds boardBoundsDatas)
+        public void SetBoardBounds(Boards.BoardBounds boardBounds)
         {
             if (CurrBoardBounds != null)
                 for (int i = CurrBoardBounds.Switches.Length - 1; i >= 0; --i)
                     CurrBoardBounds.Switches[i].Enable(true);
 
-            CurrBoardBounds = boardBoundsDatas;
+            CurrBoardBounds = boardBounds;
 
             if (CurrBoardBounds != null)
             {

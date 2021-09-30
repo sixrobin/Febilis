@@ -23,6 +23,13 @@
             }
         }
 
+        public Board Board { get; private set; }
+
+        public void SetBoard(Board board)
+        {
+            Board = board;
+        }
+
         private void Awake()
         {
             Bounds = GetComponent<BoxCollider2D>();

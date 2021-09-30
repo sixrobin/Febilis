@@ -62,6 +62,7 @@
         public void SetBoard(Board board)
         {
             Board = board;
+            BoardBounds.SetBoard(board);
         }
 
         protected virtual void Trigger()

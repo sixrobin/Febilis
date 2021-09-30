@@ -52,7 +52,7 @@
             s_init = true;
         }
 
-        public static void DebugForceRefreshBoardBounds()
+        public static void DebugForceRefreshInitBoard()
         {
             Init();
 
@@ -60,8 +60,16 @@
             Unit.Player.PlayerController playerCtrl = FindObjectOfType<Unit.Player.PlayerController>();
 
             for (int i = boardsBounds.Length - 1; i >= 0; --i)
+            {
                 if (boardsBounds[i].Bounds.bounds.Contains(playerCtrl.transform.position))
-                        Manager.GameManager.CameraCtrl.SetBoardBounds(boardsBounds[i]);
+                {
+                    GameManager.CameraCtrl.SetBoardBounds(boardsBounds[i]);
+                    if (boardsBounds[i].Board != null)
+                        GameManager.CameraCtrl.SetColor(boardsBounds[i].Board.BackgroundColor);
+
+                    break;
+                }
+            }
         }
 
         protected override void Awake()
@@ -98,7 +106,7 @@
     {
         protected override void DrawButtons()
         {
-            DrawButton("Refresh Current Board", BoardsManager.DebugForceRefreshBoardBounds);
+            DrawButton("Refresh Current Board", BoardsManager.DebugForceRefreshInitBoard);
         }
     }
 #endif
