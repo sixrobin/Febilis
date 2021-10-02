@@ -101,6 +101,7 @@ MonoBehaviour:
   _dialogueView: {fileID: 0}
   _currentDialogueId:
     _value: 
+  _goToPositionTimeout: 3
 --- !u!1 &8874774588189541611
 GameObject:
   m_ObjectHideFlags: 0

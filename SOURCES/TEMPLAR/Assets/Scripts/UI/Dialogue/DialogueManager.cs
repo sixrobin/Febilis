@@ -8,6 +8,7 @@
     {
         [SerializeField] private DialogueView _dialogueView = null;
         [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
+        [SerializeField, Min(0f)] private float _goToPositionTimeout = 3f;
 
         private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
@@ -74,7 +75,7 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
 
             if (sourceSpeaker is Interaction.Dialogue.INPCSpeaker npcSpeaker)
-                yield return Manager.GameManager.PlayerCtrl.GoToInteractionPosition(npcSpeaker.SpeakerPos, npcSpeaker.PlayerDialoguePivot);
+                yield return Manager.GameManager.PlayerCtrl.GoToInteractionPosition(npcSpeaker.SpeakerPos, npcSpeaker.PlayerDialoguePivot, _goToPositionTimeout);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
             Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();

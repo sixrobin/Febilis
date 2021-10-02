@@ -430,7 +430,7 @@
         /// <summary>Moves the player to a given position before doing an interaction.</summary>
         /// <param name="interactablePos">Source interaction position, that the player will look at.</param>
         /// <param name="playerInteractionPivot">Position the player will reach before looking at interactable source, and interacting with it. Can be null.</param>
-        public System.Collections.IEnumerator GoToInteractionPosition(Vector3 interactablePos, Transform playerInteractionPivot)
+        public System.Collections.IEnumerator GoToInteractionPosition(Vector3 interactablePos, Transform playerInteractionPivot, float timeout = 0f)
         {
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
 
@@ -446,10 +446,21 @@
             CurrDir = Mathf.Sign(playerInteractionPivot.position.x - transform.position.x);
             PlayerView.PlayRunAnimation(CurrDir);
 
+            float timeoutTimer = 0f;
             while (Mathf.Abs(transform.position.x - playerInteractionPivot.position.x) > CtrlDatas.RunSpeed * Time.deltaTime + 0.05f)
             {
                 // [TMP] Not sure if actually TMP, but maybe we should think of a better way to do this because it currently
                 // is just a copy/paste of the Move() method.
+
+                if (timeout > 0f)
+                {
+                    timeoutTimer += Time.deltaTime;
+                    if (timeoutTimer >= timeout)
+                    {
+                        CProLogger.LogError(this, $"{nameof(GoToInteractionPosition)} coroutine timed out.", gameObject);
+                        break;
+                    }
+                }
 
                 if (CollisionsCtrl.Below)
                     _currVel.y = 0f;
@@ -465,8 +476,9 @@
                 yield return null;
             }
 
-            transform.SetPositionX(playerInteractionPivot.position.x);
             PlayerView.StopRunAnimation();
+            if (timeoutTimer < timeout) // Timeout is used when blocked on a wall so we should not teleport the player inside the wall.
+                transform.SetPositionX(playerInteractionPivot.position.x);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(0.5f);
 
