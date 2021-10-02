@@ -1,0 +1,10 @@
+notes test ld
+
+- faudrait un shake sur les chutes lourdes même sans impact
+- la première plateforme mouvante à activer est un peu frustrante car on ne peut pas l'activer + sauter (ou alors en allant vite, pas testé)
+- bug sur Godric, le perso chercher à lui parler depuis la gauche et reste bloqué
+- le pont n'est plus cassé quand on meurt et qu'on respawn
+- certaines plateformes sont relous quand on revient dans le tableau et qu'on doit les attendre (quand on rentre dans le B13 depuis la droite par exemple)
+	- si besoin, juste foutre un objet interactif pour occuper le joueur
+- pb d'order dans la maison de Godric
+- dialogue de Godric reset au respawn
