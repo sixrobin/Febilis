@@ -1,4 +1,5 @@
-﻿namespace Templar.Boards
+﻿#if UNITY_EDITOR
+namespace Templar.Boards
 {
     using System.IO;
     using UnityEditor;
@@ -22,3 +23,4 @@
         }
     }
 }
+#endif

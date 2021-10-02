@@ -40,10 +40,12 @@
             _passagesHandlerContainer = container;
         }
 
+#if UNITY_EDITOR
         public void Delete()
         {
             _passagesHandlerContainer.DeleteSubAsset(this);
         }
+#endif
 
         public void AutoSetOppositePassage(bool force)
         {

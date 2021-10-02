@@ -1,9 +1,9 @@
 ﻿namespace Templar.Tools
 {
     using UnityEngine;
+    using Templar.Physics.Triggerables;
 #if UNITY_EDITOR
     using UnityEditor;
-    using Templar.Physics.Triggerables;
 #endif
 
     [System.Serializable]

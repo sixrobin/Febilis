@@ -13,6 +13,7 @@
 
         public RSLib.Framework.SceneField Scene => _scene;
 
+#if UNITY_EDITOR
         public void CreatePassageSubAsset()
         {
             ScenesPassage subAsset = CreateInstance<ScenesPassage>();
@@ -41,7 +42,6 @@
             AssetDatabase.SaveAssets();
         }
 
-#if UNITY_EDITOR
         private void Awake()
         {
             // Workaround to make asset duplication work.
