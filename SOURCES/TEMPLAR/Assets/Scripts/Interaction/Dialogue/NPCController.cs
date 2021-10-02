@@ -104,7 +104,7 @@
         {
             if (_lookAtPlayer)
                 for (int i = _spriteAnimatorPairs.Length - 1; i >= 0; --i)
-                    _spriteAnimatorPairs[i].SpriteRenderer.flipX = transform.position.x - _player.position.x < 0f;
+                    _spriteAnimatorPairs[i].SpriteRenderer.flipX = transform.position.x - _player.position.x > 0f;
         }
 
         private void OnDestroy()
