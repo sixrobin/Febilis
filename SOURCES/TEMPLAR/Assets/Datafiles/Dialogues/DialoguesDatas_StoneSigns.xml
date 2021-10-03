@@ -14,7 +14,13 @@
       </Sequence>
    </DialogueDatas>
 
-   
+   <DialogueDatas Id="StoneSign_02">
+      <Sequence>
+         <Sentence Id="StoneSign_02_Sentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+
    <SentenceDatas Id="StoneSign_00_Sentence_00">
       <Speaker Id="Templar">
          <HideSpeakerName/>
@@ -36,4 +42,11 @@
       <Value>"Once fated to death sentence, they redeemed themselves by putting up this place."</Value>
    </SentenceDatas>
 
+   <SentenceDatas Id="StoneSign_02_Sentence_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>"Place of the commoners."</Value>
+   </SentenceDatas>
+   
 </DialoguesDatas>
