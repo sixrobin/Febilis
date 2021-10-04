@@ -64,5 +64,15 @@
         {
             Display(false);
         }
+
+        public virtual void OnBoardsTransitionTriggered()
+        {
+            Close();
+        }
+
+        protected virtual void Awake()
+        {
+            Manager.BoardsTransitionManager.Instance.BoardsTransitionTriggered += OnBoardsTransitionTriggered;
+        }
     }
 }

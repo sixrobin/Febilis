@@ -40,6 +40,7 @@
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !UI.Dialogue.DialogueManager.DialogueRunning
+                && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && (!GameManager.InventoryView?.Displayed ?? true);
         }
 

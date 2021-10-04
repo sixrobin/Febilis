@@ -80,8 +80,10 @@
             _cancelBtn.SetSelectOnLeft(_confirmBtn);
         }
 
-        private void Awake()
+        protected override  void Awake()
         {
+            base.Awake();
+
             _confirmBtn.onClick.AddListener(InvokeConfirmCallback);
             _cancelBtn.onClick.AddListener(InvokeCancelCallback);
 

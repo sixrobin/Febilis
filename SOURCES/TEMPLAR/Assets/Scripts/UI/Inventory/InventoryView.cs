@@ -34,6 +34,7 @@
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
         [SerializeField] private RectTransform _scrollHandle = null;
 
+        private bool _closedThisFrame;
         private Vector3[] _slotsViewportWorldCorners = new Vector3[4];
 
         public InventorySlot MovedSlotSource { get; private set; }
@@ -51,15 +52,14 @@
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !Dialogue.DialogueManager.DialogueRunning
+                && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpen();
         }
 
         public override void Close()
         {
-            StopMoveSlot();
-            CurrentlyHoveredSlot = null;
-
-            base.Close();
+            if (!_closedThisFrame)
+                StartCoroutine(CloseAtEndOfFrame());
         }
 
         public override void OnBackButtonPressed()
@@ -73,11 +73,8 @@
                 return;
             }
 
-            StopMoveSlot();
-            CurrentlyHoveredSlot = null;
-
-            base.OnBackButtonPressed();
-            Navigation.UINavigationManager.NullifySelected();
+            if (!_closedThisFrame)
+                StartCoroutine(CloseAtEndOfFrame());
         }
 
         public GameObject GetClosestSlotToScrollHandle()
@@ -313,6 +310,21 @@
         private InventorySlot GetSlotAtIndex(int index)
         {
             return _slotsViews[index];
+        }
+
+        private System.Collections.IEnumerator CloseAtEndOfFrame()
+        {
+            _closedThisFrame = true;
+
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+
+            CurrentlyHoveredSlot = null;
+            UI.Navigation.UINavigationManager.CloseCurrentPanel();
+            UI.Navigation.UINavigationManager.NullifySelected();
+
+            Display(false);
+
+            _closedThisFrame = false;
         }
 
         private void Start()

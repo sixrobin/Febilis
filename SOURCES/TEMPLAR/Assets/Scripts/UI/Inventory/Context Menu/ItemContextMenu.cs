@@ -59,7 +59,7 @@
             Navigation.UINavigationManager.CloseCurrentPanel();
             Navigation.UINavigationManager.NullifySelected();
 
-            Slot.DisplaySelector(false);
+            Slot?.DisplaySelector(false);
             Slot = null;
         }
 
@@ -95,8 +95,10 @@
             Close();
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             for (int i = _contextActions.Length - 1; i >= 0; --i)
                 _contextActions[i].SetContextMenu(this);
         }

@@ -166,6 +166,8 @@
         {
             if (inventoryElement == null)
             {
+                Clear();
+
                 CProLogger.Log(this, $"Loading native inventory items.");
                 foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
                     AddItem(nativeItem.Key, nativeItem.Value, true);

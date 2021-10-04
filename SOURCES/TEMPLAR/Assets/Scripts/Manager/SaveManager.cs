@@ -140,6 +140,7 @@
                 TryLoad();
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Save", "Saves game progression.", Save));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Load", "Tries to load game progression.", () => TryLoad()));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseSave", "Erases save file if it exists.", () => EraseSave()));
         }
     }

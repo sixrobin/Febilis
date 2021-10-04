@@ -14,6 +14,10 @@
         private static System.Collections.IEnumerator s_boardTransitionCoroutine;
         private static System.Collections.IEnumerator s_playerMovementCoroutine;
 
+        public delegate void BoardsTransitionEventHandler();
+        public event BoardsTransitionEventHandler BoardsTransitionTriggered;
+        public event BoardsTransitionEventHandler BoardsTransitionOver;
+
         public static bool IsInBoardTransition => s_boardTransitionCoroutine != null;
 
         public static void TriggerLink(Boards.BoardsLink link)
@@ -24,6 +28,8 @@
 
         private static System.Collections.IEnumerator TransitionInCoroutine(Boards.BoardsLink source)
         {
+            Instance.BoardsTransitionTriggered?.Invoke();
+
             Boards.IBoardTransitionHandler target = source.GetTarget();
             Boards.BoardsLink targetBoardsLink = target as Boards.BoardsLink;
             Boards.ScenesPassage targetScenesPassage = target as Boards.ScenesPassage;
@@ -149,6 +155,8 @@
             yield return new WaitUntil(() => !RampFadeManager.IsFading);
 
             GameManager.PlayerCtrl.AllowInputs(true);
+
+            Instance.BoardsTransitionOver?.Invoke();
         }
 
         private static System.Collections.IEnumerator TransitionOutToScenesPassageCoroutine(Boards.BoardsLink source, Boards.ScenesPassage target)
