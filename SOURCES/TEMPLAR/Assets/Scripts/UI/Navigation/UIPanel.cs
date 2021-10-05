@@ -74,5 +74,11 @@
         {
             Manager.BoardsTransitionManager.Instance.BoardsTransitionTriggered += OnBoardsTransitionTriggered;
         }
+
+        protected virtual void OnDestroy()
+        {
+            if (Manager.BoardsTransitionManager.Exists())
+                Manager.BoardsTransitionManager.Instance.BoardsTransitionTriggered -= OnBoardsTransitionTriggered;
+        }
     }
 }

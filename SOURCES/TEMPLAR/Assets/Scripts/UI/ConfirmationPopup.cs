@@ -80,7 +80,7 @@
             _cancelBtn.SetSelectOnLeft(_confirmBtn);
         }
 
-        protected override  void Awake()
+        protected override void Awake()
         {
             base.Awake();
 
@@ -90,8 +90,10 @@
             InitButtonsNavigation();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             _confirmBtn.onClick.RemoveListener(InvokeConfirmCallback);
             _cancelBtn.onClick.RemoveListener(InvokeCancelCallback);
         }

@@ -24,7 +24,7 @@ A blacksmith could upgrade it.]]></Description>
 
    <ItemDatas Id="Potion">
       <Type>CONSUMABLE</Type>
-      <Description><![CDATA[Can be used to restore some HP.
+      <Description><![CDATA[Can be used to restore some health.
 Filled with elexir at grave stone.
 Only a few know how to make these flasks.]]></Description>
       <AlwaysShowQuantity/>

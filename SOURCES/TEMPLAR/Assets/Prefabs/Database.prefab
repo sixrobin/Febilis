@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 92835456f9a5a014f859cbce3057336e, type: 3}
   - {fileID: 4900000, guid: f1b1b729cc500b644a4c572d981d1a42, type: 3}
   - {fileID: 4900000, guid: 5db63f5fd64b4974c9bfa4938c848162, type: 3}
+  - {fileID: 4900000, guid: fa7937d9d977bf542af0e834f06c2206, type: 3}
   _dialoguesStructuresDatas:
   - {fileID: 4900000, guid: ab4d73b2a806ebd40815ce49489358f9, type: 3}
   - {fileID: 4900000, guid: b4bdf6913f45bea49a28690a5e199622, type: 3}

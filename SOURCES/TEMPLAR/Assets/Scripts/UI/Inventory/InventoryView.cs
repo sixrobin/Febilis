@@ -380,8 +380,10 @@
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             _inventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared -= OnInventoryCleared;
             _inventoryCtrl.InventoryInitialized -= OnInventoryInitialized;

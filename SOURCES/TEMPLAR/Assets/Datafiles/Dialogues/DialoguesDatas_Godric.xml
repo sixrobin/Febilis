@@ -134,13 +134,13 @@
 
    <SentenceDatas Id="Godric_WaitingRing_01">
       <Speaker Id="Godric"/>
-      <Value>Please.[pause=1]Help me.</Value>
+      <Value>Please.[pause=1] Help me.</Value>
    </SentenceDatas>
    
    
    <SentenceDatas Id="Godric_RetrieveRing_00">
       <Speaker Id="Godric"/>
-      <Value>That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5]That's my ring !</Value>
+      <Value>That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] That's my ring !</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_01">

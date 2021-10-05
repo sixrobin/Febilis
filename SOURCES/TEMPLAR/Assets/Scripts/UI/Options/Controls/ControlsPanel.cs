@@ -210,8 +210,10 @@
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             _resetBindingsBtn.onClick.RemoveListener(ResetDefaultMap);
             _saveBindingsBtn.onClick.RemoveListener(SaveBindings);
             _saveBindingsBtn.onClick.RemoveListener(OnBackButtonPressed);

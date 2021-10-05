@@ -13,7 +13,7 @@
 
    <SpeakerDisplayDatas Id="Godric">
       <DisplayName>Godric</DisplayName>
-      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
 </SpeakersDisplayDatas>
