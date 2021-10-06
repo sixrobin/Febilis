@@ -143,6 +143,11 @@
 
             // [TMP]
             RSLib.SceneReloader.BeforeReload += SaveManager.Save;
+
+            if (!SaveManager.DisableLoading)
+                SaveManager.TryLoad();
+    
+            SaveManager.Save();
         }
 
         private void OnDestroy()

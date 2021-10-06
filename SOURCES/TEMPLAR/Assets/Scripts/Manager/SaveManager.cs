@@ -9,6 +9,8 @@
     {
         [SerializeField] private bool _disableLoading = false;
 
+        public static bool DisableLoading => Instance._disableLoading;
+
         private static string GameSavePath => $"{Application.persistentDataPath}/Save/Game.xml";
 
         public static void Save()
@@ -106,6 +108,8 @@
                 Instance.LogWarning($"{nameof(GameManager.InventoryCtrl)} could not be found, cannot load it.");
             else
                GameManager.InventoryCtrl.Load();
+        
+            FindObjectOfType<UI.Inventory.InventoryView>().Load(); // [TMP] Find.
         }
 
         public static bool EraseSave()
@@ -132,12 +136,8 @@
         protected override void Awake()
         {
             base.Awake();
-
             if (!IsValid)
                 return;
-
-            if (!_disableLoading)
-                TryLoad();
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Save", "Saves game progression.", Save));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Load", "Tries to load game progression.", () => TryLoad()));

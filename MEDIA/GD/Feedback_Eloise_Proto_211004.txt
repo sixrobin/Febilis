@@ -18,15 +18,18 @@
 
 Bugs / Améliorations
 
+. Mettre des cadavres dans la fosse aux rats.
+. Placer les cadavres en dehors de la maison de Godric à droite, vu que c'est de là que le joueur arrive.
 . Pas de parallax.
+. Pouvoir trigger les leviers avec Y.
 . Pas de nuages.
-. Inventaire disparu après une mort.
 . Piliers en avant plan dans les catacombes chelous, on dirait des tentures.
 . A tester, mais move de cam chelou sur le board avec un rat mort dans les spikes (je le reconnaîtrai en le verrant, j'ai pas le chiffre en tête).
 . Un squelette a attaqué de façon chelou après avoir respawn.
 . Les textes apparaissent et ensuite vont à la ligne (il faudrait utiliser la technique du TextTyper de RedBlueFrog).
 . A tester, mais double Key_Catacombs ?
 . Plus de debug pour se téléporter en cas de softlock du style plateforme trop haute ou autre serait pas mal. Pourquoi pas un système plus générique que les checkpoints ?
+. [DONE] Inventaire disparu après une mort.
 . [DONE] Perso dans le sol en rentrant/sortant de la maison de Godric.
 . [DONE] La porte de sortie des catacombes a repop ?
 . [DONE] Changer le HP dans la desc des potions pour un terme plus immersif.

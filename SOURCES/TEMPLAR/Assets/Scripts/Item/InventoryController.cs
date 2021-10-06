@@ -132,7 +132,7 @@
             }
 
             string log = "Inventory Content:";
-            Items.ToList().ForEach(o => log += $"\n- {o.Value} {o.Key}(s)");
+            Items.ToList().ForEach(o => log += $"\n- {o.Value} {o.Key.Id}(s)");
             CProLogger.Log(this, log, gameObject);
         }
 
@@ -171,6 +171,8 @@
                 CProLogger.Log(this, $"Loading native inventory items.");
                 foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
                     AddItem(nativeItem.Key, nativeItem.Value, true);
+
+                InventoryInitialized?.Invoke();
 
                 return;
             }

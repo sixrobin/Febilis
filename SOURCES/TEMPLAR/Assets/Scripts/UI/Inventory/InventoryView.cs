@@ -327,7 +327,7 @@
             _closedThisFrame = false;
         }
 
-        private void Start()
+        protected override void Awake()
         {
             _inventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
             _inventoryCtrl.InventoryCleared += OnInventoryCleared;
@@ -335,7 +335,10 @@
 
             InventorySlot.InventorySlotHovered += OnInventorySlotHovered;
             InventorySlot.InventorySlotExit += OnInventorySlotExit;
+        }
 
+        private void Start()
+        {
             for (int i = _slotsViews.Length - 1; i >= 0; --i)
             {
                 InventorySlot slotView = _slotsViews[i];

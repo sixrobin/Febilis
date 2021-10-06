@@ -7,11 +7,79 @@
       </Sequence>
    </DialogueDatas>
 
+   <DialogueDatas Id="DemoEnd">
+      <Sequence>
+         <Sentence Id="DemoEnd_00"/>
+         <Sentence Id="DemoEnd_01"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <DialogueDatas Id="BrokenBridge">
+      <Sequence>
+         <Sentence Id="BrokenBridge_00"/>
+         <Sentence Id="BrokenBridge_01"/>
+         <Sentence Id="BrokenBridge_02"/>
+         <AddItem Id="Coin" Quantity="3"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="BrokenBridge_03"/>
+      </Sequence>
+   </DialogueDatas>
+   
+   
    <SentenceDatas Id="LockedDoor_Sentence_00">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
       <Value>It's locked.</Value>
    </SentenceDatas>
-   
+
+   <SentenceDatas Id="DemoEnd_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>Everything must come to an end, and for now, this demo is over.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="DemoEnd_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>Thanks for playing!</Value>
+   </SentenceDatas>
+
+
+   <SentenceDatas Id="BrokenBridge_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>If you're reading this, that means you already fell through the bridge.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="BrokenBridge_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>It may be restored though, due do some poor programming.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="BrokenBridge_02">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>Sorry for that. Here, take those 3 useless gold coins.</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="BrokenBridge_03">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+         <OverridePortraitId>Unknown</OverridePortraitId>
+      </Speaker>
+      <Value>And don't go further. [pause=0.5]You'd probably fall again.</Value>
+   </SentenceDatas>
+
 </DialoguesDatas>
