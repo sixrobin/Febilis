@@ -22,11 +22,11 @@ Bugs / Améliorations
 . Pouvoir trigger les leviers avec Y.
 . Pas de nuages.
 . Piliers en avant plan dans les catacombes chelous, on dirait des tentures.
-. A tester, mais move de cam chelou sur le board avec un rat mort dans les spikes (je le reconnaîtrai en le verrant, j'ai pas le chiffre en tête).
 . Un squelette a attaqué de façon chelou après avoir respawn.
 . Les textes apparaissent et ensuite vont à la ligne (il faudrait utiliser la technique du TextTyper de RedBlueFrog).
-. A tester, mais double Key_Catacombs ?
 . Système de téléporteurs plus générique que les checkpoints ?
+. [DONE] A tester, mais move de cam chelou sur le board avec un rat mort dans les spikes (je le reconnaîtrai en le verrant, j'ai pas le chiffre en tête).
+. [DONE] A tester, mais double Key_Catacombs ? -> je pense que c'est juste une histoire d'Eloïse qui est morte et l'item a été reset, en tout cas dans tous les items ramassables de la scène il n'y a pas de doublon.
 . [DONE] Plus de debug pour se téléporter en cas de softlock du style plateforme trop haute.
 . [DONE] Mettre des cadavres dans la fosse aux rats.
 . [DONE] Placer les cadavres en dehors de la maison de Godric à droite, vu que c'est de là que le joueur arrive.

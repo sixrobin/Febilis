@@ -14,7 +14,7 @@
          <Dur>0.15</Dur>
       </Recoil>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
+         <Hit X="0.3" Y="0.3" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.3</ChainAllowedTime>
@@ -38,7 +38,7 @@
          <Dur>0.15</Dur>
       </Recoil>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
+         <Hit X="0.3" Y="0.3" AddType="ADDITIVE" ShakeId="Small"/>
       </Traumas>
       <Dur>0.55</Dur>
       <ChainAllowedTime>0.3</ChainAllowedTime>
@@ -62,7 +62,7 @@
          <Dur>0.25</Dur>
       </Recoil>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
+         <Hit X="0.3" Y="0.3" AddType="ADDITIVE" ShakeId="Medium"/>
       </Traumas>
       <Dur>0.6</Dur>
       <ChainAllowedTime>0.35</ChainAllowedTime>
@@ -89,7 +89,7 @@
          <Dur>0.25</Dur>
       </Recoil>
       <Traumas>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Medium"/>
+         <Hit X="0.3" Y="0.3" AddType="ADDITIVE" ShakeId="Medium"/>
       </Traumas>
       <Dur>0.75</Dur>
       <ChainAllowedTime>0.5</ChainAllowedTime>
@@ -117,7 +117,7 @@
       </Recoil>
       <Traumas>
          <Base X="0.2" Y="0.5" AddType="ADDITIVE" ShakeId="Medium"/>
-         <Hit X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Big"/>
+         <Hit X="0.3" Y="0.3" AddType="ADDITIVE" ShakeId="Big"/>
       </Traumas>
       <Dur>0.8</Dur>
       <ChainAllowedTime>0.5</ChainAllowedTime>
