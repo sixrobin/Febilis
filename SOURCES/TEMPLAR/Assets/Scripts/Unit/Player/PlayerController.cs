@@ -104,10 +104,13 @@
             if (CtrlDatas.GroundOnAwake)
                 CollisionsCtrl.Ground(transform);
 
-            PlayerView.TemplarCtrl = this;
+            PlayerView.PlayerCtrl = this;
             CurrDir = PlayerView.GetSpriteRendererFlipX() ? -1f : 1f;
 
             CtrlDatas.ValuesValidated += OnDatasValuesChanged;
+
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float, float>("PositionAdd", $"Adds a vector to the player position.", (x, y) => { transform.position += new Vector3(x, y); }));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float, float>("PositionSet", $"Sets the player position.", (x, y) => { transform.position = new Vector3(x, y); }));
 
             Initialized = true;
         }

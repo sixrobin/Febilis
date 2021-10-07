@@ -63,24 +63,24 @@
         public event SleepAnimationEventHandler SleepAnimationBegan;
         public event SleepAnimationEventHandler SleepAnimationOver;
 
-        public PlayerController TemplarCtrl { get; set; }
+        public PlayerController PlayerCtrl { get; set; }
 
         public override float DeadFadeDelay => DEAD_FADE_DELAY;
 
         public void UpdateView(bool flip, Vector3 currVel, Vector3 prevVel)
         {
-            _animator.SetBool(IS_RUNNING, !TemplarCtrl.IsBeingHurt && !TemplarCtrl.IsHealing && !TemplarCtrl.RollCtrl.IsRolling && TemplarCtrl.InputCtrl.Horizontal != 0f);
+            _animator.SetBool(IS_RUNNING, !PlayerCtrl.IsBeingHurt && !PlayerCtrl.IsHealing && !PlayerCtrl.RollCtrl.IsRolling && !PlayerCtrl.IsDialoguing && PlayerCtrl.InputCtrl.Horizontal != 0f);
 
-            if (!TemplarCtrl.RollCtrl.IsRolling && !TemplarCtrl.AttackCtrl.IsAttacking && !TemplarCtrl.IsHealing)
+            if (!PlayerCtrl.RollCtrl.IsRolling && !PlayerCtrl.AttackCtrl.IsAttacking && !PlayerCtrl.IsHealing)
                 FlipX(flip);
 
             if (currVel.y < 0f
                 && (prevVel.y > 0f
-                || TemplarCtrl.CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW)
-                && !TemplarCtrl.CollisionsCtrl.Below)
-                && !TemplarCtrl.AttackCtrl.IsAttacking
-                && !TemplarCtrl.IsBeingHurt
-                && !TemplarCtrl.IsHealing)
+                    || PlayerCtrl.CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW)
+                    && !PlayerCtrl.CollisionsCtrl.Below)
+                    && !PlayerCtrl.AttackCtrl.IsAttacking
+                    && !PlayerCtrl.IsBeingHurt
+                    && !PlayerCtrl.IsHealing)
             {
                 _animator.SetTrigger(FALL);
                 LogAnimationPlayIfRequired("Fall");
@@ -160,7 +160,7 @@
         {
             FlipX(dir < 0f);
             _animator.SetTrigger(ROLL);
-            _animator.SetFloat(MULT_ROLL, TemplarCtrl.CtrlDatas.Roll.AnimMult);
+            _animator.SetFloat(MULT_ROLL, PlayerCtrl.CtrlDatas.Roll.AnimMult);
 
             GameObject rollPuffInstance = RSLib.Framework.Pooling.Pool.Get(_rollPuffPrefab);
             rollPuffInstance.transform.position = transform.position;
@@ -293,7 +293,7 @@
 
         private void UpdateAttackAnimation(float dir = 0f)
         {
-            _animator.SetFloat(MULT_ATTACK, TemplarCtrl.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
+            _animator.SetFloat(MULT_ATTACK, PlayerCtrl.AttackCtrl.CurrAttackDatas.AnimSpeedMult);
             if (dir != 0f)
                 FlipX(dir < 0f);
         }
