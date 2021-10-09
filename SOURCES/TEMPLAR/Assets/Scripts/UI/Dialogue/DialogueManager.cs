@@ -11,6 +11,9 @@
         [SerializeField, Min(0f)] private float _delayBeforeFirstDialogueElement = 0.5f;
         [SerializeField, Min(0f)] private float _goToPositionTimeout = 3f;
 
+        [Header("DEBUG")]
+        [SerializeField] private bool _debugFastDialogues = false;
+
         private System.Collections.Generic.Dictionary<string, Interaction.Dialogue.ISpeaker> _speakers;
 
         private System.Collections.IEnumerator _dialogueCoroutine;
@@ -161,13 +164,13 @@
             }
 
             // If sentence sequence has been skipped, we immediatly want to show the skip feedback, WITHOUT skipping to next sentence.
-            if (!_skippedSentenceSequence)
+            if (!_skippedSentenceSequence && !_debugFastDialogues)
                 yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_dialogueView.SkipInputShowDelay, CheckSkipInput);
 
             _dialogueView.DisplaySkipInput(true);
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
-            yield return new WaitUntil(() => CheckSkipInput());
+            yield return new WaitUntil(() => CheckSkipInput() || _debugFastDialogues);
 
             _dialogueView.DisplaySkipInput(false);
             _speakers[sentenceDatas.SpeakerId].OnSentenceEnd();
@@ -187,12 +190,12 @@
 
                 if (!textDatas.Container.Skippable)
                 {
-                    yield return RSLib.Yield.SharedYields.WaitForSeconds(_dialogueView.TickInterval);
+                    yield return RSLib.Yield.SharedYields.WaitForSeconds(_debugFastDialogues ? _dialogueView.TickInterval / 3f : _dialogueView.TickInterval);
                 }
                 else
                 {
                     yield return new RSLib.Yield.WaitForSecondsOrBreakIf(
-                        _dialogueView.TickInterval,
+                        _debugFastDialogues ? _dialogueView.TickInterval / 3f : _dialogueView.TickInterval,
                         CheckSkipInput,
                         () =>
                         {
@@ -214,11 +217,14 @@
         {
             if (!pauseDatas.Container.Skippable)
             {
-                yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
+                yield return RSLib.Yield.SharedYields.WaitForSeconds(_debugFastDialogues ? pauseDatas.Dur / 3f : pauseDatas.Dur);
                 yield break;
             }
 
-            yield return new RSLib.Yield.WaitForSecondsOrBreakIf(pauseDatas.Dur, CheckSkipInput, MarkSentenceAsSkipped);
+            yield return new RSLib.Yield.WaitForSecondsOrBreakIf(
+                _debugFastDialogues ? pauseDatas.Dur / 3f : pauseDatas.Dur,
+                () => CheckSkipInput() || _debugFastDialogues,
+                MarkSentenceAsSkipped);
         }
 
         protected override void Awake()
@@ -227,6 +233,8 @@
             RegisterSpeakersInScene();
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ToggleFastDialogues", "Toggles dialogue light speed.", () => _debugFastDialogues = !_debugFastDialogues));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("ToggleFastDialogues", "Set dialogue light speed state.", (state) => _debugFastDialogues = state));
         }
 
         [ContextMenu("Find All References")]
