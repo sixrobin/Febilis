@@ -1,6 +1,6 @@
 ﻿namespace Templar.Database
 {
-    public interface IDatabase
+    public interface IDatabase : RSLib.Framework.ITopologicSortedItem<IDatabase>
     {
         void Load();
     }

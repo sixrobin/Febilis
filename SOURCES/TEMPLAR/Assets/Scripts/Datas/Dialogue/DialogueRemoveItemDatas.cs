@@ -18,6 +18,7 @@
 
             XAttribute itemIdAttribute = removeItemElement.Attribute("Id");
             UnityEngine.Assertions.Assert.IsNotNull(itemIdAttribute, "Dialogue RemoveItem element needs an Id attribute.");
+            UnityEngine.Assertions.Assert.IsTrue(Database.ItemDatabase.ItemsDatas.ContainsKey(itemIdAttribute.Value), $"Unknown ItemId {itemIdAttribute.Value} in {typeof(Database.ItemDatabase).Name}.");
             ItemId = itemIdAttribute.Value;
 
             XAttribute quantityAttribute = removeItemElement.Attribute("Quantity");

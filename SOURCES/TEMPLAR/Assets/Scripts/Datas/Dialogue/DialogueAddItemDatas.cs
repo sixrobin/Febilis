@@ -18,6 +18,7 @@
 
             XAttribute itemIdAttribute = addItemElement.Attribute("Id");
             UnityEngine.Assertions.Assert.IsNotNull(itemIdAttribute, "Dialogue AddItem element needs an Id attribute.");
+            UnityEngine.Assertions.Assert.IsTrue(Database.ItemDatabase.ItemsDatas.ContainsKey(itemIdAttribute.Value), $"Unknown ItemId {itemIdAttribute.Value} in {typeof(Database.ItemDatabase).Name}.");
             ItemId = itemIdAttribute.Value;
 
             XAttribute quantityAttribute = addItemElement.Attribute("Quantity");

@@ -37,6 +37,14 @@
             GeneratePortraitsDictionary();
         }
 
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        {
+            return new IDatabase[]
+            {
+                ItemDatabase.Instance
+            };
+        }
+
         public static Sprite GetPortraitOrUseDefault(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
             string portraitId = sentenceDatas.OverridePortraitId ?? sentenceDatas.SpeakerId;

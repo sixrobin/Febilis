@@ -30,6 +30,7 @@
 
             XAttribute itemIdAttribute = hasItemElement.Attribute("Id");
             UnityEngine.Assertions.Assert.IsNotNull(itemIdAttribute, "Contextual Condition HasItem element needs an Id attribute.");
+            UnityEngine.Assertions.Assert.IsTrue(Database.ItemDatabase.ItemsDatas.ContainsKey(itemIdAttribute.Value), $"Unknown ItemId {itemIdAttribute.Value} in {typeof(Database.ItemDatabase).Name}.");
             ItemId = itemIdAttribute.Value;
 
             XAttribute quantityAttribute = hasItemElement.Attribute("MinQuantity");
@@ -52,6 +53,7 @@
 
             XAttribute itemIdAttribute = hasItemElement.Attribute("Id");
             UnityEngine.Assertions.Assert.IsNotNull(itemIdAttribute, "Contextual Condition HasItem element needs an Id attribute.");
+            UnityEngine.Assertions.Assert.IsTrue(Database.ItemDatabase.ItemsDatas.ContainsKey(itemIdAttribute.Value), $"Unknown ItemId {itemIdAttribute.Value} in {typeof(Database.ItemDatabase).Name}.");
             ItemId = itemIdAttribute.Value;
         }
     }

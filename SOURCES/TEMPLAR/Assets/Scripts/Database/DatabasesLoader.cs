@@ -1,5 +1,6 @@
 ﻿namespace Templar.Database
 {
+    using System.Linq;
     using UnityEngine;
 
     [DisallowMultipleComponent]
@@ -8,8 +9,13 @@
         private void Awake()
         {
             IDatabase[] _databases = GetComponentsInChildren<IDatabase>();
-            for (int i = _databases.Length - 1; i >= 0; --i)
+            _databases = RSLib.Framework.TopologicSorter.Sort(_databases).ToArray();
+
+            for (int i = 0; i < _databases.Length; ++i)
+            {
+                CProLogger.Log(this, $"Loading IDatabase {_databases[i].GetType().Name}.", gameObject);
                 _databases[i].Load();
+            }
         }
     }
 }

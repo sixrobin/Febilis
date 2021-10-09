@@ -14,6 +14,14 @@
             DeserializeContextualConditionsDatas();
         }
 
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        {
+            return new IDatabase[]
+            {
+                ItemDatabase.Instance
+            };
+        }
+
         private void DeserializeContextualConditionsDatas()
         {
             XDocument enemiesDatasDoc = XDocument.Parse(_contextualConditionsDatas.text, LoadOptions.SetBaseUri);

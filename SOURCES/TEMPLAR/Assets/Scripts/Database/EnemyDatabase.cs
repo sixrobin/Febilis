@@ -26,6 +26,11 @@
             GenerateClipsDictionary();
         }
 
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        {
+            return null;
+        }
+
         private void DeserializeEnemyDatas()
         {
             XDocument enemiesDatasDoc = XDocument.Parse(_enemiesDatas.text, LoadOptions.SetBaseUri);

@@ -22,6 +22,11 @@
             GenerateClipsDictionary();
         }
 
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        {
+            return null;
+        }
+
         private void GenerateClipsDictionary()
         {
             AnimationClips = new System.Collections.Generic.Dictionary<string, AnimationClip>();

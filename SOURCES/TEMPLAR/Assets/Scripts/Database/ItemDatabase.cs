@@ -41,6 +41,11 @@
 #endif
         }
 
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        {
+            return null;
+        }
+
         public static Sprite GetItemSprite(string id)
         {
             if (!ItemsSprites.TryGetValue($"{ITEM_PREFIX}{id}", out Sprite itemSprite))

@@ -18,6 +18,11 @@
             DeserializeAttacksDatas();
         }
 
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        {
+            return null;
+        }
+
         private void DeserializeAttacksDatas()
         {
             PlayerAttacksDatas = new System.Collections.Generic.Dictionary<string, Datas.Attack.PlayerAttackDatas>();
