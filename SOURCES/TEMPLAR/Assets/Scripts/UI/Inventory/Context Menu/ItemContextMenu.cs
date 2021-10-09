@@ -32,7 +32,7 @@
 
             base.Open();
             
-            CProLogger.Log(this, $"Opening Item context menu for item {Slot.Item.Id}.");
+            CProLogger.Log(this, $"Opening Item context menu for item {Slot.Item.Datas.Id}.");
 
             for (int i = _contextActions.Length - 1; i >= 0; --i)
                 _contextActions[i].Init(Slot);

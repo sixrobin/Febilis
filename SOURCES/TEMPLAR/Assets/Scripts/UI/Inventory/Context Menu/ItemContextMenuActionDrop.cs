@@ -20,10 +20,10 @@
             _contextMenu.CloseAtEndOfFrame(); // Closes all inventory panel.
 
             Manager.LootManager.SpawnItem(
-                Slot.Item.Id,
+                Slot.Item.Datas.Id,
                 Manager.GameManager.PlayerCtrl.transform.position.AddX(Manager.GameManager.PlayerCtrl.CurrDir * DROP_X_OFFSET).AddY(DROP_Y_OFFSET));
 
-            Manager.GameManager.InventoryCtrl.RemoveItem(Slot.Item.Id);
+            Manager.GameManager.InventoryCtrl.RemoveItem(Slot.Item.Datas.Id);
         }
     }
 }

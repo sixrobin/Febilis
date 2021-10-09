@@ -15,7 +15,7 @@
 
         protected override void TriggerAction()
         {
-            Debug.Log($"Equiping {Slot.Item.Id}.");
+            Debug.Log($"Equiping {Slot.Item.Datas.Id}.");
         }
     }
 }

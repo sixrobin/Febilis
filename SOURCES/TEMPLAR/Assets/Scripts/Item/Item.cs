@@ -13,7 +13,6 @@
         }
 
         public Datas.Item.ItemDatas Datas { get; private set; }
-        public string Id => Datas.Id;
 
         public ItemActionConditionsChecker UseConditionsChecker { get; private set; }
         public ItemActionConditionsChecker EquipConditionsChecker { get; private set; }

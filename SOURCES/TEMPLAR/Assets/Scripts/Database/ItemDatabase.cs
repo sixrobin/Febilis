@@ -59,7 +59,7 @@
 
         public static Sprite GetItemSprite(Item.Item item)
         {
-            return GetItemSprite(item.Id);
+            return GetItemSprite(item.Datas.Id);
         }
         
         public static Sprite GetItemTypeSprite(Item.ItemType type)

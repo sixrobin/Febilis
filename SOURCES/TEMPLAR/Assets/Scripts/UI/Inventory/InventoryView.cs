@@ -105,7 +105,7 @@
 
         public void BeginMoveSlot(InventorySlot slot)
         {
-            CProLogger.Log(this, $"Moving slot of item {slot.Item.Id}.", slot.gameObject);
+            CProLogger.Log(this, $"Moving slot of item {slot.Item.Datas.Id}.", slot.gameObject);
             MovedSlotSource = slot;
         }
 
@@ -123,7 +123,7 @@
                 return; // Full content refresh is done on Start.
 
             InventorySlot slot = GetItemSlot(args.Item) ?? GetFirstEmptySlot();
-            UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add or modify item {args.Item.Id}.");
+            UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add or modify item {args.Item.Datas.Id}.");
 
             slot.SetItem(args.Item, args.NewQuantity);
         }
@@ -145,7 +145,7 @@
             if (slot.Item == null)
                 return;
 
-            _itemName.text = $"{slot.Item.Id} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
+            _itemName.text = $"{slot.Item.Datas.Name} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
             _itemDesc.text = slot.Item.Datas.Description;
             _itemType.text = slot.Item.Datas.Type.ToString().ToLower().UpperFirst();
             _itemTypeIcon.enabled = true;
@@ -184,7 +184,7 @@
                 }
                 else
                 {
-                    CProLogger.Log(this, $"Moving item to empty slot {slot.transform.name}, swapping with {slot.Item.Id}.", slot.gameObject);
+                    CProLogger.Log(this, $"Moving item to empty slot {slot.transform.name}, swapping with {slot.Item.Datas.Id}.", slot.gameObject);
                     slot.Swap(MovedSlotSource);
                 }
 
@@ -281,9 +281,9 @@
 
             foreach (System.Collections.Generic.KeyValuePair<Item.Item, int> item in _inventoryCtrl.Items)
             {
-                InventorySlot slot = _itemsSlotIndexesSave != null ? GetSlotAtIndex(_itemsSlotIndexesSave[item.Key.Id]) : GetFirstEmptySlot();
+                InventorySlot slot = _itemsSlotIndexesSave != null ? GetSlotAtIndex(_itemsSlotIndexesSave[item.Key.Datas.Id]) : GetFirstEmptySlot();
                 UnityEngine.Assertions.Assert.IsNotNull(slot, $"No valid slot had been found to add item {item.Key}.");
-                UnityEngine.Assertions.Assert.IsTrue(slot.IsEmpty, $"Slot found to add item {item.Key} is not empty and holds item {slot.Item?.Id}.");
+                UnityEngine.Assertions.Assert.IsTrue(slot.IsEmpty, $"Slot found to add item {item.Key} is not empty and holds item {slot.Item?.Datas.Id}.");
             
                 slot.SetItem(item.Key, item.Value);
             }
@@ -443,7 +443,7 @@
                 XElement slotElement = new XElement("Slot");
 
                 slotElement.Add(new XAttribute("Index", slotView.transform.GetSiblingIndex()));
-                slotElement.Add(new XAttribute("ItemId", slotView.Item.Id));
+                slotElement.Add(new XAttribute("ItemId", slotView.Item.Datas.Id));
 
                 inventoryViewElement.Add(slotElement);
             }

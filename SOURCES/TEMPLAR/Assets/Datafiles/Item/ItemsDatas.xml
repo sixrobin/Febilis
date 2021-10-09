@@ -3,6 +3,7 @@
 
    <ItemDatas Id="Sword">
       <Type>WEAPON</Type>
+      <Name>Pale Sword</Name>
       <Description><![CDATA[A common sword, used by many soldiers due to its ability to respond well at various situations.
 A blacksmith could upgrade it.]]></Description>
       <AlwaysInInventory/>
@@ -13,6 +14,7 @@ A blacksmith could upgrade it.]]></Description>
 
    <ItemDatas Id="Coin">
       <Type>MISC</Type>
+      <Name>Gold Coin</Name>
       <Description>Money have lost a lot of it's value since all the wars, but some people still accept it to buy some goods.</Description>
       <AlwaysShowQuantity/>
       <AlwaysInInventory/>
@@ -24,6 +26,7 @@ A blacksmith could upgrade it.]]></Description>
 
    <ItemDatas Id="Potion">
       <Type>CONSUMABLE</Type>
+      <Name>Potion</Name>
       <Description><![CDATA[Can be used to restore some health.
 Filled with elexir at grave stone.
 Only a few know how to make these flasks.]]></Description>
@@ -40,6 +43,7 @@ Only a few know how to make these flasks.]]></Description>
 
    <ItemDatas Id="Key_Godric_House">
       <Type>KEY</Type>
+      <Name>Godric's Key</Name>
       <Description><![CDATA[Key to Godric's House.]]></Description>
       <Actions>
          <Move/>
@@ -48,6 +52,7 @@ Only a few know how to make these flasks.]]></Description>
 
    <ItemDatas Id="Key_Priest">
       <Type>KEY</Type>
+      <Name>Priest's Key</Name>
       <Description><![CDATA[Key to the catacombs cells.
 It's covered with blood.]]></Description>
       <Actions>
@@ -57,6 +62,7 @@ It's covered with blood.]]></Description>
 
    <ItemDatas Id="Key_Catacombs">
       <Type>KEY</Type>
+      <Name>Catacombs's Key</Name>
       <Description><![CDATA[Key to the entrance of the catacombs. 
 Belongs to the high priests of Prosperare.]]></Description>
       <Actions>
@@ -66,6 +72,7 @@ Belongs to the high priests of Prosperare.]]></Description>
 
    <ItemDatas Id="Ring_Godric">
       <Type>EQUIPABLE</Type>
+      <Name>Wedding ring</Name>
       <Description>The words "FOR JEANNE" are engraved on the ring.</Description>
       <Actions>
          <Move/>
@@ -74,6 +81,7 @@ Belongs to the high priests of Prosperare.]]></Description>
 
    <ItemDatas Id="Book">
       <Type>BOOK</Type>
+      <Name>Book</Name>
       <Description>Haa... if only I could read.</Description>
       <Actions>
          <Drop/>
@@ -83,6 +91,7 @@ Belongs to the high priests of Prosperare.]]></Description>
 
    <ItemDatas Id="Letter_Priest">
       <Type>BOOK</Type>
+      <Name>Priest's letter</Name>
       <Description>It says: "The impious man has escaped, you must chase him to protect the secret."</Description>
       <Actions>
          <Drop/>
@@ -92,6 +101,7 @@ Belongs to the high priests of Prosperare.]]></Description>
 
    <ItemDatas Id="Letter_Prisoner">
       <Type>BOOK</Type>
+      <Name>Prisoner's letter</Name>
       <Description>It’s written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
       <Actions>
          <Drop/>
@@ -101,6 +111,7 @@ Belongs to the high priests of Prosperare.]]></Description>
 
    <ItemDatas Id="Scroll">
       <Type>BOOK</Type>
+      <Name>Scroll</Name>
       <Description>This contains an important message I should deliver to... someone, I guess.</Description>
       <Actions>
          <Drop/>

@@ -56,7 +56,7 @@
         {
             return new SceneLoadDatasInventory()
             {
-                Items = Items.ToDictionary(o => o.Key.Id, o => o.Value)
+                Items = Items.ToDictionary(o => o.Key.Datas.Id, o => o.Value)
             };
         }
 
@@ -118,7 +118,7 @@
         {
             System.Collections.Generic.List<Item> itemsKeys = Items.Keys.ToList();
             foreach (Item item in itemsKeys)
-                RemoveItem(item.Id, Items[item]);
+                RemoveItem(item.Datas.Id, Items[item]);
         }
 
         public void ForceClear()
@@ -136,13 +136,13 @@
             }
 
             string log = "Inventory Content:";
-            Items.ToList().ForEach(o => log += $"\n- {o.Value} {o.Key.Id}(s)");
+            Items.ToList().ForEach(o => log += $"\n- {o.Value} {o.Key.Datas.Id}(s)");
             CProLogger.Log(this, log, gameObject);
         }
 
         private bool TryGetOwnedItemKey(string id, out Item item)
         {
-            return (item = Items.Where(o => o.Key.Id == id).FirstOrDefault().Key) != null;
+            return (item = Items.Where(o => o.Key.Datas.Id == id).FirstOrDefault().Key) != null;
         }
 
         private void Awake()
@@ -192,7 +192,7 @@
             XElement inventoryElement = new XElement("Inventory");
 
             foreach (System.Collections.Generic.KeyValuePair<Item, int> item in Items)
-                inventoryElement.Add(new XElement(item.Key.Id, item.Value));
+                inventoryElement.Add(new XElement(item.Key.Datas.Id, item.Value));
 
             return inventoryElement;
         }

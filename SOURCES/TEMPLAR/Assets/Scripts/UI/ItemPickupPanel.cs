@@ -27,7 +27,7 @@
                 || Dialogue.DialogueManager.DialogueRunning)
                 return;
 
-            AddItemToShow(args.Item.Id);
+            AddItemToShow(args.Item);
         }
 
         private void OnDialogueStarted(Datas.Dialogue.DialogueDatas dialogueDatas)
@@ -54,6 +54,11 @@
         private void OnFadeBegan(bool fadeIn)
         {
             ClearItemsAndHide();
+        }
+
+        private void AddItemToShow(Item.Item item)
+        {
+            AddItemToShow(item.Datas.Id);
         }
 
         private void AddItemToShow(string itemId)
@@ -84,7 +89,7 @@
             {
                 string itemId = _itemsIdsToShow.Dequeue();
 
-                _itemNameText.text = itemId; // [TODO] Localization.
+                _itemNameText.text = Database.ItemDatabase.ItemsDatas[itemId].Name; // [TODO] Localization.
                 _itemIcon.sprite = Database.ItemDatabase.GetItemSprite(itemId);
 
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(_minItemDuration);

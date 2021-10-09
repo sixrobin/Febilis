@@ -21,7 +21,7 @@
 
         private void OnInventoryContentChanged(InventoryController.InventoryContentChangedEventArgs args)
         {
-            if (args.Item.Id != InventoryController.ITEM_ID_COIN)
+            if (args.Item.Datas.Id != InventoryController.ITEM_ID_COIN)
                 return;
 
             _diff += args.NewQuantity - args.PrevQuantity;

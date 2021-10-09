@@ -11,6 +11,7 @@
 
         public string Id { get; private set; }
 
+        public string Name { get; private set; }
         public string Description { get; private set; }
         public Templar.Item.ItemType Type { get; private set; }
 
@@ -32,11 +33,15 @@
             Id = idAttribute.Value;
 
             XElement typeElement = itemElement.Element("Type");
-            UnityEngine.Assertions.Assert.IsFalse(typeElement.IsNullOrEmpty(), "Item Type element is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(typeElement.IsNullOrEmpty(), $"Item {Id} Type element is null or empty.");
             Type = typeElement.ValueToEnum<Templar.Item.ItemType>();
 
+            XElement nameElement = itemElement.Element("Name");
+            UnityEngine.Assertions.Assert.IsFalse(nameElement.IsNullOrEmpty(), $"Item {Id} Name element is null or empty.");
+            Name = nameElement.Value;
+
             XElement descriptionElement = itemElement.Element("Description");
-            UnityEngine.Assertions.Assert.IsFalse(descriptionElement.IsNullOrEmpty(), "Item Description element is null or empty.");
+            UnityEngine.Assertions.Assert.IsFalse(descriptionElement.IsNullOrEmpty(), $"Item {Id} Description element is null or empty.");
             Description = descriptionElement.Value;
 
             AlwaysShowQuantity = itemElement.Element("AlwaysShowQuantity") != null;

@@ -101,7 +101,7 @@
 
         private void OnInventoryContentChanged(InventoryController.InventoryContentChangedEventArgs args)
         {
-            if (args.Item.Id != InventoryController.ITEM_ID_POTION)
+            if (args.Item.Datas.Id != InventoryController.ITEM_ID_POTION)
                 return;
 
             UpdateHealViews();
