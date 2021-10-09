@@ -8,6 +8,7 @@
         [SerializeField] private string _dialogueId = string.Empty;
         [SerializeField] private RSLib.Framework.OptionalTransform _playerDialoguePivot = new RSLib.Framework.OptionalTransform(null, false);
         [SerializeField] protected GameObject _highlight = null;
+        [SerializeField] protected Collider2D _collider = null;
 
         public string SpeakerId => _speakerId.Enabled ? _speakerId.Value : string.Empty;
 
@@ -27,7 +28,11 @@
         private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             IsDialoguing = false;
-            _highlight.SetActive(false);
+
+            // If no dialogue pivot has been set, the player will not unfocus the speaker since it will be on it.
+            // We can then assume the highlight should stay visible.
+            if (PlayerDialoguePivot != null)
+                _highlight.SetActive(false);
         }
 
         public override void Focus()
