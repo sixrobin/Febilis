@@ -14,6 +14,7 @@
 
    <xs:complexType name="DialogueDatas">
       <xs:sequence>
+         <xs:element name="HidePortraitBox" minOccurs="0" maxOccurs="1"/>
          <xs:element name="InvertPortraitsAnchors" minOccurs="0" maxOccurs="1"/>
          <xs:element name="Sequence" minOccurs="1" maxOccurs="1">
             <xs:complexType>

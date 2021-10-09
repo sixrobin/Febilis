@@ -1,16 +1,9 @@
 notes test ld
 
 - faudrait un shake sur les chutes lourdes même sans impact
-- la première plateforme mouvante à activer est un peu frustrante car on ne peut pas l'activer + sauter (ou alors en allant vite, pas testé)
-- bug sur Godric, le perso chercher à lui parler depuis la gauche et reste bloqué
 - le pont n'est plus cassé quand on meurt et qu'on respawn
 - certaines plateformes sont relous quand on revient dans le tableau et qu'on doit les attendre (quand on rentre dans le B13 depuis la droite par exemple)
 	- si besoin, juste foutre un objet interactif pour occuper le joueur
 	- dans l'idéal, permettre de set le % des paths à l'entrée du board, ou alors bloquer les plateformes tant qu'on n'est pas dans le board (ça viendra aussi avec le disable des boards, mais il faudra sans doute reset les plateformes)
-- pb d'order dans la maison de Godric
-- dialogue de Godric reset au respawn
-- la platforme mouvante du board 10 traverse-t-elle intentionnellement la tile seule?
-- camera bounds pétées dans le board 13
-- synchro chelou des plateformes du board 13
 - la plateforme mouvante à activer du board 13 est peut-être pétée à cause de la chaîne qui montre qu'on peut tomber dessus
 	- pourquoi pas ajouter un petit waypoint en bas sur le côté histoire de niquer les joueurs qui tenteront

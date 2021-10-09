@@ -379,6 +379,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5022502469828054295, guid: d7d9249b13ae72349b28b7cebae78933,
+        type: 3}
+      propertyPath: _canvasScaler
+      value: 
+      objectReference: {fileID: 66596304674804680}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d9249b13ae72349b28b7cebae78933, type: 3}
 --- !u!224 &66596302660018024 stripped

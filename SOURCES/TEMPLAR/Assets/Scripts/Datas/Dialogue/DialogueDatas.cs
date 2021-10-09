@@ -19,8 +19,9 @@
 
         public IDialogueSequenceElementDatas[] SequenceElementsDatas { get; private set; }
 
+        public bool HidePortraitBox { get; private set; }
         public bool InvertPortraitsAnchors { get; private set; }
-
+        
         public override void Deserialize(XContainer container)
         {
             XElement dialogueElement = container as XElement;
@@ -29,6 +30,7 @@
             UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "Dialogue Id attribute is null or empty.");
             Id = idAttribute.Value;
 
+            HidePortraitBox = dialogueElement.Element("HidePortraitBox") != null;
             InvertPortraitsAnchors = dialogueElement.Element("InvertPortraitsAnchors") != null;
 
             XElement sequenceElement = dialogueElement.Element("Sequence");

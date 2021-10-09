@@ -82,6 +82,8 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_delayBeforeFirstDialogueElement);
             Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();
 
+            _dialogueView.SetPortraitDisplay(_currentDialogue);
+
             for (int i = 0; i < _currentDialogue.SequenceElementsDatas.Length; ++i)
             {
                 if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.SentenceDatas sentenceDatas)

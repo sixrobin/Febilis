@@ -8,6 +8,7 @@
    </DialogueDatas>
 
    <DialogueDatas Id="DemoEnd">
+      <HidePortraitBox/>
       <Sequence>
          <Sentence Id="DemoEnd_00"/>
          <Sentence Id="DemoEnd_01"/>
@@ -15,6 +16,7 @@
    </DialogueDatas>
 
    <DialogueDatas Id="BrokenBridge">
+      <HidePortraitBox/>
       <Sequence>
          <Sentence Id="BrokenBridge_00"/>
          <Sentence Id="BrokenBridge_01"/>

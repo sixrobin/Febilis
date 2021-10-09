@@ -1,11 +1,13 @@
 ﻿namespace Templar.UI.Dialogue
 {
+    using RSLib.Extensions;
     using UnityEngine;
 
     [DisallowMultipleComponent]
     public class DialogueView : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas = null;
+        [SerializeField] private UnityEngine.UI.CanvasScaler _canvasScaler = null;
         [SerializeField] private RectTransform _portraitBox = null;
         [SerializeField] private RectTransform _textBox = null;
         [SerializeField] private TMPro.TextMeshProUGUI _text = null;
@@ -24,6 +26,8 @@
 
         private System.Collections.IEnumerator _skipInputIdleCoroutine;
         private float _skipInputInitY;
+
+        private float _textBoxInitWidth;
 
         public int LettersPerTick => _lettersPerTick;
         public float TickInterval => _tickInterval;
@@ -69,6 +73,15 @@
             }
 
             _text.text = string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
+        }
+
+        public void SetPortraitDisplay(Datas.Dialogue.DialogueDatas dialogueDatas)
+        {
+            _portraitBox.gameObject.SetActive(!dialogueDatas.HidePortraitBox);
+
+            _textBox.sizeDelta = _textBox.sizeDelta.WithX(dialogueDatas.HidePortraitBox ?
+                _canvasScaler.referenceResolution.x - Mathf.Abs(_textBox.anchoredPosition.x * 2)
+                : _textBoxInitWidth);
         }
 
         public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas, bool invertAnchors)
@@ -138,8 +151,9 @@
         private void Awake()
         {
             Display(false);
-            _skipInputInitY = _skipInputFeedback.anchoredPosition.y;
 
+            _skipInputInitY = _skipInputFeedback.anchoredPosition.y;
+            _textBoxInitWidth = _textBox.rect.width;
         }
     }
 }

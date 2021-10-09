@@ -2,12 +2,14 @@
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
 
    <DialogueDatas Id="StoneSign_00">
+      <HidePortraitBox/>
       <Sequence>
          <Sentence Id="StoneSign_00_Sentence_00"/>
       </Sequence>
    </DialogueDatas>
 
    <DialogueDatas Id="StoneSign_01">
+      <HidePortraitBox/>
       <Sequence>
          <Sentence Id="StoneSign_01_Sentence_00"/>
          <Sentence Id="StoneSign_01_Sentence_01"/>
@@ -15,6 +17,7 @@
    </DialogueDatas>
 
    <DialogueDatas Id="StoneSign_02">
+      <HidePortraitBox/>
       <Sequence>
          <Sentence Id="StoneSign_02_Sentence_00"/>
       </Sequence>
