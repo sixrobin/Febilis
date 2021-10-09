@@ -1,0 +1,28 @@
+SettingsManager qui stocke toutes les données (Singleton dontdestroy) et les load à l'Awake
+SettingsPanel qui référence tous les Selectable (buttons, sliders, toggles, etc.) qui modifient les settings
+	- Au start/à l'ouverture : le SettingsPanel récupère les infos du SettingsManager
+	- A la fermeture : les infos sont sauvegardées dans un fichier xml
+	
+Ca serait cool d'avoir des events SettingsChanged, abstraits, pour que les objets de la scène puissent s'abonner et ensuite checker les valeurs voulues directement sur le singleton
+Besoin d'une méthode Init() pour le cas où le fichier de save des settings n'existe pas
+	- On peut aussi imaginer que certains settings seront ajoutés, donc peut-être une méthode Init() pour chaque settings?
+	- Interface ISetting avec Init():void, Load(XElement):void et Save():XElement ?
+	
+- CONTROLS
+	- ...
+- GAME
+	- Language
+	- Shake amount
+	- Run in backgronud
+	- Constrain cursor
+	- Axis dead zone
+- VIDEO
+	- Pixel Perfect
+	- Screen size
+	- Frame Rate
+	- Monitor Index
+- AUDIO
+	- Master
+	- SFX
+	- UI
+	- Music

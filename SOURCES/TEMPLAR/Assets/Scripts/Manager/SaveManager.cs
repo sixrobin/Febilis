@@ -15,7 +15,7 @@
 
         public static void Save()
         {
-            Instance.Log("Saving game progression...", true);
+            Instance.Log("Saving game progression...", Instance.gameObject, true);
 
             try
             {
@@ -57,11 +57,11 @@
             }
             catch (System.Exception e)
             {
-                Instance.LogError($"Could not save game ! Exception message:\n{e}");
+                Instance.LogError($"Could not save game ! Exception message:\n{e}", Instance.gameObject);
                 return;
             }
 
-            Instance.Log("Game saved successfully !", true);
+            Instance.Log("Game saved successfully !", Instance.gameObject, true);
         }
 
         public static bool TryLoad()
@@ -72,12 +72,11 @@
                 return false;
             }
 
-            Instance.Log("Loading game progression...", true);
+            Instance.Log("Loading game progression...", Instance.gameObject, true);
 
             try
             {
                 XContainer container = XDocument.Parse(System.IO.File.ReadAllText(GameSavePath));
-
                 XElement gameSaveElement = container.Element("GameSave");
 
                 XElement checkpointIdElement = gameSaveElement.Element("CheckpointId");
@@ -92,11 +91,11 @@
             }
             catch (System.Exception e)
             {
-                Instance.LogError($"Could not load game ! Exception message:\n{e.ToString()}");
+                Instance.LogError($"Could not load game ! Exception message:\n{e}");
                 return false;
             }
 
-            Instance.Log("Game loaded successfully !", true);
+            Instance.Log("Game loaded successfully !", Instance.gameObject, true);
             return true;
         }
 
@@ -139,9 +138,9 @@
             if (!IsValid)
                 return;
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Save", "Saves game progression.", Save));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("Load", "Tries to load game progression.", () => TryLoad()));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseSave", "Erases save file if it exists.", () => EraseSave()));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveGame", "Saves game progression.", Save));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadGame", "Tries to load game progression.", () => TryLoad()));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseGameSave", "Erases game save file if it exists.", () => EraseSave()));
         }
     }
 }
