@@ -319,6 +319,11 @@ PrefabInstance:
       propertyPath: _movementTrigger._value
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5447492925875921836, guid: bfb57601590f5f1409c203ee358845ba,
+        type: 3}
+      propertyPath: _movementTriggerDelay._enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5447492925875921839, guid: bfb57601590f5f1409c203ee358845ba,
         type: 3}
       propertyPath: m_LocalPosition.x

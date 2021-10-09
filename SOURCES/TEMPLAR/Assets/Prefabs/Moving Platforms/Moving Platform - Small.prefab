@@ -170,6 +170,9 @@ MonoBehaviour:
   _movementTrigger:
     _value: {fileID: 0}
     _enabled: 0
+  _movementTriggerDelay:
+    _value: 0.5
+    _enabled: 1
   _dbgColor: {fileID: 0}
   _raycastsColor: {fileID: 11400000, guid: 9f35e503991250d4b8ff77f46a3bf38f, type: 2}
   _verbose: 0

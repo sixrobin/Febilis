@@ -36,7 +36,8 @@
 
         [Header("TRIGGER")]
         [SerializeField] private Templar.Tools.OptionalTriggerableObject _movementTrigger = new Templar.Tools.OptionalTriggerableObject(null, false);
-        
+        [SerializeField] private RSLib.Framework.OptionalFloat _movementTriggerDelay = new RSLib.Framework.OptionalFloat(0f, false);
+
         [Header("DEBUG")]
         [SerializeField] private RSLib.DataColor _dbgColor = null;
         [SerializeField] private RSLib.DataColor _raycastsColor = null;
@@ -65,7 +66,10 @@
 
         private void OnMovementTriggerTriggered(Triggerables.TriggerableObject.TriggerEventArgs args)
         {
-            _movementTriggered = true;
+            if (_movementTriggerDelay.Enabled && _movementTriggerDelay.Value > 0f)
+                StartCoroutine(TriggerMovementCoroutine());
+            else
+                _movementTriggered = true;
         }
 
         private Vector3 ComputePlatformVelocity()
@@ -233,6 +237,12 @@
             _onWaypointPause = true;
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_waypoints.PauseDur.Value);
             _onWaypointPause = false;
+        }
+
+        private System.Collections.IEnumerator TriggerMovementCoroutine()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_movementTriggerDelay.Value);
+            _movementTriggered = true;
         }
 
         private void Awake()
