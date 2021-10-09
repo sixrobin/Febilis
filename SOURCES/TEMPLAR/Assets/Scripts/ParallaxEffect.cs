@@ -92,6 +92,13 @@
 
         private void Start()
         {
+            if (_camTransform == null)
+            {
+                CProLogger.LogError(this, $"{nameof(_camTransform)} reference is missing, disabling {GetType().Name} instance.", gameObject);
+                enabled = false;
+                return;
+            }
+
             Cleanup();
 
             _initCamPos = _camTransform.position;
