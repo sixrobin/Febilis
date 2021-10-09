@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 1450818110995700820}
   - component: {fileID: 8964628234823463603}
   m_Layer: 11
-  m_Name: Templar Interaction Zone
+  m_Name: Player Interaction Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 2727861838001810201}
   - component: {fileID: 653416431510758932}
   m_Layer: 9
-  m_Name: Templar Controller
+  m_Name: Player Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 2727861838613788317}
   - component: {fileID: 2727861838613788315}
   m_Layer: 0
-  m_Name: Templar View
+  m_Name: Player View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 2727861839271538948}
   - component: {fileID: 2727861839271538949}
   m_Layer: 9
-  m_Name: Templar Health Controller
+  m_Name: Player Health Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

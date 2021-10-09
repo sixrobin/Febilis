@@ -14,12 +14,13 @@
     {
         public class InventoryContentChangedEventArgs : System.EventArgs
         {
-            public InventoryContentChangedEventArgs(Item item, int prevQuantity, int newQuantity, bool onInit = false)
+            public InventoryContentChangedEventArgs(Item item, int prevQuantity, int newQuantity, bool onInit = false, bool showPickupNotification = true)
             {
                 Item = item;
                 PrevQuantity = prevQuantity;
                 NewQuantity = newQuantity;
                 OnInit = onInit;
+                ShowPickupNotification = showPickupNotification && !OnInit;
             }
 
             public Item Item { get; private set; }
@@ -31,6 +32,9 @@
             /// If so, some events listeners might actually not do their behaviour.
             /// </summary>
             public bool OnInit { get; private set; }
+
+            public bool ShowPickupNotification { get; private set; }
+
         }
 
         public const string ITEM_ID_COIN = "Coin";
@@ -69,12 +73,12 @@
             return TryGetOwnedItemKey(id, out Item item) ? Items[item] : 0;
         }
 
-        public void AddItem(string id, bool onInit = false)
+        public void AddItem(string id, bool onInit = false, bool showPickupNotification = true)
         {
-            AddItem(id, 1, onInit);
+            AddItem(id, 1, onInit, showPickupNotification);
         }
 
-        public void AddItem(string id, int quantity, bool onInit = false)
+        public void AddItem(string id, int quantity, bool onInit = false, bool showPickupNotification = true)
         {
             if (!TryGetOwnedItemKey(id, out Item item))
                 Items.Add(item = new Item(id), 0);
@@ -83,7 +87,7 @@
             Items[item] += quantity;
 
             CProLogger.Log(this, $"Added {quantity} {id}(s) to inventory, now has {Items[item]} copy(ies) of it.");
-            InventoryContentChanged?.Invoke(new InventoryContentChangedEventArgs(item, previousQuantity, Items[item], onInit));
+            InventoryContentChanged?.Invoke(new InventoryContentChangedEventArgs(item, previousQuantity, Items[item], onInit, showPickupNotification));
         }
 
         public void RemoveItem(string id)

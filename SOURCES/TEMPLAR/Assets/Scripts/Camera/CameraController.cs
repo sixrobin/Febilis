@@ -254,9 +254,9 @@
 
             ComputeLookAheadPosition(ref targetPosition);
             ComputeLookVerticalPosition(ref targetPosition);
-            ComputeShakePosition(ref targetPosition);
             ComputeDampedPosition(ref targetPosition);
             ComputeBoundedPosition(ref targetPosition);
+            ComputeShakePosition(ref targetPosition);
 
             transform.position = targetPosition.WithZ(transform.position.z);
 

@@ -66,7 +66,12 @@
         void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             HealthCtrl.HealFull();
-            // Restore potions.
+
+            // [TMP] Constant value of 2 max potions.
+            int currentPotionsQuantity = Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION);
+            if (currentPotionsQuantity < 2)
+                Manager.GameManager.InventoryCtrl.AddItem(Item.InventoryController.ITEM_ID_POTION, 2 - currentPotionsQuantity, showPickupNotification: false);
+
             AllowInputs(true);
         }
 

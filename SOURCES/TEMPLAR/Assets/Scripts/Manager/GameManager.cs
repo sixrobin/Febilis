@@ -30,6 +30,8 @@
         {
             foreach (ICheckpointListener listener in Instance._checkpointListeners)
                 listener.OnCheckpointInteracted(checkpoint);
+
+            SaveManager.Save();
         }
 
         private void CheckDuplicateCheckpointIds()

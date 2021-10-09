@@ -70,8 +70,6 @@
 
             Manager.GameManager.PlayerCtrl.AllowInputs(false);
             _checkpointView.PlayInteractedAnimation(() => Manager.GameManager.OnCheckpointInteracted(this));
-
-            Manager.SaveManager.Save();
         }
 
         private void OnBeforeCheckpointChange(string currId, string nextId)

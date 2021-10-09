@@ -21,7 +21,7 @@
 
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
         {
-            if (args.OnInit
+            if (!args.ShowPickupNotification
                 || args.NewQuantity < args.PrevQuantity
                 || args.Item.Datas.SkipPickupNotification
                 || Dialogue.DialogueManager.DialogueRunning)
