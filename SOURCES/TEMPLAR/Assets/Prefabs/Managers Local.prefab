@@ -101,6 +101,7 @@ MonoBehaviour:
   _dialogueView: {fileID: 0}
   _currentDialogueId:
     _value: 
+  _delayBeforeFirstDialogueElement: 0.5
   _goToPositionTimeout: 3
 --- !u!1 &8874774588189541611
 GameObject:
@@ -202,7 +203,8 @@ MonoBehaviour:
   _verbose: 0
   _defaultMapDatas: {fileID: 11400000, guid: edc90de95f7cb8f4f9eaf7084a2a48bd, type: 2}
   _disableMapLoading: 0
-  _cancelAssignKey: 27
+  _cancelAssignKeys: 1b000000
+  _unbindableKeys: 
 --- !u!1 &8874774588630882538
 GameObject:
   m_ObjectHideFlags: 0
