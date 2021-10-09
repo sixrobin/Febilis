@@ -176,6 +176,12 @@
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
 #endif
         }
+    
+        [ContextMenu("Trigger")]
+        public void DebugTrigger()
+        {
+            Trigger(TriggerableSourceType.NONE);
+        }
     }
 
 #if UNITY_EDITOR
@@ -188,7 +194,10 @@
             DrawButton("Get Children Triggerables Recursive", Obj.GetChildrenTriggerablesRecursive);
 
             if (UnityEditor.EditorApplication.isPlaying)
+            {
+                DrawButton("Trigger", Obj.DebugTrigger);
                 DrawButton("Reset Triggerable", Obj.ResetTriggerable);
+            }
         }
     }
 #endif
