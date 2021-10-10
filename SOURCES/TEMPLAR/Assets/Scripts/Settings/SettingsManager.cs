@@ -13,6 +13,7 @@
         public static Settings.ShakeAmount ShakeAmount { get; private set; }
 
         private static string SettingsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Settings.xml";
+        private static string InputsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Inputs.xml";
 
         public static void Save()
         {
@@ -113,6 +114,16 @@
             ShakeAmount = new Settings.ShakeAmount();
         }
 
+        public static void LoadInputs()
+        {
+            RSLib.Framework.InputSystem.InputManager.SavePath = InputsSavePath;
+
+            if (!RSLib.Framework.InputSystem.InputManager.TryLoadMap())
+                RSLib.Framework.InputSystem.InputManager.SetMap(RSLib.Framework.InputSystem.InputManager.GetDefaultMapCopy());
+            else
+                RSLib.Framework.InputSystem.InputManager.GenerateMissingInputsFromSave();
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -121,6 +132,11 @@
 
             if (!TryLoad())
                 Init();
+
+            LoadInputs();
+
+            Save();
+            RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveSettings", "Saves settings.", Save));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadSettings", "Tries to load settings.", () => TryLoad()));

@@ -103,6 +103,7 @@ MonoBehaviour:
     _value: 
   _delayBeforeFirstDialogueElement: 0.5
   _goToPositionTimeout: 3
+  _debugFastDialogues: 0
 --- !u!1 &8874774588189541611
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,9 +152,9 @@ MonoBehaviour:
   _overrideLogPrefix:
     _value: 
     _enabled: 0
-  _settingsPanel: {fileID: 0}
+  _settingsHubPanel: {fileID: 0}
   _controlsPanel: {fileID: 0}
-  _videoPanel: {fileID: 0}
+  _gamePanel: {fileID: 0}
   _audioPanel: {fileID: 0}
   _languagePanel: {fileID: 0}
 --- !u!1 &8874774588431910297
@@ -203,6 +204,7 @@ MonoBehaviour:
   _verbose: 0
   _defaultMapDatas: {fileID: 11400000, guid: edc90de95f7cb8f4f9eaf7084a2a48bd, type: 2}
   _disableMapLoading: 0
+  _autoLoadOnStart: 0
   _cancelAssignKeys: 1b000000
   _unbindableKeys: 
 --- !u!1 &8874774588630882538

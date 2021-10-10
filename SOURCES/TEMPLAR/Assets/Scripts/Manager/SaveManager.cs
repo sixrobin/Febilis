@@ -12,7 +12,6 @@
         public static bool DisableLoading => Instance._disableLoading;
 
         private static string GameSavePath => $"{Application.persistentDataPath}/Save/Game.xml";
-        private static string InputsSavePath => $"{Application.persistentDataPath}/Save/Inputs.xml";
 
         public static void Save()
         {
@@ -138,8 +137,6 @@
             base.Awake();
             if (!IsValid)
                 return;
-
-            RSLib.Framework.InputSystem.InputManager.SavePath = InputsSavePath;
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveGame", "Saves game progression.", Save));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadGame", "Tries to load game progression.", () => TryLoad()));
