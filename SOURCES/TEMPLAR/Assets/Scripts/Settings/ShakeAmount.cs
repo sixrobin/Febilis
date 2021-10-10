@@ -16,6 +16,7 @@
 
         public override string SaveElementName => SAVE_ELEMENT_NAME;
 
-        public override (float Min, float Max) Range => (0f, 1f);
+        public override (float Min, float Max) Range => (0f, 2f);
+        public override float Default => 1f;
     }
 }

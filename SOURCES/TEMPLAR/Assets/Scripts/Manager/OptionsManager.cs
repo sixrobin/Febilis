@@ -1,21 +1,19 @@
 ﻿namespace Templar.Manager
 {
     using UnityEngine;
-#if UNITY_EDITOR
-    using UnityEditor;
-#endif
 
     public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
     {
         [Header("OPTIONS PANELS")]
-        [SerializeField] private UI.Options.SettingsPanel _settingsPanel = null;
-        [SerializeField] private UI.Options.Controls.ControlsPanel _controlsPanel = null;
-        [SerializeField] private UI.Options.OptionPanelBase _videoPanel = null;
-        [SerializeField] private UI.Options.OptionPanelBase _audioPanel = null;
-        [SerializeField] private UI.Options.OptionPanelBase _languagePanel = null;
+        [SerializeField] private UI.Settings.SettingsHubPanel _settingsHubPanel = null;
+        [SerializeField] private UI.Settings.Controls.ControlsPanel _controlsPanel = null;
+        [SerializeField] private UI.Settings.Game.GameSettingsPanel _gamePanel = null;
+        [SerializeField] private UI.Settings.SettingsPanelBase _audioPanel = null;
+        [SerializeField] private UI.Settings.SettingsPanelBase _languagePanel = null;
+
+        private System.Collections.Generic.Dictionary<UI.Settings.SettingsPanelBase, UnityEngine.UI.Button> _panelsBtns;
 
         public delegate void OptionsToggleEventHandler();
-
         public event OptionsToggleEventHandler OptionsOpened;
         public event OptionsToggleEventHandler OptionsClosed;
 
@@ -24,9 +22,9 @@
         public static bool AnyPanelOpen()
         {
             // [TODO] Remove those null checks once panels are implemented.
-            return Instance._settingsPanel.Displayed
+            return Instance._settingsHubPanel.Displayed
                 || Instance._controlsPanel.Displayed
-                || (Instance._videoPanel?.Displayed ?? false)
+                || Instance._gamePanel.Displayed
                 || (Instance._audioPanel?.Displayed ?? false)
                 || (Instance._languagePanel?.Displayed ?? false);
         }
@@ -44,13 +42,16 @@
                 && (!GameManager.InventoryView?.Displayed ?? true);
         }
 
-        public void OpenSettings()
+        public void OpenSettings(UI.Settings.SettingsPanelBase sourcePanel = null)
         {
             if (!AnyPanelOpen())
                 OptionsOpened?.Invoke();
 
-            UI.Navigation.UINavigationManager.OpenAndSelect(_settingsPanel);
-            _settingsPanel.Display(true);
+            UI.Navigation.UINavigationManager.OpenAndSelect(_settingsHubPanel);
+            if (sourcePanel != null && _panelsBtns.TryGetValue(sourcePanel, out UnityEngine.UI.Button btn) && btn != null)
+                UI.Navigation.UINavigationManager.Select(btn.gameObject);
+
+            _settingsHubPanel.Display(true);
         }
 
         public void Close()
@@ -61,41 +62,41 @@
 
         private void InitOptionsButtons()
         {
-            _settingsPanel.ControlsBtn.onClick.AddListener(OpenControlsPanel);
-            //_settingsPanel.VideoBtn.onClick.AddListener(OpenVideoPanel);
+            _settingsHubPanel.ControlsBtn.onClick.AddListener(OpenControlsPanel);
+            _settingsHubPanel.GameBtn.onClick.AddListener(OpenGamePanel);
             //_settingsPanel.AudioBtn.onClick.AddListener(OpenAudioPanel);
             //_settingsPanel.LanguageBtn.onClick.AddListener(OpenLanguagePanel);
         }
 
         private void CleanupOptionsButtons()
         {
-            _settingsPanel.ControlsBtn.onClick.RemoveListener(OpenControlsPanel);
-            //_settingsPanel.VideoBtn.onClick.RemoveListener(OpenVideoPanel);
+            _settingsHubPanel.ControlsBtn.onClick.RemoveListener(OpenControlsPanel);
+            _settingsHubPanel.GameBtn.onClick.RemoveListener(OpenGamePanel);
             //_settingsPanel.AudioBtn.onClick.RemoveListener(OpenAudioPanel);
             //_settingsPanel.LanguageBtn.onClick.RemoveListener(OpenLanguagePanel);
         }
 
         private void OpenControlsPanel()
         {
-            _settingsPanel.Display(false);
+            _settingsHubPanel.Display(false);
             UI.Navigation.UINavigationManager.OpenAndSelect(_controlsPanel);
         }
 
-        private void OpenVideoPanel()
+        private void OpenGamePanel()
         {
-            _settingsPanel.Display(false);
-            UI.Navigation.UINavigationManager.OpenAndSelect(_videoPanel);
+            _settingsHubPanel.Display(false);
+            UI.Navigation.UINavigationManager.OpenAndSelect(_gamePanel);
         }
 
         private void OpenAudioPanel()
         {
-            _settingsPanel.Display(false);
+            _settingsHubPanel.Display(false);
             UI.Navigation.UINavigationManager.OpenAndSelect(_audioPanel);
         }
 
         private void OpenLanguagePanel()
         {
-            _settingsPanel.Display(false);
+            _settingsHubPanel.Display(false);
             UI.Navigation.UINavigationManager.OpenAndSelect(_languagePanel);
         }
 
@@ -109,12 +110,23 @@
             UI.Navigation.UINavigationManager.NullifySelected();
             ClosedThisFrame = false;
 
+            SettingsManager.Save();
+
             OptionsClosed?.Invoke();
         }
 
         protected override void Awake()
         {
             base.Awake();
+
+            _panelsBtns = new System.Collections.Generic.Dictionary<UI.Settings.SettingsPanelBase, UnityEngine.UI.Button>()
+            {
+                { _controlsPanel, _settingsHubPanel.ControlsBtn },
+                { _gamePanel, _settingsHubPanel.GameBtn },
+                //{ _audioPanel, _settingsHubPanel.AudioBtn },
+                //{ _languagePanel, _settingsHubPanel.LanguageBtn }
+            };
+
             InitOptionsButtons();
         }
 
@@ -143,16 +155,20 @@
         [ContextMenu("Find All References")]
         private void DebugFindAllReferences()
         {
-            _settingsPanel = FindObjectOfType<UI.Options.SettingsPanel>();
-            _controlsPanel = FindObjectOfType<UI.Options.Controls.ControlsPanel>();
+            _settingsHubPanel = FindObjectOfType<UI.Settings.SettingsHubPanel>();
+            _controlsPanel = FindObjectOfType<UI.Settings.Controls.ControlsPanel>();
+            _gamePanel = FindObjectOfType<UI.Settings.Game.GameSettingsPanel>();
+
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
         [ContextMenu("Find Missing References")]
         private void DebugFindMissingReferences()
         {
-            _settingsPanel = _settingsPanel ?? FindObjectOfType<UI.Options.SettingsPanel>();
-            _controlsPanel = _controlsPanel ?? FindObjectOfType<UI.Options.Controls.ControlsPanel>();
+            _settingsHubPanel = _settingsHubPanel ?? FindObjectOfType<UI.Settings.SettingsHubPanel>();
+            _controlsPanel = _controlsPanel ?? FindObjectOfType<UI.Settings.Controls.ControlsPanel>();
+            _gamePanel = _gamePanel ?? FindObjectOfType<UI.Settings.Game.GameSettingsPanel>();
+
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }

@@ -10,6 +10,7 @@
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
         [SerializeField] private Templar.Datas.ShakeSettingsLibrary _shakesLibrary = null;
+        [SerializeField] private UnityEngine.U2D.PixelPerfectCamera _pixelPerfectCamera = null;
 
         //[Header("PIXEL PERFECT FIX")]
         //[SerializeField] private bool _toggleManualFix = true;
@@ -203,7 +204,7 @@
         private void ComputeShakePosition(ref Vector3 pos)
         {
             foreach (System.Collections.Generic.KeyValuePair<string, CameraShake> shake in _shakesDictionary)
-                pos += shake.Value.GetShake();
+                pos += shake.Value.GetShakeWithSettings();
         }
 
         //private void UpdatePixelPerfectCameraSize()
@@ -223,11 +224,20 @@
         //    _camera.orthographicSize = h * 0.5f / (zoom * _assetsPixelsPerUnit);
         //}
 
-        private void Awake()
+        private void OnPixelPerfectValueChanged(bool value)
+        {
+            _pixelPerfectCamera.enabled = value;
+        }
+
+        private void Start()
         {
             _focusArea = new RSLib.FocusArea(_playerCtrl.BoxCollider2D, _cameraDatas.FocusAreaSize);
             GenerateShakesDictionary();
             PositionInstantly();
+
+            _pixelPerfectCamera.enabled = Manager.SettingsManager.PixelPerfect.Value;
+
+            Manager.SettingsManager.PixelPerfect.ValueChanged += OnPixelPerfectValueChanged;
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command(
                 "PixelPerfectToggle", "Toggles pixel perfect camera.", () => GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled = !GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled));
@@ -261,6 +271,11 @@
             transform.position = targetPosition.WithZ(transform.position.z);
 
             //UpdatePixelPerfectCameraSize();
+        }
+
+        private void OnDestroy()
+        {
+            Manager.SettingsManager.PixelPerfect.ValueChanged -= OnPixelPerfectValueChanged;
         }
 
         private void OnDrawGizmos()

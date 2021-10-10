@@ -61,10 +61,10 @@
 
         public void ApplyOnTransform(Transform transform)
         {
-            transform.position += GetShake();
+            transform.position += GetShakeWithSettings();
         }
 
-        public Vector3 GetShake()
+        public Vector3 GetShakeRaw()
         {
             if (Trauma.sqrMagnitude == 0f || Manager.FreezeFrameManager.IsFroze)
                 return Vector3.zero;
@@ -75,7 +75,12 @@
             Vector2 rndDir = Random.insideUnitCircle.normalized;
             rndDir *= Trauma;
 
-            return (Vector3)(rndDir * _shakeSettings.Radius);
+            return rndDir * _shakeSettings.Radius;
+        }
+
+        public Vector3 GetShakeWithSettings()
+        {
+            return GetShakeRaw() * Manager.SettingsManager.ShakeAmount.Value;
         }
     }
 }

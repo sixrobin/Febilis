@@ -70,12 +70,12 @@
         {
             Horizontal = Input.GetAxisRaw(HORIZONTAL_KEYBOARD);
             float leftStickHorizontal = Input.GetAxis(HORIZONTAL_CONTROLLER);
-            if (leftStickHorizontal * leftStickHorizontal > InputDatas.LeftJoystickDeadZoneSqr)
+            if (leftStickHorizontal * leftStickHorizontal > Manager.SettingsManager.AxisDeadZone.ValueSqr)
                 Horizontal = leftStickHorizontal;
 
             Vertical = Input.GetAxisRaw(VERTICAL_KEYBOARD);
             float leftStickVertical = Input.GetAxis(VERTICAL_CONTROLLER);
-            if (leftStickVertical * leftStickVertical > InputDatas.LeftJoystickDeadZoneSqr)
+            if (leftStickVertical * leftStickVertical > Manager.SettingsManager.AxisDeadZone.ValueSqr)
                 Vertical = leftStickVertical;
 
             foreach (System.Collections.Generic.KeyValuePair<ButtonCategory, InputGetterHandler> input in _inputGetters)

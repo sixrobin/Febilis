@@ -5,10 +5,12 @@
 
     public class SettingsManager : RSLib.Framework.ConsoleProSingleton<SettingsManager>
     {
-        private Settings.AxisDeadZone _axisDeadZone;
-        private Settings.ShakeAmount _shakeAmount;
-        private Settings.PixelPerfect _pixelPerfect;
-        private Settings.MonitorIndex _monitorIndex;
+        public static Settings.AxisDeadZone AxisDeadZone { get; private set; }
+        public static Settings.ConstrainCursor ConstrainCursor { get; private set; }
+        public static Settings.MonitorIndex MonitorIndex { get; private set; }
+        public static Settings.PixelPerfect PixelPerfect { get; private set; }
+        public static Settings.RunInBackground RunInBackground { get; private set; }
+        public static Settings.ShakeAmount ShakeAmount { get; private set; }
 
         private static string SettingsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Settings.xml";
 
@@ -20,10 +22,12 @@
             {
                 XContainer container = new XElement("SettingsSave");
 
-                container.Add(Instance._shakeAmount.Save());
-                container.Add(Instance._axisDeadZone.Save());
-                container.Add(Instance._pixelPerfect.Save());
-                container.Add(Instance._monitorIndex.Save());
+                container.Add(AxisDeadZone.Save());
+                container.Add(ConstrainCursor.Save());
+                container.Add(MonitorIndex.Save());
+                container.Add(PixelPerfect.Save());
+                container.Add(RunInBackground.Save());
+                container.Add(ShakeAmount.Save());
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(SettingsSavePath);
                 if (!fileInfo.Directory.Exists)
@@ -62,10 +66,7 @@
         public static bool TryLoad()
         {
             if (!System.IO.File.Exists(SettingsSavePath))
-            {
-                Init();
                 return false;
-            }
 
             Instance.Log("Loading settings...", Instance.gameObject, true);
 
@@ -75,16 +76,22 @@
                 XElement settingsSaveElement = container.Element("SettingsSave");
 
                 XElement axisDeadZoneElement = settingsSaveElement.Element(Settings.AxisDeadZone.SAVE_ELEMENT_NAME);
-                Instance._axisDeadZone = axisDeadZoneElement != null ? new Settings.AxisDeadZone(axisDeadZoneElement) : new Settings.AxisDeadZone();
+                AxisDeadZone = axisDeadZoneElement != null ? new Settings.AxisDeadZone(axisDeadZoneElement) : new Settings.AxisDeadZone();
 
-                XElement shakeAmountElement = settingsSaveElement.Element(Settings.ShakeAmount.SAVE_ELEMENT_NAME);
-                Instance._shakeAmount = shakeAmountElement != null ? new Settings.ShakeAmount(shakeAmountElement) : new Settings.ShakeAmount();
-
-                XElement pixelPerfectElement = settingsSaveElement.Element(Settings.PixelPerfect.SAVE_ELEMENT_NAME);
-                Instance._pixelPerfect = pixelPerfectElement != null ? new Settings.PixelPerfect(pixelPerfectElement) : new Settings.PixelPerfect();
+                XElement constrainCursorElement = settingsSaveElement.Element(Settings.ConstrainCursor.SAVE_ELEMENT_NAME);
+                ConstrainCursor = constrainCursorElement != null ? new Settings.ConstrainCursor(constrainCursorElement) : new Settings.ConstrainCursor();
 
                 XElement monitorIndexElement = settingsSaveElement.Element(Settings.MonitorIndex.SAVE_ELEMENT_NAME);
-                Instance._monitorIndex = monitorIndexElement != null ? new Settings.MonitorIndex(monitorIndexElement) : new Settings.MonitorIndex();
+                MonitorIndex = monitorIndexElement != null ? new Settings.MonitorIndex(monitorIndexElement) : new Settings.MonitorIndex();
+
+                XElement pixelPerfectElement = settingsSaveElement.Element(Settings.PixelPerfect.SAVE_ELEMENT_NAME);
+                PixelPerfect = pixelPerfectElement != null ? new Settings.PixelPerfect(pixelPerfectElement) : new Settings.PixelPerfect();
+
+                XElement runInBackgroundElement = settingsSaveElement.Element(Settings.RunInBackground.SAVE_ELEMENT_NAME);
+                RunInBackground = runInBackgroundElement != null ? new Settings.RunInBackground(runInBackgroundElement) : new Settings.RunInBackground();
+
+                XElement shakeAmountElement = settingsSaveElement.Element(Settings.ShakeAmount.SAVE_ELEMENT_NAME);
+                ShakeAmount = shakeAmountElement != null ? new Settings.ShakeAmount(shakeAmountElement) : new Settings.ShakeAmount();
             }
             catch (System.Exception e)
             {
@@ -96,12 +103,14 @@
             return true;
         }
 
-        private static void Init()
+        public static void Init()
         {
-            Instance._shakeAmount = new Settings.ShakeAmount();
-            Instance._axisDeadZone = new Settings.AxisDeadZone();
-            Instance._pixelPerfect = new Settings.PixelPerfect();
-            Instance._monitorIndex = new Settings.MonitorIndex();
+            AxisDeadZone = new Settings.AxisDeadZone();
+            ConstrainCursor = new Settings.ConstrainCursor();
+            MonitorIndex = new Settings.MonitorIndex();
+            PixelPerfect = new Settings.PixelPerfect();
+            RunInBackground = new Settings.RunInBackground();
+            ShakeAmount = new Settings.ShakeAmount();
         }
 
         protected override void Awake()
@@ -110,7 +119,8 @@
             if (!IsValid)
                 return;
 
-            TryLoad();
+            if (!TryLoad())
+                Init();
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveSettings", "Saves settings.", Save));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadSettings", "Tries to load settings.", () => TryLoad()));

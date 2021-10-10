@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4413882991258451419}
   - component: {fileID: 4413882991258451416}
   m_Layer: 0
-  m_Name: Templar Camera
+  m_Name: Player Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,6 +205,7 @@ MonoBehaviour:
   _playerCtrl: {fileID: 0}
   _grayscaleRamp: {fileID: 4413882991258451416}
   _shakesLibrary: {fileID: 11400000, guid: f85cc66a23892ff47a4bdb5a2aa3b37b, type: 2}
+  _pixelPerfectCamera: {fileID: 4413882991258451236}
   _debugOnSelectedOnly: 0
   _debugColor: {fileID: 11400000, guid: 0bc4dac2a1ed649449d963fee17371c5, type: 2}
   _initBounds:

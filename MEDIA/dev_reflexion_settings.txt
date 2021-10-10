@@ -8,12 +8,15 @@ Besoin d'une méthode Init() pour le cas où le fichier de save des settings n'e
 	- On peut aussi imaginer que certains settings seront ajoutés, donc peut-être une méthode Init() pour chaque settings?
 	- Interface ISetting avec Init():void, Load(XElement):void et Save():XElement ?
 	
+Une classe par option permettrait, potentiellement, de les cloner et d'en avoir une instance dans le SettingsManager, et une dans l'UI, pour pouvoir gérer les revert/apply et compagnie...
+	- Méthode Clone() ?
+	
 - CONTROLS
 	- ...
 - GAME
 	- Language
 	- Shake amount
-	- Run in backgronud
+	- Run in background
 	- Constrain cursor
 	- Axis dead zone
 - VIDEO

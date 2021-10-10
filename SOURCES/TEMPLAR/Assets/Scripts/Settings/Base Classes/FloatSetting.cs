@@ -28,11 +28,14 @@
             }
         }
 
+        public float ValueSqr => Value * Value;
+
         public abstract (float Min, float Max) Range { get; }
+        public virtual float Default => Range.Max;
 
         public override void Init()
         {
-            Value = Range.Max;
+            Value = Default;
         }
 
         public override void Load(XElement element)
