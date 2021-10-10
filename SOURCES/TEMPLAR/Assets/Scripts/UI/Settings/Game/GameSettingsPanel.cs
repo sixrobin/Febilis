@@ -1,21 +1,23 @@
 ﻿namespace Templar.UI.Settings.Game
 {
     using RSLib.Extensions;
-    using UnityEditor;
-#if UNITY_EDITOR
+    using System.Linq;
     using UnityEngine;
+#if UNITY_EDITOR
+    using UnityEditor;
 #endif
 
     public class GameSettingsPanel : SettingsPanelBase
     {
         [Header("GAME SETTINGS")]
         [SerializeField] private SettingView[] _settings = null;
+        [Space(10f)]
         [SerializeField] private UnityEngine.UI.Button _resetSettingsBtn = null;
         [SerializeField] private UnityEngine.UI.Button _saveSettingsBtn = null;
 
         private bool _initialized;
         
-        public override GameObject FirstSelected => _settings.Length > 0 ? _settings[0].gameObject : null;
+        public override GameObject FirstSelected => _settings.Where(o => o.Visible).FirstOrDefault()?.gameObject;
 
         public override void OnBackButtonPressed()
         {
@@ -49,39 +51,41 @@
 
         private void InitNavigation()
         {
-            for (int i = 0; i < _settings.Length; ++i)
+            SettingView[] enabledSettings = _settings.Where(o => o.Visible).ToArray();
+
+            for (int i = 0; i < enabledSettings.Length; ++i)
             {
                 bool first = i == 0;
-                bool last = i == _settings.Length - 1 || !_settings[i + 1].Visible;
+                bool last = i == enabledSettings.Length - 1;
 
-                _settings[i].Selectable.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+                enabledSettings[i].Selectable.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
 
                 if (first)
                 {
-                    _settings[i].Selectable.SetSelectOnUp(BackBtn);
-                    _settings[i].Selectable.SetSelectOnUp(QuitBtn);
+                    enabledSettings[i].Selectable.SetSelectOnUp(BackBtn);
+                    enabledSettings[i].Selectable.SetSelectOnUp(QuitBtn);
 
-                    BackBtn.SetSelectOnDown(_settings[i].Selectable);
-                    QuitBtn.SetSelectOnDown(_settings[i].Selectable);
+                    BackBtn.SetSelectOnDown(enabledSettings[i].Selectable);
+                    QuitBtn.SetSelectOnDown(enabledSettings[i].Selectable);
                 }
                 else
                 {
-                    _settings[i].Selectable.SetSelectOnUp(_settings[i - 1]);
+                    enabledSettings[i].Selectable.SetSelectOnUp(enabledSettings[i - 1]);
                 }
 
                 if (!last)
                 {
-                    _settings[i].Selectable.SetSelectOnDown(_settings[i + 1]);
+                    enabledSettings[i].Selectable.SetSelectOnDown(enabledSettings[i + 1]);
                     continue;
                 }
 
                 _resetSettingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 _saveSettingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
 
-                _resetSettingsBtn.SetSelectOnUp(_settings[i].Selectable);
-                _saveSettingsBtn.SetSelectOnUp(_settings[i].Selectable);
+                _resetSettingsBtn.SetSelectOnUp(enabledSettings[i].Selectable);
+                _saveSettingsBtn.SetSelectOnUp(enabledSettings[i].Selectable);
 
-                _settings[i].Selectable.SetSelectOnDown(_saveSettingsBtn);
+                enabledSettings[i].Selectable.SetSelectOnDown(_saveSettingsBtn);
 
                 break;
             }

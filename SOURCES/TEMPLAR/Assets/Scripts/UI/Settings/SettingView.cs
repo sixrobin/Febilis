@@ -18,10 +18,12 @@
 
         public abstract void Init();
 
+#if UNITY_EDITOR
         protected override void Reset()
         {
             base.Reset();
             transition = Transition.None;
         }
+#endif
     }
 }

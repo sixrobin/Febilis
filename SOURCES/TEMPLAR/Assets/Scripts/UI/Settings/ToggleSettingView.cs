@@ -21,10 +21,12 @@
             BoolSetting.Value = value;
         }
 
+#if UNITY_EDITOR
         protected override void Reset()
         {
             base.Reset();
             _toggle = _toggle ?? GetComponentInChildren<RSLib.Framework.GUI.EnhancedToggle>();
         }
+#endif
     }
 }

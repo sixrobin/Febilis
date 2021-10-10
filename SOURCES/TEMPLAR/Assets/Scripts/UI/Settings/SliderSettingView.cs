@@ -35,10 +35,12 @@
             FloatSetting.Value = value;
         }
 
+#if UNITY_EDITOR
         protected override void Reset()
         {
             base.Reset();
             _slider = _slider ?? GetComponentInChildren<UnityEngine.UI.Slider>();
         }
+#endif
     }
 }

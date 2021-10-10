@@ -10,7 +10,9 @@
         public static Settings.MonitorIndex MonitorIndex { get; private set; }
         public static Settings.PixelPerfect PixelPerfect { get; private set; }
         public static Settings.RunInBackground RunInBackground { get; private set; }
+        public static Settings.ScreenSize ScreenSize { get; private set; }
         public static Settings.ShakeAmount ShakeAmount { get; private set; }
+        public static Settings.TargetFrameRate TargetFrameRate { get; private set; }
 
         private static string SettingsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Settings.xml";
         private static string InputsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Inputs.xml";
@@ -28,7 +30,9 @@
                 container.Add(MonitorIndex.Save());
                 container.Add(PixelPerfect.Save());
                 container.Add(RunInBackground.Save());
+                container.Add(ScreenSize.Save());
                 container.Add(ShakeAmount.Save());
+                container.Add(TargetFrameRate.Save());
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(SettingsSavePath);
                 if (!fileInfo.Directory.Exists)
@@ -91,8 +95,14 @@
                 XElement runInBackgroundElement = settingsSaveElement.Element(Settings.RunInBackground.SAVE_ELEMENT_NAME);
                 RunInBackground = runInBackgroundElement != null ? new Settings.RunInBackground(runInBackgroundElement) : new Settings.RunInBackground();
 
+                XElement screenSizeElement = settingsSaveElement.Element(Settings.ScreenSize.SAVE_ELEMENT_NAME);
+                ScreenSize = screenSizeElement != null ? new Settings.ScreenSize(screenSizeElement) : new Settings.ScreenSize();
+
                 XElement shakeAmountElement = settingsSaveElement.Element(Settings.ShakeAmount.SAVE_ELEMENT_NAME);
                 ShakeAmount = shakeAmountElement != null ? new Settings.ShakeAmount(shakeAmountElement) : new Settings.ShakeAmount();
+
+                XElement targetFrameRateElement = settingsSaveElement.Element(Settings.TargetFrameRate.SAVE_ELEMENT_NAME);
+                TargetFrameRate = targetFrameRateElement != null ? new Settings.TargetFrameRate(targetFrameRateElement) : new Settings.TargetFrameRate();
             }
             catch (System.Exception e)
             {
@@ -111,7 +121,9 @@
             MonitorIndex = new Settings.MonitorIndex();
             PixelPerfect = new Settings.PixelPerfect();
             RunInBackground = new Settings.RunInBackground();
+            ScreenSize = new Settings.ScreenSize();
             ShakeAmount = new Settings.ShakeAmount();
+            TargetFrameRate = new Settings.TargetFrameRate();
         }
 
         public static void LoadInputs()
