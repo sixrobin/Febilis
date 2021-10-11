@@ -9,14 +9,23 @@
 
     public class GameSettingsPanel : SettingsPanelBase
     {
+        private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
+        private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.05f;
+
         [Header("GAME SETTINGS")]
         [SerializeField] private SettingView[] _settings = null;
         [Space(10f)]
         [SerializeField] private UnityEngine.UI.Button _resetSettingsBtn = null;
         [SerializeField] private UnityEngine.UI.Button _saveSettingsBtn = null;
 
+        [Header("UI NAVIGATION")]
+        [SerializeField] private RectTransform _settingsViewport = null;
+        [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
+
         private bool _initialized;
-        
+
+        private Vector3[] _settingsViewportWorldCorners = new Vector3[4];
+
         public override GameObject FirstSelected => _settings.Where(o => o.Visible).FirstOrDefault()?.gameObject;
 
         public override void OnBackButtonPressed()
@@ -59,14 +68,15 @@
                 bool last = i == enabledSettings.Length - 1;
 
                 enabledSettings[i].Selectable.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+                enabledSettings[i].PointerEventsHandler.PointerEnter += OnSettingPointerEnter;
 
                 if (first)
                 {
                     enabledSettings[i].Selectable.SetSelectOnUp(BackBtn);
                     enabledSettings[i].Selectable.SetSelectOnUp(QuitBtn);
 
-                    BackBtn.SetSelectOnDown(enabledSettings[i].Selectable);
-                    QuitBtn.SetSelectOnDown(enabledSettings[i].Selectable);
+                    BackBtn.SetSelectOnDown(enabledSettings[i]);
+                    QuitBtn.SetSelectOnDown(enabledSettings[i]);
                 }
                 else
                 {
@@ -82,13 +92,41 @@
                 _resetSettingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 _saveSettingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
 
-                _resetSettingsBtn.SetSelectOnUp(enabledSettings[i].Selectable);
-                _saveSettingsBtn.SetSelectOnUp(enabledSettings[i].Selectable);
+                _resetSettingsBtn.SetSelectOnUp(enabledSettings[i]);
+                _saveSettingsBtn.SetSelectOnUp(enabledSettings[i]);
 
                 enabledSettings[i].Selectable.SetSelectOnDown(_saveSettingsBtn);
 
                 break;
             }
+        }
+
+        private void OnSettingPointerEnter(RSLib.Framework.GUI.PointerEventsHandler pointerEventsHandler)
+        {
+            // Automatically adjust the scroll view content position so that navigating through the settings with a controller
+            // works without having to move the scroll bar manually.
+            // This is also handling mouse hovering for now.
+
+            Vector3[] sourceCorners = new Vector3[4];
+            pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
+            _settingsViewport.GetWorldCorners(_settingsViewportWorldCorners);
+
+            while (sourceCorners[1].y > _settingsViewportWorldCorners[1].y)
+            {
+                _scrollbar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
+                pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
+            }
+
+            while (sourceCorners[0].y < _settingsViewportWorldCorners[0].y)
+            {
+                _scrollbar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
+                pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
+            }
+
+            if (_scrollbar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
+                _scrollbar.value = 0f;
+            else if (_scrollbar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
+                _scrollbar.value = 1f;
         }
 
         private void ResetSettings()
