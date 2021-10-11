@@ -10,7 +10,7 @@
     public class GameSettingsPanel : SettingsPanelBase
     {
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
-        private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.05f;
+        private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
 
         [Header("GAME SETTINGS")]
         [SerializeField] private SettingView[] _settings = null;
@@ -26,7 +26,7 @@
 
         private Vector3[] _settingsViewportWorldCorners = new Vector3[4];
 
-        public override GameObject FirstSelected => _settings.Where(o => o.Visible).FirstOrDefault()?.gameObject;
+        public override GameObject FirstSelected => _settings.Where(o => o.gameObject.activeSelf).FirstOrDefault()?.gameObject;
 
         public override void OnBackButtonPressed()
         {
@@ -48,10 +48,7 @@
                 return;
 
             for (int i = _settings.Length - 1; i >= 0; --i)
-            {
                 _settings[i].Init();
-                _settings[i].gameObject.SetActive(_settings[i].Visible);
-            }
 
             InitNavigation();
 
@@ -60,7 +57,7 @@
 
         private void InitNavigation()
         {
-            SettingView[] enabledSettings = _settings.Where(o => o.Visible).ToArray();
+            SettingView[] enabledSettings = _settings.Where(o => o.gameObject.activeSelf).ToArray();
 
             for (int i = 0; i < enabledSettings.Length; ++i)
             {

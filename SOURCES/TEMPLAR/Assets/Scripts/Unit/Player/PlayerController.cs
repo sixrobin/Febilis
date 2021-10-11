@@ -247,6 +247,8 @@
         {
             ResetVelocity();
 
+            Manager.SaveManager.Save(); // [TMP] Save picked up items upon dying.
+
             if (IsBeingHurt)
             {
                 StopCoroutine(_hurtCoroutine);

@@ -42,7 +42,9 @@
                         new StringOption("160x144", false),
                         new StringOption("320x288", false),
                         new StringOption("480x432", false),
-                        new StringOption("640x576", true)
+                        new StringOption("640x576", true),
+                        new StringOption("800x720", false),
+                        new StringOption("960x864", false)
                     };
                 }
 

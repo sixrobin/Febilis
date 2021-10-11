@@ -5,10 +5,8 @@
     public abstract class SettingView : UnityEngine.UI.Selectable, UnityEngine.EventSystems.ISelectHandler
     {
         [Header("SETTING VIEW BASE")]
-        [SerializeField] private bool _visible = true;
         [SerializeField] private RSLib.Framework.GUI.PointerEventsHandler _pointerEventsHandler = null;
 
-        public bool Visible => _visible;
         public RSLib.Framework.GUI.PointerEventsHandler PointerEventsHandler => _pointerEventsHandler;
 
         public abstract UnityEngine.UI.Selectable Selectable { get; }

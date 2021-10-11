@@ -7,6 +7,7 @@
     {
         public static Settings.AxisDeadZone AxisDeadZone { get; private set; }
         public static Settings.ConstrainCursor ConstrainCursor { get; private set; }
+        public static Settings.Fullscreen Fullscreen { get; private set; }
         public static Settings.MonitorIndex MonitorIndex { get; private set; }
         public static Settings.PixelPerfect PixelPerfect { get; private set; }
         public static Settings.RunInBackground RunInBackground { get; private set; }
@@ -27,6 +28,7 @@
 
                 container.Add(AxisDeadZone.Save());
                 container.Add(ConstrainCursor.Save());
+                container.Add(Fullscreen.Save());
                 container.Add(MonitorIndex.Save());
                 container.Add(PixelPerfect.Save());
                 container.Add(RunInBackground.Save());
@@ -86,6 +88,9 @@
                 XElement constrainCursorElement = settingsSaveElement.Element(Settings.ConstrainCursor.SAVE_ELEMENT_NAME);
                 ConstrainCursor = constrainCursorElement != null ? new Settings.ConstrainCursor(constrainCursorElement) : new Settings.ConstrainCursor();
 
+                XElement fullscreenElement = settingsSaveElement.Element(Settings.Fullscreen.SAVE_ELEMENT_NAME);
+                Fullscreen = fullscreenElement != null ? new Settings.Fullscreen(fullscreenElement) : new Settings.Fullscreen();
+
                 XElement monitorIndexElement = settingsSaveElement.Element(Settings.MonitorIndex.SAVE_ELEMENT_NAME);
                 MonitorIndex = monitorIndexElement != null ? new Settings.MonitorIndex(monitorIndexElement) : new Settings.MonitorIndex();
 
@@ -118,6 +123,7 @@
         {
             AxisDeadZone = new Settings.AxisDeadZone();
             ConstrainCursor = new Settings.ConstrainCursor();
+            Fullscreen = new Settings.Fullscreen();
             MonitorIndex = new Settings.MonitorIndex();
             PixelPerfect = new Settings.PixelPerfect();
             RunInBackground = new Settings.RunInBackground();
