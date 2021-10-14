@@ -21,5 +21,14 @@
             for (int i = killTriggers.Length - 1; i >= 0; --i)
                 SharedKillTriggers.Add(killTriggers[i].Collider, killTriggers[i]);
         }
+
+        private void Awake()
+        {
+            if (_collider == null)
+            {
+                Debug.LogWarning($"Collider is not referenced on {transform.name}, trying GetComponent.", gameObject);
+                _collider = GetComponent<Collider2D>();
+            }
+        }
     }
 }

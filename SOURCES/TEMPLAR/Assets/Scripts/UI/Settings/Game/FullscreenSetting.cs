@@ -2,6 +2,6 @@
 {
     public class FullscreenSetting : ToggleSettingView
     {
-        public override Templar.Settings.BoolSetting BoolSetting => Manager.SettingsManager.Fullscreen;
+        public override Templar.Settings.BoolSetting BoolSetting => /*Manager.SettingsManager.Fullscreen*/ throw new System.NotImplementedException();
     }
 }

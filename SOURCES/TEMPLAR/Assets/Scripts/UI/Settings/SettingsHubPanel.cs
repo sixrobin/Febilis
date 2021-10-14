@@ -11,6 +11,7 @@
         [SerializeField] private UnityEngine.UI.Button _gameBtn = null;
         [SerializeField] private UnityEngine.UI.Button _audioBtn = null;
         [SerializeField] private UnityEngine.UI.Button _languageBtn = null;
+        [SerializeField] private UnityEngine.UI.Button _quitGameBtn = null;
 
         private UnityEngine.UI.Button[] _settingsBtns;
 
@@ -20,6 +21,7 @@
         public UnityEngine.UI.Button GameBtn => _gameBtn;
         public UnityEngine.UI.Button AudioBtn => _audioBtn;
         public UnityEngine.UI.Button LanguageBtn => _languageBtn;
+        public UnityEngine.UI.Button QuitGameBtn => _quitGameBtn;
 
         public override void OnBackButtonPressed()
         {
@@ -32,9 +34,10 @@
             {
                 ControlsBtn,
                 GameBtn,
-                _audioBtn,
-                _languageBtn
-            }.OrderBy(o => o.transform.GetSiblingIndex()).ToArray();
+                AudioBtn,
+                LanguageBtn,
+                QuitGameBtn
+            }.ToArray();
 
             for (int i = 0; i < _settingsBtns.Length; ++i)
             {
@@ -45,7 +48,7 @@
                 _settingsBtns[i].SetSelectOnRight(QuitBtn);
             }
 
-            QuitBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);   
+            QuitBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
             QuitBtn.SetSelectOnLeft(_settingsBtns[0]);
             QuitBtn.SetSelectOnDown(_settingsBtns[0]);
             QuitBtn.SetSelectOnUp(_settingsBtns[_settingsBtns.Length - 1]);

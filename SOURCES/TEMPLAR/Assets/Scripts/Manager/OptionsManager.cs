@@ -13,11 +13,34 @@
 
         private System.Collections.Generic.Dictionary<UI.Settings.SettingsPanelBase, UnityEngine.UI.Button> _panelsBtns;
 
+        private UI.ConfirmationPopup.PopupTextsDatas _quitGamePopupTexts = new UI.ConfirmationPopup.PopupTextsDatas("Quit game ?", "Yes", "No");
+
         public delegate void OptionsToggleEventHandler();
         public event OptionsToggleEventHandler OptionsOpened;
         public event OptionsToggleEventHandler OptionsClosed;
 
         public static bool ClosedThisFrame { get; private set; }
+
+        public static void QuitGame()
+        {
+            // [TMP] Quitting game should exit to a main menu.
+
+            UI.Navigation.UINavigationManager.ConfirmationPopup.AskForConfirmation(
+                Instance._quitGamePopupTexts,
+                () =>
+                {
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+                    return;
+#endif
+
+                    Application.Quit();
+                },
+                () =>
+                {
+                    UI.Navigation.UINavigationManager.Select(Instance._settingsHubPanel.QuitGameBtn.gameObject);
+                });
+        }
 
         public static bool AnyPanelOpen()
         {
@@ -66,6 +89,7 @@
             _settingsHubPanel.GameBtn.onClick.AddListener(OpenGamePanel);
             //_settingsPanel.AudioBtn.onClick.AddListener(OpenAudioPanel);
             //_settingsPanel.LanguageBtn.onClick.AddListener(OpenLanguagePanel);
+            _settingsHubPanel.QuitGameBtn.onClick.AddListener(QuitGame);
         }
 
         private void CleanupOptionsButtons()
@@ -74,6 +98,7 @@
             _settingsHubPanel.GameBtn.onClick.RemoveListener(OpenGamePanel);
             //_settingsPanel.AudioBtn.onClick.RemoveListener(OpenAudioPanel);
             //_settingsPanel.LanguageBtn.onClick.RemoveListener(OpenLanguagePanel);
+            _settingsHubPanel.QuitGameBtn.onClick.RemoveListener(QuitGame);
         }
 
         private void OpenControlsPanel()
