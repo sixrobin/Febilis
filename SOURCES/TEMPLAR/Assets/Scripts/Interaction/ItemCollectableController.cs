@@ -3,10 +3,13 @@
     using RSLib.Extensions;
     using UnityEngine;
 
-    public class ItemCollectableController : Interactable
+    public class ItemCollectableController : Interactable, IIdentifiable
     {
         [Header("FOR ITEMS SET IN SCENE")]
         [SerializeField] private RSLib.Framework.OptionalString _itemId = new RSLib.Framework.OptionalString(string.Empty, false);
+
+        [Header("IDENTIFIER")]
+        [SerializeField] private ItemIdentifier _itemIdentifier = null;
 
         [Header("REFS")]
         [SerializeField] private GameObject _container = null;
@@ -24,6 +27,7 @@
         [SerializeField] private GameObject[] _fadeOverParticles = null;
 
         public string ItemId { get; private set; }
+        public IIdentifier Identifier => _itemIdentifier;
 
         public void SetItemId(string id)
         {
