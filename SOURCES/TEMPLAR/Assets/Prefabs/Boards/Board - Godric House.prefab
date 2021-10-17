@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f2acb0a37f28e4aaa239dc87e04177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardIdentifier: {fileID: 11400000, guid: 55862e28674c55f49a8c7cd9a82af124, type: 2}
   _boardsLinks:
   - {fileID: 6199996288336422893}
   _backgroundColor: {fileID: 11400000, guid: 5a387fd62e512854aa7373dd45f16b98, type: 2}

@@ -9,12 +9,29 @@
 #if UNITY_EDITOR
     [CanEditMultipleObjects]
 #endif
-    public class Board : MonoBehaviour
+    public class Board : MonoBehaviour, IIdentifiable
     {
+        [Header("IDENTIFIER")]
+        [SerializeField] private BoardIdentifier _boardIdentifier = null;
+        
+        [Header("REFS")]
         [SerializeField] private BoardsLink[] _boardsLinks = null;
         [SerializeField] private RSLib.DataColor _backgroundColor = null;
 
         public Color BackgroundColor => _backgroundColor?.Color ?? Color.grey;
+
+        public IIdentifier Identifier => _boardIdentifier;
+
+        public void OnBoardEntered()
+        {
+            if (_boardIdentifier == null)
+            {
+                CProLogger.LogWarning(this, $"Identifier is missing on Board {transform.name}, cannot flag it.", gameObject);
+                return;
+            }
+
+            Manager.FlagsManager.AddDiscoveredBoard(_boardIdentifier);
+        }
 
         private void Awake()
         {

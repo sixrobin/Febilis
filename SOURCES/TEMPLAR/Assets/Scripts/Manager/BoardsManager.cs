@@ -52,7 +52,7 @@
             s_init = true;
         }
 
-        public static void DebugForceRefreshInitBoard()
+        public static Boards.Board DebugForceRefreshInitBoard()
         {
             Init();
 
@@ -67,9 +67,11 @@
                     if (boardsBounds[i].Board != null)
                         GameManager.CameraCtrl.SetColor(boardsBounds[i].Board.BackgroundColor);
 
-                    break;
+                    return boardsBounds[i].Board;
                 }
             }
+
+            return null;
         }
 
         protected override void Awake()
@@ -106,7 +108,7 @@
     {
         protected override void DrawButtons()
         {
-            DrawButton("Refresh Current Board", BoardsManager.DebugForceRefreshInitBoard);
+            DrawButton("Refresh Current Board", () => BoardsManager.DebugForceRefreshInitBoard());
         }
     }
 #endif

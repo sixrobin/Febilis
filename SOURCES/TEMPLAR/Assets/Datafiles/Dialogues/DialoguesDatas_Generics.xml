@@ -14,18 +14,6 @@
          <Sentence Id="DemoEnd_01"/>
       </Sequence>
    </DialogueDatas>
-
-   <DialogueDatas Id="BrokenBridge">
-      <HidePortraitBox/>
-      <Sequence>
-         <Sentence Id="BrokenBridge_00"/>
-         <Sentence Id="BrokenBridge_01"/>
-         <Sentence Id="BrokenBridge_02"/>
-         <AddItem Id="Coin" Quantity="3"/>
-         <Pause Dur="0.5"/>
-         <Sentence Id="BrokenBridge_03"/>
-      </Sequence>
-   </DialogueDatas>
    
    
    <SentenceDatas Id="LockedDoor_Sentence_00">

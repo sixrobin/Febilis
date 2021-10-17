@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    [CreateAssetMenu(fileName = "New Identifier", menuName = "Id System/Identifier")]
+    [CreateAssetMenu(fileName = "New Identifier", menuName = "Id System/Identifier", order = -1)]
     public class Identifier : ScriptableObject, IIdentifier
     {
         private const string ID_FORMAT = "{0}_{1}";
