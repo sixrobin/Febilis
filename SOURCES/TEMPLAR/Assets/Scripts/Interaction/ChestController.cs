@@ -2,13 +2,30 @@
 {
     using UnityEngine;
 
-    public class ChestController : Interactable
+    public class ChestController : Interactable, IIdentifiable
     {
+        [Header("IDENTIFIER")]
+        [SerializeField] private ChestIdentifier _chestIdentifier = null;
+
+        [Header("REFS")]
         [SerializeField] private Collider2D _interactionCollider = null;
         [SerializeField] private GameObject _highlight = null;
         [SerializeField] private Templar.Physics.Triggerables.TriggerableObject _triggerableChest = null;
 
+        public IIdentifier Identifier => _chestIdentifier;
+
         private void OnChestTriggered(Templar.Physics.Triggerables.TriggerableObject.TriggerEventArgs args)
+        {
+            if (Identifier != null && args.SourceType != Templar.Physics.Triggerables.TriggerableSourceType.LOAD)
+            {
+                Manager.FlagsManager.AddOpenChest(Identifier);
+                _triggerableChest.NotResetableAnymore = true;
+            }
+
+            DisableChestInteraction();
+        }
+
+        private void DisableChestInteraction()
         {
             InteractionDisabled = true;
             _interactionCollider.enabled = false;
@@ -27,7 +44,6 @@
                 return;
 
             base.Focus();
-
             _highlight.SetActive(true);
         }
 
@@ -43,16 +59,20 @@
                 return;
 
             base.Interact();
-            InteractionDisabled = true;
-            _interactionCollider.enabled = false;
-
-            _highlight.SetActive(false);
+            DisableChestInteraction();
         }
 
-        private void Awake()
+        private void Start()
         {
             _triggerableChest.Triggered += OnChestTriggered;
             _triggerableChest.Reset += OnChestReset;
+
+            if (Identifier != null && Manager.FlagsManager.CheckOpenChest(Identifier))
+            {
+                DisableChestInteraction();
+                _triggerableChest.TryTrigger(Templar.Physics.Triggerables.TriggerableSourceType.LOAD, true);
+                _triggerableChest.NotResetableAnymore = true;
+            }
         }
 
         private void OnDestroy()

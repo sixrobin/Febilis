@@ -51,37 +51,4 @@
       <Value>Thanks for playing!</Value>
    </SentenceDatas>
 
-
-   <SentenceDatas Id="BrokenBridge_00">
-      <Speaker Id="Templar">
-         <HideSpeakerName/>
-         <OverridePortraitId>Unknown</OverridePortraitId>
-      </Speaker>
-      <Value>If you're reading this, that means you already fell through the bridge.</Value>
-   </SentenceDatas>
-
-   <SentenceDatas Id="BrokenBridge_01">
-      <Speaker Id="Templar">
-         <HideSpeakerName/>
-         <OverridePortraitId>Unknown</OverridePortraitId>
-      </Speaker>
-      <Value>It may be restored though, due do some poor programming.</Value>
-   </SentenceDatas>
-
-   <SentenceDatas Id="BrokenBridge_02">
-      <Speaker Id="Templar">
-         <HideSpeakerName/>
-         <OverridePortraitId>Unknown</OverridePortraitId>
-      </Speaker>
-      <Value>Sorry for that. Here, take those 3 useless gold coins.</Value>
-   </SentenceDatas>
-
-   <SentenceDatas Id="BrokenBridge_03">
-      <Speaker Id="Templar">
-         <HideSpeakerName/>
-         <OverridePortraitId>Unknown</OverridePortraitId>
-      </Speaker>
-      <Value>And don't go further. [pause=0.5]You'd probably fall again.</Value>
-   </SentenceDatas>
-
 </DialoguesDatas>

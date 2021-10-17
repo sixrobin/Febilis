@@ -13,12 +13,14 @@
     {
         public class TriggerEventArgs : System.EventArgs
         {
-            public TriggerEventArgs(TriggerableObject source)
+            public TriggerEventArgs(TriggerableObject source, TriggerableSourceType sourceType)
             {
                 Source = source;
+                SourceType = sourceType;
             }
 
             public TriggerableObject Source { get; private set; }
+            public TriggerableSourceType SourceType { get; private set; }
         }
 
         [SerializeField] private string _id = string.Empty;
@@ -46,11 +48,14 @@
         public event TriggerableEventHandler Triggered;
         public event TriggerableEventHandler Reset;
         
-        /// <summary>Shared dictionary allowing collision detections across the game to check if collider has a related destroyable.</summary>
+        /// <summary>
+        /// Shared dictionary allowing collision detections across the game to check if collider has a related triggerable.
+        /// </summary>
         public static System.Collections.Generic.Dictionary<Collider2D, TriggerableObject> SharedTriggerablesByColliders { get; private set; }
             = new System.Collections.Generic.Dictionary<Collider2D, TriggerableObject>();
 
         public bool NotTriggerableAnymore => _triggerableDatas.MaxTriggersCount > -1 && _triggersCounter >= _triggerableDatas.MaxTriggersCount;
+        public bool NotResetableAnymore { get; set; }
 
         void ICheckpointListener.OnCheckpointInteracted(CheckpointController checkpointCtrl)
         {
@@ -68,12 +73,15 @@
 
         public void ResetTriggerable()
         {
+            if (NotResetableAnymore)
+                return;
+
             _triggersCounter = 0;
             _currentSpriteIndex = -1;
             _spriteRenderer.sprite = _baseSprite;
             _collider2D.enabled = true;
 
-            Reset?.Invoke(new TriggerEventArgs(this));
+            Reset?.Invoke(new TriggerEventArgs(this, TriggerableSourceType.NONE));
         }
 
         private void OnLinkedInteractableInteracted(Interaction.Interactable.InteractionEventArgs args)
@@ -110,12 +118,14 @@
             if (NotTriggerableAnymore)
                 return;
 
-            ApplyOnTriggerDatasCallbacks();
+            // Loading a triggerable state on load means we do not want to trigger any callback, just restore its state from save.
+            if (sourceType != TriggerableSourceType.LOAD)
+                ApplyOnTriggerDatasCallbacks();
 
             _triggersCounter++;
             _collider2D.enabled = !NotTriggerableAnymore;
 
-            Triggered?.Invoke(new TriggerEventArgs(this));
+            Triggered?.Invoke(new TriggerEventArgs(this, sourceType));
 
             if (_triggerSpritesLoop != null && _triggerSpritesLoop.Length > 0)
             {

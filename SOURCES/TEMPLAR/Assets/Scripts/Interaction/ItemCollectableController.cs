@@ -74,6 +74,7 @@
         {
             UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
             Manager.GameManager.InventoryCtrl.AddItem(ItemId);
+            Manager.FlagsManager.AddPickedUpItem(Identifier);
         }
 
         private System.Collections.IEnumerator FadeOutSmokeCoroutine()
@@ -99,8 +100,11 @@
             _container.SetActive(false);
         }
 
-        private void Awake()
+        private void Start()
         {
+            if (Identifier != null && Manager.FlagsManager.CheckPickedUpItem(Identifier))
+                _container.SetActive(false);
+
             if (_itemId.Enabled && !string.IsNullOrEmpty(_itemId.Value))
                 SetItemId(_itemId.Value);
         }

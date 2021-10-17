@@ -30,7 +30,7 @@
 
             XElement validSourcesElement = triggerableElement.Element("ValidSources");
             if (validSourcesElement == null)
-                ValidSources = Physics.Triggerables.TriggerableSourceType.ALL;
+                ValidSources = Physics.Triggerables.TriggerableSourceType.PHYSICS;
             else
                 foreach (XElement validSourceElement in validSourcesElement.Elements("SourceType"))
                     ValidSources |= validSourceElement.ValueToEnum<Physics.Triggerables.TriggerableSourceType>();

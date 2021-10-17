@@ -27,6 +27,7 @@
                 XElement paletteIndexElement = new XElement("PaletteIndex", PaletteManager.CurrRampIndex);
                 container.Add(paletteIndexElement);
 
+                container.Add(FlagsManager.Save());
                 container.Add(GameManager.InventoryCtrl.Save());
                 container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
 
@@ -86,6 +87,7 @@
                 if (paletteIndexElement != null)
                     PaletteManager.SetPalette(paletteIndexElement.ValueToInt());
 
+                FlagsManager.Load(gameSaveElement.Element("Flags"));
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
                 FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
             }

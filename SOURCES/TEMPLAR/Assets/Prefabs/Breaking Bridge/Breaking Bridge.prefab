@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcec7f4680dc4442aa4b896add89872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _identifier: {fileID: 11400000, guid: 109d1d7c0ba50a94db29191846e73b85, type: 2}
   _breakTrigger: {fileID: 7349478606705766711}
   _collider2D: {fileID: 7349478606859936214}
   _spriteRenderer: {fileID: 7349478606859936215}
