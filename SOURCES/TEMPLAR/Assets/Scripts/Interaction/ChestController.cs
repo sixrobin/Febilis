@@ -2,23 +2,23 @@
 {
     using UnityEngine;
 
-    public class ChestController : Interactable, IIdentifiable
+    public class ChestController : Interactable, Flags.IIdentifiable
     {
         [Header("IDENTIFIER")]
-        [SerializeField] private ChestIdentifier _chestIdentifier = null;
+        [SerializeField] private Flags.ChestIdentifier _chestIdentifier = null;
 
         [Header("REFS")]
         [SerializeField] private Collider2D _interactionCollider = null;
         [SerializeField] private GameObject _highlight = null;
         [SerializeField] private Templar.Physics.Triggerables.TriggerableObject _triggerableChest = null;
 
-        public IIdentifier Identifier => _chestIdentifier;
+        public Flags.IIdentifier Identifier => _chestIdentifier;
 
         private void OnChestTriggered(Templar.Physics.Triggerables.TriggerableObject.TriggerEventArgs args)
         {
             if (Identifier != null && args.SourceType != Templar.Physics.Triggerables.TriggerableSourceType.LOAD)
             {
-                Manager.FlagsManager.AddOpenChest(Identifier);
+                Manager.FlagsManager.Register(this);
                 _triggerableChest.NotResetableAnymore = true;
             }
 
@@ -67,7 +67,7 @@
             _triggerableChest.Triggered += OnChestTriggered;
             _triggerableChest.Reset += OnChestReset;
 
-            if (Identifier != null && Manager.FlagsManager.CheckOpenChest(Identifier))
+            if (Identifier != null && Manager.FlagsManager.Check(this))
             {
                 DisableChestInteraction();
                 _triggerableChest.TryTrigger(Templar.Physics.Triggerables.TriggerableSourceType.LOAD, true);

@@ -9,10 +9,10 @@
 #if UNITY_EDITOR
     [CanEditMultipleObjects]
 #endif
-    public class Board : MonoBehaviour, IIdentifiable
+    public class Board : MonoBehaviour, Flags.IIdentifiable
     {
         [Header("IDENTIFIER")]
-        [SerializeField] private BoardIdentifier _boardIdentifier = null;
+        [SerializeField] private Flags.BoardIdentifier _boardIdentifier = null;
         
         [Header("REFS")]
         [SerializeField] private BoardsLink[] _boardsLinks = null;
@@ -20,7 +20,7 @@
 
         public Color BackgroundColor => _backgroundColor?.Color ?? Color.grey;
 
-        public IIdentifier Identifier => _boardIdentifier;
+        public Flags.IIdentifier Identifier => _boardIdentifier;
 
         public void OnBoardEntered()
         {
@@ -30,7 +30,7 @@
                 return;
             }
 
-            Manager.FlagsManager.AddDiscoveredBoard(_boardIdentifier);
+            Manager.FlagsManager.Register(this);
         }
 
         private void Awake()

@@ -1,93 +1,55 @@
 ﻿namespace Templar.Manager
 {
+    using RSLib.Extensions;
     using System.Xml.Linq;
 
     public partial class FlagsManager : RSLib.Framework.ConsoleProSingleton<FlagsManager>
     {
-        private System.Collections.Generic.List<string> _generics = new System.Collections.Generic.List<string>();
-        private System.Collections.Generic.List<string> _pickedUpItems = new System.Collections.Generic.List<string>();
-        private System.Collections.Generic.List<string> _openChests = new System.Collections.Generic.List<string>();
-        private System.Collections.Generic.List<string> _discoveredBoards = new System.Collections.Generic.List<string>();
+        private static System.Collections.Generic.Dictionary<System.Type, Flags.FlagsList> s_flags;
+        private static bool s_init;
 
+        private static void Init()
+        {
+            if (s_init)
+                return;
 
-        public static bool CheckGeneric(IIdentifier identifier)
-        {
-            return CheckGeneric(identifier.Id);
-        }
-        public static bool CheckGeneric(string id)
-        {
-            return Instance._generics.Contains(id);
-        }
+            s_flags = new System.Collections.Generic.Dictionary<System.Type, Flags.FlagsList>()
+            {
+                { typeof(Flags.Identifier), new Flags.FlagsList(typeof(Flags.Identifier)) },
+                { typeof(Flags.ZoneIdentifier), new Flags.FlagsList(typeof(Flags.ZoneIdentifier)) },
+                { typeof(Flags.BoardIdentifier), new Flags.FlagsList(typeof(Flags.BoardIdentifier), true) },
+                { typeof(Flags.ItemIdentifier), new Flags.FlagsList(typeof(Flags.ItemIdentifier)) },
+                { typeof(Flags.ChestIdentifier), new Flags.FlagsList(typeof(Flags.ChestIdentifier)) },
+                { typeof(Flags.LockIdentifier), new Flags.FlagsList(typeof(Flags.LockIdentifier)) }
+            };
 
-        public static void AddGeneric(IIdentifier identifier)
-        {
-            AddGeneric(identifier.Id);
-        }
-        public static void AddGeneric(string id)
-        {
-            UnityEngine.Assertions.Assert.IsFalse(CheckGeneric(id), $"Adding already generic Id {id} to the generics list.");
-            Instance._generics.Add(id);
+            s_init = true;
         }
 
-
-        public static bool CheckPickedUpItem(IIdentifier identifier)
+        public static bool Check(Flags.IIdentifiable identifiable)
         {
-            return CheckPickedUpItem(identifier.Id);
-        }
-        public static bool CheckPickedUpItem(string id)
-        {
-            return Instance._pickedUpItems.Contains(id);
+            return GetFlagsList(identifiable).Check(identifiable);
         }
 
-        public static void AddPickedUpItem(IIdentifier identifier)
+        public static void Register(Flags.IIdentifiable identifiable)
         {
-            AddPickedUpItem(identifier.Id);
-        }
-        public static void AddPickedUpItem(string id)
-        {
-            UnityEngine.Assertions.Assert.IsFalse(CheckPickedUpItem(id), $"Adding already picked up item Id {id} to the picked up list.");
-            Instance._pickedUpItems.Add(id);
+            GetFlagsList(identifiable).Register(identifiable);
         }
 
-
-        public static bool CheckOpenChest(IIdentifier identifier)
+        private static Flags.FlagsList GetFlagsList(Flags.IIdentifiable identifiable)
         {
-            return CheckOpenChest(identifier.Id);
-        }
-        public static bool CheckOpenChest(string id)
-        {
-            return Instance._openChests.Contains(id);
+            System.Type identifierType = identifiable.Identifier.GetType();
+            UnityEngine.Assertions.Assert.IsTrue(s_flags.ContainsKey(identifierType), $"Unhandled flag type {identifierType.Name}");
+            return s_flags[identifierType];
         }
 
-        public static void AddOpenChest(IIdentifier identifier)
+        protected override void Awake()
         {
-            AddOpenChest(identifier.Id);
-        }
-        public static void AddOpenChest(string id)
-        {
-            UnityEngine.Assertions.Assert.IsFalse(CheckOpenChest(id), $"Adding already open chest Id {id} to the open list.");
-            Instance._openChests.Add(id);
-        }
+            base.Awake();
+            if (!IsValid)
+                return;
 
-
-        public static bool CheckDiscoveredBoard(IIdentifier identifier)
-        {
-            return CheckDiscoveredBoard(identifier.Id);
-        }
-        public static bool CheckDiscoveredBoard(string id)
-        {
-            return Instance._discoveredBoards.Contains(id);
-        }
-
-        public static void AddDiscoveredBoard(IIdentifier identifier)
-        {
-            AddDiscoveredBoard(identifier.Id);
-        }
-        public static void AddDiscoveredBoard(string id)
-        {
-            // Backtracking is allowed so some boards will already be discovered.
-            if (!CheckDiscoveredBoard(id))
-                Instance._discoveredBoards.Add(id);
+            Init();
         }
     }
 
@@ -95,62 +57,19 @@
     {
         public static void Load(XElement flagsElement)
         {
-            XElement genericsElement = flagsElement.Element("Generics");
-            if (genericsElement != null)
-                foreach (XElement genericElement in genericsElement.Elements("GenericId"))
-                    AddGeneric(genericElement.Value);
+            Init();
 
-            XElement pickedUpItemsElement = flagsElement.Element("PickedUpItems");
-            if (pickedUpItemsElement != null)
-                foreach (XElement pickedUpItemElement in pickedUpItemsElement.Elements("ItemId"))
-                    AddPickedUpItem(pickedUpItemElement.Value);
-
-            XElement openChestsElement = flagsElement.Element("OpenChests");
-            if (openChestsElement != null)
-                foreach (XElement openChestElement in openChestsElement.Elements("ChestId"))
-                    AddOpenChest(openChestElement.Value);
-
-            XElement discoveredBoardsElement = flagsElement.Element("DiscoveredBoards");
-            if (discoveredBoardsElement != null)
-                foreach (XElement discoveredBoardElement in discoveredBoardsElement.Elements("BoardId"))
-                    AddDiscoveredBoard(discoveredBoardElement.Value);
+            foreach (System.Collections.Generic.KeyValuePair<System.Type, Flags.FlagsList> ids in s_flags)
+                if (flagsElement.TryGetElement(ids.Key.Name, out XElement idsElement))
+                    ids.Value.Load(idsElement);
         }
 
         public static XElement Save()
         {
             XElement flagsElement = new XElement("Flags");
 
-            if (Instance._generics.Count > 0)
-            {
-                //// [TODO] Check if this works or returns the value without changing the ref.
-                //// And factorize the sort method when factorizing the ids lists.
-                //Instance._generics.Sort();
-
-                XElement genericsElement = new XElement("Generics");
-                Instance._generics.ForEach(o => genericsElement.Add(new XElement("GenericId", o)));
-                flagsElement.Add(genericsElement);
-            }
-
-            if (Instance._pickedUpItems.Count > 0)
-            {
-                XElement pickedUpItemsElement = new XElement("PickedUpItems");
-                Instance._pickedUpItems.ForEach(o => pickedUpItemsElement.Add(new XElement("ItemId", o)));
-                flagsElement.Add(pickedUpItemsElement);
-            }
-
-            if (Instance._openChests.Count > 0)
-            {
-                XElement openChestsElement = new XElement("OpenChests");
-                Instance._openChests.ForEach(o => openChestsElement.Add(new XElement("ChestId", o)));
-                flagsElement.Add(openChestsElement);
-            }
-
-            if (Instance._discoveredBoards.Count > 0)
-            {
-                XElement discoveredBoardsElementElement = new XElement("DiscoveredBoards");
-                Instance._discoveredBoards.ForEach(o => discoveredBoardsElementElement.Add(new XElement("BoardId", o)));
-                flagsElement.Add(discoveredBoardsElementElement);
-            }
+            foreach (System.Collections.Generic.KeyValuePair<System.Type, Flags.FlagsList> ids in s_flags)
+                flagsElement.Add(ids.Value.Save());
 
             return flagsElement;
         }

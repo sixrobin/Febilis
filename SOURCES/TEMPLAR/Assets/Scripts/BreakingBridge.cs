@@ -6,10 +6,10 @@
     using UnityEditor;
 #endif
 
-    public class BreakingBridge : MonoBehaviour, IIdentifiable
+    public class BreakingBridge : MonoBehaviour, Flags.IIdentifiable
     {
         [Header("IDENTIFIER")]
-        [SerializeField] private Identifier _identifier = null;
+        [SerializeField] private Flags.Identifier _identifier = null;
 
         [Header("REFS")]
         [SerializeField] private RSLib.Physics2DEventReceiver _breakTrigger = null;
@@ -29,11 +29,11 @@
         private Sprite _baseSprite;
         private Vector3[] _initBrokenPartsPositions;
 
-        public IIdentifier Identifier => _identifier;
+        public Flags.IIdentifier Identifier => _identifier;
 
         private void OnBreakTriggerEnter(Collider2D collider)
         {
-            Manager.FlagsManager.AddGeneric(Identifier);
+            Manager.FlagsManager.Register(this);
 
             ToggleBrokenBridge();
             PlayBreakFeedback();
@@ -77,7 +77,7 @@
                 _initBrokenPartsPositions[i] = _brokenParts[i].transform.position;
             }
 
-            if (Manager.FlagsManager.CheckGeneric(Identifier))
+            if (Manager.FlagsManager.Check(this))
                 ToggleBrokenBridge();
         }
 

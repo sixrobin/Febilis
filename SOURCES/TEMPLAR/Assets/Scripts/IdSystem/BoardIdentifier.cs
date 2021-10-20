@@ -1,16 +1,42 @@
-﻿namespace Templar
+﻿namespace Templar.Flags
 {
     using UnityEngine;
 #if UNITY_EDITOR
     using UnityEditor;
 #endif
 
-    [CreateAssetMenu(fileName = "New Board Identifier", menuName = "Id System/Identifier - Board")]
+    [CreateAssetMenu(fileName = "New Board Identifier", menuName = "Id/Identifier - Board")]
     public class BoardIdentifier : Identifier
     {
-        private const string ID_FORMAT = "Board_{0}";
+        private const string ID_PREFIX = "Board";
 
-        public override string Id => string.Format(ID_FORMAT, base.Id);
+        [Header("ZONE")]
+        [SerializeField] private ZoneIdentifier _containingZone = null;
+        [SerializeField] private bool _includeZoneId = true;
+
+        public override string Id
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(BaseId)
+                    && (!_includeZoneId || _containingZone == null)
+                    && !UseNumbering)
+                    return ID_ERROR;
+
+                string id = ID_PREFIX;
+
+                if (_includeZoneId && _containingZone != null) // [TODO] Show error if zone reference is missing.
+                    id += "_" + _containingZone.BaseId;
+
+                if (!string.IsNullOrEmpty(BaseId))
+                    id += "_" + BaseId;
+
+                if (UseNumbering)
+                    id += "_" + Number;
+
+                return id;
+            }
+        }
     }
 
 #if UNITY_EDITOR

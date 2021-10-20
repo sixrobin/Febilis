@@ -3,13 +3,13 @@
     using RSLib.Extensions;
     using UnityEngine;
 
-    public class ItemCollectableController : Interactable, IIdentifiable
+    public class ItemCollectableController : Interactable, Flags.IIdentifiable
     {
         [Header("FOR ITEMS SET IN SCENE")]
         [SerializeField] private RSLib.Framework.OptionalString _itemId = new RSLib.Framework.OptionalString(string.Empty, false);
 
         [Header("IDENTIFIER")]
-        [SerializeField] private ItemIdentifier _itemIdentifier = null;
+        [SerializeField] private Flags.ItemIdentifier _itemIdentifier = null;
 
         [Header("REFS")]
         [SerializeField] private GameObject _container = null;
@@ -27,7 +27,7 @@
         [SerializeField] private GameObject[] _fadeOverParticles = null;
 
         public string ItemId { get; private set; }
-        public IIdentifier Identifier => _itemIdentifier;
+        public Flags.IIdentifier Identifier => _itemIdentifier;
 
         public void SetItemId(string id)
         {
@@ -74,7 +74,7 @@
         {
             UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
             Manager.GameManager.InventoryCtrl.AddItem(ItemId);
-            Manager.FlagsManager.AddPickedUpItem(Identifier);
+            Manager.FlagsManager.Register(this);
         }
 
         private System.Collections.IEnumerator FadeOutSmokeCoroutine()
@@ -102,7 +102,7 @@
 
         private void Start()
         {
-            if (Identifier != null && Manager.FlagsManager.CheckPickedUpItem(Identifier))
+            if (Identifier != null && Manager.FlagsManager.Check(this))
                 _container.SetActive(false);
 
             if (_itemId.Enabled && !string.IsNullOrEmpty(_itemId.Value))
