@@ -30,8 +30,7 @@
 
         public Flags.IIdentifier Identifier => _checkpointIdentifier;
 
-        // [TMP] We might want to keep this for some uses, but for now it's only for debug.
-        public static void ForceRemoveCurrentCheckpoint()
+        public static void ClearCurrentCheckpoint()
         {
             CurrCheckpoint = null;
             CurrCheckpointId = null;
