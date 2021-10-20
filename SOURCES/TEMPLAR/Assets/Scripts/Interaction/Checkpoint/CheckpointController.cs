@@ -5,14 +5,16 @@
     using UnityEditor;
 #endif
 
-    public class CheckpointController : Interactable
+    public class CheckpointController : Interactable, Flags.IIdentifiable
     {
+        [Header("IDENTIFIER")]
+        [SerializeField] private Flags.CheckpointIdentifier _checkpointIdentifier = null;
+
         [Header("REFS")]
         [SerializeField] private CheckpointView _checkpointView = null;
         [SerializeField] private GameObject _highlight = null;
 
         [Header("CHECKPOINT DATAS")]
-        [SerializeField] private string _id = string.Empty;
         [SerializeField] private Vector2 _respawnOffset = Vector2.zero;
 
         [Header("DEBUG COLOR")]
@@ -26,7 +28,7 @@
 
         public Vector3 RespawnPos => transform.position + (Vector3)_respawnOffset;
 
-        public string Id => _id;
+        public Flags.IIdentifier Identifier => _checkpointIdentifier;
 
         // [TMP] We might want to keep this for some uses, but for now it's only for debug.
         public static void ForceRemoveCurrentCheckpoint()
@@ -61,10 +63,12 @@
         {
             base.Interact();
 
-            if (CurrCheckpointId != Id)
+            if (CurrCheckpointId != Identifier.Id)
             {
-                BeforeCheckpointChange(CurrCheckpointId, Id);
-                CurrCheckpointId = Id;
+                Manager.FlagsManager.Register(this);
+
+                BeforeCheckpointChange(CurrCheckpointId, Identifier.Id);
+                CurrCheckpointId = Identifier.Id;
                 CurrCheckpoint = this;
             }
 
@@ -74,11 +78,12 @@
 
         private void OnBeforeCheckpointChange(string currId, string nextId)
         {
-            UnityEngine.Assertions.Assert.IsFalse(currId == nextId,
+            UnityEngine.Assertions.Assert.IsFalse(
+                currId == nextId,
                 "Checkpoint change event has been called but current Id and next Id are the same.");
 
             // Turn off last checkpoint if it's in the scene.
-            if (currId == Id)
+            if (currId == Identifier.Id)
                 _checkpointView.PlayOffAnimation();
         }
 
@@ -86,7 +91,7 @@
         {
             BeforeCheckpointChange += OnBeforeCheckpointChange;
 
-            if (CurrCheckpointId == Id)
+            if (CurrCheckpointId == Identifier.Id)
             {
                 CurrCheckpoint = this;
                 _checkpointView.PlayOnAnimation();

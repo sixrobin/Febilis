@@ -81,7 +81,8 @@
                 XElement gameSaveElement = container.Element("GameSave");
 
                 XElement checkpointIdElement = gameSaveElement.Element("CheckpointId");
-                Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(GameManager.OptionalCheckpoint.Enabled ? GameManager.OptionalCheckpoint.Value.Id : checkpointIdElement.Value);
+                Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(
+                    GameManager.OptionalCheckpoint.Enabled ? GameManager.OptionalCheckpoint.Value.Identifier.Id : checkpointIdElement.Value);
 
                 XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
                 if (paletteIndexElement != null)

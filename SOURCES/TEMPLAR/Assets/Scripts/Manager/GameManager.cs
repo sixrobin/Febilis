@@ -44,10 +44,10 @@
 
             for (int i = checkpoints.Length - 1; i >= 0; --i)
             {
-                if (!idCounters.ContainsKey(checkpoints[i].Id))
-                    idCounters.Add(checkpoints[i].Id, 0);
-
-                idCounters[checkpoints[i].Id]++;
+                if (!idCounters.ContainsKey(checkpoints[i].Identifier.Id))
+                    idCounters.Add(checkpoints[i].Identifier.Id, 1);
+                else
+                    idCounters[checkpoints[i].Identifier.Id]++;
             }
 
             foreach (System.Collections.Generic.KeyValuePair<string, int> idCounter in idCounters)
