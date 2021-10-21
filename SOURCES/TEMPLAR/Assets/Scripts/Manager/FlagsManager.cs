@@ -16,13 +16,13 @@
             s_flags = new System.Collections.Generic.Dictionary<System.Type, Flags.FlagsList>()
             {
                 { typeof(Flags.Identifier), new Flags.FlagsList(typeof(Flags.Identifier)) },
-                { typeof(Flags.ZoneIdentifier), new Flags.FlagsList(typeof(Flags.ZoneIdentifier)) },
                 { typeof(Flags.BoardIdentifier), new Flags.FlagsList(typeof(Flags.BoardIdentifier), true) },
-                { typeof(Flags.ItemIdentifier), new Flags.FlagsList(typeof(Flags.ItemIdentifier)) },
-                { typeof(Flags.ChestIdentifier), new Flags.FlagsList(typeof(Flags.ChestIdentifier)) },
-                { typeof(Flags.LockIdentifier), new Flags.FlagsList(typeof(Flags.LockIdentifier)) },
                 { typeof(Flags.CheckpointIdentifier), new Flags.FlagsList(typeof(Flags.CheckpointIdentifier), true) },
-                { typeof(Flags.LeverIdentifier), new Flags.FlagsList(typeof(Flags.LeverIdentifier)) }
+                { typeof(Flags.ChestIdentifier), new Flags.FlagsList(typeof(Flags.ChestIdentifier)) },
+                { typeof(Flags.ItemIdentifier), new Flags.FlagsList(typeof(Flags.ItemIdentifier)) },
+                { typeof(Flags.LeverIdentifier), new Flags.FlagsList(typeof(Flags.LeverIdentifier), true) },
+                { typeof(Flags.LockIdentifier), new Flags.FlagsList(typeof(Flags.LockIdentifier)) },
+                { typeof(Flags.ZoneIdentifier), new Flags.FlagsList(typeof(Flags.ZoneIdentifier)) }
             };
 
             s_init = true;

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c216ffabe250b6d44a40c593cf36943f, type: 3}
-  m_Name: Lever_Catacombs_Board14
+  m_Name: Lever_Catacombs_Board16
   m_EditorClassIdentifier: 
   _preview:
-    _value: Lever_Catacombs_Board14
-  _id: Catacombs_Board14
+    _value: Lever_Catacombs_Board16
+  _id: Catacombs_Board16
   _number:
     _value: 0
     _enabled: 0
