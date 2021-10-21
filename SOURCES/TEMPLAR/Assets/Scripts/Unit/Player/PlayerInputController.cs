@@ -14,6 +14,7 @@
         public const string ATTACK = "Attack";
         public const string INTERACT = "Interact";
         public const string HEAL = "Heal";
+        public const string INVENTORY = "Inventory";
 
         private MonoBehaviour _coroutinesExecuter;
 
@@ -40,7 +41,8 @@
             ATTACK = 4,
             INTERACT = 8,
             HEAL = 16,
-            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL
+            INVENTORY = 32,
+            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL | INVENTORY
         }
 
         public Datas.Unit.Player.PlayerInputDatas InputDatas { get; private set; }
@@ -119,7 +121,8 @@
                     { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
                     { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
                     { ButtonCategory.INTERACT, () => InputManager.GetInputDown(INTERACT) },
-                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) }
+                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) },
+                    { ButtonCategory.INVENTORY, () => InputManager.GetInputDown(INVENTORY) }
                 };
 
             _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(

@@ -28,3 +28,6 @@ MonoBehaviour:
   - _actionId: Heal
     _btn: 97
     _altBtn: 335
+  - _actionId: Inventory
+    _btn: 9
+    _altBtn: 336

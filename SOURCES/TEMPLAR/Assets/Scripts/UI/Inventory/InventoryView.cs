@@ -367,19 +367,24 @@
             if (!CanToggleInventory())
                 return;
 
-            if (Input.GetButtonDown("Inventory")) // [TODO] Constant.
+            //if (Manager.GameManager.PlayerCtrl.InputCtrl != null
+            //    && Manager.GameManager.PlayerCtrl.InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.INVENTORY))
+            if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button6)) // [TODO] Code above not working while PlayerController handles ALL inputs.
             {
+                //Manager.GameManager.PlayerCtrl.InputCtrl.ResetDelayedInput(Unit.Player.PlayerInputController.ButtonCategory.INVENTORY);
+
                 if (!Displayed)
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);
                     _scrollbar.value = 1f;
+
                     Open();
-
-                    return;
                 }
-
-                Navigation.UINavigationManager.CloseCurrentPanel();
-                Navigation.UINavigationManager.NullifySelected();
+                else
+                {
+                    Navigation.UINavigationManager.CloseCurrentPanel();
+                    Navigation.UINavigationManager.NullifySelected();
+                }
             }
         }
 
