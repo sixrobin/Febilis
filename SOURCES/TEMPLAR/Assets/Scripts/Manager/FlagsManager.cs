@@ -8,9 +8,9 @@
         private static System.Collections.Generic.Dictionary<System.Type, Flags.FlagsList> s_flags;
         private static bool s_init;
 
-        private static void Init()
+        private static void Init(bool force = false)
         {
-            if (s_init)
+            if (s_init && !force)
                 return;
 
             s_flags = new System.Collections.Generic.Dictionary<System.Type, Flags.FlagsList>()
@@ -26,6 +26,11 @@
             };
 
             s_init = true;
+        }
+
+        public static void Clear()
+        {
+            Init(true);
         }
 
         public static bool Check(Flags.IIdentifiable identifiable)

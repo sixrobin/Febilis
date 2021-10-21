@@ -123,6 +123,7 @@
             {
                 System.IO.File.Delete(GameSavePath);
 
+                FlagsManager.Clear();
                 Interaction.Checkpoint.CheckpointController.ClearCurrentCheckpoint();
             }
             catch (System.Exception e)
