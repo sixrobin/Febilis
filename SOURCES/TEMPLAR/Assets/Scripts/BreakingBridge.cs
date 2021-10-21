@@ -6,8 +6,12 @@
     using UnityEditor;
 #endif
 
-    public class BreakingBridge : MonoBehaviour
+    public class BreakingBridge : MonoBehaviour, Flags.IIdentifiable
     {
+        [Header("IDENTIFIER")]
+        [SerializeField] private Flags.Identifier _identifier = null;
+
+        [Header("REFS")]
         [SerializeField] private RSLib.Physics2DEventReceiver _breakTrigger = null;
         [SerializeField] private Collider2D _collider2D = null;
         [SerializeField] private SpriteRenderer _spriteRenderer = null;
@@ -25,12 +29,25 @@
         private Sprite _baseSprite;
         private Vector3[] _initBrokenPartsPositions;
 
+        public Flags.IIdentifier Identifier => _identifier;
+
         private void OnBreakTriggerEnter(Collider2D collider)
+        {
+            Manager.FlagsManager.Register(this);
+
+            ToggleBrokenBridge();
+            PlayBreakFeedback();
+        }
+
+        private void ToggleBrokenBridge()
         {
             _breakTrigger.gameObject.SetActive(false);
             _collider2D.enabled = false;
             _spriteRenderer.sprite = _brokenSprite;
+        }
 
+        private void PlayBreakFeedback()
+        {
             Manager.GameManager.CameraCtrl.GetShake(Camera.CameraShake.ID_BIG).AddTrauma(_trauma);
 
             for (int i = _brokenParts.Length - 1; i >= 0; --i)
@@ -48,7 +65,7 @@
             }
         }
 
-        private void Awake()
+        private void Start()
         {
             _breakTrigger.TriggerEntered += OnBreakTriggerEnter;
 
@@ -59,6 +76,9 @@
             {
                 _initBrokenPartsPositions[i] = _brokenParts[i].transform.position;
             }
+
+            if (Manager.FlagsManager.Check(this))
+                ToggleBrokenBridge();
         }
 
         private void OnDestroy()

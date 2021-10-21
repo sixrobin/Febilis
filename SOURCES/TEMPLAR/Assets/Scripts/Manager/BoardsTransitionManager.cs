@@ -102,6 +102,8 @@
 
         private static System.Collections.IEnumerator TransitionOutToBoardsLinkCoroutine(Boards.BoardsLink source, Boards.BoardsLink target)
         {
+            target.Board.OnBoardEntered();
+
             GameManager.CameraCtrl.SetColor(target.Board.BackgroundColor);
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
 

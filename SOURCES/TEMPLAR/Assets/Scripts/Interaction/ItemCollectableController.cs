@@ -3,10 +3,13 @@
     using RSLib.Extensions;
     using UnityEngine;
 
-    public class ItemCollectableController : Interactable
+    public class ItemCollectableController : Interactable, Flags.IIdentifiable
     {
         [Header("FOR ITEMS SET IN SCENE")]
         [SerializeField] private RSLib.Framework.OptionalString _itemId = new RSLib.Framework.OptionalString(string.Empty, false);
+
+        [Header("IDENTIFIER")]
+        [SerializeField] private Flags.ItemIdentifier _itemIdentifier = null;
 
         [Header("REFS")]
         [SerializeField] private GameObject _container = null;
@@ -24,6 +27,7 @@
         [SerializeField] private GameObject[] _fadeOverParticles = null;
 
         public string ItemId { get; private set; }
+        public Flags.IIdentifier Identifier => _itemIdentifier;
 
         public void SetItemId(string id)
         {
@@ -70,6 +74,11 @@
         {
             UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
             Manager.GameManager.InventoryCtrl.AddItem(ItemId);
+
+            // Items can be collected from chests, and not have any registered Id.
+            // [TODO] However, they can be left behind and must then be saved and reloaded at the same place.
+            if (Identifier != null)
+                Manager.FlagsManager.Register(this);
         }
 
         private System.Collections.IEnumerator FadeOutSmokeCoroutine()
@@ -95,8 +104,11 @@
             _container.SetActive(false);
         }
 
-        private void Awake()
+        private void Start()
         {
+            if (Identifier != null && Manager.FlagsManager.Check(this))
+                _container.SetActive(false);
+
             if (_itemId.Enabled && !string.IsNullOrEmpty(_itemId.Value))
                 SetItemId(_itemId.Value);
         }

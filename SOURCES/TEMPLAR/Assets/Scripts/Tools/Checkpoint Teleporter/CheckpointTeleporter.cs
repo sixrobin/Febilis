@@ -19,7 +19,7 @@
 
         private void OnTeleportButtonClicked(string checkpointId)
         {
-            Interaction.Checkpoint.CheckpointController checkpoint = _checkpoints.Where(o => o.Id == checkpointId).First();
+            Interaction.Checkpoint.CheckpointController checkpoint = _checkpoints.Where(o => o.Identifier.Id == checkpointId).First();
 
             Log($"Teleporting player to checkpoint {checkpointId} (position {checkpoint.RespawnPos}).", true);
 
@@ -53,7 +53,7 @@
             for (int i = 0; i < _checkpoints.Length; ++i)
             {
                 _teleportPanels[i] = Instantiate(_teleportPanelTemplate, _teleportPanelsContainer);
-                _teleportPanels[i].Init(_checkpoints[i].Id, OnTeleportButtonClicked);
+                _teleportPanels[i].Init(_checkpoints[i].Identifier.Id, OnTeleportButtonClicked);
             }
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("OpenCheckpointTeleporter", "Opens checkpoint teleporter panel.", TogglePanel));

@@ -27,6 +27,7 @@
                 XElement paletteIndexElement = new XElement("PaletteIndex", PaletteManager.CurrRampIndex);
                 container.Add(paletteIndexElement);
 
+                container.Add(FlagsManager.Save());
                 container.Add(GameManager.InventoryCtrl.Save());
                 container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
 
@@ -80,12 +81,14 @@
                 XElement gameSaveElement = container.Element("GameSave");
 
                 XElement checkpointIdElement = gameSaveElement.Element("CheckpointId");
-                Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(GameManager.OptionalCheckpoint.Enabled ? GameManager.OptionalCheckpoint.Value.Id : checkpointIdElement.Value);
+                Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(
+                    GameManager.OptionalCheckpoint.Enabled ? GameManager.OptionalCheckpoint.Value.Identifier.Id : checkpointIdElement.Value);
 
                 XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
                 if (paletteIndexElement != null)
                     PaletteManager.SetPalette(paletteIndexElement.ValueToInt());
 
+                FlagsManager.Load(gameSaveElement.Element("Flags"));
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
                 FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
             }
@@ -120,7 +123,7 @@
             {
                 System.IO.File.Delete(GameSavePath);
 
-                Interaction.Checkpoint.CheckpointController.ForceRemoveCurrentCheckpoint();
+                Interaction.Checkpoint.CheckpointController.ClearCurrentCheckpoint();
             }
             catch (System.Exception e)
             {

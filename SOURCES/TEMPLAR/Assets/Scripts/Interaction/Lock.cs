@@ -3,13 +3,19 @@
     using System.Linq;
     using UnityEngine;
 
-    public class Lock : Dialogue.Speaker
+    public class Lock : Dialogue.Speaker, Flags.IIdentifiable
     {
-        [SerializeField] private UnityEngine.Events.UnityEvent _onOpen = null;
+        [Header("IDENTIFIER")]
+        [SerializeField] private Flags.LockIdentifier _lockIdentifier = null;
+
+        [Header("REFS")]
         [SerializeField] private Animator _animator = null;
+        [SerializeField] private UnityEngine.Events.UnityEvent _onOpen = null;
 
         private bool _locked = true;
         private bool _debugForceUnlock;
+
+        public Flags.IIdentifier Identifier => _lockIdentifier;
 
         public override void Interact()
         {
@@ -19,10 +25,8 @@
                 return;
             }
 
-            _onOpen?.Invoke();
-
-            _highlight.SetActive(false);
-            _animator.SetTrigger("Unlock");
+            Manager.FlagsManager.Register(this);
+            Unlock(false);
         }
 
         public void OnUnlockAnimationOver()
@@ -36,8 +40,22 @@
             _locked = state;
         }
 
-        private void Awake()
+        private void Unlock(bool instantly)
         {
+            _onOpen?.Invoke();
+            _highlight.SetActive(false);
+
+            if (instantly)
+                OnUnlockAnimationOver();
+            else
+                _animator.SetTrigger("Unlock");
+        }
+
+        private void Start()
+        {
+            if (Manager.FlagsManager.Check(this))
+                Unlock(true);
+
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LocksForceUnlock", "Forces every locks to open on interaction.", () =>
             {
                 FindObjectsOfType<Lock>().ToList().ForEach(o => o._debugForceUnlock = true);

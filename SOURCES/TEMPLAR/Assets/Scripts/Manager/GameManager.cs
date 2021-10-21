@@ -44,10 +44,10 @@
 
             for (int i = checkpoints.Length - 1; i >= 0; --i)
             {
-                if (!idCounters.ContainsKey(checkpoints[i].Id))
-                    idCounters.Add(checkpoints[i].Id, 0);
-
-                idCounters[checkpoints[i].Id]++;
+                if (!idCounters.ContainsKey(checkpoints[i].Identifier.Id))
+                    idCounters.Add(checkpoints[i].Identifier.Id, 1);
+                else
+                    idCounters[checkpoints[i].Identifier.Id]++;
             }
 
             foreach (System.Collections.Generic.KeyValuePair<string, int> idCounter in idCounters)
@@ -79,9 +79,15 @@
             SpawnPlayer();
 
             if (CameraCtrl.InitBoardBounds.Enabled && CameraCtrl.InitBoardBounds.Value != null)
+            {
                 CameraCtrl.SetBoardBounds(CameraCtrl.InitBoardBounds.Value);
+                CameraCtrl.InitBoardBounds.Value.Board.OnBoardEntered();
+            }
             else
-               BoardsManager.DebugForceRefreshInitBoard(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
+            {
+                Boards.Board initBoard = BoardsManager.DebugForceRefreshInitBoard(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
+                initBoard?.OnBoardEntered();
+            }
 
             if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
                 RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));
