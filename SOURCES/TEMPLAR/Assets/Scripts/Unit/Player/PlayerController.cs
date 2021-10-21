@@ -26,6 +26,9 @@
         private Vector3 _prevVel;
         private float _refVelX;
 
+        private float _debugSpeedMult = 1f;
+        private float _debugJumpMult = 1f;
+
         public bool Initialized { get; private set; }
 
         public PlayerView PlayerView => _playerView;
@@ -116,6 +119,8 @@
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float, float>("PositionAdd", $"Adds a vector to the player position.", (x, y) => { transform.position += new Vector3(x, y); }));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float, float>("PositionSet", $"Sets the player position.", (x, y) => { transform.position = new Vector3(x, y); }));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float>("MultiplySpeed", $"Multiplies player speed.", (x) =>  _debugSpeedMult = x ));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float>("MultiplyJump", $"Multiplies player jump.", (x) =>  _debugJumpMult = x ));
 
             Initialized = true;
         }
@@ -127,12 +132,12 @@
 
         public void JumpWithMaxVelocity()
         {
-            _currVel.y = JumpCtrl.JumpVelMax;
+            _currVel.y = JumpCtrl.JumpVelMax * _debugJumpMult;
         }
 
         public void JumpWithVariousVelocity()
         {
-            _currVel.y = InputCtrl.CheckJumpInput() ? JumpCtrl.JumpVelMax : JumpCtrl.JumpVelMin;
+            _currVel.y = (InputCtrl.CheckJumpInput() ? JumpCtrl.JumpVelMax : JumpCtrl.JumpVelMin) * _debugJumpMult;
         }
 
         public void ResetVelocity()
@@ -394,7 +399,7 @@
             if (EffectorDown && CollisionsCtrl.AboveEffector)
                 StartCoroutine(ResetJumpInputAfterDownEffector());
 
-            float targetVelX = CtrlDatas.RunSpeed;
+            float targetVelX = CtrlDatas.RunSpeed * _debugSpeedMult;
             if (!IsBeingHurt && !IsHealing)
             {
                 targetVelX *= InputCtrl.Horizontal;

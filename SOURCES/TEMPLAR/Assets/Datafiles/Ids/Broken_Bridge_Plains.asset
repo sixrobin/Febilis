@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c71db62a671237345a74a83814c107e3, type: 3}
-  m_Name: Broken_Bridge_0000
+  m_Name: Broken_Bridge_Plains
   m_EditorClassIdentifier: 
   _preview:
-    _value: Broken_Bridge_0000
-  _id: Broken_Bridge
+    _value: Broken_Bridge_Plains
+  _id: Broken_Bridge_Plains
   _number:
     _value: 0
-    _enabled: 1
+    _enabled: 0

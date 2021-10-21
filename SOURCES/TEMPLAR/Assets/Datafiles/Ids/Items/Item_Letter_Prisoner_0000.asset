@@ -15,5 +15,6 @@ MonoBehaviour:
   _preview:
     _value: Item_Letter_Prisoner_0000
   _id: Letter_Prisoner
-  _number: 0
-  _useNumbering: 1
+  _number:
+    _value: 0
+    _enabled: 1

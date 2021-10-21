@@ -21,7 +21,8 @@
                 { typeof(Flags.ItemIdentifier), new Flags.FlagsList(typeof(Flags.ItemIdentifier)) },
                 { typeof(Flags.ChestIdentifier), new Flags.FlagsList(typeof(Flags.ChestIdentifier)) },
                 { typeof(Flags.LockIdentifier), new Flags.FlagsList(typeof(Flags.LockIdentifier)) },
-                { typeof(Flags.CheckpointIdentifier), new Flags.FlagsList(typeof(Flags.CheckpointIdentifier), true) }
+                { typeof(Flags.CheckpointIdentifier), new Flags.FlagsList(typeof(Flags.CheckpointIdentifier), true) },
+                { typeof(Flags.LeverIdentifier), new Flags.FlagsList(typeof(Flags.LeverIdentifier)) }
             };
 
             s_init = true;
@@ -40,7 +41,7 @@
         private static Flags.FlagsList GetFlagsList(Flags.IIdentifiable identifiable)
         {
             System.Type identifierType = identifiable.Identifier.GetType();
-            UnityEngine.Assertions.Assert.IsTrue(s_flags.ContainsKey(identifierType), $"Unhandled flag type {identifierType.Name}");
+            UnityEngine.Assertions.Assert.IsTrue(s_flags.ContainsKey(identifierType), $"Unhandled flag type {identifierType.Name}.");
             return s_flags[identifierType];
         }
 

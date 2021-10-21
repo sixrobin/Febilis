@@ -123,7 +123,7 @@
             {
                 System.IO.File.Delete(GameSavePath);
 
-                Interaction.Checkpoint.CheckpointController.ForceRemoveCurrentCheckpoint();
+                Interaction.Checkpoint.CheckpointController.ClearCurrentCheckpoint();
             }
             catch (System.Exception e)
             {

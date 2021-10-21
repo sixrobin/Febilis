@@ -14,6 +14,8 @@
         [SerializeField] private ZoneIdentifier _containingZone = null;
         [SerializeField] private bool _includeZoneId = true;
 
+        public bool ZoneReferenceMissing => _includeZoneId && _containingZone == null;
+
         public override string Id
         {
             get
@@ -25,7 +27,7 @@
 
                 string id = ID_PREFIX;
 
-                if (_includeZoneId && _containingZone != null) // [TODO] Show error if zone reference is missing.
+                if (_includeZoneId && _containingZone != null)
                     id += "_" + _containingZone.BaseId;
 
                 if (!string.IsNullOrEmpty(BaseId))
@@ -43,6 +45,13 @@
     [CustomEditor(typeof(BoardIdentifier))]
     public class BoardIdentifierEditor : IdentifierEditor
     {
+        public override void OnInspectorGUI()
+        {
+            if ((Obj as BoardIdentifier).ZoneReferenceMissing)
+                EditorGUILayout.HelpBox("Zone reference is missing even though Zone Id is used to generate Board Id.", MessageType.Error);
+
+            base.OnInspectorGUI();
+        }
     }
 #endif
 }

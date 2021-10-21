@@ -74,7 +74,11 @@
         {
             UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(ItemId), "Picking up an item with unspecified Id.");
             Manager.GameManager.InventoryCtrl.AddItem(ItemId);
-            Manager.FlagsManager.Register(this);
+
+            // Items can be collected from chests, and not have any registered Id.
+            // [TODO] However, they can be left behind and must then be saved and reloaded at the same place.
+            if (Identifier != null)
+                Manager.FlagsManager.Register(this);
         }
 
         private System.Collections.IEnumerator FadeOutSmokeCoroutine()
