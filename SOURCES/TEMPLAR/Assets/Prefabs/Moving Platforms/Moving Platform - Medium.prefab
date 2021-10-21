@@ -18,6 +18,11 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 1.8888888
       objectReference: {fileID: 0}
+    - target: {fileID: 5447492925332889216, guid: bfb57601590f5f1409c203ee358845ba,
+        type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5447492925875921835, guid: bfb57601590f5f1409c203ee358845ba,
         type: 3}
       propertyPath: m_Name
@@ -31,12 +36,17 @@ PrefabInstance:
     - target: {fileID: 5447492925875921837, guid: bfb57601590f5f1409c203ee358845ba,
         type: 3}
       propertyPath: m_Offset.y
-      value: -0.084
+      value: -0.11120705
       objectReference: {fileID: 0}
     - target: {fileID: 5447492925875921837, guid: bfb57601590f5f1409c203ee358845ba,
         type: 3}
       propertyPath: m_Size.x
       value: 1.8888059
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447492925875921837, guid: bfb57601590f5f1409c203ee358845ba,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.222384
       objectReference: {fileID: 0}
     - target: {fileID: 5447492925875921839, guid: bfb57601590f5f1409c203ee358845ba,
         type: 3}
