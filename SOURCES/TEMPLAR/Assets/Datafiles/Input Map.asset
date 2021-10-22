@@ -16,18 +16,24 @@ MonoBehaviour:
   - _actionId: Jump
     _btn: 32
     _altBtn: 330
+    _userAssignable: 1
   - _actionId: Attack
     _btn: 323
     _altBtn: 332
+    _userAssignable: 1
   - _actionId: Roll
     _btn: 308
     _altBtn: 331
+    _userAssignable: 1
   - _actionId: Interact
     _btn: 101
     _altBtn: 333
+    _userAssignable: 1
   - _actionId: Heal
     _btn: 97
     _altBtn: 335
+    _userAssignable: 1
   - _actionId: Inventory
     _btn: 9
     _altBtn: 336
+    _userAssignable: 0

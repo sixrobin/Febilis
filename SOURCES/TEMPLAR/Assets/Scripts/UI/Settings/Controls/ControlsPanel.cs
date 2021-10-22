@@ -174,8 +174,9 @@
         {
             int i = 0;
 
-            foreach (System.Collections.Generic.KeyValuePair<string, (KeyCode btn, KeyCode altBtn)> binding in _editedMap.MapCopy)
-                _bindingPanels[i++].Init(binding.Key, binding.Value);
+            foreach (System.Collections.Generic.KeyValuePair<string, InputMapDatas.KeyBinding> binding in _editedMap.MapCopy)
+                if (binding.Value.UserAssignable)
+                    _bindingPanels[i++].Init(binding.Key, binding.Value);
 
             for (; i < _bindingPanels.Length; ++i)
                 _bindingPanels[i].Hide();

@@ -27,10 +27,10 @@
             Navigation.UINavigationManager.Select(_baseBtn.gameObject);
         }
 
-        public void Init(string actionId, (KeyCode btn, KeyCode alt) btns)
+        public void Init(string actionId, RSLib.Framework.InputSystem.InputMapDatas.KeyBinding keyBinding)
         {
             ActionId = actionId;
-            _btns = btns;
+            _btns = keyBinding.KeyCodes;
 
             _baseBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
             _altBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
