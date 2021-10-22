@@ -20,7 +20,7 @@ MonoBehaviour:
   - _actionId: Attack
     _btn: 323
     _altBtn: 332
-    _userAssignable: 1
+    _userAssignable: 0
   - _actionId: Roll
     _btn: 308
     _altBtn: 331
