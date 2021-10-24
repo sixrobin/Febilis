@@ -159,7 +159,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 29507fbec138b344296423c8ef4f4950, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68d5d99913a72a04cbb13132e1df55d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -181,7 +181,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b24fd905a83b32a4fbfc8a5f9d02876f,
+      objectReference: {fileID: 21300000, guid: 6ee3ef7f98a3b2e468d262eb438ae925,
         type: 3}
     - target: {fileID: 7491186539554326089, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
@@ -252,13 +252,13 @@ PrefabInstance:
         type: 3}
       propertyPath: _triggerSpritesLoop.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: f62c1639d0877614d8219c2f93edd8c0,
+      objectReference: {fileID: 21300000, guid: 73570b82bff2fa245906806bf3f28d22,
         type: 3}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: _triggerSpritesLoop.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: b24fd905a83b32a4fbfc8a5f9d02876f,
+      objectReference: {fileID: 21300000, guid: 6ee3ef7f98a3b2e468d262eb438ae925,
         type: 3}
     - target: {fileID: 7491186539554326090, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
@@ -293,22 +293,22 @@ PrefabInstance:
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0.6315789
+      value: 0.51724136
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.0555556
+      value: 1.6111112
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326091, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.7222222
+      value: 0.8888889
       objectReference: {fileID: 0}
     - target: {fileID: 7491186539554326133, guid: cdbab8e504933fc41a04031a4862cf82,
         type: 3}
