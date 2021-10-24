@@ -23,6 +23,13 @@
       </Sequence>
    </DialogueDatas>
 
+   <DialogueDatas Id="StoneSign_CatacombsEntry">
+      <HidePortraitBox/>
+      <Sequence>
+         <Sentence Id="StoneSign_CatacombsEntry_Sentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
 
    <SentenceDatas Id="StoneSign_00_Sentence_00">
       <Speaker Id="Templar">
@@ -50,6 +57,13 @@
          <HideSpeakerName/>
       </Speaker>
       <Value>"Place of the commoners."</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_CatacombsEntry_Sentence_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>"Here lie the dead, and those who got cursed by Febilis."</Value>
    </SentenceDatas>
    
 </DialoguesDatas>

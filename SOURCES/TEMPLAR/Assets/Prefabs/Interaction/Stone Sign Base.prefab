@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 648460321800340541}
   - component: {fileID: 648460321800340542}
   m_Layer: 11
-  m_Name: Stone Sign 00
+  m_Name: Stone Sign Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +88,7 @@ MonoBehaviour:
     _value: {fileID: 0}
     _enabled: 0
   _highlight: {fileID: 648460321901546429}
+  _collider: {fileID: 648460321800340541}
 --- !u!1 &648460321901546429
 GameObject:
   m_ObjectHideFlags: 0
