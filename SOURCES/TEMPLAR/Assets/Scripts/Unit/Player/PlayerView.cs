@@ -51,6 +51,7 @@
         private int _idleStateHash;
         private int _idleBreakStateHash;
         private int _idleSleepingStateHash;
+        private int _fallStateHash;
 
         private int _currStateHash;
         private int _previousStateHash;
@@ -70,7 +71,7 @@
         public void UpdateView(bool flip, Vector3 currVel, Vector3 prevVel)
         {
             _animator.SetBool(IS_RUNNING, !PlayerCtrl.IsBeingHurt && !PlayerCtrl.IsHealing && !PlayerCtrl.RollCtrl.IsRolling && !PlayerCtrl.IsDialoguing && PlayerCtrl.InputCtrl.Horizontal != 0f);
-
+           
             if (!PlayerCtrl.RollCtrl.IsRolling && !PlayerCtrl.AttackCtrl.IsAttacking && !PlayerCtrl.IsHealing)
                 FlipX(flip);
 
@@ -78,13 +79,18 @@
                 && (prevVel.y > 0f
                     || PlayerCtrl.CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW)
                     && !PlayerCtrl.CollisionsCtrl.Below)
-                    && !PlayerCtrl.AttackCtrl.IsAttacking
-                    && !PlayerCtrl.IsBeingHurt
-                    && !PlayerCtrl.IsHealing)
+                && !PlayerCtrl.AttackCtrl.IsAttacking
+                && !PlayerCtrl.IsBeingHurt
+                && !PlayerCtrl.IsHealing)
             {
                 _animator.SetTrigger(FALL);
                 LogAnimationPlayIfRequired("Fall");
             }
+
+            if (PlayerCtrl.IsOnMovingPlatform
+                && PlayerCtrl.CollisionsCtrl.CurrentStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW)
+                && _currStateHash == _fallStateHash)
+                PlayIdleAnimation();
         }
 
         public void PlayAttackAnimation(float dir, Datas.Attack.PlayerAttackDatas attackDatas)
@@ -355,6 +361,7 @@
             _idleStateHash = Animator.StringToHash("Motion_Idle");
             _idleBreakStateHash = Animator.StringToHash("Idle-Break");
             _idleSleepingStateHash = Animator.StringToHash("Idle-Sleeping");
+            _fallStateHash = Animator.StringToHash("Motion_Fall");
 
             InitAnimatorOverrideController();
 

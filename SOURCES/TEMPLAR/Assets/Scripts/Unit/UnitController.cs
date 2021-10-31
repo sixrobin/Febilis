@@ -28,6 +28,8 @@
 
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
+        public bool IsOnMovingPlatform { get; set; }
+
         void Templar.Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
             if (float.IsNaN(vel.x) || float.IsNaN(vel.y))
@@ -38,6 +40,7 @@
                 return;
             }
 
+            IsOnMovingPlatform = true;
             Translate(vel, triggerEvents: false, standingOnPlatform: standingOnPlatform);
         }
 
@@ -112,6 +115,11 @@
 #if UNITY_EDITOR
             _debugCollisionsState = new RSLib.Framework.DisabledString(CollisionsCtrl.CurrentStates.ToString());
 #endif
+        }
+
+        protected virtual void LateUpdate()
+        {
+            IsOnMovingPlatform = false;
         }
     }
 }
