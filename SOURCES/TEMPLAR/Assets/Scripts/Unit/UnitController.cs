@@ -30,6 +30,14 @@
 
         void Templar.Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
+            if (float.IsNaN(vel.x) || float.IsNaN(vel.y))
+            {
+                // This is a hack to avoid this bug: https://app.hacknplan.com/p/148469/kanban?categoryId=8&boardId=392835&taskId=150&tabId=basicinfo
+                // Should check why the vector has such a value instead of just returning.
+                CProLogger.LogWarning(this, $"Translating {transform.name} on MovingPlatform by a NaN vector.", gameObject);
+                return;
+            }
+
             Translate(vel, triggerEvents: false, standingOnPlatform: standingOnPlatform);
         }
 

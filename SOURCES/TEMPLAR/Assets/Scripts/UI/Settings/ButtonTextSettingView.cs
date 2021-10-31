@@ -12,6 +12,7 @@
 
         public override void Init()
         {
+            _btn.onClick.RemoveAllListeners();
             _btn.onClick.AddListener(OnButtonClicked);
             RefreshText();
         }
