@@ -403,6 +403,13 @@
             if (!IsBeingHurt && !IsHealing)
             {
                 targetVelX *= InputCtrl.Horizontal;
+
+                // Clamp value to a minimum, to avoid players settings their dead zone to a low value being too slow.
+                if (InputCtrl.Horizontal > 0f)
+                    targetVelX = Mathf.Max(targetVelX, CtrlDatas.MinRunSpeed);
+                else if (InputCtrl.Horizontal < 0f)
+                    targetVelX = Mathf.Min(targetVelX, -CtrlDatas.MinRunSpeed);
+
                 if (JumpCtrl.IsAnticipatingJump)
                     targetVelX *= CtrlDatas.Jump.JumpAnticipationSpeedMult;
                 if (JumpCtrl.IsInLandImpact)

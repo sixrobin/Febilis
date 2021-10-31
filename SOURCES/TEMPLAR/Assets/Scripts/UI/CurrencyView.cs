@@ -69,6 +69,9 @@
 
         private void Display(bool state)
         {
+            if (state && Manager.GameManager.PlayerCtrl.IsDead)
+                return;
+
             _currencyCanvas.enabled = state;
             _displayedCurrency = Manager.GameManager.InventoryCtrl?.GetItemQuantity(InventoryController.ITEM_ID_COIN) ?? 999;
             _diff = 0;
