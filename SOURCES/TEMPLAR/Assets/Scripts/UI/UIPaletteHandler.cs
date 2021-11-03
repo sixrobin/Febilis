@@ -19,11 +19,11 @@
         private Texture2D _initRampTex;
         private Material[] _mats;
 
-        private void ChangePalette(Texture2D rampTex)
+        private void ChangePalette(Texture2D ramp)
         {
             for (int i = _mats.Length - 1; i >= 0; --i)
                 if (_mats[i] != null)
-                    _mats[i].SetTexture(RAMP_TEX_SHADER_PARAM, rampTex);
+                    _mats[i].SetTexture(RAMP_TEX_SHADER_PARAM, ramp);
         }
 
         private void Awake()
@@ -36,7 +36,7 @@
 
             s_instance = this;
 
-            PaletteManager.Instance.PaletteChanged += ChangePalette;
+            Manager.PaletteManager.Instance.PaletteChanged += ChangePalette;
             _mats = _templateGraphics.Select(o => o.materialForRendering).ToArray();
             _initRampTex = _mats[0].GetTexture(RAMP_TEX_SHADER_PARAM) as Texture2D;
         }

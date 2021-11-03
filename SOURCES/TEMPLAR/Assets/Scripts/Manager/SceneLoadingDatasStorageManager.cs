@@ -20,7 +20,6 @@
             {
                 Player = GameManager.PlayerCtrl.SaveDatasBeforeSceneLoading(),
                 Inventory = GameManager.InventoryCtrl.SaveDatasBeforeSceneLoading(),
-                DialogueStructuresBySpeaker = FindObjectsOfType<Interaction.Dialogue.NPCController>().ToDictionary(o => o.SpeakerId, o => o.SaveDatasBeforeSceneLoading())
             };
         }
 
@@ -33,13 +32,6 @@
 
             GameManager.PlayerCtrl.LoadDatasAfterSceneLoading(Instance._sceneLoadDatasContainer.Value.Player);
             GameManager.InventoryCtrl.LoadDatasAfterSceneLoading(Instance._sceneLoadDatasContainer.Value.Inventory);
-
-            foreach (Interaction.Dialogue.NPCController npc in FindObjectsOfType<Interaction.Dialogue.NPCController>())
-                if (Instance._sceneLoadDatasContainer.Value.DialogueStructuresBySpeaker.TryGetValue(npc.SpeakerId, out SceneLoadDatasDialogueStructure dialogueStructure))
-                    npc.LoadDatasAfterSceneLoading(dialogueStructure);
-
-            // [TODO] Cleaning up will lose dialogue structures of NPC that are NOT in the current scene.
-            // We need to save them somewhere, in DialogueManager probably.
 
             Cleanup();
         }

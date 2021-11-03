@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Board_Catacombs_End
   m_EditorClassIdentifier: 
   _preview:
-    _value: Board_Catacombs_End
+    _value: Board_Plains_End
   _id: End
   _number:
     _value: 0
     _enabled: 0
-  _containingZone: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
+  _containingZone: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
   _includeZoneId: 1

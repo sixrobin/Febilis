@@ -85,7 +85,8 @@
 
         private void OnOptionsClosed()
         {
-            if (!_playerHealthCtrl.HealthSystem.IsDead)
+            if (!_playerHealthCtrl.HealthSystem.IsDead
+                && !Manager.BoardsTransitionManager.IsInBoardTransition)
                 _healthBarCanvas.enabled = true;
         }
 

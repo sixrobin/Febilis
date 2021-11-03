@@ -58,7 +58,7 @@
 
         public override void Close()
         {
-            if (!_closedThisFrame)
+            if (Displayed && !_closedThisFrame)
                 StartCoroutine(CloseAtEndOfFrame());
         }
 

@@ -43,6 +43,18 @@
             Display(true);
         }
 
+        private void OnOptionsOpened()
+        {
+            Display(false);
+        }
+
+        private void OnOptionsClosed()
+        {
+            if (!Manager.GameManager.PlayerCtrl.IsDead
+                && !Manager.BoardsTransitionManager.IsInBoardTransition)
+                Display(true);
+        }
+
         private void OnSleepAnimationBegan()
         {
             Display(false);
@@ -111,8 +123,8 @@
             Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
             Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
 
-            Manager.OptionsManager.Instance.OptionsOpened += () => Display(false);
-            Manager.OptionsManager.Instance.OptionsClosed += () => Display(true);
+            Manager.OptionsManager.Instance.OptionsOpened += OnOptionsOpened;
+            Manager.OptionsManager.Instance.OptionsClosed += OnOptionsClosed;
 
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
             Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
@@ -142,8 +154,8 @@
 
             if (Manager.OptionsManager.Exists())
             {
-                Manager.OptionsManager.Instance.OptionsOpened -= () => Display(false);
-                Manager.OptionsManager.Instance.OptionsClosed -= () => Display(true);
+                Manager.OptionsManager.Instance.OptionsOpened -= OnOptionsOpened;
+                Manager.OptionsManager.Instance.OptionsClosed -= OnOptionsClosed;
             }
 
             if (Manager.GameManager.Exists())

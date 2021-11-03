@@ -14,21 +14,23 @@
         [SerializeField] private ZoneIdentifier _containingZone = null;
         [SerializeField] private bool _includeZoneId = true;
 
-        public bool ZoneReferenceMissing => _includeZoneId && _containingZone == null;
+        public ZoneIdentifier ContainingZoneIdentifier => _containingZone;
+        
+        public bool ZoneReferenceMissing => _includeZoneId && ContainingZoneIdentifier == null;
 
         public override string Id
         {
             get
             {
                 if (string.IsNullOrEmpty(BaseId)
-                    && (!_includeZoneId || _containingZone == null)
+                    && (!_includeZoneId || ContainingZoneIdentifier == null)
                     && !UseNumbering)
                     return ID_ERROR;
 
                 string id = ID_PREFIX;
 
-                if (_includeZoneId && _containingZone != null)
-                    id += "_" + _containingZone.BaseId;
+                if (_includeZoneId && ContainingZoneIdentifier != null)
+                    id += "_" + ContainingZoneIdentifier.BaseId;
 
                 if (!string.IsNullOrEmpty(BaseId))
                     id += "_" + BaseId;

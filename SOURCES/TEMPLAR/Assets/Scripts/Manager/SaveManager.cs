@@ -47,11 +47,9 @@
                 XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
                 container.Add(checkpointIdElement);
 
-                XElement paletteIndexElement = new XElement("PaletteIndex", PaletteManager.CurrRampIndex);
-                container.Add(paletteIndexElement);
-
                 container.Add(FlagsManager.Save());
                 container.Add(GameManager.InventoryCtrl.Save());
+                container.Add(DialoguesStructuresManager.Save());
                 container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSavePath);
@@ -113,12 +111,9 @@
                 Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(
                     GameManager.OptionalCheckpoint.Enabled ? GameManager.OptionalCheckpoint.Value.Identifier.Id : checkpointIdElement.Value);
 
-                XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
-                if (paletteIndexElement != null)
-                    PaletteManager.SetPalette(paletteIndexElement.ValueToInt());
-
                 FlagsManager.Load(gameSaveElement.Element("Flags"));
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
+                DialoguesStructuresManager.Load(gameSaveElement.Element("DialoguesStructures"));
                 FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
             }
             catch (SaveVersionUnknownException e)
