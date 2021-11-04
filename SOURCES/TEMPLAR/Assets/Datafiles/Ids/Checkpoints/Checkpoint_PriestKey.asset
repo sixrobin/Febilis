@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Checkpoint_PriestKey
   m_EditorClassIdentifier: 
   _preview:
-    _value: Checkpoint_First
-  _id: First
+    _value: Checkpoint_PriestKey
+  _id: PriestKey
   _number:
     _value: 0
     _enabled: 0
