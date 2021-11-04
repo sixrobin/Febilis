@@ -3,8 +3,9 @@
     using Templar.Item;
     using UnityEngine;
 
-    public class CurrencyView : MonoBehaviour
+    public class CurrencyView : HUDElement
     {
+        [Header("REFS")]
         [SerializeField] private Canvas _currencyCanvas = null;
         [SerializeField] private TMPro.TextMeshProUGUI _currencyText = null;
         [SerializeField] private TMPro.TextMeshProUGUI _diffText = null;
@@ -19,8 +20,10 @@
         private int _displayedCurrency = 0;
         private int _diff = 0;
 
-        private void OnInventoryContentChanged(InventoryController.InventoryContentChangedEventArgs args)
+        protected override void OnInventoryContentChanged(InventoryController.InventoryContentChangedEventArgs args)
         {
+            base.OnInventoryContentChanged(args);
+
             if (args.Item.Datas.Id != InventoryController.ITEM_ID_COIN)
                 return;
 
@@ -30,44 +33,18 @@
             StartCoroutine(_diffUpdateCoroutine = UpdateDifferenceCoroutine());
         }
 
-        private void OnFadeBegan(bool fadeIn)
+        protected override void Display(bool state)
         {
-            Display(false);
-        }
+            base.Display(state);
 
-        private void OnFadeOver(bool fadeIn)
-        {
-            if (fadeIn)
+            if (state && !CanBeDisplayed())
                 return;
 
-            Display(true);
-        }
+            _displayedCurrency = Manager.GameManager.InventoryCtrl?.GetItemQuantity(InventoryController.ITEM_ID_COIN) ?? 999;
+            _diff = 0;
 
-        private void OnOptionsOpened()
-        {
-            Display(false);
-        }
-
-        private void OnOptionsClosed()
-        {
-            if (!Manager.GameManager.PlayerCtrl.IsDead
-                && !Manager.BoardsTransitionManager.IsInBoardTransition)
-                Display(true);
-        }
-
-        private void OnSleepAnimationBegan()
-        {
-            Display(false);
-        }
-
-        private void OnSleepAnimationOver()
-        {
-            Display(true);
-        }
-
-        private void OnInventoryDisplayChanged(bool displayed)
-        {
-            Display(!displayed);
+            KillUpdateDifferenceCoroutine();
+            UpdateTexts();
         }
 
         private void UpdateTexts()
@@ -77,19 +54,6 @@
             _diffText.enabled = _diff != 0;
             if (_diffText.enabled)
                 _diffText.text = $"{(System.Math.Sign(_diff) > 0 ? "+" : "-")}{System.Math.Abs(_diff)}";
-        }
-
-        private void Display(bool state)
-        {
-            if (state && Manager.GameManager.PlayerCtrl.IsDead)
-                return;
-
-            _currencyCanvas.enabled = state;
-            _displayedCurrency = Manager.GameManager.InventoryCtrl?.GetItemQuantity(InventoryController.ITEM_ID_COIN) ?? 999;
-            _diff = 0;
-
-            KillUpdateDifferenceCoroutine();
-            UpdateTexts();
         }
 
         private void KillUpdateDifferenceCoroutine()
@@ -118,66 +82,10 @@
             }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
-            Manager.RampFadeManager.Instance.FadeBegan += OnFadeBegan;
-            Manager.RampFadeManager.Instance.FadeOver += OnFadeOver;
-
-            Manager.OptionsManager.Instance.OptionsOpened += OnOptionsOpened;
-            Manager.OptionsManager.Instance.OptionsClosed += OnOptionsClosed;
-
-            Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan += OnSleepAnimationBegan;
-            Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver += OnSleepAnimationOver;
-
-            if (Manager.GameManager.InventoryCtrl != null)
-                Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
-            
-            if (Manager.GameManager.InventoryView != null)
-                Manager.GameManager.InventoryView.DisplayChanged += OnInventoryDisplayChanged;
-
-            UI.Dialogue.DialogueManager.Instance.DialogueStarted += (dialogueDatas) => Display(false);
-            UI.Dialogue.DialogueManager.Instance.DialogueOver += (dialogueDatas) => Display(true);
-
+            base.Awake();
             Display(false);
-        }
-
-        private void OnDestroy()
-        {
-            if (Manager.GameManager.Exists())
-                Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
-
-            if (Manager.RampFadeManager.Exists())
-            {
-                Manager.RampFadeManager.Instance.FadeBegan -= OnFadeBegan;
-                Manager.RampFadeManager.Instance.FadeOver -= OnFadeOver;
-            }
-
-            if (Manager.OptionsManager.Exists())
-            {
-                Manager.OptionsManager.Instance.OptionsOpened -= OnOptionsOpened;
-                Manager.OptionsManager.Instance.OptionsClosed -= OnOptionsClosed;
-            }
-
-            if (Manager.GameManager.Exists())
-            {
-            if (Manager.GameManager.InventoryCtrl != null)
-                Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
-            
-                if (Manager.GameManager.InventoryView != null)
-                Manager.GameManager.InventoryView.DisplayChanged -= OnInventoryDisplayChanged;
-
-                if (Manager.GameManager.PlayerCtrl != null)
-                {
-                    Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationBegan -= OnSleepAnimationBegan;
-                    Manager.GameManager.PlayerCtrl.PlayerView.SleepAnimationOver -= OnSleepAnimationOver;
-                }
-            }
-
-            if (UI.Dialogue.DialogueManager.Exists())
-            {
-                UI.Dialogue.DialogueManager.Instance.DialogueStarted -= (dialogueId) => Display(false);
-                UI.Dialogue.DialogueManager.Instance.DialogueOver -= (dialogueId) => Display(true);
-            }
         }
     }
 }

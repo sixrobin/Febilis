@@ -158,6 +158,7 @@
                 System.IO.File.Delete(GameSavePath);
 
                 FlagsManager.Clear();
+                DialoguesStructuresManager.Clear();
                 Interaction.Checkpoint.CheckpointController.ClearCurrentCheckpoint();
             }
             catch (System.Exception e)

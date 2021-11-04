@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3964fc25796f6984ebcd976eff965557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 3945908165512566906}
   _currencyCanvas: {fileID: 3945908165512566906}
   _currencyText: {fileID: 7494891869028179071}
   _diffText: {fileID: 9130742664306999083}

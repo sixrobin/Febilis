@@ -71,6 +71,8 @@
                     if (boardsBounds[i].Board != null)
                         GameManager.CameraCtrl.SetColor(boardsBounds[i].Board.BackgroundColor);
 
+                    CurrentBoard = boardsBounds[i].Board;
+
                     return boardsBounds[i].Board;
                 }
             }

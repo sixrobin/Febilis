@@ -74,7 +74,7 @@
                 // [TODO] Hide player HUD.
             }
 
-            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Wait for checkpoints initialization.
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Wait for other objects initializations.
 
             SpawnPlayer();
 
@@ -85,7 +85,8 @@
             }
             else
             {
-                Boards.Board initBoard = BoardsManager.DebugForceRefreshInitBoard(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
+                // [TODO] We can call this here, but this is a debug unoptimized method right now.
+                Boards.Board initBoard = BoardsManager.DebugForceRefreshInitBoard();
                 initBoard?.OnBoardEntered();
             }
 

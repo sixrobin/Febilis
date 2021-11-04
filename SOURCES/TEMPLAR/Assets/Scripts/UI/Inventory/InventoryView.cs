@@ -11,6 +11,8 @@
     [DisallowMultipleComponent]
     public partial class InventoryView : UIPanel
     {
+        private const string INVENTORY_INPUT = "Inventory";
+
         private const string EMPTY_SLOT_NAME = "???";
         private const string EMPTY_SLOT_TYPE = "";
         private const string EMPTY_SLOT_DESC = "???";
@@ -316,13 +318,13 @@
         {
             _closedThisFrame = true;
 
+            Display(false);
+
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
 
             CurrentlyHoveredSlot = null;
             UI.Navigation.UINavigationManager.CloseCurrentPanel();
             UI.Navigation.UINavigationManager.NullifySelected();
-
-            Display(false);
 
             _closedThisFrame = false;
         }
@@ -367,12 +369,8 @@
             if (!CanToggleInventory())
                 return;
 
-            //if (Manager.GameManager.PlayerCtrl.InputCtrl != null
-            //    && Manager.GameManager.PlayerCtrl.InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.INVENTORY))
-            if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button6)) // [TODO] Code above not working while PlayerController handles ALL inputs.
+            if (RSLib.Framework.InputSystem.InputManager.GetInputDown(INVENTORY_INPUT))
             {
-                //Manager.GameManager.PlayerCtrl.InputCtrl.ResetDelayedInput(Unit.Player.PlayerInputController.ButtonCategory.INVENTORY);
-
                 if (!Displayed)
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);

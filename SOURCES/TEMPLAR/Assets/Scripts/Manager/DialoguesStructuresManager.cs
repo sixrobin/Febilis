@@ -19,12 +19,19 @@
             else if (!s_dialoguesDoneBySpeaker[speakerId].Contains(dialogueId))
                 s_dialoguesDoneBySpeaker[speakerId].Add(dialogueId);
         }
+
+        public static void Clear()
+        {
+            s_dialoguesDoneBySpeaker.Clear();
+        }
     }
 
     public partial class DialoguesStructuresManager : RSLib.Framework.ConsoleProSingleton<DialoguesStructuresManager>
     {
         public static void Load(XElement dialoguesStructuresElement)
         {
+            Clear();
+
             foreach (XElement dialoguesDoneBySpeakerElement in dialoguesStructuresElement.Elements("DialoguesDone"))
             {
                 XAttribute speakerIdAttribute = dialoguesDoneBySpeakerElement.Attribute("SpeakerId");

@@ -41,8 +41,7 @@
             ATTACK = 4,
             INTERACT = 8,
             HEAL = 16,
-            INVENTORY = 32,
-            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL | INVENTORY
+            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL
         }
 
         public Datas.Unit.Player.PlayerInputDatas InputDatas { get; private set; }
@@ -121,8 +120,7 @@
                     { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
                     { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
                     { ButtonCategory.INTERACT, () => InputManager.GetInputDown(INTERACT) },
-                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) },
-                    { ButtonCategory.INVENTORY, () => InputManager.GetInputDown(INVENTORY) }
+                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) }
                 };
 
             _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(
