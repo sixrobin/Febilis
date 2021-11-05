@@ -9,7 +9,7 @@
 
     public class GameSettingsPanel : SettingsPanelBase
     {
-        private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
+        private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.05f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
 
         [Header("GAME SETTINGS")]
@@ -120,30 +120,11 @@
 
         private void OnSettingPointerEnter(RSLib.Framework.GUI.PointerEventsHandler pointerEventsHandler)
         {
-            // Automatically adjust the scroll view content position so that navigating through the settings with a controller
-            // works without having to move the scroll bar manually.
-            // This is also handling mouse hovering for now.
-
-            Vector3[] sourceCorners = new Vector3[4];
-            pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
-            _settingsViewport.GetWorldCorners(_settingsViewportWorldCorners);
-
-            while (sourceCorners[1].y > _settingsViewportWorldCorners[1].y)
-            {
-                _scrollbar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
-                pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            while (sourceCorners[0].y < _settingsViewportWorldCorners[0].y)
-            {
-                _scrollbar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
-                pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            if (_scrollbar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
-                _scrollbar.value = 0f;
-            else if (_scrollbar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
-                _scrollbar.value = 1f;
+            RSLib.Helpers.AdjustScrollViewToFocusedItem(pointerEventsHandler.RectTransform,
+                                                        _settingsViewport,
+                                                        _scrollbar,
+                                                        SCROLL_BAR_AUTO_REFRESH_VALUE,
+                                                        SCROLL_BAR_AUTO_REFRESH_MARGIN);
         }
 
         private void ResetSettings()

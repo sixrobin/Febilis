@@ -204,32 +204,11 @@
 
         private void OnSlotViewPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {
-            // Automatically adjust the scroll view content position so that navigating through the slots with a controller
-            // works without having to move the scroll bar manually.
-            // This is also handling mouse hovering for now.
-
-            RectTransform sourceRectTransform = source.GetComponent<RectTransform>();
-
-            Vector3[] sourceCorners = new Vector3[4];
-            sourceRectTransform.GetWorldCorners(sourceCorners);
-            _slotsViewport.GetWorldCorners(_slotsViewportWorldCorners);
-
-            while (sourceCorners[1].y > _slotsViewportWorldCorners[1].y)
-            {
-                _scrollbar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
-                sourceRectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            while (sourceCorners[0].y < _slotsViewportWorldCorners[0].y)
-            {
-                _scrollbar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
-                sourceRectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            if (_scrollbar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
-                _scrollbar.value = 0f;
-            else if (_scrollbar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
-                _scrollbar.value = 1f;
+            RSLib.Helpers.AdjustScrollViewToFocusedItem(source.GetComponent<RectTransform>(),
+                                                        _slotsViewport,
+                                                        _scrollbar,
+                                                        SCROLL_BAR_AUTO_REFRESH_VALUE,
+                                                        SCROLL_BAR_AUTO_REFRESH_MARGIN);
         }
 
         private void InitNavigation()
