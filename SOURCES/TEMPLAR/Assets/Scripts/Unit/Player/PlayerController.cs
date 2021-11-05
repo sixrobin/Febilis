@@ -620,7 +620,8 @@
                 && !Tools.CheckpointTeleporter.IsOpen
                 && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame()
-                && (!Manager.GameManager.InventoryView?.Displayed ?? true))
+                && (!Manager.GameManager.InventoryView?.Displayed ?? true)
+                && (!Manager.GameManager.InventoryView?.ClosedThisFrame?? true))
                 InputCtrl.Update();
 
             if (IsDead)

@@ -36,8 +36,9 @@
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
         [SerializeField] private RectTransform _scrollHandle = null;
 
-        private bool _closedThisFrame;
         private Vector3[] _slotsViewportWorldCorners = new Vector3[4];
+
+        public bool ClosedThisFrame { get; private set; }
 
         public InventorySlot MovedSlotSource { get; private set; }
         public bool IsMovingSlot => MovedSlotSource != null;
@@ -60,7 +61,7 @@
 
         public override void Close()
         {
-            if (Displayed && !_closedThisFrame)
+            if (Displayed && !ClosedThisFrame)
                 StartCoroutine(CloseAtEndOfFrame());
         }
 
@@ -75,7 +76,7 @@
                 return;
             }
 
-            if (!_closedThisFrame)
+            if (!ClosedThisFrame)
                 StartCoroutine(CloseAtEndOfFrame());
         }
 
@@ -316,7 +317,7 @@
 
         private System.Collections.IEnumerator CloseAtEndOfFrame()
         {
-            _closedThisFrame = true;
+            ClosedThisFrame = true;
 
             Display(false);
 
@@ -326,7 +327,7 @@
             UI.Navigation.UINavigationManager.CloseCurrentPanel();
             UI.Navigation.UINavigationManager.NullifySelected();
 
-            _closedThisFrame = false;
+            ClosedThisFrame = false;
         }
 
         protected override void Awake()

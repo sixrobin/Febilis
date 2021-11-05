@@ -44,15 +44,35 @@
 
         private void Init()
         {
-            if (_initialized)
+            bool displayUpdated = UpdateOptionsDisplay();
+
+            if (_initialized && !displayUpdated)
                 return;
 
-            for (int i = _settings.Length - 1; i >= 0; --i)
-                _settings[i].Init();
+            if (!_initialized)
+                for (int i = _settings.Length - 1; i >= 0; --i)
+                    _settings[i].Init();
 
-            InitNavigation();
+            if (displayUpdated || !_initialized)
+                InitNavigation();
 
             _initialized = true;
+        }
+
+        private bool UpdateOptionsDisplay()
+        {
+            bool anyChange = false;
+
+            for (int i = _settings.Length - 1; i >= 0; --i)
+            {
+                if (_settings[i].Setting.CanBeDisplayedToUser() != _settings[i].gameObject.activeSelf)
+                {
+                    _settings[i].gameObject.SetActive(!_settings[i].gameObject.activeSelf);
+                    anyChange = true;
+                }
+            }
+
+            return anyChange;
         }
 
         private void InitNavigation()

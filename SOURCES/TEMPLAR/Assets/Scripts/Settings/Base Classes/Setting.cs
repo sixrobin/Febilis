@@ -19,5 +19,10 @@
         public abstract void Init();
         public abstract void Load(XElement element);
         public abstract XElement Save();
+    
+        public virtual bool CanBeDisplayedToUser()
+        {
+            return true;
+        }
     }
 }

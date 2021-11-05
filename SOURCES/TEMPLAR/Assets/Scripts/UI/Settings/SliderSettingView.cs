@@ -8,6 +8,8 @@
 
         protected bool _initializing;
 
+        public override Templar.Settings.Setting Setting => FloatSetting;
+
         public override UnityEngine.UI.Selectable Selectable => _slider;
 
         public abstract Templar.Settings.FloatSetting FloatSetting { get; }
