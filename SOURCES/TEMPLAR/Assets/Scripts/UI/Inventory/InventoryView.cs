@@ -9,7 +9,7 @@
 #endif
 
     [DisallowMultipleComponent]
-    public partial class InventoryView : UIPanel
+    public partial class InventoryView : UIPanel, IScrollViewClosestItemGetter
     {
         private const string INVENTORY_INPUT = "Inventory";
 
@@ -35,8 +35,7 @@
         [SerializeField] private RectTransform _slotsViewport = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
         [SerializeField] private RectTransform _scrollHandle = null;
-
-        private Vector3[] _slotsViewportWorldCorners = new Vector3[4];
+        [SerializeField] private ScrollbarToScrollViewNavigationHandler _scrollbarToScrollViewNavigationHandler = null;
 
         public bool ClosedThisFrame { get; private set; }
 
@@ -50,6 +49,8 @@
         public override GameObject FirstSelected => _firstSelected;
 
         public bool IsContextMenuDisplayed => _contextMenu.Displayed;
+
+        public ScrollbarToScrollViewNavigationHandler ScrollbarToScrollViewNavigationHandler => _scrollbarToScrollViewNavigationHandler;
 
         public static bool CanToggleInventory()
         {
@@ -80,7 +81,7 @@
                 StartCoroutine(CloseAtEndOfFrame());
         }
 
-        public GameObject GetClosestSlotToScrollHandle()
+        public GameObject GetClosestItemToScrollbar()
         {
             RectTransform closestSlot = null;
             float sqrClosestDist = Mathf.Infinity;
@@ -252,9 +253,9 @@
                 }
             }
 
-            //// [TODO] Scrollbar selects top left corner slot. We may want to select a better one depending on the current viewport state.
-            //_scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
-            //_scrollbar.SetSelectOnLeft(_slotsViews[_slotsRowLength - 1].Button);
+            _scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _scrollbar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
+            ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
         }
 
         private void UpdateContent()

@@ -7,7 +7,7 @@
     using UnityEditor;
 #endif
 
-    public class GameSettingsPanel : SettingsPanelBase
+    public class GameSettingsPanel : SettingsPanelBase, IScrollViewClosestItemGetter
     {
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.05f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
@@ -22,12 +22,13 @@
         [SerializeField] private RectTransform _settingsViewport = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
         [SerializeField] private RectTransform _scrollHandle = null;
+        [SerializeField] private ScrollbarToScrollViewNavigationHandler _scrollbarToScrollViewNavigationHandler = null;
 
         private bool _initialized;
 
-        private Vector3[] _settingsViewportWorldCorners = new Vector3[4];
-
         public override GameObject FirstSelected => _settings.Where(o => o.gameObject.activeSelf).FirstOrDefault()?.gameObject;
+
+        public ScrollbarToScrollViewNavigationHandler ScrollbarToScrollViewNavigationHandler => _scrollbarToScrollViewNavigationHandler;
 
         public override void OnBackButtonPressed()
         {
@@ -41,6 +42,32 @@
 
             if (show)
                 Init();
+        }
+
+        public GameObject GetClosestItemToScrollbar()
+        {
+            RectTransform closestSlot = null;
+            float sqrClosestDist = Mathf.Infinity;
+
+            Vector3[] scrollHandleWorldCorners = new Vector3[4];
+            _scrollHandle.GetWorldCorners(scrollHandleWorldCorners);
+            Vector3 scrollHandleCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(scrollHandleWorldCorners);
+
+            foreach (RectTransform target in _settings.Where(o => o.gameObject.activeSelf).Select(o => o.GetComponent<RectTransform>()))
+            {
+                Vector3[] slotWorldCorners = new Vector3[4];
+                target.GetWorldCorners(slotWorldCorners);
+                Vector3 slotCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(slotWorldCorners);
+
+                float sqrTargetDist = (slotCenterWorld - scrollHandleCenterWorld).sqrMagnitude;
+                if (sqrTargetDist > sqrClosestDist)
+                    continue;
+
+                sqrClosestDist = sqrTargetDist;
+                closestSlot = target;
+            }
+
+            return closestSlot.gameObject;
         }
 
         private void Init()
@@ -120,6 +147,10 @@
 
                 break;
             }
+
+            _scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _scrollbar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
+            ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
         }
 
         private void OnSettingPointerEnter(RSLib.Framework.GUI.PointerEventsHandler pointerEventsHandler)
