@@ -21,6 +21,7 @@
         [Header("UI NAVIGATION")]
         [SerializeField] private RectTransform _settingsViewport = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
+        [SerializeField] private RectTransform _scrollHandle = null;
 
         private bool _initialized;
 
@@ -86,6 +87,9 @@
 
                 enabledSettings[i].Selectable.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 enabledSettings[i].PointerEventsHandler.PointerEnter += OnSettingPointerEnter;
+
+                if (!(enabledSettings[i].Selectable is UnityEngine.UI.Slider))
+                    enabledSettings[i].Selectable.SetSelectOnRight(_scrollbar);
 
                 if (first)
                 {
