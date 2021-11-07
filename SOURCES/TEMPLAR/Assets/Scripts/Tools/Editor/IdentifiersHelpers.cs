@@ -5,7 +5,7 @@
     using UnityEngine;
     using UnityEditor;
 
-    public class IdentifiersChecker
+    public class IdentifiersHelpers
     {
         private class IdCounter
         {
@@ -44,5 +44,5 @@
                 idCounter.Value.Assets.ForEach(o => Debug.LogWarning($"- {o.name}", o));
             }
         }
-	}
+    }
 }
