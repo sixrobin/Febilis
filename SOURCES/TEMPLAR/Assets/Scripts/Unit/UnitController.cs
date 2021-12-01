@@ -52,7 +52,7 @@
 
         public void Translate(float x, float y, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
-            Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown);
+            Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown, standingOnPlatform);
         }
 
         public void LookAt(Vector3 target)

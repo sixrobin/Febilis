@@ -511,7 +511,7 @@
         public System.Collections.IEnumerator MoveToDirection(float dir, float dur)
         {
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
-            yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling && CollisionsCtrl.Below);
+            yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling);
 
             CurrDir = dir;
             PlayerView.PlayIdleAnimation();
