@@ -88,22 +88,17 @@
                 for (int i = 0; i < dialogueDatas.ConditionsDatas.Length; ++i)
                 {
                     if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.DialogueNeverDoneDialogueConditionDatas dialogueNeverDoneConditionDatas)
-                    {
                         conditionChecker[i] = new DialogueNeverDoneDialogueStructureConditionChecker(dialogueNeverDoneConditionDatas);
-                    }
                     else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.PlayerHasItemDialogueConditionDatas playerHasItemConditionDatas)
-                    {
                         conditionChecker[i] = new PlayerHasItemDialogueStructureConditionChecker(playerHasItemConditionDatas);
-                    }
                     else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.PlayerDoesntHaveItemDialogueConditionDatas playerDoesntHaveItemConditionDatas)
-                    {
                         conditionChecker[i] = new PlayerDoesntHaveItemDialogueStructureConditionChecker(playerDoesntHaveItemConditionDatas);
-                    }
+                    else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.BoardDiscoveredDialogueConditionDatas boardDiscoveredConditionDatas)
+                        conditionChecker[i] = new BoardDiscoveredDialogueStructureConditionChecker(boardDiscoveredConditionDatas);
+                    else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.ZoneDiscoveredDialogueConditionDatas zoneDiscoveredConditionDatas)
+                        conditionChecker[i] = new ZoneDiscoveredDialogueStructureConditionChecker(zoneDiscoveredConditionDatas);
                     else
-                    {
                         CProLogger.LogError(this, $"Unhandled DialogueStructureConditionChecker type {dialogueDatas.ConditionsDatas[i].GetType().Name} to create a condition checker.");
-                        continue;
-                    }
                 }
 
                 _dialogueStructureConditionsCheckers.Add(dialogueDatas.DialogueId, conditionChecker);

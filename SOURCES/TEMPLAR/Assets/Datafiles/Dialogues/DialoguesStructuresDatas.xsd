@@ -35,6 +35,8 @@
                         <xs:attribute name="Id" type="xs:token" use="required"/>
                      </xs:complexType>
                   </xs:element>
+                  <xs:element name="BoardDiscovered" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="ZoneDiscovered" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
                </xs:sequence>
             </xs:complexType>
          </xs:element>

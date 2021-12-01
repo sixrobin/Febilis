@@ -43,6 +43,16 @@
             GetFlagsList(identifiable).Register(identifiable);
         }
 
+        public static bool CheckBoard(string boardId)
+        {
+            return s_flags[typeof(Flags.BoardIdentifier)].Check(boardId);
+        }
+
+        public static bool CheckZone(string boardId)
+        {
+            return s_flags[typeof(Flags.ZoneIdentifier)].Check(boardId);
+        }
+
         private static Flags.FlagsList GetFlagsList(Flags.IIdentifiable identifiable)
         {
             System.Type identifierType = identifiable.Identifier.GetType();

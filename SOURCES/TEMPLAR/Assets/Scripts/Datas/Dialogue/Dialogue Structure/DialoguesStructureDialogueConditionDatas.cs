@@ -77,4 +77,40 @@
             ItemId = itemIdAttribute.Value;
         }
     }
+
+
+    public class BoardDiscoveredDialogueConditionDatas : DialoguesStructureDialogueConditionDatas
+    {
+        public BoardDiscoveredDialogueConditionDatas(XContainer container) : base(container)
+        {
+        }
+
+        public string BoardId { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement boardDiscoveredElement = container as XElement;
+            BoardId = boardDiscoveredElement.Value;
+        }
+    }
+
+
+    public class ZoneDiscoveredDialogueConditionDatas : DialoguesStructureDialogueConditionDatas
+    {
+        public ZoneDiscoveredDialogueConditionDatas(XContainer container) : base(container)
+        {
+        }
+
+        public string ZoneId { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement zoneDiscoveredElement = container as XElement;
+            ZoneId = zoneDiscoveredElement.Value;
+        }
+    }
 }

@@ -71,8 +71,11 @@
 
             string dialogueToPlay = _dialogueStructureController.GetNextDialogueId();
 
-            Manager.DialoguesStructuresManager.RegisterDialogueForSpeaker(SpeakerId, dialogueToPlay);
-            UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
+            if (!string.IsNullOrEmpty(dialogueToPlay))
+            {
+                Manager.DialoguesStructuresManager.RegisterDialogueForSpeaker(SpeakerId, dialogueToPlay);
+                UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
+            }
         }
 
         private void SetTriggerOnAnimators(string parameterId)

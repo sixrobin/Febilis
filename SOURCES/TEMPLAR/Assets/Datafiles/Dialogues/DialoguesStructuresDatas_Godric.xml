@@ -15,6 +15,7 @@
          <Conditions>
             <DialogueNeverDone>Godric_Greeting</DialogueNeverDone>
             <DialogueNeverDone>Godric_Greeting_Ring</DialogueNeverDone>
+            <BoardDiscovered>Board_Plains_Bridge</BoardDiscovered>
          </Conditions>
       </Dialogue>
 

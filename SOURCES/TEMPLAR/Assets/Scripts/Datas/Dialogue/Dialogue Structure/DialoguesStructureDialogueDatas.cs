@@ -9,6 +9,8 @@
         private const string ELEMENT_NAME_DIALOGUE_NEVER_DONE = "DialogueNeverDone";
         private const string ELEMENT_NAME_PLAYER_HAS_ITEM = "PlayerHasItem";
         private const string ELEMENT_NAME_PLAYER_DOESNT_HAVE_ITEM = "PlayerDoesntHaveItem";
+        private const string ELEMENT_NAME_BOARD_DISCOVERED = "BoardDiscovered";
+        private const string ELEMENT_NAME_ZONE_DISCOVERED = "ZoneDiscovered";
 
         public DialoguesStructureDialogueDatas(XContainer container) : base(container)
         {
@@ -40,22 +42,17 @@
             foreach (XElement conditionElement in conditionsElements)
             {
                 if (conditionElement.Name.LocalName == ELEMENT_NAME_DIALOGUE_NEVER_DONE)
-                {
                     ConditionsDatas[i] = new DialogueNeverDoneDialogueConditionDatas(conditionElement);
-                }
                 else if (conditionElement.Name.LocalName == ELEMENT_NAME_PLAYER_HAS_ITEM)
-                {
                     ConditionsDatas[i] = new PlayerHasItemDialogueConditionDatas(conditionElement);
-                }
                 else if (conditionElement.Name.LocalName == ELEMENT_NAME_PLAYER_DOESNT_HAVE_ITEM)
-                {
                     ConditionsDatas[i] = new PlayerDoesntHaveItemDialogueConditionDatas(conditionElement);
-                }
+                else if (conditionElement.Name.LocalName == ELEMENT_NAME_BOARD_DISCOVERED)
+                    ConditionsDatas[i] = new BoardDiscoveredDialogueConditionDatas(conditionElement);
+                else if (conditionElement.Name.LocalName == ELEMENT_NAME_ZONE_DISCOVERED)
+                    ConditionsDatas[i] = new ZoneDiscoveredDialogueConditionDatas(conditionElement);
                 else
-                {
                     CProLogger.LogError(this, $"Unhandled Contextual Condition name {conditionElement.Name.LocalName}.");
-                    break;
-                }
 
                 i++;
             }
