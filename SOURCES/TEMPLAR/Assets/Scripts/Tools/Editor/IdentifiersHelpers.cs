@@ -19,8 +19,8 @@
 
         private const string IDENTIFIERS_ASSETS_ROOT_PATH = "Assets/Datafiles/Ids";
 
-		[MenuItem("Tools/Check Identifiers Uniqueness")]
-		private static void CheckIdentifiers()
+		[MenuItem("Tools/Identifiers/Check Identifiers Uniqueness")]
+		private static void CheckIdentifiersUniqueness()
 		{
             System.Collections.Generic.Dictionary<string, IdCounter> idsCounter
                 = new System.Collections.Generic.Dictionary<string, IdCounter>();
@@ -43,6 +43,26 @@
                 Debug.LogWarning($"Id <b>{idCounter.Key}</b> has been found {idCounter.Value.Assets.Count} times in the following assets <i>(click on each log to select the asset)</i> :");
                 idCounter.Value.Assets.ForEach(o => Debug.LogWarning($"- {o.name}", o));
             }
+        }
+
+        [MenuItem("Tools/Identifiers/Check Identifiers References")]
+        private static void CheckIdentifiersReferences()
+        {
+            bool anyMissingReference = false;
+
+            System.Collections.Generic.IEnumerable<MonoBehaviour> identifiableMonos = Object.FindObjectsOfType<MonoBehaviour>().Where(o => o is IIdentifiable);
+            foreach (MonoBehaviour identifiableMono in identifiableMonos)
+            {
+                IIdentifiable identifiable = identifiableMono as IIdentifiable;
+                if (identifiable.Identifier == null)
+                {
+                    anyMissingReference = true;
+                    Debug.LogWarning($"{identifiableMono.GetType().Name} Identifiable on gameObject {identifiableMono.transform.name} Identifier reference is null.", identifiableMono.gameObject);
+                }
+            }
+
+            if (!anyMissingReference)
+                Debug.Log($"No Identifier reference is missing in the scene.");
         }
     }
 }
