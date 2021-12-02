@@ -28,8 +28,19 @@
 
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
+        public bool IsOnMovingPlatform { get; set; }
+
         void Templar.Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
+            if (float.IsNaN(vel.x) || float.IsNaN(vel.y))
+            {
+                // This is a hack to avoid this bug: https://app.hacknplan.com/p/148469/kanban?categoryId=8&boardId=392835&taskId=150&tabId=basicinfo
+                // Should check why the vector has such a value instead of just returning.
+                CProLogger.LogWarning(this, $"Translating {transform.name} on MovingPlatform by a NaN vector.", gameObject);
+                return;
+            }
+
+            IsOnMovingPlatform = true;
             Translate(vel, triggerEvents: false, standingOnPlatform: standingOnPlatform);
         }
 
@@ -41,7 +52,7 @@
 
         public void Translate(float x, float y, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
-            Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown);
+            Translate(new Vector3(x, y), triggerEvents, checkEdge, effectorDown, standingOnPlatform);
         }
 
         public void LookAt(Vector3 target)
@@ -104,6 +115,11 @@
 #if UNITY_EDITOR
             _debugCollisionsState = new RSLib.Framework.DisabledString(CollisionsCtrl.CurrentStates.ToString());
 #endif
+        }
+
+        protected virtual void LateUpdate()
+        {
+            IsOnMovingPlatform = false;
         }
     }
 }

@@ -2,19 +2,18 @@
 {
     using UnityEngine;
     using UnityEngine.EventSystems;
-#if UNITY_EDITOR
-    using UnityEditor;
-#endif
 
     public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
     {
         private const string INPUT_BACK = "UICancel";
 
         [SerializeField] private ConfirmationPopup _confirmationPopup = null;
+        [SerializeField] private MessagePopup _messagePopup = null;
 
 #if UNITY_EDITOR
         [Header("DEBUG")]
         [SerializeField] private RSLib.Framework.DisabledGameObject _currSelection = new RSLib.Framework.DisabledGameObject(null);
+        [SerializeField] private RSLib.Framework.DisabledGameObject _currentlyOpenPanel = new RSLib.Framework.DisabledGameObject(null);
 #endif
 
         public static UIPanel CurrentlyOpenPanel { get; private set; }
@@ -25,14 +24,31 @@
             {
                 if (Instance._confirmationPopup == null)
                 {
-                    Instance.LogWarning("ConfirmationPopup reference is missing, trying to get it dynamically...", Instance.gameObject);
+                    Instance.LogWarning($"{typeof(ConfirmationPopup).Name} reference is missing, trying to get it dynamically...", Instance.gameObject);
                     Instance._confirmationPopup = FindObjectOfType<ConfirmationPopup>();
 
                     if (Instance._confirmationPopup == null)
-                        Instance.LogError("No ConfirmationPopup instance has been found in the scene!", Instance.gameObject);
+                        Instance.LogError($"No {typeof(ConfirmationPopup).Name} instance has been found in the scene!", Instance.gameObject);
                 }
 
                 return Instance._confirmationPopup;
+            }
+        }
+
+        public static MessagePopup MessagePopup
+        {
+            get
+            {
+                if (Instance._messagePopup == null)
+                {
+                    Instance.LogWarning($"{typeof(MessagePopup).Name} reference is missing, trying to get it dynamically...", Instance.gameObject);
+                    Instance._messagePopup = FindObjectOfType<MessagePopup>();
+
+                    if (Instance._messagePopup == null)
+                        Instance.LogError($"No {typeof(MessagePopup).Name} instance has been found in the scene!", Instance.gameObject);
+                }
+
+                return Instance._messagePopup;
             }
         }
 
@@ -107,6 +123,7 @@
 
 #if UNITY_EDITOR
             _currSelection = new RSLib.Framework.DisabledGameObject(EventSystem.current.currentSelectedGameObject);
+            _currentlyOpenPanel = new RSLib.Framework.DisabledGameObject(CurrentlyOpenPanel?.gameObject);
 #endif
         }
 
@@ -114,6 +131,8 @@
         private void DebugFindAllReferences()
         {
             _confirmationPopup = FindObjectOfType<ConfirmationPopup>();
+            _messagePopup = FindObjectOfType<MessagePopup>();
+
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
@@ -121,6 +140,8 @@
         private void DebugFindMissingReferences()
         {
             _confirmationPopup = _confirmationPopup ?? FindObjectOfType<ConfirmationPopup>();
+            _messagePopup = _messagePopup ?? FindObjectOfType<MessagePopup>();
+
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
     }

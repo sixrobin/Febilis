@@ -7,7 +7,27 @@
 
     public class SaveManager : RSLib.Framework.ConsoleProSingleton<SaveManager>
     {
+        public class SaveVersionUnknownException : System.Exception
+        {
+            public SaveVersionUnknownException() { }
+            public SaveVersionUnknownException(string message) : base(message) { }
+        }
+
+        public class IncompatibleSaveVersionException : System.Exception
+        {
+            public IncompatibleSaveVersionException() { }
+            public IncompatibleSaveVersionException(string message) : base(message) { }
+        }
+
+        [Header("VERSIONS")]
+        [SerializeField] private int _saveVersion = 0;
+        [SerializeField] private int _saveMinimumVersion = 0;
+
+        [Header("DEBUG")]
         [SerializeField] private bool _disableLoading = false;
+
+        public static int SaveVersion => Instance._saveVersion;
+        public static int SaveMinimumVersion => Instance._saveMinimumVersion;
 
         public static bool DisableLoading => Instance._disableLoading;
 
@@ -21,14 +41,15 @@
             {
                 XContainer container = new XElement("GameSave");
 
+                XAttribute versionAttribute = new XAttribute("Version", SaveVersion);
+                container.Add(versionAttribute);
+
                 XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
                 container.Add(checkpointIdElement);
 
-                XElement paletteIndexElement = new XElement("PaletteIndex", PaletteManager.CurrRampIndex);
-                container.Add(paletteIndexElement);
-
                 container.Add(FlagsManager.Save());
                 container.Add(GameManager.InventoryCtrl.Save());
+                container.Add(DialoguesStructuresManager.Save());
                 container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSavePath);
@@ -68,10 +89,7 @@
         public static bool TryLoad()
         {
             if (!System.IO.File.Exists(GameSavePath))
-            {
-                LoadNewGame();
                 return false;
-            }
 
             Instance.Log("Loading game progression...", Instance.gameObject, true);
 
@@ -80,17 +98,33 @@
                 XContainer container = XDocument.Parse(System.IO.File.ReadAllText(GameSavePath));
                 XElement gameSaveElement = container.Element("GameSave");
 
+                XAttribute versionAttribute = gameSaveElement.Attribute("Version");
+                int version = versionAttribute?.ValueToInt() ?? -1;
+
+                if (version == -1)
+                    throw new SaveVersionUnknownException($"Save version isn't specified in the save file.");
+
+                if (version < SaveMinimumVersion)
+                    throw new IncompatibleSaveVersionException($"Save file version is {version} while minimum handled is {SaveMinimumVersion}.");
+
                 XElement checkpointIdElement = gameSaveElement.Element("CheckpointId");
                 Interaction.Checkpoint.CheckpointController.LoadCurrentCheckpointId(
                     GameManager.OptionalCheckpoint.Enabled ? GameManager.OptionalCheckpoint.Value.Identifier.Id : checkpointIdElement.Value);
 
-                XElement paletteIndexElement = gameSaveElement.Element("PaletteIndex");
-                if (paletteIndexElement != null)
-                    PaletteManager.SetPalette(paletteIndexElement.ValueToInt());
-
                 FlagsManager.Load(gameSaveElement.Element("Flags"));
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
+                DialoguesStructuresManager.Load(gameSaveElement.Element("DialoguesStructures"));
                 FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
+            }
+            catch (SaveVersionUnknownException e)
+            {
+                Instance.LogError($"Could not load game ! Exception message:\n{e}");
+                return false;
+            }
+            catch (IncompatibleSaveVersionException e)
+            {
+                Instance.LogError($"Could not load game ! Exception message:\n{e}");
+                return false;
             }
             catch (System.Exception e)
             {
@@ -124,6 +158,7 @@
                 System.IO.File.Delete(GameSavePath);
 
                 FlagsManager.Clear();
+                DialoguesStructuresManager.Clear();
                 Interaction.Checkpoint.CheckpointController.ClearCurrentCheckpoint();
             }
             catch (System.Exception e)
@@ -145,6 +180,11 @@
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveGame", "Saves game progression.", Save));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadGame", "Tries to load game progression.", () => TryLoad()));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseGameSave", "Erases game save file if it exists.", () => EraseSave()));
+        }
+
+        private void OnValidate()
+        {
+            _saveMinimumVersion = Mathf.Min(_saveMinimumVersion, _saveVersion);
         }
     }
 }

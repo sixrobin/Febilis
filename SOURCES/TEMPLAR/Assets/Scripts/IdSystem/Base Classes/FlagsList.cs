@@ -20,7 +20,7 @@
             return Check(identifiable.Identifier.Id);
         }
 
-        private bool Check(string id)
+        public bool Check(string id)
         {
             return _ids.Contains(id);
         }

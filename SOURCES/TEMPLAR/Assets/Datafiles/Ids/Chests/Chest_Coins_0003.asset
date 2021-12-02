@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chest_Coins_0003
   m_EditorClassIdentifier: 
   _preview:
-    _value: Chest_Coins_0000
+    _value: Chest_Coins_0003
   _id: Coins
   _number:
-    _value: 0
+    _value: 3
     _enabled: 1

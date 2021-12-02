@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 4423315634072229247}
   - component: {fileID: 4423315634072229216}
   m_Layer: 5
-  m_Name: Canvas Confirmation Popup
+  m_Name: Canvas Popup Confirmation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 4423315635366856169}
   - component: {fileID: 4423315635366856171}
   m_Layer: 5
-  m_Name: Controls Panel Controller
+  m_Name: Confirmation Popup Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

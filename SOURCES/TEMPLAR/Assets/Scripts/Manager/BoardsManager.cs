@@ -16,6 +16,8 @@
 
         private static bool s_init;
 
+        public static Boards.Board CurrentBoard { get; private set; }
+
         public static RSLib.DataColor DebugColor => Instance._debugColor;
 
         /// <summary>
@@ -44,6 +46,8 @@
             if (s_init)
                 return;
 
+            Boards.Board.BoardEntered += OnBoardEntered;
+
             for (int i = Instance._boardsLinks.Length - 1; i >= 0; --i)
                 if (Instance._boardsLinks[i].BoardBounds != null)
                     for (int j = Instance._boardsLinks[i].BoardBounds.Switches.Length - 1; j >= 0; --j)
@@ -67,6 +71,8 @@
                     if (boardsBounds[i].Board != null)
                         GameManager.CameraCtrl.SetColor(boardsBounds[i].Board.BackgroundColor);
 
+                    CurrentBoard = boardsBounds[i].Board;
+
                     return boardsBounds[i].Board;
                 }
             }
@@ -74,9 +80,20 @@
             return null;
         }
 
+        private static void OnBoardEntered(Boards.Board board)
+        {
+            CurrentBoard = board;
+            PaletteManager.UpdatePaletteForCurrentZone();
+        }
+
         protected override void Awake()
         {
             Init();
+        }
+
+        private void OnDestroy()
+        {
+            Boards.Board.BoardEntered -= OnBoardEntered;
         }
 
         [ContextMenu("Find All References")]
@@ -104,7 +121,7 @@
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(BoardsManager))]
-    public class BoardsLinksManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsManager>
+    public class BoardsManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<BoardsManager>
     {
         protected override void DrawButtons()
         {

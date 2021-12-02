@@ -54,4 +54,32 @@
             return Manager.GameManager.InventoryCtrl.GetItemQuantity(_conditionDatas.ItemId) == 0;
         }
     }
+
+
+    public class BoardDiscoveredDialogueStructureConditionChecker
+        : DialogueStructureConditionChecker<Datas.Dialogue.DialogueStructure.BoardDiscoveredDialogueConditionDatas>
+    {
+        public BoardDiscoveredDialogueStructureConditionChecker(Datas.Dialogue.DialogueStructure.BoardDiscoveredDialogueConditionDatas conditionDatas) : base(conditionDatas)
+        {
+        }
+
+        public override bool Check(DialogueStructureController dialogueStructureController)
+        {
+            return Manager.FlagsManager.CheckBoard(_conditionDatas.BoardId);
+        }
+    }
+
+
+    public class ZoneDiscoveredDialogueStructureConditionChecker
+        : DialogueStructureConditionChecker<Datas.Dialogue.DialogueStructure.ZoneDiscoveredDialogueConditionDatas>
+    {
+        public ZoneDiscoveredDialogueStructureConditionChecker(Datas.Dialogue.DialogueStructure.ZoneDiscoveredDialogueConditionDatas conditionDatas) : base(conditionDatas)
+        {
+        }
+
+        public override bool Check(DialogueStructureController dialogueStructureController)
+        {
+            return Manager.FlagsManager.CheckZone(_conditionDatas.ZoneId);
+        }
+    }
 }

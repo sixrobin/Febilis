@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f1c4f05e1e8ba4ba3a127724d86feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 6773853320967428807}
   _playerHealthCtrl: {fileID: 0}
   _healthBarCanvas: {fileID: 6773853320967428807}
   _healthFill: {fileID: 6773853320225144795}

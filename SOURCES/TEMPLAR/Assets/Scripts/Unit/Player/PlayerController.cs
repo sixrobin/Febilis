@@ -403,6 +403,13 @@
             if (!IsBeingHurt && !IsHealing)
             {
                 targetVelX *= InputCtrl.Horizontal;
+
+                // Clamp value to a minimum, to avoid players settings their dead zone to a low value being too slow.
+                if (InputCtrl.Horizontal > 0f)
+                    targetVelX = Mathf.Max(targetVelX, CtrlDatas.MinRunSpeed);
+                else if (InputCtrl.Horizontal < 0f)
+                    targetVelX = Mathf.Min(targetVelX, -CtrlDatas.MinRunSpeed);
+
                 if (JumpCtrl.IsAnticipatingJump)
                     targetVelX *= CtrlDatas.Jump.JumpAnticipationSpeedMult;
                 if (JumpCtrl.IsInLandImpact)
@@ -504,7 +511,7 @@
         public System.Collections.IEnumerator MoveToDirection(float dir, float dur)
         {
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
-            yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling && CollisionsCtrl.Below);
+            yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling);
 
             CurrDir = dir;
             PlayerView.PlayIdleAnimation();
@@ -613,7 +620,8 @@
                 && !Tools.CheckpointTeleporter.IsOpen
                 && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpenOrClosedThisFrame()
-                && (!Manager.GameManager.InventoryView?.Displayed ?? true))
+                && (!Manager.GameManager.InventoryView?.Displayed ?? true)
+                && (!Manager.GameManager.InventoryView?.ClosedThisFrame?? true))
                 InputCtrl.Update();
 
             if (IsDead)

@@ -74,7 +74,7 @@
                 // [TODO] Hide player HUD.
             }
 
-            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Wait for checkpoints initialization.
+            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Wait for other objects initializations.
 
             SpawnPlayer();
 
@@ -85,7 +85,8 @@
             }
             else
             {
-                Boards.Board initBoard = BoardsManager.DebugForceRefreshInitBoard(); // [TODO] We can call this here, but this is a debug unoptimized method right now.
+                // [TODO] We can call this here, but this is a debug unoptimized method right now.
+                Boards.Board initBoard = BoardsManager.DebugForceRefreshInitBoard();
                 initBoard?.OnBoardEntered();
             }
 
@@ -149,19 +150,18 @@
             KillTrigger.ResetSharedTriggers();
             _checkpointListeners = RSLib.Helpers.FindInstancesOfType<ICheckpointListener>();
 
-            // [TMP]
-            RSLib.SceneReloader.BeforeReload += SaveManager.Save;
+            RSLib.SceneReloader.BeforeReload += SaveManager.Save; // [TMP]
 
             if (!SaveManager.DisableLoading)
-                SaveManager.TryLoad();
+                if (!SaveManager.TryLoad())
+                    SaveManager.LoadNewGame();
     
             SaveManager.Save();
         }
 
         private void OnDestroy()
         {
-            // [TMP]
-            RSLib.SceneReloader.BeforeReload -= SaveManager.Save;
+            RSLib.SceneReloader.BeforeReload -= SaveManager.Save; // [TMP]
         }
 
         [ContextMenu("Find All References")]

@@ -6,12 +6,15 @@
     {
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _btn = null;
 
+        public override Templar.Settings.Setting Setting => StringRangeSetting;
+
         public override UnityEngine.UI.Selectable Selectable => _btn;
 
         public abstract Templar.Settings.StringRangeSetting StringRangeSetting { get; }
 
         public override void Init()
         {
+            _btn.onClick.RemoveAllListeners();
             _btn.onClick.AddListener(OnButtonClicked);
             RefreshText();
         }

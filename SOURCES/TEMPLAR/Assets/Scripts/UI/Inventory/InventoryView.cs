@@ -9,8 +9,10 @@
 #endif
 
     [DisallowMultipleComponent]
-    public partial class InventoryView : UIPanel
+    public partial class InventoryView : UIPanel, IScrollViewClosestItemGetter
     {
+        private const string INVENTORY_INPUT = "Inventory";
+
         private const string EMPTY_SLOT_NAME = "???";
         private const string EMPTY_SLOT_TYPE = "";
         private const string EMPTY_SLOT_DESC = "???";
@@ -33,9 +35,9 @@
         [SerializeField] private RectTransform _slotsViewport = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
         [SerializeField] private RectTransform _scrollHandle = null;
+        [SerializeField] private ScrollbarToScrollViewNavigationHandler _scrollbarToScrollViewNavigationHandler = null;
 
-        private bool _closedThisFrame;
-        private Vector3[] _slotsViewportWorldCorners = new Vector3[4];
+        public bool ClosedThisFrame { get; private set; }
 
         public InventorySlot MovedSlotSource { get; private set; }
         public bool IsMovingSlot => MovedSlotSource != null;
@@ -48,6 +50,8 @@
 
         public bool IsContextMenuDisplayed => _contextMenu.Displayed;
 
+        public ScrollbarToScrollViewNavigationHandler ScrollbarToScrollViewNavigationHandler => _scrollbarToScrollViewNavigationHandler;
+
         public static bool CanToggleInventory()
         {
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
@@ -58,7 +62,7 @@
 
         public override void Close()
         {
-            if (!_closedThisFrame)
+            if (Displayed && !ClosedThisFrame)
                 StartCoroutine(CloseAtEndOfFrame());
         }
 
@@ -73,11 +77,11 @@
                 return;
             }
 
-            if (!_closedThisFrame)
+            if (!ClosedThisFrame)
                 StartCoroutine(CloseAtEndOfFrame());
         }
 
-        public GameObject GetClosestSlotToScrollHandle()
+        public GameObject GetClosestItemToScrollbar()
         {
             RectTransform closestSlot = null;
             float sqrClosestDist = Mathf.Infinity;
@@ -201,32 +205,11 @@
 
         private void OnSlotViewPointerEnter(RSLib.Framework.GUI.EnhancedButton source)
         {
-            // Automatically adjust the scroll view content position so that navigating through the slots with a controller
-            // works without having to move the scroll bar manually.
-            // This is also handling mouse hovering for now.
-
-            RectTransform sourceRectTransform = source.GetComponent<RectTransform>();
-
-            Vector3[] sourceCorners = new Vector3[4];
-            sourceRectTransform.GetWorldCorners(sourceCorners);
-            _slotsViewport.GetWorldCorners(_slotsViewportWorldCorners);
-
-            while (sourceCorners[1].y > _slotsViewportWorldCorners[1].y)
-            {
-                _scrollbar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
-                sourceRectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            while (sourceCorners[0].y < _slotsViewportWorldCorners[0].y)
-            {
-                _scrollbar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
-                sourceRectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            if (_scrollbar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
-                _scrollbar.value = 0f;
-            else if (_scrollbar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
-                _scrollbar.value = 1f;
+            RSLib.Helpers.AdjustScrollViewToFocusedItem(source.GetComponent<RectTransform>(),
+                                                        _slotsViewport,
+                                                        _scrollbar,
+                                                        SCROLL_BAR_AUTO_REFRESH_VALUE,
+                                                        SCROLL_BAR_AUTO_REFRESH_MARGIN);
         }
 
         private void InitNavigation()
@@ -270,9 +253,9 @@
                 }
             }
 
-            //// [TODO] Scrollbar selects top left corner slot. We may want to select a better one depending on the current viewport state.
-            //_scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
-            //_scrollbar.SetSelectOnLeft(_slotsViews[_slotsRowLength - 1].Button);
+            _scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _scrollbar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
+            ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
         }
 
         private void UpdateContent()
@@ -314,7 +297,9 @@
 
         private System.Collections.IEnumerator CloseAtEndOfFrame()
         {
-            _closedThisFrame = true;
+            ClosedThisFrame = true;
+
+            Display(false);
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
 
@@ -322,9 +307,7 @@
             UI.Navigation.UINavigationManager.CloseCurrentPanel();
             UI.Navigation.UINavigationManager.NullifySelected();
 
-            Display(false);
-
-            _closedThisFrame = false;
+            ClosedThisFrame = false;
         }
 
         protected override void Awake()
@@ -367,12 +350,8 @@
             if (!CanToggleInventory())
                 return;
 
-            //if (Manager.GameManager.PlayerCtrl.InputCtrl != null
-            //    && Manager.GameManager.PlayerCtrl.InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.INVENTORY))
-            if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button6)) // [TODO] Code above not working while PlayerController handles ALL inputs.
+            if (RSLib.Framework.InputSystem.InputManager.GetInputDown(INVENTORY_INPUT))
             {
-                //Manager.GameManager.PlayerCtrl.InputCtrl.ResetDelayedInput(Unit.Player.PlayerInputController.ButtonCategory.INVENTORY);
-
                 if (!Displayed)
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);

@@ -3,7 +3,7 @@
     using Templar.SceneLoadingDatasStorage;
     using UnityEngine;
 
-    public class NPCController : Interactable, INPCSpeaker, ISceneLoadingDatasOwner<SceneLoadDatasDialogueStructure>
+    public class NPCController : Interactable, INPCSpeaker
     {
         private const string IDLE = "Idle";
         private const string DIALOGUE_IDLE = "DialogueIdle";
@@ -30,19 +30,6 @@
 
         public Transform PlayerDialoguePivot => _playerDialoguePivot.Enabled ? _playerDialoguePivot.Value : null;
         public Vector3 SpeakerPos => transform.position;
-
-        public SceneLoadDatasDialogueStructure SaveDatasBeforeSceneLoading()
-        {
-            return new SceneLoadDatasDialogueStructure()
-            {
-                DoneDialogues = _dialogueStructureController.GetDoneDialoguesCopy()
-            };
-        }
-
-        public void LoadDatasAfterSceneLoading(SceneLoadDatasDialogueStructure datas)
-        {
-            _dialogueStructureController.LoadDoneDialogues(datas.DoneDialogues);
-        }
 
         void ISpeaker.OnSentenceStart()
         {
@@ -83,7 +70,12 @@
             IsDialoguing = true;
 
             string dialogueToPlay = _dialogueStructureController.GetNextDialogueId();
-            UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
+
+            if (!string.IsNullOrEmpty(dialogueToPlay))
+            {
+                Manager.DialoguesStructuresManager.RegisterDialogueForSpeaker(SpeakerId, dialogueToPlay);
+                UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
+            }
         }
 
         private void SetTriggerOnAnimators(string parameterId)
@@ -98,6 +90,9 @@
 
             _player = Manager.GameManager.PlayerCtrl.transform;
             _dialogueStructureController = new DialogueStructure.DialogueStructureController( _dialogueStructureId);
+
+            if (Manager.DialoguesStructuresManager.TryGetDialoguesDoneBySpeaker(SpeakerId, out System.Collections.Generic.List<string> dialoguesDone))
+                _dialogueStructureController.LoadDoneDialogues(dialoguesDone);
         }
 
         private void Update()

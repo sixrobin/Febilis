@@ -41,8 +41,7 @@
             ATTACK = 4,
             INTERACT = 8,
             HEAL = 16,
-            INVENTORY = 32,
-            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL | INVENTORY
+            ANY = JUMP | ROLL | ATTACK | INTERACT | HEAL
         }
 
         public Datas.Unit.Player.PlayerInputDatas InputDatas { get; private set; }
@@ -68,17 +67,30 @@
             return InputManager.GetInputUp(JUMP);
         }
 
-        public void Update()
+        public float GetHorizontalInput()
         {
-            Horizontal = Input.GetAxisRaw(HORIZONTAL_KEYBOARD);
+            float horizontal = Input.GetAxisRaw(HORIZONTAL_KEYBOARD);
             float leftStickHorizontal = Input.GetAxis(HORIZONTAL_CONTROLLER);
             if (leftStickHorizontal * leftStickHorizontal > Manager.SettingsManager.AxisDeadZone.ValueSqr)
-                Horizontal = leftStickHorizontal;
+                horizontal = leftStickHorizontal;
 
-            Vertical = Input.GetAxisRaw(VERTICAL_KEYBOARD);
+            return horizontal;
+        }
+
+        public float GetVerticalInput()
+        {
+            float vertical = Input.GetAxisRaw(VERTICAL_KEYBOARD);
             float leftStickVertical = Input.GetAxis(VERTICAL_CONTROLLER);
             if (leftStickVertical * leftStickVertical > Manager.SettingsManager.AxisDeadZone.ValueSqr)
-                Vertical = leftStickVertical;
+                vertical = leftStickVertical;
+
+            return vertical;
+        }
+
+        public void Update()
+        {
+            Horizontal = GetHorizontalInput();
+            Vertical = GetVerticalInput();
 
             foreach (System.Collections.Generic.KeyValuePair<ButtonCategory, InputGetterHandler> input in _inputGetters)
             {
@@ -121,8 +133,7 @@
                     { ButtonCategory.ROLL, () => InputManager.GetInputDown(ROLL) },
                     { ButtonCategory.ATTACK, () => InputManager.GetInputDown(ATTACK) },
                     { ButtonCategory.INTERACT, () => InputManager.GetInputDown(INTERACT) },
-                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) },
-                    { ButtonCategory.INVENTORY, () => InputManager.GetInputDown(INVENTORY) }
+                    { ButtonCategory.HEAL, () => InputManager.GetInputDown(HEAL) }
                 };
 
             _inputDelaysByCategory = new System.Collections.Generic.Dictionary<ButtonCategory, float>(

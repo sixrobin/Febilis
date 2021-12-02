@@ -7,6 +7,8 @@
         [Header("SETTING VIEW BASE")]
         [SerializeField] private RSLib.Framework.GUI.PointerEventsHandler _pointerEventsHandler = null;
 
+        public abstract Templar.Settings.Setting Setting { get; }
+
         public RSLib.Framework.GUI.PointerEventsHandler PointerEventsHandler => _pointerEventsHandler;
 
         public abstract UnityEngine.UI.Selectable Selectable { get; }
@@ -43,6 +45,11 @@
         {
             base.OnPointerDown(eventData);
             PointerEventsHandler.OnPointerUp(eventData);
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
         }
 
 #if UNITY_EDITOR

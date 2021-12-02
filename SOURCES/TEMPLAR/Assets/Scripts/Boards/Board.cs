@@ -18,6 +18,9 @@
         [SerializeField] private BoardsLink[] _boardsLinks = null;
         [SerializeField] private RSLib.DataColor _backgroundColor = null;
 
+        public delegate void BoardEventHandler(Board board);
+        public static event BoardEventHandler BoardEntered;
+
         public Color BackgroundColor => _backgroundColor?.Color ?? Color.grey;
 
         public Flags.IIdentifier Identifier => _boardIdentifier;
@@ -30,6 +33,7 @@
                 return;
             }
 
+            BoardEntered?.Invoke(this);
             Manager.FlagsManager.Register(this);
         }
 

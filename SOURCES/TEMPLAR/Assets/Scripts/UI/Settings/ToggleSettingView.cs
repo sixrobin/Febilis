@@ -6,6 +6,8 @@
     {
         [SerializeField] private RSLib.Framework.GUI.EnhancedToggle _toggle = null;
 
+        public override Templar.Settings.Setting Setting => BoolSetting;
+
         public override UnityEngine.UI.Selectable Selectable => _toggle;
 
         public abstract Templar.Settings.BoolSetting BoolSetting { get; }

@@ -36,4 +36,4 @@ MonoBehaviour:
   - _actionId: Inventory
     _btn: 9
     _altBtn: 336
-    _userAssignable: 0
+    _userAssignable: 1

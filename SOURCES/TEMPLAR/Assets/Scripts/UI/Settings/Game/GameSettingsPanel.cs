@@ -7,9 +7,9 @@
     using UnityEditor;
 #endif
 
-    public class GameSettingsPanel : SettingsPanelBase
+    public class GameSettingsPanel : SettingsPanelBase, IScrollViewClosestItemGetter
     {
-        private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
+        private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.05f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
 
         [Header("GAME SETTINGS")]
@@ -21,12 +21,14 @@
         [Header("UI NAVIGATION")]
         [SerializeField] private RectTransform _settingsViewport = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _scrollbar = null;
+        [SerializeField] private RectTransform _scrollHandle = null;
+        [SerializeField] private ScrollbarToScrollViewNavigationHandler _scrollbarToScrollViewNavigationHandler = null;
 
         private bool _initialized;
 
-        private Vector3[] _settingsViewportWorldCorners = new Vector3[4];
-
         public override GameObject FirstSelected => _settings.Where(o => o.gameObject.activeSelf).FirstOrDefault()?.gameObject;
+
+        public ScrollbarToScrollViewNavigationHandler ScrollbarToScrollViewNavigationHandler => _scrollbarToScrollViewNavigationHandler;
 
         public override void OnBackButtonPressed()
         {
@@ -42,17 +44,63 @@
                 Init();
         }
 
+        public GameObject GetClosestItemToScrollbar()
+        {
+            RectTransform closestSlot = null;
+            float sqrClosestDist = Mathf.Infinity;
+
+            Vector3[] scrollHandleWorldCorners = new Vector3[4];
+            _scrollHandle.GetWorldCorners(scrollHandleWorldCorners);
+            Vector3 scrollHandleCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(scrollHandleWorldCorners);
+
+            foreach (RectTransform target in _settings.Where(o => o.gameObject.activeSelf).Select(o => o.GetComponent<RectTransform>()))
+            {
+                Vector3[] slotWorldCorners = new Vector3[4];
+                target.GetWorldCorners(slotWorldCorners);
+                Vector3 slotCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(slotWorldCorners);
+
+                float sqrTargetDist = (slotCenterWorld - scrollHandleCenterWorld).sqrMagnitude;
+                if (sqrTargetDist > sqrClosestDist)
+                    continue;
+
+                sqrClosestDist = sqrTargetDist;
+                closestSlot = target;
+            }
+
+            return closestSlot.gameObject;
+        }
+
         private void Init()
         {
-            if (_initialized)
+            bool displayUpdated = UpdateOptionsDisplay();
+
+            if (_initialized && !displayUpdated)
                 return;
 
-            for (int i = _settings.Length - 1; i >= 0; --i)
-                _settings[i].Init();
+            if (!_initialized)
+                for (int i = _settings.Length - 1; i >= 0; --i)
+                    _settings[i].Init();
 
-            InitNavigation();
+            if (displayUpdated || !_initialized)
+                InitNavigation();
 
             _initialized = true;
+        }
+
+        private bool UpdateOptionsDisplay()
+        {
+            bool anyChange = false;
+
+            for (int i = _settings.Length - 1; i >= 0; --i)
+            {
+                if (_settings[i].Setting.CanBeDisplayedToUser() != _settings[i].gameObject.activeSelf)
+                {
+                    _settings[i].gameObject.SetActive(!_settings[i].gameObject.activeSelf);
+                    anyChange = true;
+                }
+            }
+
+            return anyChange;
         }
 
         private void InitNavigation()
@@ -66,6 +114,9 @@
 
                 enabledSettings[i].Selectable.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 enabledSettings[i].PointerEventsHandler.PointerEnter += OnSettingPointerEnter;
+
+                if (!(enabledSettings[i].Selectable is UnityEngine.UI.Slider))
+                    enabledSettings[i].Selectable.SetSelectOnRight(_scrollbar);
 
                 if (first)
                 {
@@ -96,34 +147,19 @@
 
                 break;
             }
+
+            _scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _scrollbar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
+            ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
         }
 
         private void OnSettingPointerEnter(RSLib.Framework.GUI.PointerEventsHandler pointerEventsHandler)
         {
-            // Automatically adjust the scroll view content position so that navigating through the settings with a controller
-            // works without having to move the scroll bar manually.
-            // This is also handling mouse hovering for now.
-
-            Vector3[] sourceCorners = new Vector3[4];
-            pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
-            _settingsViewport.GetWorldCorners(_settingsViewportWorldCorners);
-
-            while (sourceCorners[1].y > _settingsViewportWorldCorners[1].y)
-            {
-                _scrollbar.value += SCROLL_BAR_AUTO_REFRESH_VALUE;
-                pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            while (sourceCorners[0].y < _settingsViewportWorldCorners[0].y)
-            {
-                _scrollbar.value -= SCROLL_BAR_AUTO_REFRESH_VALUE;
-                pointerEventsHandler.RectTransform.GetWorldCorners(sourceCorners);
-            }
-
-            if (_scrollbar.value - SCROLL_BAR_AUTO_REFRESH_MARGIN < 0f)
-                _scrollbar.value = 0f;
-            else if (_scrollbar.value + SCROLL_BAR_AUTO_REFRESH_MARGIN > 1f)
-                _scrollbar.value = 1f;
+            RSLib.Helpers.AdjustScrollViewToFocusedItem(pointerEventsHandler.RectTransform,
+                                                        _settingsViewport,
+                                                        _scrollbar,
+                                                        SCROLL_BAR_AUTO_REFRESH_VALUE,
+                                                        SCROLL_BAR_AUTO_REFRESH_MARGIN);
         }
 
         private void ResetSettings()
