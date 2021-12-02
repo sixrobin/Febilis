@@ -8,6 +8,24 @@
     [DisallowMultipleComponent]
     public class MovingPlatformController : MonoBehaviour
     {
+        [System.Serializable]
+        public struct PlatformResetDatas
+        {
+            [SerializeField] private MovingPlatformController _platform;
+            [SerializeField, Min(0)] private int _waypointIndex;
+            [SerializeField, Range(0f, 1f)] private float _percentage;
+
+            public MovingPlatformController Platform => _platform;
+            public int WaypointIndex => _waypointIndex;
+            public float Percentage => _percentage;
+        
+            public void ResetPlatform()
+            {
+                if (Platform.MovementTriggered)
+                    Platform.ResetPlatform(this);
+            }
+        }
+
         private struct PassengerVelocity
         {
             public PassengerVelocity(IMovingPlatformPassenger passenger, Vector3 vel, bool standingOnPlatform, bool moveBeforePlatform)
@@ -45,7 +63,7 @@
 
         private RaycastsController _raycastsCtrl;
 
-        private bool _movementTriggered;
+        public bool MovementTriggered { get; private set; }
 
         private int _fromWaypointIndex;
         private int _toWaypointIndex;
@@ -64,12 +82,19 @@
             _toWaypointIndex = 0;
         }
 
+        public void ResetPlatform(PlatformResetDatas resetDatas)
+        {
+            _currWaypointsPercentage = resetDatas.Percentage;
+            _fromWaypointIndex = resetDatas.WaypointIndex;
+            _toWaypointIndex = (_fromWaypointIndex + 1) % _waypoints.PathLength;
+        }
+
         private void OnMovementTriggerTriggered(Triggerables.TriggerableObject.TriggerEventArgs args)
         {
             if (_movementTriggerDelay.Enabled && _movementTriggerDelay.Value > 0f)
                 StartCoroutine(TriggerMovementCoroutine());
             else
-                _movementTriggered = true;
+                MovementTriggered = true;
         }
 
         private Vector3 ComputePlatformVelocity()
@@ -242,14 +267,14 @@
         private System.Collections.IEnumerator TriggerMovementCoroutine()
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_movementTriggerDelay.Value);
-            _movementTriggered = true;
+            MovementTriggered = true;
         }
 
         private void Awake()
         {
             ResetPlatform();
             _raycastsCtrl = new RaycastsController(_boxCollider2D);
-            _movementTriggered = !_movementTrigger.Enabled || _movementTrigger.Value == null; // [TODO] Or if loading a platform already triggered.
+            MovementTriggered = !_movementTrigger.Enabled || _movementTrigger.Value == null; // [TODO] Or if loading a platform already triggered.
         
             if (_movementTrigger.Enabled && _movementTrigger.Value != null)
                 _movementTrigger.Value.Triggered += OnMovementTriggerTriggered;
@@ -257,7 +282,7 @@
 
         private void Update()
         {
-            if (!_movementTriggered)
+            if (!MovementTriggered)
                 return;
 
             _raycastsCtrl.ComputeRaycastOrigins();
@@ -277,21 +302,26 @@
             if (_movementTrigger.Enabled && _movementTrigger.Value != null)
                 Gizmos.DrawLine(transform.position, _movementTrigger.Value.transform.position);
 
-            DrawWaypointsStartGizmos();
+            if (_initFromIndex.Enabled || _initPercentage.Enabled)
+            {
+                DrawWaypointsStartGizmos(_initFromIndex.Enabled ? _initFromIndex.Value : 0,
+                    _initPercentage.Enabled ? _initPercentage.Value : 0f,
+                    _dbgColor?.Color ?? RSLib.DataColor.Default);
+            }
         }
 
-        private void DrawWaypointsStartGizmos()
+        public void DrawWaypointsStartGizmos(int fromIndex, float percentage, Color? color = null)
         {
-            if (!_initFromIndex.Enabled && !_initPercentage.Enabled || Application.isPlaying)
+            if (Application.isPlaying)
                 return;
 
-            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.color = color ?? RSLib.DataColor.Default;
 
-            Vector3 initPointPos = _waypoints.GetLocalWaypointAt(_initFromIndex.Enabled ? _initFromIndex.Value : 0);
-            if (_initPercentage.Enabled)
+            Vector3 initPointPos = _waypoints.GetLocalWaypointAt(fromIndex);
+            if (percentage != 0f)
             {
-                Vector3 initNextPointPos = _waypoints.GetLocalWaypointAt((_initFromIndex.Enabled ? _initFromIndex.Value : 0) + 1);
-                initPointPos += (initNextPointPos - initPointPos) * _initPercentage.Value;
+                Vector3 initNextPointPos = _waypoints.GetLocalWaypointAt((fromIndex + 1) % _waypoints.PathLength);
+                initPointPos += (initNextPointPos - initPointPos) * percentage;
             }
 
             Gizmos.DrawWireSphere(transform.position + initPointPos, 0.2f);

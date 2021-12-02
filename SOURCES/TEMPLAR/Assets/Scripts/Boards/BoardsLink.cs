@@ -14,6 +14,9 @@
         [SerializeField] private Templar.Tools.OptionalScenesPassage _targetScenePassage = new Templar.Tools.OptionalScenesPassage(null, false);
         [SerializeField] private BoardBounds _containingBounds = null;
 
+        [Header("PLATFORMS TO RESET")]
+        [SerializeField] private Templar.Physics.MovingPlatform.MovingPlatformController.PlatformResetDatas[] _platformsToReset = null;
+
         [Header("TRANSITION VIEW")]
         [SerializeField] private ScreenDirection _exitDir = ScreenDirection.NONE;
         [SerializeField] private RSLib.Framework.OptionalTransform _overrideRespawnPos = new RSLib.Framework.OptionalTransform(null);
@@ -23,6 +26,7 @@
 
         [Header("DEBUG")]
         [SerializeField] private SpriteRenderer _dbgVisualizer = null;
+        [SerializeField] private RSLib.DataColor _dbgColor = null;
 
         [System.Obsolete("Not technically obsolete, but should only be used in editor/debug classes. Use GetTarget method instead.")]
         public Templar.Tools.OptionalBoardsLink TargetBoardsLink => _targetBoardsLink;
@@ -63,6 +67,14 @@
         {
             Board = board;
             BoardBounds.SetBoard(board);
+        }
+
+        public void OnBoardEntered()
+        {
+            Board.OnBoardEntered();
+
+            for (int i = _platformsToReset.Length - 1; i >= 0; --i)
+                _platformsToReset[i].ResetPlatform();
         }
 
         protected virtual void Trigger()
@@ -166,6 +178,20 @@
 
             Gizmos.color = Manager.BoardsManager.DebugColor?.Color ?? RSLib.DataColor.Default;
             Gizmos.DrawLine(OverrideRespawnPos.position, transform.position);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            for (int i = _platformsToReset.Length - 1; i >= 0; --i)
+            {
+                if (_platformsToReset[i].Platform == null)
+                    continue;
+
+                _platformsToReset[i].Platform.DrawWaypointsStartGizmos(
+                    _platformsToReset[i].WaypointIndex,
+                    _platformsToReset[i].Percentage,
+                    _dbgColor?.Color ?? RSLib.DataColor.Default);
+            }
         }
 
         private static void DebugDisplayVisualizers(bool state)

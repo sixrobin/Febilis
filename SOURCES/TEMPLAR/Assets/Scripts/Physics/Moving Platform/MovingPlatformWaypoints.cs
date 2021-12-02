@@ -18,7 +18,7 @@
         public bool Cyclic => _cyclic;
         public RSLib.Framework.OptionalCurve Curve => _curve;
         public RSLib.Framework.OptionalFloat PauseDur => _pauseDur;
-        public int PathLength => _globalWayPositions.Length;
+        public int PathLength => Application.isPlaying ? _globalWayPositions.Length : _wayPositions.Length;
 
         public Vector3 GetLocalWaypointAt(int index)
         {
