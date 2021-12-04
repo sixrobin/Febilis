@@ -14,11 +14,13 @@
             [SerializeField] private MovingPlatformController _platform;
             [SerializeField, Min(0)] private int _waypointIndex;
             [SerializeField, Range(0f, 1f)] private float _percentage;
+            [SerializeField] private bool _resetCycleDirection;
 
             public MovingPlatformController Platform => _platform;
             public int WaypointIndex => _waypointIndex;
             public float Percentage => _percentage;
-        
+            public bool ResetCycleDirection => _resetCycleDirection;
+
             public void ResetPlatform()
             {
                 if (Platform.MovementTriggered)
@@ -60,6 +62,8 @@
         [SerializeField] private RSLib.DataColor _dbgColor = null;
         [SerializeField] private RSLib.DataColor _raycastsColor = null;
         [SerializeField] private bool _verbose = false;
+        [SerializeField] private RSLib.DataColor _dbgResetDatasColor = null;
+        [SerializeField] public PlatformResetDatas _dbgResetDatas = new PlatformResetDatas();
 
         private RaycastsController _raycastsCtrl;
 
@@ -69,6 +73,7 @@
         private int _toWaypointIndex;
         private float _currWaypointsPercentage;
         private bool _onWaypointPause;
+        private bool _cycleReversed;
 
         private static System.Collections.Generic.Dictionary<Collider2D, IMovingPlatformPassenger> s_alreadyKnownPassengers = new System.Collections.Generic.Dictionary<Collider2D, IMovingPlatformPassenger>();
 
@@ -85,6 +90,10 @@
         public void ResetPlatform(PlatformResetDatas resetDatas)
         {
             _currWaypointsPercentage = resetDatas.Percentage;
+
+            if (_cycleReversed && resetDatas.ResetCycleDirection)
+                ReverseWaypoints();
+
             _fromWaypointIndex = resetDatas.WaypointIndex;
             _toWaypointIndex = (_fromWaypointIndex + 1) % _waypoints.PathLength;
         }
@@ -121,7 +130,7 @@
                 if (!_waypoints.Cyclic && _fromWaypointIndex == _waypoints.PathLength - 1)
                 {
                     _fromWaypointIndex = 0;
-                    _waypoints.Reverse();
+                    ReverseWaypoints();
                 }
 
                 if (_waypoints.PauseDur.Enabled)
@@ -129,6 +138,12 @@
             }
 
             return nextPos - transform.position;
+        }
+
+        private void ReverseWaypoints()
+        {
+            _waypoints.Reverse();
+            _cycleReversed = !_cycleReversed;
         }
 
         private void ComputePassengersVelocity(Vector3 vel)
@@ -308,6 +323,11 @@
                     _initPercentage.Enabled ? _initPercentage.Value : 0f,
                     _dbgColor?.Color ?? RSLib.DataColor.Default);
             }
+
+            DrawWaypointsStartGizmos(
+                _dbgResetDatas.WaypointIndex,
+                _dbgResetDatas.Percentage,
+                _dbgResetDatasColor?.Color ?? _dbgColor?.Color ?? RSLib.DataColor.Default);
         }
 
         public void DrawWaypointsStartGizmos(int fromIndex, float percentage, Color? color = null)
@@ -347,6 +367,7 @@
         protected override void DrawButtons()
         {
             DrawButton("Reset Platform", Obj.ResetPlatform);
+            DrawButton("Reset Platform With Debug Datas", () => Obj.ResetPlatform(Obj._dbgResetDatas));
         }
     }
 #endif

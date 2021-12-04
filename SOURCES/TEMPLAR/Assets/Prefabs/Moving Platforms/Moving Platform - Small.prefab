@@ -176,6 +176,13 @@ MonoBehaviour:
   _dbgColor: {fileID: 0}
   _raycastsColor: {fileID: 11400000, guid: 9f35e503991250d4b8ff77f46a3bf38f, type: 2}
   _verbose: 0
+  _dbgResetDatasColor: {fileID: 11400000, guid: 53bb66d9744e9e0479d4c0e4555d5450,
+    type: 2}
+  _dbgResetDatas:
+    _platform: {fileID: 0}
+    _waypointIndex: 0
+    _percentage: 0
+    _resetCycleDirection: 0
 --- !u!114 &5447492925875921744
 MonoBehaviour:
   m_ObjectHideFlags: 0
