@@ -32,6 +32,7 @@
             {
                 s_currentRamp = value;
                 GameManager.CameraCtrl.GrayscaleRamp.OverrideRamp(s_currentRamp);
+                
                 Instance.PaletteChanged?.Invoke(s_currentRamp);
             }
         }

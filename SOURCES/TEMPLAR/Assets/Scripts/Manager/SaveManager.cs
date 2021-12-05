@@ -31,6 +31,8 @@
 
         public static bool DisableLoading => Instance._disableLoading;
 
+        public static bool GameSaveExist => System.IO.File.Exists(GameSavePath);
+
         private static string GameSavePath => $"{Application.persistentDataPath}/Save/Game.xml";
 
         public static void Save()
@@ -88,7 +90,7 @@
 
         public static bool TryLoad()
         {
-            if (!System.IO.File.Exists(GameSavePath))
+            if (!GameSaveExist)
                 return false;
 
             Instance.Log("Loading game progression...", Instance.gameObject, true);

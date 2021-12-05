@@ -72,7 +72,8 @@
 
         protected virtual void Awake()
         {
-            Manager.BoardsTransitionManager.Instance.BoardsTransitionTriggered += OnBoardsTransitionTriggered;
+            if (Manager.BoardsTransitionManager.Exists())
+                Manager.BoardsTransitionManager.Instance.BoardsTransitionTriggered += OnBoardsTransitionTriggered;
         }
 
         protected virtual void OnDestroy()
