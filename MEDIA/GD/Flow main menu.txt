@@ -1,0 +1,8 @@
+Fondu sur le background + Apparition du titre (ou l'inverse selon le graph)
+Press Any Key animé
+Apparition des boutons :
+	- Continue [si save existante]
+	- New Game
+	- Options
+	- Credits
+	- Quit
