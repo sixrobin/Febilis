@@ -196,8 +196,8 @@ GameObject:
   - component: {fileID: 7969783088296627195}
   - component: {fileID: 748277640825508061}
   - component: {fileID: 2062372418985356960}
+  - component: {fileID: 8792214832764837275}
   - component: {fileID: 6725783271353455498}
-  - component: {fileID: 1901678680235696639}
   m_Layer: 5
   m_Name: Main Menu Btn
   m_TagString: Untagged
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
---- !u!114 &6725783271353455498
+--- !u!114 &8792214832764837275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,11 +258,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8278077467438924585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7e4f7afb1756142b4fc30e42fab748, type: 3}
+  m_Script: {fileID: 11500000, guid: a2abeac4fd1fef24fa120ab12903a779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -289,27 +289,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2062372418985356960}
-  _pointerEventsHandler: {fileID: 1901678680235696639}
-  _btnText: {fileID: 8072089667864861178}
-  _highlight: {fileID: 3348062327073384307}
-  _highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _baseTextColor: {r: 0.7058824, g: 0.8705883, b: 0.62352943, a: 1}
---- !u!114 &1901678680235696639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8278077467438924585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ea21f5d447b84f469bbea29d93ef731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onPointerClick:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPointerDown:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls: []
   _onPointerEnter:
@@ -318,9 +298,28 @@ MonoBehaviour:
   _onPointerExit:
     m_PersistentCalls:
       m_Calls: []
-  _onPointerUp:
+  _onInteractableChanged:
     m_PersistentCalls:
       m_Calls: []
+  _buttonText: {fileID: 0}
+  _nonInteractableTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!114 &6725783271353455498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278077467438924585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7e4f7afb1756142b4fc30e42fab748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _btn: {fileID: 8792214832764837275}
+  _btnText: {fileID: 8072089667864861178}
+  _highlight: {fileID: 3348062327073384307}
+  _highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _baseTextColor: {r: 0.7058824, g: 0.8705883, b: 0.62352943, a: 1}
 --- !u!1 &8497246538387125749
 GameObject:
   m_ObjectHideFlags: 0

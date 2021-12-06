@@ -12,7 +12,7 @@
         [SerializeField, Min(0f)] private float _stepDur = 0.2f;
 
         [Tooltip("Value applied to ramp offset at each step of the fade coroutine.")]
-        [SerializeField, Min(0.01f)] private float _stepValue = 0.2f;
+        [SerializeField, Min(0.001f)] private float _stepValue = 0.2f;
 
         [Tooltip("If unchecked, fade will start from the ramp current value, else, ramp value will be overridden.")]
         [SerializeField] private bool _overrideInitOffset = false;
