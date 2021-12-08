@@ -6,7 +6,6 @@
     public class CurrencyView : HUDElement
     {
         [Header("REFS")]
-        [SerializeField] private Canvas _currencyCanvas = null;
         [SerializeField] private TMPro.TextMeshProUGUI _currencyText = null;
         [SerializeField] private TMPro.TextMeshProUGUI _diffText = null;
 

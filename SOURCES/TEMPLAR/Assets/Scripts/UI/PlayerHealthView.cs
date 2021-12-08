@@ -11,7 +11,6 @@
         [SerializeField] private Unit.Player.PlayerHealthController _playerHealthCtrl = null;
 
         [Header("HEALTH BAR UPDATE")]
-        [SerializeField] private Canvas _healthBarCanvas = null;
         [SerializeField] private UnityEngine.UI.Image _healthFill = null;
         [SerializeField] private UnityEngine.UI.Image _healthBlink = null;
         [SerializeField] private float _healthBarBlinkPauseDur = 0.15f;

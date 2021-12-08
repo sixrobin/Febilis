@@ -9,12 +9,12 @@
     public class MovingPlatformController : MonoBehaviour
     {
         [System.Serializable]
-        public struct PlatformResetDatas
+        public class PlatformResetDatas
         {
-            [SerializeField] private MovingPlatformController _platform;
-            [SerializeField, Min(0)] private int _waypointIndex;
-            [SerializeField, Range(0f, 1f)] private float _percentage;
-            [SerializeField] private bool _resetCycleDirection;
+            [SerializeField] private MovingPlatformController _platform = null;
+            [SerializeField, Min(0)] private int _waypointIndex = 0;
+            [SerializeField, Range(0f, 1f)] private float _percentage = 0f;
+            [SerializeField] private bool _resetCycleDirection = false;
 
             public MovingPlatformController Platform => _platform;
             public int WaypointIndex => _waypointIndex;
