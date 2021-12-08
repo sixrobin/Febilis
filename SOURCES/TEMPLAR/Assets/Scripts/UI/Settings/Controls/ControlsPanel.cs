@@ -22,8 +22,7 @@
         private InputMap _editedMap;
         private KeyBindingPanel _currentlyAssignedPanel;
 
-        private ConfirmationPopup.PopupTextsDatas _uncommittedChangesPopupTexts
-            = new ConfirmationPopup.PopupTextsDatas("Save changes ?", "Yes", "No");
+        private ConfirmationPopup.PopupTextsDatas _uncommittedChangesPopupTexts = new ConfirmationPopup.PopupTextsDatas("Save changes ?", "Yes", "No");
 
         private bool _navigationInit;
 

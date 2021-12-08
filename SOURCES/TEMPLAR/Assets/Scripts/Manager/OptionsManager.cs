@@ -1,5 +1,6 @@
 ﻿namespace Templar.Manager
 {
+    using Templar.Datas;
     using UnityEngine;
 
     public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
@@ -11,9 +12,13 @@
         [SerializeField] private UI.Settings.SettingsPanelBase _audioPanel = null;
         [SerializeField] private UI.Settings.SettingsPanelBase _languagePanel = null;
 
+        [Header("BACK TO MENU")]
+        [SerializeField] private RampFadeDatas _backToMenuFadeInDatas = null;
+
         private System.Collections.Generic.Dictionary<UI.Settings.SettingsPanelBase, UnityEngine.UI.Button> _panelsBtns;
 
-        private UI.ConfirmationPopup.PopupTextsDatas _quitGamePopupTexts = new UI.ConfirmationPopup.PopupTextsDatas("Quit game ?", "Yes", "No");
+        private UI.ConfirmationPopup.PopupTextsDatas _quitGamePopupTexts
+            = new UI.ConfirmationPopup.PopupTextsDatas("Quit game and go back to main menu ?", "Yes", "No");
 
         public delegate void OptionsToggleEventHandler();
         public event OptionsToggleEventHandler OptionsOpened;
@@ -23,18 +28,19 @@
 
         public static void QuitGame()
         {
-            // [TMP] Quitting game should exit to a main menu.
-
             UI.Navigation.UINavigationManager.ConfirmationPopup.AskForConfirmation(
                 Instance._quitGamePopupTexts,
                 () =>
                 {
-#if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false;
-                    return;
-#endif
+                    UI.Navigation.UINavigationManager.SetPanelAsCurrent(Instance._settingsHubPanel);
+                    UI.Navigation.UINavigationManager.CurrentlyOpenPanel.OnBackButtonPressed();
 
-                    Application.Quit();
+                    GameManager.PlayerCtrl.AllowInputs(false);
+
+                    RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp,
+                                         Instance._backToMenuFadeInDatas,
+                                         (0f, 1f),
+                                         (fadeIn) => ScenesManager.LoadScene(ScenesManager.MainMenuScene));
                 },
                 () =>
                 {
@@ -133,6 +139,7 @@
 
             UI.Navigation.UINavigationManager.CloseCurrentPanel();
             UI.Navigation.UINavigationManager.NullifySelected();
+
             ClosedThisFrame = false;
 
             SettingsManager.Save();

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c30148d687ae847899dd9725bad9c2, type: 3}
+  m_Name: Main Menu Fade Out Datas
+  m_EditorClassIdentifier: 
+  _vignetteDelay: 1
+  _vignetteTargetScale: 11
+  _vignetteDur: 2
+  _vignetteCurve: 26
+  _rampDatas: {fileID: 11400000, guid: 4c9d7cc74847f494581b127a69639c40, type: 2}
+  _titleColorDur: 1.8
+  _titleColorDelay: 0.7
+  _titleAlphaDur: 0.3
+  _titleAlphaDelay: 1.2
+  _titleCurve: 9

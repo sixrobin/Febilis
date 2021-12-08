@@ -89,12 +89,9 @@
             SetSelectedGameObject(null);
         }
 
-        private static void TryHandleBackInput()
+        private static void HandleBackInput()
         {
-            if (CurrentlyOpenPanel == null)
-                return;
-
-            if (Input.GetButtonDown(INPUT_BACK))
+            if (CurrentlyOpenPanel != null && Input.GetButtonDown(INPUT_BACK))
                 CurrentlyOpenPanel.OnBackButtonPressed();
         }
 
@@ -119,11 +116,11 @@
 
         private void Update()
         {
-            TryHandleBackInput();
+            HandleBackInput();
 
 #if UNITY_EDITOR
             _currSelection = new RSLib.Framework.DisabledGameObject(EventSystem.current.currentSelectedGameObject);
-            _currentlyOpenPanel = new RSLib.Framework.DisabledGameObject(CurrentlyOpenPanel?.gameObject);
+            _currentlyOpenPanel = new RSLib.Framework.DisabledGameObject(CurrentlyOpenPanel != null ? CurrentlyOpenPanel.gameObject : null);
 #endif
         }
 

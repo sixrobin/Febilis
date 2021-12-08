@@ -7,46 +7,36 @@
 
     public class MainMenuPanel : UI.UIPanel
     {
-        [Header("VIGNETTE")]
-        [SerializeField] private Transform _vignette = null;
-        [SerializeField] private float _fadeOutDelay = 1f;
-        [SerializeField] private float _vignetteInScale = 5.2f;
-        [SerializeField] private float _vignetteOutScale = 100f;
-        [SerializeField] private float _vignetteInDur = 1f;
-        [SerializeField] private float _vignetteOutDur = 2f;
-        [SerializeField] private Curve _vignetteInCurve = Curve.InOutSine;
-        [SerializeField] private Curve _vignetteOutCurve = Curve.InOutSine;
-
-        [Header("FADE OUT")]
-        [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
-        [SerializeField] private Datas.RampFadeDatas _rampFadeOutDatas = null;
-
-        [Header("TITLE")]
+        [Header("REFS")]
         [SerializeField] private UnityEngine.UI.Image _title = null;
         [SerializeField] private UnityEngine.UI.Image _titleShadow = null;
-        [SerializeField] private float _titleColorInDur = 1.6f;
-        [SerializeField] private float _titleColorInDelay = 1.1f;
-        [SerializeField] private float _titleAlphaInDur = 1.6f;
-        [SerializeField] private float _titleAlphaInDelay = 1.1f;
-        [SerializeField] private Curve _titleInCurve = Curve.InQuint;
-
-        [Header("PRESS ANY KEY")]
+        [SerializeField] private Transform _vignette = null;
         [SerializeField] private GameObject _pressAnyKey = null;
-        [SerializeField] private float _pressAnyKeyBlinkSpeed = 0.5f;
-        [SerializeField] private float _pressAnyKeyPostDelay = 0.5f;
 
-        [Header("BUTTONS")]
+        [Header("BUTTONS REFS")]
         [SerializeField] private GameObject _btnsContainer = null;
         [SerializeField] private MainMenuButton _continueBtn = null;
         [SerializeField] private MainMenuButton _newGameBtn = null;
         [SerializeField] private MainMenuButton _settingsBtn = null;
         [SerializeField] private MainMenuButton _quitBtn = null;
 
+        [Header("FADES DATAS")]
+        [SerializeField] private Datas.MainMenu.MainMenuFadeOutDatas _mainMenuFadeOutDatas = null;
+        [SerializeField] private Datas.MainMenu.MainMenuFadeInDatas _mainMenuFadeInDatas = null;
+        [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
+        [SerializeField] private Datas.RampFadeDatas _rampFadeOutDatas = null;
+
+        [Header("PRESS ANY KEY")]
+        [SerializeField] private float _pressAnyKeyBlinkSpeed = 0.5f;
+        [SerializeField] private float _pressAnyKeyPostDelay = 0.5f;
+
         private MainMenuButton[] _allBtns;
         private MainMenuButton _lastSelectedBtn;
 
         private System.Collections.IEnumerator _vignetteFadeCoroutine;
-        private System.Collections.IEnumerator _pressAnyKeyCoroutine;
+
+        private UI.ConfirmationPopup.PopupTextsDatas _eraseSaveFilePopupTexts
+            = new UI.ConfirmationPopup.PopupTextsDatas("A save file already exists. Are you sure you want to overwrite it ?", "Yes", "No");
 
         public override GameObject FirstSelected => FirstButtonSelected.gameObject;
 
@@ -56,24 +46,47 @@
         {
         }
 
-        private void OnQuitButtonPressed()
+        private void OnNewGameButtonPressed()
+        {
+            if (Manager.SaveManager.GameSaveExist)
+            {
+                UI.Navigation.UINavigationManager.ConfirmationPopup.AskForConfirmation(
+                    _eraseSaveFilePopupTexts,
+                    OnNewGameConfirmed,
+                    () => UI.Navigation.UINavigationManager.Select(_newGameBtn.gameObject));
+            }
+            else
+            {
+                OnNewGameConfirmed();
+            }
+        }
+
+        private void OnNewGameConfirmed()
         {
             UI.Navigation.UINavigationManager.NullifySelected();
-            
-            _btnsContainer.SetActive(false);
-            _title.enabled = false;
-            _titleShadow.enabled = false;
+            HideButtons();
+            HideTitle();
 
-            if (_vignetteFadeCoroutine != null)
-                StopCoroutine(_vignetteFadeCoroutine);
+            GlobalFadeOutInCoroutine(Manager.MainMenuManager.NewGame);
+        }
 
-            StartCoroutine(_vignetteFadeCoroutine = FadeVignetteCoroutine(_vignetteOutScale,
-                                                                          _vignetteInScale,
-                                                                          (0f, 0f),
-                                                                          _vignetteInDur,
-                                                                          _vignetteInCurve));
+        private void OnContinueButtonPressed()
+        {
+            UI.Navigation.UINavigationManager.NullifySelected();
+            HideButtons();
+            HideTitle();
 
-            Manager.RampFadeManager.Fade(_grayscaleRamp, _rampFadeOutDatas, (0f, 0f), (fadeIn) => MainMenuManager.Quit());
+            GlobalFadeOutInCoroutine(Manager.MainMenuManager.LoadSavedGame);
+        }
+
+        private void OnQuitButtonPressed()
+        {
+            HideButtons();
+            HideTitle();
+
+            UI.Navigation.UINavigationManager.NullifySelected();
+
+            GlobalFadeOutInCoroutine(Manager.MainMenuManager.Quit);
         }
 
         private void OnMainMenuButtonSelected(MainMenuButton mainMenuButton)
@@ -100,8 +113,8 @@
 
         private void InitButtonsEvents()
         {
-            _newGameBtn.Button.onClick.AddListener(() => throw new System.NotImplementedException("New game"));
-            _continueBtn.Button.onClick.AddListener(() => throw new System.NotImplementedException("Continue"));
+            _newGameBtn.Button.onClick.AddListener(OnNewGameButtonPressed);
+            _continueBtn.Button.onClick.AddListener(OnContinueButtonPressed);
             _settingsBtn.Button.onClick.AddListener(() => throw new System.NotImplementedException("Settings"));
             _quitBtn.Button.onClick.AddListener(OnQuitButtonPressed);
         }
@@ -124,12 +137,36 @@
 
         private void SetupInitViewState()
         {
-            _btnsContainer.SetActive(false);
+            HideButtons();
+            HideTitle();
+            
             _pressAnyKey.SetActive(false);
-            _titleShadow.enabled = false;
+            _vignette.transform.localScale = Vector3.one * _mainMenuFadeInDatas.VignetteTargetScale;
+        }
 
-            _vignette.transform.localScale = Vector3.one * _vignetteInScale;
+        private void HideTitle()
+        {
+            _titleShadow.enabled = false;
             _title.material.SetColor("_Color", new Color(0f, 0f, 0f, 0f));
+        }
+
+        private void HideButtons()
+        {
+            _btnsContainer.SetActive(false);
+        }
+
+        private void GlobalFadeOutInCoroutine(System.Action callback)
+        {
+            if (_vignetteFadeCoroutine != null)
+                StopCoroutine(_vignetteFadeCoroutine);
+
+            StartCoroutine(_vignetteFadeCoroutine = FadeVignetteCoroutine(_mainMenuFadeOutDatas.VignetteTargetScale,
+                                                                          _mainMenuFadeInDatas.VignetteTargetScale,
+                                                                          (0f, 0f),
+                                                                          _mainMenuFadeInDatas.VignetteDur,
+                                                                          _mainMenuFadeInDatas.VignetteCurve));
+
+            Manager.RampFadeManager.Fade(_grayscaleRamp, _rampFadeOutDatas, (0f, 0f), (fadeIn) => callback?.Invoke());
         }
 
         private System.Collections.IEnumerator FadeVignetteCoroutine(float sourceValue, float targetValue, (float, float) delays, float dur, Curve curve, System.Action callback = null)
@@ -150,13 +187,13 @@
 
         private System.Collections.IEnumerator FadeTitleColorCoroutine()
         {
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_titleColorInDelay);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_mainMenuFadeOutDatas.TitleColorDelay);
             Color color;
 
-            for (float t = 0f; t <= 1f; t += Time.deltaTime / _titleColorInDur)
+            for (float t = 0f; t <= 1f; t += Time.deltaTime / _mainMenuFadeOutDatas.TitleColorDur)
             {
                 color = _title.materialForRendering.GetColor("_Color");
-                _title.materialForRendering.SetColor("_Color", Color.Lerp(Color.black, Color.white, t.Ease(_titleInCurve)).WithA(color.a));
+                _title.materialForRendering.SetColor("_Color", Color.Lerp(Color.black, Color.white, t.Ease(_mainMenuFadeOutDatas.TitleCurve)).WithA(color.a));
                 yield return null;
             }
 
@@ -167,13 +204,13 @@
 
         private System.Collections.IEnumerator FadeTitleAlphaCoroutine()
         {
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_titleAlphaInDelay);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_mainMenuFadeOutDatas.TitleAlphaDelay);
             Color color;
 
-            for (float t = 0f; t <= 1f; t += Time.deltaTime / _titleAlphaInDur)
+            for (float t = 0f; t <= 1f; t += Time.deltaTime / _mainMenuFadeOutDatas.TitleAlphaDur)
             {
                 color = _title.materialForRendering.GetColor("_Color");
-                _title.materialForRendering.SetColor("_Color", color.WithA(t.Ease(_titleInCurve)));
+                _title.materialForRendering.SetColor("_Color", color.WithA(t.Ease(_mainMenuFadeOutDatas.TitleCurve)));
                 yield return null;
             }
 
@@ -188,9 +225,7 @@
 
             while (true)
             {
-                yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_pressAnyKeyBlinkSpeed,
-                    () => Input.anyKeyDown,
-                    () => anyKeyDown = true);
+                yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_pressAnyKeyBlinkSpeed, () => Input.anyKeyDown, () => anyKeyDown = true);
 
                 if (anyKeyDown)
                 {
@@ -235,12 +270,12 @@
             StartCoroutine(FadeTitleColorCoroutine());
             StartCoroutine(FadeTitleAlphaCoroutine());
 
-            StartCoroutine(_vignetteFadeCoroutine = FadeVignetteCoroutine(_vignetteInScale,
-                                                                          _vignetteOutScale,
-                                                                          (_fadeOutDelay, 0.8f),
-                                                                          _vignetteOutDur,
-                                                                          _vignetteOutCurve,
-                                                                          () => StartCoroutine(_pressAnyKeyCoroutine = PressAnyKeyCoroutine())));
+            StartCoroutine(_vignetteFadeCoroutine = FadeVignetteCoroutine(_mainMenuFadeInDatas.VignetteTargetScale,
+                                                                          _mainMenuFadeOutDatas.VignetteTargetScale,
+                                                                          (_mainMenuFadeOutDatas.VignetteDelay, 0.8f),
+                                                                          _mainMenuFadeOutDatas.VignetteDur,
+                                                                          _mainMenuFadeOutDatas.VignetteCurve,
+                                                                          () => StartCoroutine(PressAnyKeyCoroutine())));
         }
 
         protected override void OnDestroy()

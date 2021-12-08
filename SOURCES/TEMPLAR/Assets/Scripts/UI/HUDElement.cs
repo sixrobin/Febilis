@@ -28,7 +28,8 @@
         protected virtual void OnOptionsClosed()
         {
             if (!Manager.GameManager.PlayerCtrl.IsDead
-                && !Manager.BoardsTransitionManager.IsInBoardTransition)
+                && !Manager.BoardsTransitionManager.IsInBoardTransition
+                && !Manager.RampFadeManager.IsFading)
                 Display(true);
         }
 
