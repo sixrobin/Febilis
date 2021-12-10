@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6336706463874955669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7921107241456061513}
+  - component: {fileID: 2983516852149026029}
+  m_Layer: 0
+  m_Name: Options Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7921107241456061513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336706463874955669}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8874774589448705548}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2983516852149026029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6336706463874955669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de2b11eba0b7bd4f937d2dce00cefe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroy: 0
+  _verbose: 0
+  _overrideLogPrefix:
+    _value: 
+    _enabled: 0
+  _settingsHubPanel: {fileID: 0}
+  _controlsPanel: {fileID: 0}
+  _gamePanel: {fileID: 0}
+  _audioPanel: {fileID: 0}
+  _languagePanel: {fileID: 0}
+  _backToMenuFadeInDatas: {fileID: 11400000, guid: f5ebf111ef14eec42949fe4b3d54497c,
+    type: 2}
 --- !u!1 &6531267741149383399
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,61 +159,6 @@ MonoBehaviour:
   _delayBeforeFirstDialogueElement: 0.5
   _goToPositionTimeout: 3
   _debugFastDialogues: 0
---- !u!1 &8874774588189541611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8874774588189541609}
-  - component: {fileID: 8874774588189541608}
-  m_Layer: 0
-  m_Name: Options Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8874774588189541609
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874774588189541611}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8874774589448705548}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8874774588189541608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8874774588189541611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9de2b11eba0b7bd4f937d2dce00cefe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dontDestroy: 0
-  _verbose: 0
-  _overrideLogPrefix:
-    _value: 
-    _enabled: 0
-  _settingsHubPanel: {fileID: 0}
-  _controlsPanel: {fileID: 0}
-  _gamePanel: {fileID: 0}
-  _audioPanel: {fileID: 0}
-  _languagePanel: {fileID: 0}
-  _backToMenuFadeInDatas: {fileID: 11400000, guid: f5ebf111ef14eec42949fe4b3d54497c,
-    type: 2}
 --- !u!1 &8874774588630882538
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ Transform:
   - {fileID: 8874774588063780286}
   - {fileID: 8874774588630882539}
   - {fileID: 8874774589607434321}
-  - {fileID: 8874774588189541609}
+  - {fileID: 7921107241456061513}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

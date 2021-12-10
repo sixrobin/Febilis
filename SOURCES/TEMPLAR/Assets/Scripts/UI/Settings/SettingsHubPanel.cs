@@ -37,7 +37,9 @@
                 AudioBtn,
                 LanguageBtn,
                 QuitGameBtn
-            }.ToArray();
+            }
+            .Where(o => o.gameObject.activeSelf)
+            .ToArray();
 
             for (int i = 0; i < _settingsBtns.Length; ++i)
             {

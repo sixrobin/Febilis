@@ -27,7 +27,7 @@
         public event DialogueEventHandler DialogueStarted;
         public event DialogueEventHandler DialogueOver;
 
-        public static bool DialogueRunning => Instance._dialogueCoroutine != null;
+        public static bool DialogueRunning => Exists() && Instance._dialogueCoroutine != null;
 
         public static void PlayDialogue(string id, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {

@@ -68,7 +68,7 @@
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !UI.Dialogue.DialogueManager.DialogueRunning
                 && !Manager.BoardsTransitionManager.IsInBoardTransition
-                && (!GameManager.InventoryView?.Displayed ?? true);
+                && GameManager.Exists() && (!GameManager.InventoryView?.Displayed ?? true);
         }
 
         public void OpenSettings(UI.Settings.SettingsPanelBase sourcePanel = null)
@@ -150,6 +150,10 @@
         protected override void Awake()
         {
             base.Awake();
+
+            // OptionsManager is not destroyed on load so we need to retrieve it on each loading.
+            if (_settingsHubPanel == null)
+                _settingsHubPanel = FindObjectOfType<UI.Settings.SettingsHubPanel>();
 
             _panelsBtns = new System.Collections.Generic.Dictionary<UI.Settings.SettingsPanelBase, UnityEngine.UI.Button>()
             {

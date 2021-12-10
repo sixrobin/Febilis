@@ -8,6 +8,7 @@
     public class MainMenuPanel : UI.UIPanel
     {
         [Header("REFS")]
+        [SerializeField] private UI.Settings.SettingsHubPanel _settingsHubPanel = null;
         [SerializeField] private UnityEngine.UI.Image _title = null;
         [SerializeField] private UnityEngine.UI.Image _titleShadow = null;
         [SerializeField] private Transform _vignette = null;
@@ -46,6 +47,20 @@
         {
         }
 
+        private void OnOptionsOpened()
+        {
+            DisplayButtons(false);
+            DisplayTitle(false);
+        }
+
+        private void OnOptionsClosed()
+        {
+            DisplayButtons(true);
+            DisplayTitle(true);
+
+            UI.Navigation.UINavigationManager.Select(_settingsBtn.gameObject);
+        }
+
         private void OnNewGameButtonPressed()
         {
             if (Manager.SaveManager.GameSaveExist)
@@ -64,8 +79,8 @@
         private void OnNewGameConfirmed()
         {
             UI.Navigation.UINavigationManager.NullifySelected();
-            HideButtons();
-            HideTitle();
+            DisplayButtons(false);
+            DisplayTitle(false);
 
             GlobalFadeOutInCoroutine(Manager.MainMenuManager.NewGame);
         }
@@ -73,16 +88,21 @@
         private void OnContinueButtonPressed()
         {
             UI.Navigation.UINavigationManager.NullifySelected();
-            HideButtons();
-            HideTitle();
+            DisplayButtons(false);
+            DisplayTitle(false);
 
             GlobalFadeOutInCoroutine(Manager.MainMenuManager.LoadSavedGame);
         }
 
+        private void OnSettingsButtonPressed()
+        {
+            Manager.OptionsManager.Instance.OpenSettings();
+        }
+
         private void OnQuitButtonPressed()
         {
-            HideButtons();
-            HideTitle();
+            DisplayButtons(false);
+            DisplayTitle(false);
 
             UI.Navigation.UINavigationManager.NullifySelected();
 
@@ -115,7 +135,7 @@
         {
             _newGameBtn.Button.onClick.AddListener(OnNewGameButtonPressed);
             _continueBtn.Button.onClick.AddListener(OnContinueButtonPressed);
-            _settingsBtn.Button.onClick.AddListener(() => throw new System.NotImplementedException("Settings"));
+            _settingsBtn.Button.onClick.AddListener(OnSettingsButtonPressed);
             _quitBtn.Button.onClick.AddListener(OnQuitButtonPressed);
         }
 
@@ -137,22 +157,22 @@
 
         private void SetupInitViewState()
         {
-            HideButtons();
-            HideTitle();
+            DisplayButtons(false);
+            DisplayTitle(false);
             
             _pressAnyKey.SetActive(false);
             _vignette.transform.localScale = Vector3.one * _mainMenuFadeInDatas.VignetteTargetScale;
         }
 
-        private void HideTitle()
+        private void DisplayTitle(bool show)
         {
-            _titleShadow.enabled = false;
-            _title.material.SetColor("_Color", new Color(0f, 0f, 0f, 0f));
+            _titleShadow.enabled = show;
+            _title.material.SetColor("_Color", Color.white.WithA(show ? 1f : 0f));
         }
 
-        private void HideButtons()
+        private void DisplayButtons(bool show)
         {
-            _btnsContainer.SetActive(false);
+            _btnsContainer.SetActive(show);
         }
 
         private void GlobalFadeOutInCoroutine(System.Action callback)
@@ -250,6 +270,9 @@
         {
             base.Awake();
 
+            Manager.OptionsManager.Instance.OptionsOpened += OnOptionsOpened;
+            Manager.OptionsManager.Instance.OptionsClosed += OnOptionsClosed;
+
             _allBtns = new MainMenuButton[]
             {
                 _continueBtn,
@@ -284,6 +307,12 @@
 
             MainMenuButton.Selected -= OnMainMenuButtonSelected;
             MainMenuButton.Deselected -= OnMainMenuButtonDeselected;
+
+            if (Manager.OptionsManager.Exists())
+            {
+                Manager.OptionsManager.Instance.OptionsOpened -= OnOptionsOpened;
+                Manager.OptionsManager.Instance.OptionsClosed -= OnOptionsClosed;
+            }
         }
     }
 }
