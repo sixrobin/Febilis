@@ -387,7 +387,7 @@ MonoBehaviour:
   m_text: New Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30bdb1fc23530934895b4292b194864a, type: 2}
-  m_sharedMaterial: {fileID: 3057361208877180031, guid: 30bdb1fc23530934895b4292b194864a,
+  m_sharedMaterial: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

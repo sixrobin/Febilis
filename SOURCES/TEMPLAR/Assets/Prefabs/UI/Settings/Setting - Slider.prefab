@@ -130,8 +130,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Slider Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9fcecbfdcfa7ba349855054ab8a78c95, type: 2}
-  m_sharedMaterial: {fileID: 2026708820861944882, guid: 9fcecbfdcfa7ba349855054ab8a78c95,
+  m_fontAsset: {fileID: 11400000, guid: 30bdb1fc23530934895b4292b194864a, type: 2}
+  m_sharedMaterial: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -156,10 +156,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4.7
-  m_fontSizeBase: 36
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 2
   m_fontSizeMax: 8
   m_fontStyle: 0
@@ -313,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 3603860762463912912, guid: 434902f37e916ce40af798f138d47e3a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 28
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 3603860762463912912, guid: 434902f37e916ce40af798f138d47e3a,
         type: 3}

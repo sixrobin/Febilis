@@ -521,7 +521,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press any key
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9fcecbfdcfa7ba349855054ab8a78c95, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30bdb1fc23530934895b4292b194864a, type: 2}
   m_sharedMaterial: {fileID: 2026708820861944882, guid: 9fcecbfdcfa7ba349855054ab8a78c95,
     type: 2}
   m_fontSharedMaterials: []
@@ -547,8 +547,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
-  m_fontSizeBase: 5
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -586,7 +586,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &3063924693626062760
@@ -696,6 +696,12 @@ PrefabInstance:
       propertyPath: m_text
       value: New Game
       objectReference: {fileID: 0}
+    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
+        type: 2}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
       propertyPath: m_Name
@@ -828,6 +834,12 @@ PrefabInstance:
       propertyPath: m_text
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
+        type: 2}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
       propertyPath: m_Name
@@ -965,6 +977,12 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
+        type: 2}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
       propertyPath: m_Name
@@ -1109,6 +1127,12 @@ PrefabInstance:
       propertyPath: m_text
       value: Continue
       objectReference: {fileID: 0}
+    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
+        type: 2}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
       propertyPath: m_Name
