@@ -118,5 +118,14 @@ Belongs to the high priests of Prosperare.]]></Description>
          <Move/>
       </Actions>
    </ItemDatas>
+
+   <ItemDatas Id="Ring_CatacombsSecret">
+      <Type>EQUIPABLE</Type>
+      <Name>Macabre Ring</Name>
+      <Description>This dark broken ring looks older than the catacombs themselves. An odd energy emanates from it...</Description>
+      <Actions>
+         <Move/>
+      </Actions>
+   </ItemDatas>
    
 </ItemsDatas>

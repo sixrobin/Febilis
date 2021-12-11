@@ -74,7 +74,7 @@
     {
         public static void Load(XElement flagsElement)
         {
-            Init();
+            Clear();
 
             foreach (System.Collections.Generic.KeyValuePair<System.Type, Flags.FlagsList> ids in s_flags)
                 if (flagsElement.TryGetElement(ids.Key.Name, out XElement idsElement))
