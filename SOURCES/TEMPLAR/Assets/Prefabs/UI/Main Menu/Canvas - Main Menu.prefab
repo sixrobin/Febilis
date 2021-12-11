@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3063924694421609777}
+  _settingsHubPanel: {fileID: 0}
   _title: {fileID: 3063924695254653654}
   _titleShadow: {fileID: 3063924693905559443}
   _vignette: {fileID: 0}
@@ -695,11 +696,6 @@ PrefabInstance:
       propertyPath: m_text
       value: New Game
       objectReference: {fileID: 0}
-    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
       propertyPath: m_Name
@@ -831,11 +827,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Settings
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
@@ -973,11 +964,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Quit
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}
@@ -1122,11 +1108,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Continue
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072089667864861178, guid: 949b660fa81127c429a3426552c7c5b2,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8278077467438924585, guid: 949b660fa81127c429a3426552c7c5b2,
         type: 3}

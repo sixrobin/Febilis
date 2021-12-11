@@ -26,12 +26,14 @@
         private UIPanel _sourcePanel;
         private GameObject _sourceSelected;
 
+        private bool _selectConfirmFirst;
+
         public delegate void ConfirmedEventHandler();
 
         private ConfirmedEventHandler _confirmCallback;
         private ConfirmedEventHandler _cancelCallback;
 
-        public override GameObject FirstSelected => _cancelBtn.gameObject;
+        public override GameObject FirstSelected => _selectConfirmFirst ? _confirmBtn.gameObject : _cancelBtn.gameObject;
 
         public override void OnBackButtonPressed()
         {
@@ -41,10 +43,11 @@
             Navigation.UINavigationManager.Select(_sourceSelected);
         }
 
-        public void AskForConfirmation(PopupTextsDatas textsDatas, ConfirmedEventHandler confirmCallback, ConfirmedEventHandler cancelCallback)
+        public void AskForConfirmation(PopupTextsDatas textsDatas, ConfirmedEventHandler confirmCallback, ConfirmedEventHandler cancelCallback, bool selectConfirmFirst = false)
         {
             _sourcePanel = Navigation.UINavigationManager.CurrentlyOpenPanel;
             _sourceSelected = Navigation.UINavigationManager.CurrentlySelected;
+            _selectConfirmFirst = selectConfirmFirst;
 
             Navigation.UINavigationManager.OpenAndSelect(this);
 
