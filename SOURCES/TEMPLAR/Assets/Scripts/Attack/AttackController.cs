@@ -44,6 +44,8 @@
 
         public virtual bool IsAttacking => _attackCoroutine != null;
 
+        protected abstract UnityEngine.Renderer AttackerRenderer { get; }
+
         public virtual void CancelAttack()
         {
             if (!IsAttacking)
@@ -61,7 +63,7 @@
             _hitboxesContainer.SetDirection(AttackDir);
             _hitboxesById[id].Trigger(AttackDir, attackDatas);
 
-            UnityEngine.Object.FindObjectOfType<Camera.CameraController>().ApplyShakeFromDatas(attackDatas.BaseTraumaDatas); // [TMP] Find.
+            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(attackDatas.BaseTraumaDatas, AttackerRenderer);
         }
 
         protected virtual void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)

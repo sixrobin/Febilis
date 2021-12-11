@@ -60,6 +60,15 @@
             GetShake(shakeDatas.ShakeId).AddTraumaFromDatas(shakeDatas);
         }
 
+        public void ApplyShakeFromDatas(Templar.Datas.ShakeTraumaDatas shakeDatas, Renderer sourceRenderer)
+        {
+            if (shakeDatas == null
+                || !shakeDatas.CanShakeWhenOffscreen && !sourceRenderer.IsVisibleByCamera(_camera))
+                return;
+
+            GetShake(shakeDatas.ShakeId).AddTraumaFromDatas(shakeDatas);
+        }
+
         public CameraShake GetShake(string id)
         {
             UnityEngine.Assertions.Assert.IsTrue(

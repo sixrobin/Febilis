@@ -34,6 +34,8 @@
         public float Y { get; private set; }
         public ShakeAddType AddType { get; private set; }
 
+        public bool CanShakeWhenOffscreen { get; private set; }
+
         public void Deserialize(XContainer container)
         {
             XElement traumaElement = container as XElement;
@@ -54,6 +56,9 @@
 
             XAttribute addTypeAttribute = traumaElement.Attribute("AddType");
             AddType = addTypeAttribute?.ValueToEnum<ShakeAddType>() ?? ShakeAddType.ADDITIVE;
+
+            XAttribute canShakeWhenOffscreen = traumaElement.Attribute("CanShakeWhenOffscreen");
+            CanShakeWhenOffscreen = canShakeWhenOffscreen?.ValueToBool() ?? false;
         }
     }
 }

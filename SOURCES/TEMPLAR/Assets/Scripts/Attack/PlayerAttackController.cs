@@ -26,6 +26,8 @@
         public bool CanAttackAirborne { get; private set; }
         public bool CanChainAttack { get; private set; }
 
+        protected override Renderer AttackerRenderer => _playerCtrl.PlayerView.Renderer;
+
         public bool CanAttack()
         {
             return !_playerCtrl.RollCtrl.IsRolling

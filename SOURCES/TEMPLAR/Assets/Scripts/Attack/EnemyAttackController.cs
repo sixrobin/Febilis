@@ -1,4 +1,6 @@
-﻿namespace Templar.Attack
+﻿using UnityEngine;
+
+namespace Templar.Attack
 {
     public class EnemyAttackController : AttackController
     {
@@ -11,6 +13,8 @@
             _enemyCtrl = enemyCtrl;
         }
 
+        protected override Renderer AttackerRenderer => _enemyCtrl.EnemyView.Renderer;
+
         public void Attack(Unit.Enemy.Actions.AttackEnemyAction attackAction, AttackOverEventHandler attackOverCallback = null)
         {
             _attackCoroutineRunner.StartCoroutine(_attackCoroutine = AttackCoroutine(attackAction, attackOverCallback));
@@ -19,7 +23,7 @@
         protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
         {
             UnityEngine.Assertions.Assert.IsNotNull(_currAttackDatas, "An attack hit has been triggered but enemy attack datas are null.");
-            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(_currAttackDatas.HitTraumaDatas);
+            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(_currAttackDatas.HitTraumaDatas, AttackerRenderer);
             Manager.FreezeFrameManager.FreezeFrame(0, _currAttackDatas.HitFreezeFrameDur);
         }
 

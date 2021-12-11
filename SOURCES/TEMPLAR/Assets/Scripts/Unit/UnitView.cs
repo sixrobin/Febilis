@@ -28,6 +28,8 @@
 
         public abstract float DeadFadeDelay { get; }
 
+        public SpriteRenderer Renderer => _spriteRenderer;
+
         public bool GetSpriteRendererFlipX()
         {
             return _spriteRenderer.flipX;
