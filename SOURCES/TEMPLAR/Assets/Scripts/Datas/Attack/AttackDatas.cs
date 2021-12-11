@@ -81,9 +81,10 @@
             UnityEngine.Assertions.Assert.IsFalse(hitDurElement.IsNullOrEmpty(), $"Hit Dur element is null or empty for attack {Id}.");
             HitDur = hitDurElement.ValueToFloat();
 
-            XElement hitLayerElement = hitElement.Element("Layer");
-            UnityEngine.Assertions.Assert.IsFalse(hitLayerElement.IsNullOrEmpty(), $"Hit Layer element is null or empty for attack {Id}.");
-            HitLayer = hitLayerElement.ValueToEnum<Templar.Attack.HitLayer>();
+            XElement hitLayersElement = hitElement.Element("Layers");
+            UnityEngine.Assertions.Assert.IsFalse(hitLayersElement.IsNullOrEmpty(), $"Layers element is null or empty for attack {Id}.");
+            foreach (XElement hitLayerElement in hitLayersElement.Elements("LayerName"))
+                HitLayer |= hitLayerElement.ValueToEnum<Templar.Attack.HitLayer>();
 
             XElement hitDirComputationTypeElement = hitElement.Element("DirComputationType");
             HitDirComputationType = hitDirComputationTypeElement?.ValueToEnum<Templar.Attack.HitDirComputationType>() ?? Templar.Attack.HitDirComputationType.ATTACK_DIR;

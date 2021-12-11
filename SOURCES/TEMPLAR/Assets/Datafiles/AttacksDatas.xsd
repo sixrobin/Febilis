@@ -72,7 +72,13 @@
       <xs:sequence>
          <xs:element name="Delay" type="xs:float" minOccurs="0" maxOccurs="1"/>
          <xs:element name="Dur" type="xs:float" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="Layer" type="HitLayer" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Layers">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="LayerName" type="HitLayer" minOccurs="1" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
          <xs:element name="DirComputationType" type="HitDirComputationType" minOccurs="0" maxOccurs="1"/>
          <xs:element name="FreezeFrameDur" type="xs:float" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
@@ -80,9 +86,11 @@
 
    <xs:simpleType name="HitLayer" final="restriction">
       <xs:restriction base="xs:string">
-         <xs:enumeration value="ALL"/>
          <xs:enumeration value="PLAYER"/>
          <xs:enumeration value="ENEMY"/>
+         <xs:enumeration value="PICKUP"/>
+         <xs:enumeration value="UNITS"/>
+         <xs:enumeration value="ALL"/>
       </xs:restriction>
    </xs:simpleType>
 

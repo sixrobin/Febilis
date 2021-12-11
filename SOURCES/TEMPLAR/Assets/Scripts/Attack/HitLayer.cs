@@ -5,6 +5,8 @@
         NONE = 0,
         PLAYER = 1,
         ENEMY = 2,
-        ALL = PLAYER | ENEMY
+        PICKUP = 4,
+        UNITS = PLAYER | ENEMY,
+        ALL = UNITS | PICKUP
     }
 }

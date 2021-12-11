@@ -9,7 +9,9 @@
       <Dmg>40</Dmg>
       <Hit>
          <Dur>0.1</Dur>
-         <Layer>PLAYER</Layer>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
@@ -32,7 +34,9 @@
       <Dmg>30</Dmg>
       <Hit>
          <Dur>0.1</Dur>
-         <Layer>PLAYER</Layer>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
          <DirComputationType>X_OFFSET</DirComputationType>
          <FreezeFrameDur>0.07</FreezeFrameDur>
       </Hit>
@@ -61,7 +65,9 @@
       <Dmg>25</Dmg>
       <Hit>
          <Dur>0.1</Dur>
-         <Layer>PLAYER</Layer>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>

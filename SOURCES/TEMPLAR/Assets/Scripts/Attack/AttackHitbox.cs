@@ -6,11 +6,13 @@
     {
         public class HitEventArgs : System.EventArgs
         {
-            public HitEventArgs(float dir)
+            public HitEventArgs(IHittable hittable, float dir)
             {
+                Hittable = hittable;
                 Dir = dir;
             }
 
+            public IHittable Hittable { get; private set; }
             public float Dir { get; private set; }
         }
 
@@ -73,12 +75,12 @@
                 if (collider.TryGetComponent(out hittable))
                     s_sharedKnownHittables.Add(collider, hittable);
 
-            if (hittable == null || !hittable.CanBeHit() || (_attackDatas.HitLayer & hittable.HitLayer) == 0 || _hitThisTime.Contains(hittable))
+            if (hittable == null || !hittable.CanBeHit() || !_attackDatas.HitLayer.HasFlag(hittable.HitLayer) || _hitThisTime.Contains(hittable))
                 return;
 
             _hitThisTime.Add(hittable);
-            hittable.OnHit(new HitInfos(_attackDatas, Dir, _source)); // [TODO] HitDatas pooling ?
-            Hit(new HitEventArgs(Dir)); // [TODO] HitEventArgs pooling ?
+            hittable.OnHit(new HitInfos(_attackDatas, Dir, _source));
+            Hit(new HitEventArgs(hittable, Dir));
         }
     }
 }

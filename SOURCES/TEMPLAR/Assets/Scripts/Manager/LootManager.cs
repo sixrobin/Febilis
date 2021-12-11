@@ -121,6 +121,8 @@
         private void OnDestroy()
         {
             CoinController.CoinDisabled -= OnCoinDisabled;
+            ItemWorldController.ItemPickedUp -= OnItemPickedUp;
+
             DisableWaitingObjects();
         }
     }

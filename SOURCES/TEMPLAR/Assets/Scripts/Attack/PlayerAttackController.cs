@@ -59,7 +59,10 @@
             _playerCtrl.PlayerView.PlayHitVFX(hitArgs.Dir);
 
             UnityEngine.Assertions.Assert.IsNotNull(CurrAttackDatas, "An attack hit has been triggered but player attack datas are null.");
-            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(CurrAttackDatas.HitTraumaDatas);
+            
+            if (hitArgs.Hittable.HitLayer != HitLayer.PICKUP)
+                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(CurrAttackDatas.HitTraumaDatas);
+            
             Manager.FreezeFrameManager.FreezeFrame(0, CurrAttackDatas.HitFreezeFrameDur);
         }
 

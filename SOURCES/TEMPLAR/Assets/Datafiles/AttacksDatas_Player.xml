@@ -5,7 +5,10 @@
       <Dmg>25</Dmg>
       <Hit>
          <Dur>0.25</Dur>
-         <Layer>ENEMY</Layer>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+            <LayerName>PICKUP</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
@@ -29,7 +32,10 @@
       <Dmg>25</Dmg>
       <Hit>
          <Dur>0.25</Dur>
-         <Layer>ENEMY</Layer>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+            <LayerName>PICKUP</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
@@ -53,7 +59,10 @@
       <Dmg>25</Dmg>
       <Hit>
          <Dur>0.25</Dur>
-         <Layer>ENEMY</Layer>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+            <LayerName>PICKUP</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
@@ -78,7 +87,10 @@
       <Hit>
          <Delay>0.32</Delay>
          <Dur>0.25</Dur>
-         <Layer>ENEMY</Layer>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+            <LayerName>PICKUP</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.08</FreezeFrameDur>
       </Hit>
@@ -105,7 +117,10 @@
       <Hit>
          <Delay>0.45</Delay>
          <Dur>0.25</Dur>
-         <Layer>ENEMY</Layer>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+            <LayerName>PICKUP</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.1</FreezeFrameDur>
       </Hit>
@@ -133,7 +148,10 @@
       <Dmg>25</Dmg>
       <Hit>
          <Dur>0.25</Dur>
-         <Layer>ENEMY</Layer>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+            <LayerName>PICKUP</LayerName>
+         </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
       </Hit>
