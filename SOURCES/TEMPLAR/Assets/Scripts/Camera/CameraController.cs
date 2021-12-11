@@ -63,7 +63,7 @@
         public void ApplyShakeFromDatas(Templar.Datas.ShakeTraumaDatas shakeDatas, Renderer sourceRenderer)
         {
             if (shakeDatas == null
-                || !shakeDatas.CanShakeWhenOffscreen && !sourceRenderer.IsVisibleByCamera(_camera))
+                || (!shakeDatas.CanShakeWhenOffscreen && !sourceRenderer.IsVisibleByCamera(_camera)))
                 return;
 
             GetShake(shakeDatas.ShakeId).AddTraumaFromDatas(shakeDatas);
