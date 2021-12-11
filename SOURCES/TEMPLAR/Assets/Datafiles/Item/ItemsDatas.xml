@@ -62,7 +62,7 @@ It's covered with blood.]]></Description>
 
    <ItemDatas Id="Key_Catacombs">
       <Type>KEY</Type>
-      <Name>Catacombs's Key</Name>
+      <Name>Catacombs Key</Name>
       <Description><![CDATA[Key to the entrance of the catacombs. 
 Belongs to the high priests of Prosperare.]]></Description>
       <Actions>
