@@ -60,11 +60,13 @@
             {
                 UnityEngine.Debug.LogError("Collided player, applying charge damage.");
                 Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionTrauma);
+                // [TODO] Update CurrentAction to some "Wait" action.
             }
             else if (!collisionInfos.Hit.collider.GetComponent<EnemyController>())
             {
                 UnityEngine.Debug.LogError("Collided wall, stunning enemy.");
                 Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.WallCollisionTrauma);
+                // [TODO] Update CurrentAction to some "Stunned" action.
             }
         }
     }
