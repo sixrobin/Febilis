@@ -27,6 +27,17 @@
                </Flee>
             </Actions>
          </Behaviour>-->
+         <Behaviour Name="ChargeTest">
+            <Conditions>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <Charge>
+                  <!--<CantBeHurt/>-->
+                  <!--<MaxDuration>3</MaxDuration>-->
+               </Charge>
+            </Actions>
+         </Behaviour>
          <Behaviour Name="Base">
             <Actions>
                <Attack Id="skeleton_atk_above">

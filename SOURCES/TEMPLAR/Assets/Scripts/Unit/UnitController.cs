@@ -44,6 +44,11 @@
             Translate(vel, triggerEvents: false, standingOnPlatform: standingOnPlatform);
         }
 
+        public void SetDirection(float dir)
+        {
+            CurrDir = dir;
+        }
+
         public virtual void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
             vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, triggerEvents, checkEdge, effectorDown, standingOnPlatform);
@@ -57,7 +62,7 @@
 
         public void LookAt(Vector3 target)
         {
-            CurrDir = Mathf.Sign(target.x - transform.position.x);
+            SetDirection(Mathf.Sign(target.x - transform.position.x));
             UnitView.FlipX(CurrDir < 0f);
         }
 

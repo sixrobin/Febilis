@@ -113,7 +113,7 @@
                 CollisionsCtrl.Ground(transform);
 
             PlayerView.PlayerCtrl = this;
-            CurrDir = PlayerView.GetSpriteRendererFlipX() ? -1f : 1f;
+            SetDirection(PlayerView.GetSpriteRendererFlipX() ? -1f : 1f);
 
             CtrlDatas.ValuesValidated += OnDatasValuesChanged;
 
@@ -303,7 +303,7 @@
             {
                 AttackCtrl.Attack((attackOverArgs) =>
                 {
-                    CurrDir = attackOverArgs.Dir;
+                    SetDirection(attackOverArgs.Dir);
                     if (AttackCtrl.CurrAttackDatas.ControlVelocity)
                         ResetVelocity();
                 });
@@ -359,7 +359,7 @@
             }
 
             if (InputCtrl.Horizontal != 0f && !IsHealing)
-                CurrDir = InputCtrl.CurrentHorizontalDir;
+                SetDirection(InputCtrl.CurrentHorizontalDir);
 
             // Jump.
             if (JumpCtrl.CanJump() && (!EffectorDown || !CollisionsCtrl.AboveEffector))
@@ -466,7 +466,7 @@
                 yield break;
             }
 
-            CurrDir = Mathf.Sign(playerInteractionPivot.position.x - transform.position.x);
+            SetDirection(Mathf.Sign(playerInteractionPivot.position.x - transform.position.x));
             PlayerView.PlayRunAnimation(CurrDir);
 
             float timeoutTimer = 0f;
@@ -513,7 +513,7 @@
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Without this wait, player will play its idle animation back due to Update().
             yield return new WaitUntil(() => !AttackCtrl.IsAttacking && !RollCtrl.IsRolling);
 
-            CurrDir = dir;
+            SetDirection(dir);
             PlayerView.PlayIdleAnimation();
 
             float timer = 0f;

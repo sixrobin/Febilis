@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-   <xs:include schemaLocation="SharedDatas.xsd"/>
+   <xs:include schemaLocation="../SharedDatas.xsd"/>
 
    <xs:element name="EnemiesDatas">
       <xs:complexType>
@@ -64,8 +64,10 @@
    <xs:complexType name="Conditions">
       <xs:sequence>
          <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="HealthMax" type="HealthMaxCondition" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="HealthMin" type="HealthMinCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="HealthCurrentMax" type="HealthCurrentCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="HealthCurrentMin" type="HealthCurrentCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="HealthPercentageMax" type="HealthPercentageCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="HealthPercentageMin" type="HealthPercentageCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="MaxHeightOffset" type="MaxHeightOffsetCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="PlayerAbove" type="PlayerAboveCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="PlayerAlive" type="PlayerAliveCondition" minOccurs="0" maxOccurs="1"/>
@@ -85,7 +87,7 @@
       </xs:complexContent>
    </xs:complexType>
 
-   <xs:complexType name="HealthMaxCondition">
+   <xs:complexType name="HealthCurrentCondition">
       <xs:complexContent>
          <xs:extension base="Condition">
             <xs:attribute name="Threshold" type="xs:positiveInteger" use="required"/>
@@ -93,10 +95,10 @@
       </xs:complexContent>
    </xs:complexType>
 
-   <xs:complexType name="HealthMinCondition">
+   <xs:complexType name="HealthPercentageCondition">
       <xs:complexContent>
          <xs:extension base="Condition">
-            <xs:attribute name="Threshold" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="Threshold" type="xs:float" use="required"/>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
@@ -153,6 +155,7 @@
       <xs:choice maxOccurs="unbounded">
          <xs:element name="Attack" type="AttackAction" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="BackAndForth" type="BackAndForthAction" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="Charge" type="ChargeAction" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="Chase" type="ChaseAction" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="Flee" type="FleeAction" minOccurs="0" maxOccurs="unbounded"/>
       </xs:choice>
@@ -161,6 +164,7 @@
    <xs:complexType name="Action">
       <xs:sequence>
          <xs:element name="Conditions" type="Conditions" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="CantBeHurt" minOccurs="0" maxOccurs="1"/>
          <xs:element name="DontApplyGravity" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
@@ -195,6 +199,16 @@
                   </xs:complexType>
                </xs:element>
                <xs:element name="RangeFluctuationOnPause" type="xs:float" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="ChargeAction">
+      <xs:complexContent>
+         <xs:extension base="Action">
+            <xs:sequence>
+               <xs:element name="MaxDuration" type="xs:float" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>

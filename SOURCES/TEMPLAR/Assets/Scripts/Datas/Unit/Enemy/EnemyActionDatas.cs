@@ -9,6 +9,7 @@
         {
         }
 
+        public bool CantBeHurt { get; private set; }
         public bool DontApplyGravity { get; private set; }
 
         public override void Deserialize(XContainer container)
@@ -16,7 +17,9 @@
             base.Deserialize(container);
 
             XElement actionElement = container as XElement;
+
             DontApplyGravity = actionElement.Element("DontApplyGravity") != null;
+            CantBeHurt = actionElement.Element("CantBeHurt") != null;
         }
     }
 
@@ -88,6 +91,28 @@
             XElement rangeFluctuationOnPauseElement = backAndForthElement.Element("RangeFluctuationOnPause");
             if (rangeFluctuationOnPauseElement != null)
                 RangeFluctuationOnPause = rangeFluctuationOnPauseElement.ValueToFloat();
+        }
+    }
+
+
+    public class ChargeEnemyActionDatas : EnemyActionDatas
+    {
+        public const string ID = "Charge";
+
+        public ChargeEnemyActionDatas(XContainer container) : base(container)
+        {
+        }
+
+        public float MaxDuration { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XContainer chargeElement = container as XElement;
+
+            XElement maxDurationElement = chargeElement.Element("MaxDuration");
+            MaxDuration = maxDurationElement?.ValueToFloat() ?? float.PositiveInfinity;
         }
     }
 

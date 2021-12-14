@@ -75,9 +75,10 @@
             EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
 
-        public override void Reset()
+        public override void OnExit()
         {
-            base.Reset();
+            base.OnExit();
+
             IsOnPause = false;
             ComputeNextPauseDuration();
             ComputeRangeWithFluctuation();

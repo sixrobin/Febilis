@@ -390,7 +390,6 @@
 
         private void RegisterCollision(CollisionInfos collisionInfos)
         {
-            // [TODO] CollisionInfos pooling ?
             _detectedCollisionsForEvent.Enqueue(collisionInfos);
         }
     }

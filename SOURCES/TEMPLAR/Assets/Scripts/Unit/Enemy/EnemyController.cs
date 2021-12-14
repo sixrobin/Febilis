@@ -53,8 +53,10 @@
                 if (_currAction == value)
                     return;
 
-                _currAction?.Reset();
+                _currAction?.OnExit();
                 _currAction = value;
+                _currAction?.OnEnter();
+
                 _currActionName = new RSLib.Framework.DisabledString($"{_currAction.GetType().Name} (index: {System.Array.IndexOf(CurrBehaviour.Actions, _currAction)})");
             }
         }
@@ -77,11 +79,6 @@
         void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             ResetEnemy();
-        }
-
-        public void SetDirection(float dir)
-        {
-            CurrDir = dir;
         }
 
         public void ForceUpdateCurrentAction()
@@ -128,11 +125,14 @@
                     return;
 
                 AttackCtrl.CancelAttack();
-                _currAction.Reset();
+                _currAction.OnExit();
             }
 
-            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
-            StartCoroutine(_hurtCoroutine = HurtCoroutine());
+            if (CurrAction?.CantBeHurt != false)
+            {
+                _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
+                StartCoroutine(_hurtCoroutine = HurtCoroutine());
+            }
         }
 
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
@@ -142,7 +142,7 @@
             if (EnemyDatas.OnKilledLoot != null)
                 Manager.LootManager.SpawnLoot(EnemyDatas.OnKilledLoot, transform.position.AddY(0.2f));
 
-            FindObjectOfType<Templar.Camera.CameraController>().GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma);
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
@@ -265,7 +265,7 @@
             enemyHealthCtrl.UnitKilled += OnUnitKilled;
 
             _initPos = transform.position;
-            CurrDir = EnemyView.GetSpriteRendererFlipX() ? -1f : 1f;
+            SetDirection(EnemyView.GetSpriteRendererFlipX() ? -1f : 1f);
 
             Behaviours = new EnemyBehaviour[EnemyDatas.Behaviours.Count];
             for (int i = 0; i < Behaviours.Length; ++i)

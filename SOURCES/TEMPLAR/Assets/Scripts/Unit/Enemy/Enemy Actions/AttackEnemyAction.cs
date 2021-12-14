@@ -34,9 +34,9 @@
             EnemyCtrl.AttackCtrl.Attack(this, (dir) => EnemyCtrl.ForceUpdateCurrentAction());
         }
 
-        public override void Reset()
+        public override void OnExit()
         {
-            base.Reset();
+            base.OnExit();
 
             _delayTimer = 0f;
             ComputeNextDelay();
