@@ -105,6 +105,9 @@
 
         public float MaxDuration { get; private set; }
 
+        public ShakeTraumaDatas PlayerCollisionTrauma { get; private set; }
+        public ShakeTraumaDatas WallCollisionTrauma { get; private set; }
+
         public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
@@ -113,6 +116,14 @@
 
             XElement maxDurationElement = chargeElement.Element("MaxDuration");
             MaxDuration = maxDurationElement?.ValueToFloat() ?? float.PositiveInfinity;
+
+            XElement playerCollisionTraumaElement = chargeElement.Element("PlayerCollisionTrauma");
+            if (playerCollisionTraumaElement != null)
+                PlayerCollisionTrauma = new ShakeTraumaDatas(playerCollisionTraumaElement);
+
+            XElement wallCollisionTraumaElement = chargeElement.Element("WallCollisionTrauma");
+            if (wallCollisionTraumaElement != null)
+                WallCollisionTrauma = new ShakeTraumaDatas(wallCollisionTraumaElement);
         }
     }
 

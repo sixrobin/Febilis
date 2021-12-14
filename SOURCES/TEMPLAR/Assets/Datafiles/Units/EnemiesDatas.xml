@@ -35,6 +35,8 @@
                <Charge>
                   <!--<CantBeHurt/>-->
                   <!--<MaxDuration>3</MaxDuration>-->
+                  <PlayerCollisionTrauma X="0.5" Y="0.5" AddType="OVERRIDE" ShakeId="Small"/>
+                  <WallCollisionTrauma X="0.8" Y="0.8" AddType="OVERRIDE" ShakeId="Big"/>
                </Charge>
             </Actions>
          </Behaviour>

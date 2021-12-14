@@ -209,6 +209,8 @@
          <xs:extension base="Action">
             <xs:sequence>
                <xs:element name="MaxDuration" type="xs:float" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="PlayerCollisionTrauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="WallCollisionTrauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
