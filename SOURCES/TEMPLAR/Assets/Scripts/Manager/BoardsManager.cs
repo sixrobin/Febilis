@@ -88,11 +88,13 @@
 
         protected override void Awake()
         {
+            base.Awake();
             Init();
         }
 
         private void OnDestroy()
         {
+            s_init = false;
             Boards.Board.BoardEntered -= OnBoardEntered;
         }
 
