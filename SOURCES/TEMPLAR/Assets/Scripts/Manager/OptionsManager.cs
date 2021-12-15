@@ -32,6 +32,8 @@
                 Instance._quitGamePopupTexts,
                 () =>
                 {
+                    SaveManager.Save();
+
                     UI.Navigation.UINavigationManager.SetPanelAsCurrent(Instance._settingsHubPanel);
                     UI.Navigation.UINavigationManager.CurrentlyOpenPanel.OnBackButtonPressed();
 

@@ -150,7 +150,7 @@
             KillTrigger.ResetSharedTriggers();
             _checkpointListeners = RSLib.Helpers.FindInstancesOfType<ICheckpointListener>();
 
-            RSLib.SceneReloader.BeforeReload += SaveManager.Save; // [TMP]
+            RSLib.SceneReloader.BeforeReload += SaveManager.Save;
 
             if (!SaveManager.DisableLoading)
                 if (!SaveManager.TryLoad())
@@ -161,7 +161,7 @@
 
         private void OnDestroy()
         {
-            RSLib.SceneReloader.BeforeReload -= SaveManager.Save; // [TMP]
+            RSLib.SceneReloader.BeforeReload -= SaveManager.Save;
         }
 
         [ContextMenu("Find All References")]
