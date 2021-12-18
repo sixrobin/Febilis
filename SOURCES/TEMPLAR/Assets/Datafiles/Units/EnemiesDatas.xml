@@ -35,6 +35,7 @@
                <Charge>
                   <!--<CantBeHurt/>-->
                   <!--<MaxDuration>3</MaxDuration>-->
+                  <Speed>3</Speed>
                   <PlayerCollision>
                      <AttackId>giant_rat_charge</AttackId>
                      <StopCharge/>

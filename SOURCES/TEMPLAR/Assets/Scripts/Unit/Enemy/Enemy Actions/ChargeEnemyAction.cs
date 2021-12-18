@@ -29,7 +29,7 @@
 
             if (!EnemyCtrl.BeingHurt || _sideCollisionDetected)
             {
-                EnemyCtrl.Translate(DirectionX * EnemyCtrl.EnemyDatas.RunSpeed, 0f, checkEdge: true);
+                EnemyCtrl.Translate(DirectionX * ActionDatas.Speed, 0f, checkEdge: true);
                 EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
                 EnemyCtrl.EnemyView.PlayWalkAnimation(true);
             }
