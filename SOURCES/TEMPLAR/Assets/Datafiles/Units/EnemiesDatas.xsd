@@ -2,6 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
    <xs:include schemaLocation="../SharedDatas.xsd"/>
+   <xs:include schemaLocation="AttacksDatas.xsd"/>
 
    <xs:element name="EnemiesDatas">
       <xs:complexType>
@@ -209,11 +210,19 @@
          <xs:extension base="Action">
             <xs:sequence>
                <xs:element name="MaxDuration" type="xs:float" minOccurs="0" maxOccurs="1"/>
-               <xs:element name="PlayerCollisionTrauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
-               <xs:element name="WallCollisionTrauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="PlayerCollision" type="ChargeCollision" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="WallCollision" type="ChargeCollision" minOccurs="0" maxOccurs="1"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="ChargeCollision">
+      <xs:sequence>
+         <xs:element name="AttackId" type="xs:token" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="StopCharge" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Trauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
    </xs:complexType>
 
    <xs:complexType name="ChaseAction">

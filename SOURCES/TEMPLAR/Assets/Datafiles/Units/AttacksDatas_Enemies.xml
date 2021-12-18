@@ -84,5 +84,46 @@
          <Attack>0.33</Attack>
       </ClipsDurations>
    </EnemyAttack>
+
+
+
+   <!-- █████████ -->
+   <!-- GIANT RAT -->
+   <!-- █████████ -->
+
+   <EnemyAttack Id="giant_rat_charge">
+      <Dmg>40</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <Recoil>
+         <Force>9</Force>
+         <Dur>0.35</Dur>
+         <AirborneMult>1</AirborneMult>
+      </Recoil>
+      <Traumas>
+         <Hit X="0.5" Y="0.5" AddType="OVERRIDE" ShakeId="Small"/>
+      </Traumas>
+   </EnemyAttack>
+   
+   <EnemyAttack Id="giant_rat_charge_self_stun">
+      <Dmg>5</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+         <Hit X="0.5" Y="0.5" AddType="OVERRIDE" ShakeId="Small"/>
+      </Traumas>
+   </EnemyAttack>
    
 </AttacksDatas>

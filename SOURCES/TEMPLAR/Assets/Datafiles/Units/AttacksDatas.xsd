@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-   <xs:include schemaLocation="SharedDatas.xsd"/>
+   <xs:include schemaLocation="../SharedDatas.xsd"/>
 
    <xs:element name="AttacksDatas">
       <xs:complexType>
@@ -18,7 +18,7 @@
          <xs:element name="Hit" type="HitDatas" minOccurs="1" maxOccurs="1"/>
          <xs:element name="Unstoppable" minOccurs="0" maxOccurs="1"/>
          <xs:element name="ForceHurt" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="Recoil" type="RecoilDatas" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Recoil" type="RecoilDatas" minOccurs="0" maxOccurs="1"/>
          <xs:element name="Traumas" type="TraumasDatas" minOccurs="1" maxOccurs="1"/>
          <xs:element name="AnimSpeedMult" type="xs:float" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>

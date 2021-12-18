@@ -38,19 +38,20 @@
             XElement attackElement = container as XElement;
 
             XElement clipsDurationsElement = attackElement.Element("ClipsDurations");
-            UnityEngine.Assertions.Assert.IsNotNull(clipsDurationsElement, "EnemyAttackDatas must have a ClipsDurations element.");
+            if (clipsDurationsElement != null)
+            {
+                XElement anticipationDurElement = clipsDurationsElement.Element("Anticipation");
+                UnityEngine.Assertions.Assert.IsNotNull(anticipationDurElement, "ClipsDurations must have an Anticipation element.");
+                AnticipationDur = anticipationDurElement.ValueToFloat();
 
-            XElement anticipationDurElement = clipsDurationsElement.Element("Anticipation");
-            UnityEngine.Assertions.Assert.IsNotNull(anticipationDurElement, "ClipsDurations must have an Anticipation element.");
-            AnticipationDur = anticipationDurElement.ValueToFloat();
+                UnityEngine.Assertions.Assert.IsTrue(AnticipationDur >= 0, "Anticipation duration can not be negative.");
 
-            UnityEngine.Assertions.Assert.IsTrue(AnticipationDur >= 0, "Anticipation duration can not be negative.");
+                XElement attackDurElement = clipsDurationsElement.Element("Attack");
+                UnityEngine.Assertions.Assert.IsNotNull(attackDurElement, "ClipsDurations must have an Attack element.");
+                AttackDur = attackDurElement.ValueToFloat();
 
-            XElement attackDurElement = clipsDurationsElement.Element("Attack");
-            UnityEngine.Assertions.Assert.IsNotNull(attackDurElement, "ClipsDurations must have an Attack element.");
-            AttackDur = attackDurElement.ValueToFloat();
-
-            UnityEngine.Assertions.Assert.IsTrue(AttackDur >= 0, "Attack duration can not be negative.");
+                UnityEngine.Assertions.Assert.IsTrue(AttackDur >= 0, "Attack duration can not be negative.");
+            }
         }
     }
 }

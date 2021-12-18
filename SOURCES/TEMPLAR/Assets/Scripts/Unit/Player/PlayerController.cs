@@ -244,7 +244,10 @@
             ResetVelocity();
 
             float hitDir = args.HitDatas.ComputeHitDir(transform);
-            _currentRecoil = new Templar.Physics.Recoil(hitDir, args.HitDatas.AttackDatas.RecoilDatas);
+
+            if (args.HitDatas.AttackDatas.RecoilDatas != null)
+                _currentRecoil = new Templar.Physics.Recoil(hitDir, args.HitDatas.AttackDatas.RecoilDatas);
+    
             StartCoroutine(_hurtCoroutine = HurtCoroutine(hitDir));
         }
 

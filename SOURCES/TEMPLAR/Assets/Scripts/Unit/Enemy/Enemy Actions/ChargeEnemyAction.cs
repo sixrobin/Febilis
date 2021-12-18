@@ -56,16 +56,38 @@
             if (!_sideCollisionDetected)
                 return;
 
-            if (collisionInfos.Hit.collider.GetComponent<Player.PlayerController>())
+            if (collisionInfos.Hit.collider.TryGetComponent(out Player.PlayerController playerCtrl))
             {
-                UnityEngine.Debug.LogError("Collided player, applying charge damage.");
-                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionTrauma);
+                string attackId = ActionDatas.PlayerCollisionDatas.AttackId;
+
+                UnityEngine.Assertions.Assert.IsTrue(
+                    string.IsNullOrEmpty(attackId) || Database.AttackDatabase.EnemyAttacksDatas.ContainsKey(attackId),
+                    $"Collision on player has been detected while charging but enemy attack Id {attackId} has not been found in {nameof(Database.AttackDatabase.EnemyAttacksDatas)}");
+
+                if (!string.IsNullOrEmpty(attackId))
+                {
+                    UnityEngine.Debug.Log($"{EnemyCtrl.EnemyDatas.Id} collided player, applying charge damage using attack Id {attackId}.");
+                    playerCtrl.HealthCtrl.OnHit(new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform)); ;
+                }
+    
+                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionDatas.Trauma);
                 // [TODO] Update CurrentAction to some "Wait" action.
             }
             else if (!collisionInfos.Hit.collider.GetComponent<EnemyController>())
             {
-                UnityEngine.Debug.LogError("Collided wall, stunning enemy.");
-                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.WallCollisionTrauma);
+                string attackId = ActionDatas.WallCollisionDatas.AttackId;
+
+                UnityEngine.Assertions.Assert.IsTrue(
+                    string.IsNullOrEmpty(attackId) || Database.AttackDatabase.EnemyAttacksDatas.ContainsKey(attackId),
+                    $"Collision on player has been detected while charging but enemy attack Id {attackId} has not been found in {nameof(Database.AttackDatabase.EnemyAttacksDatas)}");
+                
+                if (!string.IsNullOrEmpty(attackId))
+                {
+                    UnityEngine.Debug.Log($"{EnemyCtrl.EnemyDatas.Id} collided wall, applying self stun damage using attack Id {attackId}.");
+                    EnemyCtrl.HealthCtrl.OnHit(new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform));
+                }
+
+                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.WallCollisionDatas.Trauma);
                 // [TODO] Update CurrentAction to some "Stunned" action.
             }
         }

@@ -128,7 +128,7 @@
                 _currAction.OnExit();
             }
 
-            if (CurrAction?.CantBeHurt != false)
+            if (CurrAction?.CantBeHurt != false && args.HitDatas.AttackDatas.RecoilDatas != null)
             {
                 _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
                 StartCoroutine(_hurtCoroutine = HurtCoroutine());
