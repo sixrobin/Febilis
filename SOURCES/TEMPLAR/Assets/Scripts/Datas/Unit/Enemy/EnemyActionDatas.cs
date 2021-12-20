@@ -103,7 +103,8 @@
         {
         }
 
-        public float Speed { get; private set; }
+        public float InitSpeed { get; private set; }
+        public float Acceleration { get; private set; }
         public float MaxDuration { get; private set; }
 
         public ChargeActionCollisionDatas PlayerCollisionDatas { get; private set; }
@@ -115,9 +116,13 @@
 
             XContainer chargeElement = container as XElement;
 
-            XElement speedElement = chargeCollisionElement.Element("Speed");
+            XElement speedElement = chargeElement.Element("InitSpeed");
             UnityEngine.Assertions.Assert.IsFalse(speedElement.IsNullOrEmpty(), $"Speed element is null or empty for charge action.");
-            Speed = speedElement.ValueToFloat();
+            InitSpeed = speedElement.ValueToFloat();
+
+            XElement accelerationElement = chargeElement.Element("Acceleration");
+            UnityEngine.Assertions.Assert.IsFalse(accelerationElement.IsNullOrEmpty(), $"Acceleration element is null or empty for charge action.");
+            Acceleration = accelerationElement.ValueToFloat();
 
             XElement maxDurationElement = chargeElement.Element("MaxDuration");
             MaxDuration = maxDurationElement?.ValueToFloat() ?? float.PositiveInfinity;

@@ -35,7 +35,8 @@
                <Charge>
                   <!--<CantBeHurt/>-->
                   <!--<MaxDuration>3</MaxDuration>-->
-                  <Speed>3</Speed>
+                  <InitSpeed>3</InitSpeed>
+                  <Acceleration>2</Acceleration>
                   <PlayerCollision>
                      <AttackId>giant_rat_charge</AttackId>
                      <StopCharge/>
@@ -43,6 +44,7 @@
                   <WallCollision>
                      <AttackId>giant_rat_charge_self_stun</AttackId>
                      <StopCharge/>
+                     <Stun>1</Stun>
                      <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Big"/>
                   </WallCollision>
                </Charge>

@@ -21,6 +21,7 @@
 
         protected Templar.Physics.Recoil _currentRecoil;
         private System.Collections.IEnumerator _deadFadeCoroutine;
+        private System.Collections.IEnumerator _stunCoroutine;
 
         public Templar.Physics.CollisionsController CollisionsCtrl { get; protected set; }
 
@@ -29,6 +30,8 @@
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
         public bool IsOnMovingPlatform { get; set; }
+
+        public bool IsStunned { get; private set; }
 
         void Templar.Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
@@ -64,6 +67,13 @@
         {
             SetDirection(Mathf.Sign(target.x - transform.position.x));
             UnitView.FlipX(CurrDir < 0f);
+        }
+
+        public void Stun(float dur)
+        {
+            Debug.Log($"Stunning unit for {dur}s.");
+            UnitView.PlayStunAnimation();
+            StartCoroutine(_stunCoroutine = StunCoroutine(dur));
         }
 
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -113,6 +123,16 @@
             _deadFadeCoroutine = null;
             if (IsDead)
                 UnitView.PlayDeadFadeAnimation();
+        }
+
+        private System.Collections.IEnumerator StunCoroutine(float dur)
+        {
+            IsStunned = true;
+
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(dur);
+
+            IsStunned = false;
+            UnitView.PlayIdleAnimation();
         }
 
         protected virtual void Update()

@@ -3,6 +3,7 @@
     public class ChargeEnemyAction : EnemyAction<Datas.Unit.Enemy.ChargeEnemyActionDatas>
     {
         private float _chargeTimer = 0f;
+        private float _currSpeed = 0f;
         private bool _sideCollisionDetected;
 
         public ChargeEnemyAction(EnemyController enemyCtrl, Datas.Unit.Enemy.ChargeEnemyActionDatas actionDatas)
@@ -27,14 +28,18 @@
         {
             EnemyCtrl.SetDirection(DirectionX);
 
-            if (!EnemyCtrl.BeingHurt || _sideCollisionDetected)
+            if (EnemyCtrl.IsStunned)
+                return;
+
+            if (!EnemyCtrl.BeingHurt && !_sideCollisionDetected)
             {
-                EnemyCtrl.Translate(DirectionX * ActionDatas.Speed, 0f, checkEdge: true);
+                EnemyCtrl.Translate(DirectionX * _currSpeed, 0f, checkEdge: true);
                 EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
                 EnemyCtrl.EnemyView.PlayWalkAnimation(true);
             }
 
             _chargeTimer += UnityEngine.Time.deltaTime;
+            _currSpeed += ActionDatas.Acceleration * UnityEngine.Time.deltaTime;
         }
 
         public override void OnEnter()
@@ -42,6 +47,8 @@
             base.OnEnter();
 
             _chargeTimer = 0f;
+            _currSpeed = ActionDatas.InitSpeed;
+
             DirectionX = UnityEngine.Mathf.Sign(EnemyCtrl.PlayerCtrl.transform.position.x - EnemyCtrl.transform.position.x);
         }
 
@@ -56,40 +63,38 @@
             if (!_sideCollisionDetected)
                 return;
 
+            Datas.Unit.Enemy.ChargeActionCollisionDatas collisionDatas = null;
             if (collisionInfos.Hit.collider.TryGetComponent(out Player.PlayerController playerCtrl))
+                collisionDatas = ActionDatas.PlayerCollisionDatas;
+            else if (!collisionInfos.Hit.collider.GetComponent<EnemyController>())
+                collisionDatas = ActionDatas.WallCollisionDatas;
+
+            if (collisionDatas == null)
+                return;
+            
+            string attackId = collisionDatas.AttackId;
+            UnityEngine.Assertions.Assert.IsTrue(
+                string.IsNullOrEmpty(attackId) || Database.AttackDatabase.EnemyAttacksDatas.ContainsKey(attackId),
+                $"Collision has been detected while charging but enemy attack Id {attackId} has not been found in {nameof(Database.AttackDatabase.EnemyAttacksDatas)}");
+
+            if (!string.IsNullOrEmpty(attackId))
             {
-                string attackId = ActionDatas.PlayerCollisionDatas.AttackId;
-
-                UnityEngine.Assertions.Assert.IsTrue(
-                    string.IsNullOrEmpty(attackId) || Database.AttackDatabase.EnemyAttacksDatas.ContainsKey(attackId),
-                    $"Collision on player has been detected while charging but enemy attack Id {attackId} has not been found in {nameof(Database.AttackDatabase.EnemyAttacksDatas)}");
-
-                if (!string.IsNullOrEmpty(attackId))
+                if (playerCtrl != null)
                 {
                     UnityEngine.Debug.Log($"{EnemyCtrl.EnemyDatas.Id} collided player, applying charge damage using attack Id {attackId}.");
                     playerCtrl.HealthCtrl.OnHit(new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform)); ;
                 }
-    
-                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionDatas.Trauma);
-                // [TODO] Update CurrentAction to some "Wait" action.
-            }
-            else if (!collisionInfos.Hit.collider.GetComponent<EnemyController>())
-            {
-                string attackId = ActionDatas.WallCollisionDatas.AttackId;
-
-                UnityEngine.Assertions.Assert.IsTrue(
-                    string.IsNullOrEmpty(attackId) || Database.AttackDatabase.EnemyAttacksDatas.ContainsKey(attackId),
-                    $"Collision on player has been detected while charging but enemy attack Id {attackId} has not been found in {nameof(Database.AttackDatabase.EnemyAttacksDatas)}");
-                
-                if (!string.IsNullOrEmpty(attackId))
+                else
                 {
                     UnityEngine.Debug.Log($"{EnemyCtrl.EnemyDatas.Id} collided wall, applying self stun damage using attack Id {attackId}.");
                     EnemyCtrl.HealthCtrl.OnHit(new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform));
                 }
-
-                Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.WallCollisionDatas.Trauma);
-                // [TODO] Update CurrentAction to some "Stunned" action.
             }
+
+            if (collisionDatas.StunDur > 0f)
+                EnemyCtrl.Stun(collisionDatas.StunDur);
+
+            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionDatas.Trauma);
         }
     }
 }

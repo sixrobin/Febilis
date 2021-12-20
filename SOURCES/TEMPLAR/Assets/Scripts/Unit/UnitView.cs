@@ -10,6 +10,7 @@
         protected const string DEATH = "Death";
         protected const string DEAD_FADE = "DeadFade";
         protected const string HURT = "Hurt";
+        protected const string STUN = "Stun";
         protected const string ATTACK = "Attack";
         protected const string MULT_ATTACK = "Mult_Attack";
 
@@ -71,6 +72,11 @@
         public virtual void PlayHurtAnimation()
         {
             _animator.SetTrigger(HURT);
+        }
+
+        public virtual void PlayStunAnimation()
+        {
+            _animator.SetTrigger(STUN);
         }
 
         public virtual void PlayDeathAnimation(float dir)
