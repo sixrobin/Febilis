@@ -69,11 +69,10 @@
             UnitView.FlipX(CurrDir < 0f);
         }
 
-        public void Stun(float dur)
+        public void Stun(float dur, System.Action callback = null)
         {
-            Debug.Log($"Stunning unit for {dur}s.");
             UnitView.PlayStunAnimation();
-            StartCoroutine(_stunCoroutine = StunCoroutine(dur));
+            StartCoroutine(_stunCoroutine = StunCoroutine(dur, callback));
         }
 
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -125,14 +124,12 @@
                 UnitView.PlayDeadFadeAnimation();
         }
 
-        private System.Collections.IEnumerator StunCoroutine(float dur)
+        private System.Collections.IEnumerator StunCoroutine(float dur, System.Action callback = null)
         {
             IsStunned = true;
-
             yield return RSLib.Yield.SharedYields.WaitForSeconds(dur);
-
             IsStunned = false;
-            UnitView.PlayIdleAnimation();
+            callback?.Invoke();
         }
 
         protected virtual void Update()

@@ -222,8 +222,7 @@
    <xs:complexType name="ChargeCollision">
       <xs:sequence>
          <xs:element name="AttackId" type="xs:token" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="StopCharge" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="Stun" type="xs:float" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Stun" type="xs:float" minOccurs="1" maxOccurs="1"/>
          <xs:element name="Trauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>

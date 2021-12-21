@@ -10,7 +10,6 @@
         }
 
         public string AttackId { get; private set; }
-        public bool StopCharge { get; private set; }
         public float StunDur { get; private set; }
 
         public ShakeTraumaDatas Trauma { get; private set; }
@@ -22,10 +21,9 @@
             XElement attackIdElement = chargeCollisionElement.Element("AttackId");
             AttackId = attackIdElement?.Value ?? string.Empty;
 
-            StopCharge = chargeCollisionElement.Element("StopCharge") != null;
-
             XElement stunElement = chargeCollisionElement.Element("Stun");
-            StunDur = stunElement?.ValueToFloat() ?? 0f;
+            UnityEngine.Assertions.Assert.IsFalse(stunElement.IsNullOrEmpty(), $"Stun element is null or empty for charge collision datas.");
+            StunDur = stunElement.ValueToFloat();
 
             XElement traumaElement = chargeCollisionElement.Element("Trauma");
             if (traumaElement != null)

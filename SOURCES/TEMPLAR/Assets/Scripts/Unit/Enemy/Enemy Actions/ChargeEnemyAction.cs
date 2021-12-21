@@ -92,7 +92,13 @@
             }
 
             if (collisionDatas.StunDur > 0f)
-                EnemyCtrl.Stun(collisionDatas.StunDur);
+            {
+                EnemyCtrl.Stun(collisionDatas.StunDur, callback: () =>
+                {
+                    EnemyCtrl.EnemyView.PlayIdleAnimation();
+                    EnemyCtrl.ForceUpdateCurrentAction();
+                });
+            }
 
             Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionDatas.Trauma);
         }
