@@ -24,6 +24,10 @@
             {
                 switch (conditionElement.Name.LocalName)
                 {
+                    case FullHealthEnemyConditionDatas.ID:
+                        Conditions.Add(new FullHealthEnemyConditionDatas(conditionElement));
+                        break;
+
                     case HealthMaxEnemyConditionDatas.ID:
                         Conditions.Add(new HealthMaxEnemyConditionDatas(conditionElement));
                         break;
@@ -32,8 +36,8 @@
                         Conditions.Add(new HealthMinEnemyConditionDatas(conditionElement));
                         break;
 
-                    case FullHealthEnemyConditionDatas.ID:
-                        Conditions.Add(new FullHealthEnemyConditionDatas(conditionElement));
+                    case LastActionsCheckConditionDatas.ID:
+                        Conditions.Add(new LastActionsCheckConditionDatas(conditionElement));
                         break;
 
                     case MaxHeightOffsetConditionDatas.ID:

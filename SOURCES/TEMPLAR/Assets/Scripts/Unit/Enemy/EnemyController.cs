@@ -9,6 +9,7 @@
     {
         private const float SLEEP_DIST = 25f;
         private const float SLEEP_UPDATE_RATE = 3f;
+        private const int ACTIONS_TRACK_SIZE = 10;
 
         [Header("REFERENCES")]
         [SerializeField] private Player.PlayerController _playerCtrl = null;
@@ -33,6 +34,8 @@
 
         private System.Collections.IEnumerator _hurtCoroutine;
 
+        public RSLib.Framework.Collections.FixedSizedConcurrentQueue<Actions.IEnemyAction> LastActions { get; private set; }
+
         private EnemyBehaviour _currBehaviour;
         public EnemyBehaviour CurrBehaviour
         {
@@ -50,6 +53,12 @@
             get => _currAction;
             private set
             {
+                if (value != null)
+                {
+                    Debug.LogError($"Enqueuing action {value.GetType().Name}.");
+                    LastActions.Enqueue(value); // Enqueue here to avoid early return.
+                }
+
                 if (_currAction == value)
                     return;
 
@@ -81,8 +90,16 @@
             ResetEnemy();
         }
 
+        public void ForceUpdateCurrentBehaviour()
+        {
+            Debug.LogError("ForceUpdateCurrentBehaviour");
+            _behaviourUpdateTimer = 0f;
+            UpdateCurrentBehaviour();
+        }
+
         public void ForceUpdateCurrentAction()
         {
+            Debug.LogError("ForceUpdateCurrentAction");
             _behaviourUpdateTimer = 0f;
             UpdateCurrentAction();
         }
@@ -271,6 +288,7 @@
             for (int i = 0; i < Behaviours.Length; ++i)
                 Behaviours[i] = new EnemyBehaviour(this, EnemyDatas.Behaviours[i]);
 
+            LastActions = new RSLib.Framework.Collections.FixedSizedConcurrentQueue<Actions.IEnemyAction>(ACTIONS_TRACK_SIZE);
             UpdateCurrentBehaviour();
             UpdateCurrentAction();
         }

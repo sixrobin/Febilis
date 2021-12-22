@@ -96,6 +96,7 @@
                 EnemyCtrl.Stun(collisionDatas.StunDur, callback: () =>
                 {
                     EnemyCtrl.EnemyView.PlayIdleAnimation();
+                    EnemyCtrl.ForceUpdateCurrentBehaviour();
                     EnemyCtrl.ForceUpdateCurrentAction();
                 });
             }

@@ -64,6 +64,7 @@
 
    <xs:complexType name="Conditions">
       <xs:sequence>
+         <xs:element name="LastActionsCheck" type="LastActionsCheckCondition" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="HealthCurrentMax" type="HealthCurrentCondition" minOccurs="0" maxOccurs="1"/>
          <xs:element name="HealthCurrentMin" type="HealthCurrentCondition" minOccurs="0" maxOccurs="1"/>
@@ -100,6 +101,18 @@
       <xs:complexContent>
          <xs:extension base="Condition">
             <xs:attribute name="Threshold" type="xs:float" use="required"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="LastActionsCheckCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition">
+            <xs:sequence>
+               <xs:element name="Include" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="Exclude" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="ActionsCount" type="xs:positiveInteger" use="required"/>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>

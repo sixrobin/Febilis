@@ -27,12 +27,14 @@
 
             for (int i = Conditions.Length - 1; i >= 0; --i)
             {
-                if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.HealthMaxEnemyConditionDatas healthMaxCondition)
+                if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.FullHealthEnemyConditionDatas fullHealthCondition)
+                    Conditions[i] = new FullHealthEnemyCondition(EnemyCtrl, fullHealthCondition);
+                else if(ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.HealthMaxEnemyConditionDatas healthMaxCondition)
                     Conditions[i] = new HealthMaxEnemyCondition(EnemyCtrl, healthMaxCondition);
                 else if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.HealthMinEnemyConditionDatas healthMinCondition)
                     Conditions[i] = new HealthMinEnemyCondition(EnemyCtrl, healthMinCondition);
-                else if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.FullHealthEnemyConditionDatas fullHealthCondition)
-                    Conditions[i] = new FullHealthEnemyCondition(EnemyCtrl, fullHealthCondition);
+                else if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.LastActionsCheckConditionDatas lastActionsCheckCondition)
+                    Conditions[i] = new LastActionsCheckEnemyCondition(EnemyCtrl, lastActionsCheckCondition);
                 else if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.MaxHeightOffsetConditionDatas maxHealthOffsetCondition)
                     Conditions[i] = new MaxHeightOffsetEnemyCondition(EnemyCtrl, maxHealthOffsetCondition);
                 else if (ConditionsCheckerDatas.Conditions[i] is Datas.Unit.Enemy.PlayerAboveEnemyConditionDatas playerAboveCondition)
