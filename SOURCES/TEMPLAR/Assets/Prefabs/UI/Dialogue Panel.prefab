@@ -347,8 +347,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.5, y: 1}
-  m_SizeDelta: {x: -12, y: -8}
+  m_AnchoredPosition: {x: 1.5, y: 0.5}
+  m_SizeDelta: {x: -11, y: -7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5022502469741716058
 CanvasRenderer:
@@ -379,8 +379,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: This is some test dialogue ! Nothing sexy...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 30bdb1fc23530934895b4292b194864a, type: 2}
-  m_sharedMaterial: {fileID: 1972765191820483851, guid: 30bdb1fc23530934895b4292b194864a,
+  m_fontAsset: {fileID: 11400000, guid: 35bc8805f9f3fc048acf957e5111e311, type: 2}
+  m_sharedMaterial: {fileID: -4991585200925966628, guid: 35bc8805f9f3fc048acf957e5111e311,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
