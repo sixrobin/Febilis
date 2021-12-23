@@ -1968,6 +1968,10 @@ MonoBehaviour:
   _itemTypeIcon: {fileID: 6057866087717000425}
   _itemDesc: {fileID: 4377595194549833388}
   _itemDescScrollbar: {fileID: 6121905776503409140}
+  _scrollHandleSizePercentageMinMax: {x: 0.3, y: 0.8}
+  _scrollSpeedByHandleSizePercentage: {x: 0.1, y: 4}
+  _itemDescSlidingArea: {fileID: 3282419926980999588}
+  _itemDescHandle: {fileID: 5849866647892190624}
   _contextMenu: {fileID: 151915061712832517}
   _slotsRowLength: 3
   _slotsViewport: {fileID: 4643932446336880414}

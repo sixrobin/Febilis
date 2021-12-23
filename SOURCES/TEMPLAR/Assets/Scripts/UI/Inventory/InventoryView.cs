@@ -29,8 +29,15 @@
         [SerializeField] private TMPro.TextMeshProUGUI _itemType = null;
         [SerializeField] private UnityEngine.UI.Image _itemTypeIcon = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemDesc = null;
+
+        [Header("ITEM DESCRIPTION SCROLL")]
         [SerializeField] private UnityEngine.UI.Scrollbar _itemDescScrollbar = null;
-        
+        [SerializeField] private RectTransform _itemDescSlidingArea = null;
+        [SerializeField] private RectTransform _itemDescHandle = null;
+        [SerializeField] private Vector2 _scrollHandleSizePercentageMinMax = new Vector2(0.3f, 0.8f);
+        [SerializeField] private Vector2 _scrollSpeedByHandleSizePercentage = new Vector2(0.1f, 4f);
+        [SerializeField, Min(0.33f)] private float _scrollSpeedMin = 0.33f;
+
         [Header("ITEM CONTEXT MENU")]
         [SerializeField] private ContextMenu.ItemContextMenu _contextMenu = null;
 
@@ -318,7 +325,19 @@
         {
             float scrollInput = Input.GetAxisRaw("UIScroll"); // [TODO] Const.
             if (Mathf.Abs(scrollInput) > 0.05f)
-                _itemDescScrollbar.value = Mathf.Clamp01(_itemDescScrollbar.value + Mathf.Sign(scrollInput) * Time.deltaTime);
+            {
+                float scrollSpeed = RSLib.Maths.Maths.NormalizeClamped(
+                    _itemDescHandle.rect.height / _itemDescSlidingArea.rect.height, // Handle height percentage.
+                    _scrollHandleSizePercentageMinMax.x,
+                    _scrollHandleSizePercentageMinMax.y,
+                    _scrollSpeedByHandleSizePercentage.x,
+                    _scrollSpeedByHandleSizePercentage.y);
+
+                if (scrollSpeed < _scrollSpeedMin)
+                    scrollSpeed = _scrollSpeedMin;
+
+                _itemDescScrollbar.value = Mathf.Clamp01(_itemDescScrollbar.value + scrollSpeed * Mathf.Sign(scrollInput) * Time.deltaTime);
+            }
         }
 
         private System.Collections.IEnumerator CloseAtEndOfFrame()
@@ -415,6 +434,17 @@
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            _scrollHandleSizePercentageMinMax.y = Mathf.Clamp01(_scrollHandleSizePercentageMinMax.y);
+            _scrollHandleSizePercentageMinMax.x = Mathf.Clamp(_scrollHandleSizePercentageMinMax.x, 0f, _scrollHandleSizePercentageMinMax.y);
+
+            _scrollSpeedByHandleSizePercentage.x = Mathf.Max(_scrollSpeedMin, _scrollSpeedByHandleSizePercentage.x);
+            _scrollSpeedByHandleSizePercentage.y = Mathf.Max(_scrollSpeedByHandleSizePercentage.x, _scrollSpeedByHandleSizePercentage.y);
+        }
+#endif
     }
 
     public partial class InventoryView : UIPanel
