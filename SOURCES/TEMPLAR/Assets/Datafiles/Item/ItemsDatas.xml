@@ -102,7 +102,7 @@ Belongs to the high priests of Prosperare.]]></Description>
    <ItemDatas Id="Letter_Prisoner">
       <Type>BOOK</Type>
       <Name>Prisoner's letter</Name>
-      <Description>It’s written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
+      <Description>It's written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
       <Actions>
          <Drop/>
          <Move/>
