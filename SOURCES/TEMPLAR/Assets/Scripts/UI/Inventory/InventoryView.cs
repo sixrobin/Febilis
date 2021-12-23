@@ -19,14 +19,18 @@
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.05f;
 
+        [Header("REFS")]
         [SerializeField] private Item.InventoryController _inventoryCtrl = null;
         [SerializeField] private InventorySlot[] _slotsViews = null;
         [SerializeField] private GameObject _firstSelected = null;
+
+        [Header("ITEM DETAILS")]
         [SerializeField] private TMPro.TextMeshProUGUI _itemName = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemType = null;
         [SerializeField] private UnityEngine.UI.Image _itemTypeIcon = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemDesc = null;
-
+        [SerializeField] private UnityEngine.UI.Scrollbar _itemDescScrollbar = null;
+        
         [Header("ITEM CONTEXT MENU")]
         [SerializeField] private ContextMenu.ItemContextMenu _contextMenu = null;
 
@@ -58,6 +62,14 @@
                 && !Dialogue.DialogueManager.DialogueRunning
                 && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpen();
+        }
+
+        public override void Open()
+        {
+            base.Open();
+
+            _scrollbar.value = 1f;
+            ResetDescriptionScrollbar();
         }
 
         public override void Close()
@@ -154,6 +166,8 @@
             _itemType.text = slot.Item.Datas.Type.ToString().ToLower().UpperFirst();
             _itemTypeIcon.enabled = true;
             _itemTypeIcon.sprite = Database.ItemDatabase.GetItemTypeSprite(slot.Item);
+
+            ResetDescriptionScrollbar();
         }
 
         private void OnInventorySlotExit(InventorySlot slot)
@@ -294,6 +308,18 @@
         {
             return _slotsViews[index];
         }
+        
+        private void ResetDescriptionScrollbar()
+        {
+            _itemDescScrollbar.value = 1f;
+        }
+
+        private void ScrollThroughDescription()
+        {
+            float scrollInput = Input.GetAxisRaw("UIScroll"); // [TODO] Const.
+            if (Mathf.Abs(scrollInput) > 0.05f)
+                _itemDescScrollbar.value = Mathf.Clamp01(_itemDescScrollbar.value + Mathf.Sign(scrollInput) * Time.deltaTime);
+        }
 
         private System.Collections.IEnumerator CloseAtEndOfFrame()
         {
@@ -347,16 +373,11 @@
 
         private void Update()
         {
-            if (!CanToggleInventory())
-                return;
-
-            if (RSLib.Framework.InputSystem.InputManager.GetInputDown(INVENTORY_INPUT))
+            if (CanToggleInventory() && RSLib.Framework.InputSystem.InputManager.GetInputDown(INVENTORY_INPUT))
             {
                 if (!Displayed)
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);
-                    _scrollbar.value = 1f;
-
                     Open();
                 }
                 else
@@ -365,6 +386,9 @@
                     Navigation.UINavigationManager.NullifySelected();
                 }
             }
+
+            if (Displayed)
+                ScrollThroughDescription();
         }
 
         protected override void OnDestroy()

@@ -1967,6 +1967,7 @@ MonoBehaviour:
   _itemType: {fileID: 2297338179291639662}
   _itemTypeIcon: {fileID: 6057866087717000425}
   _itemDesc: {fileID: 4377595194549833388}
+  _itemDescScrollbar: {fileID: 6121905776503409140}
   _contextMenu: {fileID: 151915061712832517}
   _slotsRowLength: 3
   _slotsViewport: {fileID: 4643932446336880414}
