@@ -8,7 +8,7 @@ Font:
   m_PrefabAsset: {fileID: 0}
   m_Name: Febilis
   serializedVersion: 5
-  m_LineSpacing: 7
+  m_LineSpacing: 15.09375
   m_DefaultMaterial: {fileID: 2100000, guid: 14e05c1ae181a8c4697d007319831230, type: 2}
   m_FontSize: 16
   m_Texture: {fileID: 2800000, guid: ac3d8aa5f420ef04380e8ee2f8522cef, type: 3}
@@ -32,7 +32,7 @@ Font:
       y: 1
       width: 2
       height: -2
-    advance: 2
+    advance: 3
     flipped: 0
   - serializedVersion: 2
     index: 33
@@ -1552,7 +1552,7 @@ Font:
       y: 1
       width: 2
       height: -2
-    advance: 2
+    advance: 3
     flipped: 0
   - serializedVersion: 2
     index: 161
