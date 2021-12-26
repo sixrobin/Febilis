@@ -62,7 +62,7 @@ It's covered with blood.]]></Description>
 
    <ItemDatas Id="Key_Catacombs">
       <Type>KEY</Type>
-      <Name>Catacombs's Key</Name>
+      <Name>Catacombs Key</Name>
       <Description><![CDATA[Key to the entrance of the catacombs. 
 Belongs to the high priests of Prosperare.]]></Description>
       <Actions>
@@ -102,7 +102,7 @@ Belongs to the high priests of Prosperare.]]></Description>
    <ItemDatas Id="Letter_Prisoner">
       <Type>BOOK</Type>
       <Name>Prisoner's letter</Name>
-      <Description>It’s written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
+      <Description>It's written "FEBI" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?</Description>
       <Actions>
          <Drop/>
          <Move/>

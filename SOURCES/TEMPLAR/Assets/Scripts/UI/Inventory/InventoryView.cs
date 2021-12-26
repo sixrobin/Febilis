@@ -19,13 +19,24 @@
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.05f;
 
+        [Header("REFS")]
         [SerializeField] private Item.InventoryController _inventoryCtrl = null;
         [SerializeField] private InventorySlot[] _slotsViews = null;
         [SerializeField] private GameObject _firstSelected = null;
+
+        [Header("ITEM DETAILS")]
         [SerializeField] private TMPro.TextMeshProUGUI _itemName = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemType = null;
         [SerializeField] private UnityEngine.UI.Image _itemTypeIcon = null;
         [SerializeField] private TMPro.TextMeshProUGUI _itemDesc = null;
+
+        [Header("ITEM DESCRIPTION SCROLL")]
+        [SerializeField] private UnityEngine.UI.Scrollbar _itemDescScrollbar = null;
+        [SerializeField] private RectTransform _itemDescSlidingArea = null;
+        [SerializeField] private RectTransform _itemDescHandle = null;
+        [SerializeField] private Vector2 _scrollHandleSizePercentageMinMax = new Vector2(0.3f, 0.8f);
+        [SerializeField] private Vector2 _scrollSpeedByHandleSizePercentage = new Vector2(0.1f, 4f);
+        [SerializeField, Min(0.33f)] private float _scrollSpeedMin = 0.33f;
 
         [Header("ITEM CONTEXT MENU")]
         [SerializeField] private ContextMenu.ItemContextMenu _contextMenu = null;
@@ -58,6 +69,14 @@
                 && !Dialogue.DialogueManager.DialogueRunning
                 && !Manager.BoardsTransitionManager.IsInBoardTransition
                 && !Manager.OptionsManager.AnyPanelOpen();
+        }
+
+        public override void Open()
+        {
+            base.Open();
+
+            _scrollbar.value = 1f;
+            ResetDescriptionScrollbar();
         }
 
         public override void Close()
@@ -154,6 +173,8 @@
             _itemType.text = slot.Item.Datas.Type.ToString().ToLower().UpperFirst();
             _itemTypeIcon.enabled = true;
             _itemTypeIcon.sprite = Database.ItemDatabase.GetItemTypeSprite(slot.Item);
+
+            ResetDescriptionScrollbar();
         }
 
         private void OnInventorySlotExit(InventorySlot slot)
@@ -294,6 +315,30 @@
         {
             return _slotsViews[index];
         }
+        
+        private void ResetDescriptionScrollbar()
+        {
+            _itemDescScrollbar.value = 1f;
+        }
+
+        private void ScrollThroughDescription()
+        {
+            float scrollInput = Input.GetAxisRaw("UIScroll"); // [TODO] Const.
+            if (Mathf.Abs(scrollInput) > 0.05f)
+            {
+                float scrollSpeed = RSLib.Maths.Maths.NormalizeClamped(
+                    _itemDescHandle.rect.height / _itemDescSlidingArea.rect.height, // Handle height percentage.
+                    _scrollHandleSizePercentageMinMax.x,
+                    _scrollHandleSizePercentageMinMax.y,
+                    _scrollSpeedByHandleSizePercentage.x,
+                    _scrollSpeedByHandleSizePercentage.y);
+
+                if (scrollSpeed < _scrollSpeedMin)
+                    scrollSpeed = _scrollSpeedMin;
+
+                _itemDescScrollbar.value = Mathf.Clamp01(_itemDescScrollbar.value + scrollSpeed * Mathf.Sign(scrollInput) * Time.deltaTime);
+            }
+        }
 
         private System.Collections.IEnumerator CloseAtEndOfFrame()
         {
@@ -347,16 +392,11 @@
 
         private void Update()
         {
-            if (!CanToggleInventory())
-                return;
-
-            if (RSLib.Framework.InputSystem.InputManager.GetInputDown(INVENTORY_INPUT))
+            if (CanToggleInventory() && RSLib.Framework.InputSystem.InputManager.GetInputDown(INVENTORY_INPUT))
             {
                 if (!Displayed)
                 {
                     Navigation.UINavigationManager.OpenAndSelect(this);
-                    _scrollbar.value = 1f;
-
                     Open();
                 }
                 else
@@ -365,6 +405,9 @@
                     Navigation.UINavigationManager.NullifySelected();
                 }
             }
+
+            if (Displayed)
+                ScrollThroughDescription();
         }
 
         protected override void OnDestroy()
@@ -391,6 +434,17 @@
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
             RSLib.EditorUtilities.PrefabEditorUtilities.SetCurrentPrefabStageDirty();
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            _scrollHandleSizePercentageMinMax.y = Mathf.Clamp01(_scrollHandleSizePercentageMinMax.y);
+            _scrollHandleSizePercentageMinMax.x = Mathf.Clamp(_scrollHandleSizePercentageMinMax.x, 0f, _scrollHandleSizePercentageMinMax.y);
+
+            _scrollSpeedByHandleSizePercentage.x = Mathf.Max(_scrollSpeedMin, _scrollSpeedByHandleSizePercentage.x);
+            _scrollSpeedByHandleSizePercentage.y = Mathf.Max(_scrollSpeedByHandleSizePercentage.x, _scrollSpeedByHandleSizePercentage.y);
+        }
+#endif
     }
 
     public partial class InventoryView : UIPanel
