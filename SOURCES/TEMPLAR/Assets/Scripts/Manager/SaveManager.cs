@@ -66,19 +66,13 @@
                 if (!fileInfo.Directory.Exists)
                     System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
 
-                XDeclaration xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
-                XDocument saveDocument = new XDocument(xDeclaration, container);
+                XDocument saveDocument = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), container);
                 string decryptedSave = saveDocument.ToString();
 
                 if (Instance._encryptSave)
-                {
-                    byte[] encryptedSave = s_rijndael.Encrypt(decryptedSave);
-                    System.IO.File.WriteAllBytes(GameSavePath, encryptedSave);
-                }
+                    System.IO.File.WriteAllBytes(GameSavePath, s_rijndael.Encrypt(decryptedSave));
                 else
-                {
                     System.IO.File.WriteAllText(GameSavePath, decryptedSave);
-                }
             }
             catch (System.Exception e)
             {
