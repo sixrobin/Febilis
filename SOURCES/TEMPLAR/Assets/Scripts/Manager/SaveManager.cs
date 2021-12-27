@@ -56,6 +56,7 @@
                     XElement checkpointIdElement = new XElement("CheckpointId", Interaction.Checkpoint.CheckpointController.CurrCheckpointId);
                     container.Add(checkpointIdElement);
 
+                    container.Add(FlagsManager.Save());
                     container.Add(GameManager.InventoryCtrl.Save());
                     container.Add(DialoguesStructuresManager.Save());
                     container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
@@ -106,6 +107,7 @@
                 try
                 {
                     container = XDocument.Parse(Instance._encryptSave ? s_rijndael.Decrypt(saveBytes) : saveText);
+                }
                 catch (System.Exception) // Loading encrypted save without encryption toggled on.
                 {
                     Instance.LogWarning($"Could not parse save to XDocument. This may be due to save being encrypted but loading it without decryption, trying to decrypt it and parse again."
