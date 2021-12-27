@@ -253,7 +253,7 @@
             ResetVelocity();
 
             // Death will reload scene or load another level scene so we need to save.
-            Manager.SaveManager.Save();
+            Manager.SaveManager.TrySave();
 
             if (IsBeingHurt)
             {

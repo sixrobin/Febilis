@@ -15,8 +15,8 @@
         public static Settings.ShakeAmount ShakeAmount { get; private set; }
         public static Settings.TargetFrameRate TargetFrameRate { get; private set; }
 
-        private static string SettingsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Settings.xml";
-        private static string InputsSavePath => $"{UnityEngine.Application.persistentDataPath}/Save/Inputs.xml";
+        private static string SettingsSavePath => System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "Save", "Settings.xml");
+        private static string InputsSavePath => System.IO.Path.Combine(UnityEngine.Application.persistentDataPath, "Save", "Inputs.xml");
 
         public static void Save()
         {
