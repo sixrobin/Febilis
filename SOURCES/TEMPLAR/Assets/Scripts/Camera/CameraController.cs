@@ -22,8 +22,10 @@
         [SerializeField] private RSLib.DataColor _debugColor = null;
         [SerializeField] private Boards.OptionalBoardBounds _initBounds = new Boards.OptionalBoardBounds(null, false);
 #if UNITY_EDITOR
+#pragma warning disable CS0414
         [SerializeField] private Boards.DisabledBoardBounds _currBoardBounds = new Boards.DisabledBoardBounds();
         [SerializeField] private RSLib.Framework.DisabledVector2 _currTraumaVisualizer = new RSLib.Framework.DisabledVector2();
+#pragma warning restore CS0414
 #endif
 
         private RSLib.FocusArea _focusArea;

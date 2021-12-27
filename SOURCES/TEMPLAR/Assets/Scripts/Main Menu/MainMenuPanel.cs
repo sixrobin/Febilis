@@ -8,7 +8,6 @@
     public class MainMenuPanel : UI.UIPanel
     {
         [Header("REFS")]
-        [SerializeField] private UI.Settings.SettingsHubPanel _settingsHubPanel = null;
         [SerializeField] private UnityEngine.UI.Image _title = null;
         [SerializeField] private UnityEngine.UI.Image _titleShadow = null;
         [SerializeField] private Transform _vignette = null;
