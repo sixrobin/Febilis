@@ -36,9 +36,10 @@
 
         public static bool DisableLoading => Instance._disableLoading;
 
-        public static bool GameSaveExist => System.IO.File.Exists(GameSavePath);
+        public static bool GameSaveExist => System.IO.File.Exists(GameSaveFilePath);
 
-        private static string GameSavePath => System.IO.Path.Combine(Application.persistentDataPath, "Save", "Game.dat");
+        private static string GameSaveFolderPath => System.IO.Path.Combine(Application.persistentDataPath, "Save");
+        private static string GameSaveFilePath => System.IO.Path.Combine(GameSaveFolderPath, "Game.dat");
 
         public static bool TrySave()
         {
@@ -62,7 +63,7 @@
                     container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
                 }
 
-                System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSavePath);
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSaveFilePath);
                 if (!fileInfo.Directory.Exists)
                     System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
 
@@ -70,9 +71,9 @@
                 string decryptedSave = saveDocument.ToString();
 
                 if (Instance._encryptSave)
-                    System.IO.File.WriteAllBytes(GameSavePath, s_rijndael.Encrypt(decryptedSave));
+                    System.IO.File.WriteAllBytes(GameSaveFilePath, s_rijndael.Encrypt(decryptedSave));
                 else
-                    System.IO.File.WriteAllText(GameSavePath, decryptedSave);
+                    System.IO.File.WriteAllText(GameSaveFilePath, decryptedSave);
             }
             catch (System.Exception e)
             {
@@ -93,8 +94,8 @@
 
             try
             {
-                byte[] saveBytes = System.IO.File.ReadAllBytes(GameSavePath);
-                string saveText = System.IO.File.ReadAllText(GameSavePath);
+                byte[] saveBytes = System.IO.File.ReadAllBytes(GameSaveFilePath);
+                string saveText = System.IO.File.ReadAllText(GameSaveFilePath);
 
                 XContainer container = null;
 
@@ -174,12 +175,12 @@
 
         public static bool EraseSave()
         {
-            if (!System.IO.File.Exists(GameSavePath))
+            if (!System.IO.File.Exists(GameSaveFilePath))
                 return false;
 
             try
             {
-                System.IO.File.Delete(GameSavePath);
+                System.IO.File.Delete(GameSaveFilePath);
 
                 FlagsManager.Clear();
                 DialoguesStructuresManager.Clear();
@@ -193,6 +194,12 @@
 
             Instance.Log("Game save erased successfully !", true);
             return true;
+        }
+
+        [ContextMenu("Open Save Folder")]
+        private void OpenSaveFolder()
+        {
+            System.Diagnostics.Process.Start($@"{GameSaveFolderPath}");
         }
 
         protected override void Awake()
@@ -211,7 +218,8 @@
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveGame", "Tries to save game progression.", () => TrySave()));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadGame", "Tries to load game progression.", () => TryLoad()));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseGameSave", "Erases game save file if it exists.", () => EraseSave()));
-            
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("OpenSaveFolder", "Opens game save file.", OpenSaveFolder));
+
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("SetSaveEncryption", "Sets save encryption state.", (value) => _encryptSave = value));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ToggleSaveEncryption", "Toggles save encryption state.", () => _encryptSave = !_encryptSave));
         }
