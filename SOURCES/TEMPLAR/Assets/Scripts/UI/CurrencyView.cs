@@ -10,9 +10,10 @@
         [SerializeField] private TMPro.TextMeshProUGUI _diffText = null;
 
         [Header("DIFF UPDATE")]
-        [SerializeField] private float _startUpdateDiffDelay = 1.5f;
-        [SerializeField] private int _stepMax = 3;
-        [SerializeField] private float _stepInterval = 0.05f;
+        [SerializeField, Min(0f)] private float _diffUpdateStartDelay = 1.5f;
+        [SerializeField, Min(1)] private int _diffUpdateStepInit = 4;
+        [SerializeField, Min(0)] private int _diffUpdateStepIncrement = 1;
+        [SerializeField, Min(0f)] private float _stepInterval = 0.05f;
 
         private System.Collections.IEnumerator _diffUpdateCoroutine;
 
@@ -64,19 +65,24 @@
         private System.Collections.IEnumerator UpdateDifferenceCoroutine()
         {
             UpdateTexts();
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_startUpdateDiffDelay);
 
-            int step = 0;
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_diffUpdateStartDelay);
+
+            int stepIncr = 0;
 
             while (_diff != 0)
             {
-                step = _diff > 0 ? System.Math.Min(_stepMax, _diff) : System.Math.Max(-_stepMax, _diff);
+                int step = _diff > 0
+                    ? System.Math.Min(_diffUpdateStepInit + stepIncr, _diff)
+                    : System.Math.Max(-_diffUpdateStepInit - stepIncr, _diff);
+
+                stepIncr += _diffUpdateStepIncrement;
+
                 _diff -= step;
                 _displayedCurrency += step;
 
                 UpdateTexts();
 
-                // We may want this to accelerate over time in case there's a huge difference to interpolate.
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(_stepInterval);
             }
         }

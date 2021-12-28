@@ -210,8 +210,9 @@ MonoBehaviour:
   _canvas: {fileID: 3945908165512566906}
   _currencyText: {fileID: 7494891869028179071}
   _diffText: {fileID: 9130742664306999083}
-  _startUpdateDiffDelay: 1.2
-  _stepMax: 3
+  _diffUpdateStartDelay: 1.5
+  _diffUpdateStepInit: 2
+  _diffUpdateStepIncrement: 1
   _stepInterval: 0.03
 --- !u!1 &7494891867529845242
 GameObject:
