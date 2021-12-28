@@ -130,6 +130,12 @@
         {
             base.Awake();
 
+            if (_playerHealthCtrl == null)
+            {
+                CProLogger.LogError(this, $"{typeof(Unit.Player.PlayerHealthController).Name} reference is missing on {GetType().Name}, getting it through FindObjectOfType!");
+                _playerHealthCtrl = FindObjectOfType<Unit.Player.PlayerHealthController>();
+            }
+
             Display(false);
             StartCoroutine(InitHealth());
         }

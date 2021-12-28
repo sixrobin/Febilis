@@ -31,7 +31,7 @@
             foreach (ICheckpointListener listener in Instance._checkpointListeners)
                 listener.OnCheckpointInteracted(checkpoint);
 
-            SaveManager.Save();
+            SaveManager.TrySave();
         }
 
         private void CheckDuplicateCheckpointIds()
@@ -150,18 +150,18 @@
             KillTrigger.ResetSharedTriggers();
             _checkpointListeners = RSLib.Helpers.FindInstancesOfType<ICheckpointListener>();
 
-            RSLib.SceneReloader.BeforeReload += SaveManager.Save; // [TMP]
+            RSLib.SceneReloader.BeforeReload += () => SaveManager.TrySave();
 
             if (!SaveManager.DisableLoading)
                 if (!SaveManager.TryLoad())
                     SaveManager.LoadNewGame();
     
-            SaveManager.Save();
+            SaveManager.TrySave();
         }
 
         private void OnDestroy()
         {
-            RSLib.SceneReloader.BeforeReload -= SaveManager.Save; // [TMP]
+            RSLib.SceneReloader.BeforeReload -= () => SaveManager.TrySave();
         }
 
         [ContextMenu("Find All References")]

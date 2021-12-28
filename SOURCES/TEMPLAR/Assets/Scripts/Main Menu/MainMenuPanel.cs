@@ -8,7 +8,6 @@
     public class MainMenuPanel : UI.UIPanel
     {
         [Header("REFS")]
-        [SerializeField] private UI.Settings.SettingsHubPanel _settingsHubPanel = null;
         [SerializeField] private UnityEngine.UI.Image _title = null;
         [SerializeField] private UnityEngine.UI.Image _titleShadow = null;
         [SerializeField] private Transform _vignette = null;
@@ -37,7 +36,7 @@
         private System.Collections.IEnumerator _vignetteFadeCoroutine;
 
         private UI.ConfirmationPopup.PopupTextsDatas _eraseSaveFilePopupTexts
-            = new UI.ConfirmationPopup.PopupTextsDatas("A save file already exists. Are you sure you want to overwrite it ?", "Yes", "No");
+            = new UI.ConfirmationPopup.PopupTextsDatas("A save file already exists.\nAre you sure you want to overwrite it ?", "Yes", "No");
 
         public override GameObject FirstSelected => FirstButtonSelected.gameObject;
 

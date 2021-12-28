@@ -254,7 +254,8 @@
         {
             ResetVelocity();
 
-            Manager.SaveManager.Save(); // [TMP] Save picked up items upon dying.
+            // Death will reload scene or load another level scene so we need to save.
+            Manager.SaveManager.TrySave();
 
             if (IsBeingHurt)
             {

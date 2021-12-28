@@ -3,7 +3,7 @@
     public class MonitorIndexSetting : IntButtonSettingView
     {
         private MessagePopup.PopupTextsDatas _rebootWarningPopupTexts
-            = new MessagePopup.PopupTextsDatas("You'll need to reboot the game to apply this change.", "Okay");
+            = new MessagePopup.PopupTextsDatas("You'll need to reboot the game to apply this change.", "OKAY");
 
         public override Templar.Settings.IntSetting IntSetting => Manager.SettingsManager.MonitorIndex;
 

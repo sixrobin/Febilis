@@ -28,11 +28,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4957991638376158887}
-  - {fileID: 488953335120244322}
+  - {fileID: 8310188635768460850}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &4299770330309409567
+--- !u!1001 &5634423881071133519
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -42,7 +42,7 @@ PrefabInstance:
     - target: {fileID: 4423315634072229217, guid: 70deaed8b6360814c83719476967864f,
         type: 3}
       propertyPath: m_Name
-      value: Canvas Popup Message
+      value: Canvas Popup - Message
       objectReference: {fileID: 0}
     - target: {fileID: 4423315634072229245, guid: 70deaed8b6360814c83719476967864f,
         type: 3}
@@ -156,11 +156,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70deaed8b6360814c83719476967864f, type: 3}
---- !u!224 &488953335120244322 stripped
+--- !u!224 &8310188635768460850 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4423315634072229245, guid: 70deaed8b6360814c83719476967864f,
     type: 3}
-  m_PrefabInstance: {fileID: 4299770330309409567}
+  m_PrefabInstance: {fileID: 5634423881071133519}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8767546411723654106
 PrefabInstance:

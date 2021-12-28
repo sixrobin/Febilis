@@ -232,6 +232,12 @@
             base.Awake();
             RegisterSpeakersInScene();
 
+            if (_dialogueView == null)
+            {
+                Instance.LogError($"{typeof(DialogueView).Name} reference is missing on {Instance.GetType().Name}, getting it through FindObjectOfType!");
+                _dialogueView = FindObjectOfType<DialogueView>();
+            }
+
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id)));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ToggleFastDialogues", "Toggles dialogue light speed.", () => _debugFastDialogues = !_debugFastDialogues));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("ToggleFastDialogues", "Set dialogue light speed state.", (state) => _debugFastDialogues = state));

@@ -175,14 +175,16 @@
                 CProLogger.Log(this, $"Loading native inventory items.");
                 foreach (System.Collections.Generic.KeyValuePair<string, int> nativeItem in Database.ItemDatabase.NativeInventoryItems)
                     AddItem(nativeItem.Key, nativeItem.Value, true);
-
-                InventoryInitialized?.Invoke();
-
-                return;
             }
+            else
+            {
+                System.Collections.Generic.IEnumerable<XElement> itemsElements = inventoryElement.Elements();
 
-            foreach (XElement itemElement in inventoryElement.Elements())
-                AddItem(itemElement.Name.LocalName, itemElement.ValueToInt(), true);
+                Manager.SaveManager.Instance.Log($"Loading Inventory: {string.Join(", ", itemsElements.Select(o => o.Name.LocalName).Zip(itemsElements.Select(o => o.ValueToInt()), (itemId, quantity) => $"{quantity} {itemId}(s)"))}");
+
+                foreach (XElement itemElement in itemsElements)
+                    AddItem(itemElement.Name.LocalName, itemElement.ValueToInt(), true);
+            }
 
             InventoryInitialized?.Invoke();
         }
@@ -190,6 +192,8 @@
         public XElement Save()
         {
             XElement inventoryElement = new XElement("Inventory");
+
+            Manager.SaveManager.Instance.Log($"Saving Inventory: {string.Join(", ", Items.Keys.Select(o => o.Datas.Id).Zip(Items.Values, (itemId, quantity) => $"{quantity} {itemId}(s)"))}");
 
             foreach (System.Collections.Generic.KeyValuePair<Item, int> item in Items)
                 inventoryElement.Add(new XElement(item.Key.Datas.Id, item.Value));

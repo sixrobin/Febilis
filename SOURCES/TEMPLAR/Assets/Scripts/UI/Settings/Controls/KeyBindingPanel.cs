@@ -39,8 +39,8 @@
 
             // [TODO] Need some sprites or localized texts for some KeyCodes (like JoystickButton0, LeftAlt etc.).
             _actionName.text = ActionId.ToString();
-            _baseBtn.SetText(_btns.btn != KeyCode.None ? _btns.btn.ToString() : string.Empty);
-            _altBtn.SetText(_btns.altBtn != KeyCode.None ? _btns.altBtn.ToString() : string.Empty);
+            _baseBtn.SetText(_btns.btn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.btn) : string.Empty);
+            _altBtn.SetText(_btns.altBtn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.altBtn) : string.Empty);
 
             Show();
         }
