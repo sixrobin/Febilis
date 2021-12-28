@@ -11,6 +11,18 @@
 
         public Unit.UnitHealthController HealthCtrl { get; set; }
 
+        private bool _disabled;
+        public bool Disabled
+        {
+            get => _disabled;
+            set
+            {
+                _disabled = value;
+                if (_disabled)
+                    Display(false);
+            }
+        }
+
         public void Display(bool show)
         {
             _mainContainer.SetActive(show);
@@ -18,6 +30,9 @@
 
         public void UpdateHealth()
         {
+            if (Disabled)
+                return;
+
             _fillScaler.SetScaleX(HealthCtrl.HealthSystem.HealthPercentage);
 
             if (HealthCtrl.HealthSystem.HealthPercentage < 1f)

@@ -8,6 +8,8 @@
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.ENEMY;
 
+        public WorldSpaceHealthBar WorldSpaceHealthBar => _healthBar;
+
         public override void Init(UnitController unit, int maxHealth, int initHealth)
         {
             base.Init(unit, maxHealth, initHealth);

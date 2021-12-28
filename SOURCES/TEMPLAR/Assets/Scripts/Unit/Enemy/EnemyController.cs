@@ -74,7 +74,9 @@
 
         public Datas.Unit.Enemy.EnemyDatas EnemyDatas { get; private set; }
         public EnemyBehaviour[] Behaviours { get; private set; }
+
         public Attack.EnemyAttackController AttackCtrl { get; private set; }
+        public EnemyHealthController EnemyHealthCtrl => HealthCtrl as EnemyHealthController;
 
         public override UnitView UnitView => _enemyView;
 

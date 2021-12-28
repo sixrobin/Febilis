@@ -628,7 +628,7 @@ MonoBehaviour:
     type: 3}
   _bossHealthViewsLayout: {fileID: 621366368370957071}
   _bossNameContainer: {fileID: 8808792064464065125}
-  _bossNameDuration: 1
+  _bossNameDuration: 2
   _bossNameTexts:
   - {fileID: 1037019338015742298}
   - {fileID: 8775344093943603544}

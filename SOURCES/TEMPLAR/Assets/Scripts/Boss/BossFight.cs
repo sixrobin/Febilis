@@ -57,7 +57,10 @@
             _bossesToKillLeft = FightBosses.Length;
 
             for (int i = FightBosses.Length - 1; i >= 0; --i)
+            {
                 FightBosses[i].HealthCtrl.UnitKilled += OnBossKilled;
+                FightBosses[i].EnemyHealthCtrl.WorldSpaceHealthBar.Disabled = true; // Bosses should not display world UI health.
+            }
 
             Manager.GameManager.PlayerCtrl.HealthCtrl.UnitKilled += OnPlayerKilled;
 
