@@ -52,7 +52,6 @@
             OnFightLost();
         }
 
-        // [TODO] Call this from some OnTriggerEnter or enemy detection.
         public void TriggerFight()
         {
             _bossesToKillLeft = FightBosses.Length;

@@ -1,6 +1,5 @@
 ﻿namespace Templar.UI
 {
-    using System;
     using RSLib.Extensions;
     using Templar.Item;
     using UnityEngine;
