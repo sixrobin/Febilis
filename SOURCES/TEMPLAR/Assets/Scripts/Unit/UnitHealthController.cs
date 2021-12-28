@@ -10,8 +10,8 @@
     {
         public class UnitHealthChangedEventArgs : RSLib.HealthSystem.HealthChangedEventArgs
         {
-            public UnitHealthChangedEventArgs(int previous, int current, Attack.HitInfos hitDatas)
-                : base(previous, current)
+            public UnitHealthChangedEventArgs(int previous, int current, int max, Attack.HitInfos hitDatas)
+                : base(previous, current, max)
             {
                 HitDatas = hitDatas;
             }

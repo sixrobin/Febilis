@@ -25,7 +25,8 @@
             public bool Victory { get; }
         }
 
-        [SerializeField] private Unit.Enemy.BossController[] _fightBosses = null;
+        [SerializeField] private Unit.Enemy.EnemyController[] _fightBosses = null;
+        // [TODO] BossID reference here, to then include in GameSave.
 
         public delegate void BossFightEventHandler(BossFightEventArgs args);
         public delegate void BossFightOverEventHandler(BossFightOverEventArgs args);
@@ -33,9 +34,9 @@
         public static event BossFightEventHandler BossFightStarted;
         public static event BossFightOverEventHandler BossFightOver;
 
-        public Unit.Enemy.BossController[] FightBosses => _fightBosses;
+        public Unit.Enemy.EnemyController[] FightBosses => _fightBosses;
 
-        private int _bossesToKillLeft;
+        private int _bossesToKillLeft = -1;
 
         private void OnBossKilled(UnitHealthController.UnitKilledEventArgs args)
         {
@@ -49,7 +50,7 @@
             OnFightLost();
         }
 
-        // [TODO] Call this from trigger enter or enemy detection.
+        // [TODO] Call this from some OnTriggerEnter or enemy detection.
         public void TriggerFight()
         {
             _bossesToKillLeft = FightBosses.Length;
@@ -72,6 +73,20 @@
         {
             Debug.LogError("Boss fight lost...");
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, false));
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            // [TMP] Did this to try out fight, but maybe this should be done another way.
+
+            if (_bossesToKillLeft > -1) // [TMP] Condition to avoid triggering fight mutliple times.
+                return;
+
+            if (collision.gameObject.TryGetComponent<Unit.Player.PlayerController>(out _))
+            {
+                GetComponent<BoxCollider2D>().enabled = false;
+                TriggerFight();
+            }
         }
     }
 }
