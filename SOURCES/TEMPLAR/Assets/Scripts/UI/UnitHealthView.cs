@@ -20,6 +20,9 @@
 
         public void SetHealthInstantly(int current, int max)
         {
+            if (_healthBarUpdateCoroutine != null)
+                SkipHealthBarUpdateCoroutine();
+
             float currHealthPercentage = (float)current / max;
             _healthFill.fillAmount = currHealthPercentage;
             _healthBlink.fillAmount = 0f;

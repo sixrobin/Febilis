@@ -17,6 +17,7 @@
             {
                 { typeof(Flags.Identifier), new Flags.FlagsList(typeof(Flags.Identifier)) },
                 { typeof(Flags.BoardIdentifier), new Flags.FlagsList(typeof(Flags.BoardIdentifier), true) },
+                { typeof(Flags.BossIdentifier), new Flags.FlagsList(typeof(Flags.BossIdentifier), true) },
                 { typeof(Flags.CheckpointIdentifier), new Flags.FlagsList(typeof(Flags.CheckpointIdentifier), true) },
                 { typeof(Flags.ChestIdentifier), new Flags.FlagsList(typeof(Flags.ChestIdentifier)) },
                 { typeof(Flags.ItemIdentifier), new Flags.FlagsList(typeof(Flags.ItemIdentifier)) },

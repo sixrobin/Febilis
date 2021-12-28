@@ -3,7 +3,7 @@
     using Templar.Unit;
     using UnityEngine;
 
-    public class BossFight : MonoBehaviour
+    public class BossFight : MonoBehaviour, Flags.IIdentifiable
     {
         public class BossFightEventArgs : System.EventArgs
         {
@@ -25,8 +25,10 @@
             public bool Victory { get; }
         }
 
+        [SerializeField] private Flags.BossIdentifier _bossIdentifier = null;
         [SerializeField] private Unit.Enemy.EnemyController[] _fightBosses = null;
-        // [TODO] BossID reference here, to then include in GameSave.
+
+        private int _bossesToKillLeft = -1;
 
         public delegate void BossFightEventHandler(BossFightEventArgs args);
         public delegate void BossFightOverEventHandler(BossFightOverEventArgs args);
@@ -36,7 +38,7 @@
 
         public Unit.Enemy.EnemyController[] FightBosses => _fightBosses;
 
-        private int _bossesToKillLeft = -1;
+        public Flags.IIdentifier Identifier => _bossIdentifier;
 
         private void OnBossKilled(UnitHealthController.UnitKilledEventArgs args)
         {

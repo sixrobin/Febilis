@@ -5,8 +5,14 @@
 
     public class BossFightHUD : HUDElement
     {
+        [Header("HEALTH BARS")]
         [SerializeField] private BossHealthView _bossHealthViewPrefab = null;
         [SerializeField] private RectTransform _bossHealthViewsLayout = null;
+
+        [Header("BOSS NAME")]
+        [SerializeField] private GameObject _bossNameContainer = null;
+        [SerializeField, Min(0f)] private float _bossNameDuration = 1f;
+        [SerializeField] private TMPro.TextMeshProUGUI[] _bossNameTexts = null; // Multiple text to include potential shadow.
 
         private Templar.Boss.BossFight _currBossFight;
 
@@ -22,9 +28,7 @@
             _currBossFight = args.BossFight;
 
             Display(true);
-
-            InitBossesHealthViews();
-            StartCoroutine(DisplayBossName());
+            StartCoroutine(DisplayBossHUDCoroutine());
         }
 
         private void OnBossFightOver(Templar.Boss.BossFight.BossFightOverEventArgs args)
@@ -60,10 +64,17 @@
             UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(_bossHealthViewsLayout);
         }
 
-        private System.Collections.IEnumerator DisplayBossName()
+        private System.Collections.IEnumerator DisplayBossHUDCoroutine()
         {
-            Debug.LogError("Showing boss name.");
-            yield break;
+            for (int i = _bossNameTexts.Length - 1; i >= 0; --i)
+                _bossNameTexts[i].text = _currBossFight.Identifier.Id;
+
+            _bossNameContainer.SetActive(true);
+
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossNameDuration);
+        
+            _bossNameContainer.SetActive(false);
+            InitBossesHealthViews();
         }
 
         protected override void Awake()
