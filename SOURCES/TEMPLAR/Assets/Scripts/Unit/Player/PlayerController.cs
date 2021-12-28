@@ -101,8 +101,7 @@
             CollisionsCtrl = new Templar.Physics.PlayerCollisionsController(BoxCollider2D, CollisionMask, _rollCollisionMask, this);
             CollisionsCtrl.CollisionDetected += OnCollisionDetected;
 
-            PlayerHealthCtrl.PlayerCtrl = this;
-            PlayerHealthCtrl.Init(_baseHealth, OnUnitHealthChanged, OnUnitKilled);
+            PlayerHealthCtrl.Init(this, _baseHealth, OnUnitHealthChanged, OnUnitKilled);
 
             JumpCtrl.ComputeJumpPhysics();
 

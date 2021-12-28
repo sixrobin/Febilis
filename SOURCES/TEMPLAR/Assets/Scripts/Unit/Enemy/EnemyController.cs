@@ -55,7 +55,7 @@
             {
                 if (value != null)
                 {
-                    Debug.LogError($"Enqueuing action {value.GetType().Name}.");
+                    //Debug.LogError($"Enqueuing action {value.GetType().Name}.");
                     LastActions.Enqueue(value); // Enqueue here to avoid early return.
                 }
 
@@ -277,7 +277,7 @@
             CollisionsCtrl.Ground(transform);
 
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
-            enemyHealthCtrl.Init(EnemyDatas.Health, EnemyDatas.Health);
+            enemyHealthCtrl.Init(this, EnemyDatas.Health, EnemyDatas.Health);
             enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
             enemyHealthCtrl.UnitKilled += OnUnitKilled;
 

@@ -25,7 +25,7 @@
 
         public int HealAmount => _healAmount;
 
-        public PlayerController PlayerCtrl { get; set; }
+        public PlayerController PlayerCtrl { get; private set; }
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.PLAYER;
 
@@ -70,14 +70,16 @@
             base.Kill();
         }
 
-        public void Init(int maxHealth, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled, int initHealth = -1)
+        public void Init(PlayerController playerCtrl, int maxHealth, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled, int initHealth = -1)
         {
             if (_init)
                 return;
 
             UnitHealthChanged += onUnitHealthChanged;
             UnitKilled += onUnitKilled;
-            Init(maxHealth, initHealth);
+
+            PlayerCtrl = playerCtrl;
+            Init(PlayerCtrl, maxHealth, initHealth);
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("tgm", "Toggles god mode.", () => GodMode = !GodMode));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));
