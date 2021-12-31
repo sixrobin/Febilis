@@ -42,6 +42,8 @@
             _healthPanel.sprite = _panelBaseSprite;
 
             _healthView.DisplayBackground(true);
+
+            // Fill "animation".
             _healthView.SetHealthInstantly(0, _bossEnemyCtrl.HealthCtrl.HealthSystem.MaxHealth);
             _healthView.OnHealthChanged(new RSLib.HealthSystem.HealthChangedEventArgs(0, _bossEnemyCtrl.HealthCtrl.HealthSystem.CurrentHealth, _bossEnemyCtrl.HealthCtrl.HealthSystem.MaxHealth));
         }
