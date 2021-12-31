@@ -26,6 +26,7 @@
         }
 
         [SerializeField] private Flags.BossIdentifier _bossIdentifier = null;
+        [SerializeField] private Datas.BossIntroDatas _bossIntroDatas = null;
         [SerializeField] private Unit.Enemy.EnemyController[] _fightBosses = null;
 
         private int _bossesToKillLeft = -1;
@@ -37,6 +38,7 @@
         public static event BossFightOverEventHandler BossFightOver;
 
         public Unit.Enemy.EnemyController[] FightBosses => _fightBosses;
+        public Datas.BossIntroDatas BossIntroDatas => _bossIntroDatas;
 
         public Flags.IIdentifier Identifier => _bossIdentifier;
 
@@ -54,6 +56,8 @@
 
         public void TriggerFight()
         {
+            CProLogger.Log(this, $"Triggering boss fight {Identifier.Id}.", gameObject);
+
             _bossesToKillLeft = FightBosses.Length;
 
             for (int i = FightBosses.Length - 1; i >= 0; --i)
@@ -64,19 +68,38 @@
 
             Manager.GameManager.PlayerCtrl.HealthCtrl.UnitKilled += OnPlayerKilled;
 
+            if (_bossIntroDatas.DisallowInputs)
+                StartCoroutine(DisallowInputsCoroutine());
+
             BossFightStarted?.Invoke(new BossFightEventArgs(this));
         }
 
         public void OnFightWon()
         {
-            Debug.LogError("Boss fight won!");
+            Debug.LogError($"Boss fight {Identifier.Id} won!");
+
+            Manager.FlagsManager.Register(this);
+
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, true));
         }
 
         public void OnFightLost()
         {
-            Debug.LogError("Boss fight lost...");
+            Debug.LogError($"Boss fight {Identifier.Id} lost...");
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, false));
+        }
+
+        private System.Collections.IEnumerator DisallowInputsCoroutine()
+        {
+            Manager.GameManager.PlayerCtrl.AllowInputs(false);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.TotalDuration);
+            Manager.GameManager.PlayerCtrl.AllowInputs(true);
+        }
+
+        private void Start()
+        {
+            if (Manager.FlagsManager.Check(this))
+                Debug.LogError("Boss fight already done, disabling it.", gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

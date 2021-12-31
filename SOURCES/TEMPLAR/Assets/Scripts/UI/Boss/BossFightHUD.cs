@@ -5,13 +5,15 @@
 
     public class BossFightHUD : HUDElement
     {
+        private const string BOSS_NAME_APPEAR = "Appear";
+
         [Header("HEALTH BARS")]
         [SerializeField] private BossHealthView _bossHealthViewPrefab = null;
         [SerializeField] private RectTransform _bossHealthViewsLayout = null;
 
         [Header("BOSS NAME")]
         [SerializeField] private GameObject _bossNameContainer = null;
-        [SerializeField, Min(0f)] private float _bossNameDuration = 1f;
+        [SerializeField] private Animator _bossNameAnimator = null;
         [SerializeField] private TMPro.TextMeshProUGUI[] _bossNameTexts = null; // Multiple text to include potential shadow.
 
         private Templar.Boss.BossFight _currBossFight;
@@ -69,11 +71,15 @@
             for (int i = _bossNameTexts.Length - 1; i >= 0; --i)
                 _bossNameTexts[i].text = _currBossFight.Identifier.Id;
 
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currBossFight.BossIntroDatas.BossNameAppearanceDelay);
+            
             _bossNameContainer.SetActive(true);
+            _bossNameAnimator.SetTrigger(BOSS_NAME_APPEAR);
 
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossNameDuration);
-        
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currBossFight.BossIntroDatas.BossNameDuration);
+
             _bossNameContainer.SetActive(false);
+        
             InitBossesHealthViews();
         }
 
