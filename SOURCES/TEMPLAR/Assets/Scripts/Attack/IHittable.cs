@@ -4,7 +4,7 @@
     {
         HitLayer HitLayer { get; }
 
-        bool CanBeHit();
-        void OnHit(HitInfos hitDatas);
+        bool CanBeHit(HitInfos hitInfos);
+        void OnHit(HitInfos hitInfos);
     }
 }

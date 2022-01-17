@@ -75,11 +75,13 @@
                 if (collider.TryGetComponent(out hittable))
                     s_sharedKnownHittables.Add(collider, hittable);
 
-            if (hittable == null || !hittable.CanBeHit() || !_attackDatas.HitLayer.HasFlag(hittable.HitLayer) || _hitThisTime.Contains(hittable))
+            HitInfos hitInfos = new HitInfos(_attackDatas, Dir, _source);
+
+            if (hittable == null || !hittable.CanBeHit(hitInfos) || !_attackDatas.HitLayer.HasFlag(hittable.HitLayer) || _hitThisTime.Contains(hittable))
                 return;
 
             _hitThisTime.Add(hittable);
-            hittable.OnHit(new HitInfos(_attackDatas, Dir, _source));
+            hittable.OnHit(hitInfos);
             Hit(new HitEventArgs(hittable, Dir));
         }
     }

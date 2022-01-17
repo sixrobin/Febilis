@@ -222,6 +222,7 @@
       <xs:complexContent>
          <xs:extension base="Action">
             <xs:sequence>
+               <xs:element name="AnticipationDuration" type="xs:float" minOccurs="1" maxOccurs="1"/>
                <xs:element name="InitSpeed" type="xs:float" minOccurs="1" maxOccurs="1"/>
                <xs:element name="Acceleration" type="xs:float" minOccurs="1" maxOccurs="1"/>
                <xs:element name="MaxDuration" type="xs:float" minOccurs="0" maxOccurs="1"/>

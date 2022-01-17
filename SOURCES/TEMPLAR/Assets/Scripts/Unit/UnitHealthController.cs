@@ -56,17 +56,17 @@
 
         public abstract Attack.HitLayer HitLayer { get; }
 
-        public virtual bool CanBeHit()
+        public virtual bool CanBeHit(Attack.HitInfos hitInfos)
         {
             return !HealthSystem.IsDead;
         }
 
-        public virtual void OnHit(Attack.HitInfos hitDatas)
+        public virtual void OnHit(Attack.HitInfos hitInfos)
         {
             UnityEngine.Assertions.Assert.IsFalse(HealthSystem.IsDead, "Hitting an unit that is already dead.");
 
-            _lastHitDatas = hitDatas;
-            HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
+            _lastHitDatas = hitInfos;
+            HealthSystem.Damage(hitInfos.AttackDatas.Dmg);
         }
 
         public virtual void Init(UnitController unit, int maxHealth, int initHealth = -1)

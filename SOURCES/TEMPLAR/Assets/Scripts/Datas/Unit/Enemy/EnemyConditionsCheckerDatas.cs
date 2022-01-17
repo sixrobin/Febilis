@@ -36,6 +36,14 @@
                         Conditions.Add(new HealthMinEnemyConditionDatas(conditionElement));
                         break;
 
+                    case HealthPercentageMaxEnemyConditionDatas.ID:
+                        Conditions.Add(new HealthPercentageMaxEnemyConditionDatas(conditionElement));
+                        break;
+
+                    case HealthPercentageMinEnemyConditionDatas.ID:
+                        Conditions.Add(new HealthPercentageMinEnemyConditionDatas(conditionElement));
+                        break;
+
                     case LastActionsCheckConditionDatas.ID:
                         Conditions.Add(new LastActionsCheckConditionDatas(conditionElement));
                         break;

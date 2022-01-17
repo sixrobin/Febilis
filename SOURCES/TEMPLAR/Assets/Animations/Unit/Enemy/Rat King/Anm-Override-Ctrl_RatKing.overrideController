@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Anm-Override-Ctrl_RatKing
+  m_Controller: {fileID: 9100000, guid: 158c49c85e6f2284c8a8527f308552e1, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d9667c952411c8449aeaf80297abda9d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4c5ea3b2df322f045a09b42e625f55b6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 882cbe5272914614dab71314f0e0b56b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 612f40d2a03bd0f4ab410ab66f222f38, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4b9462324f348944989fa808037c2bc1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 919305ef49fb50e44b3cc0e0ddc6d904, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8ae8d9efbe68b564f9c76c96d7da9a8a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a90d47f68ea656d498899a2c6f1be85e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 34744f8d7fad7f842956407dbf6f5161, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b57525fc535846249b727a00ab5d0af7, type: 2}

@@ -103,6 +103,7 @@
         {
         }
 
+        public float AnticipationDuration { get; private set; }
         public float InitSpeed { get; private set; }
         public float Acceleration { get; private set; }
         public float MaxDuration { get; private set; }
@@ -115,6 +116,10 @@
             base.Deserialize(container);
 
             XContainer chargeElement = container as XElement;
+
+            XElement anticipationDurationElement = chargeElement.Element("AnticipationDuration");
+            UnityEngine.Assertions.Assert.IsFalse(anticipationDurationElement.IsNullOrEmpty(), $"AnticipationDuration element is null or empty for charge action.");
+            AnticipationDuration = anticipationDurationElement.ValueToFloat();
 
             XElement speedElement = chargeElement.Element("InitSpeed");
             UnityEngine.Assertions.Assert.IsFalse(speedElement.IsNullOrEmpty(), $"Speed element is null or empty for charge action.");

@@ -32,22 +32,23 @@
         public bool DebugMode => _debugMode;
         public bool GodMode { get; private set; }
 
-        public override bool CanBeHit()
+        public override bool CanBeHit(Attack.HitInfos hitInfos)
         {
-            return base.CanBeHit()
+            if (GodMode || Manager.BoardsTransitionManager.IsInBoardTransition)
+                return false;
+
+            return base.CanBeHit(hitInfos)
                 && !PlayerCtrl.IsBeingHurt
-                && !PlayerCtrl.RollCtrl.IsRolling
-                && !GodMode
-                && !Manager.BoardsTransitionManager.IsInBoardTransition;
+                && (!PlayerCtrl.RollCtrl.IsRolling || hitInfos.AttackDatas.ForceHurt);
         }
 
-        public override void OnHit(Attack.HitInfos hitDatas)
+        public override void OnHit(Attack.HitInfos hitInfos)
         {
             UnityEngine.Assertions.Assert.IsNotNull(PlayerCtrl, "PlayerController must be referenced to handle PlayerHealthController.");
-            if (GodMode || PlayerCtrl.RollCtrl.IsRolling || PlayerCtrl.IsBeingHurt)
+            if (GodMode || (PlayerCtrl.RollCtrl.IsRolling && !hitInfos.AttackDatas.ForceHurt) || PlayerCtrl.IsBeingHurt)
                 return;
 
-            base.OnHit(hitDatas);
+            base.OnHit(hitInfos);
         }
 
         public bool CanHeal()

@@ -15,4 +15,4 @@ MonoBehaviour:
   _totalDuration: 4.5
   _bossNameAppearanceDelay: 1
   _bossNameDuration: 3
-  _disallowInputs: 1
+  _disallowInputs: 0

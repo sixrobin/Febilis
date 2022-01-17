@@ -2,6 +2,7 @@
 {
     public class ChargeEnemyAction : EnemyAction<Datas.Unit.Enemy.ChargeEnemyActionDatas>
     {
+        private float _anticipationTimer = 0f;
         private float _chargeTimer = 0f;
         private float _currSpeed = 0f;
         private bool _sideCollisionDetected;
@@ -26,16 +27,28 @@
 
         public override void Execute()
         {
+            if (EnemyCtrl.BeingHurt)
+                return;
+
             EnemyCtrl.SetDirection(DirectionX);
+
+            if (_anticipationTimer < ActionDatas.AnticipationDuration)
+            {
+                _anticipationTimer += UnityEngine.Time.deltaTime;
+                if (_anticipationTimer >= ActionDatas.AnticipationDuration)
+                    OnChargeAnticipationOver();
+                else
+                    return;
+            }
 
             if (EnemyCtrl.IsStunned)
                 return;
 
-            if (!EnemyCtrl.BeingHurt && !_sideCollisionDetected)
+            if (!_sideCollisionDetected)
             {
                 EnemyCtrl.Translate(DirectionX * _currSpeed, 0f, checkEdge: true);
                 EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
-                EnemyCtrl.EnemyView.PlayWalkAnimation(true);
+                //EnemyCtrl.EnemyView.PlayWalkAnimation(true);
             }
 
             _chargeTimer += UnityEngine.Time.deltaTime;
@@ -46,10 +59,14 @@
         {
             base.OnEnter();
 
+            _anticipationTimer = 0f;
             _chargeTimer = 0f;
             _currSpeed = ActionDatas.InitSpeed;
 
             DirectionX = UnityEngine.Mathf.Sign(EnemyCtrl.PlayerCtrl.transform.position.x - EnemyCtrl.transform.position.x);
+
+            EnemyCtrl.EnemyView.ResetChargeTriggers();
+            EnemyCtrl.EnemyView.PlayChargeAnticipationAnimation();
         }
 
         private void OnCollisionDetected(Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -101,7 +118,12 @@
                 });
             }
 
-            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(ActionDatas.PlayerCollisionDatas.Trauma);
+            Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(playerCtrl != null ? ActionDatas.PlayerCollisionDatas.Trauma : ActionDatas.WallCollisionDatas.Trauma);
+        }
+    
+        private void OnChargeAnticipationOver()
+        {
+            EnemyCtrl.EnemyView.PlayChargeAnimation();
         }
     }
 }
