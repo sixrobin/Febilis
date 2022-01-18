@@ -2,10 +2,11 @@
 {
     public class ChargeEnemyAction : EnemyAction<Datas.Unit.Enemy.ChargeEnemyActionDatas>
     {
-        private float _anticipationTimer = 0f;
-        private float _chargeTimer = 0f;
-        private float _currSpeed = 0f;
-        private bool _sideCollisionDetected;
+        private float _anticipationTimer;
+        private float _chargeTimer;
+        private float _currSpeed;
+        private bool _chargeAnimationSequenceStarted;
+        private bool _sideCollision;
 
         public ChargeEnemyAction(EnemyController enemyCtrl, Datas.Unit.Enemy.ChargeEnemyActionDatas actionDatas)
             : base(enemyCtrl, actionDatas)
@@ -27,10 +28,14 @@
 
         public override void Execute()
         {
-            if (EnemyCtrl.BeingHurt)
+            if (EnemyCtrl.BeingHurt || EnemyCtrl.IsStunned || _sideCollision)
                 return;
 
-            EnemyCtrl.SetDirection(DirectionX);
+            if (!_chargeAnimationSequenceStarted)
+            {
+                EnemyCtrl.EnemyView.PlayChargeAnticipationAnimation();
+                _chargeAnimationSequenceStarted = true;
+            }
 
             if (_anticipationTimer < ActionDatas.AnticipationDuration)
             {
@@ -38,18 +43,12 @@
                 if (_anticipationTimer >= ActionDatas.AnticipationDuration)
                     OnChargeAnticipationOver();
                 else
-                    return;
+                    return; // Anticipation not done -> do not execute actual charge.
             }
 
-            if (EnemyCtrl.IsStunned)
-                return;
-
-            if (!_sideCollisionDetected)
-            {
-                EnemyCtrl.Translate(DirectionX * _currSpeed, 0f, checkEdge: true);
-                EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
-                //EnemyCtrl.EnemyView.PlayWalkAnimation(true);
-            }
+            EnemyCtrl.SetDirection(DirectionX);
+            EnemyCtrl.Translate(DirectionX * _currSpeed, 0f, checkEdge: true);
+            EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
 
             _chargeTimer += UnityEngine.Time.deltaTime;
             _currSpeed += ActionDatas.Acceleration * UnityEngine.Time.deltaTime;
@@ -59,31 +58,35 @@
         {
             base.OnEnter();
 
+            // Reset datas.
+            _sideCollision = false;
             _anticipationTimer = 0f;
             _chargeTimer = 0f;
             _currSpeed = ActionDatas.InitSpeed;
 
             DirectionX = UnityEngine.Mathf.Sign(EnemyCtrl.PlayerCtrl.transform.position.x - EnemyCtrl.transform.position.x);
+            EnemyCtrl.SetDirection(DirectionX);
+            EnemyCtrl.EnemyView.FlipX(EnemyCtrl.CurrDir < 0f);
 
+            _chargeAnimationSequenceStarted = false;
             EnemyCtrl.EnemyView.ResetChargeTriggers();
-            EnemyCtrl.EnemyView.PlayChargeAnticipationAnimation();
         }
 
         private void OnCollisionDetected(Physics.CollisionsController.CollisionInfos collisionInfos)
         {
-            if (EnemyCtrl.CurrAction != this)
+            if (!IsCurrentAction || _sideCollision)
                 return;
 
-            _sideCollisionDetected = EnemyCtrl.CurrDir == 1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.RIGHT
-                              || EnemyCtrl.CurrDir == -1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.LEFT;
+            _sideCollision = EnemyCtrl.CurrDir == 1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.RIGHT
+                          || EnemyCtrl.CurrDir == -1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.LEFT;
 
-            if (!_sideCollisionDetected)
+            if (!_sideCollision)
                 return;
 
             Datas.Unit.Enemy.ChargeActionCollisionDatas collisionDatas = null;
             if (collisionInfos.Hit.collider.TryGetComponent(out Player.PlayerController playerCtrl))
                 collisionDatas = ActionDatas.PlayerCollisionDatas;
-            else if (!collisionInfos.Hit.collider.GetComponent<EnemyController>())
+            else if (!collisionInfos.Hit.collider.TryGetComponent<EnemyController>(out _))
                 collisionDatas = ActionDatas.WallCollisionDatas;
 
             if (collisionDatas == null)
@@ -96,26 +99,25 @@
 
             if (!string.IsNullOrEmpty(attackId))
             {
+                Attack.HitInfos hitInfos = new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform, true);
+
                 if (playerCtrl != null)
-                {
-                    UnityEngine.Debug.Log($"{EnemyCtrl.EnemyDatas.Id} collided player, applying charge damage using attack Id {attackId}.");
-                    playerCtrl.HealthCtrl.OnHit(new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform)); ;
-                }
+                    playerCtrl.HealthCtrl.OnHit(hitInfos);
                 else
-                {
-                    UnityEngine.Debug.Log($"{EnemyCtrl.EnemyDatas.Id} collided wall, applying self stun damage using attack Id {attackId}.");
-                    EnemyCtrl.HealthCtrl.OnHit(new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform));
-                }
+                    EnemyCtrl.HealthCtrl.OnHit(hitInfos);
             }
 
             if (collisionDatas.StunDur > 0f)
             {
-                EnemyCtrl.Stun(collisionDatas.StunDur, callback: () =>
-                {
-                    EnemyCtrl.EnemyView.PlayIdleAnimation();
-                    EnemyCtrl.ForceUpdateCurrentBehaviour();
-                    EnemyCtrl.ForceUpdateCurrentAction();
-                });
+                EnemyCtrl.Stun(
+                    collisionDatas.StunDur,
+                    waitBefore: () => !EnemyCtrl.BeingHurt,
+                    callback: () =>
+                    {
+                        EnemyCtrl.EnemyView.PlayIdleAnimation();
+                        EnemyCtrl.ForceUpdateCurrentBehaviour();
+                        EnemyCtrl.ForceUpdateCurrentAction();
+                    });
             }
 
             Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(playerCtrl != null ? ActionDatas.PlayerCollisionDatas.Trauma : ActionDatas.WallCollisionDatas.Trauma);

@@ -154,7 +154,7 @@
    </EnemyDatas>
 
    <EnemyDatas Id="RatKing">
-      <Health>300</Health>
+      <Health>1000</Health>
       <WalkSpeed>4</WalkSpeed>
       <RunSpeed>8</RunSpeed>
       <HurtDur>0.3</HurtDur>

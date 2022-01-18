@@ -86,7 +86,7 @@
 
         private void OnCollisionDetected(Physics.CollisionsController.CollisionInfos collisionInfos)
         {
-            if (EnemyCtrl.CurrAction != this)
+            if (!IsCurrentAction)
                 return;
 
             _sideCollision = EnemyCtrl.CurrDir == 1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.RIGHT

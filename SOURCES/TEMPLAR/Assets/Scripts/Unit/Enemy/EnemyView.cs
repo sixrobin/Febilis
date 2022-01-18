@@ -11,6 +11,7 @@
 
         private const string CHARGE = "Charge";
         private const string CHARGE_ANTICIPATION = "Charge_Anticipation";
+        private const string CHARGE_COLLISION = "Charge_Collision";
         private const string IS_WALKING = "IsWalking";
         private const string ATTACK_ANTICIPATION = "Attack_Anticipation";
 
@@ -39,10 +40,16 @@
             _animator.SetTrigger(CHARGE_ANTICIPATION);
         }
 
+        public void PlayChargeCollisionAnimation()
+        {
+            _animator.SetTrigger(CHARGE_COLLISION);
+        }
+
         public void ResetChargeTriggers()
         {
             _animator.ResetTrigger(CHARGE);
             _animator.ResetTrigger(CHARGE_ANTICIPATION);
+            _animator.ResetTrigger(CHARGE_COLLISION);
         }
 
         public void SetupAttackAnimationsDatas(Actions.AttackEnemyAction attackAction, Datas.Attack.AttackDatas attackDatas)

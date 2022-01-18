@@ -14,6 +14,8 @@
         public virtual bool ShouldApplyGravity => !ActionDatas.DontApplyGravity;
         public virtual bool CantBeHurt => !ActionDatas.CantBeHurt;
 
+        public bool IsCurrentAction => EnemyCtrl.CurrAction == this;
+
         public abstract bool CanExit();
         public abstract void Execute();
 
