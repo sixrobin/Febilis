@@ -60,6 +60,7 @@
                 && !PlayerCtrl.IsHealing
                 && (!PlayerCtrl.HealthCtrl.HealthSystem.IsFull && HealsLeft > 0 || DebugMode)
                 && PlayerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL)
+                && PlayerCtrl.CollisionsCtrl.Below
                 && !Manager.BoardsTransitionManager.IsInBoardTransition;
         }
 
