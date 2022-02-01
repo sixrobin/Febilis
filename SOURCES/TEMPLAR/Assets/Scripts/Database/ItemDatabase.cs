@@ -167,7 +167,7 @@
 
             if (spritesKeys.Count != datasKeys.Count)
             {
-                Instance.LogError($"{GetType().Name} has a different amount of items sprites ({spritesKeys.Count}) than items datas ({datasKeys.Count}).");
+                Instance.LogWarning($"{GetType().Name} has a different amount of items sprites ({spritesKeys.Count}) than items datas ({datasKeys.Count}).");
                 return;
             }
 

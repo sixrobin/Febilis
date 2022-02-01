@@ -1,5 +1,6 @@
 ﻿namespace Templar.Boss
 {
+    using RSLib.Maths;
     using Templar.Unit;
     using UnityEngine;
 
@@ -68,7 +69,10 @@
 
             Manager.GameManager.PlayerCtrl.HealthCtrl.UnitKilled += OnPlayerKilled;
 
-            StartCoroutine(BossIntroCoroutine());
+            Manager.GameManager.PlayerCtrl.RollCtrl.Interrupt();
+            Manager.GameManager.PlayerCtrl.AttackCtrl.CancelAttack();
+
+            StartCoroutine(FocusCameraOnBossCoroutine());
             if (_bossIntroDatas.DisallowInputs)
                 StartCoroutine(DisallowInputsCoroutine());
 
@@ -97,17 +101,35 @@
             Manager.GameManager.PlayerCtrl.AllowInputs(true);
         }
 
-        private System.Collections.IEnumerator BossIntroCoroutine()
+        private System.Collections.IEnumerator FocusCameraOnBossCoroutine()
         {
-            Vector2 bossesAveragePosition = RSLib.Helpers.ComputeAveragePosition(_fightBosses);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.CameraFocusDelay);
+
+            Vector3 initPosition = Manager.GameManager.CameraCtrl.BaseTargetPosition;
+            Vector3 focusPosition = RSLib.Helpers.ComputeAveragePosition(_fightBosses) + _bossIntroDatas.CameraFocusPositionOffset;
             GameObject bossesAveragePivot = new GameObject("Boss Camera Focus Position");
-            bossesAveragePivot.transform.position = bossesAveragePosition;
+            bossesAveragePivot.transform.position = initPosition;
 
             if (_bossIntroDatas.CameraFocusBoss)
                 Manager.GameManager.CameraCtrl.SetOverrideTarget(bossesAveragePivot.transform);
 
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.TotalDuration);
+            for (float t = 0f; t < 1f; t += Time.deltaTime / _bossIntroDatas.CameraInDuration)
+            {
+                bossesAveragePivot.transform.position = Vector3.Lerp(initPosition, focusPosition, t.Ease(_bossIntroDatas.CameraInCurve));
+                yield return null;
+            }
 
+            bossesAveragePivot.transform.position = focusPosition;
+
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.CameraFocusedDuration);
+
+            for (float t = 0f; t < 1f; t += Time.deltaTime / _bossIntroDatas.CameraOutDuration)
+            {
+                bossesAveragePivot.transform.position = Vector3.Lerp(focusPosition, initPosition, t.Ease(_bossIntroDatas.CameraOutCurve));
+                yield return null;
+            }
+        
+            bossesAveragePivot.transform.position = initPosition;
             Manager.GameManager.CameraCtrl.ResetOverrideTarget();
             Destroy(bossesAveragePivot);
         }
@@ -115,14 +137,14 @@
         private void Start()
         {
             if (Manager.FlagsManager.Check(this))
-                Debug.LogError("Boss fight already done, disabling it.", gameObject);
+                Debug.LogError("[TODO] Boss fight already done, disabling it.", gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             // [TMP] Did this to try out fight, but maybe this should be done another way.
 
-            if (_bossesToKillLeft > -1) // [TMP] Condition to avoid triggering fight mutliple times.
+            if (_bossesToKillLeft > -1) // [TMP] Condition to avoid triggering fight multiple times.
                 return;
 
             if (collision.gameObject.TryGetComponent<Unit.Player.PlayerController>(out _))

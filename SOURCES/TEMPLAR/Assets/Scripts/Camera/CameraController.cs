@@ -47,6 +47,8 @@
         public Boards.OptionalBoardBounds InitBoardBounds => _initBounds;
         public Boards.BoardBounds CurrBoardBounds { get; private set; }
 
+        public Vector3 BaseTargetPosition => _focusArea.Center;
+
         public bool Frozen { get; private set; }
 
         public Transform OverrideTarget { get; private set; }
@@ -130,7 +132,7 @@
 
         private Vector3 ComputeTargetPosition()
         {
-            return (OverrideTarget?.position ?? _focusArea.Center) + Vector3.up * _cameraDatas.HeightOffset;
+            return (OverrideTarget?.position ?? BaseTargetPosition) + Vector3.up * _cameraDatas.HeightOffset;
         }
 
         private void ComputeLookAheadPosition(ref Vector3 pos)
@@ -263,14 +265,15 @@
 
             Vector3 targetPosition = ComputeTargetPosition();
 
+            // Don't take input into account when focusing something else than the player.
             if (OverrideTarget != null)
             {
                 ComputeLookAheadPosition(ref targetPosition);
                 ComputeLookVerticalPosition(ref targetPosition);
-                ComputeDampedPosition(ref targetPosition);
-                ComputeBoundedPosition(ref targetPosition);
             }
 
+            ComputeDampedPosition(ref targetPosition);
+            ComputeBoundedPosition(ref targetPosition);
             ComputeShakePosition(ref targetPosition);
 
             transform.position = targetPosition.WithZ(transform.position.z);
