@@ -15,5 +15,12 @@ MonoBehaviour:
   _totalDuration: 4.5
   _bossNameAppearanceDelay: 1
   _bossNameDuration: 3
-  _cameraFocusBoss: 1
   _disallowInputs: 1
+  _cameraFocusBoss: 1
+  _cameraFocusPositionOffset: {x: 0, y: 2, z: 0}
+  _cameraFocusDelay: 0.5
+  _cameraInDuration: 0.5
+  _cameraOutDuration: 0.5
+  _cameraFocusedDuration: 1
+  _cameraInCurve: 0
+  _cameraOutCurve: 0
