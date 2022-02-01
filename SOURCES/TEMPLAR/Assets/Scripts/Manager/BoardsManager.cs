@@ -69,7 +69,7 @@
                 {
                     GameManager.CameraCtrl.SetBoardBounds(boardsBounds[i]);
                     if (boardsBounds[i].Board != null)
-                        GameManager.CameraCtrl.SetColor(boardsBounds[i].Board.BackgroundColor);
+                        GameManager.CameraCtrl.SetBackgroundColor(boardsBounds[i].Board.BackgroundColor);
 
                     CurrentBoard = boardsBounds[i].Board;
 

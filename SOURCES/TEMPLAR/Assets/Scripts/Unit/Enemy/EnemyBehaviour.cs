@@ -31,6 +31,8 @@
                     Actions[i] = new ChaseEnemyAction(EnemyCtrl, chaseDatas);
                 else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.FleeEnemyActionDatas fleeDatas)
                     Actions[i] = new FleeEnemyAction(EnemyCtrl, fleeDatas);
+                else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.WaitEnemyActionDatas waitDatas)
+                    Actions[i] = new WaitEnemyAction(EnemyCtrl, waitDatas);
                 else
                     CProLogger.LogError(this, $"Unknown action type {Actions[i].GetType().FullName}");
             }

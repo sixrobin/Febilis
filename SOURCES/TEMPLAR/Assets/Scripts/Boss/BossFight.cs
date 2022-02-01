@@ -68,6 +68,7 @@
 
             Manager.GameManager.PlayerCtrl.HealthCtrl.UnitKilled += OnPlayerKilled;
 
+            StartCoroutine(BossIntroCoroutine());
             if (_bossIntroDatas.DisallowInputs)
                 StartCoroutine(DisallowInputsCoroutine());
 
@@ -94,6 +95,21 @@
             Manager.GameManager.PlayerCtrl.AllowInputs(false);
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.TotalDuration);
             Manager.GameManager.PlayerCtrl.AllowInputs(true);
+        }
+
+        private System.Collections.IEnumerator BossIntroCoroutine()
+        {
+            Vector2 bossesAveragePosition = RSLib.Helpers.ComputeAveragePosition(_fightBosses);
+            GameObject bossesAveragePivot = new GameObject("Boss Camera Focus Position");
+            bossesAveragePivot.transform.position = bossesAveragePosition;
+
+            if (_bossIntroDatas.CameraFocusBoss)
+                Manager.GameManager.CameraCtrl.SetOverrideTarget(bossesAveragePivot.transform);
+
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.TotalDuration);
+
+            Manager.GameManager.CameraCtrl.ResetOverrideTarget();
+            Destroy(bossesAveragePivot);
         }
 
         private void Start()

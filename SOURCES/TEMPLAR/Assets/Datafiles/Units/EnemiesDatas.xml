@@ -226,17 +226,15 @@
             </Conditions>
             <Actions>
                <Flee>
-                  <FacePlayer>true</FacePlayer>
+                  <FacePlayer/>
                </Flee>
             </Actions>
          </Behaviour>
-         <Behaviour Name="Waiting">
+         <Behaviour Name="PreFight">
             <Actions>
-               <BackAndForth>
-                  <Range>2.5</Range>
-                  <Pause Min="0.5" Max="1.5"/>
-                  <RangeFluctuationOnPause>0</RangeFluctuationOnPause>
-               </BackAndForth>
+               <Wait>
+                  <FacePlayer/>
+               </Wait>
             </Actions>
          </Behaviour>
       </Behaviours>

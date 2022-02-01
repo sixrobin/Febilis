@@ -168,9 +168,27 @@
             base.Deserialize(container);
 
             XContainer fleeElement = container as XElement;
+            FacePlayer = fleeElement.Element("FacePlayer") != null;
+        }
+    }
 
-            XElement facePlayerElement = fleeElement.Element("FacePlayer");
-            FacePlayer = facePlayerElement?.ValueToBool() ?? false;
+
+    public class WaitEnemyActionDatas : EnemyActionDatas
+    {
+        public const string ID = "Wait";
+
+        public bool FacePlayer { get; private set; }
+
+        public WaitEnemyActionDatas(XContainer container) : base(container)
+        {
+        }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XContainer waitElement = container as XElement;
+            FacePlayer = waitElement.Element("FacePlayer") != null;
         }
     }
 }

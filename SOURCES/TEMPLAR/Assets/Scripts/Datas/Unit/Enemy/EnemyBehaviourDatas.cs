@@ -34,23 +34,21 @@
                     case AttackEnemyActionDatas.ID:
                         Actions.Add(new AttackEnemyActionDatas(actionElement));
                         break;
-
                     case BackAndForthEnemyActionDatas.ID:
                         Actions.Add(new BackAndForthEnemyActionDatas(actionElement));
                         break;
-
                     case ChargeEnemyActionDatas.ID:
                         Actions.Add(new ChargeEnemyActionDatas(actionElement));
                         break;
-
                     case ChaseEnemyActionDatas.ID:
                         Actions.Add(new ChaseEnemyActionDatas(actionElement));
                         break;
-
                     case FleeEnemyActionDatas.ID:
                         Actions.Add(new FleeEnemyActionDatas(actionElement));
                         break;
-
+                    case WaitEnemyActionDatas.ID:
+                        Actions.Add(new WaitEnemyActionDatas(actionElement));
+                        break;
                     default:
                         UnityEngine.Debug.LogError($"Unknown action Id {actionElement.Name.LocalName}.");
                         continue;
