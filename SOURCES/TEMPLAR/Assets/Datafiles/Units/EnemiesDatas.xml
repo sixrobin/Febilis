@@ -159,7 +159,7 @@
       <RunSpeed>8</RunSpeed>
       <HurtDur>0.3</HurtDur>
       <PlayerDetectionDist>4</PlayerDetectionDist>
-      <PlayerLoseDist>10</PlayerLoseDist>
+      <PlayerLoseDist>-1</PlayerLoseDist>
       <Physics>
          <Jump>
             <Height>2</Height>

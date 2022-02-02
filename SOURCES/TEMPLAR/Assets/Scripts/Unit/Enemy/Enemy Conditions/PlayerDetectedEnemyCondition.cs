@@ -22,7 +22,8 @@
 
         private bool CheckPlayerLost()
         {
-            return (EnemyCtrl.PlayerCtrl.transform.position - EnemyCtrl.transform.position).sqrMagnitude > EnemyCtrl.EnemyDatas.PlayerLoseDistSqr;
+            return EnemyCtrl.EnemyDatas.PlayerLoseDist != -1f
+                && (EnemyCtrl.PlayerCtrl.transform.position - EnemyCtrl.transform.position).sqrMagnitude > EnemyCtrl.EnemyDatas.PlayerLoseDistSqr;
         }
     }
 }
