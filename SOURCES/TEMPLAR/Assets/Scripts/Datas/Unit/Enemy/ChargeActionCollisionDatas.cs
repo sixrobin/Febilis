@@ -10,7 +10,9 @@
         }
 
         public string AttackId { get; private set; }
+
         public float StunDur { get; private set; }
+        public float StunDelay { get; private set; }
 
         public ShakeTraumaDatas Trauma { get; private set; }
 
@@ -22,8 +24,14 @@
             AttackId = attackIdElement?.Value ?? string.Empty;
 
             XElement stunElement = chargeCollisionElement.Element("Stun");
-            UnityEngine.Assertions.Assert.IsFalse(stunElement.IsNullOrEmpty(), $"Stun element is null or empty for charge collision datas.");
-            StunDur = stunElement.ValueToFloat();
+            if (stunElement != null)
+            {
+                XAttribute stunDurAttribute = stunElement.Attribute("Dur");
+                StunDur = stunDurAttribute?.ValueToFloat() ?? 0;
+
+                XAttribute stunDelayAttribute = stunElement.Attribute("Delay");
+                StunDelay = stunDelayAttribute?.ValueToFloat() ?? 0;
+            }
 
             XElement traumaElement = chargeCollisionElement.Element("Trauma");
             if (traumaElement != null)

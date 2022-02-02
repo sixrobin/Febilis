@@ -107,6 +107,8 @@
          <Dur>0.35</Dur>
          <AirborneMult>1</AirborneMult>
       </Recoil>
+      <Traumas>
+      </Traumas>
    </EnemyAttack>
    
    <EnemyAttack Id="rat_king_charge_self_stun">
@@ -119,6 +121,8 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0</FreezeFrameDur>
       </Hit>
+      <Traumas>
+      </Traumas>
    </EnemyAttack>
    
 </AttacksDatas>

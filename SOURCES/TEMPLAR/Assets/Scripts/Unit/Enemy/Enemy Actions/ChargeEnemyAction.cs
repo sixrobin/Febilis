@@ -99,7 +99,7 @@
 
             if (!string.IsNullOrEmpty(attackId))
             {
-                Attack.HitInfos hitInfos = new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform, true);
+                Attack.HitInfos hitInfos = new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform, collisionDatas);
 
                 if (playerCtrl != null)
                     playerCtrl.HealthCtrl.OnHit(hitInfos);
@@ -110,14 +110,21 @@
             if (collisionDatas.StunDur > 0f)
             {
                 EnemyCtrl.Stun(
-                    collisionDatas.StunDur,
-                    waitBefore: () => !EnemyCtrl.BeingHurt,
+                    dur: collisionDatas.StunDur,
+                    delay: collisionDatas.StunDelay,
+                    conditionalDelay: () => !EnemyCtrl.BeingHurt,
                     callback: () =>
                     {
                         EnemyCtrl.EnemyView.PlayIdleAnimation();
                         EnemyCtrl.ForceUpdateCurrentBehaviour();
                         EnemyCtrl.ForceUpdateCurrentAction();
                     });
+            }
+            else
+            {
+                EnemyCtrl.EnemyView.PlayIdleAnimation();
+                EnemyCtrl.ForceUpdateCurrentBehaviour();
+                EnemyCtrl.ForceUpdateCurrentAction();
             }
 
             Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(playerCtrl != null ? ActionDatas.PlayerCollisionDatas.Trauma : ActionDatas.WallCollisionDatas.Trauma);

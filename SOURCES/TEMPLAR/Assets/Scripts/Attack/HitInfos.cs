@@ -11,16 +11,16 @@
             Source = source;
         }
 
-        public HitInfos(Datas.Attack.AttackDatas attackDatas, float attackDir, Transform source, bool chargeCollision)
+        public HitInfos(Datas.Attack.AttackDatas attackDatas, float attackDir, Transform source, Datas.Unit.Enemy.ChargeActionCollisionDatas chargeCollisionDatas)
             : this(attackDatas, attackDir, source)
         {
-            ChargeCollision = chargeCollision;
+            ChargeCollisionDatas = chargeCollisionDatas;
         }
 
         public Datas.Attack.AttackDatas AttackDatas { get; private set; }
         public float AttackDir { get; private set; }
         public Transform Source { get; private set; }
-        public bool ChargeCollision { get; private set; }
+        public Datas.Unit.Enemy.ChargeActionCollisionDatas ChargeCollisionDatas { get; private set; }
 
         public float ComputeHitDir(Transform attackTarget)
         {

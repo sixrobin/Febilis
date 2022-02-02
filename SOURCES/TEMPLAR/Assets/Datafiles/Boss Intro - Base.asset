@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a648443506068847a31eef11bec7c85, type: 3}
   m_Name: Boss Intro - Base
   m_EditorClassIdentifier: 
-  _totalDuration: 4.5
-  _bossNameAppearanceDelay: 1
+  _totalDuration: 5
+  _bossNameAppearanceDelay: 1.3
   _bossNameDuration: 3
   _disallowInputs: 1
   _cameraFocusBoss: 1
-  _cameraFocusPositionOffset: {x: 0, y: 2, z: 0}
+  _cameraFocusPositionOffset: {x: 0, y: 1, z: 0}
   _cameraFocusDelay: 0.5
-  _cameraInDuration: 0.5
-  _cameraOutDuration: 0.5
-  _cameraFocusedDuration: 1
-  _cameraInCurve: 0
-  _cameraOutCurve: 0
+  _cameraInDuration: 1.2
+  _cameraOutDuration: 1.2
+  _cameraFocusedDuration: 2
+  _cameraInCurve: 27
+  _cameraOutCurve: 26

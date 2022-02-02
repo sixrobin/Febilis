@@ -1,5 +1,6 @@
 ﻿namespace Templar.Unit
 {
+    using RSLib.Extensions;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -18,6 +19,7 @@
         [SerializeField] protected SpriteRenderer _spriteRenderer = null;
         [SerializeField] protected Animator _animator = null;
         [SerializeField] protected RSLib.ImageEffects.SpriteBlink _spriteBlink = null;
+        [SerializeField] protected GameObject _stunStars = null;
 
         [Header("AOC")]
         [SerializeField] private AnimatorOverrideController _aocTemplate = null;
@@ -26,6 +28,8 @@
 
         protected AnimatorOverrideController _aoc;
         protected List<KeyValuePair<AnimationClip, AnimationClip>> _initClips;
+
+        private float _stunStarsInitX;
 
         public abstract float DeadFadeDelay { get; }
 
@@ -74,9 +78,21 @@
             _animator.SetTrigger(HURT);
         }
 
-        public virtual void PlayStunAnimation()
+        public virtual void PlayStunAnimation(float dir)
         {
             _animator.SetTrigger(STUN);
+
+            if (_stunStars != null)
+            {
+                _stunStars.transform.SetLocalPositionX(_stunStarsInitX * dir);
+                _stunStars.SetActive(true);
+            }
+        }
+
+        public virtual void OnStunAnimationOver()
+        {
+            if (_stunStars != null)
+                _stunStars.SetActive(false);
         }
 
         public virtual void PlayDeathAnimation(float dir)
@@ -118,6 +134,12 @@
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(delay);
             _spriteBlink.BlinkColor(count);
+        }
+
+        protected virtual void Start()
+        {
+            if (_stunStars != null)
+                _stunStarsInitX = _stunStars.transform.localPosition.x;
         }
     }
 }

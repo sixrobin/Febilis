@@ -147,12 +147,12 @@
                 _currAction.OnExit();
             }
 
-            if (args.HitDatas.ChargeCollision || CurrAction?.CantBeHurt != false)
+            if (args.HitDatas.ChargeCollisionDatas != null || CurrAction?.CantBeHurt != false)
             {
                 if (args.HitDatas.AttackDatas.RecoilDatas != null)
                     _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
     
-                StartCoroutine(_hurtCoroutine = HurtCoroutine(args.HitDatas.ChargeCollision));
+                StartCoroutine(_hurtCoroutine = HurtCoroutine(args.HitDatas.ChargeCollisionDatas));
             }
         }
 
@@ -230,11 +230,9 @@
             }
         }
 
-        private System.Collections.IEnumerator HurtCoroutine(bool chargeCollision)
+        private System.Collections.IEnumerator HurtCoroutine(Datas.Unit.Enemy.ChargeActionCollisionDatas chargeCollisionDatas)
         {
-            Debug.LogError($"Hurt (chargeCollision:{chargeCollision})");
-
-            if (chargeCollision)
+            if (chargeCollisionDatas != null)
                 EnemyView.PlayChargeCollisionAnimation();
             else
                 EnemyView.PlayHurtAnimation();
@@ -242,7 +240,9 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(EnemyDatas.HurtDur);
 
             _hurtCoroutine = null;
-            if (!IsDead && !AttackCtrl.IsAttacking)
+            if (!IsDead
+                && !AttackCtrl.IsAttacking
+                && (chargeCollisionDatas == null || chargeCollisionDatas.StunDur == 0f))
                 EnemyView.PlayIdleAnimation();
         }
 
