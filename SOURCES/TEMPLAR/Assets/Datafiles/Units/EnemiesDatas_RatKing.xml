@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EnemiesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EnemiesDatas.xsd">
+
+   <EnemyDatas Id="RatKing">
+      <Health>1000</Health>
+      <WalkSpeed>4</WalkSpeed>
+      <RunSpeed>8</RunSpeed>
+      <HurtDur>0.3</HurtDur>
+      <PlayerDetectionDist>4</PlayerDetectionDist>
+      <PlayerLoseDist>-1</PlayerLoseDist>
+      <Physics>
+         <Jump>
+            <Height>2</Height>
+            <ApexDur>0.3</ApexDur>
+         </Jump>
+         <HurtCheckEdge>true</HurtCheckEdge>
+      </Physics>
+      <Behaviours>
+         <Behaviour Name="Phase1">
+            <Conditions>
+               <HealthPercentageMin Threshold="0.66"/>
+               <PlayerAlive/>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <!--TODO: Attack if last action is a charge.-->
+               <Charge>
+                  <Conditions>
+                     <LastActionsCheck ActionsCount="1">
+                        <Exclude>Charge</Exclude>
+                     </LastActionsCheck>
+                     <PlayerInRange Range="4"/>
+                  </Conditions>
+                  <CantBeHurt/>
+                  <AnticipationDuration>0.9</AnticipationDuration>
+                  <InitSpeed>6</InitSpeed>
+                  <Acceleration>3</Acceleration>
+                  <PlayerCollision>
+                     <AttackId>rat_king_charge</AttackId>
+                     <Trauma X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Medium"/>
+                  </PlayerCollision>
+                  <WallCollision>
+                     <AttackId>rat_king_charge_self_stun</AttackId>
+                     <Stun Dur="2" Delay="0.5"/>
+                     <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>
+                  </WallCollision>
+               </Charge>
+               <Chase>
+                  <!--Not in charge range: approach.-->
+               </Chase>
+            </Actions>
+         </Behaviour>
+         <Behaviour Name="Phase2">
+            <Conditions>
+               <HealthPercentageMin Threshold="0.3"/>
+               <PlayerAlive/>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <Chase>
+                  <Conditions>
+                     <MaxHeightOffset Offset="0.2"/>
+                     <PlayerAlive/>
+                     <PlayerDetected/>
+                  </Conditions>
+               </Chase>
+            </Actions>
+         </Behaviour>
+         <Behaviour Name="Phase3">
+            <Conditions>
+               <PlayerAlive/>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <Flee>
+                  <FacePlayer/>
+               </Flee>
+            </Actions>
+         </Behaviour>
+         <Behaviour Name="PreFight">
+            <Actions>
+               <Wait>
+                  <FacePlayer/>
+               </Wait>
+            </Actions>
+         </Behaviour>
+      </Behaviours>
+      <!--<EventBehaviours>
+         Just some event ideas.
+         <OnHurtOver/>
+         <OnAttackHit/>
+         <OnPlayerDeath/>
+      </EventBehaviours>-->
+      <OnKilledTrauma>0.4</OnKilledTrauma>
+      <OnKilledLoot>
+         <Coins>5</Coins>
+      </OnKilledLoot>
+   </EnemyDatas>
+
+</EnemiesDatas>
