@@ -18,7 +18,8 @@
             EFFECTOR,
             HEAL,
             INTERACTION,
-            INVENTORY
+            INVENTORY,
+            JUMP
         }
 
         private void RaiseValidationEvent(ValidationType validationType)
@@ -34,39 +35,60 @@
         {
             Unit.Player.PlayerController playerCtrl = Manager.GameManager.PlayerCtrl;
             yield return new WaitUntil(() => playerCtrl.Initialized);
-            
-            // TODO: Only register events fitting specified validation type of each instance.
-            
-            playerCtrl.AttackCtrl.AttackHitTriggered += () => RaiseValidationEvent(ValidationType.ATTACK);
-            playerCtrl.RollCtrl.Rolled += () => RaiseValidationEvent(ValidationType.ROLL);
-            playerCtrl.CollisionsCtrl.EffectorDown += (effector) => RaiseValidationEvent(ValidationType.EFFECTOR);
-            playerCtrl.Interacter.Interacted += (interactable) => RaiseValidationEvent(ValidationType.INTERACTION);
 
-            playerCtrl.HealthCtrl.UnitHealthChanged += (args) =>
+            switch (_validationType)
             {
-                if (!args.IsLoss)
-                    RaiseValidationEvent(ValidationType.HEAL);
-            };
-            
-            Manager.GameManager.InventoryView.DisplayChanged += (displayed) =>
-            {
-                if (displayed)
-                    RaiseValidationEvent(ValidationType.INVENTORY);
-            };
+                case ValidationType.TRIGGER_ENTER:
+                case ValidationType.ROLL when _validatingTrigger.Enabled:
+                case ValidationType.JUMP when _validatingTrigger.Enabled:
+                    UnityEngine.Assertions.Assert.IsTrue(
+                        _validatingTrigger.Enabled && _validatingTrigger.Value != null,
+                        $"{nameof(InputTutorialDisplay)} validation type is set as {nameof(ValidationType.TRIGGER_ENTER)} but no collider is referenced and/or enabled!");
 
-            if (_validationType == ValidationType.TRIGGER_ENTER)
-            {
-                UnityEngine.Assertions.Assert.IsTrue(
-                    _validatingTrigger.Enabled && _validatingTrigger.Value != null,
-                    $"{nameof(InputTutorialDisplay)} validation type is set as {nameof(ValidationType.TRIGGER_ENTER)} but no collider is referenced!");
-
-                if (!_validatingTrigger.Value.TryGetComponent(out RSLib.Physics2DEventReceiver physics2DEventReceiver))
-                {
-                    CProLogger.LogError(this, $"{nameof(InputTutorialDisplay)} collider has no {nameof(RSLib.Physics2DEventReceiver)}!");
-                    yield break;
-                }
+                    if (!_validatingTrigger.Value.TryGetComponent(out RSLib.Physics2DEventReceiver physics2DEventReceiver))
+                    {
+                        CProLogger.LogError(this, $"{nameof(InputTutorialDisplay)} collider has no {nameof(RSLib.Physics2DEventReceiver)}!");
+                        yield break;
+                    }
+                    
+                    physics2DEventReceiver.TriggerEntered += (collider) => RaiseValidationEvent(_validationType);
+                    break;
                 
-                physics2DEventReceiver.TriggerEntered += (collider) => RaiseValidationEvent(ValidationType.TRIGGER_ENTER);
+                case ValidationType.ROLL when !_validatingTrigger.Enabled:
+                    playerCtrl.RollCtrl.Rolled += () => RaiseValidationEvent(ValidationType.ROLL);
+                    break;
+                
+                case ValidationType.JUMP when !_validatingTrigger.Enabled:
+                    playerCtrl.JumpCtrl.Jumped += () => RaiseValidationEvent(ValidationType.JUMP);
+                    break;
+                                
+                case ValidationType.HEAL:
+                    playerCtrl.HealthCtrl.UnitHealthChanged += (args) =>
+                    {
+                        if (!args.IsLoss)
+                            RaiseValidationEvent(ValidationType.HEAL);
+                    };
+                    break;
+                
+                case ValidationType.INVENTORY:
+                    Manager.GameManager.InventoryView.DisplayChanged += (displayed) =>
+                    {
+                        if (displayed)
+                            RaiseValidationEvent(ValidationType.INVENTORY);
+                    };
+                    break;
+
+                case ValidationType.ATTACK:
+                    playerCtrl.AttackCtrl.AttackHitTriggered += () => RaiseValidationEvent(ValidationType.ATTACK);
+                    break;
+                
+                case ValidationType.EFFECTOR:
+                    playerCtrl.CollisionsCtrl.EffectorDown += (effector) => RaiseValidationEvent(ValidationType.EFFECTOR);
+                    break;
+                
+                case ValidationType.INTERACTION:
+                    playerCtrl.Interacter.Interacted += (interactable) => RaiseValidationEvent(ValidationType.INTERACTION);
+                    break;
             }
             
             Debug.LogError("Registering move event."); // TODO.
