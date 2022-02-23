@@ -324,7 +324,7 @@
 
             Triggerables.TriggerableObject.SharedTriggerablesByColliders.TryGetValue(hit.collider, out Triggerables.TriggerableObject triggerable);
 
-            bool destroySuccess = triggerable != null ? TryDestroy(triggerable) : false;
+            bool destroySuccess = triggerable != null && TryDestroy(triggerable);
             if (destroySuccess)
                 return false;
 
@@ -390,7 +390,6 @@
 
         private void RegisterCollision(CollisionInfos collisionInfos)
         {
-            // [TODO] CollisionInfos pooling ?
             _detectedCollisionsForEvent.Enqueue(collisionInfos);
         }
     }

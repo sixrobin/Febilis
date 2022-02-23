@@ -93,8 +93,8 @@
             ForceHurt = attackElement.Element("ForceHurt") != null;
 
             XElement recoilElement = attackElement.Element("Recoil");
-            UnityEngine.Assertions.Assert.IsFalse(recoilElement.IsNullOrEmpty(), $"Recoil element is null or empty for attack {Id}.");
-            RecoilDatas = new RecoilDatas(recoilElement);
+            if (recoilElement != null)
+               RecoilDatas = new RecoilDatas(recoilElement);
 
             XElement hitFreezeFrameDurElement = hitElement.Element("FreezeFrameDur");
             HitFreezeFrameDur = hitFreezeFrameDurElement?.ValueToFloat() ?? 0f;

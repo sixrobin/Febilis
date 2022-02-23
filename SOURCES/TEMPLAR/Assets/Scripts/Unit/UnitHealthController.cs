@@ -10,8 +10,8 @@
     {
         public class UnitHealthChangedEventArgs : RSLib.HealthSystem.HealthChangedEventArgs
         {
-            public UnitHealthChangedEventArgs(int previous, int current, Attack.HitInfos hitDatas)
-                : base(previous, current)
+            public UnitHealthChangedEventArgs(int previous, int current, int max, Attack.HitInfos hitDatas)
+                : base(previous, current, max)
             {
                 HitDatas = hitDatas;
             }
@@ -27,13 +27,14 @@
 
         public class UnitKilledEventArgs : System.EventArgs
         {
-            public UnitKilledEventArgs(Attack.HitInfos hitDatas)
+            public UnitKilledEventArgs(UnitController sourceUnit, Attack.HitInfos hitDatas)
             {
+                SourceUnit = sourceUnit;
                 HitDatas = hitDatas;
             }
 
-            // If this is null, death comes from another source than an attack.
-            public Attack.HitInfos HitDatas { get; private set; }
+            public UnitController SourceUnit { get; }
+            public Attack.HitInfos HitDatas { get; private set; }  // If null, death comes from another source than an attack.
         }
 
         [SerializeField] private Collider2D _collider = null;
@@ -50,27 +51,30 @@
         public event UnitHealthChangedEventHandler UnitHealthChanged;
         public event UnitKilledEventHandler UnitKilled;
 
+        public UnitController Unit { get; private set; }
         public RSLib.HealthSystem HealthSystem { get; private set; }
 
         public abstract Attack.HitLayer HitLayer { get; }
 
-        public virtual bool CanBeHit()
+        public virtual bool CanBeHit(Attack.HitInfos hitInfos)
         {
             return !HealthSystem.IsDead;
         }
 
-        public virtual void OnHit(Attack.HitInfos hitDatas)
+        public virtual void OnHit(Attack.HitInfos hitInfos)
         {
             UnityEngine.Assertions.Assert.IsFalse(HealthSystem.IsDead, "Hitting an unit that is already dead.");
 
-            _lastHitDatas = hitDatas;
-            HealthSystem.Damage(hitDatas.AttackDatas.Dmg);
+            _lastHitDatas = hitInfos;
+            HealthSystem.Damage(hitInfos.AttackDatas.Dmg);
         }
 
-        public virtual void Init(int maxHealth, int initHealth = -1)
+        public virtual void Init(UnitController unit, int maxHealth, int initHealth = -1)
         {
             if (_init)
                 return;
+
+            Unit = unit;
 
             HealthSystem = initHealth == -1 ? new RSLib.HealthSystem(maxHealth) : new RSLib.HealthSystem(maxHealth, initHealth);
 
@@ -109,7 +113,7 @@
 
         protected virtual void OnKilled()
         {
-            UnitKilled?.Invoke(new UnitKilledEventArgs(_lastHitDatas));
+            UnitKilled?.Invoke(new UnitKilledEventArgs(Unit, _lastHitDatas));
             _lastHitDatas = null;
             _collider.enabled = false;
         }

@@ -21,6 +21,7 @@
 
         protected Templar.Physics.Recoil _currentRecoil;
         private System.Collections.IEnumerator _deadFadeCoroutine;
+        private System.Collections.IEnumerator _stunCoroutine;
 
         public Templar.Physics.CollisionsController CollisionsCtrl { get; protected set; }
 
@@ -29,6 +30,8 @@
         public bool IsDead => HealthCtrl.HealthSystem?.IsDead ?? false;
 
         public bool IsOnMovingPlatform { get; set; }
+
+        public bool IsStunned { get; private set; }
 
         void Templar.Physics.MovingPlatform.IMovingPlatformPassenger.OnPlatformMoved(Vector3 vel, bool standingOnPlatform)
         {
@@ -44,6 +47,11 @@
             Translate(vel, triggerEvents: false, standingOnPlatform: standingOnPlatform);
         }
 
+        public void SetDirection(float dir)
+        {
+            CurrDir = dir;
+        }
+
         public virtual void Translate(Vector3 vel, bool triggerEvents = true, bool checkEdge = false, bool effectorDown = false, bool standingOnPlatform = false)
         {
             vel = CollisionsCtrl.ComputeCollisions(vel * Time.deltaTime, triggerEvents, checkEdge, effectorDown, standingOnPlatform);
@@ -57,8 +65,13 @@
 
         public void LookAt(Vector3 target)
         {
-            CurrDir = Mathf.Sign(target.x - transform.position.x);
+            SetDirection(Mathf.Sign(target.x - transform.position.x));
             UnitView.FlipX(CurrDir < 0f);
+        }
+
+        public void Stun(float dur, float delay, System.Func<bool> conditionalDelay, System.Action callback = null)
+        {
+            StartCoroutine(_stunCoroutine = StunCoroutine(dur, delay, conditionalDelay, callback));
         }
 
         protected virtual void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -108,6 +121,22 @@
             _deadFadeCoroutine = null;
             if (IsDead)
                 UnitView.PlayDeadFadeAnimation();
+        }
+
+        private System.Collections.IEnumerator StunCoroutine(float dur, float delay, System.Func<bool> conditionalDelay, System.Action callback = null)
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(delay);
+            yield return new WaitUntil(conditionalDelay);
+
+            UnitView.PlayStunAnimation(CurrDir);
+
+            IsStunned = true;
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(dur);
+            IsStunned = false;
+
+            UnitView.OnStunAnimationOver();
+
+            callback?.Invoke();
         }
 
         protected virtual void Update()

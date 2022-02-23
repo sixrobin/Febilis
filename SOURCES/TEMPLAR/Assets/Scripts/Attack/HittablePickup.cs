@@ -13,12 +13,12 @@
 
         public bool Interactable { get; set; }
 
-        public bool CanBeHit()
+        public bool CanBeHit(HitInfos hitInfos)
         {
             return Interactable;
         }
 
-        public void OnHit(HitInfos hitDatas)
+        public void OnHit(HitInfos hitInfos)
         {
             Hit?.Invoke();
             _onHit?.Invoke();

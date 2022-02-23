@@ -288,6 +288,7 @@
         private void Awake()
         {
             ResetPlatform();
+
             _raycastsCtrl = new RaycastsController(_boxCollider2D);
             MovementTriggered = !_movementTrigger.Enabled || _movementTrigger.Value == null; // [TODO] Or if loading a platform already triggered.
         

@@ -214,6 +214,8 @@
                 }
 
                 StopMoveSlot();
+                OnInventorySlotHovered(slot);
+
                 return;
             }
 

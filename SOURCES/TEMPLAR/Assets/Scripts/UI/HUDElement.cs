@@ -52,12 +52,12 @@
         {
         }
 
-        private void OnDialogueStarted(Datas.Dialogue.DialogueDatas dialogueDatas)
+        protected virtual void OnDialogueStarted(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             Display(false);
         }
 
-        private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
+        protected virtual void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
         {
             Display(true);
         }

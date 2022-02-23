@@ -9,7 +9,7 @@
 
     public class EnemyDatabase : RSLib.Framework.ConsoleProSingleton<EnemyDatabase>, IDatabase
     {
-        [SerializeField] private TextAsset _enemiesDatas = null;
+        [SerializeField] private TextAsset[] _enemiesDatas = null;
         [SerializeField] private AnimationClip[] _animationClips = null;
 
 #if UNITY_EDITOR
@@ -33,14 +33,24 @@
 
         private void DeserializeEnemyDatas()
         {
-            XDocument enemiesDatasDoc = XDocument.Parse(_enemiesDatas.text, LoadOptions.SetBaseUri);
             EnemiesDatas = new System.Collections.Generic.Dictionary<string, Datas.Unit.Enemy.EnemyDatas>();
 
-            XElement enemiesDatasElement = enemiesDatasDoc.Element("EnemiesDatas");
-            foreach (XElement enemyDatasElement in enemiesDatasElement.Elements("EnemyDatas"))
+            System.Collections.Generic.List<XElement> allFilesElements = new System.Collections.Generic.List<XElement>();
+            
+            // Gather all documents main element in a list.
+            for (int i = _enemiesDatas.Length - 1; i >= 0; --i)
             {
-                Datas.Unit.Enemy.EnemyDatas enemyDatas = new Datas.Unit.Enemy.EnemyDatas(enemyDatasElement);
-                EnemiesDatas.Add(enemyDatas.Id, enemyDatas);
+                XDocument enemiesDatasDoc = XDocument.Parse(_enemiesDatas[i].text, LoadOptions.SetBaseUri);
+                allFilesElements.Add(enemiesDatasDoc.Element("EnemiesDatas"));
+            }
+
+            for (int i = allFilesElements.Count - 1; i >= 0; --i)
+            {
+                foreach (XElement enemyElement in allFilesElements[i].Elements("EnemyDatas"))
+                {
+                    Datas.Unit.Enemy.EnemyDatas enemyDatas = new Datas.Unit.Enemy.EnemyDatas(enemyElement);
+                    EnemiesDatas.Add(enemyDatas.Id, enemyDatas);
+                }
             }
 
             Log($"Deserialized {EnemiesDatas.Count} enemies datas.");

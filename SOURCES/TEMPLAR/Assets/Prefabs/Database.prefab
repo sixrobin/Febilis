@@ -48,7 +48,9 @@ MonoBehaviour:
   _overrideLogPrefix:
     _value: 
     _enabled: 0
-  _enemiesDatas: {fileID: 4900000, guid: baf44483c3f4d6a4188f4d88a2e7d401, type: 3}
+  _enemiesDatas:
+  - {fileID: 4900000, guid: baf44483c3f4d6a4188f4d88a2e7d401, type: 3}
+  - {fileID: 4900000, guid: 283b4525180fee840959364f1e278300, type: 3}
   _animationClips:
   - {fileID: 7400000, guid: 5a5198a519bb09541964fe9b5771c2fc, type: 2}
   - {fileID: 7400000, guid: 42812e55b61152a4380019fbefa01b8d, type: 2}

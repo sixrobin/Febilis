@@ -75,9 +75,10 @@
             EnemyCtrl.EnemyView.PlayWalkAnimation(true);
         }
 
-        public override void Reset()
+        public override void OnExit()
         {
-            base.Reset();
+            base.OnExit();
+
             IsOnPause = false;
             ComputeNextPauseDuration();
             ComputeRangeWithFluctuation();
@@ -85,7 +86,7 @@
 
         private void OnCollisionDetected(Physics.CollisionsController.CollisionInfos collisionInfos)
         {
-            if (EnemyCtrl.CurrAction != this)
+            if (!IsCurrentAction)
                 return;
 
             _sideCollision = EnemyCtrl.CurrDir == 1f && collisionInfos.Origin == Physics.CollisionsController.CollisionOrigin.RIGHT

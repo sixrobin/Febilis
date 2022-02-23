@@ -104,7 +104,7 @@
         {
             target.OnBoardEntered();
 
-            GameManager.CameraCtrl.SetColor(target.Board.BackgroundColor);
+            GameManager.CameraCtrl.SetBackgroundColor(target.Board.BackgroundColor);
             RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeOutDatas, (0f, 0f));
 
             GameManager.PlayerCtrl.ResetVelocity();

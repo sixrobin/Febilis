@@ -3,7 +3,6 @@
 - animations différentes par phase (besoin d'un ID pour l'idle de référence)
 - on voudra sans doute des mêmes patterns utilisables dans différentes phases, il faut donc les définir à part
 - bool "InvulnerableDuringCutscenes"
-- Flag "BossId" avec le dico qui va avec dans le FlagsManager
 - dans l'idéal il faudrait ajouter le système de phases aux ennemis basiques :
 	- ils pourraient en avoir besoin pour x raison
 	- les boss ne sont que des ennemis uniques avec une barre de vie affichée donc ça semble logique d'unifier les deux

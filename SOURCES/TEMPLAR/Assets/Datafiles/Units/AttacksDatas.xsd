@@ -1,0 +1,111 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+   <xs:include schemaLocation="../SharedDatas.xsd"/>
+
+   <xs:element name="AttacksDatas">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="PlayerAttack" type="PlayerAttackDatas" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="EnemyAttack"  type="EnemyAttackDatas" minOccurs="0" maxOccurs="unbounded"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:complexType name="AttackDatas">
+      <xs:sequence>
+         <xs:element name="Dmg" type="xs:positiveInteger" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Hit" type="HitDatas" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Unstoppable" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="ForceHurt" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Recoil" type="RecoilDatas" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Traumas" type="TraumasDatas" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="AnimSpeedMult" type="xs:float" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="Id" type="xs:token" use="required"/>
+   </xs:complexType>
+
+   <xs:complexType name="PlayerAttackDatas">
+      <xs:complexContent>
+         <xs:extension base="AttackDatas">
+            <xs:sequence>
+               <xs:element name="Dur" type="xs:float" minOccurs="1" maxOccurs="1"/>
+               <xs:element name="ChainAllowedTime" type="xs:float" minOccurs="0" maxOccurs="1"/>
+               <xs:element name="ControlVelocity" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                     <xs:sequence>
+                        <xs:element name="MoveSpeed" type="xs:float" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="Gravity" type="xs:float" minOccurs="1" maxOccurs="1"/>
+                     </xs:sequence>
+                  </xs:complexType>
+               </xs:element>
+               <xs:element name="OverrideMotionVFXId" type="xs:token" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="EnemyAttackDatas">
+      <xs:complexContent>
+         <xs:extension base="AttackDatas">
+            <xs:sequence>
+               <xs:element name="ClipsDurations" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                     <xs:sequence>
+                        <xs:element name="Anticipation" type="xs:float" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="Attack" type="xs:float" minOccurs="1" maxOccurs="1"/>
+                     </xs:sequence>
+                  </xs:complexType>
+               </xs:element>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   
+   
+   
+   <!-- █████████████ -->
+   <!--   HIT DATAS   -->
+   <!-- █████████████ -->
+
+   <xs:complexType name="HitDatas">
+      <xs:sequence>
+         <xs:element name="Delay" type="xs:float" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Dur" type="xs:float" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="Layers">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="LayerName" type="HitLayer" minOccurs="1" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DirComputationType" type="HitDirComputationType" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="FreezeFrameDur" type="xs:float" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="HitLayer" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="PLAYER"/>
+         <xs:enumeration value="ENEMY"/>
+         <xs:enumeration value="PICKUP"/>
+         <xs:enumeration value="UNITS"/>
+         <xs:enumeration value="ALL"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="HitDirComputationType" final="restriction">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="ATTACK_DIR"/>
+         <xs:enumeration value="X_OFFSET"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="TraumasDatas">
+      <xs:sequence>
+         <xs:element name="Base" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Hit" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
+      </xs:sequence>
+   </xs:complexType>
+   
+</xs:schema>

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AttacksDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="AttacksDatas.xsd">   
+
+   <!-- ████████████ -->
+   <!--   SKELETON   -->
+   <!-- ████████████ -->
+   
+   <EnemyAttack Id="skeleton_atk_base">
+      <Dmg>40</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.07</FreezeFrameDur>
+      </Hit>
+      <Recoil>
+         <Force>7</Force>
+         <Dur>0.25</Dur>
+         <AirborneMult>2</AirborneMult>
+      </Recoil>
+      <Traumas>
+         <Base X="0.25" Y="0.5" AddType="ADDITIVE" ShakeId="Small"/>
+         <Hit X="0.75" Y="0.75" AddType="OVERRIDE" ShakeId="Big"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.5</Anticipation>
+         <Attack>0.5</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+
+   <EnemyAttack Id="skeleton_atk_above">
+      <Dmg>30</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
+         <DirComputationType>X_OFFSET</DirComputationType>
+         <FreezeFrameDur>0.07</FreezeFrameDur>
+      </Hit>
+      <Recoil>
+         <Force>9</Force>
+         <Dur>0.3</Dur>
+         <AirborneMult>1.5</AirborneMult>
+      </Recoil>
+      <Traumas>
+         <Base X="0.25" Y="0.25" AddType="ADDITIVE" ShakeId="Small"/>
+         <Hit X="0.6" Y="0.6" AddType="OVERRIDE" ShakeId="Medium"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.4</Anticipation>
+         <Attack>0.5</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+
+
+   
+   <!-- █████████ -->
+   <!--    RAT    -->
+   <!-- █████████ -->
+
+   <EnemyAttack Id="rat_atk_base">
+      <Dmg>25</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.05</FreezeFrameDur>
+      </Hit>
+      <Recoil>
+         <Force>7</Force>
+         <Dur>0.25</Dur>
+         <AirborneMult>1</AirborneMult>
+      </Recoil>
+      <Traumas>
+         <Hit X="0.45" Y="0.45" AddType="OVERRIDE" ShakeId="Small"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.33</Anticipation>
+         <Attack>0.33</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+
+
+
+   <!-- ████████ -->
+   <!-- RAT KING -->
+   <!-- ████████ -->
+
+   <EnemyAttack Id="rat_king_charge">
+      <Dmg>40</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <ForceHurt/>
+      <Recoil>
+         <Force>9</Force>
+         <Dur>0.35</Dur>
+         <AirborneMult>1</AirborneMult>
+      </Recoil>
+      <Traumas>
+      </Traumas>
+   </EnemyAttack>
+   
+   <EnemyAttack Id="rat_king_charge_self_stun">
+      <Dmg>5</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>ENEMY</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0</FreezeFrameDur>
+      </Hit>
+      <Traumas>
+      </Traumas>
+   </EnemyAttack>
+   
+</AttacksDatas>

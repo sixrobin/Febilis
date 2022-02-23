@@ -12,11 +12,6 @@
         [SerializeField] private Templar.Datas.ShakeSettingsLibrary _shakesLibrary = null;
         [SerializeField] private UnityEngine.U2D.PixelPerfectCamera _pixelPerfectCamera = null;
 
-        //[Header("PIXEL PERFECT FIX")]
-        //[SerializeField] private bool _toggleManualFix = true;
-        //[SerializeField] private Vector2Int _referenceResolution = new Vector2Int(160, 144);
-        //[SerializeField, Min(1)] private int _assetsPixelsPerUnit = 100;
-
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
         [SerializeField] private RSLib.DataColor _debugColor = null;
@@ -25,6 +20,7 @@
 #pragma warning disable CS0414
         [SerializeField] private Boards.DisabledBoardBounds _currBoardBounds = new Boards.DisabledBoardBounds();
         [SerializeField] private RSLib.Framework.DisabledVector2 _currTraumaVisualizer = new RSLib.Framework.DisabledVector2();
+        [SerializeField] private RSLib.Framework.DisabledTransform _overrideTarget = new RSLib.Framework.DisabledTransform();
 #pragma warning restore CS0414
 #endif
 
@@ -49,10 +45,13 @@
         public RSLib.ImageEffects.CameraGrayscaleRamp GrayscaleRamp => _grayscaleRamp;
 
         public Boards.OptionalBoardBounds InitBoardBounds => _initBounds;
-
         public Boards.BoardBounds CurrBoardBounds { get; private set; }
 
+        public Vector3 BaseTargetPosition => _focusArea.Center;
+
         public bool Frozen { get; private set; }
+
+        public Transform OverrideTarget { get; private set; }
 
         public void ApplyShakeFromDatas(Templar.Datas.ShakeTraumaDatas shakeDatas)
         {
@@ -82,7 +81,7 @@
 
         public void PositionInstantly()
         {
-            transform.position = ComputeBaseTargetPosition().WithZ(transform.position.z);
+            transform.position = ComputeTargetPosition().WithZ(transform.position.z);
         }
 
         public void ToggleFreeze(bool state)
@@ -109,7 +108,17 @@
             }
         }
 
-        public void SetColor(Color color)
+        public void SetOverrideTarget(Transform target)
+        {
+            OverrideTarget = target;
+        }
+
+        public void ResetOverrideTarget()
+        {
+            SetOverrideTarget(null);
+        }
+
+        public void SetBackgroundColor(Color color)
         {
             _camera.backgroundColor = color;
         }
@@ -121,9 +130,9 @@
                 _shakesDictionary.Add(shakeSettings.Key, new CameraShake(shakeSettings.Value));
         }
 
-        private Vector3 ComputeBaseTargetPosition()
+        private Vector3 ComputeTargetPosition()
         {
-            return _focusArea.Center + Vector2.up * _cameraDatas.HeightOffset;
+            return (OverrideTarget?.position ?? BaseTargetPosition) + Vector3.up * _cameraDatas.HeightOffset;
         }
 
         private void ComputeLookAheadPosition(ref Vector3 pos)
@@ -218,23 +227,6 @@
                 pos += shake.Value.GetShakeWithSettings();
         }
 
-        //private void UpdatePixelPerfectCameraSize()
-        //{
-        //    // Test method to fix pixel perfect jitter.
-
-        //    if (!_toggleManualFix)
-        //        return;
-
-        //    int w = _camera.targetTexture?.width ?? Screen.width;
-        //    int h = _camera.targetTexture?.height ?? Screen.height;
-
-        //    int verticalZoom = h / _referenceResolution.y;
-        //    int horizontalZoom = w / _referenceResolution.x;
-        //    int zoom = Mathf.Max(1, Mathf.Min(verticalZoom, horizontalZoom));
-
-        //    _camera.orthographicSize = h * 0.5f / (zoom * _assetsPixelsPerUnit);
-        //}
-
         private void OnPixelPerfectValueChanged(bool value)
         {
             _pixelPerfectCamera.enabled = value;
@@ -271,17 +263,20 @@
 
             _focusArea.Update();
 
-            Vector3 targetPosition = ComputeBaseTargetPosition();
+            Vector3 targetPosition = ComputeTargetPosition();
 
-            ComputeLookAheadPosition(ref targetPosition);
-            ComputeLookVerticalPosition(ref targetPosition);
+            // Don't take input into account when focusing something else than the player.
+            if (OverrideTarget != null)
+            {
+                ComputeLookAheadPosition(ref targetPosition);
+                ComputeLookVerticalPosition(ref targetPosition);
+            }
+
             ComputeDampedPosition(ref targetPosition);
             ComputeBoundedPosition(ref targetPosition);
             ComputeShakePosition(ref targetPosition);
 
             transform.position = targetPosition.WithZ(transform.position.z);
-
-            //UpdatePixelPerfectCameraSize();
         }
 
         private void OnDestroy()

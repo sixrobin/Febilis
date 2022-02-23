@@ -25,29 +25,30 @@
 
         public int HealAmount => _healAmount;
 
-        public PlayerController PlayerCtrl { get; set; }
+        public PlayerController PlayerCtrl { get; private set; }
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.PLAYER;
 
         public bool DebugMode => _debugMode;
         public bool GodMode { get; private set; }
 
-        public override bool CanBeHit()
+        public override bool CanBeHit(Attack.HitInfos hitInfos)
         {
-            return base.CanBeHit()
+            if (GodMode || Manager.BoardsTransitionManager.IsInBoardTransition)
+                return false;
+
+            return base.CanBeHit(hitInfos)
                 && !PlayerCtrl.IsBeingHurt
-                && !PlayerCtrl.RollCtrl.IsRolling
-                && !GodMode
-                && !Manager.BoardsTransitionManager.IsInBoardTransition;
+                && (!PlayerCtrl.RollCtrl.IsRolling || hitInfos.AttackDatas.ForceHurt);
         }
 
-        public override void OnHit(Attack.HitInfos hitDatas)
+        public override void OnHit(Attack.HitInfos hitInfos)
         {
             UnityEngine.Assertions.Assert.IsNotNull(PlayerCtrl, "PlayerController must be referenced to handle PlayerHealthController.");
-            if (GodMode || PlayerCtrl.RollCtrl.IsRolling || PlayerCtrl.IsBeingHurt)
+            if (GodMode || (PlayerCtrl.RollCtrl.IsRolling && !hitInfos.AttackDatas.ForceHurt) || PlayerCtrl.IsBeingHurt)
                 return;
 
-            base.OnHit(hitDatas);
+            base.OnHit(hitInfos);
         }
 
         public bool CanHeal()
@@ -59,6 +60,7 @@
                 && !PlayerCtrl.IsHealing
                 && (!PlayerCtrl.HealthCtrl.HealthSystem.IsFull && HealsLeft > 0 || DebugMode)
                 && PlayerCtrl.InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL)
+                && PlayerCtrl.CollisionsCtrl.Below
                 && !Manager.BoardsTransitionManager.IsInBoardTransition;
         }
 
@@ -70,14 +72,16 @@
             base.Kill();
         }
 
-        public void Init(int maxHealth, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled, int initHealth = -1)
+        public void Init(PlayerController playerCtrl, int maxHealth, UnitHealthChangedEventHandler onUnitHealthChanged, UnitKilledEventHandler onUnitKilled, int initHealth = -1)
         {
             if (_init)
                 return;
 
             UnitHealthChanged += onUnitHealthChanged;
             UnitKilled += onUnitKilled;
-            Init(maxHealth, initHealth);
+
+            PlayerCtrl = playerCtrl;
+            Init(PlayerCtrl, maxHealth, initHealth);
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("tgm", "Toggles god mode.", () => GodMode = !GodMode));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("heal", "Heals of a given amount.", (amount) => HealthSystem.Heal(Mathf.Max(0, amount))));

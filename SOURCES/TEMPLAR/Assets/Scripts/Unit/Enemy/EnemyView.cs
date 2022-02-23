@@ -9,6 +9,9 @@
         private const string ATTACK_CLIP_NAME_FORMAT = "Anm_{0}_Attack_{1}";
         private const string ATTACK_ANTICIPATION_CLIP_NAME_FORMAT = "Anm_{0}_Attack_{1}_Anticipation";
 
+        private const string CHARGE = "Charge";
+        private const string CHARGE_ANTICIPATION = "Charge_Anticipation";
+        private const string CHARGE_COLLISION = "Charge_Collision";
         private const string IS_WALKING = "IsWalking";
         private const string ATTACK_ANTICIPATION = "Attack_Anticipation";
 
@@ -25,6 +28,28 @@
         public void PlayWalkAnimation(bool state)
         {
             _animator.SetBool(IS_WALKING, state);
+        }
+
+        public void PlayChargeAnimation()
+        {
+            _animator.SetTrigger(CHARGE);
+        }
+
+        public void PlayChargeAnticipationAnimation()
+        {
+            _animator.SetTrigger(CHARGE_ANTICIPATION);
+        }
+
+        public void PlayChargeCollisionAnimation()
+        {
+            _animator.SetTrigger(CHARGE_COLLISION);
+        }
+
+        public void ResetChargeTriggers()
+        {
+            _animator.ResetTrigger(CHARGE);
+            _animator.ResetTrigger(CHARGE_ANTICIPATION);
+            _animator.ResetTrigger(CHARGE_COLLISION);
         }
 
         public void SetupAttackAnimationsDatas(Actions.AttackEnemyAction attackAction, Datas.Attack.AttackDatas attackDatas)

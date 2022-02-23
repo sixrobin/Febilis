@@ -3,10 +3,12 @@
     public interface IEnemyAction
     {
         bool ShouldApplyGravity { get; }
+        bool CantBeHurt { get; }
 
         bool CheckConditions();
         bool CanExit();
         void Execute();
-        void Reset();
+        void OnEnter();
+        void OnExit();
     }
 }

@@ -25,10 +25,14 @@
                     Actions[i] = new AttackEnemyAction(EnemyCtrl, attackDatas);
                 else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.BackAndForthEnemyActionDatas backAndForthDatas)
                     Actions[i] = new BackAndForthEnemyAction(EnemyCtrl, backAndForthDatas);
+                else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.ChargeEnemyActionDatas chargeDatas)
+                    Actions[i] = new ChargeEnemyAction(EnemyCtrl, chargeDatas);
                 else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.ChaseEnemyActionDatas chaseDatas)
                     Actions[i] = new ChaseEnemyAction(EnemyCtrl, chaseDatas);
                 else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.FleeEnemyActionDatas fleeDatas)
                     Actions[i] = new FleeEnemyAction(EnemyCtrl, fleeDatas);
+                else if (BehaviourDatas.Actions[i] is Datas.Unit.Enemy.WaitEnemyActionDatas waitDatas)
+                    Actions[i] = new WaitEnemyAction(EnemyCtrl, waitDatas);
                 else
                     CProLogger.LogError(this, $"Unknown action type {Actions[i].GetType().FullName}");
             }

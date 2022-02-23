@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EnemiesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EnemiesDatas.xsd">
+   
+   <EnemyDatas Id="GiantRat">
+      <Health>1000</Health>
+      <WalkSpeed>5</WalkSpeed>
+      <RunSpeed>10</RunSpeed>
+      <HurtDur>0.5</HurtDur>
+      <PlayerDetectionDist>10</PlayerDetectionDist>
+      <PlayerLoseDist>100</PlayerLoseDist>
+      <Physics>
+         <Jump>
+            <Height>3</Height>
+            <ApexDur>0.8</ApexDur>
+         </Jump>
+         <HurtCheckEdge/>
+      </Physics>
+      <Behaviours>
+         <Behaviour Name="Victorious">
+            <Conditions>
+               <PlayerAlive Negate="true"/>
+            </Conditions>
+            <OnBehaviourEnter>
+               <PlayAnimation>Victory</PlayAnimation>
+            </OnBehaviourEnter>
+         </Behaviour>
+         <Behaviour Name="FirstPhase">
+            <Conditions>
+               <HealthPercentageMin Threshold="0.5"/>
+            </Conditions>
+            <Actions>
+               <!--Charge-->
+            </Actions>
+         </Behaviour>
+         <Behaviour Name="SecondPhase">
+            <Conditions>
+               <HealthPercentageMin Threshold="0.2"/>
+            </Conditions>
+            <Actions>
+               <!--More enraged-->
+            </Actions>
+            <OnBehaviourEnter>
+               <SpawnEnemies>
+                  <Enemy Id="EnragedRat" Count="3"/>
+               </SpawnEnemies>
+               <PlayAnimation>PhaseTransition</PlayAnimation>
+            </OnBehaviourEnter>
+         </Behaviour>
+         <Behaviour Name="LastPhase">
+            <Actions>
+               <!--Rage mode.-->
+            </Actions>
+            <OnBehaviourEnter>
+               <PlayAnimation>PhaseTransition</PlayAnimation>
+            </OnBehaviourEnter>
+         </Behaviour>
+      </Behaviours>
+      </Phases>
+      <OnKilledTrauma>0.3</OnKilledTrauma>
+      <OnKilledLoot>
+         <Coins>500</Coins>
+      </OnKilledLoot>
+   </EnemyDatas>
+   
+</EnemiesDatas>

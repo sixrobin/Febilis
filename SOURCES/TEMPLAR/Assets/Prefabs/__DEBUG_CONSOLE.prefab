@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroy: 1
   _verbose: 1
-  _enabled: 1
+  _enabled: 0
   _width: 512
   _height: 146
   _consoleColor: {r: 0, g: 0, b: 0, a: 0.9}

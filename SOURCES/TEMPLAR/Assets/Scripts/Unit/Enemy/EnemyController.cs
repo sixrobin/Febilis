@@ -9,6 +9,7 @@
     {
         private const float SLEEP_DIST = 25f;
         private const float SLEEP_UPDATE_RATE = 3f;
+        private const int ACTIONS_TRACK_SIZE = 10;
 
         [Header("REFERENCES")]
         [SerializeField] private Player.PlayerController _playerCtrl = null;
@@ -33,6 +34,8 @@
 
         private System.Collections.IEnumerator _hurtCoroutine;
 
+        public RSLib.Framework.Collections.FixedSizedConcurrentQueue<Actions.IEnemyAction> LastActions { get; private set; }
+
         private EnemyBehaviour _currBehaviour;
         public EnemyBehaviour CurrBehaviour
         {
@@ -50,11 +53,19 @@
             get => _currAction;
             private set
             {
+                if (value != null)
+                {
+                    //Debug.LogError($"Enqueuing action {value.GetType().Name}.");
+                    LastActions.Enqueue(value); // Enqueue here to avoid early return.
+                }
+
                 if (_currAction == value)
                     return;
 
-                _currAction?.Reset();
+                _currAction?.OnExit();
                 _currAction = value;
+                _currAction?.OnEnter();
+
                 _currActionName = new RSLib.Framework.DisabledString($"{_currAction.GetType().Name} (index: {System.Array.IndexOf(CurrBehaviour.Actions, _currAction)})");
             }
         }
@@ -63,7 +74,9 @@
 
         public Datas.Unit.Enemy.EnemyDatas EnemyDatas { get; private set; }
         public EnemyBehaviour[] Behaviours { get; private set; }
+
         public Attack.EnemyAttackController AttackCtrl { get; private set; }
+        public EnemyHealthController EnemyHealthCtrl => HealthCtrl as EnemyHealthController;
 
         public override UnitView UnitView => _enemyView;
 
@@ -79,13 +92,16 @@
             ResetEnemy();
         }
 
-        public void SetDirection(float dir)
+        public void ForceUpdateCurrentBehaviour()
         {
-            CurrDir = dir;
+            Debug.LogError("ForceUpdateCurrentBehaviour");
+            _behaviourUpdateTimer = 0f;
+            UpdateCurrentBehaviour();
         }
 
         public void ForceUpdateCurrentAction()
         {
+            Debug.LogError("ForceUpdateCurrentAction");
             _behaviourUpdateTimer = 0f;
             UpdateCurrentAction();
         }
@@ -128,11 +144,16 @@
                     return;
 
                 AttackCtrl.CancelAttack();
-                _currAction.Reset();
+                _currAction.OnExit();
             }
 
-            _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
-            StartCoroutine(_hurtCoroutine = HurtCoroutine());
+            if (args.HitDatas.ChargeCollisionDatas != null || CurrAction?.CantBeHurt != false)
+            {
+                if (args.HitDatas.AttackDatas.RecoilDatas != null)
+                    _currentRecoil = new Templar.Physics.Recoil(args.HitDatas.AttackDir, args.HitDatas.AttackDatas.RecoilDatas, EnemyDatas.HurtCheckEdge);
+    
+                StartCoroutine(_hurtCoroutine = HurtCoroutine(args.HitDatas.ChargeCollisionDatas));
+            }
         }
 
         private void OnUnitKilled(UnitHealthController.UnitKilledEventArgs args)
@@ -142,7 +163,7 @@
             if (EnemyDatas.OnKilledLoot != null)
                 Manager.LootManager.SpawnLoot(EnemyDatas.OnKilledLoot, transform.position.AddY(0.2f));
 
-            FindObjectOfType<Templar.Camera.CameraController>().GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma); // [TMP] GetComponent.
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma);
             Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
@@ -209,13 +230,19 @@
             }
         }
 
-        private System.Collections.IEnumerator HurtCoroutine()
+        private System.Collections.IEnumerator HurtCoroutine(Datas.Unit.Enemy.ChargeActionCollisionDatas chargeCollisionDatas)
         {
-            EnemyView.PlayHurtAnimation();
+            if (chargeCollisionDatas != null)
+                EnemyView.PlayChargeCollisionAnimation();
+            else
+                EnemyView.PlayHurtAnimation();
+    
             yield return RSLib.Yield.SharedYields.WaitForSeconds(EnemyDatas.HurtDur);
 
             _hurtCoroutine = null;
-            if (!IsDead && !AttackCtrl.IsAttacking)
+            if (!IsDead
+                && !AttackCtrl.IsAttacking
+                && (chargeCollisionDatas == null || chargeCollisionDatas.StunDur == 0f))
                 EnemyView.PlayIdleAnimation();
         }
 
@@ -260,17 +287,18 @@
             CollisionsCtrl.Ground(transform);
 
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
-            enemyHealthCtrl.Init(EnemyDatas.Health, EnemyDatas.Health);
+            enemyHealthCtrl.Init(this, EnemyDatas.Health, EnemyDatas.Health);
             enemyHealthCtrl.UnitHealthChanged += OnUnitHealthChanged;
             enemyHealthCtrl.UnitKilled += OnUnitKilled;
 
             _initPos = transform.position;
-            CurrDir = EnemyView.GetSpriteRendererFlipX() ? -1f : 1f;
+            SetDirection(EnemyView.GetSpriteRendererFlipX() ? -1f : 1f);
 
             Behaviours = new EnemyBehaviour[EnemyDatas.Behaviours.Count];
             for (int i = 0; i < Behaviours.Length; ++i)
                 Behaviours[i] = new EnemyBehaviour(this, EnemyDatas.Behaviours[i]);
 
+            LastActions = new RSLib.Framework.Collections.FixedSizedConcurrentQueue<Actions.IEnemyAction>(ACTIONS_TRACK_SIZE);
             UpdateCurrentBehaviour();
             UpdateCurrentAction();
         }
