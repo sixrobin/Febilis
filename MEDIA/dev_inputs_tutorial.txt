@@ -1,0 +1,33 @@
+- Afficher les inputs au joueur.
+	-> Penser aux manettes/claviers.
+	-> Penser à utiliser le mapping du joueur.
+
+- Système de "validation" d'un input pour pouvoir cacher l'affichage de celui-ci : par exemple, au début on affiche au joueur comment il doit se déplacer, et on cache le message une fois que sa position a changé.
+
+- MOVE :
+	-> Apparition : dès le début.
+	-> Validation : s'être déplacé.
+	
+- ATTACK
+	-> Apparition : à côté du premier ennemi.
+	-> Validation : avoir attaqué.
+
+- JUMP
+	-> Apparition : devant la première plateforme à franchir via un saut.
+	-> Validation : plateforme atteinte.
+
+- FALL THROUGH A PLATFORM
+	-> Apparition : en étant sur le premier effector.
+	-> Validation : effector traversé.
+
+- HEAL
+	-> Apparition : après avoir perdu de la vie.
+	-> Validation : s'être soigné.
+	
+- INTERACT
+	-> Apparition : en entrant dans la zone de trigger d'un Interactable tant qu'on n'a encore jamais interagi.
+	-> Validation : après interaction.
+	
+- INVENTORY
+	-> Apparition : après avoir ramassé un item.
+	-> Validation : avoir ouvert l'inventaire.

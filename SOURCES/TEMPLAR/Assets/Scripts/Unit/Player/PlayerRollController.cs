@@ -34,6 +34,9 @@
         }
 
         public delegate void RollOverEventHandler(RollOverEventArgs args);
+        public delegate void RolledEventHandler();
+
+        public event RolledEventHandler Rolled;
         
         public bool IsRolling => _rollCoroutine != null;
         public bool IsRollingOrInCooldown => IsRolling || _rollCooldownCoroutine != null;
@@ -74,6 +77,8 @@
 
         private System.Collections.IEnumerator RollCoroutine(float dir, RollOverEventHandler rollOverCallback = null)
         {
+            Rolled?.Invoke();
+            
             _playerCtrl.PlayerView.PlayRollAnimation(dir);
 
             Vector3 rollVel = new Vector3(0f, 0f);

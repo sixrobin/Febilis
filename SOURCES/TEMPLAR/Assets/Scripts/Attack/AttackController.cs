@@ -39,7 +39,10 @@
         }
 
         public delegate void AttackOverEventHandler(AttackOverEventArgs args);
+        public delegate void AttackHitTriggeredEventHandler();
 
+        public event AttackHitTriggeredEventHandler AttackHitTriggered;
+        
         public float AttackDir { get; protected set; }
 
         public virtual bool IsAttacking => _attackCoroutine != null;
@@ -60,6 +63,8 @@
             UnityEngine.Assertions.Assert.IsNotNull(attackDatas, "Triggering hit with null attack datas.");
             UnityEngine.Assertions.Assert.IsTrue(_hitboxesById.ContainsKey(id), $"Could not find hitbox with Id {id}.");
 
+            AttackHitTriggered?.Invoke();
+            
             _hitboxesContainer.SetDirection(AttackDir);
             _hitboxesById[id].Trigger(AttackDir, attackDatas);
 

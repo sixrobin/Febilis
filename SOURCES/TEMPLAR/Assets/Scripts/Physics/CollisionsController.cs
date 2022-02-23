@@ -113,7 +113,10 @@
         private System.Collections.Generic.Queue<CollisionInfos> _detectedCollisionsForEvent = new System.Collections.Generic.Queue<CollisionInfos>();
 
         public delegate void CollisionDetectedEventHandler(CollisionInfos collisionInfos);
+        public delegate void EffectorDownEventHandler(PlatformEffector effector);
+
         public event CollisionDetectedEventHandler CollisionDetected;
+        public event EffectorDownEventHandler EffectorDown;
 
         public enum CollisionOrigin
         {
@@ -383,7 +386,10 @@
 
             AboveEffector = sign == -1f && effector != null;
             if (downEffector && AboveEffector && !effector.BlockDown)
+            {
+                EffectorDown?.Invoke(effector);
                 return false;
+            }
 
             return true;
         }

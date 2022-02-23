@@ -38,6 +38,8 @@
 
         public PlayerHealthController PlayerHealthCtrl => HealthCtrl as PlayerHealthController;
 
+        public Interaction.Interacter Interacter => _interacter;
+        
         public PlayerInputController InputCtrl { get; private set; }
         public PlayerJumpController JumpCtrl { get; private set; }
         public PlayerRollController RollCtrl { get; private set; }
@@ -132,11 +134,13 @@
         public void JumpWithMaxVelocity()
         {
             _currVel.y = JumpCtrl.JumpVelMax * _debugJumpMult;
+            JumpCtrl.RaiseJumpEvent();
         }
 
         public void JumpWithVariousVelocity()
         {
             _currVel.y = (InputCtrl.CheckJumpInput() ? JumpCtrl.JumpVelMax : JumpCtrl.JumpVelMin) * _debugJumpMult;
+            JumpCtrl.RaiseJumpEvent();
         }
 
         public void ResetVelocity()

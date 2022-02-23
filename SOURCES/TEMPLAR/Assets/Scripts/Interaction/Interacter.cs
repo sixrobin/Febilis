@@ -8,9 +8,16 @@
         private System.Collections.Generic.Dictionary<Collider2D, IInteractable> _knownInteractables = new System.Collections.Generic.Dictionary<Collider2D, IInteractable>();
         private IInteractable _currInteractable;
 
+        public delegate void InteractedEventHandler(IInteractable interactable);
+        public InteractedEventHandler Interacted;
+        
         public void TryInteract()
         {
-            _currInteractable?.Interact();
+            if (_currInteractable == null)
+                return;
+            
+            Interacted?.Invoke(_currInteractable);
+            _currInteractable.Interact();
         }
 
         // Collision layering should be managed by the project physics settings.

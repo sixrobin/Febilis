@@ -27,6 +27,9 @@
             _jumpDatas.ValuesValidated -= OnDatasValuesChanged;
         }
 
+        public delegate void JumpedEventHandler();
+        public event JumpedEventHandler Jumped;
+        
         public bool IsAnticipatingJump => _jumpAnticipationCoroutine != null;
         public bool IsInLandImpact => _landImpactCoroutine != null;
 
@@ -46,6 +49,11 @@
             JumpVelMin = Mathf.Sqrt(2f * Mathf.Abs(Gravity) * _jumpDatas.JumpHeightMin);
         }
 
+        public void RaiseJumpEvent()
+        {
+            Jumped?.Invoke();
+        }
+        
         public bool CanJump()
         {
             return JumpsLeft > 0
