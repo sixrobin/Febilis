@@ -41,7 +41,7 @@
         private static string GameSaveFolderPath => System.IO.Path.Combine(Application.persistentDataPath, "Save");
         private static string GameSaveFilePath => System.IO.Path.Combine(GameSaveFolderPath, "Game.dat");
 
-        public static bool TrySave()
+        public static bool TrySave(bool? overrideEncryptSave = null)
         {
             Instance.Log("Saving game progression...", Instance.gameObject, true);
 
@@ -61,6 +61,7 @@
                     container.Add(GameManager.InventoryCtrl.Save());
                     container.Add(DialoguesStructuresManager.Save());
                     container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
+                    container.Add(InputTutorialDisplay.Save());
                 }
 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(GameSaveFilePath);
@@ -70,7 +71,7 @@
                 XDocument saveDocument = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), container);
                 string decryptedSave = saveDocument.ToString();
 
-                if (Instance._encryptSave)
+                if (Instance._encryptSave && (!overrideEncryptSave.HasValue || overrideEncryptSave.Value))
                     System.IO.File.WriteAllBytes(GameSaveFilePath, s_rijndael.Encrypt(decryptedSave));
                 else
                     System.IO.File.WriteAllText(GameSaveFilePath, decryptedSave);
@@ -140,6 +141,7 @@
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
                 DialoguesStructuresManager.Load(gameSaveElement.Element("DialoguesStructures"));
                 FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
+                InputTutorialDisplay.Load(gameSaveElement.Element("ValidatedInputs"));
             }
             catch (SaveVersionUnknownException e)
             {
@@ -216,6 +218,7 @@
             );
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveGame", "Tries to save game progression.", () => TrySave()));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("SaveGame", "Tries to save game progression, specifying encryption state.", (encryptSave) => TrySave(encryptSave)));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadGame", "Tries to load game progression.", () => TryLoad()));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseGameSave", "Erases game save file if it exists.", () => EraseSave()));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("OpenSaveFolder", "Opens game save file.", OpenSaveFolder));

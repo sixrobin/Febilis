@@ -1,5 +1,6 @@
 ﻿namespace Templar
 {
+    using System.Xml.Linq;
     using UnityEngine;
     
     public class InputTutorialDisplay : MonoBehaviour
@@ -9,7 +10,7 @@
 
         private bool _validated;
         
-        private enum ValidationType
+        public enum ValidationType
         {
             TRIGGER_ENTER,
             MOVEMENT,
@@ -22,20 +23,51 @@
             JUMP
         }
 
+        public static System.Collections.Generic.HashSet<ValidationType> ValidatedTypes { get; private set; } = new System.Collections.Generic.HashSet<ValidationType>();
+
+        public static XElement Save()
+        {
+            XElement validatedInputsElement = new XElement("ValidatedInputs");
+
+            Manager.SaveManager.Instance.Log($"Saving ValidatedInputs: {string.Join(", ", ValidatedTypes)}");
+
+            foreach (ValidationType validatedInput in ValidatedTypes)
+                validatedInputsElement.Add(new XElement(validatedInput.ToString()));
+
+            return validatedInputsElement;
+        }
+
+        public static void Load(XElement validatedInputsElement)
+        {
+            foreach (XElement validatedInputElement in validatedInputsElement.Elements())
+                if (System.Enum.TryParse(validatedInputElement.Name.LocalName, out ValidationType validationType))
+                    ValidatedTypes.Add(validationType);
+        }
+        
         private void RaiseValidationEvent(ValidationType validationType)
         {
-            if (validationType != _validationType || _validated)
-                return;
-            
+            if (validationType == _validationType && !_validated)
+                this.OnInputValidated();
+        }
+
+        private void OnInputValidated()
+        {
             _validated = true;
+            ValidatedTypes.Add(_validationType);
             gameObject.SetActive(false);
         }
         
-        private System.Collections.IEnumerator InitEvents()
+        private System.Collections.IEnumerator Init()
         {
             Unit.Player.PlayerController playerCtrl = Manager.GameManager.PlayerCtrl;
             yield return new WaitUntil(() => playerCtrl.Initialized);
 
+            if (ValidatedTypes.Contains(this._validationType))
+            {
+                OnInputValidated();
+                yield break;
+            }
+            
             switch (_validationType)
             {
                 case ValidationType.TRIGGER_ENTER:
@@ -61,7 +93,11 @@
                 case ValidationType.JUMP when !_validatingTrigger.Enabled:
                     playerCtrl.JumpCtrl.Jumped += () => RaiseValidationEvent(ValidationType.JUMP);
                     break;
-                                
+             
+                case ValidationType.MOVEMENT:
+                    playerCtrl.Moved += (newPosition) => RaiseValidationEvent(ValidationType.MOVEMENT);
+                    break;
+                
                 case ValidationType.HEAL:
                     playerCtrl.HealthCtrl.UnitHealthChanged += (args) =>
                     {
@@ -90,13 +126,11 @@
                     playerCtrl.Interacter.Interacted += (interactable) => RaiseValidationEvent(ValidationType.INTERACTION);
                     break;
             }
-            
-            Debug.LogError("Registering move event."); // TODO.
         }
         
         private void Start()
         {
-            StartCoroutine(InitEvents());
+            StartCoroutine(this.Init());
         }
     }
 }

@@ -29,6 +29,9 @@
         private float _debugSpeedMult = 1f;
         private float _debugJumpMult = 1f;
 
+        public delegate void MovedEventHandler(Vector3 newPosition);
+        public MovedEventHandler Moved;
+        
         public bool Initialized { get; private set; }
 
         public PlayerView PlayerView => _playerView;
@@ -439,7 +442,10 @@
             //_currVel += GetCurrentRecoil();
 
             Translate(_currVel, checkEdge: false, effectorDown: EffectorDown);
-
+            
+            if (targetVelX != 0f)
+                Moved?.Invoke(transform.position);
+            
             // Doing a grounded jump or falling will trigger this condition and remove one jump left. We need to do this after the ComputeCollisions call.
             if (!CollisionsCtrl.Below && CollisionsCtrl.PreviousStates.GetCollisionState(Templar.Physics.CollisionsController.CollisionOrigin.BELOW))
                 JumpCtrl.JumpsLeft--;
