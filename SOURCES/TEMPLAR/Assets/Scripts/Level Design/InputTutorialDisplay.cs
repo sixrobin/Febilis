@@ -5,6 +5,7 @@
     
     public class InputTutorialDisplay : MonoBehaviour
     {
+        [SerializeField] private DisplayType _displayType = DisplayType.START;
         [SerializeField] private ValidationType _validationType = ValidationType.TRIGGER_ENTER;
         [SerializeField] private RSLib.Framework.OptionalBoxCollider2D _validatingTrigger = new RSLib.Framework.OptionalBoxCollider2D(null, false);
 
@@ -23,6 +24,13 @@
             JUMP
         }
 
+        public enum DisplayType
+        {
+            START,
+            DAMAGED,
+            ITEM_PICKUP
+        }
+        
         public static System.Collections.Generic.HashSet<ValidationType> ValidatedTypes { get; private set; } = new System.Collections.Generic.HashSet<ValidationType>();
 
         public static XElement Save()
@@ -43,6 +51,12 @@
                 if (System.Enum.TryParse(validatedInputElement.Name.LocalName, out ValidationType validationType))
                     ValidatedTypes.Add(validationType);
         }
+
+        public void Display(bool show)
+        {
+            if (!show || !_validated)
+                gameObject.SetActive(show);
+        }
         
         private void RaiseValidationEvent(ValidationType validationType)
         {
@@ -54,7 +68,7 @@
         {
             _validated = true;
             ValidatedTypes.Add(_validationType);
-            gameObject.SetActive(false);
+            Display(false);
         }
         
         private System.Collections.IEnumerator Init()
@@ -66,6 +80,31 @@
             {
                 OnInputValidated();
                 yield break;
+            }
+
+            switch (_displayType)
+            {
+                case DisplayType.START:
+                    Display(true);
+                    break;
+                
+                case DisplayType.DAMAGED:
+                    Display(false);
+                    playerCtrl.HealthCtrl.UnitHealthChanged += (args) =>
+                    {
+                        if (args.IsLoss)
+                            Display(true);
+                    };
+                    break;
+                
+                case DisplayType.ITEM_PICKUP:
+                    Display(false);
+                    Manager.GameManager.InventoryCtrl.InventoryContentChanged += (args) =>
+                    {
+                        if (args.NewQuantity > args.PrevQuantity && args.Item.Datas.Id != Item.InventoryController.ITEM_ID_COIN)
+                            Display(true);
+                    };
+                    break;
             }
             
             switch (_validationType)
