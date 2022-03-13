@@ -30,6 +30,9 @@
         [SerializeField] private Datas.BossIntroDatas _bossIntroDatas = null;
         [SerializeField] private Unit.Enemy.EnemyController[] _fightBosses = null;
         [SerializeField] private bool _forcePlayerDetection = true;
+
+        [SerializeField] private UnityEngine.Events.UnityEvent _onFightWon = null;
+        [SerializeField] private UnityEngine.Events.UnityEvent _onFightLost = null;
         
         [Header("DEBUG")]
         [SerializeField] private bool _skipIntroCutscene = false;
@@ -99,17 +102,20 @@
 
         public void OnFightWon()
         {
-            Debug.LogError($"Boss fight {Identifier.Id} won!");
+            CProLogger.Log(this, $"Boss fight {Identifier.Id} won.");
 
             Manager.FlagsManager.Register(this);
 
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, true));
+            _onFightWon?.Invoke();
         }
 
         public void OnFightLost()
         {
-            Debug.LogError($"Boss fight {Identifier.Id} lost...");
+            CProLogger.Log(this, $"Boss fight {Identifier.Id} lost.");
+            
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, false));
+            _onFightLost?.Invoke();
         }
 
         private System.Collections.IEnumerator DisallowInputsCoroutine()
@@ -158,6 +164,14 @@
         {
             if (Manager.FlagsManager.Check(this))
                 Debug.LogError("[TODO] Boss fight already done, disabling it.", gameObject);
+            
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("BossWin", "Instantly wins current boss fight.", () =>
+            {
+                if (_bossesToKillLeft > 0)
+                    for (int i = FightBosses.Length - 1; i >= 0; --i)
+                        if (!FightBosses[i].IsDead)
+                            FightBosses[i].HealthCtrl.DebugDamageInfinite();
+            }));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

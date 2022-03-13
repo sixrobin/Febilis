@@ -66,7 +66,7 @@
             UnityEngine.Assertions.Assert.IsFalse(HealthSystem.IsDead, "Hitting an unit that is already dead.");
 
             // Avoid self hit.
-            if (hitInfos.AttackController.OwnerUnit == Unit)
+            if (hitInfos.AttackController != null && hitInfos.AttackController.OwnerUnit == Unit)
                 return;
             
             _lastHitDatas = hitInfos;
