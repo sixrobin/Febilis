@@ -68,7 +68,8 @@
             // Avoid self hit.
             if (hitInfos.AttackController != null
                 && hitInfos.AttackController.OwnerUnit == Unit
-                && hitInfos.ChargeCollisionDatas == null)
+                && (hitInfos.ChargeCollisionDatas == null
+                    || hitInfos.AttackDatas.Dmg >= HealthSystem.CurrentHealth && hitInfos.ChargeCollisionDatas.CantSuicide))
                 return;
             
             _lastHitDatas = hitInfos;
@@ -126,8 +127,11 @@
 
         protected virtual void OnDestroy()
         {
-            HealthSystem.HealthChanged -= OnHealthChanged;
-            HealthSystem.Killed -= OnKilled;
+            if (HealthSystem != null)
+            {
+                HealthSystem.HealthChanged -= OnHealthChanged;
+                HealthSystem.Killed -= OnKilled;
+            }
         }
 
         public void DebugDamageDefault()

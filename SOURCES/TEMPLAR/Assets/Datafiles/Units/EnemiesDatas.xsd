@@ -243,6 +243,7 @@
                <xs:attribute name="Delay" type="xs:float" use="optional"/>
             </xs:complexType>
          </xs:element>
+         <xs:element name="CantSuicide" minOccurs="0" maxOccurs="1"/>
          <xs:element name="Trauma" type="TraumaDatas" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>

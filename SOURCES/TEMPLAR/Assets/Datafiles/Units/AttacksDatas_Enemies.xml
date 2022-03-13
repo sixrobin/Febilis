@@ -138,7 +138,7 @@
    </EnemyAttack>
    
    <EnemyAttack Id="rat_king_charge_self_stun">
-      <Dmg>5</Dmg>
+      <Dmg>10</Dmg>
       <Hit>
          <Dur>0.1</Dur>
          <Layers>

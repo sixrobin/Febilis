@@ -252,6 +252,7 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(EnemyDatas.HurtDur);
 
             _hurtCoroutine = null;
+            
             if (!IsDead
                 && !AttackCtrl.IsAttacking
                 && (chargeCollisionDatas == null || chargeCollisionDatas.StunDur == 0f))

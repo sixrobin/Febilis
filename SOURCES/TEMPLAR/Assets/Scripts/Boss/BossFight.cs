@@ -18,12 +18,14 @@
 
         public class BossFightOverEventArgs : BossFightEventArgs
         {
-            public BossFightOverEventArgs(BossFight bossFight, bool victory) : base(bossFight)
+            public BossFightOverEventArgs(BossFight bossFight, bool victory, bool onLoad) : base(bossFight)
             {
                 Victory = victory;
+                OnLoad = onLoad;
             }
 
             public bool Victory { get; }
+            public bool OnLoad { get; }
         }
 
         [SerializeField] private Flags.BossIdentifier _bossIdentifier = null;
@@ -106,7 +108,7 @@
 
             Manager.FlagsManager.Register(this);
 
-            BossFightOver?.Invoke(new BossFightOverEventArgs(this, true));
+            BossFightOver?.Invoke(new BossFightOverEventArgs(this, true, false));
             _onFightWon?.Invoke();
         }
 
@@ -114,7 +116,7 @@
         {
             CProLogger.Log(this, $"Boss fight {Identifier.Id} lost.");
             
-            BossFightOver?.Invoke(new BossFightOverEventArgs(this, false));
+            BossFightOver?.Invoke(new BossFightOverEventArgs(this, false, false));
             _onFightLost?.Invoke();
         }
 
@@ -162,8 +164,17 @@
 
         private void Start()
         {
+            // Boss fight already won.
             if (Manager.FlagsManager.Check(this))
-                Debug.LogError("[TODO] Boss fight already done, disabling it.", gameObject);
+            {
+                _bossesToKillLeft = 0;
+                GetComponent<BoxCollider2D>().enabled = false;
+                for (int i = FightBosses.Length - 1; i >= 0; --i)
+                    FightBosses[i].gameObject.SetActive(false);
+                
+                BossFightOver?.Invoke(new BossFightOverEventArgs(this, true, true));
+                _onFightWon?.Invoke();
+            }
             
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("BossWin", "Instantly wins current boss fight.", () =>
             {
@@ -176,9 +187,8 @@
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            // [TMP] Did this to try out fight, but maybe this should be done another way.
-
-            if (_bossesToKillLeft > -1) // [TMP] Condition to avoid triggering fight multiple times.
+            // Cheap check to ensure fight cannot be triggered multiple times due to collision issue.
+            if (_bossesToKillLeft > -1)
                 return;
 
             if (collision.gameObject.TryGetComponent<Unit.Player.PlayerController>(out _))

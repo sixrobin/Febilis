@@ -107,24 +107,24 @@
                     EnemyCtrl.HealthCtrl.OnHit(hitInfos);
             }
 
+            void StunCallback()
+            {
+                EnemyCtrl.EnemyView.PlayIdleAnimation();
+                EnemyCtrl.ForceUpdateCurrentBehaviour();
+                EnemyCtrl.ForceUpdateCurrentAction();
+            }
+            
             if (collisionDatas.StunDur > 0f)
             {
                 EnemyCtrl.Stun(
                     dur: collisionDatas.StunDur,
                     delay: collisionDatas.StunDelay,
                     conditionalDelay: () => !EnemyCtrl.BeingHurt,
-                    callback: () =>
-                    {
-                        EnemyCtrl.EnemyView.PlayIdleAnimation();
-                        EnemyCtrl.ForceUpdateCurrentBehaviour();
-                        EnemyCtrl.ForceUpdateCurrentAction();
-                    });
+                    callback: StunCallback);
             }
             else
             {
-                EnemyCtrl.EnemyView.PlayIdleAnimation();
-                EnemyCtrl.ForceUpdateCurrentBehaviour();
-                EnemyCtrl.ForceUpdateCurrentAction();
+                StunCallback();
             }
 
             Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(playerCtrl != null ? ActionDatas.PlayerCollisionDatas.Trauma : ActionDatas.WallCollisionDatas.Trauma);

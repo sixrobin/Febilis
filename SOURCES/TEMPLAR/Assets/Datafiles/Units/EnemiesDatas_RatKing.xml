@@ -63,25 +63,26 @@
                   <AnimatorId>Base</AnimatorId>
                </Attack>
                <Charge>
-                   <Conditions>
-                       <LastActionsCheck ActionsCount="1">
-                           <Exclude>Charge</Exclude>
-                       </LastActionsCheck>
-                       <PlayerInRange Range="4" Negate="true"/>
-                   </Conditions>
-                   <CantBeHurt/>
-                   <AnticipationDuration>1.2</AnticipationDuration>
-                   <InitSpeed>6</InitSpeed>
-                   <Acceleration>4</Acceleration>
-                   <PlayerCollision>
-                       <AttackId>rat_king_charge</AttackId>
-                       <Trauma X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Medium"/>
-                   </PlayerCollision>
-                   <WallCollision>
-                       <AttackId>rat_king_charge_self_stun</AttackId>
-                       <Stun Dur="2" Delay="0.5"/>
-                       <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>
-                   </WallCollision>
+                  <Conditions>
+                     <LastActionsCheck ActionsCount="1">
+                        <Exclude>Charge</Exclude>
+                     </LastActionsCheck>
+                     <PlayerInRange Range="4" Negate="true"/>
+                  </Conditions>
+                  <CantBeHurt/>
+                  <AnticipationDuration>1.2</AnticipationDuration>
+                  <InitSpeed>6</InitSpeed>
+                  <Acceleration>4</Acceleration>
+                  <PlayerCollision>
+                     <AttackId>rat_king_charge</AttackId>
+                     <Trauma X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Medium"/>
+                  </PlayerCollision>
+                  <WallCollision>
+                     <AttackId>rat_king_charge_self_stun</AttackId>
+                     <Stun Dur="2" Delay="0.5"/>
+                     <!--<CantSuicide/>-->
+                     <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>
+                  </WallCollision>
                </Charge>
                <Chase/>
             </Actions>
@@ -114,6 +115,8 @@
                   <WallCollision>
                      <AttackId>rat_king_charge_self_stun</AttackId>
                      <Stun Dur="1" Delay="0.5"/>
+                     <!--Stun sequence is correctly played with damage being applied: should fix it if we want to keep this parameter.-->
+                     <!--<CantSuicide/>-->
                      <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>
                   </WallCollision>
                </Charge>

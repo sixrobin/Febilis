@@ -14,6 +14,8 @@
         public float StunDur { get; private set; }
         public float StunDelay { get; private set; }
 
+        public bool CantSuicide { get; private set; }
+        
         public ShakeTraumaDatas Trauma { get; private set; }
 
         public override void Deserialize(XContainer container)
@@ -33,6 +35,8 @@
                 StunDelay = stunDelayAttribute?.ValueToFloat() ?? 0;
             }
 
+            CantSuicide = chargeCollisionElement.Element("CantSuicide") != null;
+                
             XElement traumaElement = chargeCollisionElement.Element("Trauma");
             if (traumaElement != null)
                 Trauma = new ShakeTraumaDatas(traumaElement);
