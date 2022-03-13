@@ -9,7 +9,7 @@
         private Unit.Player.PlayerController _playerCtrl;
 
         public PlayerAttackController(Unit.Player.PlayerController playerCtrl)
-            : base(playerCtrl, playerCtrl.AttackHitboxesContainer, playerCtrl.transform)
+            : base(playerCtrl, playerCtrl.AttackHitboxesContainer, playerCtrl.transform, playerCtrl)
         {
             _playerCtrl = playerCtrl;
 

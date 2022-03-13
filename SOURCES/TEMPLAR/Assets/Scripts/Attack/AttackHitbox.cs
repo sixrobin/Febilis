@@ -6,14 +6,16 @@
     {
         public class HitEventArgs : System.EventArgs
         {
-            public HitEventArgs(IHittable hittable, float dir)
+            public HitEventArgs(IHittable hittable, float dir, AttackController attackController)
             {
                 Hittable = hittable;
                 Dir = dir;
+                AttackController = attackController;
             }
 
             public IHittable Hittable { get; private set; }
             public float Dir { get; private set; }
+            public AttackController AttackController { get; private set; }
         }
 
         [SerializeField] private string _id = string.Empty;
@@ -23,6 +25,7 @@
 
         private System.Collections.Generic.List<IHittable> _hitThisTime = new System.Collections.Generic.List<IHittable>();
         private Datas.Attack.AttackDatas _attackDatas;
+        private AttackController _attackController;
 
         private Collider2D _hitbox;
         private Transform _source;
@@ -39,12 +42,13 @@
             _source = source;
         }
 
-        public void Trigger(float dir, Datas.Attack.AttackDatas attackDatas)
+        public void Trigger(float dir, Datas.Attack.AttackDatas attackDatas, AttackController attackController)
         {
             UnityEngine.Assertions.Assert.IsNull(_hitCoroutine, $"Triggering hit on {transform.name} hitbox that seems to already run a coroutine.");
 
             Dir = dir;
             _attackDatas = attackDatas;
+            _attackController = attackController;
             StartCoroutine(_hitCoroutine = HitCoroutine(_attackDatas.HitDur));
         }
 
@@ -75,14 +79,14 @@
                 if (collider.TryGetComponent(out hittable))
                     s_sharedKnownHittables.Add(collider, hittable);
 
-            HitInfos hitInfos = new HitInfos(_attackDatas, Dir, _source);
+            HitInfos hitInfos = new HitInfos(_attackDatas, Dir, _source, _attackController);
 
             if (hittable == null || !hittable.CanBeHit(hitInfos) || !_attackDatas.HitLayer.HasFlag(hittable.HitLayer) || _hitThisTime.Contains(hittable))
                 return;
 
             _hitThisTime.Add(hittable);
             hittable.OnHit(hitInfos);
-            Hit(new HitEventArgs(hittable, Dir));
+            Hit(new HitEventArgs(hittable, Dir, _attackController));
         }
     }
 }

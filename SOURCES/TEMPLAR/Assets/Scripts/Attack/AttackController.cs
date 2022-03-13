@@ -20,11 +20,12 @@
         private AttackHitboxesContainer _hitboxesContainer;
         private System.Collections.Generic.Dictionary<string, AttackHitbox> _hitboxesById;
 
-        public AttackController(UnityEngine.MonoBehaviour attackCoroutineRunner, AttackHitboxesContainer hitboxesContainer, UnityEngine.Transform attacksSource)
+        public AttackController(UnityEngine.MonoBehaviour attackCoroutineRunner, AttackHitboxesContainer hitboxesContainer, UnityEngine.Transform attacksSource, Templar.Unit.UnitController ownerUnit)
         {
             _attackCoroutineRunner = attackCoroutineRunner;
             _hitboxesContainer = hitboxesContainer;
-
+            OwnerUnit = ownerUnit;
+            
             _hitboxesById = new System.Collections.Generic.Dictionary<string, AttackHitbox>();
             for (int i = _hitboxesContainer.AttackHitboxes.Length - 1; i >= 0; --i)
             {
@@ -44,6 +45,7 @@
         public event AttackHitTriggeredEventHandler AttackHitTriggered;
         
         public float AttackDir { get; protected set; }
+        public Templar.Unit.UnitController OwnerUnit { get; protected set; }
 
         public virtual bool IsAttacking => _attackCoroutine != null;
 
@@ -66,7 +68,7 @@
             AttackHitTriggered?.Invoke();
             
             _hitboxesContainer.SetDirection(AttackDir);
-            _hitboxesById[id].Trigger(AttackDir, attackDatas);
+            _hitboxesById[id].Trigger(AttackDir, attackDatas, this);
 
             Manager.GameManager.CameraCtrl.ApplyShakeFromDatas(attackDatas.BaseTraumaDatas, AttackerRenderer);
         }

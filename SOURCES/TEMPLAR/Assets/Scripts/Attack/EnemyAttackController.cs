@@ -8,7 +8,7 @@ namespace Templar.Attack
         private Datas.Attack.EnemyAttackDatas _currAttackDatas;
         
         public EnemyAttackController(Unit.Enemy.EnemyController enemyCtrl)
-            : base(enemyCtrl, enemyCtrl.AttackHitboxesContainer, enemyCtrl.transform)
+            : base(enemyCtrl, enemyCtrl.AttackHitboxesContainer, enemyCtrl.transform, enemyCtrl)
         {
             _enemyCtrl = enemyCtrl;
         }

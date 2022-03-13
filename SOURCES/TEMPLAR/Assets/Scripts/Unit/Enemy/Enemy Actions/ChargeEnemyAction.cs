@@ -99,7 +99,7 @@
 
             if (!string.IsNullOrEmpty(attackId))
             {
-                Attack.HitInfos hitInfos = new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform, collisionDatas);
+                Attack.HitInfos hitInfos = new Attack.HitInfos(Database.AttackDatabase.EnemyAttacksDatas[attackId], EnemyCtrl.CurrDir, EnemyCtrl.transform, EnemyCtrl.AttackCtrl, collisionDatas);
 
                 if (playerCtrl != null)
                     playerCtrl.HealthCtrl.OnHit(hitInfos);

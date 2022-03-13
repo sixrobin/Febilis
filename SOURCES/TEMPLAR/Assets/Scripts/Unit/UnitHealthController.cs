@@ -65,6 +65,10 @@
         {
             UnityEngine.Assertions.Assert.IsFalse(HealthSystem.IsDead, "Hitting an unit that is already dead.");
 
+            // Avoid self hit.
+            if (hitInfos.AttackController.OwnerUnit == Unit)
+                return;
+            
             _lastHitDatas = hitInfos;
             HealthSystem.Damage(hitInfos.AttackDatas.Dmg);
         }
@@ -126,12 +130,12 @@
 
         public void DebugDamageDefault()
         {
-            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform));
+            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.Default, 1f, transform, null));
         }
 
         public void DebugDamageInfinite()
         {
-            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.InfiniteDamage, 1f, transform));
+            OnHit(new Attack.HitInfos(Datas.Attack.AttackDatas.InfiniteDamage, 1f, transform, null));
         }
     }
 
