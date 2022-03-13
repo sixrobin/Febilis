@@ -12,6 +12,22 @@
             return true;
         }
 
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            
+            if (ActionDatas.FacePlayer)
+                EnemyCtrl.EnemyView.SetWalkMultiplier(ActionDatas.WalkAnimationMultiplier);
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            
+            if (ActionDatas.FacePlayer)
+                EnemyCtrl.EnemyView.SetWalkMultiplier(1f);
+        }
+
         public override void Execute()
         {
             EnemyCtrl.SetDirection(UnityEngine.Mathf.Sign(EnemyCtrl.transform.position.x - EnemyCtrl.PlayerCtrl.transform.position.x));

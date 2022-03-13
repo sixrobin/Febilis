@@ -60,6 +60,15 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 3e4d4d44e868802438e9b9c1bb8f5478, type: 2}
   - {fileID: 7400000, guid: 0fe9bb554b030204eba14f47be98ec7c, type: 2}
   - {fileID: 7400000, guid: c8c920164fd433441870aef8fc42fb36, type: 2}
+  - {fileID: 7400000, guid: d150dd48060e70742b0a7813eaeb001e, type: 2}
+  - {fileID: 7400000, guid: cf922ae210722b44983ceb06a17ea8a0, type: 2}
+  - {fileID: 7400000, guid: 919305ef49fb50e44b3cc0e0ddc6d904, type: 2}
+  - {fileID: 7400000, guid: a90d47f68ea656d498899a2c6f1be85e, type: 2}
+  - {fileID: 7400000, guid: 5554c74b5e6f0cc4a9ef682c54ebb7c4, type: 2}
+  - {fileID: 7400000, guid: b57525fc535846249b727a00ab5d0af7, type: 2}
+  - {fileID: 7400000, guid: 4c5ea3b2df322f045a09b42e625f55b6, type: 2}
+  - {fileID: 7400000, guid: 612f40d2a03bd0f4ab410ab66f222f38, type: 2}
+  - {fileID: 7400000, guid: 8f6e84546ff1cfb47ade8cb7b5380434, type: 2}
   - {fileID: 7400000, guid: ae3d40aa1980d22418324dbb1eb0639a, type: 2}
   - {fileID: 7400000, guid: d8fd80ac0e7abb74985bb8f2718b0e1b, type: 2}
   - {fileID: 7400000, guid: 8d1b440771e0a4944ae326f3ade9c055, type: 2}
@@ -69,7 +78,8 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 5e0e759fc99e6d5438f6e8c33c4294e3, type: 2}
   - {fileID: 7400000, guid: 76a5faa5ee7222d41911af3b31bee62e, type: 2}
   - {fileID: 7400000, guid: db5ce7392f06cc44e8e6c4b71833cdac, type: 2}
-  clipsAssetsRootPath: Assets/Animations/Enemy
+  - {fileID: 7400000, guid: 39cf23dc35fc81d4fba73f0ee4420f76, type: 2}
+  clipsAssetsRootPath: Assets/Animations/Unit/Enemy
 --- !u!1 &4206304114253380134
 GameObject:
   m_ObjectHideFlags: 0

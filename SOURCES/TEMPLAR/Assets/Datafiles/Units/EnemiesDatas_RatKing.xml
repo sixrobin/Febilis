@@ -2,8 +2,8 @@
 <EnemiesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EnemiesDatas.xsd">
 
    <EnemyDatas Id="RatKing">
-      <Health>1000</Health>
-      <WalkSpeed>4</WalkSpeed>
+      <Health>500</Health>
+      <WalkSpeed>4.5</WalkSpeed>
       <RunSpeed>8</RunSpeed>
       <HurtDur>0.3</HurtDur>
       <PlayerDetectionDist>4</PlayerDetectionDist>
@@ -17,64 +17,106 @@
       </Physics>
       <Behaviours>
          <Behaviour Name="Phase1">
+            <!--Full health: only chase and basic attack, no charge.-->
             <Conditions>
-               <HealthPercentageMin Threshold="0.66"/>
+               <FullHealth/>
                <PlayerAlive/>
                <PlayerDetected/>
             </Conditions>
             <Actions>
-               <!--TODO: Attack if last action is a charge.-->
-               <Charge>
+               <Attack Id="rat_king_atk_base">
                   <Conditions>
                      <LastActionsCheck ActionsCount="1">
-                        <Exclude>Charge</Exclude>
+                        <Exclude>Attack</Exclude>
+                     </LastActionsCheck>
+                     <MaxHeightOffset Offset="1"/>
+                     <PlayerInRange Range="4"/>
+                  </Conditions>
+                  <AnimatorId>Base</AnimatorId>
+               </Attack>
+               <Flee>
+                  <Conditions>
+                     <PlayerInRange Range="2.5"/>
+                  </Conditions>
+                  <FacePlayer/>
+                  <WalkAnimationMultiplier>-0.5</WalkAnimationMultiplier>
+               </Flee>
+               <Chase/>
+            </Actions>
+         </Behaviour>
+         <Behaviour Name="Phase2">
+            <!--Health above 50%: basic attack and charge.-->
+            <Conditions>
+               <HealthPercentageMin Threshold="0.5"/>
+               <PlayerAlive/>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <Attack Id="rat_king_atk_base">
+                  <Conditions>
+                     <LastActionsCheck ActionsCount="1">
+                        <Exclude>Attack</Exclude>
+                     </LastActionsCheck>
+                     <MaxHeightOffset Offset="1"/>
+                     <PlayerInRange Range="4"/>
+                  </Conditions>
+                  <AnimatorId>Base</AnimatorId>
+               </Attack>
+               <Charge>
+                   <Conditions>
+                       <LastActionsCheck ActionsCount="1">
+                           <Exclude>Charge</Exclude>
+                       </LastActionsCheck>
+                       <PlayerInRange Range="4" Negate="true"/>
+                   </Conditions>
+                   <CantBeHurt/>
+                   <AnticipationDuration>0.9</AnticipationDuration>
+                   <InitSpeed>6</InitSpeed>
+                   <Acceleration>4</Acceleration>
+                   <PlayerCollision>
+                       <AttackId>rat_king_charge</AttackId>
+                       <Trauma X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Medium"/>
+                   </PlayerCollision>
+                   <WallCollision>
+                       <AttackId>rat_king_charge_self_stun</AttackId>
+                       <Stun Dur="2" Delay="0.5"/>
+                       <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>
+                   </WallCollision>
+               </Charge>
+               <Chase/>
+            </Actions>
+         </Behaviour>
+         <Behaviour Name="Phase3">
+            <!--Last phase: enraged rat with faster and more frequent charge.-->
+            <Conditions>
+               <PlayerAlive/>
+               <PlayerDetected/>
+            </Conditions>
+            <Actions>
+               <Attack Id="rat_king_atk_base">
+                  <Conditions>
+                     <LastActionsCheck ActionsCount="1">
+                        <Exclude>Attack</Exclude>
                      </LastActionsCheck>
                      <PlayerInRange Range="4"/>
                   </Conditions>
+                  <AnimatorId>Base</AnimatorId>
+               </Attack>
+               <Charge>
                   <CantBeHurt/>
-                  <AnticipationDuration>0.9</AnticipationDuration>
-                  <InitSpeed>6</InitSpeed>
-                  <Acceleration>3</Acceleration>
+                  <AnticipationDuration>0.6</AnticipationDuration>
+                  <InitSpeed>7</InitSpeed>
+                  <Acceleration>5</Acceleration>
                   <PlayerCollision>
                      <AttackId>rat_king_charge</AttackId>
                      <Trauma X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Medium"/>
                   </PlayerCollision>
                   <WallCollision>
                      <AttackId>rat_king_charge_self_stun</AttackId>
-                     <Stun Dur="2" Delay="0.5"/>
+                     <Stun Dur="1" Delay="0.5"/>
                      <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>
                   </WallCollision>
                </Charge>
-               <Chase>
-                  <!--Not in charge range: approach.-->
-               </Chase>
-            </Actions>
-         </Behaviour>
-         <Behaviour Name="Phase2">
-            <Conditions>
-               <HealthPercentageMin Threshold="0.3"/>
-               <PlayerAlive/>
-               <PlayerDetected/>
-            </Conditions>
-            <Actions>
-               <Chase>
-                  <Conditions>
-                     <MaxHeightOffset Offset="0.2"/>
-                     <PlayerAlive/>
-                     <PlayerDetected/>
-                  </Conditions>
-               </Chase>
-            </Actions>
-         </Behaviour>
-         <Behaviour Name="Phase3">
-            <Conditions>
-               <PlayerAlive/>
-               <PlayerDetected/>
-            </Conditions>
-            <Actions>
-               <Flee>
-                  <FacePlayer/>
-               </Flee>
             </Actions>
          </Behaviour>
          <Behaviour Name="PreFight">
@@ -96,5 +138,67 @@
          <Coins>5</Coins>
       </OnKilledLoot>
    </EnemyDatas>
+
+   <!--    <Behaviour Name="Phase1">-->
+   <!--        <Conditions>-->
+   <!--            <HealthPercentageMin Threshold="0.66"/>-->
+   <!--            <PlayerAlive/>-->
+   <!--            <PlayerDetected/>-->
+   <!--        </Conditions>-->
+   <!--        <Actions>-->
+   <!--            &lt;!&ndash;TODO: Attack if last action is a charge.&ndash;&gt;-->
+   <!--            <Charge>-->
+   <!--                <Conditions>-->
+   <!--                    <LastActionsCheck ActionsCount="1">-->
+   <!--                        <Exclude>Charge</Exclude>-->
+   <!--                    </LastActionsCheck>-->
+   <!--                    <PlayerInRange Range="4"/>-->
+   <!--                </Conditions>-->
+   <!--                <CantBeHurt/>-->
+   <!--                <AnticipationDuration>0.9</AnticipationDuration>-->
+   <!--                <InitSpeed>6</InitSpeed>-->
+   <!--                <Acceleration>3</Acceleration>-->
+   <!--                <PlayerCollision>-->
+   <!--                    <AttackId>rat_king_charge</AttackId>-->
+   <!--                    <Trauma X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Medium"/>-->
+   <!--                </PlayerCollision>-->
+   <!--                <WallCollision>-->
+   <!--                    <AttackId>rat_king_charge_self_stun</AttackId>-->
+   <!--                    <Stun Dur="2" Delay="0.5"/>-->
+   <!--                    <Trauma X="0.5" Y="0.5" AddType="OVERRIDE" CanShakeWhenOffscreen="true" ShakeId="Medium"/>-->
+   <!--                </WallCollision>-->
+   <!--            </Charge>-->
+   <!--            <Chase>-->
+   <!--                &lt;!&ndash;Not in charge range: approach.&ndash;&gt;-->
+   <!--            </Chase>-->
+   <!--        </Actions>-->
+   <!--    </Behaviour>-->
+   <!--    <Behaviour Name="Phase2">-->
+   <!--        <Conditions>-->
+   <!--            <HealthPercentageMin Threshold="0.3"/>-->
+   <!--            <PlayerAlive/>-->
+   <!--            <PlayerDetected/>-->
+   <!--        </Conditions>-->
+   <!--        <Actions>-->
+   <!--            <Chase>-->
+   <!--                <Conditions>-->
+   <!--                    <MaxHeightOffset Offset="0.2"/>-->
+   <!--                    <PlayerAlive/>-->
+   <!--                    <PlayerDetected/>-->
+   <!--                </Conditions>-->
+   <!--            </Chase>-->
+   <!--        </Actions>-->
+   <!--    </Behaviour>-->
+   <!--    <Behaviour Name="Phase3">-->
+   <!--        <Conditions>-->
+   <!--            <PlayerAlive/>-->
+   <!--            <PlayerDetected/>-->
+   <!--        </Conditions>-->
+   <!--        <Actions>-->
+   <!--            <Flee>-->
+   <!--                <FacePlayer/>-->
+   <!--            </Flee>-->
+   <!--        </Actions>-->
+   <!--    </Behaviour>-->
 
 </EnemiesDatas>

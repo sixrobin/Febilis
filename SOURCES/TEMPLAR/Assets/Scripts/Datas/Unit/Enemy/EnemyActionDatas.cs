@@ -162,13 +162,18 @@
         }
 
         public bool FacePlayer { get; private set; }
-
+        public float WalkAnimationMultiplier { get; private set; }
+        
         public override void Deserialize(XContainer container)
         {
             base.Deserialize(container);
 
             XContainer fleeElement = container as XElement;
+            
             FacePlayer = fleeElement.Element("FacePlayer") != null;
+
+            XElement walkAnimationMultiplierElement = fleeElement.Element("WalkAnimationMultiplier");
+            WalkAnimationMultiplier = walkAnimationMultiplierElement?.ValueToFloat() ?? 1f;
         }
     }
 

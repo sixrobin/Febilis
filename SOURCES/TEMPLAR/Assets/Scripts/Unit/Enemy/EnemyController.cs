@@ -94,14 +94,12 @@
 
         public void ForceUpdateCurrentBehaviour()
         {
-            Debug.LogError("ForceUpdateCurrentBehaviour");
             _behaviourUpdateTimer = 0f;
             UpdateCurrentBehaviour();
         }
 
         public void ForceUpdateCurrentAction()
         {
-            Debug.LogError("ForceUpdateCurrentAction");
             _behaviourUpdateTimer = 0f;
             UpdateCurrentAction();
         }
@@ -120,11 +118,9 @@
             switch (collisionInfos.Origin)
             {
                 case Templar.Physics.CollisionsController.CollisionOrigin.ABOVE:
-                {
                     // [TODO] Pool/ref.
                     IsPlayerAbove = collisionInfos.Hit.collider.GetComponent<Player.PlayerController>();
                     break;
-                }
 
                 default:
                     break;

@@ -13,6 +13,7 @@
         protected const string HURT = "Hurt";
         protected const string STUN = "Stun";
         protected const string ATTACK = "Attack";
+        protected const string MULT_WALK = "Mult_Walk";
         protected const string MULT_ATTACK = "Mult_Attack";
 
         [Header("REFS")]
@@ -106,6 +107,11 @@
             _animator.SetTrigger(DEAD_FADE);
         }
 
+        public virtual void SetWalkMultiplier(float value)
+        {
+            _animator.SetFloat(MULT_WALK, value);
+        }
+        
         protected void InitAnimatorOverrideController()
         {
             _aoc = new AnimatorOverrideController(_aocTemplate.runtimeAnimatorController) { name = $"aocCopy_{transform.name}" };

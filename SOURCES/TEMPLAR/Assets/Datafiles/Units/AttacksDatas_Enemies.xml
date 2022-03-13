@@ -91,8 +91,33 @@
    <!-- RAT KING -->
    <!-- ████████ -->
 
+   <EnemyAttack Id="rat_king_atk_base">
+      <Dmg>20</Dmg>
+      <Hit>
+         <Dur>0.1</Dur>
+         <Layers>
+            <LayerName>PLAYER</LayerName>
+            <LayerName>ENEMY</LayerName>
+         </Layers>
+         <DirComputationType>ATTACK_DIR</DirComputationType>
+         <FreezeFrameDur>0.1</FreezeFrameDur>
+      </Hit>
+      <Recoil>
+         <Force>8</Force>
+         <Dur>0.3</Dur>
+      </Recoil>
+      <Traumas>
+         <Base X="0.1" Y="0.1" AddType="OVERRIDE" ShakeId="Small"/>
+         <Hit X="0.45" Y="0.45" AddType="OVERRIDE" ShakeId="Small"/>
+      </Traumas>
+      <ClipsDurations>
+         <Anticipation>0.7</Anticipation>
+         <Attack>0.85</Attack>
+      </ClipsDurations>
+   </EnemyAttack>
+   
    <EnemyAttack Id="rat_king_charge">
-      <Dmg>40</Dmg>
+      <Dmg>25</Dmg>
       <Hit>
          <Dur>0.1</Dur>
          <Layers>
@@ -121,8 +146,7 @@
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0</FreezeFrameDur>
       </Hit>
-      <Traumas>
-      </Traumas>
+      <Traumas/>
    </EnemyAttack>
    
 </AttacksDatas>

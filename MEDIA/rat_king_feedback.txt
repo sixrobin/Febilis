@@ -1,0 +1,4 @@
+-> la charge tape trop fort
+-> plus d'anticipation sur la charge
+-> décaler le hit du gnap
+-> corriger le souci du perso "dans" le rat (attaque dive? pouvoir monter dessus?)

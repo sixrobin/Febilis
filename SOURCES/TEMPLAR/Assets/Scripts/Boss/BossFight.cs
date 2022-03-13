@@ -30,6 +30,9 @@
         [SerializeField] private Datas.BossIntroDatas _bossIntroDatas = null;
         [SerializeField] private Unit.Enemy.EnemyController[] _fightBosses = null;
 
+        [Header("DEBUG")]
+        [SerializeField] private bool _skipIntroCutscene = false;
+        
         private int _bossesToKillLeft = -1;
 
         public delegate void BossFightEventHandler(BossFightEventArgs args);
@@ -69,13 +72,16 @@
 
             Manager.GameManager.PlayerCtrl.HealthCtrl.UnitKilled += OnPlayerKilled;
 
-            Manager.GameManager.PlayerCtrl.RollCtrl.Interrupt();
-            Manager.GameManager.PlayerCtrl.AttackCtrl.CancelAttack();
+            if (!_skipIntroCutscene)
+            {
+                Manager.GameManager.PlayerCtrl.RollCtrl.Interrupt();
+                Manager.GameManager.PlayerCtrl.AttackCtrl.CancelAttack();
 
-            StartCoroutine(FocusCameraOnBossCoroutine());
-            if (_bossIntroDatas.DisallowInputs)
-                StartCoroutine(DisallowInputsCoroutine());
-
+                StartCoroutine(FocusCameraOnBossCoroutine());
+                if (_bossIntroDatas.DisallowInputs)
+                    StartCoroutine(DisallowInputsCoroutine());
+            }
+            
             BossFightStarted?.Invoke(new BossFightEventArgs(this));
         }
 
