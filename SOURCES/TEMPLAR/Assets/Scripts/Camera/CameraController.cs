@@ -266,7 +266,7 @@
             Vector3 targetPosition = ComputeTargetPosition();
 
             // Don't take input into account when focusing something else than the player.
-            if (OverrideTarget != null)
+            if (OverrideTarget == null)
             {
                 ComputeLookAheadPosition(ref targetPosition);
                 ComputeLookVerticalPosition(ref targetPosition);

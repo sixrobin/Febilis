@@ -50,6 +50,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element name="OverrideDisplayName" type="xs:token" minOccurs="0" maxOccurs="1"/>
+                  <xs:element name="HidePortraitBox" minOccurs="0" maxOccurs="1"/>
                   <xs:element name="HideSpeakerName" minOccurs="0" maxOccurs="1"/>
                   <xs:element name="OverridePortraitId" type="xs:token" minOccurs="0" maxOccurs="1"/>
                </xs:sequence>

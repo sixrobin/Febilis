@@ -85,7 +85,7 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_delayBeforeFirstDialogueElement);
             Manager.GameManager.PlayerCtrl.PlayerView.PlayDialogueIdleAnimation();
 
-            _dialogueView.SetPortraitDisplay(_currentDialogue);
+            _dialogueView.SetPortraitDisplay(!_currentDialogue.HidePortraitBox);
 
             for (int i = 0; i < _currentDialogue.SequenceElementsDatas.Length; ++i)
             {
@@ -132,7 +132,12 @@
                 $"Speaker Id {sentenceDatas.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
 
             _dialogueView.ClearText();
-            _dialogueView.SetPortraitAndAnchors(sentenceDatas, _currentDialogue.InvertPortraitsAnchors);
+
+            bool displayPortraitBox = !_currentDialogue.HidePortraitBox && !sentenceDatas.HidePortraitBox;
+            _dialogueView.SetPortraitDisplay(displayPortraitBox);
+            if (displayPortraitBox)
+                _dialogueView.SetPortraitAndAnchors(sentenceDatas, _currentDialogue.InvertPortraitsAnchors);
+            
             _dialogueView.Display(true);
 
             _skippedSentenceSequence = false;

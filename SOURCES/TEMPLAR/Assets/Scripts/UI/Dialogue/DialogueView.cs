@@ -75,13 +75,13 @@
             _text.text = string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
         }
 
-        public void SetPortraitDisplay(Datas.Dialogue.DialogueDatas dialogueDatas)
+        public void SetPortraitDisplay(bool show)
         {
-            _portraitBox.gameObject.SetActive(!dialogueDatas.HidePortraitBox);
+            _portraitBox.gameObject.SetActive(show);
 
-            _textBox.sizeDelta = _textBox.sizeDelta.WithX(dialogueDatas.HidePortraitBox ?
-                _canvasScaler.referenceResolution.x - Mathf.Abs(_textBox.anchoredPosition.x * 2)
-                : _textBoxInitWidth);
+            _textBox.sizeDelta = _textBox.sizeDelta.WithX(show
+                                                          ? _textBoxInitWidth
+                                                          : _canvasScaler.referenceResolution.x - Mathf.Abs(_textBox.anchoredPosition.x * 2));
         }
 
         public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas, bool invertAnchors)

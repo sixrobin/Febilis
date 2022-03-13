@@ -19,6 +19,7 @@
 
         public string OverrideDisplayName { get; private set; }
         public string OverridePortraitId { get; private set; }
+        public bool HidePortraitBox { get; private set; }
         public bool HideSpeakerName { get; private set; }
 
         public string RawValue { get; private set; }
@@ -57,6 +58,7 @@
             OverridePortraitId = overridePortraitIdElement?.Value ?? null;
 
             HideSpeakerName = speakerElement.Element("HideSpeakerName") != null;
+            HidePortraitBox = speakerElement.Element("HidePortraitBox") != null;
 
             XElement valueElement = sentenceElement.Element("Value");
             UnityEngine.Assertions.Assert.IsFalse(valueElement.IsNullOrEmpty(), $"Sentence {Id} Value element is null or empty.");

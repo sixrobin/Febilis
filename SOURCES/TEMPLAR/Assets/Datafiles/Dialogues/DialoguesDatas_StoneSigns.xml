@@ -30,6 +30,14 @@
       </Sequence>
    </DialogueDatas>
 
+   <DialogueDatas Id="StoneSign_RatKing">
+      <!--<HidePortraitBox/>-->
+      <Sequence>
+         <Sentence Id="StoneSign_RatKing_Sentence_00"/>
+         <Sentence Id="StoneSign_RatKing_Sentence_01"/>
+      </Sequence>
+   </DialogueDatas>
+
 
    <SentenceDatas Id="StoneSign_00_Sentence_00">
       <Speaker Id="Templar">
@@ -64,6 +72,21 @@
          <HideSpeakerName/>
       </Speaker>
       <Value>"Here lie the dead, and those who got cursed by Febilis."</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_RatKing_Sentence_00">
+      <Speaker Id="Templar">
+         <HidePortraitBox/>
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>"Beware the king of the rat, as many have died already."</Value>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_RatKing_Sentence_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Value>There's blood covering the stone...</Value>
    </SentenceDatas>
    
 </DialoguesDatas>
