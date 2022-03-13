@@ -79,7 +79,7 @@
          <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
-      <Value>"Beware the king of the rat, as many have died already."</Value>
+      <Value>"Beware the king of rats, as many have died already."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_RatKing_Sentence_01">

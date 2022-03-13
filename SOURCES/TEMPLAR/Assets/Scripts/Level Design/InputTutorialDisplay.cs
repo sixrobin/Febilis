@@ -101,7 +101,9 @@
                     Display(false);
                     Manager.GameManager.InventoryCtrl.InventoryContentChanged += (args) =>
                     {
-                        if (args.NewQuantity > args.PrevQuantity && args.Item.Datas.Id != Item.InventoryController.ITEM_ID_COIN)
+                        if (args.NewQuantity > args.PrevQuantity
+                            && args.Item.Datas.Id != Item.InventoryController.ITEM_ID_COIN
+                            && args.Item.Datas.Id != Item.InventoryController.ITEM_ID_POTION)
                             Display(true);
                     };
                     break;
