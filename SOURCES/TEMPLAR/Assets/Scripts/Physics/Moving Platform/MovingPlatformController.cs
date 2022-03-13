@@ -154,8 +154,8 @@
             float signX = Mathf.Sign(vel.x);
             float signY = Mathf.Sign(vel.y);
 
-            // NOTE: RaycastAll doesn't seem to care about max distance so manuel checks on RaycastHit2D.distance are added.
-            // KnP bug entry: https://app.hacknplan.com/p/148469/kanban?categoryId=8&boardId=392835&taskId=68&tabId=basicinfo.
+            // NOTE: RaycastAll doesn't seem to care about max distance so manual checks on RaycastHit2D.distance are added.
+            // HnP issue entry: https://app.hacknplan.com/p/148469/kanban?categoryId=8&boardId=392835&taskId=68&tabId=basicinfo.
 
             if (vel.y != 0f)
             {

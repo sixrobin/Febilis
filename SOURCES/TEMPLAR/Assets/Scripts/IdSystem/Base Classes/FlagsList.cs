@@ -55,7 +55,6 @@
             if (_ids.Count == 0)
                 return null;
 
-            //// [TODO] Check if this works or returns the value without changing the ref.
             _ids.Sort();
 
             XElement idsElement = new XElement(_identifierType.Name);

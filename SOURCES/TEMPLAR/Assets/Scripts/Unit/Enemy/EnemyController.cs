@@ -23,6 +23,8 @@
         [SerializeField] private RSLib.Framework.DisabledString _currBehaviourName = new RSLib.Framework.DisabledString();
         [SerializeField] private RSLib.Framework.DisabledString _currActionName = new RSLib.Framework.DisabledString();
 
+        private static Collider2D s_playerCollider;
+        
         private float _sleepUpdateTimer;
         private float _behaviourUpdateTimer;
 
@@ -125,8 +127,15 @@
             switch (collisionInfos.Origin)
             {
                 case Templar.Physics.CollisionsController.CollisionOrigin.ABOVE:
-                    // [TODO] Pool/ref.
-                    IsPlayerAbove = collisionInfos.Hit.collider.GetComponent<Player.PlayerController>();
+                    if (s_playerCollider == collisionInfos.Hit.collider)
+                    {
+                        IsPlayerAbove = true;
+                    }
+                    else if (collisionInfos.Hit.collider.TryGetComponent<Templar.Unit.Player.PlayerController>(out _))
+                    {
+                        IsPlayerAbove = true;
+                        s_playerCollider = collisionInfos.Hit.collider;
+                    }
                     break;
 
                 default:

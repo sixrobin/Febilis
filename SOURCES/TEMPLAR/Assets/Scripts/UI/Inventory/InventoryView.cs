@@ -12,7 +12,8 @@
     public partial class InventoryView : UIPanel, IScrollViewClosestItemGetter
     {
         private const string INVENTORY_INPUT = "Inventory";
-
+        private const string UI_SCROLL_INPUT = "UIScroll";
+        
         private const string EMPTY_SLOT_NAME = "???";
         private const string EMPTY_SLOT_TYPE = "";
         private const string EMPTY_SLOT_DESC = "???";
@@ -325,7 +326,7 @@
 
         private void ScrollThroughDescription()
         {
-            float scrollInput = Input.GetAxisRaw("UIScroll"); // [TODO] Const.
+            float scrollInput = Input.GetAxisRaw(UI_SCROLL_INPUT);
             if (Mathf.Abs(scrollInput) > 0.05f)
             {
                 float scrollSpeed = RSLib.Maths.Maths.NormalizeClamped(

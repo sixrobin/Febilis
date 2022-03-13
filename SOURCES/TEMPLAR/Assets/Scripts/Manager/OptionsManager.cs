@@ -5,6 +5,8 @@
 
     public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
     {
+        private const string MENU_INPUT = "Menu";
+        
         [Header("OPTIONS PANELS")]
         [SerializeField] private UI.Settings.SettingsHubPanel _settingsHubPanel = null;
         [SerializeField] private UI.Settings.Controls.ControlsPanel _controlsPanel = null;
@@ -173,7 +175,7 @@
             if (!CanToggleOptions())
                 return;
 
-            if (Input.GetButtonDown("Menu")) // [TODO] Constant.
+            if (Input.GetButtonDown(MENU_INPUT))
             {
                 if (!AnyPanelOpen())
                 {
