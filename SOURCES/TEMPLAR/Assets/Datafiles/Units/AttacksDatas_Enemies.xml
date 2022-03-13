@@ -94,6 +94,7 @@
    <EnemyAttack Id="rat_king_atk_base">
       <Dmg>20</Dmg>
       <Hit>
+         <Delay>0.27</Delay>
          <Dur>0.1</Dur>
          <Layers>
             <LayerName>PLAYER</LayerName>
@@ -107,8 +108,8 @@
          <Dur>0.3</Dur>
       </Recoil>
       <Traumas>
-         <Base X="0.1" Y="0.1" AddType="OVERRIDE" ShakeId="Small"/>
-         <Hit X="0.45" Y="0.45" AddType="OVERRIDE" ShakeId="Small"/>
+         <Base X="0.05" Y="0.05" AddType="OVERRIDE" ShakeId="Small"/>
+         <Hit X="0.4" Y="0.4" AddType="OVERRIDE" ShakeId="Small"/>
       </Traumas>
       <ClipsDurations>
          <Anticipation>0.7</Anticipation>

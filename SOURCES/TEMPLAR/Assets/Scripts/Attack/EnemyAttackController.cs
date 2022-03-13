@@ -49,9 +49,11 @@ namespace Templar.Attack
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AnticipationDur);
 
             _enemyCtrl.EnemyView.PlayAttackAnimation();
+            
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.HitDelay);
             TriggerHit(_currAttackDatas, attackAction.ActionDatas.Id);
 
-            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AttackDur);
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_currAttackDatas.AttackDur - _currAttackDatas.HitDelay);
 
             attackOverCallback?.Invoke(new AttackOverEventArgs(_currAttackDatas, AttackDir));
             _attackCoroutine = null;
