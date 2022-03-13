@@ -70,7 +70,7 @@
                        <PlayerInRange Range="4" Negate="true"/>
                    </Conditions>
                    <CantBeHurt/>
-                   <AnticipationDuration>0.9</AnticipationDuration>
+                   <AnticipationDuration>1.2</AnticipationDuration>
                    <InitSpeed>6</InitSpeed>
                    <Acceleration>4</Acceleration>
                    <PlayerCollision>
@@ -104,7 +104,7 @@
                </Attack>
                <Charge>
                   <CantBeHurt/>
-                  <AnticipationDuration>0.6</AnticipationDuration>
+                  <AnticipationDuration>0.9</AnticipationDuration>
                   <InitSpeed>7</InitSpeed>
                   <Acceleration>5</Acceleration>
                   <PlayerCollision>

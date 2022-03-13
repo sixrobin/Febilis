@@ -29,7 +29,8 @@
         [SerializeField] private Flags.BossIdentifier _bossIdentifier = null;
         [SerializeField] private Datas.BossIntroDatas _bossIntroDatas = null;
         [SerializeField] private Unit.Enemy.EnemyController[] _fightBosses = null;
-
+        [SerializeField] private bool _forcePlayerDetection = true;
+        
         [Header("DEBUG")]
         [SerializeField] private bool _skipIntroCutscene = false;
         
@@ -60,6 +61,13 @@
 
         public void TriggerFight()
         {
+            void ForcePlayerDetection()
+            {
+                if (_forcePlayerDetection)
+                    for (int i = FightBosses.Length - 1; i >= 0; --i)
+                        FightBosses[i].ForcePlayerDetection();
+            }
+            
             CProLogger.Log(this, $"Triggering boss fight {Identifier.Id}.", gameObject);
 
             _bossesToKillLeft = FightBosses.Length;
@@ -77,9 +85,13 @@
                 Manager.GameManager.PlayerCtrl.RollCtrl.Interrupt();
                 Manager.GameManager.PlayerCtrl.AttackCtrl.CancelAttack();
 
-                StartCoroutine(FocusCameraOnBossCoroutine());
+                StartCoroutine(FocusCameraOnBossCoroutine(ForcePlayerDetection));
                 if (_bossIntroDatas.DisallowInputs)
                     StartCoroutine(DisallowInputsCoroutine());
+            }
+            else
+            {
+                ForcePlayerDetection();
             }
             
             BossFightStarted?.Invoke(new BossFightEventArgs(this));
@@ -107,7 +119,7 @@
             Manager.GameManager.PlayerCtrl.AllowInputs(true);
         }
 
-        private System.Collections.IEnumerator FocusCameraOnBossCoroutine()
+        private System.Collections.IEnumerator FocusCameraOnBossCoroutine(System.Action callback = null)
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.CameraFocusDelay);
 
@@ -138,6 +150,8 @@
             bossesAveragePivot.transform.position = initPosition;
             Manager.GameManager.CameraCtrl.ResetOverrideTarget();
             Destroy(bossesAveragePivot);
+            
+            callback?.Invoke();
         }
 
         private void Start()

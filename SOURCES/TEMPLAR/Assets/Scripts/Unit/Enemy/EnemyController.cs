@@ -81,7 +81,9 @@
         public override UnitView UnitView => _enemyView;
 
         public bool IsPlayerAbove { get; private set; }
-
+        
+        public bool ForcedPlayerDetection { get; private set; }
+        
         public Player.PlayerController PlayerCtrl => _playerCtrl;
         public EnemyView EnemyView => _enemyView;
         
@@ -104,6 +106,11 @@
             UpdateCurrentAction();
         }
 
+        public void ForcePlayerDetection()
+        {
+            ForcedPlayerDetection = true;
+        }
+        
         protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
         {
             base.OnCollisionDetected(collisionInfos);

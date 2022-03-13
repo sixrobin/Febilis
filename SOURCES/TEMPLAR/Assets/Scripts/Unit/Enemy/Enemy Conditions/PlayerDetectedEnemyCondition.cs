@@ -17,7 +17,8 @@
 
         private bool CheckPlayerDetection()
         {
-            return (EnemyCtrl.PlayerCtrl.transform.position - EnemyCtrl.transform.position).sqrMagnitude <= EnemyCtrl.EnemyDatas.PlayerDetectionDistSqr;
+            return EnemyCtrl.ForcedPlayerDetection
+                || (EnemyCtrl.PlayerCtrl.transform.position - EnemyCtrl.transform.position).sqrMagnitude <= EnemyCtrl.EnemyDatas.PlayerDetectionDistSqr;
         }
 
         private bool CheckPlayerLost()

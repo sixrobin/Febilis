@@ -1,5 +1,3 @@
--> la charge tape trop fort
--> plus d'anticipation sur la charge
 -> décaler le hit du gnap
 -> corriger le souci du perso "dans" le rat (attaque dive? pouvoir monter dessus?)
 -> si le joueur déclenche l'intro en l'air, la caméra gère mal le retour et ne revient pas sur la position actualisée du joueur
