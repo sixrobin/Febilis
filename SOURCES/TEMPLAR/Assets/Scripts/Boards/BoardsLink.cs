@@ -155,7 +155,7 @@
                 _exitDir == ScreenDirection.NONE,
                 $"Boards Link instance on {transform.name} exit direction has an invalid value {_exitDir}.");
 
-            if (other.GetComponent<Unit.Player.PlayerController>()) // [TODO] Remove GetComponent.
+            if (other.TryGetComponent<Unit.Player.PlayerController>(out _))
                 Trigger();
         }
 
