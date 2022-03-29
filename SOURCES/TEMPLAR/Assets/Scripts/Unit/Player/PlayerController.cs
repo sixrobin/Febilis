@@ -201,7 +201,7 @@
                 case Templar.Physics.CollisionsController.CollisionOrigin.BELOW:
                 {
                     // [BUG]
-                    // We need to check if templar was not hurt, else, if he got hurt on top of the skeleton's head,
+                    // We need to check if player was not hurt, else, if he got hurt on top of the skeleton's head,
                     // a collision below is detected afterwards, playing the idle animation.
                     // Solution idea : compute below collision each frame even without y negative velocity ?
 
@@ -210,10 +210,7 @@
                         && !IsBeingHurt)
                     {
                         UnityEngine.Assertions.Assert.IsTrue(_currVel.y < 0f, $"Detected a landing with a positive y velocity ({_currVel.y})!");
-                        if (CtrlDatas.Jump.MinVelForLandImpact > -1 && -_currVel.y > CtrlDatas.Jump.MinVelForLandImpact)
-                            JumpCtrl.TriggerLandImpact(-_currVel.y);
-                        else
-                            PlayerView.PlayIdleAnimation(); // Landing with no speed impact.
+                        JumpCtrl.TriggerLandImpact(-_currVel.y);
                     }
 
                     break;
@@ -344,8 +341,13 @@
 
         private void TryHeal()
         {
-            if (PlayerHealthCtrl.CanHeal())
-                TriggerHeal();
+            if (InputCtrl.CheckInput(PlayerInputController.ButtonCategory.HEAL))
+            {
+                if (PlayerHealthCtrl.CanHeal())
+                    TriggerHeal();
+                else
+                    PlayerView.PlayCantHealAnimation(); 
+            }
         }
 
         private void Move()

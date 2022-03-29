@@ -25,10 +25,14 @@
         [Header("AOC")]
         [SerializeField] private AnimatorOverrideController _aocTemplate = null;
 
+        [Header("AUDIO - UNIT BASE")]
+        [SerializeField] private RSLib.Audio.ClipProvider _footstepClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _hurtClipProvider = null;
+
         private System.Collections.IEnumerator _blinkSpriteColorDelayedCoroutine;
 
-        protected AnimatorOverrideController _aoc;
-        protected List<KeyValuePair<AnimationClip, AnimationClip>> _initClips;
+        private AnimatorOverrideController _aoc;
+        private List<KeyValuePair<AnimationClip, AnimationClip>> _initClips;
 
         private float _stunStarsInitX;
 
@@ -36,6 +40,15 @@
 
         public SpriteRenderer Renderer => _spriteRenderer;
 
+#region ANIMATION EVENTS
+
+        public void OnFootstep()
+        {
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_footstepClipProvider);
+        }
+
+#endregion // ANIMATION EVENTS
+        
         public bool GetSpriteRendererFlipX()
         {
             return _spriteRenderer.flipX;
@@ -74,12 +87,13 @@
             _animator.SetTrigger(IDLE);
         }
 
-        public virtual void PlayHurtAnimation()
+        public void PlayHurtAnimation()
         {
             _animator.SetTrigger(HURT);
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_hurtClipProvider);
         }
 
-        public virtual void PlayStunAnimation(float dir)
+        public void PlayStunAnimation(float dir)
         {
             _animator.SetTrigger(STUN);
 
@@ -102,12 +116,12 @@
             _animator.SetTrigger(DEATH);
         }
 
-        public virtual void PlayDeadFadeAnimation()
+        public void PlayDeadFadeAnimation()
         {
             _animator.SetTrigger(DEAD_FADE);
         }
 
-        public virtual void SetWalkMultiplier(float value)
+        public void SetWalkMultiplier(float value)
         {
             _animator.SetFloat(MULT_WALK, value);
         }

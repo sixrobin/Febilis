@@ -569,7 +569,11 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 2727861838613788318}
   _animator: {fileID: 2727861838613788316}
   _spriteBlink: {fileID: 2727861838613788315}
+  _stunStars: {fileID: 0}
   _aocTemplate: {fileID: 22100000, guid: 6747fdbddf2566849892ce83053ed3e2, type: 2}
+  _footstepClipProvider: {fileID: 11400000, guid: 4a3b39929995ec34ea4240b1083f4864,
+    type: 2}
+  _hurtClipProvider: {fileID: 11400000, guid: 517dd9ca1c0d54544b37d818344ae7cf, type: 2}
   _jumpPuffPrefab: {fileID: 1349905492933044248, guid: 0fc830367c0e6c147bb80ba419ad874b,
     type: 3}
   _doubleJumpPuffPrefab: {fileID: 1349905492933044248, guid: 9432c447a8a61c440a2ff50b36827616,
@@ -590,6 +594,18 @@ MonoBehaviour:
   _idleBreakSecInterval: 6
   _breaksBeforeSleep: 2
   _sleepFeedback: {fileID: 1141313425224219380}
+  _landClipProvider: {fileID: 11400000, guid: e0a5268b8908e684599efa0cee6b2406, type: 2}
+  _softLandClipProvider: {fileID: 11400000, guid: 99efeb5476f1b1f4897de41a3876f51b,
+    type: 2}
+  _rollClipProvider: {fileID: 11400000, guid: 1aa4a5eeaf611ce4da3284a3fe413c33, type: 2}
+  _jumpClipProvider: {fileID: 11400000, guid: 2ef8f0fa82864524d9da6b3b26a7f23c, type: 2}
+  _doubleJumpClipProvider: {fileID: 11400000, guid: 2ef8f0fa82864524d9da6b3b26a7f23c,
+    type: 2}
+  _healClipProvider: {fileID: 11400000, guid: 4806e702143f28b43aaa258acb4f9fab, type: 2}
+  _cantHealClipProvider: {fileID: 11400000, guid: 9cc11d56f6d2d654e9ae68d8a8218f32,
+    type: 2}
+  _attackClipProvider: {fileID: 11400000, guid: ee126148fef498049b21cb5e8cbd74e4,
+    type: 2}
   _logAnimationsPlays: 0
 --- !u!114 &2727861838613788315
 MonoBehaviour:
@@ -604,14 +620,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blinkShader: {fileID: 4800000, guid: 7693dc454b48e6348b86762b43262cac, type: 3}
+  _useSharedMaterial: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorFadeDur: 0
   _coloredDur: 0.1
+  _inBetweenColorBlinksDur: 0.05
   _blinkColorAlpha: 1
   _colorEasingCurve: 7
   _colorResetIfBlinking: 1
   _alphaFadeDur: 0.08
   _transparencyDur: 0.05
+  _inBetweenAlphaBlinksDur: 0.05
   _targetAlpha: 0
   _alphaEasingCurve: 7
   _alphaResetIfBlinking: 1

@@ -85,8 +85,15 @@
 
         public void TriggerLandImpact(float fallSpeedAbs)
         {
-            _playerCtrl.StartCoroutine(_landImpactCoroutine = WaitForLandImpactCoroutine(fallSpeedAbs));
-            _playerCtrl.PlayerView.PlayLandAnimation(fallSpeedAbs);
+            if (_jumpDatas.MinVelForLandImpact > -1 && fallSpeedAbs > _jumpDatas.MinVelForLandImpact)
+            {
+                _playerCtrl.StartCoroutine(_landImpactCoroutine = WaitForLandImpactCoroutine(fallSpeedAbs));
+                _playerCtrl.PlayerView.PlayLandAnimation(fallSpeedAbs);
+            }
+            else
+            {
+                _playerCtrl.PlayerView.PlaySoftLandAnimation();
+            }
         }
 
         private void OnDatasValuesChanged()

@@ -45,6 +45,16 @@
         [SerializeField, Min(0)] private int _breaksBeforeSleep = 2;
         [SerializeField] private SleepFeedback _sleepFeedback = null;
 
+        [Header("AUDIO - PLAYER")]
+        [SerializeField] private RSLib.Audio.ClipProvider _landClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _softLandClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _rollClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _jumpClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _doubleJumpClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _healClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _cantHealClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _attackClipProvider = null;
+        
         [Header("DEBUG")]
         [SerializeField] private bool _logAnimationsPlays = false;
 
@@ -107,6 +117,8 @@
             _animator.SetTrigger(ATTACK);
             _animator.SetFloat(MULT_ATTACK, attackDatas.AnimSpeedMult);
 
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_attackClipProvider);
+            
             LogAnimationPlayIfRequired("Attack");
         }
 
@@ -138,6 +150,8 @@
                 RSLib.Framework.Pooling.Pool.Get(_landPuffPrefab).transform.position = transform.position;
             }
 
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_jumpClipProvider);
+
             LogAnimationPlayIfRequired("Jump");
         }
 
@@ -145,6 +159,9 @@
         {
             _animator.SetTrigger(JUMP);
             RSLib.Framework.Pooling.Pool.Get(_doubleJumpPuffPrefab).transform.position = transform.position;
+            
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_doubleJumpClipProvider);
+
             LogAnimationPlayIfRequired("Double Jump");
         }
 
@@ -154,9 +171,17 @@
             if (velYAbs > _landPuffMinVel)
                 PlayLandVFX();
 
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_landClipProvider);
+
             LogAnimationPlayIfRequired("Land");
         }
 
+        public void PlaySoftLandAnimation()
+        {
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_softLandClipProvider);
+            PlayIdleAnimation();
+        }
+        
         public void PlayLandVFX()
         {
             RSLib.Framework.Pooling.Pool.Get(_landPuffPrefab).transform.position = transform.position;
@@ -172,6 +197,8 @@
             rollPuffInstance.transform.position = transform.position;
             rollPuffInstance.transform.SetScaleX(dir);
 
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_rollClipProvider);
+            
             LogAnimationPlayIfRequired("Roll");
         }
 
@@ -232,7 +259,14 @@
         public void PlayHealAnimation()
         {
             _animator.SetTrigger(HEAL);
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_healClipProvider);
+
             LogAnimationPlayIfRequired("Heal");
+        }
+
+        public void PlayCantHealAnimation()
+        {
+            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_cantHealClipProvider);
         }
 
         public void PlayDialogueIdleAnimation()
