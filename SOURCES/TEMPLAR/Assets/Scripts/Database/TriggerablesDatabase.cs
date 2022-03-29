@@ -14,7 +14,7 @@
             DeserializeTriggerablesDatas();
         }
 
-        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicSortedItem<IDatabase>.GetDependencies()
+        System.Collections.Generic.IEnumerable<IDatabase> RSLib.Framework.ITopologicalSortedItem<IDatabase>.GetDependencies()
         {
             return new IDatabase[]
             {

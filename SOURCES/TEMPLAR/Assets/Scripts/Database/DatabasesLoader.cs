@@ -9,7 +9,7 @@
         private void Awake()
         {
             IDatabase[] _databases = GetComponentsInChildren<IDatabase>();
-            _databases = RSLib.Framework.TopologicSorter.Sort(_databases).ToArray();
+            _databases = RSLib.Framework.TopologicalSorter.Sort(_databases).ToArray();
 
             for (int i = 0; i < _databases.Length; ++i)
             {
