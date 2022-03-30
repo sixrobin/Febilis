@@ -117,7 +117,7 @@
             _animator.SetTrigger(ATTACK);
             _animator.SetFloat(MULT_ATTACK, attackDatas.AnimSpeedMult);
 
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_attackClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_attackClipProvider);
             
             LogAnimationPlayIfRequired("Attack");
         }
@@ -150,7 +150,7 @@
                 RSLib.Framework.Pooling.Pool.Get(_landPuffPrefab).transform.position = transform.position;
             }
 
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_jumpClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_jumpClipProvider);
 
             LogAnimationPlayIfRequired("Jump");
         }
@@ -160,7 +160,7 @@
             _animator.SetTrigger(JUMP);
             RSLib.Framework.Pooling.Pool.Get(_doubleJumpPuffPrefab).transform.position = transform.position;
             
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_doubleJumpClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_doubleJumpClipProvider);
 
             LogAnimationPlayIfRequired("Double Jump");
         }
@@ -171,14 +171,14 @@
             if (velYAbs > _landPuffMinVel)
                 PlayLandVFX();
 
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_landClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_landClipProvider);
 
             LogAnimationPlayIfRequired("Land");
         }
 
         public void PlaySoftLandAnimation()
         {
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_softLandClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_softLandClipProvider);
             PlayIdleAnimation();
         }
         
@@ -197,7 +197,7 @@
             rollPuffInstance.transform.position = transform.position;
             rollPuffInstance.transform.SetScaleX(dir);
 
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_rollClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_rollClipProvider);
             
             LogAnimationPlayIfRequired("Roll");
         }
@@ -259,14 +259,14 @@
         public void PlayHealAnimation()
         {
             _animator.SetTrigger(HEAL);
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_healClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_healClipProvider);
 
             LogAnimationPlayIfRequired("Heal");
         }
 
         public void PlayCantHealAnimation()
         {
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_cantHealClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_cantHealClipProvider);
         }
 
         public void PlayDialogueIdleAnimation()

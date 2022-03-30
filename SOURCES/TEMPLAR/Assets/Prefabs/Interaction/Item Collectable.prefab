@@ -153,6 +153,7 @@ MonoBehaviour:
   _itemId:
     _value: 
     _enabled: 0
+  _itemIdentifier: {fileID: 0}
   _container: {fileID: 673298380953083230}
   _itemSprite: {fileID: 673298380953083216}
   _smoke: {fileID: 673298380322493562}
@@ -163,6 +164,8 @@ MonoBehaviour:
   _fadeOutCurve: 24
   _fadeOverParticles:
   - {fileID: 1349905492933044248, guid: 1c0419291703ce34d81ae82e0ad2babf, type: 3}
+  _itemCollectedClipProvider: {fileID: 11400000, guid: c067b555ce654eb449f1947d92fbe250,
+    type: 2}
 --- !u!1 &673298380322493561
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 673298380953083218}
   _animator: {fileID: 673298380322493563}
+  _interactivityDelay: 0.33
   _forceRange: {x: 5, y: 7}
   _initDirRandomAngle: 40
   _itemCollectableCtrl: {fileID: 673298379777991051}

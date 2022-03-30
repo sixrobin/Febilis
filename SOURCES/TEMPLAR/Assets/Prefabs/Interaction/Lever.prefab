@@ -89,6 +89,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fc5892f21565c3b4bb13502be8bd3f45, type: 3}
   _triggerableLever: {fileID: 8059983502224887785}
   _disableAfterTrigger: 0
+  _leverTriggeredClipProvider: {fileID: 11400000, guid: 960de1a6cdaafcc47ae463d2a3ea029f,
+    type: 2}
 --- !u!1 &7523035553241558020
 GameObject:
   m_ObjectHideFlags: 0

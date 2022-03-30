@@ -365,6 +365,9 @@ MonoBehaviour:
   _particlesPrefab: {fileID: 7070146275115742245, guid: b2b0b610249068b48a39fb5510f56f8b,
     type: 3}
   _particlesCount: 4
+  _breakClipProviders:
+  - {fileID: 11400000, guid: 2a793beca4d87da47913cd88a032e380, type: 2}
+  - {fileID: 11400000, guid: 880314f33d25a71498c396157a8c497f, type: 2}
 --- !u!1001 &405464327428944633
 PrefabInstance:
   m_ObjectHideFlags: 0

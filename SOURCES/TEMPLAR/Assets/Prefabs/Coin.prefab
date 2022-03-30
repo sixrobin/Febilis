@@ -257,6 +257,8 @@ MonoBehaviour:
   _pickupParticlesPrefab: {fileID: 5495030605211771356, guid: b333906f13f6dcd4ba5413d7b450be6f,
     type: 3}
   _hittablePickup: {fileID: 15808431404937843}
+  _pickupClipProvider: {fileID: 11400000, guid: 899f5e53a33110d4682c6aa7025c1a52,
+    type: 2}
 --- !u!114 &6943956505292946110
 MonoBehaviour:
   m_ObjectHideFlags: 0

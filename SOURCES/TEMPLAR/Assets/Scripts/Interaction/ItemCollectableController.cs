@@ -26,6 +26,9 @@
         [SerializeField] private RSLib.Maths.Curve _fadeOutCurve = RSLib.Maths.Curve.InOutSine;
         [SerializeField] private GameObject[] _fadeOverParticles = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _itemCollectedClipProvider = null;
+
         public string ItemId { get; private set; }
         public Flags.IIdentifier Identifier => _itemIdentifier;
 
@@ -68,6 +71,8 @@
             _highlight.SetActive(false);
             _itemSprite.enabled = false;
             StartCoroutine(FadeOutSmokeCoroutine());
+            
+            RSLib.Audio.AudioManager.PlaySound(_itemCollectedClipProvider);
         }
 
         private void Pickup()

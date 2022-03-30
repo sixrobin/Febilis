@@ -26,6 +26,9 @@
         [SerializeField] private GameObject _particlesPrefab = null;
         [SerializeField] private int _particlesCount = 5;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider[] _breakClipProviders = null;
+        
         private Sprite _baseSprite;
         private Vector3[] _initBrokenPartsPositions;
 
@@ -63,6 +66,9 @@
                 particle.position = _particlesSpawnArea.RandomPointInside();
                 particle.localEulerAngles = new Vector3(0f, 0f, Random.Range(0, 4) * 90f);
             }
+
+            for (int i = 0; i < _breakClipProviders.Length; ++i)
+                RSLib.Audio.AudioManager.PlaySound(_breakClipProviders[i]);
         }
 
         private void Start()

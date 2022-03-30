@@ -16,7 +16,7 @@
 
         [Header("CHECKPOINT DATAS")]
         [SerializeField] private Vector2 _respawnOffset = Vector2.zero;
-
+        
         [Header("DEBUG COLOR")]
         [SerializeField] private RSLib.DataColor _debugColor = null;
 

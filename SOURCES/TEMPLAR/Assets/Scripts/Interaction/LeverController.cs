@@ -18,6 +18,9 @@
         [Header("LEVER DATAS")]
         [SerializeField] private bool _disableAfterTrigger = true;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _leverTriggeredClipProvider = null;
+        
         private int _highlightSpriteIndex = -1;
 
         public Flags.IIdentifier Identifier => _leverIdentifier;
@@ -34,6 +37,8 @@
 
             DisableLeverInteraction();
             FlipHighlight();
+            
+            RSLib.Audio.AudioManager.PlaySound(_leverTriggeredClipProvider);
         }
 
         private void DisableLeverInteraction()

@@ -8,6 +8,11 @@
         [SerializeField] private GameObject _pickupParticlesPrefab = null;
         [SerializeField] private Attack.HittablePickup _hittablePickup = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _pickupClipProvider = null;
+
+        private static int s_pickedUpCoinsThisFrame = 0;
+        
         public delegate void CoinDisabledEventHandler(CoinController coin);
         public static CoinDisabledEventHandler CoinDisabled;
 
@@ -36,6 +41,11 @@
         {
             OnLoot();
             Disable();
+            
+            if (s_pickedUpCoinsThisFrame == 0)
+                RSLib.Audio.AudioManager.PlaySound(_pickupClipProvider);
+    
+            s_pickedUpCoinsThisFrame++;
         }
 
         private void Disable()
@@ -61,6 +71,11 @@
         {
             if (KillTrigger.SharedKillTriggers.ContainsKey(collision.collider))
                 Disable();
+        }
+
+        private void LateUpdate()
+        {
+            s_pickedUpCoinsThisFrame = 0;
         }
     }
 }

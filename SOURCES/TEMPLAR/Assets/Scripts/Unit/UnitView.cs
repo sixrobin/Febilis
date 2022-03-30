@@ -44,7 +44,7 @@
 
         public void OnFootstep()
         {
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_footstepClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_footstepClipProvider);
         }
 
 #endregion // ANIMATION EVENTS
@@ -90,7 +90,7 @@
         public void PlayHurtAnimation()
         {
             _animator.SetTrigger(HURT);
-            RSLib.Audio.AudioManager.PlayNextPlaylistSound(_hurtClipProvider);
+            RSLib.Audio.AudioManager.PlaySound(_hurtClipProvider);
         }
 
         public void PlayStunAnimation(float dir)

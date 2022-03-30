@@ -280,6 +280,11 @@ MonoBehaviour:
   _animator: {fileID: 5374643635582267458}
   _enabledOnLightBurst:
   - {fileID: 5374643637229385995}
+  _interactedClipProviders:
+  - {fileID: 11400000, guid: 34d665d4eb9724f428d9063156020faf, type: 2}
+  _burstClipProviders:
+  - {fileID: 11400000, guid: e223f0e70f2484643bf02de73db4f07f, type: 2}
+  - {fileID: 11400000, guid: 9b8d7ade250c4a24fa9623407b8a598e, type: 2}
 --- !u!1 &5374643635625691174
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,9 +401,9 @@ MonoBehaviour:
   _onInteracted:
     m_PersistentCalls:
       m_Calls: []
+  _checkpointIdentifier: {fileID: 0}
   _checkpointView: {fileID: 5374643635582267456}
   _highlight: {fileID: 5374643637353166026}
-  _id: First
   _respawnOffset: {x: 2.2, y: 1}
   _debugColor: {fileID: 11400000, guid: fd429ad202fecb7448d967fad2704ace, type: 2}
 --- !u!1 &5374643636272465684
