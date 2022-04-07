@@ -6,32 +6,15 @@
 
     public class Test : MonoBehaviour
     {
-        public RSLib.Framework.Collections.FixedSizedConcurrentQueue<int> queue;
-        public RSLib.Dynamics.Float dynamicFloat;
-
+        public RSLib.ParticlesSpawnerPool _particlesSpawner;
+        
         private void Start()
         {
-            queue = new RSLib.Framework.Collections.FixedSizedConcurrentQueue<int>(3);
-
-            dynamicFloat += 66;
-            float t = 0;
-            t += dynamicFloat;
-            Debug.Log(t);
+            _particlesSpawner.SpawnParticles(transform.position);
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                queue.Enqueue(Random.Range(0, 10));
-                Debug.Log(string.Join(",", queue.Select(o => o.ToString())));
-            }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                queue.TryPeek(out _);
-                Debug.Log(string.Join(",", queue.Select(o => o.ToString())));
-            }
         }
     }
 }
