@@ -19,6 +19,8 @@
             PointerEventsHandler.OnPointerEnter(null);
 
             Navigation.UINavigationManager.Select(Selectable.gameObject);
+            
+            RSLib.Audio.UI.UIAudioManager.PlayHoverClip();
         }
 
         public abstract void Init();
@@ -27,6 +29,8 @@
         {
             base.OnPointerEnter(eventData);
             PointerEventsHandler.OnPointerEnter(eventData);
+            
+            RSLib.Audio.UI.UIAudioManager.PlayHoverClip();
         }
 
         public override void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData)
@@ -45,11 +49,6 @@
         {
             base.OnPointerDown(eventData);
             PointerEventsHandler.OnPointerUp(eventData);
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
         }
 
 #if UNITY_EDITOR

@@ -15,6 +15,12 @@
         public UnityEngine.UI.Button BackBtn => _backBtn;
         public UnityEngine.UI.Button QuitBtn => _quitBtn;
 
+        public override void Open()
+        {
+            base.Open();
+            RSLib.Audio.UI.UIAudioManager.PlayGenericNavigationClip();
+        }
+
         public override void Close()
         {
             base.Close();

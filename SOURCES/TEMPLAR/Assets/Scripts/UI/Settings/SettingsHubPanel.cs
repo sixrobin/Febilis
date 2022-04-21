@@ -28,6 +28,12 @@
             Close();
         }
 
+        public override void Close()
+        {
+            base.Close();
+            RSLib.Audio.UI.UIAudioManager.PlayGenericNavigationClip();
+        }
+
         private void InitSettingsButtonsNavigation()
         {
             _settingsBtns = new UnityEngine.UI.Button[]

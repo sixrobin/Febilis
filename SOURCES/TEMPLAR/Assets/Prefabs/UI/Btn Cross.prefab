@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7312497817073315748}
   - component: {fileID: 3809749998964888395}
   - component: {fileID: 8246861581876416761}
+  - component: {fileID: 3404318303985131818}
   m_Layer: 5
   m_Name: Btn Cross
   m_TagString: Untagged
@@ -130,3 +131,15 @@ MonoBehaviour:
       m_Calls: []
   _buttonText: {fileID: 0}
   _nonInteractableTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!114 &3404318303985131818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4985259566106312408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce7c773588e54d4c9ab2b1b86294ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

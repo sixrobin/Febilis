@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 2062372418985356960}
   - component: {fileID: 8792214832764837275}
   - component: {fileID: 6725783271353455498}
+  - component: {fileID: 5378196180179763220}
   m_Layer: 5
   m_Name: Main Menu Btn
   m_TagString: Untagged
@@ -320,6 +321,18 @@ MonoBehaviour:
   _highlight: {fileID: 3348062327073384307}
   _highlightTextColor: {r: 1, g: 1, b: 1, a: 1}
   _baseTextColor: {r: 0.7058824, g: 0.8705883, b: 0.62352943, a: 1}
+--- !u!114 &5378196180179763220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8278077467438924585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce7c773588e54d4c9ab2b1b86294ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8497246538387125749
 GameObject:
   m_ObjectHideFlags: 0

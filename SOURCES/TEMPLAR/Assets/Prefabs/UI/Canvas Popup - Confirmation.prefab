@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2745183589815118576}
   - component: {fileID: 2745183589815118579}
   - component: {fileID: 2745183589815118578}
+  - component: {fileID: 3222569865990085428}
   m_Layer: 5
   m_Name: Cancel Btn
   m_TagString: Untagged
@@ -131,6 +132,18 @@ MonoBehaviour:
       m_Calls: []
   _buttonText: {fileID: 2745183590818912725}
   _nonInteractableTextColor: {r: 0.12941177, g: 0.25490198, b: 0.30588236, a: 1}
+--- !u!114 &3222569865990085428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2745183589815118580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce7c773588e54d4c9ab2b1b86294ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2745183590818912727
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +656,7 @@ GameObject:
   - component: {fileID: 2906230588633418862}
   - component: {fileID: 8050746016072695699}
   - component: {fileID: 4829324146732439767}
+  - component: {fileID: 6341776903267487585}
   m_Layer: 5
   m_Name: Confirm Btn
   m_TagString: Untagged
@@ -762,6 +776,18 @@ MonoBehaviour:
       m_Calls: []
   _buttonText: {fileID: 5922999969189758281}
   _nonInteractableTextColor: {r: 0.12941177, g: 0.25490198, b: 0.30588236, a: 1}
+--- !u!114 &6341776903267487585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825063374341791642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce7c773588e54d4c9ab2b1b86294ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6330692643154061638
 GameObject:
   m_ObjectHideFlags: 0

@@ -455,6 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9136134932427172535}
   - component: {fileID: 3965168798086745284}
+  - component: {fileID: 702829147336287123}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -502,6 +503,33 @@ MonoBehaviour:
       type: 2}
   _musicMixerGroup: {fileID: -7802913809045146381, guid: 1ec8c024ee2e0c844a668d2c1a533b14,
     type: 2}
+--- !u!114 &702829147336287123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330766786953127625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4d2bb25a10a514ab0f5b691ec6f901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroy: 0
+  _verbose: 0
+  _genericNavigationClipProvider: {fileID: 11400000, guid: 97ab985ec1c834e49bb32a6aae7f4c35,
+    type: 2}
+  _hoverClipProvider: {fileID: 11400000, guid: 03822dd60422a5141bc92d0ac3c81666, type: 2}
+  _buttonClickClipProvider: {fileID: 11400000, guid: 10592c320e4db5c49a559287fe6a2e1d,
+    type: 2}
+  _sliderValueChangedClickClipProvider: {fileID: 11400000, guid: ff7464c48dda36f468af1ca3369805e8,
+    type: 2}
+  _dropdownValueChangedClickClipProvider: {fileID: 11400000, guid: 76002486b03269b4d88d043d8fbebb66,
+    type: 2}
+  _toggleValueChangedClickClipProvider: {fileID: 11400000, guid: f2f7fb37d38f7844e864433ee120f68f,
+    type: 2}
+  _maxClipsPerFrame: 1
+  _frameClearDelay: 2
 --- !u!1 &2391332496471002807
 GameObject:
   m_ObjectHideFlags: 0

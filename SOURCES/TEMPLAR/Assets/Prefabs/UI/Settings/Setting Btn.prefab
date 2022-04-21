@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7369890235109686279}
   - component: {fileID: 5865179056708279270}
   - component: {fileID: 3841857972314878673}
-  - component: {fileID: 9124521821972874009}
+  - component: {fileID: 345749587720373650}
+  - component: {fileID: 3526572776470283586}
   m_Layer: 5
   m_Name: Setting Btn
   m_TagString: Untagged
@@ -76,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9124521821972874009
+--- !u!114 &345749587720373650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,11 +86,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3814411314372592631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: a2abeac4fd1fef24fa120ab12903a779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 0
+    m_Mode: 3
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -97,12 +98,12 @@ MonoBehaviour:
   m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 4c185961717d8744ea4123eaa2606913,
       type: 3}
@@ -120,6 +121,29 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+  _onPointerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  _onPointerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  _onInteractableChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _buttonText: {fileID: 0}
+  _nonInteractableTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+--- !u!114 &3526572776470283586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814411314372592631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce7c773588e54d4c9ab2b1b86294ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7654402321465152503
 GameObject:
   m_ObjectHideFlags: 0

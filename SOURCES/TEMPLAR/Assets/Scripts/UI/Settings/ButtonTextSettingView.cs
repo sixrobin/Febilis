@@ -23,6 +23,8 @@
         {
             StringRangeSetting.Value = StringRangeSetting.GetNextOption();
             RefreshText();
+            
+            RSLib.Audio.UI.UIAudioManager.PlayButtonClickClip();
         }
 
         private void RefreshText()

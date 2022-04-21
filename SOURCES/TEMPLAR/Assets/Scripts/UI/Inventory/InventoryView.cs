@@ -78,6 +78,9 @@
 
             _scrollbar.value = 1f;
             ResetDescriptionScrollbar();
+         
+            // Item button hover will be played at the same time, do not play this.
+            // RSLib.Audio.UI.UIAudioManager.PlayGenericNavigationClip();
         }
 
         public override void Close()
@@ -356,6 +359,8 @@
             UI.Navigation.UINavigationManager.NullifySelected();
 
             ClosedThisFrame = false;
+            
+            RSLib.Audio.UI.UIAudioManager.PlayGenericNavigationClip();
         }
 
         protected override void Awake()
