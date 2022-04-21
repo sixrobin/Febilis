@@ -89,6 +89,7 @@
 
             if (source != null)
                 source.OnBoardsTransitionOver();
+            
             target.OnBoardsTransitionOver();
         }
 

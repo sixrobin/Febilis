@@ -244,7 +244,7 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _fadeInDatas: {fileID: 11400000, guid: f5ebf111ef14eec42949fe4b3d54497c, type: 2}
-  _fadeOutDatas: {fileID: 11400000, guid: 3f5da20de646f194cbe614d768e90af5, type: 2}
+  _fadeOutDatas: {fileID: 11400000, guid: ba999aebdcab99b41b04657e366e2d58, type: 2}
   _fadedInDur: 0.5
   _downRespawnHeightOffset: 1
 --- !u!1 &1203603594270848496
