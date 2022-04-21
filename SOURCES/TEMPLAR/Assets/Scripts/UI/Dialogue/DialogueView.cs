@@ -27,7 +27,6 @@
         [Header("AUDIO")]
         [SerializeField] private RSLib.Audio.ClipProvider _characterTypedClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _skipFeedbackShowClipProvider = null;
-        [SerializeField] private RSLib.Audio.ClipProvider _skippedClipProvider = null;
         
         private System.Collections.IEnumerator _skipInputIdleCoroutine;
         private float _skipInputInitY;

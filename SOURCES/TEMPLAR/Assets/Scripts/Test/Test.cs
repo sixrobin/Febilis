@@ -6,11 +6,11 @@
 
     public class Test : MonoBehaviour
     {
-        public RSLib.ParticlesSpawnerPool _particlesSpawner;
+        public RSLib.Audio.ClipProvider[] clips;
         
         private void Start()
         {
-            _particlesSpawner.SpawnParticles(transform.position);
+            RSLib.Audio.AudioManager.PlaySounds(clips);
         }
 
         private void Update()
