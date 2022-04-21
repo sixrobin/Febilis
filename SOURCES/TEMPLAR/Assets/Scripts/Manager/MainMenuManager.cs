@@ -12,17 +12,13 @@
 
         public static void LoadSavedGame()
         {
-            // [TODO] Load scene that leads to save file actual progress.
+            // TODO: Load scene that leads to save file actual progress.
             ScenesManager.LoadScene(ScenesManager.LevelScene);
         }
 
         public static void Quit()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            UnityEngine.Application.Quit();
-#endif
+            RSLib.Helpers.QuitPlatformDependent();
         }
     }
 }
