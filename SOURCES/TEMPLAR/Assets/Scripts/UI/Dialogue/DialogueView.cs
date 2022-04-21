@@ -24,6 +24,11 @@
         [SerializeField] private float _skipInputIdleOffset = 1f;
         [SerializeField] private float _skipInputIdleTimestep = 0.25f;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _characterTypedClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _skipFeedbackShowClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _skippedClipProvider = null;
+        
         private System.Collections.IEnumerator _skipInputIdleCoroutine;
         private float _skipInputInitY;
 
@@ -64,15 +69,13 @@
             _text.text = string.Empty;
         }
 
-        public void DisplaySentenceProgression(Datas.Dialogue.SentenceDatas sentenceDatas, string text)
+        public void DisplaySentenceProgression(Datas.Dialogue.SentenceDatas sentenceData, string text)
         {
-            if (sentenceDatas.HideSpeakerName)
-            {
-                _text.text = text;
-                return;
-            }
-
-            _text.text = string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceDatas), text);
+            _text.text = sentenceData.HideSpeakerName
+                         ? text
+                         : string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceData), text);
+            
+            RSLib.Audio.AudioManager.PlaySound(_characterTypedClipProvider);
         }
 
         public void SetPortraitDisplay(bool show)
@@ -84,11 +87,11 @@
                                                           : _canvasScaler.referenceResolution.x - Mathf.Abs(_textBox.anchoredPosition.x * 2));
         }
 
-        public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceDatas, bool invertAnchors)
+        public void SetPortraitAndAnchors(Datas.Dialogue.SentenceDatas sentenceData, bool invertAnchors)
         {
-            _portrait.sprite = Database.DialogueDatabase.GetPortraitOrUseDefault(sentenceDatas);
+            _portrait.sprite = Database.DialogueDatabase.GetPortraitOrUseDefault(sentenceData);
 
-            Datas.Dialogue.PortraitAnchor portraitAnchor = Database.DialogueDatabase.GetSpeakerPortraitAnchor(sentenceDatas);
+            Datas.Dialogue.PortraitAnchor portraitAnchor = Database.DialogueDatabase.GetSpeakerPortraitAnchor(sentenceData);
             if (invertAnchors)
                 portraitAnchor = Datas.Dialogue.PortraitAnchorExtensions.GetOpposite(portraitAnchor);
 
@@ -139,8 +142,10 @@
         {
             _skipInputFeedback.gameObject.SetActive(true);
             _skipInputFeedback.anchoredPosition = new Vector2(_skipInputFeedback.anchoredPosition.x, _skipInputInitY);
-            int sign = 0;
 
+            RSLib.Audio.AudioManager.PlaySound(_skipFeedbackShowClipProvider);
+            
+            int sign = 0;
             while (true)
             {
                 _skipInputFeedback.anchoredPosition += new Vector2(0f, ++sign % 2 == 0 ? _skipInputIdleOffset : -_skipInputIdleOffset);

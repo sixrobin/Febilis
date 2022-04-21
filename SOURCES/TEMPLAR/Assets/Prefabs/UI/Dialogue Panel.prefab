@@ -533,6 +533,12 @@ MonoBehaviour:
   _skipInputShowDelay: 1
   _skipInputIdleOffset: 1
   _skipInputIdleTimestep: 0.25
+  _characterTypedClipProvider: {fileID: 11400000, guid: 8bbd334f66ae568499e44f1f9ea3fd7b,
+    type: 2}
+  _skipFeedbackShowClipProvider: {fileID: 11400000, guid: 76b930d8efe738d4885dc0cfe9634e1f,
+    type: 2}
+  _skippedClipProvider: {fileID: 11400000, guid: 76b930d8efe738d4885dc0cfe9634e1f,
+    type: 2}
 --- !u!1 &5022502470558690317
 GameObject:
   m_ObjectHideFlags: 0
