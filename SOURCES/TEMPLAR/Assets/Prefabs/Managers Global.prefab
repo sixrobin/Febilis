@@ -503,6 +503,7 @@ MonoBehaviour:
       type: 2}
   _musicMixerGroup: {fileID: -7802913809045146381, guid: 1ec8c024ee2e0c844a668d2c1a533b14,
     type: 2}
+  _audioMixer: {fileID: 24100000, guid: 1ec8c024ee2e0c844a668d2c1a533b14, type: 2}
 --- !u!114 &702829147336287123
 MonoBehaviour:
   m_ObjectHideFlags: 0

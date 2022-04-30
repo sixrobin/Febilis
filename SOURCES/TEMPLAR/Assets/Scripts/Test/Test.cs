@@ -1,5 +1,6 @@
 ﻿namespace Templar
 {
+    using System.Collections.Generic;
     using RSLib.Extensions;
     using UnityEngine;
     using System.Linq;

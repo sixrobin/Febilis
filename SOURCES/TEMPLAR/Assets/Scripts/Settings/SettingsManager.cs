@@ -36,6 +36,22 @@
                 container.Add(ShakeAmount.Save());
                 container.Add(TargetFrameRate.Save());
 
+                // Audio.
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MasterVolume", out float masterVolume))
+                    container.Add(new XElement("MasterVolume", RSLib.Audio.AudioManager.DecibelsToLinear(masterVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MusicVolume", out float musicVolume))
+                {
+                    UnityEngine.Debug.LogError(musicVolume);
+                    UnityEngine.Debug.LogError(RSLib.Audio.AudioManager.DecibelsToLinear(musicVolume));
+                    container.Add(new XElement("MusicVolume", RSLib.Audio.AudioManager.DecibelsToLinear(musicVolume)));
+                }
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("SFXVolume", out float sfxVolume))
+                    container.Add(new XElement("SFXVolume", RSLib.Audio.AudioManager.DecibelsToLinear(sfxVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("FootstepsVolume", out float footstepsVolume))
+                    container.Add(new XElement("FootstepsVolume", RSLib.Audio.AudioManager.DecibelsToLinear(footstepsVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("UIVolume", out float uiVolume))
+                    container.Add(new XElement("UIVolume", RSLib.Audio.AudioManager.DecibelsToLinear(uiVolume)));
+                
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(SettingsSavePath);
                 if (!fileInfo.Directory.Exists)
                     System.IO.Directory.CreateDirectory(fileInfo.DirectoryName);
@@ -108,6 +124,27 @@
 
                 XElement targetFrameRateElement = settingsSaveElement.Element(Settings.TargetFrameRate.SAVE_ELEMENT_NAME);
                 TargetFrameRate = targetFrameRateElement != null ? new Settings.TargetFrameRate(targetFrameRateElement) : new Settings.TargetFrameRate();
+                
+                // Audio.
+                XElement masterVolumeElement = settingsSaveElement.Element("MasterVolume");
+                if (masterVolumeElement != null && float.TryParse(masterVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float masterVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("MasterVolume", masterVolume);
+                
+                XElement musicVolumeElement = settingsSaveElement.Element("MusicVolume");
+                if (musicVolumeElement != null && float.TryParse(musicVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float musicVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("MusicVolume", musicVolume);
+                
+                XElement sfxVolumeElement = settingsSaveElement.Element("SFXVolume");
+                if (sfxVolumeElement != null && float.TryParse(sfxVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float sfxVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("SFXVolume", sfxVolume);
+                
+                XElement footstepsVolumeElement = settingsSaveElement.Element("FootstepsVolume");
+                if (footstepsVolumeElement != null && float.TryParse(footstepsVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float footstepsVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("FootstepsVolume", footstepsVolume);
+                
+                XElement uiVolumeElement = settingsSaveElement.Element("UIVolume");
+                if (uiVolumeElement != null && float.TryParse(uiVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float uiVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("UIVolume", uiVolume);
             }
             catch (System.Exception e)
             {

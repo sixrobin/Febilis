@@ -26,7 +26,7 @@
 
         private bool _initialized;
 
-        public override GameObject FirstSelected => _settings.Where(o => o.gameObject.activeSelf).FirstOrDefault()?.gameObject;
+        public override GameObject FirstSelected => _settings.FirstOrDefault(o => o.gameObject.activeSelf)?.gameObject;
 
         public ScrollbarToScrollViewNavigationHandler ScrollbarToScrollViewNavigationHandler => _scrollbarToScrollViewNavigationHandler;
 

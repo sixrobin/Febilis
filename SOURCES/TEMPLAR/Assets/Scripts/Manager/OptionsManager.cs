@@ -97,8 +97,8 @@
         {
             _settingsHubPanel.ControlsBtn.onClick.AddListener(OpenControlsPanel);
             _settingsHubPanel.GameBtn.onClick.AddListener(OpenGamePanel);
-            //_settingsPanel.AudioBtn.onClick.AddListener(OpenAudioPanel);
-            //_settingsPanel.LanguageBtn.onClick.AddListener(OpenLanguagePanel);
+            _settingsHubPanel.AudioBtn.onClick.AddListener(OpenAudioPanel);
+            //_settingsHubPanel.LanguageBtn.onClick.AddListener(OpenLanguagePanel);
             _settingsHubPanel.QuitGameBtn.onClick.AddListener(QuitGame);
         }
 
@@ -106,8 +106,8 @@
         {
             _settingsHubPanel.ControlsBtn.onClick.RemoveListener(OpenControlsPanel);
             _settingsHubPanel.GameBtn.onClick.RemoveListener(OpenGamePanel);
-            //_settingsPanel.AudioBtn.onClick.RemoveListener(OpenAudioPanel);
-            //_settingsPanel.LanguageBtn.onClick.RemoveListener(OpenLanguagePanel);
+            _settingsHubPanel.AudioBtn.onClick.RemoveListener(OpenAudioPanel);
+            //_settingsHubPanel.LanguageBtn.onClick.RemoveListener(OpenLanguagePanel);
             _settingsHubPanel.QuitGameBtn.onClick.RemoveListener(QuitGame);
         }
 
@@ -163,7 +163,7 @@
             {
                 { _controlsPanel, _settingsHubPanel.ControlsBtn },
                 { _gamePanel, _settingsHubPanel.GameBtn },
-                //{ _audioPanel, _settingsHubPanel.AudioBtn },
+                { _audioPanel, _settingsHubPanel.AudioBtn },
                 //{ _languagePanel, _settingsHubPanel.LanguageBtn }
             };
 
