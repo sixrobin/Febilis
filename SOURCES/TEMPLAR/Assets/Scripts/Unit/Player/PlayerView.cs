@@ -53,8 +53,6 @@
         [SerializeField] private RSLib.Audio.ClipProvider _doubleJumpClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _healClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _cantHealClipProvider = null;
-        [SerializeField] private RSLib.Audio.ClipProvider _attackClipProvider = null;
-        [SerializeField] private RSLib.Audio.ClipProvider _deathClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _killTriggerHitClipProvider = null;
         
         [Header("DEBUG")]
@@ -308,8 +306,6 @@
 
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
-
-            RSLib.Audio.AudioManager.PlaySound(_deathClipProvider);
 
             LogAnimationPlayIfRequired("Death");
         }

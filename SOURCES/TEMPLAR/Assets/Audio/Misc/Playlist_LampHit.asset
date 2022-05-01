@@ -19,10 +19,7 @@ MonoBehaviour:
   _clipsPlayDatas:
   - _clip: {fileID: 8300000, guid: 8810d3fb876ad5c4281928e219bd6d31, type: 3}
     _volumeRandomRange: {x: 1, y: 1}
-    _pitchVariation: 0
-  - _clip: {fileID: 8300000, guid: 06a744978a2e7e141a18b35fbba95023, type: 3}
-    _volumeRandomRange: {x: 1, y: 1}
-    _pitchVariation: 0
+    _pitchVariation: 0.02
   - _clip: {fileID: 8300000, guid: 4390b9885064a89418ea0cecd4cf26b4, type: 3}
     _volumeRandomRange: {x: 1, y: 1}
-    _pitchVariation: 0
+    _pitchVariation: 0.02

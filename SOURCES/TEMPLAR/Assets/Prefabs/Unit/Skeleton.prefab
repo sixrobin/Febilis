@@ -184,6 +184,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: 6ad184a7e60ad404688ec32a53cef38f,
         type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _attackClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 39ed445c005414e4f82c779e72280567,
+        type: 2}
     - target: {fileID: 7629123961653350815, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: m_Controller

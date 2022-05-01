@@ -76,6 +76,7 @@
         public void PlayAttackAnimation()
         {
             _animator.SetTrigger(ATTACK);
+            RSLib.Audio.AudioManager.PlaySound(_attackClipProvider);
         }
     }
 }

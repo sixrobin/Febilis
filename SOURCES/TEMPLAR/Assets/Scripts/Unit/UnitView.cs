@@ -26,8 +26,10 @@
         [SerializeField] private AnimatorOverrideController _aocTemplate = null;
 
         [Header("AUDIO - UNIT BASE")]
+        [SerializeField] protected RSLib.Audio.ClipProvider _attackClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _footstepClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _hurtClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _deathClipProvider = null;
 
         private System.Collections.IEnumerator _blinkSpriteColorDelayedCoroutine;
 
@@ -114,6 +116,8 @@
         {
             FlipX(dir > 0f);
             _animator.SetTrigger(DEATH);
+            
+            RSLib.Audio.AudioManager.PlaySound(_deathClipProvider);
         }
 
         public void PlayDeadFadeAnimation()

@@ -5289,6 +5289,9 @@ MonoBehaviour:
   _spriteBlink: {fileID: 1317545449090868740}
   _stunStars: {fileID: 2951466320324280937}
   _aocTemplate: {fileID: 0}
+  _footstepClipProvider: {fileID: 0}
+  _hurtClipProvider: {fileID: 11400000, guid: 68b3ea0610aa48b4188c6250e947b6a3, type: 2}
+  _deathClipProvider: {fileID: 11400000, guid: afcee7252a785c946bd933b5ea8eb747, type: 2}
 --- !u!114 &1317545449090868740
 MonoBehaviour:
   m_ObjectHideFlags: 0
