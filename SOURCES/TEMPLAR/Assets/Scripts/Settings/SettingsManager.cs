@@ -36,21 +36,8 @@
                 container.Add(ShakeAmount.Save());
                 container.Add(TargetFrameRate.Save());
 
-                // Audio.
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MasterVolume", out float masterVolume))
-                    container.Add(new XElement("MasterVolume", RSLib.Audio.AudioManager.DecibelsToLinear(masterVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MusicVolume", out float musicVolume))
-                {
-                    UnityEngine.Debug.LogError(musicVolume);
-                    UnityEngine.Debug.LogError(RSLib.Audio.AudioManager.DecibelsToLinear(musicVolume));
-                    container.Add(new XElement("MusicVolume", RSLib.Audio.AudioManager.DecibelsToLinear(musicVolume)));
-                }
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("SFXVolume", out float sfxVolume))
-                    container.Add(new XElement("SFXVolume", RSLib.Audio.AudioManager.DecibelsToLinear(sfxVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("FootstepsVolume", out float footstepsVolume))
-                    container.Add(new XElement("FootstepsVolume", RSLib.Audio.AudioManager.DecibelsToLinear(footstepsVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("UIVolume", out float uiVolume))
-                    container.Add(new XElement("UIVolume", RSLib.Audio.AudioManager.DecibelsToLinear(uiVolume)));
+                if (TrySaveAudioSettings(out XElement audioElement))
+                    container.Add(audioElement);
                 
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(SettingsSavePath);
                 if (!fileInfo.Directory.Exists)
@@ -126,25 +113,8 @@
                 TargetFrameRate = targetFrameRateElement != null ? new Settings.TargetFrameRate(targetFrameRateElement) : new Settings.TargetFrameRate();
                 
                 // Audio.
-                XElement masterVolumeElement = settingsSaveElement.Element("MasterVolume");
-                if (masterVolumeElement != null && float.TryParse(masterVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float masterVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("MasterVolume", masterVolume);
-                
-                XElement musicVolumeElement = settingsSaveElement.Element("MusicVolume");
-                if (musicVolumeElement != null && float.TryParse(musicVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float musicVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("MusicVolume", musicVolume);
-                
-                XElement sfxVolumeElement = settingsSaveElement.Element("SFXVolume");
-                if (sfxVolumeElement != null && float.TryParse(sfxVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float sfxVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("SFXVolume", sfxVolume);
-                
-                XElement footstepsVolumeElement = settingsSaveElement.Element("FootstepsVolume");
-                if (footstepsVolumeElement != null && float.TryParse(footstepsVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float footstepsVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("FootstepsVolume", footstepsVolume);
-                
-                XElement uiVolumeElement = settingsSaveElement.Element("UIVolume");
-                if (uiVolumeElement != null && float.TryParse(uiVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float uiVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("UIVolume", uiVolume);
+                XElement audioElement = settingsSaveElement.Element("Audio");
+                TryLoadAudioSettings(audioElement);
             }
             catch (System.Exception e)
             {
@@ -179,6 +149,78 @@
                 RSLib.Framework.InputSystem.InputManager.GenerateMissingInputsFromSave();
         }
 
+        private static bool TrySaveAudioSettings(out XElement audioElement)
+        {
+            audioElement = new XElement("Audio");
+
+            try
+            {
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MasterVolume", out float masterVolume))
+                    audioElement.Add(new XElement("MasterVolume", RSLib.Audio.AudioManager.DecibelsToLinear(masterVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MusicVolume", out float musicVolume))
+                    audioElement.Add(new XElement("MusicVolume", RSLib.Audio.AudioManager.DecibelsToLinear(musicVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("SFXVolume", out float sfxVolume))
+                    audioElement.Add(new XElement("SFXVolume", RSLib.Audio.AudioManager.DecibelsToLinear(sfxVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("FootstepsVolume", out float footstepsVolume))
+                    audioElement.Add(new XElement("FootstepsVolume", RSLib.Audio.AudioManager.DecibelsToLinear(footstepsVolume)));
+                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("UIVolume", out float uiVolume))
+                    audioElement.Add(new XElement("UIVolume", RSLib.Audio.AudioManager.DecibelsToLinear(uiVolume)));
+            }
+            catch (System.Exception e)
+            {
+                Instance.LogError($"Could not save audio settings ! Exception message:\n{e}", Instance.gameObject);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryLoadAudioSettings(XElement audioElement)
+        {
+            if (audioElement == null)
+            {
+                XContainer container = XDocument.Parse(System.IO.File.ReadAllText(SettingsSavePath));
+                XElement settingsSaveElement = container.Element("SettingsSave");
+                audioElement = settingsSaveElement?.Element("Audio");
+
+                if (audioElement == null)
+                {
+                    Instance.Log("Trying to load audio settings with a null XElement, aborting", Instance.gameObject);
+                    return false;
+                }
+            }
+            
+            try
+            {
+                XElement masterVolumeElement = audioElement.Element("MasterVolume");
+                if (masterVolumeElement != null && float.TryParse(masterVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float masterVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("MasterVolume", masterVolume);
+
+                XElement musicVolumeElement = audioElement.Element("MusicVolume");
+                if (musicVolumeElement != null && float.TryParse(musicVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float musicVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("MusicVolume", musicVolume);
+
+                XElement sfxVolumeElement = audioElement.Element("SFXVolume");
+                if (sfxVolumeElement != null && float.TryParse(sfxVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float sfxVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("SFXVolume", sfxVolume);
+
+                XElement footstepsVolumeElement = audioElement.Element("FootstepsVolume");
+                if (footstepsVolumeElement != null && float.TryParse(footstepsVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture,  out float footstepsVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("FootstepsVolume", footstepsVolume);
+
+                XElement uiVolumeElement = audioElement.Element("UIVolume");
+                if (uiVolumeElement != null && float.TryParse(uiVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float uiVolume))
+                    RSLib.Audio.AudioManager.SetVolumePercentage("UIVolume", uiVolume);
+            }
+            catch (System.Exception e)
+            {
+                Instance.LogError($"Could not load audio settings ! Exception message:\n{e}", Instance.gameObject);
+                return false;
+            }
+
+            return true;
+        }
+        
         protected override void Awake()
         {
             base.Awake();
@@ -195,6 +237,17 @@
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveSettings", "Saves settings.", Save));
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadSettings", "Tries to load settings.", () => TryLoad()));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadAudioSettings", "Tries to load settings.", () =>
+            {
+                TryLoadAudioSettings(null);
+            }));
+        }
+
+        private void Start()
+        {
+            // This is also done on Awake and should ONLY be done on Awake,
+            // however AudioMixer does not seem to be affected when its variable are set on Awake.
+            TryLoadAudioSettings(null);
         }
     }
 }

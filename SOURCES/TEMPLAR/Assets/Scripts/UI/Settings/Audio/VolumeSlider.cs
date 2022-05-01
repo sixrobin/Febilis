@@ -37,13 +37,14 @@
         {
             UnityEngine.Assertions.Assert.IsFalse(string.IsNullOrEmpty(_mixerParameterName), $"No mixerParameterName is set on {transform.name}!");
 
-            if (RSLib.Audio.AudioManager.TryGetFloatParameterValue(_mixerParameterName, out float volume))
-            {
-                Debug.LogError($"Initializing {_mixerParameterName} slider to {volume} db / {RSLib.Audio.AudioManager.DecibelsToLinear(volume) * 100f}%");
-                SetValue(RSLib.Audio.AudioManager.DecibelsToLinear(volume));
-            }
-            
+            InitValueFromAudioManager();
             _slider.onValueChanged.AddListener(OnValueChanged);
+        }
+
+        public void InitValueFromAudioManager()
+        {
+            if (RSLib.Audio.AudioManager.TryGetFloatParameterValue(_mixerParameterName, out float volume))
+                SetValue(RSLib.Audio.AudioManager.DecibelsToLinear(volume));
         }
 
         public void SetValue(float value)

@@ -35,15 +35,20 @@
 
         private void Init()
         {
+            VolumeSlider[] enabledSliders = _sliders.Where(o => o.gameObject.activeSelf).ToArray();
+
             if (!_initialized)
             {
                 InitNavigation();
-                
-                VolumeSlider[] enabledSliders = _sliders.Where(o => o.gameObject.activeSelf).ToArray();
                 for (int i = 0; i < enabledSliders.Length; ++i)
                     enabledSliders[i].Init();
             }
-
+            else
+            {
+                for (int i = 0; i < enabledSliders.Length; ++i)
+                    enabledSliders[i].InitValueFromAudioManager();
+            }
+            
             _initialized = true;
         }
         
@@ -87,6 +92,9 @@
 
                 break;
             }
+            
+            _resetSettingsBtn.SetSelectOnRight(_saveSettingsBtn);
+            _saveSettingsBtn.SetSelectOnLeft(_resetSettingsBtn);
         }
         
         private void ResetSettings()

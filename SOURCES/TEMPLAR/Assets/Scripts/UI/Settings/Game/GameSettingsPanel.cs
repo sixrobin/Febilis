@@ -148,6 +148,9 @@
                 break;
             }
 
+            _resetSettingsBtn.SetSelectOnRight(_saveSettingsBtn);
+            _saveSettingsBtn.SetSelectOnLeft(_resetSettingsBtn);
+            
             _scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
             _scrollbar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
             ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
