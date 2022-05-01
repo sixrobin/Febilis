@@ -155,15 +155,15 @@
 
             try
             {
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MasterVolume", out float masterVolume))
+                if (RSLib.Audio.AudioManager.TryGetMixerFloatParameterValue("MasterVolume", out float masterVolume))
                     audioElement.Add(new XElement("MasterVolume", RSLib.Audio.AudioManager.DecibelsToLinear(masterVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("MusicVolume", out float musicVolume))
+                if (RSLib.Audio.AudioManager.TryGetMixerFloatParameterValue("MusicVolume", out float musicVolume))
                     audioElement.Add(new XElement("MusicVolume", RSLib.Audio.AudioManager.DecibelsToLinear(musicVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("SFXVolume", out float sfxVolume))
+                if (RSLib.Audio.AudioManager.TryGetMixerFloatParameterValue("SFXVolume", out float sfxVolume))
                     audioElement.Add(new XElement("SFXVolume", RSLib.Audio.AudioManager.DecibelsToLinear(sfxVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("FootstepsVolume", out float footstepsVolume))
+                if (RSLib.Audio.AudioManager.TryGetMixerFloatParameterValue("FootstepsVolume", out float footstepsVolume))
                     audioElement.Add(new XElement("FootstepsVolume", RSLib.Audio.AudioManager.DecibelsToLinear(footstepsVolume)));
-                if (RSLib.Audio.AudioManager.TryGetFloatParameterValue("UIVolume", out float uiVolume))
+                if (RSLib.Audio.AudioManager.TryGetMixerFloatParameterValue("UIVolume", out float uiVolume))
                     audioElement.Add(new XElement("UIVolume", RSLib.Audio.AudioManager.DecibelsToLinear(uiVolume)));
             }
             catch (System.Exception e)
@@ -194,23 +194,23 @@
             {
                 XElement masterVolumeElement = audioElement.Element("MasterVolume");
                 if (masterVolumeElement != null && float.TryParse(masterVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float masterVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("MasterVolume", masterVolume);
+                    RSLib.Audio.AudioManager.SetMixerVolumePercentage("MasterVolume", masterVolume);
 
                 XElement musicVolumeElement = audioElement.Element("MusicVolume");
                 if (musicVolumeElement != null && float.TryParse(musicVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float musicVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("MusicVolume", musicVolume);
+                    RSLib.Audio.AudioManager.SetMixerVolumePercentage("MusicVolume", musicVolume);
 
                 XElement sfxVolumeElement = audioElement.Element("SFXVolume");
                 if (sfxVolumeElement != null && float.TryParse(sfxVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float sfxVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("SFXVolume", sfxVolume);
+                    RSLib.Audio.AudioManager.SetMixerVolumePercentage("SFXVolume", sfxVolume);
 
                 XElement footstepsVolumeElement = audioElement.Element("FootstepsVolume");
                 if (footstepsVolumeElement != null && float.TryParse(footstepsVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture,  out float footstepsVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("FootstepsVolume", footstepsVolume);
+                    RSLib.Audio.AudioManager.SetMixerVolumePercentage("FootstepsVolume", footstepsVolume);
 
                 XElement uiVolumeElement = audioElement.Element("UIVolume");
                 if (uiVolumeElement != null && float.TryParse(uiVolumeElement.Value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float uiVolume))
-                    RSLib.Audio.AudioManager.SetVolumePercentage("UIVolume", uiVolume);
+                    RSLib.Audio.AudioManager.SetMixerVolumePercentage("UIVolume", uiVolume);
             }
             catch (System.Exception e)
             {

@@ -43,7 +43,7 @@
 
         public void InitValueFromAudioManager()
         {
-            if (RSLib.Audio.AudioManager.TryGetFloatParameterValue(_mixerParameterName, out float volume))
+            if (RSLib.Audio.AudioManager.TryGetMixerFloatParameterValue(_mixerParameterName, out float volume))
                 SetValue(RSLib.Audio.AudioManager.DecibelsToLinear(volume));
         }
 
@@ -59,7 +59,7 @@
         
         private void OnValueChanged(float value)
         {
-            RSLib.Audio.AudioManager.SetVolumePercentage(_mixerParameterName, value);
+            RSLib.Audio.AudioManager.SetMixerVolumePercentage(_mixerParameterName, value);
         }
 
         protected override void OnDestroy()
