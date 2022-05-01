@@ -9,8 +9,8 @@
     [DisallowMultipleComponent]
     public abstract class SettingsPanelBase : UIPanel
     {
-        [SerializeField] private UnityEngine.UI.Button _backBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _quitBtn = null;
+        [SerializeField] protected UnityEngine.UI.Button _backBtn = null;
+        [SerializeField] protected UnityEngine.UI.Button _quitBtn = null;
 
         public UnityEngine.UI.Button BackBtn => _backBtn;
         public UnityEngine.UI.Button QuitBtn => _quitBtn;

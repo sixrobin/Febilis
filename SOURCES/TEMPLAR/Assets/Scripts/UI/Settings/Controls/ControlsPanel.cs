@@ -86,7 +86,7 @@
             if (show)
             {
                 ResetEditedMap();
-                InitBindingsPanelsNavigation();
+                InitNavigation();
 
                 UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
                 _controlsScrollBar.value = 1f;
@@ -101,7 +101,7 @@
             UncommittedChanges = false;
         }
 
-        private void InitBindingsPanelsNavigation()
+        private void InitNavigation()
         {
             if (_navigationInit)
                 return;
@@ -139,6 +139,14 @@
                 break;
             }
 
+            _resetBindingsBtn.SetSelectOnRight(_saveBindingsBtn);
+            _saveBindingsBtn.SetSelectOnLeft(_resetBindingsBtn);
+            
+            _resetBindingsBtn.SetSelectOnDown(_backBtn);
+            _backBtn.SetSelectOnUp(_resetBindingsBtn);
+            _saveBindingsBtn.SetSelectOnDown(_quitBtn);
+            _quitBtn.SetSelectOnUp(_saveBindingsBtn);
+            
             _navigationInit = true;
         }
 

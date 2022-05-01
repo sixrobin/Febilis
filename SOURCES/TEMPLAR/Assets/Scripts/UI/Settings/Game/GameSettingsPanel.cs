@@ -151,6 +151,11 @@
             _resetSettingsBtn.SetSelectOnRight(_saveSettingsBtn);
             _saveSettingsBtn.SetSelectOnLeft(_resetSettingsBtn);
             
+            _resetSettingsBtn.SetSelectOnDown(_backBtn);
+            _backBtn.SetSelectOnUp(_resetSettingsBtn);
+            _saveSettingsBtn.SetSelectOnDown(_quitBtn);
+            _quitBtn.SetSelectOnUp(_saveSettingsBtn);
+            
             _scrollbar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
             _scrollbar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
             ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
