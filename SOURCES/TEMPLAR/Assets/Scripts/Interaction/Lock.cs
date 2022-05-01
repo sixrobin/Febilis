@@ -12,7 +12,7 @@
         [SerializeField] private Flags.LockIdentifier _lockIdentifier = null;
 
         [Header("REFS")]
-        [SerializeField] private Animator _animator = null;
+        [SerializeField] private LockView _lockView = null;
         [SerializeField] private UnityEngine.Events.UnityEvent _onOpen = null;
         [SerializeField] private SpritesAlphaFade _spritesAlphaFade = null;
 
@@ -56,7 +56,7 @@
             }
             else
             {
-                _animator.SetTrigger("Unlock");
+                _lockView.PlayUnlockAnimation();
                 _spritesAlphaFade?.FadeOut();
             }
         }

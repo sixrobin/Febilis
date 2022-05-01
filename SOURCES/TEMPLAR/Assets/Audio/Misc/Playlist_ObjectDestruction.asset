@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ba60081a51c464eb8eff7c02623a0c, type: 3}
+  m_Name: Playlist_ObjectDestruction
+  m_EditorClassIdentifier: 
+  _mixerGroup: {fileID: -3539871569477767839, guid: 1ec8c024ee2e0c844a668d2c1a533b14,
+    type: 2}
+  _volumeMultiplier: 0.6
+  _pitchOffset: 0
+  _clipsPlayDatas:
+  - _clip: {fileID: 8300000, guid: 228602717fd011a47a2bc7948dbf8e6b, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0
+  - _clip: {fileID: 8300000, guid: 78804a3101e39254a83507b0f7954e57, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0
+  - _clip: {fileID: 8300000, guid: e6be5db2fb50b0b43a9ac4a9511218c9, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0
+  - _clip: {fileID: 8300000, guid: ade25caa586a0034590182fa39ef602a, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0
+  - _clip: {fileID: 8300000, guid: 26b84b7089ea3df41b9106ed1b8401a1, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0

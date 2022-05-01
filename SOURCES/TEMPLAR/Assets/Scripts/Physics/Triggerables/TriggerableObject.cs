@@ -33,9 +33,12 @@
         [SerializeField] private Interaction.Interactable _linkedInteractable = null;
 
         [Header("CHAIN DESTRUCTION")]
-        [Tooltip("Triggerables that are immediatly triggered with this one.")]
+        [Tooltip("Triggerables that are immediately triggered with this one.")]
         [SerializeField] private TriggerableObject[] _children = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider[] _triggeredClipProviders = null;
+        
         protected Datas.TriggerableDatas _triggerableDatas;
         private Collider2D _collider2D;
         private Sprite _baseSprite;
@@ -137,6 +140,9 @@
             
             for (int i = _children.Length - 1; i >= 0; --i)
                 _children[i].Trigger(sourceType);
+            
+            if (_triggeredClipProviders.Length > 0)
+                RSLib.Audio.AudioManager.PlaySounds(_triggeredClipProviders);
         }
 
         private void Awake()

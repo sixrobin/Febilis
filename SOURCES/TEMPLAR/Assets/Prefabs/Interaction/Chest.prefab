@@ -123,6 +123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: Chest
   _spriteRenderer: {fileID: 6425610694752735439}
+  _animator:
+    _value: {fileID: 0}
+    _enabled: 0
   _triggerSpritesLoop:
   - {fileID: 21300000, guid: e5bc377615bcaad4ab50dbb466545915, type: 3}
   _groundLayer:
@@ -130,6 +133,8 @@ MonoBehaviour:
     m_Bits: 256
   _linkedInteractable: {fileID: 4984660229964947428}
   _children: []
+  _triggeredClipProviders:
+  - {fileID: 11400000, guid: fce82a0989e28974186e819d90d873df, type: 2}
 --- !u!1 &7024888632340637674
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +297,7 @@ MonoBehaviour:
   _onInteracted:
     m_PersistentCalls:
       m_Calls: []
+  _chestIdentifier: {fileID: 0}
   _interactionCollider: {fileID: 7491186539554326091}
   _highlight: {fileID: 7024888632340637674}
   _triggerableChest: {fileID: 963337968985385419}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20ba60081a51c464eb8eff7c02623a0c, type: 3}
+  m_Name: Playlist_LampHit
+  m_EditorClassIdentifier: 
+  _mixerGroup: {fileID: -3539871569477767839, guid: 1ec8c024ee2e0c844a668d2c1a533b14,
+    type: 2}
+  _volumeMultiplier: 0.2
+  _pitchOffset: 0
+  _clipsPlayDatas:
+  - _clip: {fileID: 8300000, guid: 8810d3fb876ad5c4281928e219bd6d31, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0
+  - _clip: {fileID: 8300000, guid: 06a744978a2e7e141a18b35fbba95023, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0
+  - _clip: {fileID: 8300000, guid: 4390b9885064a89418ea0cecd4cf26b4, type: 3}
+    _volumeRandomRange: {x: 1, y: 1}
+    _pitchVariation: 0

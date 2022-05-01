@@ -606,6 +606,9 @@ MonoBehaviour:
     type: 2}
   _attackClipProvider: {fileID: 11400000, guid: ee126148fef498049b21cb5e8cbd74e4,
     type: 2}
+  _deathClipProvider: {fileID: 11400000, guid: 2df375045f1ca9f4b82f48edb01ef33a, type: 2}
+  _killTriggerHitClipProvider: {fileID: 11400000, guid: ef979f5f71e333f4fbf96a413aa05681,
+    type: 2}
   _logAnimationsPlays: 0
 --- !u!114 &2727861838613788315
 MonoBehaviour:

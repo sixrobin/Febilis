@@ -89,10 +89,13 @@ MonoBehaviour:
     _value: {fileID: 0}
     _enabled: 0
   _highlight: {fileID: 3456342045124006407}
+  _collider: {fileID: 0}
+  _lockIdentifier: {fileID: 0}
+  _lockView: {fileID: 16272591903315853}
   _onOpen:
     m_PersistentCalls:
       m_Calls: []
-  _animator: {fileID: 614507820698310876}
+  _spritesAlphaFade: {fileID: 0}
 --- !u!114 &3456342045103930702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,3 +334,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lock: {fileID: 3456342045103930699}
+  _animator: {fileID: 614507820698310876}
+  _unlockClipProvider: {fileID: 11400000, guid: b318afe30d28875468817400ed47bac1,
+    type: 2}

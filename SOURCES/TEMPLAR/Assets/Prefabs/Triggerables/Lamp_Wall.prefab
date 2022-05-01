@@ -173,3 +173,5 @@ MonoBehaviour:
     m_Bits: 256
   _linkedInteractable: {fileID: 0}
   _children: []
+  _triggeredClipProviders:
+  - {fileID: 11400000, guid: 5c4ba1c46ecfa0446bc72daef5a5c76a, type: 2}

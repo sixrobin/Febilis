@@ -6,7 +6,7 @@
     {
         [SerializeField] private Collider2D _collider = null;
 
-        public static System.Collections.Generic.Dictionary<Collider2D, KillTrigger> SharedKillTriggers { get; private set; }
+        public static System.Collections.Generic.Dictionary<Collider2D, KillTrigger> SharedKillTriggers { get; }
             = new System.Collections.Generic.Dictionary<Collider2D, KillTrigger>();
 
         public Collider2D Collider => _collider;

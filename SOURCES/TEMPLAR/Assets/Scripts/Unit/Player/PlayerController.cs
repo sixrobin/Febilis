@@ -189,6 +189,9 @@
         {
             base.OnCollisionDetected(collisionInfos);
 
+            if (collisionInfos.Hit && KillTrigger.SharedKillTriggers.ContainsKey(collisionInfos.Hit.collider))
+                PlayerView.PlayKillTriggerHitAnimation();
+            
             if (IsDead)
                 return;
 

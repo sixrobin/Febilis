@@ -54,6 +54,8 @@
         [SerializeField] private RSLib.Audio.ClipProvider _healClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _cantHealClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _attackClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _deathClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _killTriggerHitClipProvider = null;
         
         [Header("DEBUG")]
         [SerializeField] private bool _logAnimationsPlays = false;
@@ -307,7 +309,14 @@
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
+            RSLib.Audio.AudioManager.PlaySound(_deathClipProvider);
+
             LogAnimationPlayIfRequired("Death");
+        }
+
+        public void PlayKillTriggerHitAnimation()
+        {
+            RSLib.Audio.AudioManager.PlaySound(_killTriggerHitClipProvider);
         }
 
         public void PlayTransitionInAnimation()

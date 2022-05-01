@@ -13,6 +13,9 @@
         [SerializeField] private GameObject _highlight = null;
         [SerializeField] private Sprite _interactedSprite = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _interactedClipProvider = null;
+        
         private Sprite _baseSprite;
 
         public override void OnBoardsTransitionBegan()
@@ -20,6 +23,8 @@
             _collider.enabled = false;
             _spriteRenderer.sprite = _interactedSprite;
             Unfocus();
+            
+            RSLib.Audio.AudioManager.PlaySound(_interactedClipProvider);
         }
 
         public override void OnBoardsTransitionOver()

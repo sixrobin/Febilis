@@ -182,15 +182,18 @@
 
         private void OnDrawGizmosSelected()
         {
-            for (int i = _platformsToReset.Length - 1; i >= 0; --i)
+            if (_platformsToReset != null)
             {
-                if (_platformsToReset[i].Platform == null)
-                    continue;
+                for (int i = _platformsToReset.Length - 1; i >= 0; --i)
+                {
+                    if (_platformsToReset[i].Platform == null)
+                        continue;
 
-                _platformsToReset[i].Platform.DrawWaypointsStartGizmos(
-                    _platformsToReset[i].WaypointIndex,
-                    _platformsToReset[i].Percentage,
-                    _dbgColor?.Color ?? RSLib.DataColor.Default);
+                    _platformsToReset[i].Platform.DrawWaypointsStartGizmos(
+                        _platformsToReset[i].WaypointIndex,
+                        _platformsToReset[i].Percentage,
+                        _dbgColor?.Color ?? RSLib.DataColor.Default);
+                }
             }
         }
 
