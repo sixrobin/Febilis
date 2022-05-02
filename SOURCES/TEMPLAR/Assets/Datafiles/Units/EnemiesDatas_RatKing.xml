@@ -2,7 +2,7 @@
 <EnemiesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="EnemiesDatas.xsd">
 
    <EnemyDatas Id="RatKing">
-      <Health>50</Health>
+      <Health>450</Health>
       <WalkSpeed>4.5</WalkSpeed>
       <RunSpeed>8</RunSpeed>
       <HurtDur>0.3</HurtDur>
