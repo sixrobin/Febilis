@@ -38,11 +38,6 @@
             for (int i = 0; i < _bossesViewsPool.Count; ++i)
                 _bossesViewsPool[i].Display(false);
 
-            if (args.Victory)
-            {
-                Debug.LogError("Showing boss victory screen.");
-            }
-
             _currBossFight = null;
         }
 
@@ -59,7 +54,7 @@
                 _bossesViewsPool[i].Display(true);
             }
 
-            // Hide pool excedent.
+            // Hide pool excess.
             for (; i < _bossesViewsPool.Count; ++i)
                 _bossesViewsPool[i].Display(false);
 

@@ -695,6 +695,11 @@ MonoBehaviour:
   - {fileID: 2800000, guid: d1c80f6d41f917840ad62586e1f484fe, type: 3}
   - {fileID: 2800000, guid: 6a928b31e370f014cacba4620ee52b0a, type: 3}
   - {fileID: 2800000, guid: 299f1a3a7d5a59e45b42666df8a1694e, type: 3}
+  _rampsGroups:
+  - Base: {fileID: 2800000, guid: bd0c8d253a6359e4ab43abee54448e68, type: 3}
+    NoWhite: {fileID: 2800000, guid: 2b70dedc93296a54db568213488e6539, type: 3}
+  - Base: {fileID: 2800000, guid: d1c80f6d41f917840ad62586e1f484fe, type: 3}
+    NoWhite: {fileID: 2800000, guid: ed31bfe8e8b6f2841bfbb560207030d5, type: 3}
 --- !u!1 &6221756714808084327
 GameObject:
   m_ObjectHideFlags: 0
