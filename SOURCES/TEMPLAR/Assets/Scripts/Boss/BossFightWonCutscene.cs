@@ -8,7 +8,7 @@
         [SerializeField] private GameObject _cache = null;
 
         private System.Collections.Generic.Queue<GameObject> _stencils = new System.Collections.Generic.Queue<GameObject>();
-        private Templar.Database.RampsDatabase.RampsGroup _rampsGroup;
+        private Manager.PaletteManager.RampsGroup _rampsGroup;
         
         public static event System.Action CutsceneStarted;
         public static event System.Action CutsceneOver;
@@ -17,7 +17,7 @@
         {
             CutsceneStarted?.Invoke();
 
-            Instance._rampsGroup = Templar.Database.RampsDatabase.GetGroupFromRamp(Manager.GameManager.CameraCtrl.GrayscaleRamp.TextureRamp);
+            Instance._rampsGroup = Manager.PaletteManager.GetGroupFromRamp(Manager.GameManager.CameraCtrl.GrayscaleRamp.TextureRamp);
             
             if (delay > 0f)
                 Instance.StartCoroutine(ShowStencilsCoroutine(bossUnitView, delay));

@@ -15,12 +15,27 @@
             public Texture2D Ramp => _ramp;
         }
 
+        [System.Serializable]
+        public struct RampsGroup
+        {
+            public UnityEngine.Texture2D Base;
+            public UnityEngine.Texture2D NoWhite;
+
+            public bool Match(UnityEngine.Texture2D ramp)
+            {
+                return Base == ramp || NoWhite == ramp;
+            }
+        }
+        
         [Header("ZONES PALETTES")]
         [SerializeField] private RampByZone[] _rampByZones = null;
 
         [Header("ALL RAMPS")]
         [SerializeField] private Texture2D[] _ramps = null;
 
+        [Header("RAMPS GROUPS")]
+        [UnityEngine.SerializeField] private RampsGroup[] _rampsGroups = null;
+        
         public delegate void PaletteChangeEventHandler(Texture2D rampTex);
         public event PaletteChangeEventHandler PaletteChanged;
 
@@ -40,8 +55,7 @@
         public static void UpdatePaletteForCurrentZone()
         {
             Texture2D ramp = Instance._rampByZones
-                            .Where(o => o.ZoneIdentifier == (BoardsManager.CurrentBoard.Identifier as Flags.BoardIdentifier).ContainingZoneIdentifier)
-                            .FirstOrDefault()
+                            .FirstOrDefault(o => o.ZoneIdentifier == (BoardsManager.CurrentBoard.Identifier as Flags.BoardIdentifier).ContainingZoneIdentifier)
                             .Ramp;
 
             SetPalette(ramp);
@@ -57,6 +71,11 @@
             CurrentRamp = Instance._ramps[rampIndex];
         }
 
+        public static RampsGroup GetGroupFromRamp(UnityEngine.Texture2D ramp)
+        {
+            return Instance._rampsGroups.FirstOrDefault(o => o.Match(ramp));
+        }
+        
         protected override void Awake()
         {
             base.Awake();
