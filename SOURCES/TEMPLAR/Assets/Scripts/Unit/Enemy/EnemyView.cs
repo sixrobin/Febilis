@@ -1,9 +1,9 @@
 ﻿namespace Templar.Unit.Enemy
 {
+    using UnityEngine;
+    
     public class EnemyView : UnitView
     {
-        private const float DEAD_FADE_DELAY = 0.8f;
-
         private const string ATTACK_ANM_OVERRIDE_ID = "Attack";
         private const string ATTACK_ANTICIPATION_ANM_OVERRIDE_ID = "Attack Anticipation";
         private const string ATTACK_CLIP_NAME_FORMAT = "Anm_{0}_Attack_{1}";
@@ -15,9 +15,12 @@
         private const string IS_WALKING = "IsWalking";
         private const string ATTACK_ANTICIPATION = "Attack_Anticipation";
 
+        [Header("DEAD FADE")]
+        [SerializeField] private float _deadFadeDelay = 1f;
+        
         public string EnemyId { get; private set; }
 
-        public override float DeadFadeDelay => DEAD_FADE_DELAY;
+        public override float DeadFadeDelay => _deadFadeDelay;
 
         public void Init(string enemyId)
         {

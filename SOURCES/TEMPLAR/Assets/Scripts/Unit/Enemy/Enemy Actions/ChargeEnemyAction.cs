@@ -109,6 +109,9 @@
 
             void StunCallback()
             {
+                if (EnemyCtrl.IsDead)
+                    return;
+                
                 EnemyCtrl.EnemyView.PlayIdleAnimation();
                 EnemyCtrl.ForceUpdateCurrentBehaviour();
                 EnemyCtrl.ForceUpdateCurrentAction();

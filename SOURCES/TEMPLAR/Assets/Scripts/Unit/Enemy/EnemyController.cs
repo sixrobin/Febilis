@@ -242,9 +242,9 @@
             }
         }
 
-        private System.Collections.IEnumerator HurtCoroutine(Datas.Unit.Enemy.ChargeActionCollisionDatas chargeCollisionDatas)
+        private System.Collections.IEnumerator HurtCoroutine(Datas.Unit.Enemy.ChargeActionCollisionDatas chargeCollisionData)
         {
-            if (chargeCollisionDatas != null)
+            if (chargeCollisionData != null)
                 EnemyView.PlayChargeCollisionAnimation();
             else
                 EnemyView.PlayHurtAnimation();
@@ -255,7 +255,7 @@
             
             if (!IsDead
                 && !AttackCtrl.IsAttacking
-                && (chargeCollisionDatas == null || chargeCollisionDatas.StunDur == 0f))
+                && (chargeCollisionData == null || chargeCollisionData.StunDur == 0f))
                 EnemyView.PlayIdleAnimation();
         }
 

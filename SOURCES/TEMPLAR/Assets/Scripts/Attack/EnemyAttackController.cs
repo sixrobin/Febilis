@@ -58,7 +58,8 @@ namespace Templar.Attack
             attackOverCallback?.Invoke(new AttackOverEventArgs(_currAttackDatas, AttackDir));
             _attackCoroutine = null;
 
-            _enemyCtrl.EnemyView.PlayIdleAnimation();
+            if (!_enemyCtrl.IsDead)
+                _enemyCtrl.EnemyView.PlayIdleAnimation();
         }
     }
 }
