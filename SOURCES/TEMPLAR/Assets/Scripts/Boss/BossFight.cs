@@ -35,7 +35,11 @@
 
         [SerializeField] private UnityEngine.Events.UnityEvent _onFightWon = null;
         [SerializeField] private UnityEngine.Events.UnityEvent _onFightLost = null;
-        
+
+        [Header("FEEDBACK")]
+        [SerializeField, Min(0f)] private float _fightWonFreezeFrameDelay = 0f;
+        [SerializeField, Min(0f)] private float _fightWonFreezeFrameDuration = 1f;
+
         [Header("DEBUG")]
         [SerializeField] private bool _skipIntroCutscene = false;
         
@@ -56,7 +60,7 @@
         {
             _bossesToKillLeft--;
             if (_bossesToKillLeft == 0)
-                OnFightWon();
+                OnFightWon(args);
         }
 
         private void OnPlayerKilled(UnitHealthController.UnitKilledEventArgs args)
@@ -102,7 +106,7 @@
             BossFightStarted?.Invoke(new BossFightEventArgs(this));
         }
 
-        public void OnFightWon()
+        public void OnFightWon(UnitHealthController.UnitKilledEventArgs args)
         {
             CProLogger.Log(this, $"Boss fight {Identifier.Id} won.");
 
@@ -110,6 +114,12 @@
 
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, true, false));
             _onFightWon?.Invoke();
+            
+            BossFightWonCutscene.ShowStencils(args.SourceUnit.UnitView, _fightWonFreezeFrameDelay);
+            Templar.Manager.FreezeFrameManager.FreezeFrame(_fightWonFreezeFrameDelay,
+                                                           _fightWonFreezeFrameDuration,
+                                                           overrideCurrFreeze: true,
+                                                           callback: BossFightWonCutscene.HideStencils);
         }
 
         public void OnFightLost()
@@ -164,6 +174,9 @@
 
         private void Start()
         {
+            for (int i = FightBosses.Length - 1; i >= 0; --i)
+                FightBosses[i].IsBossUnit = true;
+            
             // Boss fight already won.
             if (Manager.FlagsManager.Check(this))
             {

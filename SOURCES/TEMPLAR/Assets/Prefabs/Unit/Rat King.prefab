@@ -234,6 +234,11 @@ PrefabInstance:
       propertyPath: _deadFadeDelay
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _deathFreezeFrameDuration
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7629123961653350815, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: m_Controller
@@ -244,6 +249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _id
       value: RatKing
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076108134413353365, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _lootDropDelay
+      value: 0.85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b40e387cdcb6354bbcad91559735688, type: 3}

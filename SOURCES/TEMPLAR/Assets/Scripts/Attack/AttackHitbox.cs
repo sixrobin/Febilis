@@ -6,16 +6,16 @@
     {
         public class HitEventArgs : System.EventArgs
         {
-            public HitEventArgs(IHittable hittable, float dir, AttackController attackController)
+            public HitEventArgs(IHittable hittable, float direction, AttackController attackController)
             {
                 Hittable = hittable;
-                Dir = dir;
+                Direction = direction;
                 AttackController = attackController;
             }
 
-            public IHittable Hittable { get; private set; }
-            public float Dir { get; private set; }
-            public AttackController AttackController { get; private set; }
+            public IHittable Hittable { get; }
+            public float Direction { get; }
+            public AttackController AttackController { get; }
         }
 
         [SerializeField] private string _id = string.Empty;

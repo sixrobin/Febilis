@@ -9,6 +9,8 @@
         public delegate void HitEventArgs();
         public event HitEventArgs Hit;
 
+        public bool SpawnVFXOnHit => true;
+        
         public HitLayer HitLayer => HitLayer.PICKUP;
 
         public bool Interactable { get; set; }

@@ -60,7 +60,7 @@
         {
             ramp.Offset = offset;
         }
-
+        
         private System.Collections.IEnumerator FadeCoroutine((float, float) delays)
         {
             if (delays.Item1 > 0f)

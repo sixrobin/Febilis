@@ -570,10 +570,14 @@ MonoBehaviour:
   _animator: {fileID: 2727861838613788316}
   _spriteBlink: {fileID: 2727861838613788315}
   _stunStars: {fileID: 0}
+  _deathFreezeFrameDuration: 0
   _aocTemplate: {fileID: 22100000, guid: 6747fdbddf2566849892ce83053ed3e2, type: 2}
+  _attackClipProvider: {fileID: 11400000, guid: ee126148fef498049b21cb5e8cbd74e4,
+    type: 2}
   _footstepClipProvider: {fileID: 11400000, guid: 4a3b39929995ec34ea4240b1083f4864,
     type: 2}
   _hurtClipProvider: {fileID: 11400000, guid: 517dd9ca1c0d54544b37d818344ae7cf, type: 2}
+  _deathClipProvider: {fileID: 11400000, guid: 2df375045f1ca9f4b82f48edb01ef33a, type: 2}
   _jumpPuffPrefab: {fileID: 1349905492933044248, guid: 0fc830367c0e6c147bb80ba419ad874b,
     type: 3}
   _doubleJumpPuffPrefab: {fileID: 1349905492933044248, guid: 9432c447a8a61c440a2ff50b36827616,
@@ -604,9 +608,6 @@ MonoBehaviour:
   _healClipProvider: {fileID: 11400000, guid: 4806e702143f28b43aaa258acb4f9fab, type: 2}
   _cantHealClipProvider: {fileID: 11400000, guid: 9cc11d56f6d2d654e9ae68d8a8218f32,
     type: 2}
-  _attackClipProvider: {fileID: 11400000, guid: ee126148fef498049b21cb5e8cbd74e4,
-    type: 2}
-  _deathClipProvider: {fileID: 11400000, guid: 2df375045f1ca9f4b82f48edb01ef33a, type: 2}
   _killTriggerHitClipProvider: {fileID: 11400000, guid: ef979f5f71e333f4fbf96a413aa05681,
     type: 2}
   _logAnimationsPlays: 0

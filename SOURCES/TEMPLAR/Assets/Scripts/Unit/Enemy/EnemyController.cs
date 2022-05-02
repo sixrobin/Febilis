@@ -19,6 +19,9 @@
         [SerializeField] private string _id = string.Empty;
         [SerializeField] private float _behaviourUpdateRate = 0.5f;
 
+        [Header("BEHAVIOUR")]
+        [SerializeField] private float _lootDropDelay = 0f;
+        
         [Header("DEBUG")]
         [SerializeField] private RSLib.Framework.DisabledString _currBehaviourName = new RSLib.Framework.DisabledString();
         [SerializeField] private RSLib.Framework.DisabledString _currActionName = new RSLib.Framework.DisabledString();
@@ -72,6 +75,8 @@
             }
         }
 
+        public bool IsBossUnit { get; set; }
+        
         public bool IsSleeping { get; private set; }
 
         public Datas.Unit.Enemy.EnemyDatas EnemyDatas { get; private set; }
@@ -173,10 +178,9 @@
             AttackCtrl.CancelAttack();
 
             if (EnemyDatas.OnKilledLoot != null)
-                Manager.LootManager.SpawnLoot(EnemyDatas.OnKilledLoot, transform.position.AddY(0.2f));
+                Manager.LootManager.SpawnLoot(EnemyDatas.OnKilledLoot, transform.position.AddY(0.2f), _lootDropDelay);
 
             Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_MEDIUM).AddTrauma(EnemyDatas.OnKilledTrauma);
-            Manager.FreezeFrameManager.FreezeFrame(0, 0.12f, 0f, true); // [TMP] Hardcoded values.
 
             EnemyView.PlayDeathAnimation(args.HitDatas.AttackDir);
             BoxCollider2D.enabled = false;

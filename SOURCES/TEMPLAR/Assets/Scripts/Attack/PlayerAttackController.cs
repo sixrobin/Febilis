@@ -56,7 +56,8 @@
 
         protected override void OnAttackHit(AttackHitbox.HitEventArgs hitArgs)
         {
-            _playerCtrl.PlayerView.PlayHitVFX(hitArgs.Dir);
+            if (hitArgs.Hittable.SpawnVFXOnHit)
+                _playerCtrl.PlayerView.PlayHitVFX(hitArgs.Direction);
 
             UnityEngine.Assertions.Assert.IsNotNull(CurrAttackDatas, "An attack hit has been triggered but player attack datas are null.");
             

@@ -1,5 +1,6 @@
 ﻿namespace Templar.Manager
 {
+    using RSLib;
     using RSLib.Extensions;
     using UnityEngine;
 
@@ -19,27 +20,37 @@
 
         private static System.Collections.Generic.List<GameObject> s_waitingObjects = new System.Collections.Generic.List<GameObject>();
 
-        public static void SpawnLoot(Datas.LootDatas lootDatas, Vector3 pos)
+        public static void SpawnLoot(Datas.LootDatas lootData, Vector3 position, float delay = 0f)
         {
-            for (int i = lootDatas.Loots.Length - 1; i >= 0; --i)
+            for (int i = lootData.Loots.Length - 1; i >= 0; --i)
             {
                 float value = Random.value;
 
-                if (lootDatas.Loots[i] is Datas.LootDatas.CoinsLoot coinsLoot)
+                if (lootData.Loots[i] is Datas.LootDatas.CoinsLoot coinsLoot)
                 {
                     Instance.Log($"Trying to spawn {coinsLoot.Value} coin(s) ({(Instance._forceLootChance ? "forced from debug" : $"chances: {coinsLoot.Chance * 100}% / drop: {value * 100f}")}).");
                     if (!Instance._forceLootChance && value > coinsLoot.Chance)
                         return;
 
-                    SpawnCoins(coinsLoot.Value, pos);
+                    void SpawnAction() => SpawnCoins(coinsLoot.Value, position);
+
+                    if (delay > 0f)
+                        Instance.DoAfter(delay, SpawnAction);
+                    else
+                        SpawnAction();
                 }
-                else if (lootDatas.Loots[i] is Datas.LootDatas.ItemLoot itemLoot)
+                else if (lootData.Loots[i] is Datas.LootDatas.ItemLoot itemLoot)
                 {
                     Instance.Log($"Trying to spawn item {itemLoot.ItemId} ({(Instance._forceLootChance ? "forced from debug" : $"chances: {itemLoot.Chance * 100}% / drop: {value * 100f}")}).");
                     if (!Instance._forceLootChance && value > itemLoot.Chance)
                         return;
 
-                    SpawnItem(itemLoot.ItemId, pos);
+                    void SpawnAction() => SpawnItem(itemLoot.ItemId, position);
+
+                    if (delay > 0f)
+                        Instance.DoAfter(delay, SpawnAction);
+                    else
+                        SpawnAction();
                 }
             }
         }
@@ -53,7 +64,7 @@
                 s_waitingObjects.Add(coinInstance);
             }
         }
-
+        
         public static void SpawnItem(string itemId, Vector3 pos)
         {
             GameObject itemInstance = RSLib.Framework.Pooling.Pool.Get(Instance._itemPrefab, itemId);
@@ -92,7 +103,7 @@
 
             s_waitingObjects.Remove(item.gameObject);
         }
-
+        
         protected override void Awake()
         {
             base.Awake();

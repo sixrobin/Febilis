@@ -22,6 +22,9 @@
         [SerializeField] protected RSLib.ImageEffects.SpriteBlink _spriteBlink = null;
         [SerializeField] protected GameObject _stunStars = null;
 
+        [Header("FEEDBACK")]
+        [SerializeField] protected float _deathFreezeFrameDuration = 0.1f;
+
         [Header("AOC")]
         [SerializeField] private AnimatorOverrideController _aocTemplate = null;
 
@@ -117,6 +120,7 @@
             FlipX(dir > 0f);
             _animator.SetTrigger(DEATH);
             
+            Manager.FreezeFrameManager.FreezeFrame(0, _deathFreezeFrameDuration);
             RSLib.Audio.AudioManager.PlaySound(_deathClipProvider);
         }
 

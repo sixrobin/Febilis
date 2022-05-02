@@ -61,6 +61,16 @@
         {
             Display(true);
         }
+        
+        protected virtual void OnBossFightWonCutsceneStarted()
+        {
+            Display(false);
+        }
+        
+        protected virtual void OnBossFightWonCutsceneOver()
+        {
+            Display(true);
+        }
 
         protected virtual void Display(bool state)
         {
@@ -94,6 +104,9 @@
 
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
+
+            Templar.Boss.BossFightWonCutscene.CutsceneStarted += OnBossFightWonCutsceneStarted;
+            Templar.Boss.BossFightWonCutscene.CutsceneOver += OnBossFightWonCutsceneOver;
         }
 
         protected virtual void OnDestroy()
@@ -129,6 +142,12 @@
             {
                 UI.Dialogue.DialogueManager.Instance.DialogueStarted -= OnDialogueStarted;
                 UI.Dialogue.DialogueManager.Instance.DialogueOver -= OnDialogueOver;
+            }
+
+            if (Templar.Boss.BossFightWonCutscene.Exists())
+            {
+                Templar.Boss.BossFightWonCutscene.CutsceneStarted -= OnBossFightWonCutsceneStarted;
+                Templar.Boss.BossFightWonCutscene.CutsceneOver -= OnBossFightWonCutsceneOver;
             }
         }
     }

@@ -273,12 +273,12 @@
             AttackCtrl.CancelAttack();
             RollCtrl.Interrupt();
 
-            CollisionsCtrl.Ground(transform); // [TODO] This doesn't seem to work even if Ground method log looks fine.
+            CollisionsCtrl.Ground(transform); // TODO: This doesn't seem to work even if Ground method log looks fine.
             PlayerView.PlayDeathAnimation(args.HitDatas?.AttackDir ?? CurrDir);
 
             _currentRecoil = null;
 
-            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // [TMP] Hard coded value.
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_BIG).SetTrauma(0.5f); // TMP: Hard coded value.
             Manager.RampFadeManager.Fade(Manager.GameManager.CameraCtrl.GrayscaleRamp, "InBase", (1.5f, 1f), (fadeIn) => RSLib.SceneReloader.ReloadScene());
 
             StartDeadFadeCoroutine();

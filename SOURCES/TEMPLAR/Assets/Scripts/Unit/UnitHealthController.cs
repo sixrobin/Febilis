@@ -34,7 +34,7 @@
             }
 
             public UnitController SourceUnit { get; }
-            public Attack.HitInfos HitDatas { get; private set; }  // If null, death comes from another source than an attack.
+            public Attack.HitInfos HitDatas { get; }  // If null, death comes from another source than an attack.
         }
 
         [SerializeField] private Collider2D _collider = null;
@@ -54,6 +54,8 @@
         public UnitController Unit { get; private set; }
         public RSLib.HealthSystem HealthSystem { get; private set; }
 
+        public virtual bool SpawnVFXOnHit => true;
+        
         public abstract Attack.HitLayer HitLayer { get; }
 
         public virtual bool CanBeHit(Attack.HitInfos hitInfos)

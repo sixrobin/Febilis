@@ -8,6 +8,16 @@
 
         public override Attack.HitLayer HitLayer => Attack.HitLayer.ENEMY;
 
+        public override bool SpawnVFXOnHit
+        {
+            get
+            {
+                return true;
+                // Avoid spawning VFX when killing a boss unit.
+                return (Unit as EnemyController)?.IsBossUnit == false || !Unit.IsDead;
+            }
+        }
+
         public WorldSpaceHealthBar WorldSpaceHealthBar => _healthBar;
 
         public override void Init(UnitController unit, int maxHealth, int initHealth)

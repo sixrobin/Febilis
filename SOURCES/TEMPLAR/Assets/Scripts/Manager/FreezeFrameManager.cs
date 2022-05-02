@@ -6,7 +6,7 @@
 
         public static bool IsFroze => Exists() && Instance._freezeFrameCoroutine != null;
 
-        public static void FreezeFrame(int framesDelay, float dur, float targetTimeScale = 0f, bool overrideCurrFreeze = false)
+        public static void FreezeFrame(float delay, float dur, float targetTimeScale = 0f, bool overrideCurrFreeze = false, System.Action callback = null)
         {
             if (!Exists() || dur == 0f)
                 return;
@@ -19,19 +19,18 @@
                 Instance.StopCoroutine(Instance._freezeFrameCoroutine);
             }
 
-            Instance.StartCoroutine(Instance._freezeFrameCoroutine = FreezeFrameCoroutine(framesDelay, dur, targetTimeScale));
+            Instance.StartCoroutine(Instance._freezeFrameCoroutine = FreezeFrameCoroutine(delay, dur, targetTimeScale, callback));
         }
 
-        private static System.Collections.IEnumerator FreezeFrameCoroutine(int framesDelay, float dur, float targetTimeScale = 0f)
+        private static System.Collections.IEnumerator FreezeFrameCoroutine(float delay, float dur, float targetTimeScale = 0f, System.Action callback = null)
         {
-            for (int i = 0; i < framesDelay; ++i)
-                yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
-
+            yield return RSLib.Yield.SharedYields.WaitForSecondsRealtime(delay);
             UnityEngine.Time.timeScale = targetTimeScale;
             yield return RSLib.Yield.SharedYields.WaitForSecondsRealtime(dur);
             UnityEngine.Time.timeScale = 1f;
 
             Instance._freezeFrameCoroutine = null;
+            callback?.Invoke();
         }
     }
 }
