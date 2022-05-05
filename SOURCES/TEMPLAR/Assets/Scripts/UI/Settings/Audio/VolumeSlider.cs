@@ -5,6 +5,7 @@
     public class VolumeSlider : UnityEngine.UI.Selectable, UnityEngine.EventSystems.ISelectHandler
     {
         [Header("REFS")]
+        [SerializeField] private TMPro.TextMeshProUGUI _sliderText = null;
         [SerializeField] private RSLib.Framework.GUI.PointerEventsHandler _pointerEventsHandler = null;
         [SerializeField] private UnityEngine.UI.Slider _slider = null;
 
@@ -55,6 +56,11 @@
         public void ResetValue()
         {
             SetValue(1f);
+        }
+
+        public void Localize()
+        {
+            _sliderText.text = Localizer.Get($"{Localization.Settings.VOLUME_PREFIX}{_mixerParameterName}");
         }
         
         private void OnValueChanged(float value)

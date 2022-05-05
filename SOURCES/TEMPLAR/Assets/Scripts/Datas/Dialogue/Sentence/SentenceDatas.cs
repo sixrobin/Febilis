@@ -102,7 +102,7 @@
             }
             else
             {
-                System.Collections.Generic.List<SentenceSequenceElementDatas> sequenceElementsDatasList = new System.Collections.Generic.List<SentenceSequenceElementDatas>
+                System.Collections.Generic.List<SentenceSequenceElementDatas> sequenceElementsDataList = new System.Collections.Generic.List<SentenceSequenceElementDatas>
                 {
                     new SentenceTextDatas(this, RawValue.Substring(0, openingIndexes[0]))
                 };
@@ -112,7 +112,7 @@
                 // Take each custom tag, add it to the sequence, and add the normal text that's following if it exists (= not another tag right after).
                 for (int i = 0; i < customTagsElements.Count; ++i)
                 {
-                    sequenceElementsDatasList.Add(customTagsElements[i].datas);
+                    sequenceElementsDataList.Add(customTagsElements[i].datas);
 
                     int nextTextEnd = i == customTagsElements.Count - 1
                         ? RawValue.Length - customTagsElements[i].tagEnd - 1
@@ -121,12 +121,12 @@
                     string nextText = RawValue.Substring(customTagsElements[i].tagEnd + 1, nextTextEnd);
                     if (!string.IsNullOrEmpty(nextText))
                     {
-                        sequenceElementsDatasList.Add(new SentenceTextDatas(this, nextText));
+                        sequenceElementsDataList.Add(new SentenceTextDatas(this, nextText));
                         SentenceValue += nextText;
                     }
                 }
 
-                SequenceElementsDatas = sequenceElementsDatasList.ToArray();
+                SequenceElementsDatas = sequenceElementsDataList.ToArray();
             }
         }
     }

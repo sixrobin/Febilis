@@ -1155,6 +1155,7 @@ MonoBehaviour:
   _canvas: {fileID: 8752020144752180649}
   _backBtn: {fileID: 7248711439874859388}
   _quitBtn: {fileID: 2549521955200842486}
+  _title: {fileID: 8752020146199940588}
   _sliders:
   - {fileID: 3347284432754200828}
   - {fileID: 3592033969695193999}

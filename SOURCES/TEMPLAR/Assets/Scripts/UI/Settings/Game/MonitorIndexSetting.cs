@@ -2,9 +2,14 @@
 {
     public class MonitorIndexSetting : IntButtonSettingView
     {
-        private MessagePopup.PopupTextsDatas _rebootWarningPopupTexts
-            = new MessagePopup.PopupTextsDatas("You'll need to reboot the game to apply this change.", "OKAY");
+        // TODO: LOCALIZATION.
+        private MessagePopup.PopupTextsData _rebootWarningPopupTexts = new MessagePopup.PopupTextsData
+        {
+            TextKey = "You'll need to reboot the game to apply this change.",
+            ContinueTextKey = "OKAY"
+        };
 
+        
         public override Templar.Settings.IntSetting IntSetting => Manager.SettingsManager.MonitorIndex;
 
         protected override void OnButtonClicked()

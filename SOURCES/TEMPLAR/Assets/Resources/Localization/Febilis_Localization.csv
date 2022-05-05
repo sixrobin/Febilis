@@ -46,11 +46,11 @@ Settings_Reset,Reset defaults,Réinitialiser
 Settings_Save,Save,Sauvegarder
 ,,
 Audio_Title,Audio,Volume
-VolumeSlider_Master,Master,Général
-VolumeSlider_Music,Music,Musique
-VolumeSlider_SFX,SFX,Effets
-VolumeSlider_Footsteps,Footsteps,Pats
-VolumeSlider_UI,UI,Interfaces
+VolumeSlider_MasterVolume,Master,Général
+VolumeSlider_MusicVolume,Music,Musique
+VolumeSlider_SFXVolume,SFX,Effets
+VolumeSlider_FootstepsVolume,Footsteps,Pats
+VolumeSlider_UIVolume,UI,Interfaces
 ,,
 ItemName_Sword,Pale sword,Lame pâle
 ItemDescription_Sword,"A common sword, used by many soldiers due to its ability to respond well at various situations. A blacksmith could upgrade it.","Une épée commune, utilisée par bien des soldats en raison de sa capacité à répondre à toutes les situations. Un forgeron pourrait la rendre plus forte."

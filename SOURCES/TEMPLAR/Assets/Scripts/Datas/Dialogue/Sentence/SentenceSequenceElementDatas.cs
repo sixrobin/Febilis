@@ -8,8 +8,8 @@
             RawValue = value;
         }
 
-        public SentenceDatas Container { get; private set; }
+        public SentenceDatas Container { get; }
 
-        public string RawValue { get; private set; }
+        public string RawValue { get; }
     }
 }

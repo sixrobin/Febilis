@@ -5,18 +5,11 @@
 
     public class ConfirmationPopup : UIPanel
     {
-        public struct PopupTextsDatas
+        public struct PopupTextsData
         {
-            public PopupTextsDatas(string text, string confirmText, string cancelText)
-            {
-                Text = text;
-                ConfirmText = confirmText;
-                CancelText = cancelText;
-            }
-
-            public string Text { get; private set; }
-            public string ConfirmText { get; private set; }
-            public string CancelText { get; private set; }
+            public string TextKey;
+            public string ConfirmTextKey;
+            public string CancelTextKey;
         }
 
         [SerializeField] private TMPro.TextMeshProUGUI _text = null;
@@ -43,7 +36,7 @@
             Navigation.UINavigationManager.Select(_sourceSelected);
         }
 
-        public void AskForConfirmation(PopupTextsDatas textsDatas, ConfirmedEventHandler confirmCallback, ConfirmedEventHandler cancelCallback, bool selectConfirmFirst = false)
+        public void AskForConfirmation(PopupTextsData textsData, ConfirmedEventHandler confirmCallback, ConfirmedEventHandler cancelCallback, bool selectConfirmFirst = false)
         {
             _sourcePanel = Navigation.UINavigationManager.CurrentlyOpenPanel;
             _sourceSelected = Navigation.UINavigationManager.CurrentlySelected;
@@ -54,9 +47,9 @@
             _confirmCallback = confirmCallback.Invoke;
             _cancelCallback = cancelCallback.Invoke;
 
-            _text.text = textsDatas.Text;
-            _confirmBtn.SetText(textsDatas.ConfirmText);
-            _cancelBtn.SetText(textsDatas.CancelText);
+            _text.text = Localizer.Get(textsData.TextKey);
+            _confirmBtn.SetText(Localizer.Get(textsData.ConfirmTextKey));
+            _cancelBtn.SetText(Localizer.Get(textsData.CancelTextKey));
         }
 
         private void InvokeConfirmCallback()

@@ -89,7 +89,7 @@
             {
                 string itemId = _itemsIdsToShow.Dequeue();
 
-                _itemNameText.text = Database.ItemDatabase.ItemsDatas[itemId].Name;
+                _itemNameText.text = Localizer.Get($"{Localization.Item.NAME_PREFIX}{itemId}");
                 _itemIcon.sprite = Database.ItemDatabase.GetItemSprite(itemId);
 
                 yield return RSLib.Yield.SharedYields.WaitForSeconds(_minItemDuration);

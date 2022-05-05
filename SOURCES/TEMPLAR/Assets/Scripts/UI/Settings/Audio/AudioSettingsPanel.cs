@@ -9,6 +9,9 @@
     
     public class AudioSettingsPanel : SettingsPanelBase
     {
+        [Header("REFS")]
+        [SerializeField] private TMPro.TextMeshProUGUI _title = null;
+        
         [Header("AUDIO SETTINGS")]
         [SerializeField] private VolumeSlider[] _sliders = null;
         [Space(10f)]
@@ -30,7 +33,10 @@
             base.Display(show);
 
             if (show)
+            {
                 Init();
+                Localize();
+            }
         }
 
         private void Init()
@@ -106,6 +112,15 @@
         {
             for (int i = _sliders.Length - 1; i >= 0; --i)
                 _sliders[i].ResetValue();
+        }
+        
+        private void Localize()
+        {
+            _title.text = Localizer.Get(Localization.Settings.AUDIO);
+            
+            VolumeSlider[] enabledSliders = _sliders.Where(o => o.gameObject.activeSelf).ToArray();
+            for (int i = 0; i < enabledSliders.Length; ++i)
+                enabledSliders[i].Localize();
         }
         
         protected override void Start()

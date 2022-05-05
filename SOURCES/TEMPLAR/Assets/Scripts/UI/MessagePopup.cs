@@ -4,16 +4,10 @@
 
     public class MessagePopup : UIPanel
     {
-        public struct PopupTextsDatas
+        public struct PopupTextsData
         {
-            public PopupTextsDatas(string text, string continueText)
-            {
-                Text = text;
-                ContinueText = continueText;
-            }
-
-            public string Text { get; private set; }
-            public string ContinueText { get; private set; }
+            public string TextKey;
+            public string ContinueTextKey;
         }
 
         [SerializeField] private TMPro.TextMeshProUGUI _text = null;
@@ -36,7 +30,7 @@
             Navigation.UINavigationManager.Select(_sourceSelected);
         }
 
-        public void ShowMessage(PopupTextsDatas textsDatas, ContinuedEventHandler continueCallback)
+        public void ShowMessage(PopupTextsData textsData, ContinuedEventHandler continueCallback)
         {
             _sourcePanel = Navigation.UINavigationManager.CurrentlyOpenPanel;
             _sourceSelected = Navigation.UINavigationManager.CurrentlySelected;
@@ -45,8 +39,8 @@
 
             _continueCallback = continueCallback.Invoke;
 
-            _text.text = textsDatas.Text;
-            _continueBtn.SetText(textsDatas.ContinueText);
+            _text.text = Localizer.Get(textsData.TextKey);
+            _continueBtn.SetText(Localizer.Get(textsData.ContinueTextKey));
         }
 
         private void InvokeContinueCallback()

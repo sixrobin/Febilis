@@ -130,8 +130,8 @@ MonoBehaviour:
   _onInteractableChanged:
     m_PersistentCalls:
       m_Calls: []
-  _buttonText: {fileID: 0}
-  _nonInteractableTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _buttonText: {fileID: 2145825864151575668}
+  _nonInteractableTextColor: {r: 0.12941177, g: 0.25490198, b: 0.30588236, a: 1}
 --- !u!114 &3526572776470283586
 MonoBehaviour:
   m_ObjectHideFlags: 0

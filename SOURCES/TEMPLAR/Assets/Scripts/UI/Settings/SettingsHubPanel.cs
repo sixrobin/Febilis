@@ -7,21 +7,27 @@
     public class SettingsHubPanel : SettingsPanelBase
     {
         [Header("OPTIONS BUTTONS")]
-        [SerializeField] private UnityEngine.UI.Button _controlsBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _gameBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _audioBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _languageBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _quitGameBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _controlsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _gameBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _audioBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _languageBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _quitGameBtn = null;
 
         private UnityEngine.UI.Button[] _settingsBtns;
 
         public override GameObject FirstSelected => ControlsBtn.gameObject;
 
-        public UnityEngine.UI.Button ControlsBtn => _controlsBtn;
-        public UnityEngine.UI.Button GameBtn => _gameBtn;
-        public UnityEngine.UI.Button AudioBtn => _audioBtn;
-        public UnityEngine.UI.Button LanguageBtn => _languageBtn;
-        public UnityEngine.UI.Button QuitGameBtn => _quitGameBtn;
+        public RSLib.Framework.GUI.EnhancedButton ControlsBtn => _controlsBtn;
+        public RSLib.Framework.GUI.EnhancedButton GameBtn => _gameBtn;
+        public RSLib.Framework.GUI.EnhancedButton AudioBtn => _audioBtn;
+        public RSLib.Framework.GUI.EnhancedButton LanguageBtn => _languageBtn;
+        public RSLib.Framework.GUI.EnhancedButton QuitGameBtn => _quitGameBtn;
+
+        public override void Open()
+        {
+            base.Open();
+            Localize();
+        }
 
         public override void OnBackButtonPressed()
         {
@@ -62,6 +68,15 @@
             QuitBtn.SetSelectOnUp(_settingsBtns[_settingsBtns.Length - 1]);
         }
 
+        private void Localize()
+        {
+            ControlsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS));
+            GameBtn.SetText(Localizer.Get(Localization.Settings.GAME));
+            AudioBtn.SetText(Localizer.Get(Localization.Settings.AUDIO));
+            LanguageBtn.SetText(Localizer.Get(Localization.Settings.LANGUAGE));
+            QuitGameBtn.SetText(Localizer.Get(Localization.Game.QUIT));
+        }
+        
         protected override void Start()
         {
             base.Start();

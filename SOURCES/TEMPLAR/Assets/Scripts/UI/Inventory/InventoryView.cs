@@ -172,9 +172,10 @@
             if (slot.Item == null)
                 return;
 
-            _itemName.text = $"{slot.Item.Datas.Name} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
-            _itemDesc.text = slot.Item.Datas.Description;
-            _itemType.text = slot.Item.Datas.Type.ToString().ToLower().UpperFirst();
+            _itemName.text = $"{Localizer.Get($"{Localization.Item.NAME_PREFIX}{slot.Item.Datas.Id}")} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
+            _itemDesc.text = Localizer.Get($"{Localization.Item.DESCRIPTION_PREFIX}{slot.Item.Datas.Id}");
+            _itemType.text = Localizer.Get($"{Localization.Item.TYPE_PREFIX}{slot.Item.Datas.Type}");
+            
             _itemTypeIcon.enabled = true;
             _itemTypeIcon.sprite = Database.ItemDatabase.GetItemTypeSprite(slot.Item);
 

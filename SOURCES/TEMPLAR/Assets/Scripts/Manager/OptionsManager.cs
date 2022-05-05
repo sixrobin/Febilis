@@ -19,9 +19,13 @@
 
         private System.Collections.Generic.Dictionary<UI.Settings.SettingsPanelBase, UnityEngine.UI.Button> _panelsBtns;
 
-        private UI.ConfirmationPopup.PopupTextsDatas _quitGamePopupTexts
-            = new UI.ConfirmationPopup.PopupTextsDatas("Quit game and go back to main menu ?", "Yes", "No");
-
+        private UI.ConfirmationPopup.PopupTextsData _quitGamePopupTexts = new UI.ConfirmationPopup.PopupTextsData
+        {
+            TextKey = Localization.Game.QUIT_ASK,
+            ConfirmTextKey = Localization.Game.QUIT_CONFIRM,
+            CancelTextKey = Localization.Game.QUIT_CANCEL
+        };
+        
         public delegate void OptionsToggleEventHandler();
         public event OptionsToggleEventHandler OptionsOpened;
         public event OptionsToggleEventHandler OptionsClosed;

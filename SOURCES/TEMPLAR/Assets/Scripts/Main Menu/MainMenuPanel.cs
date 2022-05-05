@@ -35,9 +35,14 @@
 
         private System.Collections.IEnumerator _vignetteFadeCoroutine;
 
-        private UI.ConfirmationPopup.PopupTextsDatas _eraseSaveFilePopupTexts
-            = new UI.ConfirmationPopup.PopupTextsDatas("A save file already exists.\nAre you sure you want to overwrite it ?", "Yes", "No");
-
+        // TODO: Localization.
+        private UI.ConfirmationPopup.PopupTextsData _eraseSaveFilePopupTexts = new UI.ConfirmationPopup.PopupTextsData
+        {
+            TextKey = "A save file already exists.\nAre you sure you want to overwrite it ?",
+            ConfirmTextKey = "Yes",
+            CancelTextKey = "No"
+        };
+        
         public override GameObject FirstSelected => FirstButtonSelected.gameObject;
 
         public MainMenuButton FirstButtonSelected => Manager.SaveManager.GameSaveExist ? _continueBtn : _newGameBtn;
