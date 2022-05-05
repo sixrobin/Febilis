@@ -14,7 +14,7 @@
             {
                 return true;
                 // Avoid spawning VFX when killing a boss unit.
-                return (Unit as EnemyController)?.IsBossUnit == false || !Unit.IsDead;
+                //return (Unit as EnemyController)?.IsBossUnit == false || !Unit.IsDead;
             }
         }
 

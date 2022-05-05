@@ -1,0 +1,143 @@
+KEY,English,Français
+MainMenu_PressAnyKey,Press any key,Appuyer sur une touche
+MainMenu_Continue,Continue,Continuer
+MainMenu_NewGame,New game,Nouvelle partie
+MainMenu_Settings,Settings,Options
+MainMenu_Quit,Quit,Quitter
+MainMenu_OverwriteSave_Ask,A save file already exists. Are you sure you want to overwrite it?,Une sauvegarde existe déjà. Êtes-vous sûr(e) de vouloir l'écraser ?
+MainMenu_OverwriteSave_Confirm,Yes,Oui
+MainMenu_OverwriteSave_Cancel,No,Non
+,,
+QuitGame,Quit,Quitter
+QuitGame_Ask,Quit game and go back to main menu ?,Quitter et revenir au menu principal ?
+QuitGame_Confirm,Yes,Oui
+QuitGame_Cancel,No,Non
+,,
+Settings_Controls,Controls,Contrôles
+Settings_Game,Game,Général
+Settings_Audio,Audio,Son
+Settings_Language,Language,Langue
+,,
+Controls_Title,Controls,Contrôles
+Controls_ActionTitle,Action,Action
+Controls_ButtonTitle,Btn,Btn
+Controls_AltButtonTitle,Alt,Alt
+Controls_Reset,Reset defaults,Réinitialiser
+Controls_Save,Save,Sauvegarder
+Controls_AssignBtnFormat,Assign base key to {0}...,Assigner une touche de base pour {0}...
+Controls_AssignAltBtnFormat,Assign alternate key to {0}...,Assigner une touche alternative pour {0}...
+Controls_SaveChanges_Ask,Save changes ?,Sauvegarder les modifications ?
+Controls_SaveChanges_Confirm,Yes,Oui
+Controls_SaveChanges_Cancel,No,Non
+,,
+Settings_Title,General,Général
+Settings_FrameRateTitle,Frame rate,Frames par seconde
+Settings_ShakeAmount,Shame amount,Tremblement de l'écran
+Settings_DeadZone,Dead zone,Zone morte
+Settings_PixelPerfect,Pixel perfect,Perfection pixellaire
+Settings_ScreenSize,Screen size,Taille de l'écran
+Settings_ScreenMode,Screen mode,Mode de l'écran
+ScreenMode_FullScreen,Fullscreen,Plein écran
+ScreenMode_Maximized,Maximized,Maximisé
+ScreenMode_Windowed,Windowed,Fenêtré
+Settings_RunInBackground,Run in background,Tourner en arrière-plan
+Settings_ConstrainCursor,Constrain cursor,Contraindre le curseur
+Settings_Reset,Reset defaults,Réinitialiser
+Settings_Save,Save,Sauvegarder
+,,
+Audio_Title,Audio,Volume
+VolumeSlider_Master,Master,Général
+VolumeSlider_Music,Music,Musique
+VolumeSlider_SFX,SFX,Effets
+VolumeSlider_Footsteps,Footsteps,Pats
+VolumeSlider_UI,UI,Interfaces
+,,
+ItemName_Sword,Pale sword,Lame pâle
+ItemDescription_Sword,"A common sword, used by many soldiers due to its ability to respond well at various situations. A blacksmith could upgrade it.","Une épée commune, utilisée par bien des soldats en raison de sa capacité à répondre à toutes les situations. Un forgeron pourrait la rendre plus forte."
+ItemName_Coin,Gold coin,Pièce d'or
+ItemDescription_Coin,"Money has lost a lot of its value since the wars, but some people still accept it to buy some goods.","L'argent a perdu beaucoup de valeur depuis les guerres, mais certaines personnes l'acceptent encore pour acheter des biens."
+ItemName_Potion,Health Potion,Potion de soin
+ItemDescription_Potion,Can be used to restore some health. Filled with elexir at grave stones. Only a few know how to make these flasks.,Peut être utilisé pour récupérer de la santé. Le flacon est rempli aux pierres dressées. Seules de rares personnes savent comment sont faites ces potions.
+ItemName_Key_Godric_House,Godric's key,Clef de Godric
+ItemDescription_Key_Godric_House,Key to Godric's House.,Clef de la maison de Godric.
+ItemName_Key_Priest,Priest's key,Clef du prêtre
+ItemDescription_Key_Priest,Key to the catacombs cells. It's covered with blood...,Clef des cellules des catacombes. Elle est couverte de sang...
+ItemName_Key_Catacombs,Catacombs key,Clef des catacombes
+ItemDescription_Key_Catacombs,Key to the entrance of the catacombs. Usually belongs to the high priests of Prosperare.,Clef de l'entrée des catacombes. Elle appartient normalement aux hauts prêtres de Prosperare.
+ItemName_Ring_Godric,Wedding ring,Bague de fiançailles
+ItemDescription_Ring_Godric,"The words ""FOR JEANNE"" are engraved on the ring.","Les mots ""POUR JEANNE"" sont gravés dans l'anneau."
+ItemName_Book,Book,Livre
+ItemDescription_Book,Haa... if only I could read.,Haa... si seulement je savais lire.
+ItemName_Letter_Priest,Priest's letter,Lettre du prêtre
+ItemDescription_Letter_Priest,"It says: ""The impious man has escaped, you must chase him to protect the secret"".","C'est écrit : ""L'hérétique s'est échappé, vous devez le capturer pour protéger le secret""."
+ItemName_Letter_Prisoner,Prisoner's letter,Lettre du prisonnier
+ItemDescription_Letter_Prisoner,"It's written ""FEBI"" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?","C'est écrit ""FEBI"" avec du sang, et le mot est incomplet. Il devait parler de Febilis, mais pourquoi ?"
+ItemName_Scroll,Scroll,Parchemin
+ItemDescription_Scroll,"This contains an important message I should deliver to... someone, I guess.","Il contient un message important que je dois apporter à... quelqu'un, je suppose."
+ItemName_Ring_CatacombsSecret,Macabre ring,Anneau macabre
+ItemDescription_Ring_CatacombsSecret,This dark broken ring looks older than the catacombs themselves. An odd energy emanates from it...,Cet anneau sombre et cassé semble plus vieux que les catacombes elles-mêmes. Une étrange énergie en émane...
+,,
+ItemType_QUEST,Quest,Quête
+ItemType_WEAPON,Weapon,Arme
+ItemType_CONSUMABLE,Usable,Consommable
+ItemType_EQUIPABLE,Equipment,Équipement
+ItemType_KEY,Key,Clef
+ItemType_BOOK,Book,Livre
+ItemType_MISC,Misc,Divers
+,,
+Inventory_Action_Use,Use,Utiliser
+Inventory_Action_Equip,Equip,Équiper
+Inventory_Action_Drop,Drop,Lâcher
+Inventory_Action_Move,Move,Déplacer
+Inventory_NoItemName,???,???
+Inventory_NoItemDescription,???,???
+,,
+Sentence_LockedDoor_Sentence_00,It's locked.,C'est fermé.
+Sentence_DemoEnd_00,"Everything must come to an end, and for now, this demo is over.","Tout doit arriver à une fin, et cette démo est terminée."
+Sentence_DemoEnd_01,Thanks for playing!,Merci d'avoir joué !
+Sentence_StoneSign_00_Sentence_00,"""This is the place of the heretics, who may be forgotten, and so should their names.""","""Ici reposent les hérétiques, qui seront oubliés, comme leurs noms."""
+Sentence_StoneSign_01_Sentence_00,"""This is the place of the ones who built the catacombs.""","""Ici reposent ceux qui ont construit les catacombes."""
+Sentence_StoneSign_01_Sentence_01,"""Once fated to death sentence, they redeemed themselves by putting up this place.""","""Autrefois destinés à la peine de mort, ils se sont rachetés en donnant vie à cet endroit."""
+Sentence_StoneSign_02_Sentence_00,"""Place of the commoners.""","""Ici reposent les roturiers."""
+Sentence_StoneSign_CatacombsEntry_Sentence_00,"""Here lie those who got cursed by Febilis.""","""Ici reposent ceux qui ont été damnés par Febilis."""
+Sentence_StoneSign_RatKing_Sentence_00,"""Beware the king of rats, as many have died already.""","""Attention au roi des rats, car beaucoup sont déjà morts ici."""
+Sentence_StoneSign_RatKing_Sentence_01,There's blood covering the stone...,Il y a du sang sur la stèle...
+,,
+Sentence_Godric_Greeting_00,"Oh, thank god you seem quite normal.","Oh, Dieu merci vous semblez normal."
+Sentence_Godric_Greeting_01,"Listen, I'm in despair, I forgot my ring earlier when I ran away from my home.","Écoutez, je ne sais que faire, j'ai oublié mon alliance quand j'ai fui ma maison."
+Sentence_Godric_Greeting_02,"If you could do me a favor, and bring me back this ring...","Si vous pouviez me rendre un service, et me le ramener..."
+Sentence_Godric_Greeting_03,I can give you something that you may find useful in exchange.,Je peux vous donner quelque chose d'utile en retour.
+Sentence_Godric_Greeting_04,"Here's the key of my house, it's not far from here.","Voici la clef de ma maison, ce n'est pas loin d'ici."
+Sentence_Godric_Greeting_05,"And, by the way, I'm Godric.","Au fait, je m'appelle Godric."
+Sentence_Godric_Greeting_Ring_00,"Hey, I'm... hm... Is this my ring ?","Bonjour, je... hm... Est-ce mon alliance ?"
+Sentence_Godric_Greeting_Ring_01,"Oh my... I guess they completely destroyed my house, or you broke the door.","Seigneur... Ils ont du complètement ravager ma maison, ou bien vous avez détruit la porte."
+Sentence_Godric_Greeting_Ring_02,"Anyway, not like I was getting back to it.","Peu importe, ce n'est pas comme si je comptais y retourner."
+Sentence_Godric_Greeting_Ring_03,My name's Godric. Thanks a lot for the ring though you did not know me.,Mon nom est Godric. Merci d'avoir ramené mon alliance alors que vous ne me connaissez pas.
+Sentence_Godric_WaitingRing_00,This ring is really important to me...,Cette alliance m'est très chère...
+Sentence_Godric_WaitingRing_01,Please.[pause=1] Help me.,S'il vous plaît.[pause=1] Aidez-moi.
+Sentence_Godric_RetrieveRing_00,That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] That's my ring !,C'est[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] C'est mon alliance !
+Sentence_Godric_RetrieveRing_01,You've made it and you're alive !,Vous l'avez récupérée et vous êtes en vie !
+Sentence_Godric_RetrieveRing_02,Sorry for not letting you know about the monsters...,Pardonnez-moi pour ne pas vous avoir mis en garde à propos des monstres...
+Sentence_Godric_RetrieveRing_03,I was too afraid of you declining my favor...,J'avais peur que vous refusiez de m'aider...
+Sentence_Godric_RetrieveRing_04,"As promised, you can take this, it will be more useful to you than for me.","Comme promis, prenez ceci, ça vous sera plus utile qu'à moi."
+Sentence_Godric_PostRetrieveRing_00,"If only I could see you again, Jeanne...","Si seulement je pouvais te revoir, Jeanne..."
+,,
+Sentence_NPC01_Greeting_00,"Hello, stranger...","Bonjour, étranger..."
+Sentence_NPC01_Greeting_01,Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia. Long time I didn't see this armor.,Fascinant.[pause=0.5].[pause=0.5].[pause=0.5] vous êtes de la Milice Pâle. Je n'avais pas vu cette armure depuis longtemps.
+Sentence_NPC01_Greeting_02,I suppose you're heading to the village to inspect all this crazy mess.,Je suppose que vous vous dirigez vers le village pour enquête sur tout ça.
+Sentence_NPC01_Greeting_03,"Quick advice, even with your grade, stay low and mind your own business.","Un conseil, malgré votre rang, mêlez-vous de vos affaires."
+Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons des temps étranges.
+Sentence_NPC01_PostGreeting_00,"Do not forget, stay low and mind your own business.","N'oubliez pas, mêlez-vous de vos affaires."
+,,
+SpeakerName_Templar,Templar,Templier
+SpeakerName_Godric,Godric,Godric
+SpeakerName_NPC01,Mysterious soldier,Soldat mystérieux
+,,
+InputTutorial_Move,Press {0} to MOVE,Appuyez sur {0} pour vous DÉPLACER
+InputTutorial_Jump,Press {0} to JUMP,Appuyez sur {0} pour SAUTER
+InputTutorial_EffectorDown,Press {0} to FALL,Appuyez sur {0} pour TOMBER
+InputTutorial_Attack,Press {0} to ATTACK,Appuyez sur {0} pour ATTAQUER
+InputTutorial_Interaction,Press {0} to INTERACT,Appuyez sur {0} pour INTERAGIR
+InputTutorial_Heal,Press {0} to HEAL,Appuyez sur {0} pour vous SOIGNER
+InputTutorial_Inventory,Press {0} to OPEN INVENTORY,Appuyez sur {0} pour OUVRIR L'INVENTAIRE
+InputTutorial_Roll,Press {0} to ROLL,Appuyez sur {0} pour ROULER
