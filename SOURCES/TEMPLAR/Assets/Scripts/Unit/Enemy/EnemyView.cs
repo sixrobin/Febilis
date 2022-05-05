@@ -14,14 +14,31 @@
         private const string CHARGE_COLLISION = "Charge_Collision";
         private const string IS_WALKING = "IsWalking";
         private const string ATTACK_ANTICIPATION = "Attack_Anticipation";
+        private const string ROAR = "Roar";
 
         [Header("DEAD FADE")]
         [SerializeField] private float _deadFadeDelay = 1f;
+
+        [Header("ROAR")]
+        [SerializeField, Range(0f, 1f)] private float _roarTrauma = 0.1f;
+        [SerializeField, Min(0f)] private float _roarMaxDuration = 1f;
         
         public string EnemyId { get; private set; }
 
         public override float DeadFadeDelay => _deadFadeDelay;
 
+#region ANIMATION EVENTS
+        public void OnRoarStart()
+        {
+            StartCoroutine(RoarCoroutine(_roarMaxDuration));
+        }
+
+        public void OnRoarStop()
+        {
+            StopAllCoroutines();
+        }
+#endregion // ANIMATION EVENTS
+        
         public void Init(string enemyId)
         {
             EnemyId = enemyId;
@@ -55,6 +72,11 @@
             _animator.ResetTrigger(CHARGE_COLLISION);
         }
 
+        public void PlayRoarAnimation()
+        {
+            _animator.SetTrigger(ROAR);
+        }
+        
         public void SetupAttackAnimationsDatas(Actions.AttackEnemyAction attackAction, Datas.Attack.AttackDatas attackDatas)
         {
             string enemyId = attackAction.ActionDatas.AnimatorEnemyIdOverride ?? EnemyId;
@@ -80,6 +102,15 @@
         {
             _animator.SetTrigger(ATTACK);
             RSLib.Audio.AudioManager.PlaySound(_attackClipProvider);
+        }
+
+        private System.Collections.IEnumerator RoarCoroutine(float maxDuration)
+        {
+            for (float t = 0f; t < maxDuration; t += Time.deltaTime)
+            {
+                Manager.GameManager.CameraCtrl.GetShake("Small").SetTrauma(_roarTrauma);
+                yield return null;
+            }
         }
     }
 }

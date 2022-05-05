@@ -142,7 +142,7 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.CameraFocusDelay);
 
             Vector3 initPosition = Manager.GameManager.CameraCtrl.BaseTargetPosition;
-            Vector3 focusPosition = RSLib.Helpers.ComputeAveragePosition(_fightBosses) + _bossIntroDatas.CameraFocusPositionOffset;
+            Vector3 focusPosition = RSLib.Helpers.ComputeAveragePosition(FightBosses) + _bossIntroDatas.CameraFocusPositionOffset;
             GameObject bossesAveragePivot = new GameObject("Boss Camera Focus Position");
             bossesAveragePivot.transform.position = initPosition;
 
@@ -156,7 +156,10 @@
             }
 
             bossesAveragePivot.transform.position = focusPosition;
-
+            
+            for (int i = FightBosses.Length - 1; i >= 0; --i)
+                FightBosses[i].EnemyView.PlayRoarAnimation();
+                
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_bossIntroDatas.CameraFocusedDuration);
 
             for (float t = 0f; t < 1f; t += Time.deltaTime / _bossIntroDatas.CameraOutDuration)
