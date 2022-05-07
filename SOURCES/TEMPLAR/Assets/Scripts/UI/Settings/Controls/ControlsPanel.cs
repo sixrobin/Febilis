@@ -11,23 +11,29 @@
     [DisallowMultipleComponent]
     public class ControlsPanel : SettingsPanelBase
     {
+        [Header("TEXT REFS")]
+        [SerializeField] private TMPro.TextMeshProUGUI _title = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _actionTitle = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _buttonTitle = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _altButtonTitle = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
+
+        [Header("REFS")]
         [SerializeField] private UnityEngine.UI.Scrollbar _controlsScrollBar = null;
         [SerializeField] private KeyBindingPanel[] _bindingPanels = null;
         [SerializeField] private GameObject _assignKeyScreen = null;
         [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
-        [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
-        [SerializeField] private UnityEngine.UI.Button _resetBindingsBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _saveBindingsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _resetBindingsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _saveBindingsBtn = null;
 
         private InputMap _editedMap;
         private KeyBindingPanel _currentlyAssignedPanel;
 
-        // TODO: Localization.
         private ConfirmationPopup.PopupTextsData _uncommittedChangesPopupTexts = new ConfirmationPopup.PopupTextsData
         {
-            TextKey = "Save changes ?",
-            ConfirmTextKey = "Yes",
-            CancelTextKey = "No"
+            TextKey = Localization.Settings.CONTROLS_SAVE_ASK,
+            ConfirmTextKey = Localization.Settings.CONTROLS_SAVE_CONFIRM,
+            CancelTextKey = Localization.Settings.CONTROLS_SAVE_CANCEL
         };
 
         private bool _navigationInit;
@@ -94,6 +100,8 @@
                 ResetEditedMap();
                 InitNavigation();
 
+                Localize();
+                
                 UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
                 _controlsScrollBar.value = 1f;
                 UncommittedChanges = false;
@@ -178,7 +186,10 @@
 
             _currentlyAssignedPanel = bindingPanel;
             _assignKeyScreen.SetActive(true);
-            _assignKeyText.text = $"Assign {(alt ? "alt" : "base")} key to\n<color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>...";
+
+            string assignKeyTextFormat = Localizer.Get(alt ? Localization.Settings.CONTROLS_ASSIGN_ALT_BUTTON_FORMAT : Localization.Settings.CONTROLS_ASSIGN_BUTTON_FORMAT);
+            // TODO: Localize action Id.
+            _assignKeyText.text = string.Format(assignKeyTextFormat, $"<color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>");
             
             InputManager.AssignKey(_editedMap, _currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
@@ -208,6 +219,17 @@
             UncommittedChanges = true;
         }
 
+        private void Localize()
+        {
+            _title.text = Localizer.Get(Localization.Settings.CONTROLS);
+            _actionTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ACTION_TITLE);
+            _buttonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_BUTTON_TITLE);
+            _altButtonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ALT_BUTTON_TITLE);
+            
+            _resetBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_RESET));
+            _saveBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_SAVE));
+        }
+        
         protected override void Start()
         {
             base.Start();

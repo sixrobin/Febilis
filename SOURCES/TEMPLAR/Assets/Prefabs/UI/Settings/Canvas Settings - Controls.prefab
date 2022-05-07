@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6116691027742394599}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.22277227
+  m_Size: 0.103960395
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1200,6 +1200,11 @@ MonoBehaviour:
   _canvas: {fileID: 6116691027814983360}
   _backBtn: {fileID: 5264471847221738005}
   _quitBtn: {fileID: 1078059414171230623}
+  _title: {fileID: 6116691029596853893}
+  _actionTitle: {fileID: 801313620722002237}
+  _buttonTitle: {fileID: 3626861337886013436}
+  _altButtonTitle: {fileID: 278250110703109090}
+  _assignKeyText: {fileID: 6116691029162149679}
   _controlsScrollBar: {fileID: 6116691028674335830}
   _bindingPanels:
   - {fileID: 5383924747145489451}
@@ -1230,7 +1235,6 @@ MonoBehaviour:
   _assignKeyScreen: {fileID: 6116691028023894464}
   _assignedKeyTextColor: {fileID: 11400000, guid: cfd1cb39e539fa3418da16cde63857fc,
     type: 2}
-  _assignKeyText: {fileID: 6116691029162149679}
   _resetBindingsBtn: {fileID: 5528907049974080884}
   _saveBindingsBtn: {fileID: 4691567029799052511}
 --- !u!1 &6116691029162149677
