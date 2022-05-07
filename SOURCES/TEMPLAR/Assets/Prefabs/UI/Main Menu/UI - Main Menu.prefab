@@ -476,6 +476,31 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 801166140252382033, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801166140252382033, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801166140308533138, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801166140308533138, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 801166140308533138, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 917105248226600067, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -567,6 +592,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1409405564843942756, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492053727870404642, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492053727870404642, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492053727936906465, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492053727936906465, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492053727936906465, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -696,6 +746,31 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2271123400968354676, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271123400968354676, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271123401025451959, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271123401025451959, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271123401025451959, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2482871375669851360, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -759,6 +834,31 @@ PrefabInstance:
     - target: {fileID: 2731680627069322639, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739223996694479997, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739223996694479997, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739223996771469502, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739223996771469502, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739223996771469502, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2744944568925494127, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
@@ -1269,6 +1369,31 @@ PrefabInstance:
     - target: {fileID: 4873938047253607099, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932073790115211768, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932073790115211768, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932073790115211768, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932073790171358523, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932073790171358523, guid: 90a41b8bc932d8a46abbb362d2fd3c90,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4964169355391430097, guid: 90a41b8bc932d8a46abbb362d2fd3c90,

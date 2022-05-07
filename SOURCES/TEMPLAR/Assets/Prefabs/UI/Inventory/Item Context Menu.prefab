@@ -530,11 +530,6 @@ PrefabInstance:
       propertyPath: m_text
       value: Use
       objectReference: {fileID: 0}
-    - target: {fileID: 8927041935111818799, guid: 41a52227909eb0041b46a60919b1889f,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a52227909eb0041b46a60919b1889f, type: 3}
 --- !u!224 &7307354027682136740 stripped
@@ -699,11 +694,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Drop
-      objectReference: {fileID: 0}
-    - target: {fileID: 8927041935111818799, guid: 41a52227909eb0041b46a60919b1889f,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a52227909eb0041b46a60919b1889f, type: 3}
@@ -870,11 +860,6 @@ PrefabInstance:
       propertyPath: m_text
       value: Equip
       objectReference: {fileID: 0}
-    - target: {fileID: 8927041935111818799, guid: 41a52227909eb0041b46a60919b1889f,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a52227909eb0041b46a60919b1889f, type: 3}
 --- !u!1 &160498747149808205 stripped
@@ -1039,11 +1024,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: Move
-      objectReference: {fileID: 0}
-    - target: {fileID: 8927041935111818799, guid: 41a52227909eb0041b46a60919b1889f,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41a52227909eb0041b46a60919b1889f, type: 3}

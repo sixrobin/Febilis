@@ -21,6 +21,8 @@
         protected abstract bool IsActionAllowed();
         protected abstract void TriggerAction();
 
+        public abstract void Localize();
+        
         public void SetContextMenu(ItemContextMenu contextMenu)
         {
             _contextMenu = contextMenu;
@@ -43,17 +45,18 @@
             ActionAllowed = IsActionAllowed();
             Button.Interactable = ActionAllowed;
 
+            Localize();
+            _initBtnText = Button.GetText();
+
             // Set text according to state ? Like equip/unequip ?
             // Need some virtual method if so.
         }
-
+        
         private void Awake()
         {
             Button.onClick.AddListener(TriggerAction);
             Button.PointerEnter += OnButtonPointerEnter;
             Button.PointerExit += OnButtonPointerExit;
-
-            _initBtnText = Button.GetText();
         }
 
         private void OnDestroy()

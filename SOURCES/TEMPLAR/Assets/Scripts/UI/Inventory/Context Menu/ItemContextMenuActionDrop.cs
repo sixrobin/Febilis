@@ -1,7 +1,6 @@
 ﻿namespace Templar.UI.Inventory.ContextMenu
 {
     using RSLib.Extensions;
-    using UnityEngine;
 
     public class ItemContextMenuActionDrop : ItemContextMenuAction
     {
@@ -24,6 +23,11 @@
                 Manager.GameManager.PlayerCtrl.transform.position.AddX(Manager.GameManager.PlayerCtrl.CurrDir * DROP_X_OFFSET).AddY(DROP_Y_OFFSET));
 
             Manager.GameManager.InventoryCtrl.RemoveItem(Slot.Item.Datas.Id);
+        }
+
+        public override void Localize()
+        {
+            Button.SetText(Localizer.Get(Localization.Item.ACTION_DROP));
         }
     }
 }

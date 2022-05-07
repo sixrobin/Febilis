@@ -14,9 +14,6 @@
         private const string INVENTORY_INPUT = "Inventory";
         private const string UI_SCROLL_INPUT = "UIScroll";
         
-        private const string EMPTY_SLOT_NAME = "???";
-        private const string EMPTY_SLOT_TYPE = "";
-        private const string EMPTY_SLOT_DESC = "???";
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.05f;
 
@@ -187,9 +184,9 @@
             if (IsContextMenuDisplayed)
                 return;
 
-            _itemName.text = EMPTY_SLOT_NAME;
-            _itemDesc.text = EMPTY_SLOT_DESC;
-            _itemType.text = EMPTY_SLOT_TYPE;
+            _itemName.text = Localizer.Get(Localization.Item.EMPTY_SLOT_NAME);
+            _itemDesc.text = Localizer.Get(Localization.Item.EMPTY_SLOT_DESCRIPTION);
+            _itemType.text = string.Empty;
             _itemTypeIcon.enabled = false;
         }
 

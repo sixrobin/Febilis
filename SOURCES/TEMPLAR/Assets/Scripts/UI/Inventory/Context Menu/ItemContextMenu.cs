@@ -38,10 +38,9 @@
                 _contextActions[i].Init(Slot);
 
             ItemContextMenuAction[] allowedActions = _contextActions.Where(o => o.ActionAllowed).ToArray();
-            UnityEngine.UI.Selectable actionButton;
             for (int i = 0; i < allowedActions.Length; ++i)
             {
-                actionButton = allowedActions[i].Button;
+                UnityEngine.UI.Selectable actionButton = allowedActions[i].Button;
                 actionButton.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 actionButton.SetSelectOnUp(i == 0 ? allowedActions.Last().Button : allowedActions[i - 1].Button);
                 actionButton.SetSelectOnDown(i == allowedActions.Length - 1 ? allowedActions[0].Button : allowedActions[i + 1].Button);
@@ -54,7 +53,7 @@
         {
             base.Close();
 
-            // Immediatly close inventory.
+            // Immediately close inventory.
             Navigation.UINavigationManager.SetPanelAsCurrent(Manager.GameManager.InventoryView);
             Navigation.UINavigationManager.CloseCurrentPanel();
             Navigation.UINavigationManager.NullifySelected();

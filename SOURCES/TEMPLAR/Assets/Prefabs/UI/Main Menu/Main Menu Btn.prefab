@@ -225,7 +225,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 9}
+  m_SizeDelta: {x: 60, y: 9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &748277640825508061
 CanvasRenderer:
@@ -302,7 +302,7 @@ MonoBehaviour:
   _onInteractableChanged:
     m_PersistentCalls:
       m_Calls: []
-  _buttonText: {fileID: 0}
+  _buttonText: {fileID: 8072089667864861178}
   _nonInteractableTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!114 &6725783271353455498
 MonoBehaviour:
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Game
+  m_text: Nouvelle partie
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35bc8805f9f3fc048acf957e5111e311, type: 2}
   m_sharedMaterial: {fileID: -4991585200925966628, guid: 35bc8805f9f3fc048acf957e5111e311,

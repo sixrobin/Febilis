@@ -363,11 +363,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3063924694421609777}
-  _settingsHubPanel: {fileID: 0}
   _title: {fileID: 3063924695254653654}
   _titleShadow: {fileID: 3063924693905559443}
   _vignette: {fileID: 0}
   _pressAnyKey: {fileID: 3063924694064399166}
+  _pressAnyKeyText: {fileID: 3063924695440163941}
   _btnsContainer: {fileID: 3063924694425808447}
   _continueBtn: {fileID: 1661627971101151565}
   _newGameBtn: {fileID: 8634516518482777122}

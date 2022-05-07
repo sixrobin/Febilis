@@ -15,7 +15,12 @@
 
         protected override void TriggerAction()
         {
-            Debug.Log($"Equiping {Slot.Item.Datas.Id}.");
+            Debug.Log($"Equipping {Slot.Item.Datas.Id}.");
+        }
+        
+        public override void Localize()
+        {
+            Button.SetText(Localizer.Get(Localization.Item.ACTION_EQUIP));
         }
     }
 }

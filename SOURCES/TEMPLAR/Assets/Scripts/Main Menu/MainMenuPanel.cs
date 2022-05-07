@@ -11,7 +11,10 @@
         [SerializeField] private UnityEngine.UI.Image _title = null;
         [SerializeField] private UnityEngine.UI.Image _titleShadow = null;
         [SerializeField] private Transform _vignette = null;
+        
+        [Header("PRESS ANY KEY")]
         [SerializeField] private GameObject _pressAnyKey = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _pressAnyKeyText = null;
 
         [Header("BUTTONS REFS")]
         [SerializeField] private GameObject _btnsContainer = null;
@@ -35,12 +38,11 @@
 
         private System.Collections.IEnumerator _vignetteFadeCoroutine;
 
-        // TODO: Localization.
         private UI.ConfirmationPopup.PopupTextsData _eraseSaveFilePopupTexts = new UI.ConfirmationPopup.PopupTextsData
         {
-            TextKey = "A save file already exists.\nAre you sure you want to overwrite it ?",
-            ConfirmTextKey = "Yes",
-            CancelTextKey = "No"
+            TextKey = Localization.MainMenu.OVERWRITE_SAVE_ASK,
+            ConfirmTextKey = Localization.MainMenu.OVERWRITE_SAVE_CONFIRM,
+            CancelTextKey = Localization.MainMenu.OVERWRITE_SAVE_CANCEL
         };
         
         public override GameObject FirstSelected => FirstButtonSelected.gameObject;
@@ -177,6 +179,9 @@
         private void DisplayButtons(bool show)
         {
             _btnsContainer.SetActive(show);
+            
+            if (show)
+                Localize();
         }
 
         private void GlobalFadeOutInCoroutine(System.Action callback)
@@ -193,6 +198,14 @@
             Manager.RampFadeManager.Fade(_grayscaleRamp, _rampFadeOutDatas, (0f, 0f), (fadeIn) => callback?.Invoke());
         }
 
+        private void Localize()
+        {
+            _continueBtn.Button.SetText(Localizer.Get(Localization.MainMenu.CONTINUE));
+            _newGameBtn.Button.SetText(Localizer.Get(Localization.MainMenu.NEW_GAME));
+            _settingsBtn.Button.SetText(Localizer.Get(Localization.MainMenu.SETTINGS));
+            _quitBtn.Button.SetText(Localizer.Get(Localization.MainMenu.QUIT));
+        }
+        
         private System.Collections.IEnumerator FadeVignetteCoroutine(float sourceValue, float targetValue, (float, float) delays, float dur, Curve curve, System.Action callback = null)
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(delays.Item1);
@@ -246,7 +259,8 @@
         private System.Collections.IEnumerator PressAnyKeyCoroutine()
         {
             bool anyKeyDown = false;
-
+            _pressAnyKeyText.text = Localizer.Get(Localization.MainMenu.PRESS_ANY_KEY);
+            
             while (true)
             {
                 yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_pressAnyKeyBlinkSpeed, () => Input.anyKeyDown, () => anyKeyDown = true);
@@ -263,7 +277,7 @@
             yield return null;
             yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_pressAnyKeyPostDelay, () => Input.anyKeyDown);
 
-            _btnsContainer.SetActive(true);
+            DisplayButtons(true);
             UI.Navigation.UINavigationManager.OpenAndSelect(this);
 
             _lastSelectedBtn = FirstButtonSelected;

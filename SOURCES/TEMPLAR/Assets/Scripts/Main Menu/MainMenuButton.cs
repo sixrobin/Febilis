@@ -19,7 +19,7 @@
         public static MainMenuButtonEventHandler Selected;
         public static MainMenuButtonEventHandler Deselected;
 
-        public UnityEngine.UI.Button Button => _btn;
+        public RSLib.Framework.GUI.EnhancedButton Button => _btn;
 
         public void OnSelect(UnityEngine.EventSystems.BaseEventData eventData)
         {
