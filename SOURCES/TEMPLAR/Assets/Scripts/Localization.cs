@@ -72,6 +72,8 @@
             public const string GAME_RESET = "Controls_Reset";
             public const string GAME_SAVE = "Controls_Save";
             public const string SCREEN_MODE_PREFIX = "ScreenMode_";
+            public const string MONITOR_INDEX_WARNING = "MonitorIndex_RebootWarning";
+            public const string MONITOR_INDEX_WARNING_CONFIRM = "MonitorIndex_RebootWarning_Confirm";
             
             // Language.
             public const string LANGUAGE_SAVE = "Language_Save";

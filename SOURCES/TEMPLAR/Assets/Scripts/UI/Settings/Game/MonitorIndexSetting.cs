@@ -2,11 +2,10 @@
 {
     public class MonitorIndexSetting : IntButtonSettingView
     {
-        // TODO: LOCALIZATION.
         private MessagePopup.PopupTextsData _rebootWarningPopupTexts = new MessagePopup.PopupTextsData
         {
-            TextKey = "You'll need to reboot the game to apply this change.",
-            ContinueTextKey = "OKAY"
+            TextKey = Localization.Settings.MONITOR_INDEX_WARNING,
+            ContinueTextKey = Localization.Settings.MONITOR_INDEX_WARNING_CONFIRM
         };
 
         

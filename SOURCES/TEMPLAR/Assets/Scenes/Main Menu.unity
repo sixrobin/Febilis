@@ -538,6 +538,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086520883ce79594bbd1133162a823a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1306960173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9088620593793479973, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1980228596}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db756fd56ce128148b8bf4333be5e15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1312565701 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2531317451376963923, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
@@ -1177,6 +1189,16 @@ PrefabInstance:
     - target: {fileID: 2471347623387594325, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484349234255987397, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484349234255987397, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2588398660043737159, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
@@ -1844,6 +1866,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7764765467252685783, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7764765467252685783, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7793885936155235167, guid: b081af31ec7ceeb44b8ed8334a88fa6d,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2169,6 +2201,11 @@ PrefabInstance:
       propertyPath: _audioPanel
       value: 
       objectReference: {fileID: 1980228597}
+    - target: {fileID: 4748722992099417638, guid: d0e40e8f59a499f47855e0d212d58001,
+        type: 3}
+      propertyPath: _languagePanel
+      value: 
+      objectReference: {fileID: 1306960173}
     - target: {fileID: 5149885525468987368, guid: d0e40e8f59a499f47855e0d212d58001,
         type: 3}
       propertyPath: m_Name

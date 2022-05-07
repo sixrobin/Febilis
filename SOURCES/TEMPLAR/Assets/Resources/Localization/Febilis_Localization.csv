@@ -44,6 +44,8 @@ Settings_RunInBackground,Run in background,Tourner en arrière-plan
 Settings_ConstrainCursor,Constrain cursor,Confiner le curseur
 Settings_Reset,Reset defaults,Réinitialiser
 Settings_Save,Save,OK
+MonitorIndex_RebootWarning,You'll need to reboot the game to apply this change.,Vous devrez relancer le jeu pour appliquer ce changement.
+MonitorIndex_RebootWarning_Confirm,Okay,OK
 ,,
 VolumeSlider_MasterVolume,Master,Général
 VolumeSlider_MusicVolume,Music,Musique
