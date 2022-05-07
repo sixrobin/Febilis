@@ -20,7 +20,6 @@
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>It's locked.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="DemoEnd_00">
@@ -28,7 +27,6 @@
          <HideSpeakerName/>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Everything must come to an end, and for now, this demo is over.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="DemoEnd_01">
@@ -36,7 +34,6 @@
          <HideSpeakerName/>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Thanks for playing!</Value>
    </SentenceDatas>
 
 </DialoguesDatas>

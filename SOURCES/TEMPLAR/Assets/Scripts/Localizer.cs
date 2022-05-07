@@ -30,10 +30,37 @@
         /// <returns>Localized key if it exists, else the key itself.</returns>
         public static string Get(string key)
         {
-            if (LanguageEntries.TryGetValue(key, out string entry))
-                return entry;
+            return Get(key, Instance.Language);
+        }
+
+        /// <summary>
+        /// Gets the localized key for the specified language, and returns the key itself if it has not been found or if the language is not known.
+        /// </summary>
+        /// <param name="key">Key to localize.</param>
+        /// <param name="languageName">Language to use for key localization.</param>
+        /// <returns>Localized key if it and the language both exist, else the key itself.</returns>
+        public static string Get(string key, string languageName)
+        {
+            bool languageKnown = false;
+            for (int i = Instance.Languages.Length - 1; i >= 0; --i)
+            {
+                if (Instance.Languages[i] == languageName)
+                {
+                    languageKnown = true;
+                    break;
+                }
+            }
+
+            if (!languageKnown)
+            {
+                Instance.LogWarning($"Language {languageName} is not known in languages list! Known languages are: {string.Join(",", Instance.Languages)}");
+                return key;
+            }
             
-            Instance.LogWarning($"Key {key} is not in language {Instance.Language}!");
+            if (Instance._entries[languageName].TryGetValue(key, out string entry))
+                return entry;
+
+            Instance.LogWarning($"Key {key} is not in language {languageName}!");
             return key;
         }
         
@@ -46,6 +73,18 @@
         public static bool TryGet(string key, out string entry)
         {
             return LanguageEntries.TryGetValue(key, out entry);
+        }
+        
+        /// <summary>
+        /// Checks if the key exists for the specified language, and localizes it if so.
+        /// </summary>
+        /// <param name="key">Key to localize.</param>
+        /// <param name="languageName">Language to use for key localization.</param>
+        /// <param name="entry">Localized entry if key exists and language is known.</param>
+        /// <returns>True if the key exists and the language is known, else false.</returns>
+        public static bool TryGet(string key, string languageName, out string entry)
+        {
+            return Instance._entries[languageName].TryGetValue(key, out entry);
         }
         
         /// <summary>

@@ -26,7 +26,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
 <!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
-      <Value>Hello, stranger...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_01">
@@ -34,7 +33,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
 <!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
-      <Value>Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia. Long time I didn't see this armor.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_02">
@@ -42,7 +40,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
 <!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
-      <Value>I suppose you're heading to the village to inspect all this crazy mess.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_03">
@@ -50,7 +47,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
 <!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
-      <Value>Quick advice, even with your grade, stay low and mind your own business.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_04">
@@ -58,7 +54,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
 <!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
-      <Value>Those are some strange times we're in...</Value>
    </SentenceDatas>
 
    
@@ -67,7 +62,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
 <!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
-      <Value>Do not forget, stay low and mind your own business.</Value>
    </SentenceDatas>
 
 </DialoguesDatas>

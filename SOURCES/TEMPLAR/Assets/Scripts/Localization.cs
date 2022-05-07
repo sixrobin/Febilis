@@ -26,6 +26,12 @@
         {
             public const string PREFIX = "InputTutorial_";
         }
+
+        public static class Dialogue
+        {
+            public const string SENTENCE_PREFIX = "Sentence_";
+            public const string SPEAKER_NAME_PREFIX = "SpeakerName_";
+        }
         
         public static class Game
         {

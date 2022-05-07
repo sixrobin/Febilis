@@ -125,50 +125,52 @@
             _currentDialogue = null;
         }
 
-        private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceDatas)
+        private System.Collections.IEnumerator PlaySentenceCoroutine(Datas.Dialogue.SentenceDatas sentenceData)
         {
             UnityEngine.Assertions.Assert.IsTrue(
-                _speakers.ContainsKey(sentenceDatas.SpeakerId),
-                $"Speaker Id {sentenceDatas.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
+                _speakers.ContainsKey(sentenceData.SpeakerId),
+                $"Speaker Id {sentenceData.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
 
             _dialogueView.ClearText();
 
-            bool displayPortraitBox = !_currentDialogue.HidePortraitBox && !sentenceDatas.HidePortraitBox;
+            bool displayPortraitBox = !_currentDialogue.HidePortraitBox && !sentenceData.HidePortraitBox;
             _dialogueView.SetPortraitDisplay(displayPortraitBox);
             if (displayPortraitBox)
-                _dialogueView.SetPortraitAndAnchors(sentenceDatas, _currentDialogue.InvertPortraitsAnchors);
+                _dialogueView.SetPortraitAndAnchors(sentenceData, _currentDialogue.InvertPortraitsAnchors);
             
             _dialogueView.Display(true);
 
             _skippedSentenceSequence = false;
             _currSentenceProgress = string.Empty;
 
-            _speakers[sentenceDatas.SpeakerId].OnSentenceStart();
+            _speakers[sentenceData.SpeakerId].OnSentenceStart();
 
-            for (int i = 0; i < sentenceDatas.SequenceElementsDatas.Length; ++i)
+            Datas.Dialogue.SentenceSequenceElementDatas[] sequenceElementsData = sentenceData.SequenceElementsDatasByLanguage[Localizer.Instance.Language];
+            
+            for (int i = 0; i < sequenceElementsData.Length; ++i)
             {
-                if (sentenceDatas.SequenceElementsDatas[i] is Datas.Dialogue.SentenceTextDatas textDatas)
+                if (sequenceElementsData[i] is Datas.Dialogue.SentenceTextDatas textData)
                 {
-                    yield return AppendSentenceTextCoroutine(textDatas);
+                    yield return AppendSentenceTextCoroutine(textData);
                 }
-                else if (sentenceDatas.SequenceElementsDatas[i] is Datas.Dialogue.SentencePauseDatas pauseDatas)
+                else if (sequenceElementsData[i] is Datas.Dialogue.SentencePauseDatas pauseData)
                 {
-                    yield return WaitForSentencePause(pauseDatas);
+                    yield return WaitForSentencePause(pauseData);
                 }
                 else
                 {
-                    LogError($"Unhandled sentence datas type {sentenceDatas.SequenceElementsDatas[i].GetType().Name} encountered during sentence {sentenceDatas.Id} sequence.");
+                    LogError($"Unhandled sentence data type {sequenceElementsData[i].GetType().Name} encountered during sentence {sentenceData.Id} sequence.");
                     yield break;
                 }
 
                 if (_skippedSentenceSequence)
                 {
-                    _dialogueView.DisplaySentenceProgression(sentenceDatas, sentenceDatas.SentenceValue);
+                    _dialogueView.DisplaySentenceProgression(sentenceData, sentenceData.SentenceValueByLanguage[Localizer.Instance.Language]);
                     break;
                 }
             }
 
-            // If sentence sequence has been skipped, we immediatly want to show the skip feedback, WITHOUT skipping to next sentence.
+            // If sentence sequence has been skipped, we immediately want to show the skip feedback, WITHOUT skipping to next sentence.
             if (!_skippedSentenceSequence && !_debugFastDialogues)
                 yield return new RSLib.Yield.WaitForSecondsOrBreakIf(_dialogueView.SkipInputShowDelay, CheckSkipInput);
 
@@ -178,7 +180,7 @@
             yield return new WaitUntil(() => CheckSkipInput() || _debugFastDialogues);
 
             _dialogueView.DisplaySkipInput(false);
-            _speakers[sentenceDatas.SpeakerId].OnSentenceEnd();
+            _speakers[sentenceData.SpeakerId].OnSentenceEnd();
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
         }

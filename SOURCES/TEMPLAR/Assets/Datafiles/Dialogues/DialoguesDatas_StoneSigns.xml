@@ -43,35 +43,30 @@
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>"This is the place of the heretics, who may be forgotten, and so should their names."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_01_Sentence_00">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>"This is the place of the ones who built the catacombs."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_01_Sentence_01">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>"Once fated to death sentence, they redeemed themselves by putting up this place."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_02_Sentence_00">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>"Place of the commoners."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_CatacombsEntry_Sentence_00">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>"Here lie the dead, and those who got cursed by Febilis."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_RatKing_Sentence_00">
@@ -79,14 +74,12 @@
          <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
-      <Value>"Beware the king of rats, as many have died already."</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_RatKing_Sentence_01">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
-      <Value>There's blood covering the stone...</Value>
    </SentenceDatas>
    
 </DialoguesDatas>

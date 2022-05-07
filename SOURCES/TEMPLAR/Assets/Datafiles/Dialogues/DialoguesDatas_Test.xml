@@ -21,7 +21,6 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Hi there, what are you doing here ?</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_01">
@@ -29,34 +28,28 @@
          <OverrideDisplayName>???</OverrideDisplayName>
          <OverridePortraitId>Unknown</OverridePortraitId>
       </Speaker>
-      <Value>Ah, I see...[pause=3] Looking for answers ?</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_02">
       <Speaker Id="Templar"/>
-      <Value>What do you know about this place ? [pause=1]It all looks... [pause=0.8]unreal.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_NameReveal">
       <Speaker Id="SpeakerPlaceholder"/>
-      <Value>Now you can see my portrait.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_03">
       <Speaker Id="SpeakerPlaceholder"/>
-      <Value>Unreal, uh ? Maybe it is ! Ha, ah, ah !</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPCDial_00_Sentence_04">
       <Speaker Id="SpeakerPlaceholder"/>
-      <Value>Go away.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC_Ellipsis">
       <Speaker Id="SpeakerPlaceholder">
          <HideSpeakerName/>
       </Speaker>
-      <Value>[pause=0.3].[pause=0.3].[pause=0.3].</Value>
    </SentenceDatas>
    
 </DialoguesDatas>

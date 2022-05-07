@@ -61,42 +61,36 @@
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Oh, thank god you seem quite normal.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_01">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Listen, I'm in despair, I forgot my ring earlier when I ran away from my home.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_02">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>If you could do me a favor, and bring me back this ring...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_03">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>I can give you something that you may find useful in exchange.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_04">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Here's the key of my house, it's not far from here.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_05">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>And, by the way, I'm Godric.</Value>
    </SentenceDatas>
 
 
@@ -104,68 +98,56 @@
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Hey, I'm... hm... Is is my ring ?</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_Ring_01">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Guess they completely destroyed my house, or you broke the door.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_Ring_02">
       <Speaker Id="Godric">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
-      <Value>Anyway, not like I was getting back to it.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_Greeting_Ring_03">
       <Speaker Id="Godric"/>
-      <Value>My name's Godric. Thanks a lot for the ring though you did not know me.</Value>
    </SentenceDatas>
    
    
    <SentenceDatas Id="Godric_WaitingRing_00">
       <Speaker Id="Godric"/>
-      <Value>This ring is really important to me...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_WaitingRing_01">
       <Speaker Id="Godric"/>
-      <Value>Please.[pause=1] Help me.</Value>
    </SentenceDatas>
    
    
    <SentenceDatas Id="Godric_RetrieveRing_00">
       <Speaker Id="Godric"/>
-      <Value>That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] That's my ring !</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_01">
       <Speaker Id="Godric"/>
-      <Value>You've made it and you're alive !</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_02">
       <Speaker Id="Godric"/>
-      <Value>Sorry for not letting you know about the monsters...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_03">
       <Speaker Id="Godric"/>
-      <Value>I was too afraid of you declining my favor...</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_RetrieveRing_04">
       <Speaker Id="Godric"/>
-      <Value>As promised, you can take this, it will be more useful to you than for me.</Value>
    </SentenceDatas>
 
    <SentenceDatas Id="Godric_PostRetrieveRing_00">
       <Speaker Id="Godric"/>
-      <Value>If only I could see you again, Jeanne...</Value>
    </SentenceDatas>
    
 </DialoguesDatas>

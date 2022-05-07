@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bindings:
   - _actionId: Jump
-    _btn: 32
-    _altBtn: 330
+    _btn: 330
+    _altBtn: 32
     _userAssignable: 1
   - _actionId: Attack
     _btn: 355
     _altBtn: 355
     _userAssignable: 1
   - _actionId: Roll
-    _btn: 308
-    _altBtn: 331
+    _btn: 331
+    _altBtn: 308
     _userAssignable: 1
   - _actionId: Interact
-    _btn: 101
-    _altBtn: 333
+    _btn: 333
+    _altBtn: 101
     _userAssignable: 1
   - _actionId: Heal
-    _btn: 97
-    _altBtn: 335
+    _btn: 335
+    _altBtn: 97
     _userAssignable: 1
   - _actionId: Inventory
-    _btn: 9
-    _altBtn: 336
+    _btn: 336
+    _altBtn: 9
     _userAssignable: 1
