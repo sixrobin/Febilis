@@ -1,19 +1,20 @@
 ﻿namespace Templar
 {
-    public class CSVReader
+    public static class CSVReader
     {
-        // outputs the content of a 2D array, useful for checking the importer
+        /// <summary>
+        /// Outputs the content of a 2D array to the Unity console.
+        /// Can be useful for checking the importer.
+        /// </summary>
+        /// <param name="grid">2D string array to debug.</param>
         public static void DebugOutputGrid(string[,] grid)
         {
-            string textOutput = "";
+            string textOutput = string.Empty;
             
-            for (int y = 0; y < grid.GetUpperBound(1); y++)
+            for (int y = 0; y < grid.GetUpperBound(1); ++y)
             {	
-                for (int x = 0; x < grid.GetUpperBound(0); x++)
-                {
-                    textOutput += grid[x,y]; 
-                    textOutput += "|"; 
-                }
+                for (int x = 0; x < grid.GetUpperBound(0); ++x)
+                    textOutput += grid[x,y] + "|";
                 
                 textOutput += "\n"; 
             }
@@ -21,6 +22,11 @@
             UnityEngine.Debug.Log(textOutput);
         }
      
+        /// <summary>
+        /// Splits a CSV text to a 2D string array.
+        /// </summary>
+        /// <param name="csvText">CSV text.</param>
+        /// <returns>2D string array.</returns>
         public static string[,] SplitCSVGrid(string csvText)
         {
             string[] lines = csvText.Split("\n"[0]);
@@ -46,12 +52,17 @@
             return outputGrid;
         }
      
-        public static string[] SplitCSVLine(string line)
+        /// <summary>
+        /// Splits a CSV line to a string array.
+        /// </summary>
+        /// <param name="csvLine">CSV line.</param>
+        /// <returns>String array with line values.</returns>
+        private static string[] SplitCSVLine(string csvLine)
         {
             System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
-            string pattern = @"(((?<x>(?=[,\r\n]+))|""(?<x>([^""]|"""")+)""|(?<x>[^,\r\n]+)),?)";
+            const string pattern = @"(((?<x>(?=[,\r\n]+))|""(?<x>([^""]|"""")+)""|(?<x>[^,\r\n]+)),?)";
             
-            foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(line, pattern, System.Text.RegularExpressions.RegexOptions.ExplicitCapture))
+            foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(csvLine, pattern, System.Text.RegularExpressions.RegexOptions.ExplicitCapture))
                 list.Add(match.Groups[1].Value);
 
             return list.ToArray();
