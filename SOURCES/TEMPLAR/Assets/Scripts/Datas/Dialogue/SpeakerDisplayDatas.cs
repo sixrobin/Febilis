@@ -11,7 +11,6 @@
 
         public string Id { get; private set; }
 
-        public string DisplayName { get; private set; }
         public string PortraitId { get; private set; }
         public PortraitAnchor PortraitAnchor { get; private set; }
 
@@ -22,10 +21,6 @@
             XAttribute idAttribute = speakerDisplayElement.Attribute("Id");
             UnityEngine.Assertions.Assert.IsFalse(idAttribute.IsNullOrEmpty(), "SpeakerDisplayDatas Id attribute is null or empty.");
             Id = idAttribute.Value;
-
-            XElement displayNameElement = speakerDisplayElement.Element("DisplayName");
-            UnityEngine.Assertions.Assert.IsFalse(displayNameElement.IsNullOrEmpty(), "SpeakerDisplayDatas needs a DisplayName element.");
-            DisplayName = displayNameElement.Value;
 
             XElement portraitIdElement = speakerDisplayElement.Element("PortraitId");
             PortraitId = portraitIdElement?.Value ?? Id;

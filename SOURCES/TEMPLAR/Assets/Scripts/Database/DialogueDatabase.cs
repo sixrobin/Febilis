@@ -60,16 +60,9 @@
 
         public static string GetSpeakerDisplayName(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
-            if (!string.IsNullOrEmpty(sentenceDatas.OverrideDisplayName))
-                return sentenceDatas.OverrideDisplayName;
-
-            if (!SpeakersDisplayDatas.TryGetValue(sentenceDatas.SpeakerId, out Datas.Dialogue.SpeakerDisplayDatas speakerDisplayDatas))
-            {
-                Instance.LogError($"Speaker Id {sentenceDatas.SpeakerId} was not found in {Instance.GetType().Name} speakers display datas, returning Id.");
-                return sentenceDatas.SpeakerId;
-            }
-
-            return speakerDisplayDatas.DisplayName;
+            return string.IsNullOrEmpty(sentenceDatas.OverrideDisplayName)
+                   ? Localizer.Get($"{Localization.Dialogue.SPEAKER_NAME_PREFIX}{sentenceDatas.SpeakerId}")
+                   : sentenceDatas.OverrideDisplayName;
         }
 
         public static Datas.Dialogue.PortraitAnchor GetSpeakerPortraitAnchor(Datas.Dialogue.SentenceDatas sentenceDatas)

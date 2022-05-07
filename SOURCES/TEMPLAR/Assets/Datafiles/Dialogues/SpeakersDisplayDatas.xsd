@@ -7,7 +7,6 @@
             <xs:element name="SpeakerDisplayDatas" minOccurs="0" maxOccurs="unbounded">
                <xs:complexType>
                   <xs:sequence>
-                     <xs:element name="DisplayName" type="xs:token" minOccurs="1" maxOccurs="1"/>
                      <xs:element name="PortraitId" type="xs:token" minOccurs="0" maxOccurs="1"/>
                      <xs:element name="PortraitAnchor" minOccurs="1" maxOccurs="1">
                         <xs:simpleType>
