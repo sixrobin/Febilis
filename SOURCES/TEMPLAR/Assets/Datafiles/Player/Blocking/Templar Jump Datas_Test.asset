@@ -18,7 +18,7 @@ MonoBehaviour:
   _fallMultiplier: 1.05
   _airborneDamping: 0.05
   _jumpAnticipationSpeedMult: 0.9
-  _jumpAnticipationDur: 0.04
+  _jumpAnticipationDur: 0.02
   _airborneJumpAnticipationDur: 0
   _maxFollowingJumps: 1
   _minVelForLandImpact: 8

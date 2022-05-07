@@ -20,8 +20,8 @@ MonoBehaviour:
   - Attack_Base_01
   - Attack_Base_02
   _airborneAttackId: Attack_Airborne
-  _runSpeed: 4.2
-  _minRunSpeed: 1.5
+  _runSpeed: 4.4
+  _minRunSpeed: 1.7
   _groundedDamping: 0
   _groundOnAwake: 1
   _hurtDur: 0.33
