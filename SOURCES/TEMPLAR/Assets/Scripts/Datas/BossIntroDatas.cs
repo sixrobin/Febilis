@@ -5,7 +5,6 @@
     [CreateAssetMenu(fileName = "New Boss Intro Datas", menuName = "Datas/Boss Intro")]
     public class BossIntroDatas : ScriptableObject
     {
-        [SerializeField, Min(0f)] private float _totalDuration = 0f;
         [SerializeField, Min(0f)] private float _bossNameAppearanceDelay = 0f;
         [SerializeField, Min(0f)] private float _bossNameDuration = 1.5f;
         [SerializeField] private bool _disallowInputs = true;
@@ -20,7 +19,7 @@
         [SerializeField] private RSLib.Maths.Curve _cameraInCurve = RSLib.Maths.Curve.Linear;
         [SerializeField] private RSLib.Maths.Curve _cameraOutCurve = RSLib.Maths.Curve.Linear;
 
-        public float TotalDuration => _totalDuration;
+        public float TotalDuration => CameraFocusDelay + CameraInDuration + CameraFocusedDuration + CameraOutDuration;
         public float BossNameAppearanceDelay => _bossNameAppearanceDelay;
         public float BossNameDuration => _bossNameDuration;
         public bool DisallowInputs => _disallowInputs;

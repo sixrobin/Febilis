@@ -38,6 +38,7 @@
         private float _currVelY;
 
         private System.Collections.IEnumerator _hurtCoroutine;
+        private System.Collections.IEnumerator _sleepCoroutine;
 
         public RSLib.Framework.Collections.FixedSizedConcurrentQueue<Actions.IEnemyAction> LastActions { get; private set; }
 
@@ -75,7 +76,20 @@
             }
         }
 
-        public bool IsBossUnit { get; set; }
+        private bool _isBossUnit;
+        public bool IsBossUnit
+        {
+            get => _isBossUnit;
+            set
+            {
+                _isBossUnit = value;
+                if (_isBossUnit)
+                {
+                    StopCoroutine(_sleepCoroutine);
+                    IsSleeping = true;
+                }
+            }
+        }
         
         public bool IsSleeping { get; private set; }
 
@@ -115,7 +129,11 @@
 
         public void ForcePlayerDetection()
         {
+            IsSleeping = false;
             ForcedPlayerDetection = true;
+            
+            ForceUpdateCurrentBehaviour();
+            ForceUpdateCurrentAction();
         }
         
         protected override void OnCollisionDetected(Templar.Physics.CollisionsController.CollisionInfos collisionInfos)
@@ -283,7 +301,7 @@
             }
 
             EnemyView.Init(_id);
-            StartCoroutine(UpdateSleepCoroutine());
+            StartCoroutine(_sleepCoroutine = UpdateSleepCoroutine());
 
             RSLib.Debug.Console.DebugConsole.OverrideCommand("ResetEnemies", "Reset all enemies.", () => FindObjectsOfType<EnemyController>().ToList().ForEach(o => o.ResetEnemy()));
         }
