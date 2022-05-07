@@ -19,6 +19,12 @@
                 _contextMenu.CloseAtEndOfFrame(); // Closes all inventory panel.
                 Manager.GameManager.PlayerCtrl.TriggerHeal();
             }
+            else if (Slot.Item.Datas.Type == Item.ItemType.KEY)
+            {
+                UnityEngine.Assertions.Assert.IsTrue(Manager.GameManager.PlayerCtrl.Interacter.CurrentInteractable != null, "Allowing to use a key on a null interactable.");
+                _contextMenu.CloseAtEndOfFrame(); // Closes all inventory panel.
+                Manager.GameManager.PlayerCtrl.Interacter.TryInteract();
+            }
         }
         
         public override void Localize()

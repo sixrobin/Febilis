@@ -50,6 +50,7 @@
    <xs:complexType name="ItemActionConditions">
       <xs:sequence>
          <xs:element name="FullHealth" type="FullHealthCondition" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="OnValidInteractable" type="OnValidInteractableCondition" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
    </xs:complexType>
 
@@ -58,6 +59,12 @@
    </xs:complexType>
 
    <xs:complexType name="FullHealthCondition">
+      <xs:complexContent>
+         <xs:extension base="Condition"/>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="OnValidInteractableCondition">
       <xs:complexContent>
          <xs:extension base="Condition"/>
       </xs:complexContent>

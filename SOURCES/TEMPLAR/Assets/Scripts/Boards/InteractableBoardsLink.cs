@@ -18,6 +18,8 @@
         
         private Sprite _baseSprite;
 
+        public string[] ValidItems => null;
+        
         public override void OnBoardsTransitionBegan()
         {
             _collider.enabled = false;

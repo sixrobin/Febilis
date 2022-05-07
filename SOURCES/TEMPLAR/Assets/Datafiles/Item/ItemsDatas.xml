@@ -35,6 +35,9 @@
    <ItemDatas Id="Key_Godric_House">
       <Type>KEY</Type>
       <Actions>
+         <Use>
+            <OnValidInteractable/>
+         </Use>
          <Move/>
       </Actions>
    </ItemDatas>
@@ -42,6 +45,9 @@
    <ItemDatas Id="Key_Priest">
       <Type>KEY</Type>
       <Actions>
+         <Use>
+            <OnValidInteractable/>
+         </Use>
          <Move/>
       </Actions>
    </ItemDatas>
@@ -49,6 +55,9 @@
    <ItemDatas Id="Key_Catacombs">
       <Type>KEY</Type>
       <Actions>
+         <Use>
+            <OnValidInteractable/>
+         </Use>
          <Move/>
       </Actions>
    </ItemDatas>

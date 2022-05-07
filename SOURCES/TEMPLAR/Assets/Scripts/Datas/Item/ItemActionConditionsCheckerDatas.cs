@@ -25,7 +25,9 @@
                     case FullHealthItemActionConditionDatas.ID:
                         Conditions.Add(new FullHealthItemActionConditionDatas(conditionElement));
                         break;
-
+                    case OnValidInteractableItemActionConditionDatas.ID:
+                        Conditions.Add(new OnValidInteractableItemActionConditionDatas(conditionElement));
+                        break;
                     default:
                         Database.ItemDatabase.Instance.LogError($"Unknown Item Action Condition Id {conditionElement.Name.LocalName}.");
                         break;

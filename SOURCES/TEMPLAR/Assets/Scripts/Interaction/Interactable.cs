@@ -12,13 +12,16 @@
                 Source = source;
             }
 
-            public Interactable Source { get; private set; }
+            public Interactable Source { get; }
         }
 
         [SerializeField] private UnityEngine.Events.UnityEvent _onFocused = null;
         [SerializeField] private UnityEngine.Events.UnityEvent _onUnfocused = null;
         [SerializeField] private UnityEngine.Events.UnityEvent _onInteracted = null;
 
+        [Header("ITEM USE")]
+        [SerializeField] private string[] _validItems = null;
+        
         public delegate void InteractionEventHandler(InteractionEventArgs args);
 
         public event InteractionEventHandler Focused;
@@ -26,7 +29,9 @@
         public event InteractionEventHandler Interacted;
 
         public bool InteractionDisabled { get; protected set; }
-
+        
+        public string[] ValidItems => _validItems;
+        
         public virtual void Focus()
         {
             if (InteractionDisabled)

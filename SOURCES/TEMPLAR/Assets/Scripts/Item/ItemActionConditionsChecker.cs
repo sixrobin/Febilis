@@ -12,15 +12,15 @@
             CreateConditions();
         }
 
-        public Datas.Item.ItemActionConditionsCheckerDatas ConditionsCheckerDatas { get; private set; }
-        public Item Item { get; private set; }
+        public Datas.Item.ItemActionConditionsCheckerDatas ConditionsCheckerDatas { get; }
+        public Item Item { get; }
 
         public IItemActionCondition[] Conditions { get; private set; } // Can be null if there is no condition.
 
         public void CreateConditions()
         {
             // No condition.
-            if (ConditionsCheckerDatas == null || ConditionsCheckerDatas.Conditions == null)
+            if (ConditionsCheckerDatas?.Conditions == null)
                 return;
 
             Conditions = new IItemActionCondition[ConditionsCheckerDatas.Conditions.Count];
@@ -29,6 +29,8 @@
             {
                 if (ConditionsCheckerDatas.Conditions[i] is Datas.Item.FullHealthItemActionConditionDatas fullHealthCondition)
                     Conditions[i] = new FullHealthItemActionCondition(Item, fullHealthCondition);
+                if (ConditionsCheckerDatas.Conditions[i] is Datas.Item.OnValidInteractableItemActionConditionDatas onValidInteractableCondition)
+                    Conditions[i] = new OnValidInteractableItemActionCondition(Item, onValidInteractableCondition);
                 else
                     CProLogger.LogError(this, $"Unknown Item Action Condition type {Conditions[i].GetType().FullName}");
             }

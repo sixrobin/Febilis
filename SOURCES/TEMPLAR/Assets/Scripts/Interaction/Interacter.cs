@@ -10,6 +10,8 @@
 
         public delegate void InteractedEventHandler(IInteractable interactable);
         public InteractedEventHandler Interacted;
+
+        public IInteractable CurrentInteractable => _currInteractable;
         
         public void TryInteract()
         {

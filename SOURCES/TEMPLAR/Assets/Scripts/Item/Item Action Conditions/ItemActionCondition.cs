@@ -10,7 +10,7 @@
             _conditionDatas = conditionDatas;
         }
 
-        public Item Item { get; private set; }
+        public Item Item { get; }
 
         public T ConditionsDatas => _conditionDatas as T;
 

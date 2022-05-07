@@ -38,4 +38,14 @@
         {
         }
     }
+
+
+    public class OnValidInteractableItemActionConditionDatas : ItemActionConditionDatas
+    {
+        public const string ID = "OnValidInteractable";
+
+        public OnValidInteractableItemActionConditionDatas(XContainer container) : base(container)
+        {
+        }
+    }
 }
