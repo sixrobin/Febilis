@@ -108,7 +108,7 @@
                 }
                 else
                 {
-                    LogError($"Unhandled dialogue datas type {_currentDialogue.SequenceElementsDatas[i].GetType().Name} encountered during dialogue {_currentDialogue.Id} sequence.");
+                    LogError($"Unhandled dialogue data type {_currentDialogue.SequenceElementsDatas[i].GetType().Name} encountered during dialogue {_currentDialogue.Id} sequence.");
                     yield break;
                 }
             }
@@ -241,7 +241,7 @@
 
             if (_dialogueView == null)
             {
-                Instance.LogError($"{typeof(DialogueView).Name} reference is missing on {Instance.GetType().Name}, getting it through FindObjectOfType!");
+                Instance.LogError($"{nameof(DialogueView)} reference is missing on {Instance.GetType().Name}, getting it through FindObjectOfType!");
                 _dialogueView = FindObjectOfType<DialogueView>();
             }
 

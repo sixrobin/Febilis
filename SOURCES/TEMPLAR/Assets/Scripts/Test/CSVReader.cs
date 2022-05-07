@@ -44,9 +44,12 @@
             string[,] outputGrid = new string[width, lines.Length]; 
             for (int y = 0; y < lines.Length; y++)
             {
-                string[] row = SplitCSVLine(lines[y]); 
-                for (int x = 0; x < row.Length; x++) 
-                    outputGrid[x,y] = row[x]; 
+                string[] row = SplitCSVLine(lines[y]);
+                for (int x = 0; x < row.Length; x++)
+                {
+                    outputGrid[x,y] = row[x];
+                    outputGrid[x,y] = outputGrid[x,y].Replace("\"\"", "\""); // Replace double quotes.
+                }
             }
 
             return outputGrid;

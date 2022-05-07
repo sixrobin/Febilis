@@ -120,9 +120,9 @@ Sentence_Godric_Greeting_03,I can give you something that you may find useful in
 Sentence_Godric_Greeting_04,"Here's the key of my house, it's not far from here.","Voici la clef de ma maison, ce n'est pas loin d'ici."
 Sentence_Godric_Greeting_05,"And, by the way, I'm Godric.","Au fait, je m'appelle Godric."
 Sentence_Godric_Greeting_Ring_00,"Hey, I'm... hm... Is this my ring ?","Bonjour, je... hm... Est-ce mon alliance ?"
-Sentence_Godric_Greeting_Ring_01,"Oh my... I guess they completely destroyed my house, or you broke the door.","Seigneur... Ils ont du complètement ravager ma maison, ou bien vous avez détruit la porte."
+Sentence_Godric_Greeting_Ring_01,"Oh my... I guess they completely destroyed my house, or you broke the door.",Seigneur... Ils ont du ravager ma maison... ou vous avez détruit la porte.
 Sentence_Godric_Greeting_Ring_02,"Anyway, not like I was getting back to it.","Peu importe, ce n'est pas comme si je comptais y retourner."
-Sentence_Godric_Greeting_Ring_03,My name's Godric. Thanks a lot for the ring though you did not know me.,Mon nom est Godric. Merci d'avoir ramené mon alliance alors que vous ne me connaissez pas.
+Sentence_Godric_Greeting_Ring_03,My name's Godric. Thanks a lot for the ring though you did not know me.,Mon nom est Godric. Merci pour l'alliance alors que vous ne me connaissiez pas.
 Sentence_Godric_WaitingRing_00,This ring is really important to me...,Cette alliance m'est très chère...
 Sentence_Godric_WaitingRing_01,Please.[pause=1] Help me.,S'il vous plaît.[pause=1] Aidez-moi.
 Sentence_Godric_RetrieveRing_00,That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] That's my ring !,C'est[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] C'est mon alliance !
