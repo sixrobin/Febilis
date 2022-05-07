@@ -12,7 +12,7 @@
 
         public abstract Templar.Settings.StringRangeSetting StringRangeSetting { get; }
 
-        public override void Init()
+        public override void InitSelectable()
         {
             _btn.onClick.RemoveAllListeners();
             _btn.onClick.AddListener(OnButtonClicked);

@@ -14,7 +14,7 @@
 
         public abstract Templar.Settings.FloatSetting FloatSetting { get; }
 
-        public override void Init()
+        public override void InitSelectable()
         {
             _initializing = true;
 

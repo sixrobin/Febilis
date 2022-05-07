@@ -5,6 +5,8 @@
     public abstract class SettingView : UnityEngine.UI.Selectable, UnityEngine.EventSystems.ISelectHandler
     {
         [Header("SETTING VIEW BASE")]
+        [SerializeField] private TMPro.TextMeshProUGUI _title = null;
+        [SerializeField] private string _titleLocalizationKey = string.Empty;
         [SerializeField] private RSLib.Framework.GUI.PointerEventsHandler _pointerEventsHandler = null;
 
         public abstract Templar.Settings.Setting Setting { get; }
@@ -23,8 +25,14 @@
             RSLib.Audio.UI.UIAudioManager.PlayHoverClip();
         }
 
-        public abstract void Init();
+        public virtual void Init()
+        {
+            InitSelectable();
+            Localize();
+        }
 
+        public abstract void InitSelectable();
+        
         public override void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
         {
             base.OnPointerEnter(eventData);
@@ -49,6 +57,11 @@
         {
             base.OnPointerDown(eventData);
             PointerEventsHandler.OnPointerUp(eventData);
+        }
+
+        public virtual void Localize()
+        {
+            _title.text = Localizer.Get(_titleLocalizationKey);
         }
 
 #if UNITY_EDITOR

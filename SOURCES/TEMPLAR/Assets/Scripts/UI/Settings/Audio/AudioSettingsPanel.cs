@@ -15,8 +15,8 @@
         [Header("AUDIO SETTINGS")]
         [SerializeField] private VolumeSlider[] _sliders = null;
         [Space(10f)]
-        [SerializeField] private UnityEngine.UI.Button _resetSettingsBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _saveSettingsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _resetSettingsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _saveSettingsBtn = null;
 
         private bool _initialized;
 
@@ -117,6 +117,8 @@
         private void Localize()
         {
             _title.text = Localizer.Get(Localization.Settings.AUDIO);
+            _resetSettingsBtn.SetText(Localizer.Get(Localization.Settings.AUDIO_RESET));
+            _saveSettingsBtn.SetText(Localizer.Get(Localization.Settings.AUDIO_SAVE));
             
             VolumeSlider[] enabledSliders = _sliders.Where(o => o.gameObject.activeSelf).ToArray();
             for (int i = 0; i < enabledSliders.Length; ++i)

@@ -12,11 +12,14 @@
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.05f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
 
+        [Header("REFS")]
+        [SerializeField] private TMPro.TextMeshProUGUI _title = null;
+        
         [Header("GAME SETTINGS")]
         [SerializeField] private SettingView[] _settings = null;
         [Space(10f)]
-        [SerializeField] private UnityEngine.UI.Button _resetSettingsBtn = null;
-        [SerializeField] private UnityEngine.UI.Button _saveSettingsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _resetSettingsBtn = null;
+        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _saveSettingsBtn = null;
 
         [Header("UI NAVIGATION")]
         [SerializeField] private RectTransform _settingsViewport = null;
@@ -41,7 +44,10 @@
             base.Display(show);
 
             if (show)
+            {
                 Init();
+                Localize();
+            }
         }
 
         public GameObject GetClosestItemToScrollbar()
@@ -178,6 +184,16 @@
                 _settings[i].Init();
         }
 
+        private void Localize()
+        {
+            _title.text = Localizer.Get(Localization.Settings.GAME_TITLE);
+            _resetSettingsBtn.SetText(Localizer.Get(Localization.Settings.GAME_RESET));
+            _saveSettingsBtn.SetText(Localizer.Get(Localization.Settings.GAME_SAVE));
+
+            for (int i = _settings.Length - 1; i >= 0; --i)
+                _settings[i].Localize();
+        }
+        
         protected override void Start()
         {
             base.Start();

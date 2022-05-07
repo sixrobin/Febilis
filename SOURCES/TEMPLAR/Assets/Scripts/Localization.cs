@@ -35,6 +35,8 @@
             
             // Audio.
             public const string VOLUME_PREFIX = "VolumeSlider_";
+            public const string AUDIO_RESET = "Audio_Reset";
+            public const string AUDIO_SAVE = "Audio_Save";
             
             // Controls.
             public const string CONTROLS_ACTION_TITLE = "Controls_ActionTitle";
@@ -47,6 +49,11 @@
             public const string CONTROLS_SAVE_ASK = "Controls_SaveChanges_Ask";
             public const string CONTROLS_SAVE_CONFIRM = "Controls_SaveChanges_Confirm";
             public const string CONTROLS_SAVE_CANCEL = "Controls_SaveChanges_Cancel";
+            
+            // Game settings.
+            public const string GAME_TITLE = "Settings_Title";
+            public const string GAME_RESET = "Controls_Reset";
+            public const string GAME_SAVE = "Controls_Save";
         }
 
         public static class MainMenu

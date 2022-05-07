@@ -13,7 +13,7 @@
 
         public abstract Templar.Settings.IntSetting IntSetting { get; }
 
-        public override void Init()
+        public override void InitSelectable()
         {
             _btn.onClick.RemoveAllListeners();
             _btn.onClick.AddListener(OnButtonClicked);

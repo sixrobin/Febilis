@@ -12,7 +12,7 @@
 
         public abstract Templar.Settings.BoolSetting BoolSetting { get; }
 
-        public override void Init()
+        public override void InitSelectable()
         {
             _toggle.onValueChanged.AddListener(OnValueChanged);
             _toggle.isOn = BoolSetting.Value;

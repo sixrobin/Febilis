@@ -18,12 +18,11 @@ Settings_Game,Game,Général
 Settings_Audio,Audio,Son
 Settings_Language,Language,Langue
 ,,
-Controls_Title,Controls,Contrôles
 Controls_ActionTitle,Action,Action
 Controls_ButtonTitle,Btn,Btn
 Controls_AltButtonTitle,Alt,Alt
 Controls_Reset,Reset defaults,Réinitialiser
-Controls_Save,Save,Sauvegarder
+Controls_Save,Save,OK
 Controls_AssignBtnFormat,Assign base key to {0}...,Assigner une touche de base pour {0}...
 Controls_AssignAltBtnFormat,Assign alternate key to {0}...,Assigner une touche alternative pour {0}...
 Controls_SaveChanges_Ask,Save changes ?,Sauvegarder les modifications ?
@@ -31,26 +30,28 @@ Controls_SaveChanges_Confirm,Yes,Oui
 Controls_SaveChanges_Cancel,No,Non
 ,,
 Settings_Title,General,Général
-Settings_FrameRateTitle,Frame rate,Frames par seconde
+Settings_FrameRateTitle,Frame rate,FPS
 Settings_ShakeAmount,Shame amount,Tremblement de l'écran
 Settings_DeadZone,Dead zone,Zone morte
-Settings_PixelPerfect,Pixel perfect,Perfection pixellaire
+Settings_PixelPerfect,Pixel perfect,Pixel perfect
 Settings_ScreenSize,Screen size,Taille de l'écran
 Settings_ScreenMode,Screen mode,Mode de l'écran
+Settings_MonitorIndex,Monitor Index,Écran
 ScreenMode_FullScreen,Fullscreen,Plein écran
 ScreenMode_Maximized,Maximized,Maximisé
 ScreenMode_Windowed,Windowed,Fenêtré
 Settings_RunInBackground,Run in background,Tourner en arrière-plan
-Settings_ConstrainCursor,Constrain cursor,Contraindre le curseur
+Settings_ConstrainCursor,Constrain cursor,Confiner le curseur
 Settings_Reset,Reset defaults,Réinitialiser
-Settings_Save,Save,Sauvegarder
+Settings_Save,Save,OK
 ,,
-Audio_Title,Audio,Volume
 VolumeSlider_MasterVolume,Master,Général
 VolumeSlider_MusicVolume,Music,Musique
 VolumeSlider_SFXVolume,SFX,Effets
 VolumeSlider_FootstepsVolume,Footsteps,Pats
 VolumeSlider_UIVolume,UI,Interfaces
+Audio_Reset,Reset defaults,Réinitialiser
+Audio_Save,Save,OK
 ,,
 ItemName_Sword,Pale sword,Lame pâle
 ItemDescription_Sword,"A common sword, used by many soldiers due to its ability to respond well at various situations. A blacksmith could upgrade it.","Une épée commune, utilisée par bien des soldats en raison de sa capacité à répondre à toutes les situations. Un forgeron pourrait la rendre plus forte."
