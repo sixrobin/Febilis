@@ -48,10 +48,12 @@ Settings_Save,Save,OK
 VolumeSlider_MasterVolume,Master,Général
 VolumeSlider_MusicVolume,Music,Musique
 VolumeSlider_SFXVolume,SFX,Effets
-VolumeSlider_FootstepsVolume,Footsteps,Pats
+VolumeSlider_FootstepsVolume,Footsteps,Bruits de pas
 VolumeSlider_UIVolume,UI,Interfaces
 Audio_Reset,Reset defaults,Réinitialiser
 Audio_Save,Save,OK
+,,
+Language_Save,Save,OK
 ,,
 ActionName_Jump,Jump,Sauter
 ActionName_Attack,Attack,Attaquer
@@ -141,13 +143,13 @@ SpeakerName_Templar,Templar,Templier
 SpeakerName_Godric,Godric,Godric
 SpeakerName_NPC01,Mysterious soldier,Soldat mystérieux
 ,,
-InputTutorial_Move,Press {0} to MOVE,Appuyez sur {0} pour vous DÉPLACER
-InputTutorial_Jump,Press {0} to JUMP,Appuyez sur {0} pour SAUTER
-InputTutorial_EffectorDown,Press {0} to FALL,Appuyez sur {0} pour TOMBER
-InputTutorial_Attack,Press {0} to ATTACK,Appuyez sur {0} pour ATTAQUER
-InputTutorial_Interaction,Press {0} to INTERACT,Appuyez sur {0} pour INTERAGIR
-InputTutorial_Heal,Press {0} to HEAL,Appuyez sur {0} pour vous SOIGNER
-InputTutorial_Inventory,Press {0} to OPEN INVENTORY,Appuyez sur {0} pour OUVRIR L'INVENTAIRE
-InputTutorial_Roll,Press {0} to ROLL,Appuyez sur {0} pour ROULER
+InputTutorial_Move,Left stick to MOVE,Stick gauche pour vous DÉPLACER
+InputTutorial_Jump,{0} to JUMP,{0} pour SAUTER
+InputTutorial_EffectorDown,Down + {0} to FALL,Bas + {0} pour TOMBER
+InputTutorial_Attack,{0} to ATTACK,{0} pour ATTAQUER
+InputTutorial_Interaction,{0} to INTERACT,{0} pour INTERAGIR
+InputTutorial_Heal,{0} to HEAL,{0} pour vous SOIGNER
+InputTutorial_Inventory,{0} to OPEN INVENTORY,{0} pour OUVRIR L'INVENTAIRE
+InputTutorial_Roll,{0} to ROLL,{0} pour ROULER
 ,,
 BossName_Boss_RatKing,Rat King,Roi des rats

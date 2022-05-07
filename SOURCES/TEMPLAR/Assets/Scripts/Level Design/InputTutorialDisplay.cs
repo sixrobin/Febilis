@@ -8,7 +8,12 @@
         [SerializeField] private DisplayType _displayType = DisplayType.START;
         [SerializeField] private ValidationType _validationType = ValidationType.TRIGGER_ENTER;
         [SerializeField] private RSLib.Framework.OptionalBoxCollider2D _validatingTrigger = new RSLib.Framework.OptionalBoxCollider2D(null, false);
-
+        
+        [Header("LOCALIZATION")]
+        [SerializeField] private TMPro.TextMeshProUGUI _text = null;
+        [SerializeField] private string _localizationSuffix = string.Empty;
+        [SerializeField] private string _actionId = string.Empty;
+        
         private bool _validated;
         
         public enum ValidationType
@@ -31,7 +36,7 @@
             ITEM_PICKUP
         }
         
-        public static System.Collections.Generic.HashSet<ValidationType> ValidatedTypes { get; private set; } = new System.Collections.Generic.HashSet<ValidationType>();
+        public static System.Collections.Generic.HashSet<ValidationType> ValidatedTypes { get; } = new System.Collections.Generic.HashSet<ValidationType>();
 
         public static XElement Save()
         {
@@ -54,14 +59,19 @@
 
         public void Display(bool show)
         {
-            if (!show || !_validated)
-                gameObject.SetActive(show);
+            if (show && _validated)
+                return;
+
+            if (show)
+                Localize();
+            
+            gameObject.SetActive(show);
         }
         
         private void RaiseValidationEvent(ValidationType validationType)
         {
             if (validationType == _validationType && !_validated)
-                this.OnInputValidated();
+                OnInputValidated();
         }
 
         private void OnInputValidated()
@@ -76,7 +86,7 @@
             Unit.Player.PlayerController playerCtrl = Manager.GameManager.PlayerCtrl;
             yield return new WaitUntil(() => playerCtrl.Initialized);
 
-            if (ValidatedTypes.Contains(this._validationType))
+            if (ValidatedTypes.Contains(_validationType))
             {
                 OnInputValidated();
                 yield break;
@@ -124,7 +134,7 @@
                         yield break;
                     }
                     
-                    physics2DEventReceiver.TriggerEntered += (collider) => RaiseValidationEvent(_validationType);
+                    physics2DEventReceiver.TriggerEntered += _ => RaiseValidationEvent(_validationType);
                     break;
                 
                 case ValidationType.ROLL when !_validatingTrigger.Enabled:
@@ -168,10 +178,37 @@
                     break;
             }
         }
-        
+
+        private void Awake()
+        {
+            ValidatedTypes.Clear();
+
+            Localizer.LanguageChanged += Localize;
+        }
+
+        private void Localize()
+        {
+            if (!string.IsNullOrEmpty(_actionId))
+            {
+                System.Collections.Generic.Dictionary<string, RSLib.Framework.InputSystem.InputMapDatas.KeyBinding> inputMapCopy = RSLib.Framework.InputSystem.InputManager.GetMapCopy();
+                _text.text = inputMapCopy.TryGetValue(_actionId, out RSLib.Framework.InputSystem.InputMapDatas.KeyBinding binding)
+                    ? string.Format(Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}"), binding.KeyCodes.btn)
+                    : Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
+            }
+            else
+            {
+                _text.text = Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
+            }
+        }
+
         private void Start()
         {
-            StartCoroutine(this.Init());
+            StartCoroutine(Init());
+        }
+
+        private void OnDestroy()
+        {
+            Localizer.LanguageChanged -= Localize;
         }
     }
 }

@@ -56,6 +56,8 @@
 
             InitNavigation();
 
+            _saveSettingsBtn.onClick.AddListener(OnBackButtonPressed);
+            
             _initialized = true;
         }
         
@@ -116,6 +118,8 @@
         {
             base.OnDestroy();
 
+            _saveSettingsBtn.onClick.RemoveListener(OnBackButtonPressed);
+            
             if (_languageToggles != null)
                 for (int i = 0; i < _languageToggles.Length; ++i)
                     _languageToggles[i].ValueChanged -= OnLanguageToggleValueChanged;

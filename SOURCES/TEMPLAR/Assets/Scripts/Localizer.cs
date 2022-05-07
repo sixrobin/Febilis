@@ -9,6 +9,8 @@
 
         private Dictionary<string, Dictionary<string, string>> _entries;
         
+        public static event System.Action LanguageChanged;
+        
         /// <summary>
         /// All languages handled in loaded CSV file.
         /// </summary>
@@ -73,8 +75,12 @@
                 return;
             }
 
+            string previousLanguage = Instance.Language;
+            
             Instance.Log($"Setting language to {languageName}.");
             Instance.Language = languageName;
+            
+            LanguageChanged?.Invoke();
         }
         
         /// <summary>

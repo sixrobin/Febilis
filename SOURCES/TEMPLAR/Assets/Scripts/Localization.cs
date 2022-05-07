@@ -21,6 +21,11 @@
         {
             public const string BOSS_NAME_PREFIX = "BossName_";
         }
+
+        public static class InputTutorial
+        {
+            public const string PREFIX = "InputTutorial_";
+        }
         
         public static class Game
         {
