@@ -61,6 +61,9 @@
             public const string GAME_RESET = "Controls_Reset";
             public const string GAME_SAVE = "Controls_Save";
             public const string SCREEN_MODE_PREFIX = "ScreenMode_";
+            
+            // Language.
+            public const string LANGUAGE_SAVE = "Language_Save";
         }
 
         public static class MainMenu

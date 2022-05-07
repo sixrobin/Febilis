@@ -8,6 +8,7 @@
         public static Settings.AxisDeadZone AxisDeadZone { get; private set; }
         public static Settings.ConstrainCursor ConstrainCursor { get; private set; }
         public static Settings.FullscreenMode FullscreenMode { get; private set; }
+        public static Settings.Language Language { get; private set; }
         public static Settings.MonitorIndex MonitorIndex { get; private set; }
         public static Settings.PixelPerfect PixelPerfect { get; private set; }
         public static Settings.RunInBackground RunInBackground { get; private set; }
@@ -29,6 +30,7 @@
                 container.Add(AxisDeadZone.Save());
                 container.Add(ConstrainCursor.Save());
                 container.Add(FullscreenMode.Save());
+                container.Add(Language.Save());
                 container.Add(MonitorIndex.Save());
                 container.Add(PixelPerfect.Save());
                 container.Add(RunInBackground.Save());
@@ -94,6 +96,9 @@
                 XElement fullscreenModeElement = settingsSaveElement.Element(Settings.FullscreenMode.SAVE_ELEMENT_NAME);
                 FullscreenMode = fullscreenModeElement != null ? new Settings.FullscreenMode(fullscreenModeElement) : new Settings.FullscreenMode();
 
+                XElement languageElement = settingsSaveElement.Element(Settings.Language.SAVE_ELEMENT_NAME);
+                Language = languageElement != null ? new Settings.Language(languageElement) : new Settings.Language();
+                
                 XElement monitorIndexElement = settingsSaveElement.Element(Settings.MonitorIndex.SAVE_ELEMENT_NAME);
                 MonitorIndex = monitorIndexElement != null ? new Settings.MonitorIndex(monitorIndexElement) : new Settings.MonitorIndex();
 
@@ -131,6 +136,7 @@
             AxisDeadZone = new Settings.AxisDeadZone();
             ConstrainCursor = new Settings.ConstrainCursor();
             FullscreenMode = new Settings.FullscreenMode();
+            Language = new Settings.Language();
             MonitorIndex = new Settings.MonitorIndex();
             PixelPerfect = new Settings.PixelPerfect();
             RunInBackground = new Settings.RunInBackground();

@@ -12,10 +12,8 @@
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.05f;
         private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
 
-        [Header("REFS")]
-        [SerializeField] private TMPro.TextMeshProUGUI _title = null;
-        
         [Header("GAME SETTINGS")]
+        [SerializeField] private TMPro.TextMeshProUGUI _title = null;
         [SerializeField] private SettingView[] _settings = null;
         [Space(10f)]
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _resetSettingsBtn = null;
@@ -126,9 +124,7 @@
 
                 if (first)
                 {
-                    enabledSettings[i].Selectable.SetSelectOnUp(BackBtn);
                     enabledSettings[i].Selectable.SetSelectOnUp(QuitBtn);
-
                     BackBtn.SetSelectOnDown(enabledSettings[i]);
                     QuitBtn.SetSelectOnDown(enabledSettings[i]);
                 }

@@ -44,12 +44,12 @@
             }
         }
 
-        protected abstract StringOption[] Options { get; }
+        public abstract StringOption[] Options { get; }
 
         public override void Load(XElement element)
         {
             System.Collections.Generic.IEnumerable<StringOption> fittingOptions = Options.Where(o => o.StringValue == element.Value);
-            if (fittingOptions.Count() > 0)
+            if (fittingOptions.Any())
             {
                 Value = fittingOptions.First();
                 return;
@@ -66,10 +66,10 @@
 
         public override void Init()
         {
-            UnityEngine.Assertions.Assert.IsFalse(Options.Where(o => o.IsDefaultOne).Count() == 0, "No default option has been set.");
-            UnityEngine.Assertions.Assert.IsFalse(Options.Where(o => o.IsDefaultOne).Count() > 1, "More than one default option has been set.");
+            UnityEngine.Assertions.Assert.IsFalse(!Options.Any(o => o.IsDefaultOne), "No default option has been set.");
+            UnityEngine.Assertions.Assert.IsFalse(Options.Count(o => o.IsDefaultOne) > 1, "More than one default option has been set.");
 
-            Value = Options.Where(o => o.IsDefaultOne).FirstOrDefault();
+            Value = Options.FirstOrDefault(o => o.IsDefaultOne);
         }
 
         public StringOption GetNextOption()

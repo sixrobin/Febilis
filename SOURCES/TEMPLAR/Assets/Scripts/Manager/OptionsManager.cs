@@ -58,12 +58,11 @@
 
         public static bool AnyPanelOpen()
         {
-            // [TODO] Remove those null checks once panels are implemented.
             return Instance._settingsHubPanel.Displayed
                 || Instance._controlsPanel.Displayed
                 || Instance._gamePanel.Displayed
-                || (Instance._audioPanel?.Displayed ?? false)
-                || (Instance._languagePanel?.Displayed ?? false);
+                || Instance._audioPanel.Displayed
+                || Instance._languagePanel.Displayed;
         }
 
         public static bool AnyPanelOpenOrClosedThisFrame()
@@ -102,7 +101,7 @@
             _settingsHubPanel.ControlsBtn.onClick.AddListener(OpenControlsPanel);
             _settingsHubPanel.GameBtn.onClick.AddListener(OpenGamePanel);
             _settingsHubPanel.AudioBtn.onClick.AddListener(OpenAudioPanel);
-            //_settingsHubPanel.LanguageBtn.onClick.AddListener(OpenLanguagePanel);
+            _settingsHubPanel.LanguageBtn.onClick.AddListener(OpenLanguagePanel);
             _settingsHubPanel.QuitGameBtn.onClick.AddListener(QuitGame);
         }
 
@@ -111,7 +110,7 @@
             _settingsHubPanel.ControlsBtn.onClick.RemoveListener(OpenControlsPanel);
             _settingsHubPanel.GameBtn.onClick.RemoveListener(OpenGamePanel);
             _settingsHubPanel.AudioBtn.onClick.RemoveListener(OpenAudioPanel);
-            //_settingsHubPanel.LanguageBtn.onClick.RemoveListener(OpenLanguagePanel);
+            _settingsHubPanel.LanguageBtn.onClick.RemoveListener(OpenLanguagePanel);
             _settingsHubPanel.QuitGameBtn.onClick.RemoveListener(QuitGame);
         }
 
@@ -168,7 +167,7 @@
                 { _controlsPanel, _settingsHubPanel.ControlsBtn },
                 { _gamePanel, _settingsHubPanel.GameBtn },
                 { _audioPanel, _settingsHubPanel.AudioBtn },
-                //{ _languagePanel, _settingsHubPanel.LanguageBtn }
+                { _languagePanel, _settingsHubPanel.LanguageBtn }
             };
 
             InitOptionsButtons();
@@ -202,7 +201,9 @@
             _settingsHubPanel = FindObjectOfType<UI.Settings.SettingsHubPanel>();
             _controlsPanel = FindObjectOfType<UI.Settings.Controls.ControlsPanel>();
             _gamePanel = FindObjectOfType<UI.Settings.Game.GameSettingsPanel>();
-
+            _audioPanel = FindObjectOfType<UI.Settings.Audio.AudioSettingsPanel>();
+            _languagePanel = FindObjectOfType<UI.Settings.Language.LanguageSettingsPanel>();
+            
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
 
@@ -212,6 +213,8 @@
             _settingsHubPanel = _settingsHubPanel ?? FindObjectOfType<UI.Settings.SettingsHubPanel>();
             _controlsPanel = _controlsPanel ?? FindObjectOfType<UI.Settings.Controls.ControlsPanel>();
             _gamePanel = _gamePanel ?? FindObjectOfType<UI.Settings.Game.GameSettingsPanel>();
+            _audioPanel = _audioPanel ?? FindObjectOfType<UI.Settings.Audio.AudioSettingsPanel>();
+            _languagePanel = _languagePanel ?? FindObjectOfType<UI.Settings.Language.LanguageSettingsPanel>();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }

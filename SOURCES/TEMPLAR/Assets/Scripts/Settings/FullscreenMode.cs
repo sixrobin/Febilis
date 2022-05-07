@@ -30,7 +30,7 @@
             }
         }
 
-        protected override StringOption[] Options
+        public override StringOption[] Options
         {
             get
             {

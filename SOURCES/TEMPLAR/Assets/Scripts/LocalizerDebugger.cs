@@ -15,6 +15,16 @@
             
             RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("locSetLanguageIndex", "Set language index.",
                 Localizer.SetCurrentLanguage));
+            
+            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("locShowLanguages", "Shows handled languages.",
+                () =>
+                {
+                    for (int i = 0; i < Localizer.Instance.Languages.Length; ++i)
+                    {
+                        Localizer.Instance.Log(Localizer.Instance.Languages[i], forceVerbose: true);
+                        RSLib.Debug.Console.DebugConsole.LogExternal(Localizer.Instance.Languages[i]);
+                    }
+                }));
         }
     }
 }
