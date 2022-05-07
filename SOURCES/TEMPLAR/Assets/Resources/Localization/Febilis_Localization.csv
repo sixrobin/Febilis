@@ -31,14 +31,14 @@ Controls_SaveChanges_Cancel,No,Non
 ,,
 Settings_Title,General,Général
 Settings_FrameRateTitle,Frame rate,FPS
-Settings_ShakeAmount,Shame amount,Tremblement de l'écran
+Settings_ShakeAmount,Shake amount,Tremblements
 Settings_DeadZone,Dead zone,Zone morte
-Settings_PixelPerfect,Pixel perfect,Pixel perfect
-Settings_ScreenSize,Screen size,Taille de l'écran
-Settings_ScreenMode,Screen mode,Mode de l'écran
+Settings_PixelPerfect,Pixel perfect,Pixel près
+Settings_ScreenSize,Screen size,Écran - Taille
+Settings_ScreenMode,Screen mode,Écran - Mode
 Settings_MonitorIndex,Monitor Index,Écran
-ScreenMode_FullScreen,Fullscreen,Plein écran
-ScreenMode_Maximized,Maximized,Maximisé
+ScreenMode_FullScreenWindow,Full,Plein
+ScreenMode_MaximizedWindow,Maximized,Maximisé
 ScreenMode_Windowed,Windowed,Fenêtré
 Settings_RunInBackground,Run in background,Tourner en arrière-plan
 Settings_ConstrainCursor,Constrain cursor,Confiner le curseur
@@ -52,6 +52,13 @@ VolumeSlider_FootstepsVolume,Footsteps,Pats
 VolumeSlider_UIVolume,UI,Interfaces
 Audio_Reset,Reset defaults,Réinitialiser
 Audio_Save,Save,OK
+,,
+ActionName_Jump,Jump,Sauter
+ActionName_Attack,Attack,Attaquer
+ActionName_Roll,Roll,Rouler
+ActionName_Interact,Interact,Interagir
+ActionName_Heal,Heal,Soigner
+ActionName_Inventory,Inventory,Inventaire
 ,,
 ItemName_Sword,Pale sword,Lame pâle
 ItemDescription_Sword,"A common sword, used by many soldiers due to its ability to respond well at various situations. A blacksmith could upgrade it.","Une épée commune, utilisée par bien des soldats en raison de sa capacité à répondre à toutes les situations. Un forgeron pourrait la rendre plus forte."
@@ -142,3 +149,5 @@ InputTutorial_Interaction,Press {0} to INTERACT,Appuyez sur {0} pour INTERAGIR
 InputTutorial_Heal,Press {0} to HEAL,Appuyez sur {0} pour vous SOIGNER
 InputTutorial_Inventory,Press {0} to OPEN INVENTORY,Appuyez sur {0} pour OUVRIR L'INVENTAIRE
 InputTutorial_Roll,Press {0} to ROLL,Appuyez sur {0} pour ROULER
+,,
+BossName_Boss_RatKing,Rat King,Roi des rats

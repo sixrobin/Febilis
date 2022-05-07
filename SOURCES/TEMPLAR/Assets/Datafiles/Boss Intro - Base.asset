@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss Intro - Base
   m_EditorClassIdentifier: 
   _totalDuration: 5
-  _bossNameAppearanceDelay: 1.3
+  _bossNameAppearanceDelay: 1.6
   _bossNameDuration: 3
   _disallowInputs: 1
   _cameraFocusBoss: 1

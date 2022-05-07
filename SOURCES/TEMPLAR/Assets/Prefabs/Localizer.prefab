@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 1
-  _verbose: 0
+  _verbose: 1
   _overrideLogPrefix:
     _value: 
     _enabled: 0

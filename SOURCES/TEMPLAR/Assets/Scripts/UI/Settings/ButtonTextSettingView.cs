@@ -4,7 +4,7 @@
 
     public abstract class ButtonTextSettingView : SettingView
     {
-        [SerializeField] private RSLib.Framework.GUI.EnhancedButton _btn = null;
+        [SerializeField] protected RSLib.Framework.GUI.EnhancedButton _btn = null;
 
         public override Templar.Settings.Setting Setting => StringRangeSetting;
 
@@ -19,6 +19,12 @@
             RefreshText();
         }
 
+        public override void Localize()
+        {
+            base.Localize();
+            RefreshText();
+        }
+
         protected virtual void OnButtonClicked()
         {
             StringRangeSetting.Value = StringRangeSetting.GetNextOption();
@@ -29,7 +35,16 @@
 
         private void RefreshText()
         {
-            _btn.SetText(StringRangeSetting.Value.HasCustomDisplay ? StringRangeSetting.Value.CustomDisplay : StringRangeSetting.Value.StringValue);
+            string text;
+
+            if (StringRangeSetting.Value.HasCustomDisplay)
+                text = StringRangeSetting.Value.CustomDisplay;
+            else if (Localizer.TryGet($"{Localization.Settings.SCREEN_MODE_PREFIX}{StringRangeSetting.Value.StringValue}", out string localizedText))
+                text = localizedText;
+            else
+                text = StringRangeSetting.Value.StringValue;
+            
+            _btn.SetText(text);
         }
 
 #if UNITY_EDITOR

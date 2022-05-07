@@ -17,6 +17,11 @@
             public const string EMPTY_SLOT_DESCRIPTION = "Inventory_NoItemDescription";
         }
 
+        public static class Boss
+        {
+            public const string BOSS_NAME_PREFIX = "BossName_";
+        }
+        
         public static class Game
         {
             public const string QUIT = "QuitGame";
@@ -49,11 +54,13 @@
             public const string CONTROLS_SAVE_ASK = "Controls_SaveChanges_Ask";
             public const string CONTROLS_SAVE_CONFIRM = "Controls_SaveChanges_Confirm";
             public const string CONTROLS_SAVE_CANCEL = "Controls_SaveChanges_Cancel";
+            public const string CONTROLS_ACTION_NAME_PREFIX = "ActionName_";
             
             // Game settings.
             public const string GAME_TITLE = "Settings_Title";
             public const string GAME_RESET = "Controls_Reset";
             public const string GAME_SAVE = "Controls_Save";
+            public const string SCREEN_MODE_PREFIX = "ScreenMode_";
         }
 
         public static class MainMenu

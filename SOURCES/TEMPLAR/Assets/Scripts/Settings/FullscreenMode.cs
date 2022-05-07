@@ -36,11 +36,11 @@
             {
                 if (_options == null)
                 {
-                    _options = new StringOption[]
+                    _options = new[]
                     {
                         //new StringOption(UnityEngine.FullScreenMode.ExclusiveFullScreen.ToString(), false),
-                        new StringOption(UnityEngine.FullScreenMode.FullScreenWindow.ToString(), false, "FullScreen"),
-                        new StringOption(UnityEngine.FullScreenMode.MaximizedWindow.ToString(), false, "Maximized"),
+                        new StringOption(UnityEngine.FullScreenMode.FullScreenWindow.ToString(), false),
+                        new StringOption(UnityEngine.FullScreenMode.MaximizedWindow.ToString(), false),
                         new StringOption(UnityEngine.FullScreenMode.Windowed.ToString(), true)
                     };
                 }

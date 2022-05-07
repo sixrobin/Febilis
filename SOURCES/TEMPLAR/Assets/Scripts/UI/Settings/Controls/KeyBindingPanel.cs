@@ -37,11 +37,7 @@
             _baseBtn.SetSelectOnRight(_altBtn);
             _altBtn.SetSelectOnLeft(_baseBtn);
 
-            // [TODO] Need some sprites or localized texts for some KeyCodes (like JoystickButton0, LeftAlt etc.).
-            _actionName.text = ActionId.ToString();
-            _baseBtn.SetText(_btns.btn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.btn) : string.Empty);
-            _altBtn.SetText(_btns.altBtn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.altBtn) : string.Empty);
-
+            Localize();
             Show();
         }
 
@@ -85,6 +81,13 @@
             _altBtn.SetText(_btns.altBtn.ToString());
         }
 
+        public void Localize()
+        {
+            _actionName.text = Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{ActionId}");
+            _baseBtn.SetText(_btns.btn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.btn) : string.Empty);
+            _altBtn.SetText(_btns.altBtn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.altBtn) : string.Empty);
+        }
+        
         public void Show()
         {
             gameObject.SetActive(true);

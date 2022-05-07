@@ -188,8 +188,8 @@
             _assignKeyScreen.SetActive(true);
 
             string assignKeyTextFormat = Localizer.Get(alt ? Localization.Settings.CONTROLS_ASSIGN_ALT_BUTTON_FORMAT : Localization.Settings.CONTROLS_ASSIGN_BUTTON_FORMAT);
-            // TODO: Localize action Id.
-            _assignKeyText.text = string.Format(assignKeyTextFormat, $"<color=#{_assignedKeyTextColor.HexCode}>{bindingPanel.ActionId}</color>");
+            string localizedActionId = Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{bindingPanel.ActionId}");
+            _assignKeyText.text = string.Format(assignKeyTextFormat, $"<color=#{_assignedKeyTextColor.HexCode}>{localizedActionId}</color>");
             
             InputManager.AssignKey(_editedMap, _currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
@@ -228,6 +228,10 @@
             
             _resetBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_RESET));
             _saveBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_SAVE));
+
+            for (int i = 0; i < _bindingPanels.Length; ++i)
+                if (!string.IsNullOrEmpty(_bindingPanels[i].ActionId))
+                   _bindingPanels[i].Localize();
         }
         
         protected override void Start()
