@@ -111,10 +111,10 @@
             CoinController.CoinDisabled += OnCoinDisabled;
             ItemWorldController.ItemPickedUp += OnItemPickedUp;
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("LootForceChance", "Forces every random loot to happen.", (state) => _forceLootChance = state));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ToggleCoinsOnClick", "Spawns coins on click position.", () => _spawnCoinsOnClickMode = !_spawnCoinsOnClickMode));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("SetItemOnClick", "Spawns item on click position.", (id) => _spawnItemOnClickMode = id));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SetItemOnClickNull", "Cancel item spawn on click position.", () => _spawnItemOnClickMode = string.Empty));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("LootForceChance", "Forces every random loot to happen.", state => _forceLootChance = state);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ToggleCoinsOnClick", "Spawns coins on click position.", () => _spawnCoinsOnClickMode = !_spawnCoinsOnClickMode);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<string>("SetItemOnClick", "Spawns item on click position.", id => _spawnItemOnClickMode = id);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("SetItemOnClickNull", "Cancel item spawn on click position.", () => _spawnItemOnClickMode = string.Empty);
         }
 
         private void Update()

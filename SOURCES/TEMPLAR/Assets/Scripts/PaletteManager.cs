@@ -82,7 +82,7 @@
             if (!IsValid)
                 return;
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<int>("RampIndex", "Sets the color ramp index.", (index) => SetPalette(index)));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<int>("RampIndex", "Sets the color ramp index.", SetPalette);
         }
     }
 }

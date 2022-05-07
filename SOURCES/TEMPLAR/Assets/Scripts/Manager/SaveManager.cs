@@ -217,14 +217,13 @@
                 new byte[] { 0x5e, 0x67, 0x6c, 0xe3, 0xbf, 0x54, 0xb2, 0x45, 0xbc, 0xcc, 0x9e, 0x2d, 0xc8, 0xa0, 0xab, 0xca }
             );
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveGame", "Tries to save game progression.", () => TrySave()));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("SaveGame", "Tries to save game progression, specifying encryption state.", (encryptSave) => TrySave(encryptSave)));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadGame", "Tries to load game progression.", () => TryLoad()));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("EraseGameSave", "Erases game save file if it exists.", () => EraseSave()));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("OpenSaveFolder", "Opens game save file.", OpenSaveFolder));
-
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("SetSaveEncryption", "Sets save encryption state.", (value) => _encryptSave = value));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ToggleSaveEncryption", "Toggles save encryption state.", () => _encryptSave = !_encryptSave));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("SaveGame", "Tries to save game progression.", () => TrySave());
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("SaveGame", "Tries to save game progression, specifying encryption state.", encryptSave => TrySave(encryptSave));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("LoadGame", "Tries to load game progression.", () => TryLoad());
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("EraseGameSave", "Erases game save file if it exists.", () => EraseSave());
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("OpenSaveFolder", "Opens game save file.", OpenSaveFolder);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("SetSaveEncryption", "Sets save encryption state.", value => _encryptSave = value);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ToggleSaveEncryption", "Toggles save encryption state.", () => _encryptSave = !_encryptSave);
         }
 
         private void OnValidate()

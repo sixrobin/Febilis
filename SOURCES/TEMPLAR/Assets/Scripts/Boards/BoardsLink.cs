@@ -146,7 +146,7 @@
 
         private void Awake()
         {
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>("VisualizeBoardsLinks", "Shows the board links hitboxes.", DebugDisplayVisualizers));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("VisualizeBoardsLinks", "Shows the board links hitboxes.", DebugDisplayVisualizers);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -192,13 +192,13 @@
                 _onFightWon?.Invoke();
             }
             
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("BossWin", "Instantly wins current boss fight.", () =>
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("BossWin", "Instantly wins current boss fight.", () =>
             {
                 if (_bossesToKillLeft > 0)
                     for (int i = FightBosses.Length - 1; i >= 0; --i)
                         if (!FightBosses[i].IsDead)
                             FightBosses[i].HealthCtrl.DebugDamageInfinite();
-            }));
+            });
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

@@ -160,10 +160,7 @@
 
             SharedTriggerablesByColliders.Add(_collider2D, this);
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command(
-                "ResetTriggerables",
-                "Reset all triggerable objects.",
-                () => FindObjectsOfType<TriggerableObject>().ToList().ForEach(o => o.ResetTriggerable())));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ResetTriggerables", "Reset all triggerable objects.", () => FindObjectsOfType<TriggerableObject>().ToList().ForEach(o => o.ResetTriggerable()));
         }
 
         private void OnDestroy()

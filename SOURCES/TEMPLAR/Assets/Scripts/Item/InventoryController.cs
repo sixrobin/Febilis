@@ -147,14 +147,14 @@
 
         private void Awake()
         {
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("AddItem", "Adds an item copy to the inventory.", (id) => AddItem(id)));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string, int>("AddItem", "Adds item(s) copy(ies) to the inventory.", (id, quantity) => AddItem(id, quantity)));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string>("RemoveItem", "Remove an item copy from the inventory.", RemoveItem));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<string, int>("RemoveItem", "Remove item(s) copy(ies) from the inventory.", RemoveItem));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ClearInventory", "Clears the inventory.", Clear));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ClearInventoryForced", "Deletes all inventory items.", ForceClear));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LogInventoryState", "Logs the inventory state to the Unity console.", LogInventoryState));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("AddAllItems", $"Adds all items of {Database.ItemDatabase.Instance.GetType().Name} to the inventory.", DebugAddAllItems));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<string>("AddItem", "Adds an item copy to the inventory.", id => AddItem(id));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<string, int>("AddItem", "Adds item(s) copy(ies) to the inventory.", (id, quantity) => AddItem(id, quantity));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<string>("RemoveItem", "Remove an item copy from the inventory.", RemoveItem);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<string, int>("RemoveItem", "Remove item(s) copy(ies) from the inventory.", RemoveItem);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ClearInventory", "Clears the inventory.", Clear);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ClearInventoryForced", "Deletes all inventory items.", ForceClear);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("LogInventoryState", "Logs the inventory state to the Unity console.", LogInventoryState);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("AddAllItems", $"Adds all items of {Database.ItemDatabase.Instance.GetType().Name} to the inventory.", DebugAddAllItems);
         }
 
         private void DebugAddAllItems()

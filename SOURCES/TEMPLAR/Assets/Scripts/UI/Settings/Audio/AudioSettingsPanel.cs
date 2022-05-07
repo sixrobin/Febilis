@@ -130,7 +130,7 @@
             base.Start();
 
             _resetSettingsBtn.onClick.AddListener(ResetSettings);
-            _saveSettingsBtn.onClick.AddListener(Manager.SettingsManager.Save); // TODO: Save Volume only?
+            _saveSettingsBtn.onClick.AddListener(Manager.SettingsManager.Save);
             _saveSettingsBtn.onClick.AddListener(OnBackButtonPressed);
         }
 
@@ -139,7 +139,7 @@
             base.OnDestroy();
 
             _resetSettingsBtn.onClick.RemoveListener(ResetSettings);
-            _saveSettingsBtn.onClick.RemoveListener(Manager.SettingsManager.Save); // TODO: Save Volume only?
+            _saveSettingsBtn.onClick.RemoveListener(Manager.SettingsManager.Save);
             _saveSettingsBtn.onClick.RemoveListener(OnBackButtonPressed);
         }
         

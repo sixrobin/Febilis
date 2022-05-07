@@ -242,8 +242,7 @@
 
             Manager.SettingsManager.PixelPerfect.ValueChanged += OnPixelPerfectValueChanged;
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command(
-                "PixelPerfectToggle", "Toggles pixel perfect camera.", () => GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled = !GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("PixelPerfectToggle", "Toggles pixel perfect camera.", () => GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled = !GetComponent<UnityEngine.U2D.PixelPerfectCamera>().enabled);
         }
 
         private void LateUpdate()

@@ -242,7 +242,6 @@
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
-            // [TMP] We probably want a puff VFX made especially for hurt feedback.
             Transform jumpPuffInstance = RSLib.Framework.Pooling.Pool.Get(_jumpPuffPrefab).transform;
             jumpPuffInstance.position = transform.position;
             jumpPuffInstance.transform.SetScaleX(dir);
@@ -404,7 +403,7 @@
 
             InitAnimatorOverrideController();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("PlayerSleep", "Plays sleep animation.", PlaySleepAnimation));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("PlayerSleep", "Plays sleep animation.", PlaySleepAnimation);
         }
 
         private void Update()

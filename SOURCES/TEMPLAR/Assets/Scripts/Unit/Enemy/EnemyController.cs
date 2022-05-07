@@ -285,10 +285,7 @@
             EnemyView.Init(_id);
             StartCoroutine(UpdateSleepCoroutine());
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command(
-                "ResetEnemies",
-                "Reset all enemies.",
-                () => FindObjectsOfType<EnemyController>().ToList().ForEach(o => o.ResetEnemy())));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ResetEnemies", "Reset all enemies.", () => FindObjectsOfType<EnemyController>().ToList().ForEach(o => o.ResetEnemy()));
         }
 
         private void Start()

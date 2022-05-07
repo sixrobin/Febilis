@@ -121,10 +121,10 @@
 
             CtrlDatas.ValuesValidated += OnDatasValuesChanged;
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float, float>("PositionAdd", $"Adds a vector to the player position.", (x, y) => { transform.position += new Vector3(x, y); }));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float, float>("PositionSet", $"Sets the player position.", (x, y) => { transform.position = new Vector3(x, y); }));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float>("MultiplySpeed", $"Multiplies player speed.", (x) =>  _debugSpeedMult = x ));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<float>("MultiplyJump", $"Multiplies player jump.", (x) =>  _debugJumpMult = x ));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<float, float>("PositionAdd", "Adds a vector to the player position.", (x, y) => { transform.position += new Vector3(x, y); });
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<float, float>("PositionSet", "Sets the player position.", (x, y) => { transform.position = new Vector3(x, y); });
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<float>("MultiplySpeed", "Multiplies player speed.", x => _debugSpeedMult = x);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<float>("MultiplyJump", "Multiplies player jump.", x => _debugJumpMult = x);
 
             Initialized = true;
         }

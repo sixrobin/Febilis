@@ -383,17 +383,15 @@
             InitNavigation();
             UpdateContent();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("ClearInventoryView", "Instantly clears the inventory view.", Clear));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("UpdateInventoryView", "Instantly refreshes the inventory view based on inventory content.", UpdateContent));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command<bool>(
-                "ForceShowItemsQuantity",
-                "Forces inventory to display items quantity.",
-                (show) =>
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("ClearInventoryView", "Instantly clears the inventory view.", Clear);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("UpdateInventoryView", "Instantly refreshes the inventory view based on inventory content.", UpdateContent);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("ForceShowItemsQuantity", "Forces inventory to display items quantity.",
+                show =>
                 {
                     DebugForceShowItemsQuantity = show;
                     for (int i = _slotsViews.Length - 1; i >= 0; --i)
                         _slotsViews[i].Refresh();
-                }));
+                });
         }
 
         private void Update()

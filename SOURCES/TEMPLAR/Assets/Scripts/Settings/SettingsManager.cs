@@ -241,12 +241,12 @@
             Save();
             RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("SaveSettings", "Saves settings.", Save));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadSettings", "Tries to load settings.", () => TryLoad()));
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LoadAudioSettings", "Tries to load settings.", () =>
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("SaveSettings", "Saves settings.", Save);
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("LoadSettings", "Tries to load settings.", () => TryLoad());
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("LoadAudioSettings", "Tries to load settings.", () =>
             {
                 TryLoadAudioSettings(null);
-            }));
+            });
         }
 
         private void Start()

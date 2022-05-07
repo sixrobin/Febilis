@@ -73,10 +73,7 @@
                    _spritesAlphaFade.gameObject.SetActive(true);
             }
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand(new RSLib.Debug.Console.Command("LocksForceUnlock", "Forces every locks to open on interaction.", () =>
-            {
-                FindObjectsOfType<Lock>().ToList().ForEach(o => o._debugForceUnlock = true);
-            }));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand("LocksForceUnlock", "Forces every locks to open on interaction.", () => FindObjectsOfType<Lock>().ToList().ForEach(o => o._debugForceUnlock = true));
         }
 
         public void DebugUnlock()
