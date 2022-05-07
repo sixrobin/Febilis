@@ -22,6 +22,7 @@
         [Header("ROAR")]
         [SerializeField, Range(0f, 1f)] private float _roarTrauma = 0.1f;
         [SerializeField, Min(0f)] private float _roarMaxDuration = 1f;
+        [SerializeField] private RSLib.Audio.ClipProvider _roarClipProvider = null;
         
         public string EnemyId { get; private set; }
 
@@ -106,6 +107,8 @@
 
         private System.Collections.IEnumerator RoarCoroutine(float maxDuration)
         {
+            RSLib.Audio.AudioManager.PlaySound(_roarClipProvider);
+            
             for (float t = 0f; t < maxDuration; t += Time.deltaTime)
             {
                 Manager.GameManager.CameraCtrl.GetShake("Small").SetTrauma(_roarTrauma);

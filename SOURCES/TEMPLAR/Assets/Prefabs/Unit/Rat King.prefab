@@ -239,6 +239,36 @@ PrefabInstance:
       propertyPath: _deathFreezeFrameDuration
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _roarClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: b7ccb34e9443c19458dc4940c3a9fadd,
+        type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _attackClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d797c0e92a07a246beab8c210be939f,
+        type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _deathClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 63dbc78e4c67c744aaf16b51c1f59fbf,
+        type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _stunClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 39d81c0d2ddcee842be621db0e78f864,
+        type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _footstepClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 78c997279a1b9d243828512ccd348449,
+        type: 2}
     - target: {fileID: 7629123961653350815, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: m_Controller

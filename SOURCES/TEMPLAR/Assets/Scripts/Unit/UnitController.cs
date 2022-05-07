@@ -125,6 +125,8 @@
 
         private System.Collections.IEnumerator StunCoroutine(float dur, float delay, System.Func<bool> conditionalDelay, System.Action callback = null)
         {
+            UnitView.PlayStunAudio();
+            
             yield return RSLib.Yield.SharedYields.WaitForSeconds(delay);
             yield return new WaitUntil(conditionalDelay);
 

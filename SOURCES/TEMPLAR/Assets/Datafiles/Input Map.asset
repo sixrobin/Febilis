@@ -18,8 +18,8 @@ MonoBehaviour:
     _altBtn: 32
     _userAssignable: 1
   - _actionId: Attack
-    _btn: 355
-    _altBtn: 355
+    _btn: 332
+    _altBtn: 323
     _userAssignable: 1
   - _actionId: Roll
     _btn: 331

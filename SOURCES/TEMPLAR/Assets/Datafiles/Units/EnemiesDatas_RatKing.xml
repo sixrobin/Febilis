@@ -67,7 +67,7 @@
                      <LastActionsCheck ActionsCount="1">
                         <Exclude>Charge</Exclude>
                      </LastActionsCheck>
-                     <PlayerInRange Range="4" Negate="true"/>
+                     <PlayerInRange Range="3.5" Negate="true"/>
                   </Conditions>
                   <CantBeHurt/>
                   <AnticipationDuration>1.2</AnticipationDuration>

@@ -32,6 +32,7 @@
         [SerializeField] protected RSLib.Audio.ClipProvider _attackClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _footstepClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _hurtClipProvider = null;
+        [SerializeField] private RSLib.Audio.ClipProvider _stunClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _deathClipProvider = null;
 
         private System.Collections.IEnumerator _blinkSpriteColorDelayedCoroutine;
@@ -107,6 +108,11 @@
                 _stunStars.transform.SetLocalPositionX(_stunStarsInitX * dir);
                 _stunStars.SetActive(true);
             }
+        }
+
+        public void PlayStunAudio()
+        {
+            RSLib.Audio.AudioManager.PlaySound(_stunClipProvider);
         }
 
         public virtual void OnStunAnimationOver()

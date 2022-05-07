@@ -58,7 +58,7 @@
         {
             base.OnEnter();
 
-            // Reset datas.
+            // Reset data.
             _sideCollision = false;
             _anticipationTimer = 0f;
             _chargeTimer = 0f;
