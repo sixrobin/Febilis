@@ -233,10 +233,10 @@
             if (!IsValid)
                 return;
 
+            LoadInputs();
+            
             if (!TryLoad())
                 Init();
-
-            LoadInputs();
 
             Save();
             RSLib.Framework.InputSystem.InputManager.SaveCurrentMap();
