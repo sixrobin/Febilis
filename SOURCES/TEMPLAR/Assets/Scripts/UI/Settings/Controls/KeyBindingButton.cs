@@ -6,21 +6,25 @@
 
     public class KeyBindingButton : RSLib.Framework.GUI.EnhancedButton
     {
-        ///// <summary>Mimics the behaviour of OnPointerEnter event specified in the Button component when Selectable is selected by joystick navigation.</summary>
-        ///// <param name="eventData">Navigation event data.</param>
-        //public override void OnSelect(UnityEngine.EventSystems.BaseEventData eventData)
-        //{
-        //    base.OnSelect(eventData);
-        //    OnPointerEnter(null);
-        //}
+        public event System.Action<KeyBindingButton> Selected;
 
-        ///// <summary>Mimics the behaviour of OnPointerExit event specified in the Button component when Selectable is selected by joystick navigation.</summary>
-        ///// <param name="eventData">Navigation event data.</param>
-        //public override void OnDeselect(UnityEngine.EventSystems.BaseEventData eventData)
-        //{
-        //    base.OnDeselect(eventData);
-        //    OnPointerExit(null);
-        //}
+        /// <summary>Mimics the behaviour of OnPointerEnter event specified in the Button component when Selectable is selected by joystick navigation.</summary>
+        /// <param name="eventData">Navigation event data.</param>
+        public override void OnSelect(UnityEngine.EventSystems.BaseEventData eventData)
+        {
+            base.OnSelect(eventData);
+            OnPointerEnter(null);
+            
+            Selected?.Invoke(this);
+        }
+
+        // /// <summary>Mimics the behaviour of OnPointerExit event specified in the Button component when Selectable is selected by joystick navigation.</summary>
+        // /// <param name="eventData">Navigation event data.</param>
+        // public override void OnDeselect(UnityEngine.EventSystems.BaseEventData eventData)
+        // {
+        //     base.OnDeselect(eventData);
+        //     OnPointerExit(null);
+        // }
     }
 
 #if UNITY_EDITOR

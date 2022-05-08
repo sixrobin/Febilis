@@ -11,11 +11,11 @@
         [SerializeField] private KeyBindingButton _altBtn = null;
 
         private (KeyCode btn, KeyCode altBtn) _btns;
-
+        
         public string ActionId { get; private set; }
 
-        public UnityEngine.UI.Button BaseBtnButton => _baseBtn;
-        public UnityEngine.UI.Button AltBtnButton => _altBtn;
+        public KeyBindingButton BaseBtnButton => _baseBtn;
+        public KeyBindingButton AltBtnButton => _altBtn;
 
         /// <summary>
         /// Redirects the UI navigation to the base button, so that the panel can be set as a selectable.

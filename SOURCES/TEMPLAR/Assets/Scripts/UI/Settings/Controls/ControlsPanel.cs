@@ -9,8 +9,11 @@
 #endif
 
     [DisallowMultipleComponent]
-    public class ControlsPanel : SettingsPanelBase
+    public class ControlsPanel : SettingsPanelBase, IScrollViewClosestItemGetter
     {
+        private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.05f;
+        private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.1f;
+        
         [Header("TEXT REFS")]
         [SerializeField] private TMPro.TextMeshProUGUI _title = null;
         [SerializeField] private TMPro.TextMeshProUGUI _actionTitle = null;
@@ -19,7 +22,10 @@
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
 
         [Header("REFS")]
+        [SerializeField] private RectTransform _settingsViewport = null;
         [SerializeField] private UnityEngine.UI.Scrollbar _controlsScrollBar = null;
+        [SerializeField] private RectTransform _scrollHandle = null;
+        [SerializeField] private ScrollbarToScrollViewNavigationHandler _scrollbarToScrollViewNavigationHandler = null;
         [SerializeField] private KeyBindingPanel[] _bindingPanels = null;
         [SerializeField] private GameObject _assignKeyScreen = null;
         [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
@@ -40,8 +46,36 @@
 
         public override GameObject FirstSelected => BackBtn.gameObject;
 
+        public ScrollbarToScrollViewNavigationHandler ScrollbarToScrollViewNavigationHandler => _scrollbarToScrollViewNavigationHandler;
+        
         public bool UncommittedChanges { get; private set; }
 
+        public GameObject GetClosestItemToScrollbar()
+        {
+            RectTransform closestSlot = null;
+            float sqrClosestDist = Mathf.Infinity;
+
+            Vector3[] scrollHandleWorldCorners = new Vector3[4];
+            _scrollHandle.GetWorldCorners(scrollHandleWorldCorners);
+            Vector3 scrollHandleCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(scrollHandleWorldCorners);
+
+            foreach (RectTransform target in _bindingPanels.Where(o => o.gameObject.activeSelf).Select(o => o.AltBtnButton.transform as RectTransform))
+            {
+                Vector3[] slotWorldCorners = new Vector3[4];
+                target.GetWorldCorners(slotWorldCorners);
+                Vector3 slotCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(slotWorldCorners);
+
+                float sqrTargetDist = (slotCenterWorld - scrollHandleCenterWorld).sqrMagnitude;
+                if (sqrTargetDist > sqrClosestDist)
+                    continue;
+
+                sqrClosestDist = sqrTargetDist;
+                closestSlot = target;
+            }
+
+            return closestSlot.gameObject;
+        }
+        
         public override void Close()
         {
             if (!UncommittedChanges)
@@ -125,6 +159,11 @@
                 bool first = i == 0;
                 bool last = i == _bindingPanels.Length - 1 || !_bindingPanels[i + 1].gameObject.activeSelf;
 
+                _bindingPanels[i].BaseBtnButton.Selected += OnBindingPanelSelected;
+                _bindingPanels[i].AltBtnButton.Selected += OnBindingPanelSelected;
+                
+                _bindingPanels[i].AltBtnButton.SetSelectOnRight(_controlsScrollBar);
+                
                 if (first)
                 {
                     _bindingPanels[i].BaseBtnButton.SetSelectOnUp(BackBtn);
@@ -149,7 +188,7 @@
 
                 _bindingPanels[i].BaseBtnButton.SetSelectOnDown(_resetBindingsBtn);
                 _bindingPanels[i].AltBtnButton.SetSelectOnDown(_saveBindingsBtn);
-
+                
                 break;
             }
 
@@ -161,7 +200,20 @@
             _saveBindingsBtn.SetSelectOnDown(_quitBtn);
             _quitBtn.SetSelectOnUp(_saveBindingsBtn);
             
+            _controlsScrollBar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            _controlsScrollBar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
+            ScrollbarToScrollViewNavigationHandler.SetClosestItemGetter(this);
+            
             _navigationInit = true;
+        }
+
+        private void OnBindingPanelSelected(KeyBindingButton keyBindingButton)
+        {
+            RSLib.Helpers.AdjustScrollViewToFocusedItem(keyBindingButton.transform as RectTransform,
+                                                        _settingsViewport,
+                                                        _controlsScrollBar,
+                                                        SCROLL_BAR_AUTO_REFRESH_VALUE,
+                                                        SCROLL_BAR_AUTO_REFRESH_MARGIN);
         }
 
         private void OnKeyAssigned(string actionId, KeyCode btn, bool alt)
