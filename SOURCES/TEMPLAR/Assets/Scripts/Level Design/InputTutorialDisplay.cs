@@ -64,7 +64,7 @@
 
             if (show)
                 Localize();
-            
+
             gameObject.SetActive(show);
         }
         
@@ -177,11 +177,14 @@
                     playerCtrl.Interacter.Interacted += (interactable) => RaiseValidationEvent(ValidationType.INTERACTION);
                     break;
             }
+            
+            _text.enabled = true; // Hidden on awake, reenable on start.
         }
 
         private void Awake()
         {
             ValidatedTypes.Clear();
+            _text.enabled = false; // Hide on awake, then enable on start.
 
             Localizer.LanguageChanged += Localize;
         }
