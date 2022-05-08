@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6630533524762530649}
   - component: {fileID: 6630533524762530663}
   - component: {fileID: 6630533524762530662}
+  - component: {fileID: 6596640360837723118}
   m_Layer: 5
   m_Name: Heal UI
   m_TagString: Untagged
@@ -74,3 +75,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6596640360837723118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6630533524762530648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78120ebbe3e8044dad6f234600d39f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 6630533524762530662}
+  _filledSprite: {fileID: 21300000, guid: 8743adb5901665c4c80ab5c7b9185a09, type: 3}
+  _emptySprite: {fileID: 21300000, guid: 0fb9bd3bc8972c047bae7a9eda56f359, type: 3}

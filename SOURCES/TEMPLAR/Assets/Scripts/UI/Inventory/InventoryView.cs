@@ -66,7 +66,8 @@
             return !RSLib.Framework.InputSystem.InputManager.IsAssigningKey
                 && !Dialogue.DialogueManager.DialogueRunning
                 && !Manager.BoardsTransitionManager.IsInBoardTransition
-                && !Manager.OptionsManager.AnyPanelOpen();
+                && !Manager.OptionsManager.AnyPanelOpen()
+                && !Manager.RampFadeManager.IsFading;
         }
 
         public override void Open()

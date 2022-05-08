@@ -14,7 +14,7 @@
         [SerializeField] private CheckpointView _checkpointView = null;
         [SerializeField] private GameObject _highlight = null;
 
-        [Header("CHECKPOINT DATAS")]
+        [Header("CHECKPOINT DATA")]
         [SerializeField] private Vector2 _respawnOffset = Vector2.zero;
         
         [Header("DEBUG COLOR")]

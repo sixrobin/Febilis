@@ -7,19 +7,28 @@
 
     public class PlayerHealthController : UnitHealthController
     {
-        //[SerializeField] private int _baseHealsLeft = 2;
         [SerializeField] private int _healAmount = 50;
 
         [Header("DEBUG")]
         [SerializeField] private bool _debugMode = false;
 
-        public int HealsLeft
+        public event System.Action PotionsCountChanged;
+        
+        public int MaxPotionsCount
         {
-            get => Manager.GameManager.InventoryCtrl?.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION) ?? 10;
+            get => Manager.GameManager.InventoryCtrl != null
+                   ? Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION)
+                   : 2;
+        }
+
+        private int _availablePotionsCount;
+        public int AvailablePotionsCount
+        {
+            get => _availablePotionsCount;
             set
             {
-                if (!DebugMode)
-                    Manager.GameManager.InventoryCtrl.RemoveItem(Item.InventoryController.ITEM_ID_POTION);
+                _availablePotionsCount = Mathf.Clamp(value, 0, MaxPotionsCount);
+                PotionsCountChanged?.Invoke();
             }
         }
 
@@ -58,11 +67,16 @@
                 && !PlayerCtrl.JumpCtrl.IsInLandImpact
                 && !PlayerCtrl.IsBeingHurt
                 && !PlayerCtrl.IsHealing
-                && (!PlayerCtrl.HealthCtrl.HealthSystem.IsFull && HealsLeft > 0 || DebugMode)
+                && (!PlayerCtrl.HealthCtrl.HealthSystem.IsFull && AvailablePotionsCount > 0 || DebugMode)
                 && PlayerCtrl.CollisionsCtrl.Below
                 && !Manager.BoardsTransitionManager.IsInBoardTransition;
         }
 
+        public void RestorePotions()
+        {
+            AvailablePotionsCount = MaxPotionsCount;
+        }
+        
         public override void Kill()
         {
             if (GodMode)
@@ -76,16 +90,39 @@
             if (_init)
                 return;
 
+            Manager.GameManager.InventoryCtrl.InventoryContentChanged += OnInventoryContentChanged;
+            
             UnitHealthChanged += onUnitHealthChanged;
             UnitKilled += onUnitKilled;
 
             PlayerCtrl = playerCtrl;
             Init(PlayerCtrl, maxHealth, initHealth);
-
+            
+            RestorePotions();
+            
             RSLib.Debug.Console.DebugConsole.OverrideCommand("tgm", "Toggles god mode.", () => GodMode = !GodMode);
             RSLib.Debug.Console.DebugConsole.OverrideCommand<int>("heal", "Heals of a given amount.", amount => HealthSystem.Heal(Mathf.Max(0, amount)));
             RSLib.Debug.Console.DebugConsole.OverrideCommand<int>("health", "Sets health.", value => HealthSystem.CurrentHealth = value);
             RSLib.Debug.Console.DebugConsole.OverrideCommand("kill", "Kills player.", () => HealthSystem.Damage(int.MaxValue));
+        }
+
+        private void OnInventoryContentChanged(Templar.Item.InventoryController.InventoryContentChangedEventArgs args)
+        {
+            if (args.Item.Datas.Id != Item.InventoryController.ITEM_ID_POTION)
+                return;
+            
+            if (args.NewQuantity > args.PrevQuantity)
+                AvailablePotionsCount += args.NewQuantity - args.PrevQuantity;
+            else
+                AvailablePotionsCount = Mathf.Min(AvailablePotionsCount, MaxPotionsCount);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+            if (Manager.GameManager.Exists())
+                Manager.GameManager.InventoryCtrl.InventoryContentChanged -= OnInventoryContentChanged;
         }
     }
 

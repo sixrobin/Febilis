@@ -74,12 +74,7 @@
         void ICheckpointListener.OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpointCtrl)
         {
             HealthCtrl.HealFull();
-
-            // [TMP] Constant value of 2 max potions.
-            int currentPotionsQuantity = Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_POTION);
-            if (currentPotionsQuantity < 2)
-                Manager.GameManager.InventoryCtrl.AddItem(Item.InventoryController.ITEM_ID_POTION, 2 - currentPotionsQuantity, showPickupNotification: false);
-
+            PlayerHealthCtrl.RestorePotions();
             AllowInputs(true);
         }
 
@@ -589,8 +584,8 @@
 
             if (!PlayerHealthCtrl.DebugMode)
             {
-                UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.HealsLeft > 0, "Healing has been allowed while there are no cells left.");
-                PlayerHealthCtrl.HealsLeft--;
+                UnityEngine.Assertions.Assert.IsTrue(PlayerHealthCtrl.AvailablePotionsCount > 0, "Healing has been allowed while there are no cells left.");
+                PlayerHealthCtrl.AvailablePotionsCount--;
             }
 
             HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
