@@ -8,6 +8,7 @@
          <Layers>
             <LayerName>ENEMY</LayerName>
             <LayerName>PICKUP</LayerName>
+            <LayerName>SECRET_WALL</LayerName>
          </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
@@ -35,6 +36,7 @@
          <Layers>
             <LayerName>ENEMY</LayerName>
             <LayerName>PICKUP</LayerName>
+            <LayerName>SECRET_WALL</LayerName>
          </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
@@ -62,6 +64,7 @@
          <Layers>
             <LayerName>ENEMY</LayerName>
             <LayerName>PICKUP</LayerName>
+            <LayerName>SECRET_WALL</LayerName>
          </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.05</FreezeFrameDur>
@@ -90,6 +93,7 @@
          <Layers>
             <LayerName>ENEMY</LayerName>
             <LayerName>PICKUP</LayerName>
+            <LayerName>SECRET_WALL</LayerName>
          </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.08</FreezeFrameDur>
@@ -120,6 +124,7 @@
          <Layers>
             <LayerName>ENEMY</LayerName>
             <LayerName>PICKUP</LayerName>
+            <LayerName>SECRET_WALL</LayerName>
          </Layers>
          <DirComputationType>ATTACK_DIR</DirComputationType>
          <FreezeFrameDur>0.1</FreezeFrameDur>

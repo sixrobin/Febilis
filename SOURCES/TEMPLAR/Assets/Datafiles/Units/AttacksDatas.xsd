@@ -89,6 +89,7 @@
          <xs:enumeration value="PLAYER"/>
          <xs:enumeration value="ENEMY"/>
          <xs:enumeration value="PICKUP"/>
+         <xs:enumeration value="SECRET_WALL"/>
          <xs:enumeration value="UNITS"/>
          <xs:enumeration value="ALL"/>
       </xs:restriction>

@@ -23,6 +23,7 @@
                 { typeof(Flags.ItemIdentifier), new Flags.FlagsList(typeof(Flags.ItemIdentifier)) },
                 { typeof(Flags.LeverIdentifier), new Flags.FlagsList(typeof(Flags.LeverIdentifier), true) },
                 { typeof(Flags.LockIdentifier), new Flags.FlagsList(typeof(Flags.LockIdentifier)) },
+                { typeof(Flags.SecretWallIdentifier), new Flags.FlagsList(typeof(Flags.SecretWallIdentifier)) },
                 { typeof(Flags.ZoneIdentifier), new Flags.FlagsList(typeof(Flags.ZoneIdentifier)) }
             };
 
