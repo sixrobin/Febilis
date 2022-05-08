@@ -91,5 +91,10 @@
             public const string OVERWRITE_SAVE_CONFIRM = "MainMenu_OverwriteSave_Confirm";
             public const string OVERWRITE_SAVE_CANCEL = "MainMenu_OverwriteSave_Cancel";
         }
+
+        public static class KeyCode
+        {
+            public const string KEYCODE_PREFIX = "KeyCode_";
+        }
     }
 }

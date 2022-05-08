@@ -2,17 +2,10 @@
 {
     using UnityEngine;
 
-    public static class KeyCodeShortNames
+    public static class KeyCodeSymbols
     {
-        private static readonly System.Collections.Generic.Dictionary<KeyCode, string> s_shortNames = new System.Collections.Generic.Dictionary<KeyCode, string>(new RSLib.Framework.Comparers.EnumComparer<KeyCode>())
+        private static readonly System.Collections.Generic.Dictionary<KeyCode, string> s_symbols = new System.Collections.Generic.Dictionary<KeyCode, string>(new RSLib.Framework.Comparers.EnumComparer<KeyCode>())
         {
-            { KeyCode.Escape, "Esc" },
-            { KeyCode.LeftAlt, "Alt L" },
-            { KeyCode.RightAlt, "Alt R" },
-            { KeyCode.LeftControl, "Ctrl L" },
-            { KeyCode.RightControl, "Ctrl R" },
-            { KeyCode.LeftShift, "Shift L" },
-            { KeyCode.RightShift, "Shift R" },
             { KeyCode.Ampersand, "&" },
             { KeyCode.Asterisk, "*" },
             { KeyCode.At, "@" },
@@ -51,9 +44,9 @@
             { KeyCode.Underscore, "_" },
         };
 
-        public static string GetShortName(KeyCode keyCode)
+        public static string GetSymbol(KeyCode keyCode)
         {
-            return s_shortNames.TryGetValue(keyCode, out string shortName) ? shortName : keyCode.ToString();
+            return s_symbols.TryGetValue(keyCode, out string shortName) ? shortName : keyCode.ToString();
         }
     }
 }

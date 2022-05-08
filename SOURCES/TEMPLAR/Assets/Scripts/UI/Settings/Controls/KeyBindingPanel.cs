@@ -84,8 +84,17 @@
         public void Localize()
         {
             _actionName.text = Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{ActionId}");
-            _baseBtn.SetText(_btns.btn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.btn) : string.Empty);
-            _altBtn.SetText(_btns.altBtn != KeyCode.None ? KeyCodeShortNames.GetShortName(_btns.altBtn) : string.Empty);
+
+            LocalizeKeyCode(BaseBtnButton, _btns.btn);
+            LocalizeKeyCode(AltBtnButton, _btns.altBtn);
+        }
+
+        private void LocalizeKeyCode(KeyBindingButton button, KeyCode keycode)
+        {
+            if (Localizer.TryGet($"{Localization.KeyCode.KEYCODE_PREFIX}{keycode}", out string localizedKeyCode))
+                button.SetText(localizedKeyCode);
+            else
+                button.SetText(keycode != KeyCode.None ? KeyCodeSymbols.GetSymbol(keycode) : string.Empty);
         }
         
         public void Show()

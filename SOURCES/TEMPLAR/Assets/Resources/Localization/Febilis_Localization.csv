@@ -155,3 +155,26 @@ InputTutorial_Inventory,{0} to OPEN INVENTORY,{0} pour OUVRIR L'INVENTAIRE
 InputTutorial_Roll,{0} to ROLL,{0} pour ROULER
 ,,
 BossName_Boss_RatKing,Rat King,Roi des rats
+,,
+KeyCode_JoystickButton0,A,A
+KeyCode_JoystickButton1,B,B
+KeyCode_JoystickButton2,X,X
+KeyCode_JoystickButton3,Y,Y
+KeyCode_JoystickButton4,LB,LB
+KeyCode_JoystickButton5,RB,RB
+KeyCode_JoystickButton6,Select,Select
+KeyCode_JoystickButton7,Start,Start
+KeyCode_Space,Space,Espace
+KeyCode_Escape,Esc,Échap
+KeyCode_Delete,Del,Suppr
+KeyCode_Return,Return,Entrée
+KeyCode_RightShift,R Shift,Shift D
+KeyCode_LeftShift,L Shift,Shift
+KeyCode_RightControl,R Ctrl,Ctrl D
+KeyCode_LeftControl,L Ctrl,Ctrl
+KeyCode_RightAlt,R Alt,Alt D
+KeyCode_LeftAlt,L Alt,Alt
+KeyCode_AltGr,Alt Gr,Alt Gr
+KeyCode_Mouse0,Left click,Clic gauche
+KeyCode_Mouse1,Right click,Clic droite
+KeyCode_Mouse2,Wheel click,Clic molette
