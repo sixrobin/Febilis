@@ -176,13 +176,18 @@
 
             _dialogueView.DisplaySkipInput(true);
 
-            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+            // Double skip input issue in build fixed with this 3 frames wait.
+            for (int i = 0; i < 3; ++i)
+                yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+            
             yield return new WaitUntil(() => CheckSkipInput() || _debugFastDialogues);
 
             _dialogueView.DisplaySkipInput(false);
             _speakers[sentenceData.SpeakerId].OnSentenceEnd();
 
-            yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
+            // Double skip input issue in build fixed with this 3 frames wait.
+            for (int i = 0; i < 3; ++i)
+                yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
         }
 
         private System.Collections.IEnumerator AppendSentenceTextCoroutine(Datas.Dialogue.SentenceTextDatas textDatas)
