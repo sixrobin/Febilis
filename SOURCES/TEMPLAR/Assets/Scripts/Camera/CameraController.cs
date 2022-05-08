@@ -132,7 +132,9 @@
 
         private Vector3 ComputeTargetPosition()
         {
-            return (OverrideTarget?.position ?? BaseTargetPosition) + Vector3.up * _cameraDatas.HeightOffset;
+            return OverrideTarget != null
+                   ? OverrideTarget.position
+                   : BaseTargetPosition + Vector3.up * _cameraDatas.HeightOffset;
         }
 
         private void ComputeLookAheadPosition(ref Vector3 pos)
@@ -212,10 +214,11 @@
             float halfHeight = _camera.orthographicSize;
             float halfWidth = halfHeight * Screen.width / Screen.height;
 
-            float xMin = CurrBoardBounds.Bounds.bounds.min.x + halfWidth;
-            float xMax = CurrBoardBounds.Bounds.bounds.max.x - halfWidth;
-            float yMin = CurrBoardBounds.Bounds.bounds.min.y + halfHeight;
-            float yMax = CurrBoardBounds.Bounds.bounds.max.y - halfHeight;
+            Bounds bounds = CurrBoardBounds.Bounds.bounds;
+            float xMin = bounds.min.x + halfWidth;
+            float xMax = bounds.max.x - halfWidth;
+            float yMin = bounds.min.y + halfHeight;
+            float yMax = bounds.max.y - halfHeight;
 
             pos.x = Mathf.Clamp(pos.x, xMin, xMax);
             pos.y = Mathf.Clamp(pos.y, yMin, yMax);
