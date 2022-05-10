@@ -56,6 +56,7 @@
             
             // Controls.
             public const string CONTROLS_ACTION_TITLE = "Controls_ActionTitle";
+            public const string CONTROLS_BUTTONS_TITLE = "Controls_ButtonsTitle";
             public const string CONTROLS_BUTTON_TITLE = "Controls_ButtonTitle";
             public const string CONTROLS_ALT_BUTTON_TITLE = "Controls_AltButtonTitle";
             public const string CONTROLS_RESET = "Controls_Reset";

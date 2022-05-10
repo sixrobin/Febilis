@@ -17,6 +17,7 @@
         [Header("TEXT REFS")]
         [SerializeField] private TMPro.TextMeshProUGUI _title = null;
         [SerializeField] private TMPro.TextMeshProUGUI _actionTitle = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _buttonsTitle = null;
         [SerializeField] private TMPro.TextMeshProUGUI _buttonTitle = null;
         [SerializeField] private TMPro.TextMeshProUGUI _altButtonTitle = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
@@ -283,6 +284,7 @@
         {
             _title.text = Localizer.Get(Localization.Settings.CONTROLS);
             _actionTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ACTION_TITLE);
+            _buttonsTitle.text = Localizer.Get(Localization.Settings.CONTROLS_BUTTONS_TITLE);
             _buttonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_BUTTON_TITLE);
             _altButtonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ALT_BUTTON_TITLE);
             _cancelAssignKeyText.text = Localizer.Get(Localization.Settings.CONTROLS_CANCEL_ASSIGN);
