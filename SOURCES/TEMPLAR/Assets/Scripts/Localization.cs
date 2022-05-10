@@ -61,6 +61,7 @@
             public const string CONTROLS_RESET = "Controls_Reset";
             public const string CONTROLS_ASSIGN_BUTTON_FORMAT = "Controls_AssignBtnFormat";
             public const string CONTROLS_ASSIGN_ALT_BUTTON_FORMAT = "Controls_AssignAltBtnFormat";
+            public const string CONTROLS_CANCEL_ASSIGN = "Controls_CancelAssign";
             public const string CONTROLS_SAVE = "Controls_Save";
             public const string CONTROLS_SAVE_ASK = "Controls_SaveChanges_Ask";
             public const string CONTROLS_SAVE_CONFIRM = "Controls_SaveChanges_Confirm";

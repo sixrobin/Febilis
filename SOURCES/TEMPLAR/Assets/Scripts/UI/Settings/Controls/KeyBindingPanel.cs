@@ -24,7 +24,7 @@
         public override void OnSelect(UnityEngine.EventSystems.BaseEventData eventData)
         {
             base.OnSelect(eventData);
-            Navigation.UINavigationManager.Select(_baseBtn.gameObject);
+            Navigation.UINavigationManager.Select(BaseBtnButton.gameObject);
         }
 
         public void Init(string actionId, RSLib.Framework.InputSystem.InputMapDatas.KeyBinding keyBinding)
@@ -32,37 +32,13 @@
             ActionId = actionId;
             _btns = keyBinding.KeyCodes;
 
-            _baseBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
-            _altBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
-            _baseBtn.SetSelectOnRight(_altBtn);
-            _altBtn.SetSelectOnLeft(_baseBtn);
+            BaseBtnButton.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            AltBtnButton.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
+            BaseBtnButton.SetSelectOnRight(AltBtnButton);
+            AltBtnButton.SetSelectOnLeft(BaseBtnButton);
 
             Localize();
             Show();
-        }
-
-        public void SetSelectOnUp(UnityEngine.UI.Selectable selectable)
-        {
-            _baseBtn.SetSelectOnUp(selectable);
-            _altBtn.SetSelectOnUp(selectable);
-        }
-
-        public void SetPanelOnUp(KeyBindingPanel bindingPanel)
-        {
-            _baseBtn.SetSelectOnUp(bindingPanel.BaseBtnButton);
-            _altBtn.SetSelectOnUp(bindingPanel.AltBtnButton);
-        }
-
-        public void SetSelectOnDown(UnityEngine.UI.Selectable selectable)
-        {
-            _baseBtn.SetSelectOnDown(selectable);
-            _altBtn.SetSelectOnDown(selectable);
-        }
-
-        public void SetPanelOnDown(KeyBindingPanel bindingPanel)
-        {
-            _baseBtn.SetSelectOnDown(bindingPanel.BaseBtnButton);
-            _altBtn.SetSelectOnDown(bindingPanel.AltBtnButton);
         }
 
         public bool IsKeyDifferent(KeyCode btn, bool alt)
@@ -77,8 +53,8 @@
             else
                 _btns.btn = btn;
 
-            _baseBtn.SetText(_btns.btn.ToString());
-            _altBtn.SetText(_btns.altBtn.ToString());
+            BaseBtnButton.SetText(_btns.btn.ToString());
+            AltBtnButton.SetText(_btns.altBtn.ToString());
         }
 
         public void Localize()

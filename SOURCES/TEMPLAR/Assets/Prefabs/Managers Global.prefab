@@ -631,7 +631,7 @@ MonoBehaviour:
   _defaultMapDatas: {fileID: 11400000, guid: edc90de95f7cb8f4f9eaf7084a2a48bd, type: 2}
   _disableMapLoading: 0
   _autoLoadOnStart: 0
-  _cancelAssignKeys: 1b000000
+  _cancelAssignKeys: 1b0000005101000065010000
   _unbindableKeys: 
 --- !u!1 &4480121269585064067
 GameObject:

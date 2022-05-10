@@ -14,7 +14,7 @@
         [SerializeField] private Collider2D _collider2D = null;
 
         [Header("EVENT")]
-        [SerializeField] private UnityEngine.Events.UnityEvent _secretWallOpen;
+        [SerializeField] private UnityEngine.Events.UnityEvent _secretWallOpen = null;
 
         public Flags.IIdentifier Identifier => _secretWallIdentifier;
         

@@ -20,6 +20,7 @@
         [SerializeField] private TMPro.TextMeshProUGUI _buttonTitle = null;
         [SerializeField] private TMPro.TextMeshProUGUI _altButtonTitle = null;
         [SerializeField] private TMPro.TextMeshProUGUI _assignKeyText = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _cancelAssignKeyText = null;
 
         [Header("REFS")]
         [SerializeField] private RectTransform _settingsViewport = null;
@@ -59,7 +60,14 @@
             _scrollHandle.GetWorldCorners(scrollHandleWorldCorners);
             Vector3 scrollHandleCenterWorld = RSLib.Maths.Maths.ComputeAverageVector(scrollHandleWorldCorners);
 
-            foreach (RectTransform target in _bindingPanels.Where(o => o.gameObject.activeSelf).Select(o => o.AltBtnButton.transform as RectTransform))
+            System.Collections.Generic.List<RectTransform> buttons = new System.Collections.Generic.List<RectTransform>();
+            foreach (KeyBindingPanel bindingPanel in _bindingPanels.Where(o => o.gameObject.activeSelf))
+            {
+                buttons.Add(bindingPanel.BaseBtnButton.transform as RectTransform);
+                buttons.Add(bindingPanel.AltBtnButton.transform as RectTransform);
+            }
+            
+            foreach (RectTransform target in buttons)
             {
                 Vector3[] slotWorldCorners = new Vector3[4];
                 target.GetWorldCorners(slotWorldCorners);
@@ -162,31 +170,29 @@
                 _bindingPanels[i].BaseBtnButton.Selected += OnBindingPanelSelected;
                 _bindingPanels[i].AltBtnButton.Selected += OnBindingPanelSelected;
                 
+                _bindingPanels[i].BaseBtnButton.SetSelectOnRight(_controlsScrollBar);
                 _bindingPanels[i].AltBtnButton.SetSelectOnRight(_controlsScrollBar);
+                _bindingPanels[i].BaseBtnButton.SetSelectOnDown(_bindingPanels[i].AltBtnButton);
+                _bindingPanels[i].AltBtnButton.SetSelectOnUp(_bindingPanels[i].BaseBtnButton);
                 
                 if (first)
                 {
-                    _bindingPanels[i].BaseBtnButton.SetSelectOnUp(BackBtn);
-                    _bindingPanels[i].AltBtnButton.SetSelectOnUp(QuitBtn);
-                }
-                else
-                {
-                    _bindingPanels[i].SetPanelOnUp(_bindingPanels[i - 1]);
+                    _bindingPanels[i].BaseBtnButton.SetSelectOnUp(QuitBtn);
                 }
 
                 if (!last)
                 {
-                    _bindingPanels[i].SetPanelOnDown(_bindingPanels[i + 1]);
+                    _bindingPanels[i + 1].BaseBtnButton.SetSelectOnUp(_bindingPanels[i].AltBtnButton);
+                    _bindingPanels[i].AltBtnButton.SetSelectOnDown(_bindingPanels[i + 1].BaseBtnButton);
                     continue;
                 }
 
                 _resetBindingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 _saveBindingsBtn.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
 
-                _resetBindingsBtn.SetSelectOnUp(_bindingPanels[i].BaseBtnButton);
+                _resetBindingsBtn.SetSelectOnUp(_bindingPanels[i].AltBtnButton);
                 _saveBindingsBtn.SetSelectOnUp(_bindingPanels[i].AltBtnButton);
 
-                _bindingPanels[i].BaseBtnButton.SetSelectOnDown(_resetBindingsBtn);
                 _bindingPanels[i].AltBtnButton.SetSelectOnDown(_saveBindingsBtn);
                 
                 break;
@@ -199,6 +205,7 @@
             _backBtn.SetSelectOnUp(_resetBindingsBtn);
             _saveBindingsBtn.SetSelectOnDown(_quitBtn);
             _quitBtn.SetSelectOnUp(_saveBindingsBtn);
+            _quitBtn.SetSelectOnDown(_bindingPanels[0].BaseBtnButton);
             
             _controlsScrollBar.SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
             _controlsScrollBar.SetSelectOnLeft(ScrollbarToScrollViewNavigationHandler);
@@ -260,7 +267,8 @@
 
         private void ResetEditedMap()
         {
-            _editedMap = new InputMap(InputManager.GetMapCopy());
+            InputMap map = InputManager.GetMap();
+            _editedMap = new InputMap(map.MapCopy, map.UseAltButtons);
             UpdateAllBindingsPanels();
         }
 
@@ -277,6 +285,7 @@
             _actionTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ACTION_TITLE);
             _buttonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_BUTTON_TITLE);
             _altButtonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ALT_BUTTON_TITLE);
+            _cancelAssignKeyText.text = Localizer.Get(Localization.Settings.CONTROLS_CANCEL_ASSIGN);
             
             _resetBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_RESET));
             _saveBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_SAVE));

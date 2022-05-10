@@ -19,8 +19,9 @@ Settings_Audio,Audio,Son
 Settings_Language,Language,Langue
 ,,
 Controls_ActionTitle,Action,Action
-Controls_ButtonTitle,Btn,Btn
+Controls_ButtonTitle,Button,Bouton
 Controls_AltButtonTitle,Alt,Alt
+Controls_CancelAssign,Press Escape or Start to cancel,Appuyer sur Échap ou Start pour annuler
 Controls_Reset,Reset defaults,Réinitialiser
 Controls_Save,Save,OK
 Controls_AssignBtnFormat,Assign base key to {0}...,Assigner une touche de base pour {0}...
@@ -164,6 +165,14 @@ KeyCode_JoystickButton4,LB,LB
 KeyCode_JoystickButton5,RB,RB
 KeyCode_JoystickButton6,Select,Select
 KeyCode_JoystickButton7,Start,Start
+KeyCode_Joystick1Button0,A,A
+KeyCode_Joystick1Button1,B,B
+KeyCode_Joystick1Button2,X,X
+KeyCode_Joystick1Button3,Y,Y
+KeyCode_Joystick1Button4,LB,LB
+KeyCode_Joystick1Button5,RB,RB
+KeyCode_Joystick1Button6,Select,Select
+KeyCode_Joystick1Button7,Start,Start
 KeyCode_Space,Space,Espace
 KeyCode_Escape,Esc,Échap
 KeyCode_Delete,Del,Suppr

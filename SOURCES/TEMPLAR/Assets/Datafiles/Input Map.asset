@@ -37,3 +37,4 @@ MonoBehaviour:
     _btn: 336
     _altBtn: 9
     _userAssignable: 1
+  _useAltButtons: 1
