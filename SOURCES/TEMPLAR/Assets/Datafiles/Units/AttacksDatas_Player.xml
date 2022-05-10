@@ -136,7 +136,7 @@
          <Dur>0.3</Dur>
       </Recoil>
       <Traumas>
-         <Base X="0.2" Y="0.5" AddType="ADDITIVE" ShakeId="Medium"/>
+         <Base X="0.15" Y="0.35" AddType="ADDITIVE" ShakeId="Medium"/>
          <Hit X="0.3" Y="0.3" AddType="ADDITIVE" ShakeId="Big"/>
       </Traumas>
       <Dur>0.8</Dur>

@@ -19,6 +19,7 @@
 
         [Header("ATTACK")]
         [SerializeField] private string[] _baseComboIds = null;
+        [SerializeField] private string[] _additionalComboIds = null;
         [SerializeField] private string _airborneAttackId = null;
 
         [Header("BASE MOVEMENT")]
@@ -50,6 +51,7 @@
         public UnitJumpDatas Jump => _playerJumpDatas;
         public UnitRollDatas Roll => _playerRollDatas;
         public string[] BaseComboIds => _baseComboIds;
+        public string[] AdditionalComboIds => _additionalComboIds;
         public string AirborneAttackId => _airborneAttackId;
         
         public float RunSpeed => _runSpeed;

@@ -19,6 +19,9 @@ MonoBehaviour:
   - Attack_Base_00
   - Attack_Base_01
   - Attack_Base_02
+  - Attack_Base_03
+  - Attack_Base_04
+  _additionalComboIds: []
   _airborneAttackId: Attack_Airborne
   _runSpeed: 4.2
   _minRunSpeed: 1.5

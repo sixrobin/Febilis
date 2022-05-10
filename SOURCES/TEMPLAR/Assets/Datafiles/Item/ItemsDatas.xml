@@ -31,6 +31,14 @@
          <Move/>
       </Actions>
    </ItemDatas>
+   
+   <ItemDatas Id="GodsEmblem">
+      <Type>MISC</Type>
+      <AlwaysInInventory/>
+      <Actions>
+         <Move/>
+      </Actions>
+   </ItemDatas>
 
    <ItemDatas Id="Key_Godric_House">
       <Type>KEY</Type>

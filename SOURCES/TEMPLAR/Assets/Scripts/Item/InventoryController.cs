@@ -39,6 +39,7 @@
 
         public const string ITEM_ID_COIN = "Coin";
         public const string ITEM_ID_POTION = "Potion";
+        public const string ITEM_ID_GODS_EMBLEM = "GodsEmblem";
 
         public delegate void InventoryContentChangedEventHandler(InventoryContentChangedEventArgs args);
         public delegate void InventoryClearedEventHandler();

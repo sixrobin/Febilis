@@ -5,6 +5,7 @@
     public class PlayerAttackController : AttackController
     {
         private Datas.Attack.PlayerAttackDatas[] _baseComboDatas;
+        private Datas.Attack.PlayerAttackDatas[] _additionalComboDatas;
         private Datas.Attack.PlayerAttackDatas _airborneAttackDatas;
         private Unit.Player.PlayerController _playerCtrl;
 
@@ -16,6 +17,10 @@
             _baseComboDatas = new Datas.Attack.PlayerAttackDatas[_playerCtrl.CtrlDatas.BaseComboIds.Length];
             for (int i = 0; i < _baseComboDatas.Length; ++i)
                 _baseComboDatas[i] = Database.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.BaseComboIds[i]];
+
+            _additionalComboDatas = new Templar.Datas.Attack.PlayerAttackDatas[_playerCtrl.CtrlDatas.AdditionalComboIds.Length];
+            for (int i = 0; i < _additionalComboDatas.Length; ++i)
+                _additionalComboDatas[i] = Database.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.AdditionalComboIds[i]];
 
             _airborneAttackDatas = Database.AttackDatabase.PlayerAttacksDatas[_playerCtrl.CtrlDatas.AirborneAttackId];
         }
@@ -82,12 +87,28 @@
         {
             ComputeAttackDirection();
             Vector3 attackVel = Vector3.zero;
-            bool hasHit = false;
 
-            for (int i = 0; i < _baseComboDatas.Length; ++i)
+            System.Collections.Generic.List<Datas.Attack.PlayerAttackDatas> combo = new System.Collections.Generic.List<Datas.Attack.PlayerAttackDatas>();
+            
+            // Compute full combo.
             {
-                CurrAttackDatas = _baseComboDatas[i];
-                hasHit = false;
+                combo.AddRange(_baseComboDatas);
+
+                int additionalAttacks = Manager.GameManager.InventoryCtrl.GetItemQuantity(Templar.Item.InventoryController.ITEM_ID_GODS_EMBLEM);
+                if (additionalAttacks > _additionalComboDatas.Length)
+                {
+                    CProLogger.LogWarning(this, $"Trying to add {additionalAttacks} additional attacks to combo but only {_additionalComboDatas.Length} additional attacks are defined, clamping value.");
+                    additionalAttacks = _additionalComboDatas.Length;
+                }
+                
+                for (int i = 0; i < additionalAttacks; ++i)
+                    combo.Add(_additionalComboDatas[i]);
+            }
+
+            for (int i = 0, length = combo.Count; i < length; ++i)
+            {
+                CurrAttackDatas = combo[i];
+                bool hasHit = false;
 
                 if (CurrAttackDatas.HitDelay == 0f)
                 {
@@ -114,7 +135,7 @@
                         if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ROLL) || InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.JUMP))
                             break;
 
-                        if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK) && i < _baseComboDatas.Length - 1)
+                        if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK) && i < combo.Count - 1)
                             break;
                     }
 
@@ -133,7 +154,7 @@
                     break;
                 }
 
-                if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK) && i < _baseComboDatas.Length - 1)
+                if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK) && i < combo.Count - 1)
                 {
                     // Chained attack.
                     InputCtrl.ResetDelayedInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK);
