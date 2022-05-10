@@ -1,2 +1,0 @@
-This is a test file with a modification
-This is a test file with another modification
