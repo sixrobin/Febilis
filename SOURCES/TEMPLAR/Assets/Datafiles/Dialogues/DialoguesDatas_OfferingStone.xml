@@ -8,6 +8,7 @@
    <DialogueDatas Id="OfferingStone_ItemLeft">
       <Sequence>
          <Sentence Id="OfferingStone_ItemLeft_00"/>
+         <Sentence Id="OfferingStone_ItemLeft_01"/>
          <SellItem Id="GodsEmblem" Price="50">
             <CustomLocalizationId>OfferingStone_GodsEmblem</CustomLocalizationId>
          </SellItem>
@@ -28,8 +29,16 @@
    <SentenceDatas Id="OfferingStone_ItemLeft_00">
       <Speaker Id="OfferingStone">
          <HidePortraitBox/>
+         <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
+
+   <SentenceDatas Id="OfferingStone_ItemLeft_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+   </SentenceDatas>
+   
 
    <SentenceDatas Id="OfferingStone_NoItemLeft_00">
       <Speaker Id="OfferingStone">
