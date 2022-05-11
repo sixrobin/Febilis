@@ -145,9 +145,15 @@ Sentence_NPC01_Greeting_03,"Quick advice, even with your grade, stay low and min
 Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons des temps étranges.
 Sentence_NPC01_PostGreeting_00,"Do not forget, stay low and mind your own business.","N'oubliez pas, mêlez-vous de vos affaires."
 ,,
+SellItem_AskFormat_Default,Buy {0} {1}? <color=#B4DE9F>({2} gold coins)</color>,Acheter {0} {1} ? <color=#B4DE9F>({2} pièces d'or)</color>
+SellItem_Confirm,Yes,Oui
+SellItem_Cancel,No,Non
+SellItem_AskFormat_OfferingStone_GodsEmblem,Make an offering? <color=#B4DE9F>({2} gold coins)</color>,Faire une offrande ? <color=#B4DE9F>({2} pièces d'or)</color>
+,,
 SpeakerName_Templar,Templar,Templier
 SpeakerName_Godric,Godric,Godric
 SpeakerName_NPC01,Mysterious soldier,Soldat mystérieux
+SpeakerName_OfferingStone,Offering Stone,Pierre à offrande
 ,,
 InputTutorial_Move,Left stick to MOVE,Stick gauche pour vous DÉPLACER
 InputTutorial_Jump,{0} to JUMP,{0} pour SAUTER

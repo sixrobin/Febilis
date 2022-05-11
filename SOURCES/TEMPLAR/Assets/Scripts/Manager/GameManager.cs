@@ -12,6 +12,7 @@
         [SerializeField] private Templar.Camera.CameraController _cameraCtrl = null;
         [SerializeField] private Item.InventoryController _inventoryCtrl = null;
         [SerializeField] private UI.Inventory.InventoryView _inventoryView = null;
+        [SerializeField] private UI.Dialogue.DialogueSellItemView _dialogueSellItemView = null;
 
         [Header("SPAWN DEBUG")]
         [SerializeField] private Interaction.Checkpoint.OptionalCheckpointController _overrideCheckpoint = new Interaction.Checkpoint.OptionalCheckpointController();
@@ -24,6 +25,7 @@
         public static Templar.Camera.CameraController CameraCtrl => Instance._cameraCtrl;
         public static Item.InventoryController InventoryCtrl => Instance._inventoryCtrl;
         public static UI.Inventory.InventoryView InventoryView => Instance._inventoryView;
+        public static UI.Dialogue.DialogueSellItemView DialogueSellItemView => Instance._dialogueSellItemView;
         public static Interaction.Checkpoint.OptionalCheckpointController OptionalCheckpoint => Instance._overrideCheckpoint;
 
         public static void OnCheckpointInteracted(Interaction.Checkpoint.CheckpointController checkpoint)
@@ -171,6 +173,7 @@
             _cameraCtrl = FindObjectOfType<Templar.Camera.CameraController>();
             _inventoryCtrl = FindObjectOfType<Item.InventoryController>();
             _inventoryView = FindObjectOfType<UI.Inventory.InventoryView>();
+            _dialogueSellItemView = FindObjectOfType<UI.Dialogue.DialogueSellItemView>();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }
@@ -182,6 +185,7 @@
             _cameraCtrl = _cameraCtrl ?? FindObjectOfType<Templar.Camera.CameraController>();
             _inventoryCtrl = _inventoryCtrl ?? FindObjectOfType<Item.InventoryController>();
             _inventoryView = _inventoryView ?? FindObjectOfType<UI.Inventory.InventoryView>();
+            _dialogueSellItemView = _dialogueSellItemView ?? FindObjectOfType<UI.Dialogue.DialogueSellItemView>();
 
             RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
         }

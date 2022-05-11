@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <!-- ███████████ -->
+   <!--  DIALOGUES  -->
+   <!-- ███████████ -->
+
+   <DialogueDatas Id="OfferingStone_ItemLeft">
+      <Sequence>
+         <Sentence Id="OfferingStone_ItemLeft_00"/>
+         <SellItem Id="GodsEmblem" Price="50">
+<!--            <CustomLocalizationId>OfferingStone_GodsEmblem</CustomLocalizationId>-->
+         </SellItem>
+      </Sequence>
+   </DialogueDatas>
+
+   <DialogueDatas Id="OfferingStone_NoItemLeft">
+      <Sequence>
+         <Sentence Id="OfferingStone_NoItemLeft_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+   
+   <!-- ███████████ -->
+   <!--  SENTENCES  -->
+   <!-- ███████████ -->
+
+   <SentenceDatas Id="OfferingStone_ItemLeft_00">
+      <Speaker Id="OfferingStone">
+         <HidePortraitBox/>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="OfferingStone_NoItemLeft_00">
+      <Speaker Id="OfferingStone">
+         <HidePortraitBox/>
+      </Speaker>
+   </SentenceDatas>
+   
+</DialoguesDatas>

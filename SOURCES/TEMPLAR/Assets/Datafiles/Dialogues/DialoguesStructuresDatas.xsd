@@ -13,6 +13,13 @@
 
    <xs:complexType name="DialoguesStructureDatas">
       <xs:sequence>
+         <xs:element name="SoldItems" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="ItemId" minOccurs="1" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
          <xs:element name="Dialogue" type="StructureDialogueDatas" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="Id" type="xs:token" use="required"/>
@@ -37,6 +44,7 @@
                   </xs:element>
                   <xs:element name="BoardDiscovered" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
                   <xs:element name="ZoneDiscovered" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
+                  <xs:element name="ItemUnsold" type="xs:token" minOccurs="0" maxOccurs="unbounded"/>
                </xs:sequence>
             </xs:complexType>
          </xs:element>

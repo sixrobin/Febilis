@@ -37,6 +37,16 @@
                   </xs:element>
                   <xs:element name="AddItem" type="ItemDropDatas"/>
                   <xs:element name="RemoveItem" type="ItemDropDatas"/>
+                  <xs:element name="SellItem">
+                     <xs:complexType>
+                        <xs:sequence>
+                           <xs:element name="CustomLocalizationId" type="xs:token" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:token" use="required"/>
+                        <xs:attribute name="Price" type="xs:nonNegativeInteger" use="required" default="0"/>
+                        <xs:attribute name="Quantity" type="xs:nonNegativeInteger" use="optional" default="1"/>
+                     </xs:complexType>
+                  </xs:element>
                </xs:choice>
             </xs:complexType>
          </xs:element>

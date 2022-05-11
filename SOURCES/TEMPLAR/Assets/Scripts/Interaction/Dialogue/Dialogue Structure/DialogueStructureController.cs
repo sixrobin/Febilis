@@ -9,13 +9,11 @@
 
         private System.Collections.Generic.List<string> _doneDialogues = new System.Collections.Generic.List<string>();
 
-        public DialogueStructureController(string dialoguesStructureId)
-            : this(Database.DialogueDatabase.DialoguesStructuresDatas[dialoguesStructureId]) { }
+        public DialogueStructureController(string dialoguesStructureId) : this(Database.DialogueDatabase.DialoguesStructuresDatas[dialoguesStructureId]) { }
 
         public DialogueStructureController(Datas.Dialogue.DialogueStructure.DialoguesStructureDatas dialoguesStructureDatas)
         {
             _dialoguesStructureDatas = dialoguesStructureDatas;
-
             CreateConditionsCheckers();
         }
 
@@ -31,8 +29,7 @@
 
         public string GetNextDialogueId()
         {
-            // [TODO] Record in this controller the dialogues already played, so that they can be passed as a parameter
-            // then for the "DialogueNeverDone" condition.
+            // TODO: Record in this controller the dialogues already played, so that they can be passed as a parameter then for the "DialogueNeverDone" condition.
 
             foreach (System.Collections.Generic.KeyValuePair<string, IDialogueStructureConditionChecker[]> dialogue in _dialogueStructureConditionsCheckers)
             {

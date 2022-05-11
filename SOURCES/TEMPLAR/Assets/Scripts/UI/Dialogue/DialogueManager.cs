@@ -89,22 +89,29 @@
 
             for (int i = 0; i < _currentDialogue.SequenceElementsDatas.Length; ++i)
             {
-                if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.SentenceDatas sentenceDatas)
+                Datas.Dialogue.IDialogueSequenceElementDatas currentData = _currentDialogue.SequenceElementsDatas[i];
+                
+                if (currentData is Datas.Dialogue.SentenceDatas sentenceData)
                 {
-                    yield return PlaySentenceCoroutine(sentenceDatas);
+                    yield return PlaySentenceCoroutine(sentenceData);
                 }
-                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialoguePauseDatas pauseDatas)
+                else if (currentData is Datas.Dialogue.DialoguePauseDatas pauseData)
                 {
                     _dialogueView.Display(false);
-                    yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseDatas.Dur);
+                    yield return RSLib.Yield.SharedYields.WaitForSeconds(pauseData.Dur);
                 }
-                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialogueAddItemDatas addItemDatas)
+                else if (currentData is Datas.Dialogue.DialogueAddItemDatas addItemData)
                 {
-                    Manager.GameManager.InventoryCtrl.AddItem(addItemDatas.ItemId, addItemDatas.Quantity);
+                    Manager.GameManager.InventoryCtrl.AddItem(addItemData.ItemId, addItemData.Quantity);
                 }
-                else if (_currentDialogue.SequenceElementsDatas[i] is Datas.Dialogue.DialogueRemoveItemDatas removeItemDatas)
+                else if (currentData is Datas.Dialogue.DialogueRemoveItemDatas removeItemData)
                 {
-                    Manager.GameManager.InventoryCtrl.RemoveItem(removeItemDatas.ItemId, removeItemDatas.Quantity);
+                    Manager.GameManager.InventoryCtrl.RemoveItem(removeItemData.ItemId, removeItemData.Quantity);
+                }
+                else if (currentData is Datas.Dialogue.DialogueSellItemDatas sellItemData)
+                {
+                    _dialogueView.Display(false);
+                    yield return Manager.GameManager.DialogueSellItemView.Open(sellItemData);
                 }
                 else
                 {

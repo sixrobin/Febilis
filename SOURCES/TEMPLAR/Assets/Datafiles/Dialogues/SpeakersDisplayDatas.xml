@@ -13,4 +13,8 @@
       <PortraitAnchor>TOP_LEFT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
+   <SpeakerDisplayDatas Id="OfferingStone">
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SpeakerDisplayDatas>
+
 </SpeakersDisplayDatas>

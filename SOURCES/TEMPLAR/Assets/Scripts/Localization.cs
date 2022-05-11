@@ -31,6 +31,11 @@
         {
             public const string SENTENCE_PREFIX = "Sentence_";
             public const string SPEAKER_NAME_PREFIX = "SpeakerName_";
+
+            public const string SELL_ITEM_ASK_FORMAT = "SellItem_AskFormat_";
+            public const string SELL_ITEM_ASK_FORMAT_DEFAULT = SELL_ITEM_ASK_FORMAT + "Default";
+            public const string SELL_ITEM_CONFIRM = "SellItem_Confirm";
+            public const string SELL_ITEM_CANCEL = "SellItem_Cancel";
         }
         
         public static class Game

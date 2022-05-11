@@ -10,6 +10,7 @@
         private const string ELEMENT_NAME_PAUSE = "Pause";
         private const string ELEMENT_NAME_ADD_ITEM = "AddItem";
         private const string ELEMENT_NAME_REMOVE_ITEM = "RemoveItem";
+        private const string ELEMENT_NAME_SELL_ITEM = "SellItem";
 
         public DialogueDatas(XContainer container) : base(container)
         {
@@ -44,26 +45,19 @@
             {
                 if (sentenceElement.Name.LocalName == ELEMENT_NAME_SENTENCE)
                 {
-                    // We may want to create a custom class containing SentenceDatas, like DialogueSentenceDatas
-                    // to override datas from the base sentence.
-
+                    // We may want to create a custom class containing SentenceDatas, like DialogueSentenceDatas to override datas from the base sentence.
                     XAttribute sentenceIdAttribute = sentenceElement.Attribute("Id");
                     UnityEngine.Assertions.Assert.IsNotNull(sentenceIdAttribute, "Dialogue Sentence element needs an Id attribute.");
                     SequenceElementsDatas[i] = Database.DialogueDatabase.SentencesDatas[sentenceIdAttribute.Value];
-           
                 }
                 else if (sentenceElement.Name.LocalName == ELEMENT_NAME_PAUSE)
-                {
                     SequenceElementsDatas[i] = new DialoguePauseDatas(sentenceElement);
-                }
                 else if (sentenceElement.Name.LocalName == ELEMENT_NAME_ADD_ITEM)
-                {
                     SequenceElementsDatas[i] = new DialogueAddItemDatas(sentenceElement);
-                }
                 else if (sentenceElement.Name.LocalName == ELEMENT_NAME_REMOVE_ITEM)
-                {
                     SequenceElementsDatas[i] = new DialogueRemoveItemDatas(sentenceElement);
-                }
+                else if (sentenceElement.Name.LocalName == ELEMENT_NAME_SELL_ITEM)
+                    SequenceElementsDatas[i] = new DialogueSellItemDatas(sentenceElement);
                 else
                 {
                     CProLogger.LogError(this, $"Unhandled Dialogue sequence element name {sentenceElement.Name.LocalName}.");
