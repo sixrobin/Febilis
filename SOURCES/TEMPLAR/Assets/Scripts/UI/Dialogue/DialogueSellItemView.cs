@@ -43,12 +43,15 @@
             _itemSellingInfo.ItemSold = true;
             
             Display(false);
+            UI.Navigation.UINavigationManager.NullifySelected();
         }
         
         private void OnCancelButtonClicked()
         {
             CProLogger.Log(this, $"Not buying {_sellItemData.Quantity} {_sellItemData.ItemId} for {_sellItemData.Price} gold coins.", gameObject);
+            
             Display(false);
+            UI.Navigation.UINavigationManager.NullifySelected();
         }
 
         private void InitNavigation()

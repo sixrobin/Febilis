@@ -9,8 +9,9 @@
       <Sequence>
          <Sentence Id="OfferingStone_ItemLeft_00"/>
          <SellItem Id="GodsEmblem" Price="50">
-<!--            <CustomLocalizationId>OfferingStone_GodsEmblem</CustomLocalizationId>-->
+            <CustomLocalizationId>OfferingStone_GodsEmblem</CustomLocalizationId>
          </SellItem>
+         <Sentence Id="OfferingStone_ItemLeft_00"/>
       </Sequence>
    </DialogueDatas>
 
