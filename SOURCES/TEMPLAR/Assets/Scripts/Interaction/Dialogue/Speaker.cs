@@ -25,7 +25,7 @@
         {
         }
 
-        private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
+        private void OnDialogueOver(UI.Dialogue.DialogueManager.DialogueOverEventArgs dialogueOverEventArgs)
         {
             IsDialoguing = false;
 

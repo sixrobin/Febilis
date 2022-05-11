@@ -8,9 +8,7 @@
         {
             Debug.LogWarning($"{GetType().Name} NOT IMPLEMENTED");
             return false;
-
-            return Slot.Item.Datas.Type == Item.ItemType.EQUIPABLE
-                && Slot.Item.EquipConditionsChecker.CheckConditions();
+            // return Slot.Item.Datas.Type == Item.ItemType.EQUIPABLE && Slot.Item.EquipConditionsChecker.CheckConditions();
         }
 
         protected override void TriggerAction()

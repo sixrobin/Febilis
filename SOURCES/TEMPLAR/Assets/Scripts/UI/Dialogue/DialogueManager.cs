@@ -6,6 +6,23 @@
     [DisallowMultipleComponent]
     public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
     {
+        public class DialogueOverEventArgs : System.EventArgs
+        {
+            public DialogueOverEventArgs(Datas.Dialogue.DialogueDatas dialogueDatas, System.Collections.Generic.List<string> boughtItemIds)
+            {
+                DialogueDatas = dialogueDatas;
+                BoughtItemIds = boughtItemIds;
+            }
+            
+            public Datas.Dialogue.DialogueDatas DialogueDatas { get; }
+            public System.Collections.Generic.List<string> BoughtItemIds { get; }
+        }
+
+        public class ItemSellingInfo
+        {
+            public bool ItemSold;
+        }
+        
         [SerializeField] private DialogueView _dialogueView = null;
         [SerializeField] private RSLib.Framework.DisabledString _currentDialogueId = new RSLib.Framework.DisabledString();
         [SerializeField, Min(0f)] private float _delayBeforeFirstDialogueElement = 0.5f;
@@ -23,9 +40,10 @@
         private string _currSentenceProgress;
 
         public delegate void DialogueEventHandler(Datas.Dialogue.DialogueDatas dialogueDatas);
+        public delegate void DialogueOverEventHandler(DialogueOverEventArgs args);
 
         public event DialogueEventHandler DialogueStarted;
-        public event DialogueEventHandler DialogueOver;
+        public event DialogueOverEventHandler DialogueOver;
 
         public static bool DialogueRunning => Exists() && Instance._dialogueCoroutine != null;
 
@@ -78,6 +96,8 @@
 
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
 
+            System.Collections.Generic.List<string> boughtItemsDuringDialogue =  new System.Collections.Generic.List<string>();
+            
             if (sourceSpeaker is Interaction.Dialogue.INPCSpeaker npcSpeaker)
                 yield return Manager.GameManager.PlayerCtrl.GoToInteractionPosition(npcSpeaker.SpeakerPos, npcSpeaker.PlayerDialoguePivot, _goToPositionTimeout);
 
@@ -111,7 +131,14 @@
                 else if (currentData is Datas.Dialogue.DialogueSellItemDatas sellItemData)
                 {
                     _dialogueView.Display(false);
-                    yield return Manager.GameManager.DialogueSellItemView.Open(sellItemData);
+
+                    ItemSellingInfo itemSellingInfo = new ItemSellingInfo();
+                    yield return Manager.GameManager.DialogueSellItemView.Open(sellItemData, itemSellingInfo);
+                    
+                    if (itemSellingInfo.ItemSold)
+                        boughtItemsDuringDialogue.Add(sellItemData.ItemId);
+                    
+                    // TODO: Mark item as bought in DialogueStructure for game save.
                 }
                 else
                 {
@@ -125,7 +152,8 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = false;
             Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
-            DialogueOver?.Invoke(_currentDialogue);
+            DialogueOver?.Invoke(new DialogueOverEventArgs(_currentDialogue, boughtItemsDuringDialogue));
+            
             Log($"Dialogue {_currentDialogue.Id} sequence is over.");
 
             _dialogueCoroutine = null;

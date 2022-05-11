@@ -41,10 +41,10 @@
             SetTriggerOnAnimators(DIALOGUE_IDLE);
         }
 
-        private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
+        private void OnDialogueOver(UI.Dialogue.DialogueManager.DialogueOverEventArgs dialogueOverEventArgs)
         {
             SetTriggerOnAnimators(IDLE);
-
+            
             IsDialoguing = false;
             _highlight.enabled = false;
         }

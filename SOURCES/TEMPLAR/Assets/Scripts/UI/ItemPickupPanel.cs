@@ -35,14 +35,17 @@
             ClearItemsAndHide();
         }
 
-        private void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
+        private void OnDialogueOver(UI.Dialogue.DialogueManager.DialogueOverEventArgs dialogueOverEventArgs)
         {
             if (!_showDialogueItems)
                 return;
 
-            foreach (Datas.Dialogue.IDialogueSequenceElementDatas dialogueSequenceElement in dialogueDatas.SequenceElementsDatas)
+            foreach (Datas.Dialogue.IDialogueSequenceElementDatas dialogueSequenceElement in dialogueOverEventArgs.DialogueDatas.SequenceElementsDatas)
                 if (dialogueSequenceElement is Datas.Dialogue.DialogueAddItemDatas addItemDatas)
                     AddItemToShow(addItemDatas.ItemId);
+
+            foreach (string boughtItemId in dialogueOverEventArgs.BoughtItemIds)
+                AddItemToShow(boughtItemId);
         }
 
         private void OnInventoryViewDisplayChanged(bool displayed)

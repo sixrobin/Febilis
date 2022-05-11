@@ -57,7 +57,7 @@
             Display(false);
         }
 
-        protected virtual void OnDialogueOver(Datas.Dialogue.DialogueDatas dialogueDatas)
+        protected virtual void OnDialogueOver(UI.Dialogue.DialogueManager.DialogueOverEventArgs dialogueOverEventArgs)
         {
             Display(true);
         }

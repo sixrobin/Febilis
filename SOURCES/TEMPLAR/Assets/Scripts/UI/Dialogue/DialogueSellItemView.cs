@@ -11,6 +11,7 @@
 
         private bool _initialized;
         private Datas.Dialogue.DialogueSellItemDatas _sellItemData;
+        private DialogueManager.ItemSellingInfo _itemSellingInfo;
         private Color _confirmTextBaseColor;
         
         public bool IsItemAffordable => Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_COIN) >= _sellItemData.Price;
@@ -30,17 +31,23 @@
         
         private void OnConfirmButtonClicked()
         {
-            Debug.LogError("Item bought.");
-            // TODO: Spend money.
-            // TODO: Add item.
-            // TODO: Mark it as bought in DialogueStructure.
+            CProLogger.Log(this, $"Buying {_sellItemData.Quantity} {_sellItemData.ItemId} for {_sellItemData.Price} gold coins.", gameObject);
+            
+            UnityEngine.Assertions.Assert.IsTrue(
+                IsItemAffordable, 
+                $"Buying {_sellItemData.ItemId} for {_sellItemData.Price} with only {Manager.GameManager.InventoryCtrl.GetItemQuantity(Item.InventoryController.ITEM_ID_COIN)} owned coins.");
+
+            Manager.GameManager.InventoryCtrl.RemoveItem(Item.InventoryController.ITEM_ID_COIN, _sellItemData.Price);
+            Manager.GameManager.InventoryCtrl.AddItem(_sellItemData.ItemId, _sellItemData.Quantity);
+
+            _itemSellingInfo.ItemSold = true;
             
             Display(false);
         }
         
         private void OnCancelButtonClicked()
         {
-            Debug.LogError("Item not bought.");
+            CProLogger.Log(this, $"Not buying {_sellItemData.Quantity} {_sellItemData.ItemId} for {_sellItemData.Price} gold coins.", gameObject);
             Display(false);
         }
 
@@ -59,9 +66,10 @@
             _cancelBtn.SetSelectOnDown(isItemAffordable ? _confirmBtn : null);
         }
         
-        public System.Collections.IEnumerator Open(Datas.Dialogue.DialogueSellItemDatas sellItemData)
+        public System.Collections.IEnumerator Open(Datas.Dialogue.DialogueSellItemDatas sellItemData, DialogueManager.ItemSellingInfo itemSellingInfo)
         {
             _sellItemData = sellItemData;
+            _itemSellingInfo = itemSellingInfo;
             
             InitNavigation();
             Localize();
@@ -86,13 +94,16 @@
             _cancelBtn.SetText(Localizer.Get(Localization.Dialogue.SELL_ITEM_CANCEL));
         }
         
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Init();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
+            
             _confirmBtn.onClick.RemoveListener(OnConfirmButtonClicked);
             _cancelBtn.onClick.RemoveListener(OnCancelButtonClicked);
         }
