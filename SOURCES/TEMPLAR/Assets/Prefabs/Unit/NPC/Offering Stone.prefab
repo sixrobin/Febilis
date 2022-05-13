@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2428089600568127496, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.07
+      objectReference: {fileID: 0}
     - target: {fileID: 2428089602173563948, guid: 5cce26ab1047b1d4bb7e516949b3610d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,10 +67,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2428089602173563949, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.30144852
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428089602173563949, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6030203
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428089602173563949, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.007539451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428089602173563949, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.5845058
+      objectReference: {fileID: 0}
     - target: {fileID: 2428089602173563951, guid: 5cce26ab1047b1d4bb7e516949b3610d,
         type: 3}
       propertyPath: m_Name
       value: Offering Stone
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428089602186697573, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95ed7dec62d25774ea77a83ae6e3e0c4,
+        type: 3}
+    - target: {fileID: 2428089602186697573, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428089602212163785, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e21c57eeddc1d804bbd158c371c22f5a,
+        type: 3}
+    - target: {fileID: 2428089602212163785, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3103767270182887501, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398081090979715266, guid: 5cce26ab1047b1d4bb7e516949b3610d,
+        type: 3}
+      propertyPath: _spriteAnimatorPairs.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5398081090979715266, guid: 5cce26ab1047b1d4bb7e516949b3610d,
         type: 3}
@@ -77,5 +134,7 @@ PrefabInstance:
       propertyPath: _dialogueStructureId
       value: OfferingStone
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4538698650678278396, guid: 5cce26ab1047b1d4bb7e516949b3610d, type: 3}
+    - {fileID: 475386757999598106, guid: 5cce26ab1047b1d4bb7e516949b3610d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5cce26ab1047b1d4bb7e516949b3610d, type: 3}
