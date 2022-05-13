@@ -38,33 +38,48 @@
       </Sequence>
    </DialogueDatas>
 
+   <DialogueDatas Id="StoneSign_SecretWallHint">
+      <!--<HidePortraitBox/>-->
+      <Sequence>
+         <Sentence Id="StoneSign_SecretWallHint_00"/>
+         <Sentence Id="StoneSign_SecretWallHint_01"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="StoneSign_SecretWallHint_02"/>
+      </Sequence>
+   </DialogueDatas>
+   
 
    <SentenceDatas Id="StoneSign_00_Sentence_00">
       <Speaker Id="Templar">
+         <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_01_Sentence_00">
       <Speaker Id="Templar">
+         <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_01_Sentence_01">
       <Speaker Id="Templar">
+         <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_02_Sentence_00">
       <Speaker Id="Templar">
+         <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_CatacombsEntry_Sentence_00">
       <Speaker Id="Templar">
+         <HidePortraitBox/>
          <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
@@ -77,6 +92,26 @@
    </SentenceDatas>
 
    <SentenceDatas Id="StoneSign_RatKing_Sentence_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_SecretWallHint_00">
+      <Speaker Id="Templar">
+         <HidePortraitBox/>
+         <HideSpeakerName/>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_SecretWallHint_01">
+      <Speaker Id="Templar">
+         <HidePortraitBox/>
+         <HideSpeakerName/>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="StoneSign_SecretWallHint_02">
       <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>

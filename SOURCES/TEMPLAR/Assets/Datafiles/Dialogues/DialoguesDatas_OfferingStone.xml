@@ -43,6 +43,7 @@
    <SentenceDatas Id="OfferingStone_NoItemLeft_00">
       <Speaker Id="OfferingStone">
          <HidePortraitBox/>
+         <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>
    

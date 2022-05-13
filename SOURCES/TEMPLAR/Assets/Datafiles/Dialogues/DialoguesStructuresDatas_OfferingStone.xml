@@ -9,7 +9,7 @@
       
       <Dialogue Id="OfferingStone_ItemLeft">
          <Conditions>
-            <!-- TODO: Item to sold left. -->
+            <ItemUnsold>GodsEmblem</ItemUnsold>
          </Conditions>
       </Dialogue>
 

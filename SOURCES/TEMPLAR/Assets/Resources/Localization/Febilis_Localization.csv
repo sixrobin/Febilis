@@ -118,6 +118,9 @@ Sentence_StoneSign_02_Sentence_00,"""Place of the commoners.""","""Ici reposent 
 Sentence_StoneSign_CatacombsEntry_Sentence_00,"""Here lie those who got cursed by Febilis.""","""Ici reposent ceux qui ont été damnés par Febilis."""
 Sentence_StoneSign_RatKing_Sentence_00,"""Beware the king of rats, as many have died already.""","""Attention au roi des rats, car beaucoup sont déjà morts ici."""
 Sentence_StoneSign_RatKing_Sentence_01,There's blood covering the stone...,Il y a du sang sur la stèle...
+Sentence_StoneSign_SecretWallHint_00,"""Some paths of the catacombs have been condemned.""","""Certains passages des catacombes furent condamnés."""
+Sentence_StoneSign_SecretWallHint_01,"""Beware of their fragility, not to be condemned yourself.""","""Attention à leur fragilité, pour ne pas être à votre tour condamné."""
+Sentence_StoneSign_SecretWallHint_02,... [pause=0.5]This might be my way out.,... [pause=0.5]Voilà peut-être ma porte de sortie.
 ,,
 Sentence_Godric_Greeting_00,"Oh, thank god you seem quite normal.","Oh, Dieu merci vous semblez normal."
 Sentence_Godric_Greeting_01,"Listen, I'm in despair, I forgot my ring earlier when I ran away from my home.","Écoutez, je ne sais que faire, j'ai oublié mon alliance quand j'ai fui ma maison."
@@ -146,7 +149,8 @@ Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons 
 Sentence_NPC01_PostGreeting_00,"Do not forget, stay low and mind your own business.","N'oubliez pas, mêlez-vous de vos affaires."
 ,,
 Sentence_OfferingStone_ItemLeft_00,"""The Grace of the Creators speaks through this altar.""","""La Grâce des Créateurs parle à travers cet autel."""
-Sentence_OfferingStone_ItemLeft_01,Rather looks like they left this place...[pause=0.5] but what if they did not ?,On dirait plutôt qu'ils ont abandonné l'endroit...[pause=0.5] mais peut-être que non ?
+Sentence_OfferingStone_ItemLeft_01,Rather looks like they've left this place...[pause=0.5] but what if they did not ?,On dirait plutôt qu'ils ont abandonné l'endroit...[pause=0.5] mais peut-être que non ?
+Sentence_OfferingStone_NoItemLeft_00,"""The Grace of the Creators speaks through this altar.""","""La Grâce des Créateurs parle à travers cet autel."""
 ,,
 SellItem_AskFormat_Default,Buy {0} {1} ? <color=#B4DE9F>({2} gold coins)</color>,Acheter {0} {1} ? <color=#B4DE9F>({2} pièces d'or)</color>
 SellItem_Confirm,Yes,Oui

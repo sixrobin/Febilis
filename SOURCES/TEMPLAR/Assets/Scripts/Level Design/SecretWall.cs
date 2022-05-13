@@ -51,5 +51,11 @@
             if (Manager.FlagsManager.Check(this))
                 OpenSecretWall(true);
         }
+
+        [ContextMenu("Open Secret Wall")]
+        private void DebugOpenSecretWall()
+        {
+            OpenSecretWall(false);
+        }
     }
 }
