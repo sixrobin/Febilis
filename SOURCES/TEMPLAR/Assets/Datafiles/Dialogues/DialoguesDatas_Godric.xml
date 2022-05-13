@@ -50,7 +50,7 @@
       <Sequence>
          <Sentence Id="Godric_SellGodsEmblem_00"/>
          <Sentence Id="Godric_SellGodsEmblem_01"/>
-         <SellItem Id="GodsEmblem" Price="100"/>
+         <SellItem Id="GodsEmblem" Price="400"/>
       </Sequence>
    </DialogueDatas>
    

@@ -9,7 +9,7 @@
       <Sequence>
          <Sentence Id="OfferingStone_ItemLeft_00"/>
          <Sentence Id="OfferingStone_ItemLeft_01"/>
-         <SellItem Id="GodsEmblem" Price="50">
+         <SellItem Id="GodsEmblem" Price="150">
             <CustomLocalizationId>OfferingStone_GodsEmblem</CustomLocalizationId>
          </SellItem>
       </Sequence>
