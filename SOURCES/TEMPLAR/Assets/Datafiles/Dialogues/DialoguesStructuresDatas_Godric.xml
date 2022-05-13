@@ -32,7 +32,13 @@
          </Conditions>
       </Dialogue>
 
-      <Dialogue Id="Godric_PostRetrieveRing">
+      <Dialogue Id="Godric_SellGodsEmblem">
+         <Conditions>
+            <ItemUnsold>GodsEmblem</ItemUnsold>
+         </Conditions>
+      </Dialogue>
+      
+      <Dialogue Id="Godric_LoopingSentence">
       </Dialogue>
       
    </DialoguesStructureDatas>

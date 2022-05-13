@@ -120,7 +120,7 @@ Sentence_StoneSign_RatKing_Sentence_00,"""Beware the king of rats, as many have 
 Sentence_StoneSign_RatKing_Sentence_01,There's blood covering the stone...,Il y a du sang sur la stèle...
 Sentence_StoneSign_SecretWallHint_00,"""Some paths of the catacombs have been condemned.""","""Certains passages des catacombes furent condamnés."""
 Sentence_StoneSign_SecretWallHint_01,"""Beware of their fragility, not to be condemned yourself.""","""Attention à leur fragilité, pour ne pas être à votre tour condamné."""
-Sentence_StoneSign_SecretWallHint_02,... [pause=0.5]This might be my way out.,... [pause=0.5]Voilà peut-être ma porte de sortie.
+Sentence_StoneSign_SecretWallHint_02,.[pause=0.5].[pause=0.5].[pause=0.5] This might be my way out.,.[pause=0.5].[pause=0.5].[pause=0.5] Voilà peut-être ma porte de sortie.
 ,,
 Sentence_Godric_Greeting_00,"Oh, thank god you seem quite normal.","Oh, Dieu merci vous semblez normal."
 Sentence_Godric_Greeting_01,"Listen, I'm in despair, I forgot my ring earlier when I ran away from my home.","Écoutez, je ne sais que faire, j'ai oublié mon alliance quand j'ai fui ma maison."
@@ -139,7 +139,9 @@ Sentence_Godric_RetrieveRing_01,You've made it and you're alive !,Vous l'avez r�
 Sentence_Godric_RetrieveRing_02,Sorry for not letting you know about the monsters...,Pardonnez-moi pour ne pas vous avoir mis en garde à propos des monstres...
 Sentence_Godric_RetrieveRing_03,I was too afraid of you declining my favor...,J'avais peur que vous refusiez de m'aider...
 Sentence_Godric_RetrieveRing_04,"As promised, you can take this, it will be more useful to you than for me.","Comme promis, prenez ceci, ça vous sera plus utile qu'à moi."
-Sentence_Godric_PostRetrieveRing_00,"If only I could see you again, Jeanne...","Si seulement je pouvais te revoir, Jeanne..."
+Sentence_Godric_SellGodsEmblem_00,Also[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] I have another thing you could find interesting.,Et[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] J'ai une autre chose qui pourrait vous intéresser.
+Sentence_Godric_SellGodsEmblem_01,"It's precious, but I'll need money, so I can give it to you for a price.","Elle est précieuse mais il me faut de l'argent, alors je peux vous la vendre."
+Sentence_Godric_LoopingSentence_00,"If only I could see you again, Jeanne...","Si seulement je pouvais te revoir, Jeanne..."
 ,,
 Sentence_NPC01_Greeting_00,"Hello, stranger...","Bonjour, étranger..."
 Sentence_NPC01_Greeting_01,Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia. Long time I didn't see this armor.,Fascinant.[pause=0.5].[pause=0.5].[pause=0.5] vous êtes de la Milice Pâle. Je n'avais pas vu cette armure depuis longtemps.

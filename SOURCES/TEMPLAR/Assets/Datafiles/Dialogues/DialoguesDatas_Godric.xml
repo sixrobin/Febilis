@@ -46,9 +46,17 @@
       </Sequence>
    </DialogueDatas>
 
-   <DialogueDatas Id="Godric_PostRetrieveRing">
+   <DialogueDatas Id="Godric_SellGodsEmblem">
       <Sequence>
-         <Sentence Id="Godric_PostRetrieveRing_00"/>
+         <Sentence Id="Godric_SellGodsEmblem_00"/>
+         <Sentence Id="Godric_SellGodsEmblem_01"/>
+         <SellItem Id="GodsEmblem" Price="100"/>
+      </Sequence>
+   </DialogueDatas>
+   
+   <DialogueDatas Id="Godric_LoopingSentence">
+      <Sequence>
+         <Sentence Id="Godric_LoopingSentence_00"/>
       </Sequence>
    </DialogueDatas>
 
@@ -146,7 +154,15 @@
       <Speaker Id="Godric"/>
    </SentenceDatas>
 
-   <SentenceDatas Id="Godric_PostRetrieveRing_00">
+   <SentenceDatas Id="Godric_SellGodsEmblem_00">
+      <Speaker Id="Godric"/>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Godric_SellGodsEmblem_01">
+      <Speaker Id="Godric"/>
+   </SentenceDatas>
+   
+   <SentenceDatas Id="Godric_LoopingSentence_00">
       <Speaker Id="Godric"/>
    </SentenceDatas>
    
