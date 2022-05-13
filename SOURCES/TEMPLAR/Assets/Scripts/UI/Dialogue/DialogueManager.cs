@@ -8,14 +8,14 @@
     {
         public class DialogueOverEventArgs : System.EventArgs
         {
-            public DialogueOverEventArgs(Datas.Dialogue.DialogueDatas dialogueDatas, System.Collections.Generic.List<string> boughtItemIds)
+            public DialogueOverEventArgs(Datas.Dialogue.DialogueDatas dialogueDatas, System.Collections.Generic.Dictionary<string, int> boughtItemIds)
             {
                 DialogueDatas = dialogueDatas;
                 BoughtItemIds = boughtItemIds;
             }
             
             public Datas.Dialogue.DialogueDatas DialogueDatas { get; }
-            public System.Collections.Generic.List<string> BoughtItemIds { get; }
+            public System.Collections.Generic.Dictionary<string, int> BoughtItemIds { get; }
         }
 
         public class ItemSellingInfo
@@ -47,12 +47,16 @@
 
         public static bool DialogueRunning => Exists() && Instance._dialogueCoroutine != null;
 
-        public static void PlayDialogue(string id, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
+        public static void PlayDialogue(string id,
+                                        Interaction.Dialogue.DialogueStructure.DialogueStructureController dialogueStructureController,
+                                        Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
-            PlayDialogue(Database.DialogueDatabase.DialoguesDatas[id], sourceSpeaker);
+            PlayDialogue(Database.DialogueDatabase.DialoguesDatas[id], dialogueStructureController, sourceSpeaker);
         }
 
-        public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas, Interaction.Dialogue.ISpeaker sourceSpeaker = null)
+        public static void PlayDialogue(Datas.Dialogue.DialogueDatas dialogueDatas,
+                                        Interaction.Dialogue.DialogueStructure.DialogueStructureController dialogueStructureController,
+                                        Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
             UnityEngine.Assertions.Assert.IsFalse(
                 DialogueRunning,
@@ -61,9 +65,8 @@
             Instance._currentDialogue = dialogueDatas;
             Instance._currentDialogueId = new RSLib.Framework.DisabledString(dialogueDatas.Id);
 
-            Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(sourceSpeaker));
+            Instance.StartCoroutine(Instance._dialogueCoroutine = Instance.PlayDialogueCoroutine(dialogueStructureController, sourceSpeaker));
         }
-
         public static bool CheckSkipInput()
         {
             return RSLib.Framework.InputSystem.InputManager.GetAnyInputDown(
@@ -89,14 +92,15 @@
             Log($"Registered {_speakers.Count} speaker(s) is scene : {string.Join(",", _speakers.Keys)}.");
         }
 
-        private System.Collections.IEnumerator PlayDialogueCoroutine(Interaction.Dialogue.ISpeaker sourceSpeaker = null)
+        private System.Collections.IEnumerator PlayDialogueCoroutine(Interaction.Dialogue.DialogueStructure.DialogueStructureController dialogueStructureController,
+                                                                     Interaction.Dialogue.ISpeaker sourceSpeaker = null)
         {
             Log($"Playing dialogue {_currentDialogue.Id}...");
             DialogueStarted?.Invoke(_currentDialogue);
 
             Manager.GameManager.PlayerCtrl.IsDialoguing = true;
 
-            System.Collections.Generic.List<string> boughtItemsDuringDialogue =  new System.Collections.Generic.List<string>();
+            System.Collections.Generic.Dictionary<string, int> boughtItemsDuringDialogue =  new System.Collections.Generic.Dictionary<string, int>();
             
             if (sourceSpeaker is Interaction.Dialogue.INPCSpeaker npcSpeaker)
                 yield return Manager.GameManager.PlayerCtrl.GoToInteractionPosition(npcSpeaker.SpeakerPos, npcSpeaker.PlayerDialoguePivot, _goToPositionTimeout);
@@ -136,7 +140,7 @@
                     yield return Manager.GameManager.DialogueSellItemView.Open(sellItemData, itemSellingInfo);
                     
                     if (itemSellingInfo.ItemSold)
-                        boughtItemsDuringDialogue.Add(sellItemData.ItemId);
+                        boughtItemsDuringDialogue.Add(sellItemData.ItemId, sellItemData.Quantity);
                     
                     // TODO: Mark item as bought in DialogueStructure for game save.
                 }
@@ -152,6 +156,11 @@
             Manager.GameManager.PlayerCtrl.IsDialoguing = false;
             Manager.GameManager.PlayerCtrl.PlayerView.PlayIdleAnimation();
 
+            if (dialogueStructureController != null)
+                foreach (System.Collections.Generic.KeyValuePair<string, int> boughtItemDuringDialogue in boughtItemsDuringDialogue)
+                    dialogueStructureController.MarkItemAsSold(boughtItemDuringDialogue.Key, boughtItemDuringDialogue.Value);
+                    // Manager.DialoguesStructuresManager.RegisterSoldItemForSpeaker(speakerId, boughtItemDuringDialogue.Key, boughtItemDuringDialogue.Value);
+            
             DialogueOver?.Invoke(new DialogueOverEventArgs(_currentDialogue, boughtItemsDuringDialogue));
             
             Log($"Dialogue {_currentDialogue.Id} sequence is over.");
@@ -285,7 +294,7 @@
                 _dialogueView = FindObjectOfType<DialogueView>();
             }
 
-            RSLib.Debug.Console.DebugConsole.OverrideCommand<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id));
+            RSLib.Debug.Console.DebugConsole.OverrideCommand<string>("PlayDialogue", "Plays a dialogue by Id.", (id) => PlayDialogue(id, null, null));
             RSLib.Debug.Console.DebugConsole.OverrideCommand("ToggleFastDialogues", "Toggles dialogue light speed.", () => _debugFastDialogues = !_debugFastDialogues);
             RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("ToggleFastDialogues", "Set dialogue light speed state.", (state) => _debugFastDialogues = state);
         }

@@ -26,6 +26,20 @@
             return !dialogueStructureController.IsDialogueAlreadyDone(_conditionDatas.DialogueId); 
         }
     }
+    
+    
+    public class ItemUnsoldDialogueStructureConditionChecker
+        : DialogueStructureConditionChecker<Datas.Dialogue.DialogueStructure.ItemUnsoldDialogueConditionDatas>
+    {
+        public ItemUnsoldDialogueStructureConditionChecker(Datas.Dialogue.DialogueStructure.DialoguesStructureDialogueConditionDatas conditionDatas) : base(conditionDatas)
+        {
+        }
+
+        public override bool Check(DialogueStructureController dialogueStructureController)
+        {
+            return dialogueStructureController.GetItemSoldQuantity(_conditionDatas.ItemId) == 0;
+        }
+    }
 
 
     public class PlayerHasItemDialogueStructureConditionChecker

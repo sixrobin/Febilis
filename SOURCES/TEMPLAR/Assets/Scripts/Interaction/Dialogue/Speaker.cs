@@ -54,7 +54,7 @@
             base.Interact();
 
             IsDialoguing = true;
-            UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, this);
+            UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, null, sourceSpeaker: this);
         }
 
         private void Start()

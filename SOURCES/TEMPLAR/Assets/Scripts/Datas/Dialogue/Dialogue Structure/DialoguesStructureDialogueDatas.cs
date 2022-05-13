@@ -7,6 +7,7 @@
     public class DialoguesStructureDialogueDatas : Datas
     {
         private const string ELEMENT_NAME_DIALOGUE_NEVER_DONE = "DialogueNeverDone";
+        private const string ELEMENT_NAME_ITEM_UNSOLD = "ItemUnsold";
         private const string ELEMENT_NAME_PLAYER_HAS_ITEM = "PlayerHasItem";
         private const string ELEMENT_NAME_PLAYER_DOESNT_HAVE_ITEM = "PlayerDoesntHaveItem";
         private const string ELEMENT_NAME_BOARD_DISCOVERED = "BoardDiscovered";
@@ -43,6 +44,8 @@
             {
                 if (conditionElement.Name.LocalName == ELEMENT_NAME_DIALOGUE_NEVER_DONE)
                     ConditionsDatas[i] = new DialogueNeverDoneDialogueConditionDatas(conditionElement);
+                else if (conditionElement.Name.LocalName == ELEMENT_NAME_ITEM_UNSOLD)
+                    ConditionsDatas[i] = new ItemUnsoldDialogueConditionDatas(conditionElement);
                 else if (conditionElement.Name.LocalName == ELEMENT_NAME_PLAYER_HAS_ITEM)
                     ConditionsDatas[i] = new PlayerHasItemDialogueConditionDatas(conditionElement);
                 else if (conditionElement.Name.LocalName == ELEMENT_NAME_PLAYER_DOESNT_HAVE_ITEM)

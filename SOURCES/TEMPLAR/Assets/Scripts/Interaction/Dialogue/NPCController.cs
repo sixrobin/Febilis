@@ -70,12 +70,8 @@
             IsDialoguing = true;
 
             string dialogueToPlay = _dialogueStructureController.GetNextDialogueId();
-
             if (!string.IsNullOrEmpty(dialogueToPlay))
-            {
-                Manager.DialoguesStructuresManager.RegisterDialogueForSpeaker(SpeakerId, dialogueToPlay);
-                UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, this);
-            }
+                UI.Dialogue.DialogueManager.PlayDialogue(dialogueToPlay, _dialogueStructureController, sourceSpeaker: this);
         }
 
         private void SetTriggerOnAnimators(string parameterId)
@@ -89,10 +85,13 @@
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
             _player = Manager.GameManager.PlayerCtrl.transform;
-            _dialogueStructureController = new DialogueStructure.DialogueStructureController( _dialogueStructureId);
+            _dialogueStructureController = new DialogueStructure.DialogueStructureController(_dialogueStructureId, SpeakerId);
 
             if (Manager.DialoguesStructuresManager.TryGetDialoguesDoneBySpeaker(SpeakerId, out System.Collections.Generic.List<string> dialoguesDone))
                 _dialogueStructureController.LoadDoneDialogues(dialoguesDone);
+            
+            if (Manager.DialoguesStructuresManager.TryGetSoldItemsBySpeaker(SpeakerId, out System.Collections.Generic.Dictionary<string, int> soldItems))
+                _dialogueStructureController.LoadSoldItems(soldItems);
         }
 
         private void Update()

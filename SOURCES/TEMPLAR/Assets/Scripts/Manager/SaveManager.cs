@@ -59,8 +59,8 @@
 
                     container.Add(FlagsManager.Save());
                     container.Add(GameManager.InventoryCtrl.Save());
+                    container.Add(GameManager.InventoryView.Save());
                     container.Add(DialoguesStructuresManager.Save());
-                    container.Add(FindObjectOfType<UI.Inventory.InventoryView>().Save()); // [TMP] Find.
                     container.Add(InputTutorialDisplay.Save());
                 }
 
@@ -204,6 +204,16 @@
             System.Diagnostics.Process.Start($@"{GameSaveFolderPath}");
         }
 
+        [ContextMenu("Erase Save File")]
+        private void DebugEraseSaveFile()
+        {
+            if (!System.IO.File.Exists(GameSaveFilePath))
+                return;
+            
+            System.IO.File.Delete(GameSaveFilePath);
+            Instance.Log("Game save erased successfully !", true);
+        }
+        
         protected override void Awake()
         {
             base.Awake();

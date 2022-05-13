@@ -44,8 +44,8 @@
                 if (dialogueSequenceElement is Datas.Dialogue.DialogueAddItemDatas addItemDatas)
                     AddItemToShow(addItemDatas.ItemId);
 
-            foreach (string boughtItemId in dialogueOverEventArgs.BoughtItemIds)
-                AddItemToShow(boughtItemId);
+            foreach (System.Collections.Generic.KeyValuePair<string, int> boughtItemId in dialogueOverEventArgs.BoughtItemIds)
+                AddItemToShow(boughtItemId.Key);
         }
 
         private void OnInventoryViewDisplayChanged(bool displayed)

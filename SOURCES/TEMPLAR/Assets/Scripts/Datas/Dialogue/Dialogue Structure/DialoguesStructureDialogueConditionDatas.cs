@@ -31,6 +31,24 @@
             DialogueId = dialogueNeverDoneElement.Value;
         }
     }
+    
+    
+    public class ItemUnsoldDialogueConditionDatas : DialoguesStructureDialogueConditionDatas
+    {
+        public ItemUnsoldDialogueConditionDatas(XContainer container) : base(container)
+        {
+        }
+
+        public string ItemId { get; private set; }
+
+        public override void Deserialize(XContainer container)
+        {
+            base.Deserialize(container);
+
+            XElement itemUnsoldElement = container as XElement;
+            ItemId = itemUnsoldElement.Value;
+        }
+    }
 
 
     public class PlayerHasItemDialogueConditionDatas : DialoguesStructureDialogueConditionDatas

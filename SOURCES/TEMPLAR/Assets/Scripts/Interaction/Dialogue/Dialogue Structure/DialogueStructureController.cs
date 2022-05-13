@@ -5,26 +5,31 @@
     public class DialogueStructureController
     {
         private Datas.Dialogue.DialogueStructure.DialoguesStructureDatas _dialoguesStructureDatas;
+        private string _speakerId;
         private System.Collections.Generic.Dictionary<string, IDialogueStructureConditionChecker[]> _dialogueStructureConditionsCheckers;
 
         private System.Collections.Generic.List<string> _doneDialogues = new System.Collections.Generic.List<string>();
+        private System.Collections.Generic.Dictionary<string, int> _soldItems = new System.Collections.Generic.Dictionary<string, int>();
 
-        public DialogueStructureController(string dialoguesStructureId) : this(Database.DialogueDatabase.DialoguesStructuresDatas[dialoguesStructureId]) { }
-
-        public DialogueStructureController(Datas.Dialogue.DialogueStructure.DialoguesStructureDatas dialoguesStructureDatas)
+        public DialogueStructureController(string dialoguesStructureId, string speakerId) : this(Database.DialogueDatabase.DialoguesStructuresDatas[dialoguesStructureId], speakerId)
         {
-            _dialoguesStructureDatas = dialoguesStructureDatas;
-            CreateConditionsCheckers();
         }
 
-        public System.Collections.Generic.List<string> GetDoneDialoguesCopy()
+        public DialogueStructureController(Datas.Dialogue.DialogueStructure.DialoguesStructureDatas dialoguesStructureDatas, string speakerId)
         {
-            return new System.Collections.Generic.List<string>(_doneDialogues);
+            _dialoguesStructureDatas = dialoguesStructureDatas;
+            _speakerId = speakerId;
+            CreateConditionsCheckers();
         }
 
         public void LoadDoneDialogues(System.Collections.Generic.IEnumerable<string> doneDialogues)
         {
             _doneDialogues = doneDialogues.ToList();
+        }
+
+        public void LoadSoldItems(System.Collections.Generic.Dictionary<string, int> soldItems)
+        {
+            _soldItems = new System.Collections.Generic.Dictionary<string, int>(soldItems);
         }
 
         public string GetNextDialogueId()
@@ -62,12 +67,38 @@
         public bool IsDialogueAlreadyDone(string id)
         {
             UnityEngine.Assertions.Assert.IsTrue(
-                _dialoguesStructureDatas.Dialogues.Select(o => o.DialogueId).Where(o => o == id).Count() > 0,
+                _dialoguesStructureDatas.Dialogues.Select(o => o.DialogueId).Any(o => o == id),
                 $"Checking if dialogue {id} has been done in a structure controller but no dialogue has such an Id in the structure.");
 
             return _doneDialogues.Contains(id);
         }
 
+        public int GetItemSoldQuantity(string itemId)
+        {
+            return _soldItems.TryGetValue(itemId, out int quantity) ? quantity : 0;
+        }
+        
+        public void MarkItemAsSold(string id, int quantity)
+        {
+            if (!_soldItems.ContainsKey(id))
+                _soldItems.Add(id, quantity);
+            else
+                _soldItems[id] += quantity;
+            
+            Manager.DialoguesStructuresManager.RegisterSoldItemForSpeaker(_speakerId, id, quantity);
+        }
+        
+        private string MarkDialogueAsDone(string id)
+        {
+            if (_doneDialogues.Contains(id))
+                return id;
+
+            _doneDialogues.Add(id);
+            Manager.DialoguesStructuresManager.RegisterDialogueForSpeaker(_speakerId, id);
+            
+            return id;
+        }
+        
         private void CreateConditionsCheckers()
         {
             _dialogueStructureConditionsCheckers = new System.Collections.Generic.Dictionary<string, IDialogueStructureConditionChecker[]>();
@@ -86,6 +117,8 @@
                 {
                     if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.DialogueNeverDoneDialogueConditionDatas dialogueNeverDoneConditionDatas)
                         conditionChecker[i] = new DialogueNeverDoneDialogueStructureConditionChecker(dialogueNeverDoneConditionDatas);
+                    else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.ItemUnsoldDialogueConditionDatas itemUnsoldConditionDatas)
+                        conditionChecker[i] = new ItemUnsoldDialogueStructureConditionChecker(itemUnsoldConditionDatas);
                     else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.PlayerHasItemDialogueConditionDatas playerHasItemConditionDatas)
                         conditionChecker[i] = new PlayerHasItemDialogueStructureConditionChecker(playerHasItemConditionDatas);
                     else if (dialogueDatas.ConditionsDatas[i] is Datas.Dialogue.DialogueStructure.PlayerDoesntHaveItemDialogueConditionDatas playerDoesntHaveItemConditionDatas)
@@ -100,15 +133,6 @@
 
                 _dialogueStructureConditionsCheckers.Add(dialogueDatas.DialogueId, conditionChecker);
             }
-        }
-    
-        private string MarkDialogueAsDone(string id)
-        {
-            if (_doneDialogues.Contains(id))
-                return id;
-
-            _doneDialogues.Add(id);
-            return id;
         }
     }
 }
