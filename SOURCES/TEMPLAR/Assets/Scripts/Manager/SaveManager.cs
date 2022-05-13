@@ -198,22 +198,6 @@
             return true;
         }
 
-        [ContextMenu("Open Save Folder")]
-        private void OpenSaveFolder()
-        {
-            System.Diagnostics.Process.Start($@"{GameSaveFolderPath}");
-        }
-
-        [ContextMenu("Erase Save File")]
-        private void DebugEraseSaveFile()
-        {
-            if (!System.IO.File.Exists(GameSaveFilePath))
-                return;
-            
-            System.IO.File.Delete(GameSaveFilePath);
-            Instance.Log("Game save erased successfully !", true);
-        }
-        
         protected override void Awake()
         {
             base.Awake();
@@ -240,5 +224,33 @@
         {
             _saveMinimumVersion = Mathf.Min(_saveMinimumVersion, _saveVersion);
         }
+        
+        [ContextMenu("Open Save Folder")]
+        public void OpenSaveFolder()
+        {
+            System.Diagnostics.Process.Start($@"{GameSaveFolderPath}");
+        }
+        
+        [ContextMenu("Erase Save File")]
+        public void DebugEraseSaveFile()
+        {
+            if (!System.IO.File.Exists(GameSaveFilePath))
+                return;
+            
+            System.IO.File.Delete(GameSaveFilePath);
+            Instance.Log("Game save erased successfully !", true);
+        }
     }
+    
+#if UNITY_EDITOR
+    [UnityEditor.CustomEditor(typeof(SaveManager))]
+    public class SaveManagerEditor : RSLib.EditorUtilities.ButtonProviderEditor<SaveManager>
+    {
+        protected override void DrawButtons()
+        {
+            DrawButton("Open Save Folder", Obj.OpenSaveFolder);
+            DrawButton("Erase Save File", Obj.DebugEraseSaveFile);
+        }
+    }
+#endif
 }
