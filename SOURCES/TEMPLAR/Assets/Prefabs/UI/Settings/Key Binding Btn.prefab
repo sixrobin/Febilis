@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8563730210752693341}
   - component: {fileID: 6211617073966300150}
   - component: {fileID: 5731819616687949304}
+  - component: {fileID: 276444605157138786}
   m_Layer: 5
   m_Name: Key Binding Btn
   m_TagString: Untagged
@@ -152,6 +153,18 @@ MonoBehaviour:
       m_Calls: []
   _buttonText: {fileID: 6691157606448856822}
   _nonInteractableTextColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &276444605157138786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5116579580543232499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce7c773588e54d4c9ab2b1b86294ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7648295666318492114
 GameObject:
   m_ObjectHideFlags: 0

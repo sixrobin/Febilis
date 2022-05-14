@@ -36,8 +36,10 @@
 
         public override void Close()
         {
+            if (Displayed)
+                RSLib.Audio.UI.UIAudioManager.PlayGenericNavigationClip();
+            
             base.Close();
-            RSLib.Audio.UI.UIAudioManager.PlayGenericNavigationClip();
         }
 
         private void InitSettingsButtonsNavigation()
@@ -58,7 +60,6 @@
                 _settingsBtns[i].SetMode(UnityEngine.UI.Navigation.Mode.Explicit);
                 _settingsBtns[i].SetSelectOnUp(i == 0 ? QuitBtn : _settingsBtns[i - 1]);
                 _settingsBtns[i].SetSelectOnDown(i == _settingsBtns.Length - 1 ? QuitBtn : _settingsBtns[i + 1]);
-
                 _settingsBtns[i].SetSelectOnRight(QuitBtn);
             }
 

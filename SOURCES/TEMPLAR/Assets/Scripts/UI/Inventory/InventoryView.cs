@@ -251,6 +251,9 @@
 
                 if (i % _slotsRowLength == 0) // Left side.
                 {
+                    if (i > 0)
+                        _slotsViews[i].Button.SetSelectOnLeft(_slotsViews[i - 1].Button);
+    
                     _slotsViews[i].Button.SetSelectOnRight(_slotsViews[i + 1].Button);
                 }
                 else if ((i - (_slotsRowLength - 1)) % _slotsRowLength == 0) // Right side.

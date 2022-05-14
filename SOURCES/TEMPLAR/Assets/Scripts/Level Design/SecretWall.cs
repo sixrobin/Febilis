@@ -16,6 +16,9 @@
         [Header("EVENT")]
         [SerializeField] private UnityEngine.Events.UnityEvent _secretWallOpen = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _secretWallOpenClipProvider = null;
+        
         public Flags.IIdentifier Identifier => _secretWallIdentifier;
         
         public bool SpawnVFXOnHit => true;
@@ -39,9 +42,12 @@
             _collider2D.enabled = false;
             
             _secretWallOpen?.Invoke();
-            
+
             if (!onLoad)
+            {
                 Manager.FlagsManager.Register(this);
+                RSLib.Audio.AudioManager.PlaySound(_secretWallOpenClipProvider);                
+            }
         }
 
         private void Start()
