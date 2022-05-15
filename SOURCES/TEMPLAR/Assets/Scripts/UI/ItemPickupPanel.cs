@@ -19,6 +19,8 @@
         private bool _coroutineRunning;
         private System.Collections.Generic.Queue<string> _itemsIdsToShow = new System.Collections.Generic.Queue<string>();
 
+        public static event System.Action PickupPanelDisplayed;
+        
         private void OnInventoryContentChanged(Item.InventoryController.InventoryContentChangedEventArgs args)
         {
             if (!args.ShowPickupNotification
@@ -88,6 +90,8 @@
             _coroutineRunning = true;
             _canvas.enabled = true;
 
+            PickupPanelDisplayed?.Invoke();
+            
             while (_itemsIdsToShow.Count > 0)
             {
                 string itemId = _itemsIdsToShow.Dequeue();
