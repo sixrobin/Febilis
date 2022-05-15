@@ -6,30 +6,29 @@
     public class Interacter : MonoBehaviour
     {
         private System.Collections.Generic.Dictionary<Collider2D, IInteractable> _knownInteractables = new System.Collections.Generic.Dictionary<Collider2D, IInteractable>();
-        private IInteractable _currInteractable;
 
         public delegate void InteractedEventHandler(IInteractable interactable);
         public InteractedEventHandler Interacted;
 
-        public IInteractable CurrentInteractable => _currInteractable;
-        
+        public IInteractable CurrentInteractable { get; private set; }
+
         public void TryInteract()
         {
-            if (_currInteractable == null)
+            if (CurrentInteractable == null)
                 return;
             
-            Interacted?.Invoke(_currInteractable);
-            _currInteractable.Interact();
+            Interacted?.Invoke(CurrentInteractable);
+            CurrentInteractable.Interact();
         }
 
         // Collision layering should be managed by the project physics settings.
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (_currInteractable != null)
+            if (CurrentInteractable != null)
             {
                 // Focus only one at a time.
-                _currInteractable.Unfocus();
-                _currInteractable = null;
+                CurrentInteractable.Unfocus();
+                CurrentInteractable = null;
             }
 
             if (!_knownInteractables.TryGetValue(collision, out IInteractable interactable))
@@ -39,8 +38,8 @@
             if (interactable == null)
                 return;
 
-            _currInteractable = interactable;
-            _currInteractable.Focus();
+            CurrentInteractable = interactable;
+            CurrentInteractable.Focus();
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -52,8 +51,8 @@
             if (_knownInteractables.TryGetValue(collision, out IInteractable interactable))
             {
                 interactable.Unfocus();
-                if (interactable == _currInteractable)
-                    _currInteractable = null;
+                if (interactable == CurrentInteractable)
+                    CurrentInteractable = null;
             }
         }
     }

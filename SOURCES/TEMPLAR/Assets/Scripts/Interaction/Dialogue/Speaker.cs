@@ -10,9 +10,9 @@
         [SerializeField] protected GameObject _highlight = null;
         [SerializeField] protected Collider2D _collider = null;
 
-        public string SpeakerId => _speakerId.Enabled ? _speakerId.Value : string.Empty;
+        private bool _isDialoguing;
 
-        public bool IsDialoguing { get; set; }
+        public string SpeakerId => _speakerId.Enabled ? _speakerId.Value : string.Empty;
 
         public Transform PlayerDialoguePivot => _playerDialoguePivot.Enabled ? _playerDialoguePivot.Value : null;
         public Vector3 SpeakerPos => transform.position;
@@ -27,7 +27,11 @@
 
         private void OnDialogueOver(UI.Dialogue.DialogueManager.DialogueOverEventArgs dialogueOverEventArgs)
         {
-            IsDialoguing = false;
+            // Speaker is not implied in the dialogue that just finished -> nothing to do.
+            if (!_isDialoguing)
+                return;
+            
+            _isDialoguing = false;
 
             // If no dialogue pivot has been set, the player will not unfocus the speaker since it will be on it.
             // We can then assume the highlight should stay visible.
@@ -45,7 +49,7 @@
         {
             base.Unfocus();
 
-            if (!IsDialoguing)
+            if (!_isDialoguing)
                 _highlight.SetActive(false);
         }
 
@@ -53,11 +57,11 @@
         {
             base.Interact();
 
-            IsDialoguing = true;
+            _isDialoguing = true;
             UI.Dialogue.DialogueManager.PlayDialogue(_dialogueId, null, sourceSpeaker: this);
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
         }

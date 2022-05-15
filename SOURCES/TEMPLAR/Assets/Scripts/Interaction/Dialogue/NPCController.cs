@@ -1,6 +1,5 @@
 ﻿namespace Templar.Interaction.Dialogue
 {
-    using Templar.SceneLoadingDatasStorage;
     using UnityEngine;
 
     public class NPCController : Interactable, INPCSpeaker

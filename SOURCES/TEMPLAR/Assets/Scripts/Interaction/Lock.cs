@@ -61,8 +61,10 @@
             }
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+            
             if (Manager.FlagsManager.Check(this))
             {
                 Unlock(true);
