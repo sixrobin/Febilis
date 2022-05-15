@@ -13,7 +13,7 @@
                 Chance = chance;
             }
 
-            public float Chance { get; private set; }
+            public float Chance { get; }
         }
 
         public class CoinsLoot : Loot
@@ -25,7 +25,7 @@
                 Value = value;
             }
 
-            public int Value { get; private set; }
+            public int Value { get; }
         }
 
         public class ItemLoot : Loot
@@ -37,7 +37,7 @@
                 ItemId = itemId;
             }
 
-            public string ItemId { get; private set; }
+            public string ItemId { get; }
         }
 
         public LootDatas(XContainer container) : base(container)

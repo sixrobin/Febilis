@@ -1,15 +1,23 @@
 ﻿namespace Templar.Manager
 {
+    using System.Linq;
     using RSLib;
     using RSLib.Extensions;
+    using System.Xml.Linq;
     using UnityEngine;
 
     /// <summary>
     /// Manages the loot spawn but has nothing to do with the actual currency count and management.
     /// Can be used to spawn loot, split loot between different prefabs (like coins, gems, etc.).
     /// </summary>
-    public class LootManager : RSLib.Framework.ConsoleProSingleton<LootManager>
+    public partial class LootManager : RSLib.Framework.ConsoleProSingleton<LootManager>
     {
+        public struct WorldLootItem
+        {
+            public string ItemId;
+            public Transform ItemPickup;
+        }
+        
         [SerializeField] private GameObject _coinPrefab = null;
         [SerializeField] private GameObject _itemPrefab = null;
 
@@ -18,8 +26,9 @@
         [SerializeField] private bool _spawnCoinsOnClickMode = false;
         [SerializeField] private string _spawnItemOnClickMode = string.Empty;
 
-        private static System.Collections.Generic.List<GameObject> s_waitingObjects = new System.Collections.Generic.List<GameObject>();
-
+        private System.Collections.Generic.List<GameObject> _waitingObjects = new System.Collections.Generic.List<GameObject>();
+        private System.Collections.Generic.List<WorldLootItem> _waitingItems = new System.Collections.Generic.List<WorldLootItem>();
+        
         public static void SpawnLoot(Datas.LootDatas lootData, Vector3 position, float delay = 0f)
         {
             for (int i = lootData.Loots.Length - 1; i >= 0; --i)
@@ -61,7 +70,7 @@
             {
                 GameObject coinInstance = RSLib.Framework.Pooling.Pool.Get(Instance._coinPrefab);
                 coinInstance.transform.position = pos;
-                s_waitingObjects.Add(coinInstance);
+                Instance._waitingObjects.Add(coinInstance);
             }
         }
         
@@ -69,39 +78,54 @@
         {
             GameObject itemInstance = RSLib.Framework.Pooling.Pool.Get(Instance._itemPrefab, itemId);
             itemInstance.transform.position = pos;
-            s_waitingObjects.Add(itemInstance);
+            
+            Instance._waitingObjects.Add(itemInstance);
+            
+            Instance._waitingItems.Add(new WorldLootItem
+            {
+                ItemId = itemId,
+                ItemPickup = itemInstance.transform
+            });
         }
 
         public static void DisableWaitingObjects()
         {
-            if (s_waitingObjects.Count == 0)
+            if (Instance._waitingObjects.Count == 0)
                 return;
 
-            Instance.Log($"Disabling {s_waitingObjects.Count} waiting coin(s).");
+            Instance.Log($"Disabling {Instance._waitingObjects.Count} waiting coin(s).");
 
-            for (int i = s_waitingObjects.Count - 1; i >= 0; --i)
-                if (s_waitingObjects[i] != null)
-                    s_waitingObjects[i].SetActive(false);
+            for (int i = Instance._waitingObjects.Count - 1; i >= 0; --i)
+                if (Instance._waitingObjects[i] != null)
+                    Instance._waitingObjects[i].SetActive(false);
 
-            s_waitingObjects.Clear();
+            Instance._waitingObjects.Clear();
+            Instance._waitingItems.Clear();
         }
 
         private void OnCoinDisabled(CoinController coin)
         {
             UnityEngine.Assertions.Assert.IsTrue(
-                s_waitingObjects.Contains(coin.gameObject),
+                _waitingObjects.Contains(coin.gameObject),
                 $"Coin {coin.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
 
-            s_waitingObjects.Remove(coin.gameObject);
+            _waitingObjects.Remove(coin.gameObject);
         }
 
         private void OnItemPickedUp(ItemWorldController item)
         {
+            Debug.LogError("Picking up item...");
+            
             UnityEngine.Assertions.Assert.IsTrue(
-                s_waitingObjects.Contains(item.gameObject),
+                _waitingObjects.Contains(item.gameObject),
                 $"Item {item.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
 
-            s_waitingObjects.Remove(item.gameObject);
+            UnityEngine.Assertions.Assert.IsTrue(
+                _waitingItems.Any(o => o.ItemPickup == item.transform),
+                $"Item {item.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
+
+            _waitingObjects.Remove(item.gameObject);
+            _waitingItems.RemoveAll(o => o.ItemPickup == item.transform);
         }
         
         protected override void Awake()
@@ -135,6 +159,55 @@
             ItemWorldController.ItemPickedUp -= OnItemPickedUp;
 
             DisableWaitingObjects();
+        }
+    }
+
+    public partial class LootManager : RSLib.Framework.ConsoleProSingleton<LootManager>
+    {
+        public static XElement Save()
+        {
+            XElement itemsLootElement = new XElement("ItemsLoot");
+            
+            for (int i = Instance._waitingItems.Count - 1; i >= 0; --i)
+            {
+                WorldLootItem itemLoot = Instance._waitingItems[i];
+                XElement itemLootElement = new XElement("ItemLoot", new XAttribute("ItemId", itemLoot.ItemId));
+
+                Vector3 itemPosition = itemLoot.ItemPickup.position;
+                itemLootElement.Add(new XElement("Position",
+                                                 new XAttribute("X", itemPosition.x),
+                                                 new XAttribute("Y", itemPosition.y)));
+                
+                // TODO: If there are multiple scenes in the game, need to save the scene each item belongs to.
+                
+                itemsLootElement.Add(itemLootElement);
+            }
+            
+            return itemsLootElement;
+        }
+
+        public static void Load(XElement itemsLootElement = null)
+        {
+            if (itemsLootElement == null)
+                return;
+
+            foreach (XElement itemLootElement in itemsLootElement.Elements("ItemLoot"))
+            {
+                XAttribute itemIdAttribute = itemLootElement.Attribute("ItemId");
+                if (itemIdAttribute == null)
+                    continue;
+
+                XElement positionElement = itemLootElement.Element("Position");
+                if (positionElement == null)
+                    continue;
+                
+                Vector3 position = new Vector3(positionElement.Attribute("X").ValueToFloat(),
+                                               positionElement.Attribute("Y").ValueToFloat());
+                
+                // TODO: If there are multiple scenes in the game, need to load the scene each item belongs to.
+                
+                SpawnItem(itemIdAttribute.Value, position);
+            }
         }
     }
 }

@@ -34,8 +34,9 @@
    
    <ItemDatas Id="GodsEmblem">
       <Type>MISC</Type>
-      <AlwaysInInventory/>
+<!--      <AlwaysInInventory/>-->
       <Actions>
+         <Drop/>
          <Move/>
       </Actions>
    </ItemDatas>
@@ -71,7 +72,7 @@
    </ItemDatas>
 
    <ItemDatas Id="Ring_Godric">
-      <Type>EQUIPABLE</Type>
+      <Type>QUEST</Type>
       <Actions>
          <Move/>
       </Actions>
@@ -110,7 +111,8 @@
    </ItemDatas>
 
    <ItemDatas Id="Ring_CatacombsSecret">
-      <Type>EQUIPABLE</Type>
+<!--      <Type>EQUIPABLE</Type>-->
+      <Type>MISC</Type>
       <Actions>
          <Move/>
       </Actions>

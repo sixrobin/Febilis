@@ -61,6 +61,7 @@
                     container.Add(GameManager.InventoryCtrl.Save());
                     container.Add(GameManager.InventoryView.Save());
                     container.Add(DialoguesStructuresManager.Save());
+                    container.Add(LootManager.Save());
                     container.Add(InputTutorialDisplay.Save());
                 }
 
@@ -139,8 +140,9 @@
 
                 FlagsManager.Load(gameSaveElement.Element("Flags"));
                 GameManager.InventoryCtrl.Load(gameSaveElement.Element("Inventory"));
+                GameManager.InventoryView.Load(gameSaveElement.Element("InventoryView"));
                 DialoguesStructuresManager.Load(gameSaveElement.Element("DialoguesStructures"));
-                FindObjectOfType<UI.Inventory.InventoryView>().Load(gameSaveElement.Element("InventoryView")); // [TMP] Find.
+                LootManager.Load(gameSaveElement.Element("ItemsLoot"));
                 InputTutorialDisplay.Load(gameSaveElement.Element("ValidatedInputs"));
             }
             catch (SaveVersionUnknownException e)
@@ -225,6 +227,18 @@
             _saveMinimumVersion = Mathf.Min(_saveMinimumVersion, _saveVersion);
         }
         
+        [ContextMenu("Save")]
+        public void DebugSave()
+        {
+            TrySave();
+        }
+        
+        [ContextMenu("Save (no encryption)")]
+        public void DebugSaveNoEncryption()
+        {
+            TrySave(false);
+        }
+        
         [ContextMenu("Open Save Folder")]
         public void OpenSaveFolder()
         {
@@ -248,6 +262,12 @@
     {
         protected override void DrawButtons()
         {
+            if (UnityEditor.EditorApplication.isPlaying)
+            {
+                DrawButton("Save", Obj.DebugSave);
+                DrawButton("Save (no encryption)", Obj.DebugSaveNoEncryption);
+            }
+            
             DrawButton("Open Save Folder", Obj.OpenSaveFolder);
             DrawButton("Erase Save File", Obj.DebugEraseSaveFile);
         }
