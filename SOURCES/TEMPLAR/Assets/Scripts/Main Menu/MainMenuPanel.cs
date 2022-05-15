@@ -29,6 +29,13 @@
         [SerializeField] private RSLib.ImageEffects.CameraGrayscaleRamp _grayscaleRamp = null;
         [SerializeField] private Datas.RampFadeDatas _rampFadeOutDatas = null;
 
+        [Header("INIT BLACK MASK")]
+        [SerializeField] private SpriteRenderer _blackMaskSpriteRenderer = null;
+        [SerializeField] private float _blackMaskFadeOutDuration = 0.5f;
+        [SerializeField] private float _blackMaskTargetScale = 4f;
+        [SerializeField] private float _blackMaskAlphaFadeDuration = 1f;
+        [SerializeField] private Curve _blackMaskFadeCurve = Curve.Linear;
+        
         [Header("PRESS ANY KEY")]
         [SerializeField] private float _pressAnyKeyBlinkSpeed = 0.5f;
         [SerializeField] private float _pressAnyKeyPostDelay = 0.5f;
@@ -205,6 +212,29 @@
             _settingsBtn.Button.SetText(Localizer.Get(Localization.MainMenu.SETTINGS));
             _quitBtn.Button.SetText(Localizer.Get(Localization.MainMenu.QUIT));
         }
+
+        private System.Collections.IEnumerator FadeBlackMaskCoroutine()
+        {
+            float blackMaskInitScale = _blackMaskSpriteRenderer.transform.localScale.x;
+            
+            for (float t = 0f; t <= 1f; t += Time.deltaTime / _blackMaskFadeOutDuration)
+            {
+                _blackMaskSpriteRenderer.transform.localScale = Vector3.one * Mathf.Lerp(blackMaskInitScale, _blackMaskTargetScale, t.Ease(_blackMaskFadeCurve));
+                _blackMaskSpriteRenderer.color = Color.Lerp(Color.black, Color.white, t.Ease(_blackMaskFadeCurve));
+                yield return null;
+            }
+            
+            _blackMaskSpriteRenderer.transform.localScale = Vector3.one * _blackMaskTargetScale;
+            _blackMaskSpriteRenderer.color = Color.white;
+            
+            for (float t = 0f; t <= 1f; t += Time.deltaTime / _blackMaskAlphaFadeDuration)
+            {
+                _blackMaskSpriteRenderer.color = Color.white.WithA(1f - t);
+                yield return null;
+            }
+            
+            _blackMaskSpriteRenderer.color = Color.white.WithA(0f);
+        }
         
         private System.Collections.IEnumerator FadeVignetteCoroutine(float sourceValue, float targetValue, (float, float) delays, float dur, Curve curve, System.Action callback = null)
         {
@@ -308,6 +338,7 @@
         {
             SetupInitViewState();
 
+            StartCoroutine(FadeBlackMaskCoroutine());
             StartCoroutine(FadeTitleColorCoroutine());
             StartCoroutine(FadeTitleAlphaCoroutine());
 

@@ -379,6 +379,11 @@ MonoBehaviour:
     type: 2}
   _grayscaleRamp: {fileID: 0}
   _rampFadeOutDatas: {fileID: 11400000, guid: 4c9d7cc74847f494581b127a69639c40, type: 2}
+  _blackMaskSpriteRenderer: {fileID: 0}
+  _blackMaskFadeOutDuration: 1.7
+  _blackMaskTargetScale: 3.5
+  _blackMaskAlphaFadeDuration: 1
+  _blackMaskFadeCurve: 27
   _pressAnyKeyBlinkSpeed: 0.5
   _pressAnyKeyPostDelay: 1
 --- !u!1 &3063924695254653652

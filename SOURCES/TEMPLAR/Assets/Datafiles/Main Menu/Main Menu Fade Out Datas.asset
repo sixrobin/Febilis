@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c30148d687ae847899dd9725bad9c2, type: 3}
   m_Name: Main Menu Fade Out Datas
   m_EditorClassIdentifier: 
-  _vignetteDelay: 1
+  _vignetteDelay: 1.5
   _vignetteTargetScale: 11
   _vignetteDur: 2
   _vignetteCurve: 26
   _rampDatas: {fileID: 11400000, guid: 4c9d7cc74847f494581b127a69639c40, type: 2}
   _titleColorDur: 1.8
-  _titleColorDelay: 0.7
+  _titleColorDelay: 1.2
   _titleAlphaDur: 0.3
-  _titleAlphaDelay: 1.2
+  _titleAlphaDelay: 1.7
   _titleCurve: 9
