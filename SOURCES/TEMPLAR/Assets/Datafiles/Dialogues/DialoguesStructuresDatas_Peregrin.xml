@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesStructuresDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesStructuresDatas.xsd">
+
+   <DialoguesStructureDatas Id="Peregrin">
+
+      <Dialogue Id="Peregrin_Greeting">
+         <Conditions>
+            <DialogueNeverDone>Peregrin_Greeting</DialogueNeverDone>
+         </Conditions>
+      </Dialogue>
+
+      <Dialogue Id="Peregrin_LoopingSentence">
+      </Dialogue>
+      
+   </DialoguesStructureDatas>
+
+</DialoguesStructuresDatas>

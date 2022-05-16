@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <!-- ███████████ -->
+   <!--  DIALOGUES  -->
+   <!-- ███████████ -->
+
+   <DialogueDatas Id="Meric_Greeting">
+      <Sequence>
+         <Sentence Id="Meric_Greeting_00"/>
+         <Sentence Id="Meric_Greeting_01"/>
+         <Sentence Id="Meric_Greeting_02"/>
+         <Pause Dur="1"/>
+         <Sentence Id="Meric_Greeting_03"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <DialogueDatas Id="Meric_LoopingSentence">
+      <Sequence>
+         <Sentence Id="Meric_LoopingSentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+   
+   <!-- ███████████ -->
+   <!--  SENTENCES  -->
+   <!-- ███████████ -->
+
+   <SentenceDatas Id="Meric_Greeting_00">
+      <Speaker Id="Meric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Meric_Greeting_01">
+      <Speaker Id="Meric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Meric_Greeting_02">
+      <Speaker Id="Meric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Meric_Greeting_03">
+      <Speaker Id="Meric">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Meric_LoopingSentence_00">
+      <Speaker Id="Meric">
+      </Speaker>
+   </SentenceDatas>
+   
+</DialoguesDatas>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <!-- ███████████ -->
+   <!--  DIALOGUES  -->
+   <!-- ███████████ -->
+
+   <DialogueDatas Id="Peregrin_Greeting">
+      <Sequence>
+         <Sentence Id="Peregrin_Greeting_00"/>
+         <Sentence Id="Peregrin_Greeting_01"/>
+         <Sentence Id="Peregrin_Greeting_02"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <DialogueDatas Id="Peregrin_LoopingSentence">
+      <Sequence>
+         <Sentence Id="Peregrin_LoopingSentence_00"/>
+      </Sequence>
+   </DialogueDatas>
+
+   
+   <!-- ███████████ -->
+   <!--  SENTENCES  -->
+   <!-- ███████████ -->
+
+   <SentenceDatas Id="Peregrin_Greeting_00">
+      <Speaker Id="Peregrin">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Peregrin_Greeting_01">
+      <Speaker Id="Peregrin">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Peregrin_Greeting_02">
+      <Speaker Id="Peregrin">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Peregrin_LoopingSentence_00">
+      <Speaker Id="Peregrin">
+      </Speaker>
+   </SentenceDatas>
+   
+</DialoguesDatas>

@@ -134,10 +134,14 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 5db63f5fd64b4974c9bfa4938c848162, type: 3}
   - {fileID: 4900000, guid: fa7937d9d977bf542af0e834f06c2206, type: 3}
   - {fileID: 4900000, guid: 8f83811f3d44e094e961f0ecb47cac37, type: 3}
+  - {fileID: 4900000, guid: c762a2651060f794aa95b84802f6d32e, type: 3}
+  - {fileID: 4900000, guid: cf2af6b6eb72e1f418c023c5841d02b6, type: 3}
   _dialoguesStructuresDatas:
   - {fileID: 4900000, guid: ab4d73b2a806ebd40815ce49489358f9, type: 3}
   - {fileID: 4900000, guid: b4bdf6913f45bea49a28690a5e199622, type: 3}
   - {fileID: 4900000, guid: 1bb5aa10b21a0ac4685e9219bbba648a, type: 3}
+  - {fileID: 4900000, guid: 162deeeb81a01d14a9d54ab59fd76fc1, type: 3}
+  - {fileID: 4900000, guid: e6855760dd60ef94b80d8cea98ceb31f, type: 3}
   _speakersDisplayDatas: {fileID: 4900000, guid: 4a862cfbd599fb345be9c37334a0cccb,
     type: 3}
   _portraits:

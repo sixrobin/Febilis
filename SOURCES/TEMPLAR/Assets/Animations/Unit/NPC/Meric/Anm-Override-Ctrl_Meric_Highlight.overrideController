@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Anm-Override-Ctrl_Meric_Highlight
+  m_Controller: {fileID: 9100000, guid: e330a0da813451943b8fd40437486713, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0ee9bea0cb027c545beaae98df5709e0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 54eab5500987a5e4f9f5f23e1d520164, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: be253eaa8731fbd468d616915c3d7b16, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 031cf5fb96b16e146b35275b0b63711d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c85007b6fd9f26f41be5eddd73b87160, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: db2e1748422f06f419075a68f7f32290, type: 2}

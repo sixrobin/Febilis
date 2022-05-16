@@ -78,8 +78,8 @@
             
             // Custom tags parsing.
             System.Collections.Generic.List<(SentenceSequenceElementDatas datas, int tagStart, int tagEnd)> customTagsElements = new System.Collections.Generic.List<(SentenceSequenceElementDatas datas, int tagStart, int tagEnd)>();
-            System.Collections.Generic.List<int> openingIndexes = rawValue.AllIndexesOf(OPENING_SPE_TAG_CHAR);
-            System.Collections.Generic.List<int> closingIndexes = rawValue.AllIndexesOf(CLOSING_SPE_TAG_CHAR);
+            System.Collections.Generic.List<int> openingIndexes = rawValue.AllIndexesOf(OPENING_SPE_TAG_CHAR) ?? new System.Collections.Generic.List<int>();
+            System.Collections.Generic.List<int> closingIndexes = rawValue.AllIndexesOf(CLOSING_SPE_TAG_CHAR) ?? new System.Collections.Generic.List<int>();
 
             UnityEngine.Assertions.Assert.IsTrue(openingIndexes.Count == closingIndexes.Count, $"Sentence {Id} contains {openingIndexes.Count} opening tag chars for {closingIndexes.Count} closing tag chars.");
 

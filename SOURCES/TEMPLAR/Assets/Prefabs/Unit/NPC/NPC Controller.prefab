@@ -111,6 +111,7 @@ MonoBehaviour:
   _onInteracted:
     m_PersistentCalls:
       m_Calls: []
+  _validItems: []
   _spriteAnimatorPairs:
   - {fileID: 3103767270182887501}
   - {fileID: 6231849719135417168}
@@ -236,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 2428089602186697573}
-  _animator: {fileID: 0}
+  _animator: {fileID: 475386757999598106}
 --- !u!1 &2428089602212163787
 GameObject:
   m_ObjectHideFlags: 0

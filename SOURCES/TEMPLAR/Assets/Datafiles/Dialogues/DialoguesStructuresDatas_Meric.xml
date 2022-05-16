@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesStructuresDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesStructuresDatas.xsd">
+
+   <DialoguesStructureDatas Id="Meric">
+
+      <Dialogue Id="Meric_Greeting">
+         <Conditions>
+            <DialogueNeverDone>Meric_Greeting</DialogueNeverDone>
+         </Conditions>
+      </Dialogue>
+
+      <Dialogue Id="Meric_LoopingSentence">
+      </Dialogue>
+      
+   </DialoguesStructureDatas>
+
+</DialoguesStructuresDatas>

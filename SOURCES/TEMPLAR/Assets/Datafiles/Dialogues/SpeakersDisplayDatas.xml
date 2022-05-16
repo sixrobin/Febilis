@@ -13,6 +13,14 @@
       <PortraitAnchor>TOP_LEFT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
+   <SpeakerDisplayDatas Id="Meric">
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SpeakerDisplayDatas>
+
+   <SpeakerDisplayDatas Id="Peregrin">
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+   </SpeakerDisplayDatas>
+   
    <SpeakerDisplayDatas Id="OfferingStone">
       <PortraitAnchor>TOP_LEFT</PortraitAnchor>
    </SpeakerDisplayDatas>

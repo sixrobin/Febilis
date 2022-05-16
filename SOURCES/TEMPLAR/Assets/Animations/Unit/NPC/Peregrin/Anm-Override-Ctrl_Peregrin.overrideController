@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Anm-Override-Ctrl_Peregrin
+  m_Controller: {fileID: 9100000, guid: e330a0da813451943b8fd40437486713, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0ee9bea0cb027c545beaae98df5709e0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fb92a770ab4b2244ab0de6aceafd8e35, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: be253eaa8731fbd468d616915c3d7b16, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7691715e8ce11b840b24b9f6e2904f02, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c85007b6fd9f26f41be5eddd73b87160, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 113e944097c448f4d834ab01471b5c02, type: 2}
