@@ -10,7 +10,7 @@
          <Sentence Id="Meric_Greeting_00"/>
          <Sentence Id="Meric_Greeting_01"/>
          <Sentence Id="Meric_Greeting_02"/>
-         <Pause Dur="1"/>
+         <Pause Dur="0.5"/>
          <Sentence Id="Meric_Greeting_03"/>
       </Sequence>
    </DialogueDatas>
