@@ -325,12 +325,9 @@
 
         private void TryInteract()
         {
-            // [TMP] Maybe we'll want conditions to disallow interaction while attacking or something but
-            // this will cause issues since interaction feedback is triggered by physic collisions.
-            // If the player attacks, we need to remove feedback on potential interactable, but there won't be
-            // a collision afterward to show it again. Callback system ?
-
-            if (IsHealing || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.INTERACT))
+            if (IsHealing
+                || !CollisionsCtrl.Below
+                || !InputCtrl.CheckInput(PlayerInputController.ButtonCategory.INTERACT))
                 return;
 
             InputCtrl.ResetDelayedInput(PlayerInputController.ButtonCategory.INTERACT);
