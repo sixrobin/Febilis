@@ -86,7 +86,7 @@
             public const string LANGUAGE_SAVE = "Language_Save";
         }
 
-        public static class MainMenu
+        public static class Menu
         {
             public const string PRESS_ANY_KEY = "MainMenu_PressAnyKey";
             public const string CONTINUE = "MainMenu_Continue";
@@ -97,6 +97,8 @@
             public const string OVERWRITE_SAVE_ASK = "MainMenu_OverwriteSave_Ask";
             public const string OVERWRITE_SAVE_CONFIRM = "MainMenu_OverwriteSave_Confirm";
             public const string OVERWRITE_SAVE_CANCEL = "MainMenu_OverwriteSave_Cancel";
+
+            public const string DEMO_END_THANKS = "DemoEnd_Thanks";
         }
 
         public static class KeyCode

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Boards Transitions.unity
     guid: ecc239819b785d64b9fbee2f3a6737f7
+  - enabled: 1
+    path: Assets/Scenes/Demo End.unity
+    guid: 74f82fedddfad0649a19be6b08cf5415
   m_configObjects: {}

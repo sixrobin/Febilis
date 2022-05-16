@@ -15,6 +15,8 @@
         [Header("PRESS ANY KEY")]
         [SerializeField] private GameObject _pressAnyKey = null;
         [SerializeField] private TMPro.TextMeshProUGUI _pressAnyKeyText = null;
+        [SerializeField] private float _pressAnyKeyBlinkSpeed = 0.5f;
+        [SerializeField] private float _pressAnyKeyPostDelay = 0.5f;
 
         [Header("BUTTONS REFS")]
         [SerializeField] private GameObject _btnsContainer = null;
@@ -36,10 +38,6 @@
         [SerializeField] private float _blackMaskAlphaFadeDuration = 1f;
         [SerializeField] private Curve _blackMaskFadeCurve = Curve.Linear;
         
-        [Header("PRESS ANY KEY")]
-        [SerializeField] private float _pressAnyKeyBlinkSpeed = 0.5f;
-        [SerializeField] private float _pressAnyKeyPostDelay = 0.5f;
-
         private MainMenuButton[] _allBtns;
         private MainMenuButton _lastSelectedBtn;
 
@@ -47,9 +45,9 @@
 
         private UI.ConfirmationPopup.PopupTextsData _eraseSaveFilePopupTexts = new UI.ConfirmationPopup.PopupTextsData
         {
-            TextKey = Localization.MainMenu.OVERWRITE_SAVE_ASK,
-            ConfirmTextKey = Localization.MainMenu.OVERWRITE_SAVE_CONFIRM,
-            CancelTextKey = Localization.MainMenu.OVERWRITE_SAVE_CANCEL
+            TextKey = Localization.Menu.OVERWRITE_SAVE_ASK,
+            ConfirmTextKey = Localization.Menu.OVERWRITE_SAVE_CONFIRM,
+            CancelTextKey = Localization.Menu.OVERWRITE_SAVE_CANCEL
         };
         
         public override GameObject FirstSelected => FirstButtonSelected.gameObject;
@@ -207,10 +205,10 @@
 
         private void Localize()
         {
-            _continueBtn.Button.SetText(Localizer.Get(Localization.MainMenu.CONTINUE));
-            _newGameBtn.Button.SetText(Localizer.Get(Localization.MainMenu.NEW_GAME));
-            _settingsBtn.Button.SetText(Localizer.Get(Localization.MainMenu.SETTINGS));
-            _quitBtn.Button.SetText(Localizer.Get(Localization.MainMenu.QUIT));
+            _continueBtn.Button.SetText(Localizer.Get(Localization.Menu.CONTINUE));
+            _newGameBtn.Button.SetText(Localizer.Get(Localization.Menu.NEW_GAME));
+            _settingsBtn.Button.SetText(Localizer.Get(Localization.Menu.SETTINGS));
+            _quitBtn.Button.SetText(Localizer.Get(Localization.Menu.QUIT));
         }
 
         private System.Collections.IEnumerator FadeBlackMaskCoroutine()
@@ -289,7 +287,7 @@
         private System.Collections.IEnumerator PressAnyKeyCoroutine()
         {
             bool anyKeyDown = false;
-            _pressAnyKeyText.text = Localizer.Get(Localization.MainMenu.PRESS_ANY_KEY);
+            _pressAnyKeyText.text = Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
             
             while (true)
             {

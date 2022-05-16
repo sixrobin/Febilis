@@ -5,7 +5,7 @@
     using UnityEditor;
 #endif
 
-    [CreateAssetMenu(fileName = "New Scenes Passages Handler", menuName = "Scene Passages")]
+    [CreateAssetMenu(fileName = "New Scenes Passages Handler", menuName = "Boards Transitions/Scene Passages")]
     public class ScenesPassagesContainer : ScriptableObject
     {
         [SerializeField] private RSLib.Framework.SceneField _scene = null;

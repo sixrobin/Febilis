@@ -12,6 +12,7 @@
         [Header("TRANSITION REFS")]
         [SerializeField] private Templar.Tools.OptionalBoardsLink _targetBoardsLink = new Templar.Tools.OptionalBoardsLink(null, true);
         [SerializeField] private Templar.Tools.OptionalScenesPassage _targetScenePassage = new Templar.Tools.OptionalScenesPassage(null, false);
+        [SerializeField] private Templar.Tools.OptionalSceneLoader _targetScene = new Templar.Tools.OptionalSceneLoader(null, false);
         [SerializeField] private BoardBounds _containingBounds = null;
 
         [Header("PLATFORMS TO RESET")]
@@ -23,6 +24,7 @@
         [SerializeField] private RSLib.Framework.OptionalTransform _enterTeleportPos = new RSLib.Framework.OptionalTransform(null, false);
         [SerializeField] private RSLib.Framework.OptionalFloat _overrideExitFadedInDur = new RSLib.Framework.OptionalFloat(1f);
         [SerializeField] private RSLib.Framework.OptionalFloat _overrideFadeInDelayDur = new RSLib.Framework.OptionalFloat(0.5f, false);
+        [SerializeField] private Templar.Tools.OptionalRampFadeDatas _overrideFadeDatas = new Templar.Tools.OptionalRampFadeDatas(null, false);
 
         [Header("DEBUG")]
         [SerializeField] private SpriteRenderer _dbgVisualizer = null;
@@ -34,6 +36,9 @@
         [System.Obsolete("Not technically obsolete, but should only be used in editor/debug classes. Use GetTarget method instead.")]
         public Templar.Tools.OptionalScenesPassage TargetScenePassage => _targetScenePassage;
 
+        [System.Obsolete("Not technically obsolete, but should only be used in editor/debug classes. Use GetTarget method instead.")]
+        public Templar.Tools.OptionalSceneLoader TargetScene => _targetScene;
+        
         public ScreenDirection ExitDir => _exitDir;
         public ScreenDirection EnterDir => _exitDir.Opposite();
 
@@ -44,6 +49,8 @@
         public float OverrideExitFadedInDur => _overrideExitFadedInDur.Value;
         public bool OverrideFadedInDelay => _overrideFadeInDelayDur.Enabled;
         public float OverrideFadedInDelayDur => _overrideFadeInDelayDur.Value;
+        public bool OverrideFadeDatas => _overrideFadeDatas.Enabled && OverrideFadeDatasValue != null;
+        public Datas.RampFadeDatas OverrideFadeDatasValue => _overrideFadeDatas.Value;
 
         public Board Board { get; private set; }
         public BoardBounds BoardBounds => _containingBounds;
@@ -84,17 +91,32 @@
 
         public IBoardTransitionHandler GetTarget()
         {
-            if (_targetBoardsLink.Enabled == _targetScenePassage.Enabled)
+            if (GetEnabledTransitionsCount() != 1)
             {
                 CProLogger.LogError(this, $"Exactly one of the boards transitions references must be enabled within BoardsLink {transform.name}! Returning null.", gameObject);
                 return null;
             }
 
-            return _targetBoardsLink.Enabled
-                ? (IBoardTransitionHandler)_targetBoardsLink.Value
-                : (IBoardTransitionHandler)_targetScenePassage.Value;
+            if (_targetBoardsLink.Enabled)
+                return _targetBoardsLink.Value;
+            if (_targetScenePassage.Enabled)
+                return _targetScenePassage.Value;
+            return _targetScene.Value;
         }
 
+        public int GetEnabledTransitionsCount()
+        {
+            int enabledTransitions = 0;
+            if (TargetBoardsLink.Enabled)
+                enabledTransitions++;
+            if (TargetScenePassage.Enabled)
+                enabledTransitions++;
+            if (TargetScene.Enabled)
+                enabledTransitions++;
+
+            return enabledTransitions;
+        }
+        
 //        All those methods do not seem to work with prefab apply shit, even though they are called from ContextMenu...
 
 //        [ContextMenu("Autoset Opposite Link (forced)")]
@@ -216,16 +238,20 @@
 
         public override void OnInspectorGUI()
         {
+            int enabledTransitions = Obj.GetEnabledTransitionsCount();
+            
 #pragma warning disable CS0618
-            if (Obj.TargetBoardsLink.Enabled && Obj.TargetScenePassage.Enabled)
+            if (enabledTransitions > 1)
                 EditorGUILayout.HelpBox("Only one of the boards transitions references must be enabled.", MessageType.Error);
-            else if (!Obj.TargetBoardsLink.Enabled && !Obj.TargetScenePassage.Enabled)
+            else if (enabledTransitions == 0)
                 EditorGUILayout.HelpBox("Exactly one of the boards transitions references must be enabled.", MessageType.Error);
 
             if (Obj.TargetBoardsLink.Enabled && Obj.TargetBoardsLink.Value == null)
                 EditorGUILayout.HelpBox("TargetBoardsLink is enabled but its value is missing.", MessageType.Warning);
             if (Obj.TargetScenePassage.Enabled && Obj.TargetScenePassage.Value == null)
                 EditorGUILayout.HelpBox("TargetScenePassage is enabled but its value is missing.", MessageType.Warning);
+            if (Obj.TargetScene.Enabled && Obj.TargetScene.Value == null)
+                EditorGUILayout.HelpBox("TargetScene is enabled but its value is missing.", MessageType.Warning);
 #pragma warning restore CS0618
 
             base.OnInspectorGUI();

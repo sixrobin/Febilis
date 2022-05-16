@@ -8,6 +8,8 @@ MainMenu_OverwriteSave_Ask,A save file already exists. Are you sure you want to 
 MainMenu_OverwriteSave_Confirm,Yes,Oui
 MainMenu_OverwriteSave_Cancel,No,Non
 ,,
+DemoEnd_Thanks,You've completed the demo of <color=#b4de9f>Febilis</color>. Congrats and thanks a lot for playing !,Vous avez terminé la démo de <color=#b4de9f>Febilis</color>. Félicitations et merci beaucoup d'avoir joué !
+,,
 QuitGame,Quit,Quitter
 QuitGame_Ask,Quit game and go back to main menu ?,Quitter et revenir au menu principal ?
 QuitGame_Confirm,Yes,Oui
@@ -150,16 +152,16 @@ Sentence_NPC01_Greeting_03,"Quick advice, even with your grade, stay low and min
 Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons des temps étranges.
 Sentence_NPC01_PostGreeting_00,"Do not forget, stay low and mind your own business.","N'oubliez pas, mêlez-vous de vos affaires."
 ,,
-Sentence_Meric_Greeting_00,"Dear Lords, you killed it, right? You've just killed the giant rat?","Dear Lords, you killed it, right? You've just killed the giant rat?"
-Sentence_Meric_Greeting_01,"That's impressive for sure, but.[pause=0.2].[pause=0.2].","That's impressive for sure, but.[pause=0.2].[pause=0.2]."
-Sentence_Meric_Greeting_02,"Despite being an abomination, it was protecting us from the skeletons by killing them.","Despite being an abomination, it was protecting us from the skeletons by killing them."
-Sentence_Meric_Greeting_03,"If you came here to help us, that was not a great starting point...","If you came here to help us, that was not a great starting point..."
-Sentence_Meric_LoopingSentence_00,"If you came here to help us, that was not a great starting point...","If you came here to help us, that was not a great starting point..."
+Sentence_Meric_Greeting_00,"Dear Lords, you killed it, right? You've just killed the giant rat?","Seigneurs, vous l'avez tué, n'est-ce pas ? Vous avez tué le rat géant ?"
+Sentence_Meric_Greeting_01,"That's.[pause=0.2].[pause=0.2]. impressive for sure, but.[pause=0.2].[pause=0.2].","C'est.[pause=0.2].[pause=0.2]. impressionnant, mais.[pause=0.2].[pause=0.2]."
+Sentence_Meric_Greeting_02,"Despite being an abomination, it was killing the skeletons for us.","Bien qu'étant une abomination, il tuait les squelettes pour nous."
+Sentence_Meric_Greeting_03,"If you came here to help us, that was not a great starting point...","Si vous êtes venus nous aider, ce n'est pas très bien parti..."
+Sentence_Meric_LoopingSentence_00,"If you came here to help us, that was not a great starting point...","Si vous êtes venus nous aider, ce n'est pas très bien parti..."
 ,,
-Sentence_Peregrin_Greeting_00,Have you seen a man name Godric? He left the village months ago.,Have you seen a man name Godric? He left the village months ago.
-Sentence_Peregrin_Greeting_01,He's Meric's brother. We hope he's safe.[pause=0.2].[pause=0.2].,He's Meric's brother. We hope he's safe.[pause=0.2].[pause=0.2].
-Sentence_Peregrin_Greeting_02,Let's get to the village now.,Let's get to the village now.
-Sentence_Peregrin_LoopingSentence_00,Let's get to the village now.,Let's get to the village now.
+Sentence_Peregrin_Greeting_00,Have you seen a man name Godric? He left the village months ago.,Avez-vu un homme nommé Godric ? Il a quitté le village il y a plusieurs mois.
+Sentence_Peregrin_Greeting_01,He's Meric's brother. We hope he's safe.[pause=0.2].[pause=0.2].,Il est le frère de Meric. Nous espérons qu'il est en sécurité.[pause=0.2].[pause=0.2].
+Sentence_Peregrin_Greeting_02,Let's get to the village now.,Allons au village.
+Sentence_Peregrin_LoopingSentence_00,Let's get to the village now.,Allons au village.
 ,,
 Sentence_OfferingStone_ItemLeft_00,"""The Grace of the Creators speaks through this altar.""","""La Grâce des Créateurs parle à travers cet autel."""
 Sentence_OfferingStone_ItemLeft_01,Rather looks like they've left this place...[pause=0.5] but what if they did not ?,On dirait plutôt qu'ils ont abandonné l'endroit...[pause=0.5] mais peut-être que non ?

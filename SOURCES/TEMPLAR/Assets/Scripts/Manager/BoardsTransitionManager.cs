@@ -31,8 +31,10 @@
             Instance.BoardsTransitionTriggered?.Invoke();
 
             Boards.IBoardTransitionHandler target = source.GetTarget();
+            
             Boards.BoardsLink targetBoardsLink = target as Boards.BoardsLink;
             Boards.ScenesPassage targetScenesPassage = target as Boards.ScenesPassage;
+            Boards.SceneLoader targetScene = target as Boards.SceneLoader;
 
             source.OnBoardsTransitionBegan();
             target.OnBoardsTransitionBegan();
@@ -80,6 +82,15 @@
             if (s_playerMovementCoroutine != null)
                 Instance.StopCoroutine(s_playerMovementCoroutine);
 
+            if (targetScene != null)
+            {
+                s_boardTransitionCoroutine = null;
+                s_playerMovementCoroutine = null;
+                
+                ScenesManager.LoadScene(targetScene.GetTargetScene());
+                yield break;
+            }
+            
             yield return targetBoardsLink
                 ? TransitionOutToBoardsLinkCoroutine(source, targetBoardsLink)
                 : TransitionOutToScenesPassageCoroutine(source, targetScenesPassage);
@@ -95,7 +106,9 @@
 
         private static System.Collections.IEnumerator WaitForFadeInCoroutine(Boards.BoardsLink source)
         {
-            RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, Instance._fadeInDatas, (0f, 0f));
+            Templar.Datas.RampFadeDatas fadeData = source.OverrideFadeDatas ? source.OverrideFadeDatasValue : Instance._fadeInDatas;
+            RampFadeManager.Fade(GameManager.CameraCtrl.GrayscaleRamp, fadeData, (0f, 0f));
+            
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame;
             yield return new WaitUntil(() => !RampFadeManager.IsFading);
             yield return new WaitForSeconds(source.OverrideExitFadedIn ? source.OverrideExitFadedInDur : Instance._fadedInDur);
