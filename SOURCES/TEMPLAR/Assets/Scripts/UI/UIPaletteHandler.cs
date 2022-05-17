@@ -37,13 +37,17 @@
             s_instance = this;
 
             Manager.PaletteManager.Instance.PaletteChanged += ChangePalette;
+            
             _mats = _templateGraphics.Select(o => o.materialForRendering).ToArray();
             _initRampTex = _mats[0].GetTexture(RAMP_TEX_SHADER_PARAM) as Texture2D;
         }
 
         private void OnDestroy()
         {
-            ChangePalette(_initRampTex); // Reset material for editor purpose. [TODO] Check out how it's going with scene loading.
+            if (Manager.PaletteManager.Exists())
+                Manager.PaletteManager.Instance.PaletteChanged -= ChangePalette;
+
+            ChangePalette(_initRampTex); // Reset material for editor purpose. TODO: Check out how it's going with scene loading.
             s_instance = null;
         }
     }

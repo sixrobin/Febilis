@@ -107,12 +107,15 @@
         public int GetEnabledTransitionsCount()
         {
             int enabledTransitions = 0;
+            
+#pragma warning disable CS0618
             if (TargetBoardsLink.Enabled)
                 enabledTransitions++;
             if (TargetScenePassage.Enabled)
                 enabledTransitions++;
             if (TargetScene.Enabled)
                 enabledTransitions++;
+#pragma warning restore CS0618
 
             return enabledTransitions;
         }

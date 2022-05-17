@@ -15,7 +15,7 @@
         private const string UI_SCROLL_INPUT = "UIScroll";
         
         private const float SCROLL_BAR_AUTO_REFRESH_VALUE = 0.02f;
-        private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.05f;
+        private const float SCROLL_BAR_AUTO_REFRESH_MARGIN = 0.02f;
 
         [Header("REFS")]
         [SerializeField] private Item.InventoryController _inventoryCtrl = null;
