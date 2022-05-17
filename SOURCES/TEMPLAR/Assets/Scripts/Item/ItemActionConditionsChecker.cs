@@ -29,10 +29,10 @@
             {
                 if (ConditionsCheckerDatas.Conditions[i] is Datas.Item.FullHealthItemActionConditionDatas fullHealthCondition)
                     Conditions[i] = new FullHealthItemActionCondition(Item, fullHealthCondition);
-                if (ConditionsCheckerDatas.Conditions[i] is Datas.Item.OnValidInteractableItemActionConditionDatas onValidInteractableCondition)
+                else if (ConditionsCheckerDatas.Conditions[i] is Datas.Item.OnValidInteractableItemActionConditionDatas onValidInteractableCondition)
                     Conditions[i] = new OnValidInteractableItemActionCondition(Item, onValidInteractableCondition);
                 else
-                    CProLogger.LogError(this, $"Unknown Item Action Condition type {Conditions[i].GetType().FullName}");
+                    CProLogger.LogError(this, $"Unknown Item Action Condition type {Conditions[i].GetType().FullName} in item {Item.Datas.Id}");
             }
         }
 

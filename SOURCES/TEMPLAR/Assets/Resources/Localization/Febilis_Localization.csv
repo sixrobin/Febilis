@@ -34,6 +34,7 @@ Controls_SaveChanges_Confirm,Yes,Oui
 Controls_SaveChanges_Cancel,No,Non
 ,,
 Settings_Title,General,Général
+Settings_DisplayTutorials,Show tutorials,Afficher aide
 Settings_FrameRateTitle,Frame rate,FPS
 Settings_ShakeAmount,Shake amount,Tremblements
 Settings_DeadZone,Dead zone,Zone morte

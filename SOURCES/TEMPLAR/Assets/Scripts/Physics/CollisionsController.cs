@@ -172,7 +172,7 @@
                         CollisionDetected?.Invoke(new CollisionInfos(CollisionOrigin.BELOW, hit));
 
                     transform.Translate(new Vector3(0f, -hit.distance + SKIN_WIDTH));
-                    CProLogger.Log(this, $"Ground on {hit.transform.name} (hit distance = {hit.distance}, new position : x={transform.position.x}/y={transform.position.y}).", hit.collider.gameObject);
+                    // CProLogger.Log(this, $"Ground on {hit.transform.name} (hit distance = {hit.distance}, new position : x={transform.position.x}/y={transform.position.y}).", hit.collider.gameObject);
                     return;
                 }
             }

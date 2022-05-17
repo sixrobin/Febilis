@@ -122,9 +122,9 @@
             LandImpactSpeedMult = RSLib.Maths.Maths.Normalize01(impactDur, _jumpDatas.LandImpactDurMin, _jumpDatas.LandImpactDurMax);
             LandImpactSpeedMult = 1f - LandImpactSpeedMult;
             LandImpactSpeedMult = Mathf.Max(LandImpactSpeedMult, _jumpDatas.LandImpactSpeedMultMin);
-            CProLogger.Log(this, $"Landing at a speed of {fallSpeedAbs.ToString("f2")} => Computed impact duration of {impactDur.ToString("f2")}s and a speed mult of {LandImpactSpeedMult.ToString("f2")}.", _playerCtrl.gameObject);
+            // CProLogger.Log(this, $"Landing at a speed of {fallSpeedAbs.ToString("f2")} => Computed impact duration of {impactDur.ToString("f2")}s and a speed mult of {LandImpactSpeedMult.ToString("f2")}.", _playerCtrl.gameObject);
 
-            // [TMP] Hardcoded values : shake should probably scale with impact strength.
+            // TMP: Hardcoded values : shake should probably scale with impact strength.
             Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0f, 0.3f);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(impactDur);
