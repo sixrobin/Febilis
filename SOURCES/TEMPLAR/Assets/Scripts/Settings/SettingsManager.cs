@@ -7,6 +7,7 @@
     {
         public static Settings.AxisDeadZone AxisDeadZone { get; private set; }
         public static Settings.ConstrainCursor ConstrainCursor { get; private set; }
+        public static Settings.DisplayTutorials DisplayTutorials { get; private set; }
         public static Settings.FullscreenMode FullscreenMode { get; private set; }
         public static Settings.Language Language { get; private set; }
         public static Settings.MonitorIndex MonitorIndex { get; private set; }
@@ -29,6 +30,7 @@
 
                 container.Add(AxisDeadZone.Save());
                 container.Add(ConstrainCursor.Save());
+                container.Add(DisplayTutorials.Save());
                 container.Add(FullscreenMode.Save());
                 container.Add(Language.Save());
                 container.Add(MonitorIndex.Save());
@@ -93,6 +95,9 @@
                 XElement constrainCursorElement = settingsSaveElement.Element(Settings.ConstrainCursor.SAVE_ELEMENT_NAME);
                 ConstrainCursor = constrainCursorElement != null ? new Settings.ConstrainCursor(constrainCursorElement) : new Settings.ConstrainCursor();
 
+                XElement displayTutorialsElement = settingsSaveElement.Element(Settings.DisplayTutorials.SAVE_ELEMENT_NAME);
+                DisplayTutorials = displayTutorialsElement != null ? new Settings.DisplayTutorials(constrainCursorElement) : new Settings.DisplayTutorials();
+                
                 XElement fullscreenModeElement = settingsSaveElement.Element(Settings.FullscreenMode.SAVE_ELEMENT_NAME);
                 FullscreenMode = fullscreenModeElement != null ? new Settings.FullscreenMode(fullscreenModeElement) : new Settings.FullscreenMode();
 
@@ -135,6 +140,7 @@
         {
             AxisDeadZone = new Settings.AxisDeadZone();
             ConstrainCursor = new Settings.ConstrainCursor();
+            DisplayTutorials = new Templar.Settings.DisplayTutorials();
             FullscreenMode = new Settings.FullscreenMode();
             Language = new Settings.Language();
             MonitorIndex = new Settings.MonitorIndex();

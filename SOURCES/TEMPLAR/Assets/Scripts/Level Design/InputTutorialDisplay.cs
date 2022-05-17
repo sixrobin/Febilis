@@ -57,6 +57,11 @@
                     ValidatedTypes.Add(validationType);
         }
 
+        private void OnDisplayTutorialsValueChanged(bool currentvalue)
+        {
+            _text.enabled = currentvalue;
+        }
+        
         public void Display(bool show)
         {
             if (show && _validated)
@@ -181,6 +186,7 @@
             _text.enabled = false; // Hide on awake, then enable on start.
 
             Localizer.LanguageChanged += Localize;
+            Manager.SettingsManager.DisplayTutorials.ValueChanged += OnDisplayTutorialsValueChanged;
         }
 
         private void Localize()
@@ -206,6 +212,7 @@
         private void OnDestroy()
         {
             Localizer.LanguageChanged -= Localize;
+            Manager.SettingsManager.DisplayTutorials.ValueChanged -= OnDisplayTutorialsValueChanged;
         }
     }
 }

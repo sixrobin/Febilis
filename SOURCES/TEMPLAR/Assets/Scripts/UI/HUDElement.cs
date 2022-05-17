@@ -62,13 +62,17 @@
             Display(true);
         }
         
-        protected virtual void OnBossFightWonCutsceneStarted()
+        protected virtual void OnStencilShown()
         {
             Display(false);
         }
         
-        protected virtual void OnBossFightWonCutsceneOver()
+        protected virtual void OnStencilHidden()
         {
+            // Player death triggers a stencil show -> do not show HUD afterwards since death sequence is running.
+            if (Manager.GameManager.PlayerCtrl.IsDead)
+                return;
+            
             Display(true);
         }
 
@@ -105,8 +109,8 @@
             UI.Dialogue.DialogueManager.Instance.DialogueStarted += OnDialogueStarted;
             UI.Dialogue.DialogueManager.Instance.DialogueOver += OnDialogueOver;
 
-            Templar.Boss.BossFightWonCutscene.CutsceneStarted += OnBossFightWonCutsceneStarted;
-            Templar.Boss.BossFightWonCutscene.CutsceneOver += OnBossFightWonCutsceneOver;
+            StencilManager.StencilShown += OnStencilShown;
+            StencilManager.StencilHidden += OnStencilHidden;
         }
 
         protected virtual void OnDestroy()
@@ -144,10 +148,10 @@
                 UI.Dialogue.DialogueManager.Instance.DialogueOver -= OnDialogueOver;
             }
 
-            if (Templar.Boss.BossFightWonCutscene.Exists())
+            if (StencilManager.Exists())
             {
-                Templar.Boss.BossFightWonCutscene.CutsceneStarted -= OnBossFightWonCutsceneStarted;
-                Templar.Boss.BossFightWonCutscene.CutsceneOver -= OnBossFightWonCutsceneOver;
+                StencilManager.StencilShown -= OnStencilShown;
+                StencilManager.StencilHidden -= OnStencilHidden;
             }
         }
     }
