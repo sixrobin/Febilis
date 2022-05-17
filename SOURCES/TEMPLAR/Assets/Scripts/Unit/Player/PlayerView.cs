@@ -45,6 +45,9 @@
         [SerializeField, Min(0)] private int _breaksBeforeSleep = 2;
         [SerializeField] private SleepFeedback _sleepFeedback = null;
 
+        [Header("DEATH - PLAYER")]
+        [SerializeField, Min(0f)] private float _deathStencilDuration = 0.2f;
+        
         [Header("AUDIO - PLAYER")]
         [SerializeField] private RSLib.Audio.ClipProvider _landClipProvider = null;
         [SerializeField] private RSLib.Audio.ClipProvider _softLandClipProvider = null;
@@ -306,6 +309,12 @@
             for (int i = _hurtPrefabs.Length - 1; i >= 0; --i)
                 Instantiate(_hurtPrefabs[i], transform.position, _hurtPrefabs[i].transform.rotation);
 
+            if (_deathStencilDuration > 0f)
+            {
+                StencilManager.ShowPlayerStencil(0f);
+                StartCoroutine(HideDeathStencilCoroutine());
+            }
+
             LogAnimationPlayIfRequired("Death");
         }
 
@@ -392,6 +401,12 @@
                 return;
 
             CProLogger.Log(this, $"Playing animation {animationName}.", gameObject);
+        }
+
+        private System.Collections.IEnumerator HideDeathStencilCoroutine()
+        {
+            yield return RSLib.Yield.SharedYields.WaitForSeconds(_deathStencilDuration);
+            StencilManager.HideStencils();
         }
 
         private void Awake()

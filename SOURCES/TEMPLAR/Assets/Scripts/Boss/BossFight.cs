@@ -114,12 +114,19 @@
 
             BossFightOver?.Invoke(new BossFightOverEventArgs(this, true, false));
             _onFightWon?.Invoke();
+
+            System.Collections.Generic.List<UnitView> unitsViews = new System.Collections.Generic.List<UnitView>(2)
+            {
+                args.SourceUnit.UnitView,
+                Manager.GameManager.PlayerCtrl.PlayerView
+            };
             
-            BossFightWonCutscene.ShowStencils(args.SourceUnit.UnitView, _fightWonFreezeFrameDelay);
+            StencilManager.ShowStencils(unitsViews, _fightWonFreezeFrameDelay);
+            
             Templar.Manager.FreezeFrameManager.FreezeFrame(_fightWonFreezeFrameDelay,
                                                            _fightWonFreezeFrameDuration,
                                                            overrideCurrFreeze: true,
-                                                           callback: BossFightWonCutscene.HideStencils);
+                                                           callback: StencilManager.HideStencils);
         }
 
         public void OnFightLost()
