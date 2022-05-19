@@ -92,8 +92,8 @@
                 Hit = hit;
             }
 
-            public CollisionOrigin Origin { get; private set; }
-            public RaycastHit2D Hit { get; private set; }
+            public CollisionOrigin Origin { get; }
+            public RaycastHit2D Hit { get; }
         }
 
         private LayerMask _collisionMask;
