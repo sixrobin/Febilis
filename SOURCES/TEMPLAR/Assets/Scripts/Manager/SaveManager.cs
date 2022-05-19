@@ -19,8 +19,16 @@
             public IncompatibleSaveVersionException(string message) : base(message) { }
         }
 
-        private static RSLib.Encryption.Rijndael s_rijndael;
-
+        public class SaveDoneEventArgs : System.EventArgs
+        {
+            public SaveDoneEventArgs(bool success)
+            {
+                Success = success;
+            }
+            
+            public bool Success { get; }
+        }
+        
         [Header("ENCRYPTION")]
         [SerializeField] private bool _encryptSave = true;
 
@@ -31,6 +39,11 @@
         [Header("DEBUG")]
         [SerializeField] private bool _disableLoading = false;
 
+        private static RSLib.Encryption.Rijndael s_rijndael;
+
+        public delegate void SaveDoneEventHandler(SaveDoneEventArgs args);
+        public static event SaveDoneEventHandler SaveDone;
+        
         public static int SaveVersion => Instance._saveVersion;
         public static int SaveMinimumVersion => Instance._saveMinimumVersion;
 
@@ -80,10 +93,12 @@
             catch (System.Exception e)
             {
                 Instance.LogError($"Could not save game ! Exception message:\n{e}", Instance.gameObject);
+                SaveDone?.Invoke(new SaveDoneEventArgs(false));
                 return false;
             }
 
             Instance.Log("Game saved successfully !", Instance.gameObject, true);
+            SaveDone?.Invoke(new SaveDoneEventArgs(true));
             return true;
         }
 
