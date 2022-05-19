@@ -84,6 +84,11 @@
                 _platformsToReset[i].ResetPlatform();
         }
 
+        public void OnBoardExit()
+        {
+            Board.OnBoardExit();
+        }
+
         protected virtual void Trigger()
         {
             Manager.BoardsTransitionManager.TriggerLink(this);

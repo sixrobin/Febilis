@@ -15,8 +15,9 @@
         [SerializeField] private Flags.BoardIdentifier _boardIdentifier = null;
         
         [Header("REFS")]
-        [SerializeField] private BoardsLink[] _boardsLinks = null;
         [SerializeField] private RSLib.DataColor _backgroundColor = null;
+        [SerializeField] private BoardsLink[] _boardsLinks = null;
+        [SerializeField] private GameObject[] _disableWhenNotCurrentBoard = null;
 
         public delegate void BoardEventHandler(Board board);
         public static event BoardEventHandler BoardEntered;
@@ -33,10 +34,23 @@
                 return;
             }
 
+            ToggleBoardObjects(true);
+
             BoardEntered?.Invoke(this);
             Manager.FlagsManager.Register(this);
         }
+        
+        public void OnBoardExit()
+        {
+            ToggleBoardObjects(false);
+        }
 
+        private void ToggleBoardObjects(bool state)
+        {
+            for (int i = _disableWhenNotCurrentBoard.Length - 1; i >= 0; --i)
+                _disableWhenNotCurrentBoard[i].SetActive(state);
+        }
+        
         private void Awake()
         {
 #if UNITY_EDITOR
@@ -47,6 +61,8 @@
 
             for (int i = _boardsLinks.Length - 1; i >= 0; --i)
                 _boardsLinks[i].SetBoard(this);
+            
+            ToggleBoardObjects(false);
         }
 
         public void LocateBoardsLinksInChildren()

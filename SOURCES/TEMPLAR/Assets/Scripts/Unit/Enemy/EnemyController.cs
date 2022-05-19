@@ -8,7 +8,7 @@
     public class EnemyController : UnitController, ICheckpointListener
     {
         private const float SLEEP_DIST = 25f;
-        private const float SLEEP_UPDATE_RATE = 3f;
+        private const float SLEEP_UPDATE_RATE = 1.5f;
         private const int ACTIONS_TRACK_SIZE = 10;
 
         [Header("REFERENCES")]

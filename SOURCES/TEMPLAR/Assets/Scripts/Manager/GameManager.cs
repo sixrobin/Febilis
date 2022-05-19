@@ -87,9 +87,10 @@
             }
             else
             {
-                // [TODO] We can call this here, but this is a debug unoptimized method right now.
+                // TODO: We can call this here, but this is a debug unoptimized method right now.
                 Boards.Board initBoard = BoardsManager.DebugForceRefreshInitBoard();
-                initBoard?.OnBoardEntered();
+                if (initBoard != null)
+                    initBoard.OnBoardEntered();
             }
 
             if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)

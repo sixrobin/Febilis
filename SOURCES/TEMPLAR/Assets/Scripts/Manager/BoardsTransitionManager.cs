@@ -116,6 +116,7 @@
 
         private static System.Collections.IEnumerator TransitionOutToBoardsLinkCoroutine(Boards.BoardsLink source, Boards.BoardsLink target)
         {
+            source.OnBoardExit();
             target.OnBoardEntered();
 
             GameManager.CameraCtrl.SetBackgroundColor(target.Board.BackgroundColor);
