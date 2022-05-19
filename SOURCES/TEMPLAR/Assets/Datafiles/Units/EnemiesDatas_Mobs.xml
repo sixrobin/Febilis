@@ -31,7 +31,7 @@
                      <PlayerAlive/>
                      <PlayerInRange Range="2.5"/>
                   </Conditions>
-                  <Delay Min="0.45" Max="0.55"/>
+                  <Delay Min="0.6" Max="0.7"/>
                   <AnimatorId>Base</AnimatorId>
                </Attack>
                <Chase>
