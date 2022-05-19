@@ -22,6 +22,9 @@
             "Those children are \"prewarmed\" and will be placed on Start so that they will appear to the player at the" +
             "position they have originally in the scene view.")]
         [SerializeField] private Transform[] _individualsObjectsParents = null;
+
+        [Header("DEBUG")]
+        [SerializeField] private string[] _autoFindIndividualParentsNames = null;
         
         private Vector3 _initCamPos;
 
@@ -31,7 +34,7 @@
         private Transform[] _individualTransforms;
         private Vector3[] _individualTransformsOffsets;
         private float[] _individualTransformsDepths;
-
+        
         private float TravelDistX => _camTransform.position.x - _initCamPos.x;
 
         private void PrewarmIndividualTransforms()
@@ -149,6 +152,19 @@
                 Position(_individualTransforms[i], _individualTransformsOffsets[i], _individualTransformsDepths[i]);
         }
 
+        public void DebugAutoFindIndividualParents()
+        {
+            System.Collections.Generic.List<Transform> individualObjectsParents = new System.Collections.Generic.List<Transform>();
+            
+            foreach (GameObject go in FindObjectsOfType(typeof(GameObject)) as GameObject[])
+                if (_autoFindIndividualParentsNames.Any(o => o == go.name))
+                    individualObjectsParents.Add(go.transform);
+
+            _individualsObjectsParents = individualObjectsParents.ToArray();
+            
+            RSLib.EditorUtilities.SceneManagerUtilities.SetCurrentSceneDirty();
+        }
+        
         public void DebugCheckDuplicates()
         {
             System.Collections.Generic.Dictionary<Transform, int> transformsCounters = new System.Collections.Generic.Dictionary<Transform, int>();
@@ -193,6 +209,7 @@
     {
         protected override void DrawButtons()
         {
+            DrawButton("Auto Find Individual Parents", Obj.DebugAutoFindIndividualParents);
             DrawButton("Check Duplicates", Obj.DebugCheckDuplicates);
         }
     }
