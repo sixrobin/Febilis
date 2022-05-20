@@ -114,17 +114,9 @@
 
         private void OnItemPickedUp(ItemWorldController item)
         {
-            Debug.LogError("Picking up item...");
-            
-            UnityEngine.Assertions.Assert.IsTrue(
-                _waitingObjects.Contains(item.gameObject),
-                $"Item {item.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
-
-            UnityEngine.Assertions.Assert.IsTrue(
-                _waitingItems.Any(o => o.ItemPickup == item.transform),
-                $"Item {item.transform.name} has been picked up but {GetType().Name} has not recorded it when spawning from pool.");
-
-            _waitingObjects.Remove(item.gameObject);
+            if (_waitingObjects.Contains(item.gameObject))
+                _waitingObjects.Remove(item.gameObject);
+    
             _waitingItems.RemoveAll(o => o.ItemPickup == item.transform);
         }
         
