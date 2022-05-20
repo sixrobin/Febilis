@@ -159,7 +159,7 @@
                 if (!SaveManager.TryLoad())
                     SaveManager.LoadNewGame();
     
-            SaveManager.TrySave();
+            SaveManager.TrySave(onLoad: true);
         }
 
         private void OnDestroy()

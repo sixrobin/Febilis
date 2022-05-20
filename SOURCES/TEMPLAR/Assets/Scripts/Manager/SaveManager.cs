@@ -21,12 +21,14 @@
 
         public class SaveDoneEventArgs : System.EventArgs
         {
-            public SaveDoneEventArgs(bool success)
+            public SaveDoneEventArgs(bool success, bool onLoad)
             {
                 Success = success;
+                OnLoad = onLoad;
             }
             
             public bool Success { get; }
+            public bool OnLoad { get; }
         }
         
         [Header("ENCRYPTION")]
@@ -54,7 +56,7 @@
         private static string GameSaveFolderPath => System.IO.Path.Combine(Application.persistentDataPath, "Save");
         private static string GameSaveFilePath => System.IO.Path.Combine(GameSaveFolderPath, "Game.dat");
 
-        public static bool TrySave(bool? overrideEncryptSave = null)
+        public static bool TrySave(bool? overrideEncryptSave = null, bool onLoad = false)
         {
             Instance.Log("Saving game progression...", Instance.gameObject, true);
 
@@ -93,12 +95,12 @@
             catch (System.Exception e)
             {
                 Instance.LogError($"Could not save game ! Exception message:\n{e}", Instance.gameObject);
-                SaveDone?.Invoke(new SaveDoneEventArgs(false));
+                SaveDone?.Invoke(new SaveDoneEventArgs(false, onLoad));
                 return false;
             }
 
             Instance.Log("Game saved successfully !", Instance.gameObject, true);
-            SaveDone?.Invoke(new SaveDoneEventArgs(true));
+            SaveDone?.Invoke(new SaveDoneEventArgs(true, onLoad));
             return true;
         }
 
