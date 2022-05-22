@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5514056002454673144}
   - component: {fileID: 387498881995543857}
   - component: {fileID: 9130742664306999083}
+  - component: {fileID: 5016381525819390813}
   m_Layer: 5
   m_Name: Diff Text
   m_TagString: Untagged
@@ -134,6 +135,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5016381525819390813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46869055082810567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe10da13fd2cef34d8ed9810b769a9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorsByZone:
+  - Zone: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
+    DataColor: {fileID: 11400000, guid: bdf399a9b0f1fac428c8ea74a2c74380, type: 2}
+  - Zone: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
+    DataColor: {fileID: 11400000, guid: 2dde8dc5b030d5b43913137cdae54818, type: 2}
 --- !u!1 &7494891867430097149
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +317,7 @@ GameObject:
   - component: {fileID: 7494891869028179070}
   - component: {fileID: 7494891869028179068}
   - component: {fileID: 7494891869028179071}
+  - component: {fileID: 2866946033824521157}
   m_Layer: 5
   m_Name: Value Text
   m_TagString: Untagged
@@ -362,8 +381,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293984237
-  m_fontColor: {r: 0.9294118, g: 1, b: 0.94117653, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -422,3 +441,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2866946033824521157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7494891869028179065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe10da13fd2cef34d8ed9810b769a9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorsByZone:
+  - Zone: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
+    DataColor: {fileID: 11400000, guid: b1d2024effa524a47beba6804135bff0, type: 2}
+  - Zone: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
+    DataColor: {fileID: 11400000, guid: 81dcf2e060cc18a4cb5aebcf89c14cc9, type: 2}

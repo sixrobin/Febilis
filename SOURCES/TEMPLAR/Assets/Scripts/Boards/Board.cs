@@ -25,7 +25,8 @@
         public Color BackgroundColor => _backgroundColor?.Color ?? Color.grey;
 
         public Flags.IIdentifier Identifier => _boardIdentifier;
-
+        public Flags.BoardIdentifier BoardIdentifier => Identifier as Templar.Flags.BoardIdentifier;
+        
         public void OnBoardEntered()
         {
             if (_boardIdentifier == null)

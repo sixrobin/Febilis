@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 4423315635408401554}
   - component: {fileID: 4423315635408401552}
   - component: {fileID: 4423315635408401553}
+  - component: {fileID: 7264998549731178101}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -364,6 +365,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7264998549731178101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423315635408401555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe10da13fd2cef34d8ed9810b769a9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorsByZone:
+  - Zone: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
+    DataColor: {fileID: 11400000, guid: b1d2024effa524a47beba6804135bff0, type: 2}
+  - Zone: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
+    DataColor: {fileID: 11400000, guid: 81dcf2e060cc18a4cb5aebcf89c14cc9, type: 2}
 --- !u!1 &5825063374341791642
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +537,7 @@ GameObject:
   - component: {fileID: 2837128671526969411}
   - component: {fileID: 8238279616902987359}
   - component: {fileID: 5922999969189758281}
+  - component: {fileID: 7256139029728778533}
   m_Layer: 5
   m_Name: Btn Text
   m_TagString: Untagged
@@ -642,3 +661,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7256139029728778533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6330692643154061638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe10da13fd2cef34d8ed9810b769a9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorsByZone:
+  - Zone: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
+    DataColor: {fileID: 11400000, guid: b1d2024effa524a47beba6804135bff0, type: 2}
+  - Zone: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
+    DataColor: {fileID: 11400000, guid: 81dcf2e060cc18a4cb5aebcf89c14cc9, type: 2}

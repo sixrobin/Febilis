@@ -6,7 +6,7 @@
     public class PaletteManager : RSLib.Framework.ConsoleProSingleton<PaletteManager>
     {
         [System.Serializable]
-        private class RampByZone
+        private class ZoneColorData
         {
             [SerializeField] private Flags.ZoneIdentifier _zoneIdentifier = null;
             [SerializeField] private Texture2D _ramp = null;
@@ -14,7 +14,7 @@
             public Flags.ZoneIdentifier ZoneIdentifier => _zoneIdentifier;
             public Texture2D Ramp => _ramp;
         }
-
+        
         [System.Serializable]
         public struct RampsGroup
         {
@@ -28,7 +28,7 @@
         }
         
         [Header("ZONES PALETTES")]
-        [SerializeField] private RampByZone[] _rampByZones = null;
+        [SerializeField] private ZoneColorData[] _zoneColorData = null;
 
         [Header("ALL RAMPS")]
         [SerializeField] private Texture2D[] _ramps = null;
@@ -54,8 +54,8 @@
 
         public static void UpdatePaletteForCurrentZone()
         {
-            Texture2D ramp = Instance._rampByZones
-                            .FirstOrDefault(o => o.ZoneIdentifier == (BoardsManager.CurrentBoard.Identifier as Flags.BoardIdentifier).ContainingZoneIdentifier)
+            Texture2D ramp = Instance._zoneColorData
+                            .FirstOrDefault(o => o.ZoneIdentifier == BoardsManager.CurrentBoard.BoardIdentifier.ContainingZoneIdentifier)
                             .Ramp;
 
             SetPalette(ramp);

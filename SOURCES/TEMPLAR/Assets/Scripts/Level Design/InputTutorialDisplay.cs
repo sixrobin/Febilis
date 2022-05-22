@@ -184,9 +184,6 @@
         {
             ValidatedTypes.Clear();
             _text.enabled = false; // Hide on awake, then enable on start.
-
-            Localizer.LanguageChanged += Localize;
-            Manager.SettingsManager.DisplayTutorials.ValueChanged += OnDisplayTutorialsValueChanged;
         }
 
         private void Localize()
@@ -207,6 +204,9 @@
 
         private void Start()
         {
+            Localizer.LanguageChanged += Localize;
+            Manager.SettingsManager.DisplayTutorials.ValueChanged += OnDisplayTutorialsValueChanged;
+            
             StartCoroutine(Init());
         }
 

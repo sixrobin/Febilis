@@ -681,7 +681,7 @@ MonoBehaviour:
   _overrideLogPrefix:
     _value: 
     _enabled: 0
-  _rampByZones:
+  _zoneColorData:
   - _zoneIdentifier: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
     _ramp: {fileID: 2800000, guid: bd0c8d253a6359e4ab43abee54448e68, type: 3}
   - _zoneIdentifier: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
@@ -700,6 +700,51 @@ MonoBehaviour:
     NoWhite: {fileID: 2800000, guid: 2b70dedc93296a54db568213488e6539, type: 3}
   - Base: {fileID: 2800000, guid: d1c80f6d41f917840ad62586e1f484fe, type: 3}
     NoWhite: {fileID: 2800000, guid: ed31bfe8e8b6f2841bfbb560207030d5, type: 3}
+--- !u!1 &5935126570223121691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6748721209715195654}
+  - component: {fileID: 2713214941369775711}
+  m_Layer: 0
+  m_Name: UI Visible Event Handler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6748721209715195654
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935126570223121691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9001159453081840684}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2713214941369775711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935126570223121691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba46525b46798e4e9c512e08edb6a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroy: 0
+  _verbose: 1
 --- !u!1 &6221756714808084327
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +787,7 @@ Transform:
   - {fileID: 940390663956317214}
   - {fileID: 660818280431479252}
   - {fileID: 6700898103213611956}
+  - {fileID: 6748721209715195654}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
