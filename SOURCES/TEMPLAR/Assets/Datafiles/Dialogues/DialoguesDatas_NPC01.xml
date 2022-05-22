@@ -2,7 +2,6 @@
 <DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
 
    <DialogueDatas Id="NPC01_Greeting">
-      <InvertPortraitsAnchors/>
       <Sequence>
          <Sentence Id="NPC01_Greeting_00"/>
          <Pause Dur="0.5"/>
@@ -24,35 +23,30 @@
    <SentenceDatas Id="NPC01_Greeting_00">
       <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
-<!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_01">
       <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
-<!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_02">
       <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
-<!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_03">
       <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
-<!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
    </SentenceDatas>
 
    <SentenceDatas Id="NPC01_Greeting_04">
       <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
-<!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
    </SentenceDatas>
 
@@ -60,7 +54,6 @@
    <SentenceDatas Id="NPC01_PostGreeting_00">
       <Speaker Id="NPC01">
          <OverrideDisplayName>???</OverrideDisplayName>
-<!--         <OverridePortraitId>Unknown</OverridePortraitId>-->
       </Speaker>
    </SentenceDatas>
 
