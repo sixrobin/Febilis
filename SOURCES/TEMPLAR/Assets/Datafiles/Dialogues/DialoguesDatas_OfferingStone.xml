@@ -41,8 +41,7 @@
    
 
    <SentenceDatas Id="OfferingStone_NoItemLeft_00">
-      <Speaker Id="OfferingStone">
-         <HidePortraitBox/>
+      <Speaker Id="Templar">
          <HideSpeakerName/>
       </Speaker>
    </SentenceDatas>

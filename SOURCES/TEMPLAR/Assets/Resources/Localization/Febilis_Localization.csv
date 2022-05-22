@@ -8,10 +8,10 @@ MainMenu_OverwriteSave_Ask,A save file already exists. Are you sure you want to 
 MainMenu_OverwriteSave_Confirm,Yes,Oui
 MainMenu_OverwriteSave_Cancel,No,Non
 ,,
-DemoEnd_Thanks,You've completed the demo of <color=#b4de9f>Febilis</color>. Congrats and thanks a lot for playing !,Vous avez terminé la démo de <color=#b4de9f>Febilis</color>. Félicitations et merci beaucoup d'avoir joué !
+DemoEnd_Thanks,You've completed the demo of <color=#b4de9f>Febilis</color>. Congrats and thanks a lot for playing!,Vous avez terminé la démo de <color=#b4de9f>Febilis</color>. Félicitations et merci beaucoup d'avoir joué !
 ,,
 QuitGame,Quit,Quitter
-QuitGame_Ask,Quit game and go back to main menu ?,Quitter et revenir au menu principal ?
+QuitGame_Ask,Quit game and go back to main menu?,Quitter et revenir au menu principal ?
 QuitGame_Confirm,Yes,Oui
 QuitGame_Cancel,No,Non
 ,,
@@ -29,7 +29,7 @@ Controls_Reset,Reset defaults,Réinitialiser
 Controls_Save,Save,OK
 Controls_AssignBtnFormat,Assign base key to {0}...,Assigner une touche de base pour {0}...
 Controls_AssignAltBtnFormat,Assign alternate key to {0}...,Assigner une touche alternative pour {0}...
-Controls_SaveChanges_Ask,Save changes ?,Sauvegarder les modifications ?
+Controls_SaveChanges_Ask,Save changes?,Sauvegarder les modifications ?
 Controls_SaveChanges_Confirm,Yes,Oui
 Controls_SaveChanges_Cancel,No,Non
 ,,
@@ -69,16 +69,16 @@ ActionName_Interact,Interact,Interagir
 ActionName_Heal,Heal,Soigner
 ActionName_Inventory,Inventory,Inventaire
 ,,
-ItemName_Sword,Pale sword,Lame pâle
+ItemName_Sword,Blessed sword,Lame bénie
 ItemDescription_Sword,"A common sword, used by many soldiers due to its ability to respond well at various situations. A blacksmith could upgrade it.","Une épée commune, utilisée par bien des soldats en raison de sa capacité à répondre à toutes les situations. Un forgeron pourrait la rendre plus forte."
 ItemName_Coin,Gold coin,Pièce d'or
 ItemDescription_Coin,"Money has lost a lot of its value since the wars, but some people still accept it to buy some goods.","L'argent a perdu beaucoup de valeur depuis les guerres, mais certaines personnes l'acceptent encore pour acheter des biens."
 ItemName_Potion,Health Potion,Potion de soin
-ItemDescription_Potion,Can be used to restore some health. Filled with elexir at grave stones. Only a few know how to make these flasks.,Peut être utilisé pour récupérer de la santé. Le flacon est rempli aux pierres dressées. Seules de rares personnes savent comment sont faites ces potions.
-ItemName_GodsEmblem,Gods Emblem,Emblème divin
+ItemDescription_Potion,Can be used to restore health. Filled with elexir at grave stones. Only a few know how to make these flasks.,Peut être utilisé pour récupérer de la santé. Le flacon est rempli aux pierres dressées. Seules de rares personnes savent comment sont faites ces potions.
+ItemName_GodsEmblem,Emblem of the Three,Emblème des Trois
 ItemDescription_GodsEmblem,Grants strength to whoever follows the way of the Three Creators. Adds an extra attack at the end of the combo.,Procure de la force à quiconque suit la voie des Trois Créateurs. Ajoute une attaque à la fin du combo.
 ItemName_Key_Godric_House,Godric's key,Clef de Godric
-ItemDescription_Key_Godric_House,Key to Godric's House.,Clef de la maison de Godric.
+ItemDescription_Key_Godric_House,"Key to Godric's House. He seemed worried about his ring, I should find it for him.","Clef de la maison de Godric. Il semblait inquiet à propos de son alliance, je devrais aller la retrouver."
 ItemName_Key_Priest,Priest's key,Clef du prêtre
 ItemDescription_Key_Priest,Key to the catacombs cells. It's covered with blood...,Clef des cellules des catacombes. Elle est couverte de sang...
 ItemName_Key_Catacombs,Catacombs key,Clef des catacombes
@@ -88,9 +88,9 @@ ItemDescription_Ring_Godric,"The words ""FOR JEANNE"" are engraved on the ring."
 ItemName_Book,Book,Livre
 ItemDescription_Book,Haa... if only I could read.,Haa... si seulement je savais lire.
 ItemName_Letter_Priest,Priest's letter,Lettre du prêtre
-ItemDescription_Letter_Priest,"It says: ""The impious man has escaped, you must chase him to protect the secret"".","C'est écrit : ""L'hérétique s'est échappé, vous devez le capturer pour protéger le secret""."
+ItemDescription_Letter_Priest,"It says: ""The impious man has escaped, you must chase him to protect the secret"".","Il est écrit : ""L'hérétique s'est échappé, vous devez le capturer pour protéger le secret""."
 ItemName_Letter_Prisoner,Prisoner's letter,Lettre du prisonnier
-ItemDescription_Letter_Prisoner,"It's written ""FEBI"" with blood, and it seems the word is incomplete. I guess he was talking about Febilis, but why?","C'est écrit ""FEBI"" avec du sang, et le mot est incomplet. Il devait parler de Febilis, mais pourquoi ?"
+ItemDescription_Letter_Prisoner,"It's written ""...corpse... rotten... hauntingly beautiful..."" with blood. The rest is unreadable.","Il est écrit ""...cadavre... putréfié... d'une beauté troublante..."" avec du sang. Le reste est illisible."
 ItemName_Scroll,Scroll,Parchemin
 ItemDescription_Scroll,"This contains an important message I should deliver to... someone, I guess.","Il contient un message important que je dois apporter à... quelqu'un, je suppose."
 ItemName_Ring_CatacombsSecret,Macabre ring,Anneau macabre
@@ -118,60 +118,61 @@ Sentence_StoneSign_00_Sentence_00,"""This is the place of the heretics, who may 
 Sentence_StoneSign_01_Sentence_00,"""This is the place of the ones who built the catacombs.""","""Ici reposent ceux qui ont construit les catacombes."""
 Sentence_StoneSign_01_Sentence_01,"""Once fated to death sentence, they redeemed themselves by putting up this place.""","""Autrefois destinés à la peine de mort, ils se sont rachetés en donnant vie à cet endroit."""
 Sentence_StoneSign_02_Sentence_00,"""Place of the commoners.""","""Ici reposent les roturiers."""
-Sentence_StoneSign_CatacombsEntry_Sentence_00,"""Here lie those who got cursed by Febilis.""","""Ici reposent ceux qui ont été damnés par Febilis."""
+Sentence_StoneSign_CatacombsEntry_Sentence_00,"""Here lie those who got cursed by the Scourge.""","""Ici reposent ceux qui ont été damnés par le Fléau."""
 Sentence_StoneSign_RatKing_Sentence_00,"""Beware the king of rats, as many have died already.""","""Attention au roi des rats, car beaucoup sont déjà morts ici."""
 Sentence_StoneSign_RatKing_Sentence_01,There's blood covering the stone...,Il y a du sang sur la stèle...
 Sentence_StoneSign_SecretWallHint_00,"""Some paths of the catacombs have been condemned.""","""Certains passages des catacombes furent condamnés."""
-Sentence_StoneSign_SecretWallHint_01,"""Beware of their fragility, not to be condemned yourself.""","""Attention à leur fragilité, pour ne pas être à votre tour condamné."""
+Sentence_StoneSign_SecretWallHint_01,"""Beware of their fragility, to avoid being condemned yourself.""","""Attention à leur fragilité, pour ne pas être à votre tour condamné."""
 Sentence_StoneSign_SecretWallHint_02,.[pause=0.2].[pause=0.2].[pause=0.5] This might be my way out.,.[pause=0.2].[pause=0.2].[pause=0.5] Voilà peut-être ma porte de sortie.
 ,,
-Sentence_Godric_Greeting_00,"Oh, thank god you seem quite normal.","Oh, Dieu merci vous semblez normal."
+Sentence_Godric_Greeting_00,"Oh, thank Gods you're not undead nor afflicted by the Scourge.","Oh, Dieux merci vous n'êtes ni mort-vivant ni touché par le Fléau."
 Sentence_Godric_Greeting_01,"Listen, I'm in despair, I forgot my ring earlier when I ran away from my home.","Écoutez, je ne sais que faire, j'ai oublié mon alliance quand j'ai fui ma maison."
 Sentence_Godric_Greeting_02,"If you could do me a favor, and bring me back this ring...","Si vous pouviez me rendre un service, et me le ramener..."
 Sentence_Godric_Greeting_03,I can give you something that you may find useful in exchange.,Je peux vous donner quelque chose d'utile en retour.
 Sentence_Godric_Greeting_04,"Here's the key of my house, it's not far from here.","Voici la clef de ma maison, ce n'est pas loin d'ici."
-Sentence_Godric_Greeting_05,"And, by the way, I'm Godric.","Au fait, je m'appelle Godric."
-Sentence_Godric_Greeting_Ring_00,"Hey, I'm... hm... Is this my ring ?","Bonjour, je... hm... Est-ce mon alliance ?"
+Sentence_Godric_Greeting_05,"And, by the way, the name's Godric.","Au fait, mon nom est Godric."
+Sentence_Godric_Greeting_Ring_00,"Hey, I'm[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] hm[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] Is this my ring?","Bonjour, je[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] hm[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] Est-ce mon alliance ?"
 Sentence_Godric_Greeting_Ring_01,"Oh my... I guess they completely destroyed my house, or you broke the door.",Seigneur... Ils ont du ravager ma maison... ou vous avez détruit la porte.
 Sentence_Godric_Greeting_Ring_02,"Anyway, not like I was getting back to it.","Peu importe, ce n'est pas comme si je comptais y retourner."
-Sentence_Godric_Greeting_Ring_03,My name's Godric. Thanks a lot for the ring though you did not know me.,Mon nom est Godric. Merci pour l'alliance alors que vous ne me connaissiez pas.
+Sentence_Godric_Greeting_Ring_03,The name's Godric. Thanks a lot for the ring though you did not know me.,Mon nom est Godric. Merci pour l'alliance alors que vous ne me connaissiez pas.
 Sentence_Godric_WaitingRing_00,This ring is really important to me...,Cette alliance m'est très chère...
 Sentence_Godric_WaitingRing_01,Please.[pause=1] Help me.,S'il vous plaît.[pause=1] Aidez-moi.
-Sentence_Godric_RetrieveRing_00,That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] That's my ring !,C'est[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] C'est mon alliance !
-Sentence_Godric_RetrieveRing_01,You've made it and you're alive !,Vous l'avez récupérée et vous êtes en vie !
+Sentence_Godric_RetrieveRing_00,That[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] That's my ring!,C'est[pause=0.5].[pause=0.5].[pause=0.5].[pause=0.5] C'est mon alliance !
+Sentence_Godric_RetrieveRing_01,You've made it and you're alive!,Vous l'avez récupérée et vous êtes en vie !
 Sentence_Godric_RetrieveRing_02,Sorry for not letting you know about the monsters...,Pardonnez-moi pour ne pas vous avoir mis en garde à propos des monstres...
 Sentence_Godric_RetrieveRing_03,I was too afraid of you declining my favor...,J'avais peur que vous refusiez de m'aider...
 Sentence_Godric_RetrieveRing_04,"As promised, you can take this, it will be more useful to you than for me.","Comme promis, prenez ceci, ça vous sera plus utile qu'à moi."
 Sentence_Godric_SellGodsEmblem_00,Also[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] I have another thing you could find interesting.,Et[pause=0.2].[pause=0.2].[pause=0.2].[pause=0.5] J'ai une autre chose qui pourrait vous intéresser.
-Sentence_Godric_SellGodsEmblem_01,"It's precious, but I'll need money, so I can give it to you for a price.","Elle est précieuse mais il me faut de l'argent, alors je peux vous la vendre."
+Sentence_Godric_SellGodsEmblem_01,"It's important to me, but I'll need money, so I can give it to you for a price.","J'y tiens beaucoup, mais il me faut de l'argent, alors je peux vous la vendre."
 Sentence_Godric_LoopingSentence_00,"If only I could see you again, Jeanne...","Si seulement je pouvais te revoir, Jeanne..."
 ,,
 Sentence_NPC01_Greeting_00,"Hello, stranger...","Bonjour, étranger..."
 Sentence_NPC01_Greeting_01,Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're an elite soldier for sure. Long time I didn't see this armor.,Fascinant.[pause=0.5].[pause=0.5].[pause=0.5] vous êtes un soldat d'élite. Je n'avais pas vu cette armure depuis longtemps.
-Sentence_NPC01_Greeting_02,I suppose you're heading to the village to inspect all this crazy mess.,Je suppose que vous vous dirigez vers le village pour enquête sur tout ça.
+Sentence_NPC01_Greeting_02,I suppose you're heading to the village to inspect the rumors about Febilis.,Je suppose que vous vous rendez au village pour enquêter sur les rumeurs autour de Febilis.
 Sentence_NPC01_Greeting_03,"Quick advice, even with your grade, stay low and mind your own business.","Un conseil, malgré votre rang, mêlez-vous de vos affaires."
-Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons des temps étranges.
+Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons des temps étranges...
 Sentence_NPC01_PostGreeting_00,"Do not forget, stay low and mind your own business.","N'oubliez pas, mêlez-vous de vos affaires."
 ,,
 Sentence_Meric_Greeting_00,"Dear Lords, you killed it, right? You've just killed the giant rat?","Seigneurs, vous l'avez tué, n'est-ce pas ? Vous avez tué le rat géant ?"
 Sentence_Meric_Greeting_01,"That's.[pause=0.2].[pause=0.2]. impressive for sure, but.[pause=0.2].[pause=0.2].","C'est.[pause=0.2].[pause=0.2]. impressionnant, mais.[pause=0.2].[pause=0.2]."
 Sentence_Meric_Greeting_02,"Despite being an abomination, it was killing the skeletons for us.","Bien qu'étant une abomination, il tuait les squelettes pour nous."
 Sentence_Meric_Greeting_03,"If you came here to help us, that was not a great starting point...","Si vous êtes venus nous aider, ce n'est pas très bien parti..."
-Sentence_Meric_LoopingSentence_00,"If you came here to help us, that was not a great starting point...","Si vous êtes venus nous aider, ce n'est pas très bien parti..."
+Sentence_Meric_LoopingSentence_00,May Freidus send us his help...,Que Freidus nous vienne en aide...
 ,,
-Sentence_Peregrin_Greeting_00,Have you seen a man name Godric? He left the village months ago.,Avez-vu un homme nommé Godric ? Il a quitté le village il y a plusieurs mois.
-Sentence_Peregrin_Greeting_01,He's Meric's brother. We hope he's safe.[pause=0.2].[pause=0.2].,Il est le frère de Meric. Nous espérons qu'il est en sécurité.[pause=0.2].[pause=0.2].
-Sentence_Peregrin_Greeting_02,Let's get to the village now.,Allons au village.
+Sentence_Peregrin_Greeting_00,Have you seen a man named Godric? He left the village months ago.,Avez-vu un homme nommé Godric ? Il a quitté le village il y a plusieurs mois.
+Sentence_Peregrin_Greeting_01,The poor man could not mourn while staying in the village...,Le pauvre homme ne parvenait pas à faire son deuil en restant au village...
+Sentence_Peregrin_Greeting_02,He's Meric's brother. We hope he's safe.[pause=0.2].[pause=0.2].,Il est le frère de Meric. Nous espérons qu'il est en sécurité.[pause=0.2].[pause=0.2].
+Sentence_Peregrin_Greeting_03,Let's get to the village now.,Allons au village.
 Sentence_Peregrin_LoopingSentence_00,Let's get to the village now.,Allons au village.
 ,,
 Sentence_OfferingStone_ItemLeft_00,"""The Grace of the Creators speaks through this altar.""","""La Grâce des Créateurs parle à travers cet autel."""
-Sentence_OfferingStone_ItemLeft_01,Rather looks like they've left this place...[pause=0.5] but what if they did not ?,On dirait plutôt qu'ils ont abandonné l'endroit...[pause=0.5] mais peut-être que non ?
-Sentence_OfferingStone_NoItemLeft_00,"""The Grace of the Creators speaks through this altar.""","""La Grâce des Créateurs parle à travers cet autel."""
+Sentence_OfferingStone_ItemLeft_01,Rather looks like their influence left this place...[pause=0.5] but what if it did not?,On dirait plutôt que leur influence a quitté l'endroit...[pause=0.5] mais peut-être que non ?
+Sentence_OfferingStone_NoItemLeft_00,An intimidating aura now emanates from the altar...,"Une aura intimidante émane de l'autel, maintenant..."
 ,,
-SellItem_AskFormat_Default,Buy {0} {1} ? <color=#B4DE9F>({2} gold coins)</color>,Acheter {0} {1} ? <color=#B4DE9F>({2} pièces d'or)</color>
+SellItem_AskFormat_Default,Buy {0} {1}? <color=#B4DE9F>({2} gold coins)</color>,Acheter {0} {1} ? <color=#B4DE9F>({2} pièces d'or)</color>
 SellItem_Confirm,Yes,Oui
 SellItem_Cancel,No,Non
-SellItem_AskFormat_OfferingStone_GodsEmblem,Make an offering ? <color=#B4DE9F>({2} gold coins)</color>,Faire une offrande ? <color=#B4DE9F>({2} pièces d'or)</color>
+SellItem_AskFormat_OfferingStone_GodsEmblem,Make an offering? <color=#B4DE9F>({2} gold coins)</color>,Faire une offrande ? <color=#B4DE9F>({2} pièces d'or)</color>
 ,,
 SpeakerName_Templar,Templar,Templier
 SpeakerName_Godric,Godric,Godric

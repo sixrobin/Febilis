@@ -10,6 +10,8 @@
          <Sentence Id="Peregrin_Greeting_00"/>
          <Sentence Id="Peregrin_Greeting_01"/>
          <Sentence Id="Peregrin_Greeting_02"/>
+         <Pause Dur="0.5"/>
+         <Sentence Id="Peregrin_Greeting_03"/>
       </Sequence>
    </DialogueDatas>
 
@@ -37,6 +39,12 @@
    </SentenceDatas>
 
    <SentenceDatas Id="Peregrin_Greeting_02">
+      <Speaker Id="Peregrin">
+         <OverrideDisplayName>???</OverrideDisplayName>
+      </Speaker>
+   </SentenceDatas>
+
+   <SentenceDatas Id="Peregrin_Greeting_03">
       <Speaker Id="Peregrin">
          <OverrideDisplayName>???</OverrideDisplayName>
       </Speaker>
