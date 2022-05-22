@@ -197,6 +197,12 @@
                 if (sequenceElementsData[i] is Datas.Dialogue.SentenceTextDatas textData)
                 {
                     yield return AppendSentenceTextCoroutine(textData);
+                    
+                    if (_skippedSentenceSequence)
+                    {
+                        _dialogueView.DisplaySentenceProgression(textData, -1);
+                        break;
+                    }
                 }
                 else if (sequenceElementsData[i] is Datas.Dialogue.SentencePauseDatas pauseData)
                 {
@@ -206,12 +212,6 @@
                 {
                     LogError($"Unhandled sentence data type {sequenceElementsData[i].GetType().Name} encountered during sentence {sentenceData.Id} sequence.");
                     yield break;
-                }
-
-                if (_skippedSentenceSequence)
-                {
-                    _dialogueView.DisplaySentenceProgression(sequenceElementsData[i] as Datas.Dialogue.SentenceTextDatas, -1);
-                    break;
                 }
             }
 
