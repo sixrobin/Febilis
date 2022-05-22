@@ -6,7 +6,7 @@
     [DisallowMultipleComponent]
     public class DialogueView : MonoBehaviour
     {
-        private const string ALPHA_TAG_OPEN = "<color=#00000000>";
+        private const string ALPHA_TAG_OPEN_FORMAT = "<color=#{0}00>"; // {0} is the text color.
         private const string ALPHA_TAG_CLOSE = "</color>";
         
         [SerializeField] private Canvas _canvas = null;
@@ -41,6 +41,24 @@
         public float TickInterval => _tickInterval;
         public float SkipInputShowDelay => _skipInputShowDelay;
 
+        private string[] SplitSentence(string sentence, int firstChunkLength)
+        {
+            string[] splitSentence = new string[2];
+
+            for (int i = 0; i < firstChunkLength; ++i)
+                splitSentence[0] += sentence[i];
+
+            for (int i = firstChunkLength; i < sentence.Length; ++i)
+                splitSentence[1] += sentence[i];
+
+            return splitSentence;
+        }
+
+        private string ComputeAlphaTagOpen()
+        {
+            return string.Format(ALPHA_TAG_OPEN_FORMAT, _text.color.ToHexRGB());
+        }
+        
         public void Display(bool show)
         {
             _canvas.enabled = show;
@@ -73,22 +91,9 @@
         public void PrepareSentence(string text)
         {
             _currSentence = text;
-            _text.text = ALPHA_TAG_OPEN + _currSentence + ALPHA_TAG_CLOSE;
+            _text.text = ComputeAlphaTagOpen() + _currSentence + ALPHA_TAG_CLOSE;
         }
 
-        private string[] SplitSentence(string sentence, int firstChunkLength)
-        {
-            string[] splitSentence = new string[2];
-
-            for (int i = 0; i < firstChunkLength; ++i)
-                splitSentence[0] += sentence[i];
-
-            for (int i = firstChunkLength; i < sentence.Length; ++i)
-                splitSentence[1] += sentence[i];
-
-            return splitSentence;
-        }
-        
         public void DisplaySentenceProgression(Datas.Dialogue.SentenceTextDatas sentenceTextData, int progression)
         {
             string displaySentence;
@@ -100,7 +105,7 @@
             else
             {
                 string[] splitSentence = SplitSentence(_currSentence, progression);
-                displaySentence = splitSentence[0] + ALPHA_TAG_OPEN + splitSentence[1] + ALPHA_TAG_CLOSE;
+                displaySentence = splitSentence[0] + ComputeAlphaTagOpen() + splitSentence[1] + ALPHA_TAG_CLOSE;
             }
 
             _text.text = sentenceTextData.Container.HideSpeakerName
