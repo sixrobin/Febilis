@@ -577,6 +577,7 @@ MonoBehaviour:
   _footstepClipProvider: {fileID: 11400000, guid: 4a3b39929995ec34ea4240b1083f4864,
     type: 2}
   _hurtClipProvider: {fileID: 11400000, guid: 517dd9ca1c0d54544b37d818344ae7cf, type: 2}
+  _stunClipProvider: {fileID: 0}
   _deathClipProvider: {fileID: 11400000, guid: 2df375045f1ca9f4b82f48edb01ef33a, type: 2}
   _jumpPuffPrefab: {fileID: 1349905492933044248, guid: 0fc830367c0e6c147bb80ba419ad874b,
     type: 3}
@@ -598,6 +599,7 @@ MonoBehaviour:
   _idleBreakSecInterval: 6
   _breaksBeforeSleep: 2
   _sleepFeedback: {fileID: 1141313425224219380}
+  _deathStencilDuration: 0.2
   _landClipProvider: {fileID: 11400000, guid: e0a5268b8908e684599efa0cee6b2406, type: 2}
   _softLandClipProvider: {fileID: 11400000, guid: 99efeb5476f1b1f4897de41a3876f51b,
     type: 2}

@@ -586,9 +586,7 @@
             }
 
             HealthCtrl.HealthSystem.Heal(PlayerHealthCtrl.HealAmount);
-
-            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(0.25f, 0.4f); // [TODO] Hardcoded values.
-            _currentRecoil = new Templar.Physics.Recoil(-CurrDir, new Datas.Attack.RecoilDatas(1f, 0.1f)); // [TODO] Hardcoded values.
+            // _currentRecoil = new Templar.Physics.Recoil(-CurrDir, new Datas.Attack.RecoilDatas(1f, 0.1f));
 
             PlayerView.PlayHealAnimation();
             yield return RSLib.Yield.SharedYields.WaitForSeconds(CtrlDatas.PostHealDelay);

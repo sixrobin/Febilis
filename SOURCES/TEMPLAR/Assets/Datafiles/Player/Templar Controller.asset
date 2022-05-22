@@ -29,5 +29,5 @@ MonoBehaviour:
   _groundOnAwake: 1
   _hurtDur: 0.33
   _maxFallVelocity: 20
-  _preHealDelay: 0.6
-  _postHealDelay: 0.4
+  _preHealDelay: 0.4
+  _postHealDelay: 0.6

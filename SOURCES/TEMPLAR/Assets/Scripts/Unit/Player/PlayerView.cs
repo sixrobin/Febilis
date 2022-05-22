@@ -44,7 +44,10 @@
         [SerializeField, Min(0f)] private float _idleBreakSecInterval = 15f;
         [SerializeField, Min(0)] private int _breaksBeforeSleep = 2;
         [SerializeField] private SleepFeedback _sleepFeedback = null;
-
+        
+        [Header("HEAL - PLAYER")]
+        [SerializeField, Min(0f)] private float _healTrauma = 0.15f;
+        
         [Header("DEATH - PLAYER")]
         [SerializeField, Min(0f)] private float _deathStencilDuration = 0.2f;
         
@@ -262,7 +265,8 @@
         {
             _animator.SetTrigger(HEAL);
             RSLib.Audio.AudioManager.PlaySound(_healClipProvider);
-
+            Manager.GameManager.CameraCtrl.GetShake(Templar.Camera.CameraShake.ID_SMALL).AddTrauma(_healTrauma);
+            
             LogAnimationPlayIfRequired("Heal");
         }
 
