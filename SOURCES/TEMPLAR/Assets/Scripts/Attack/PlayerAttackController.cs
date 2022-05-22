@@ -148,11 +148,9 @@
                     yield return null;
                 }
 
+                // Roll or jump input is true, breaking out of combo.
                 if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ROLL) || InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.JUMP))
-                {
-                    CProLogger.Log(this, "Roll or jump input is true, breaking out of combo.", _playerCtrl.gameObject);
                     break;
-                }
 
                 if (InputCtrl.CheckInput(Unit.Player.PlayerInputController.ButtonCategory.ATTACK) && i < combo.Count - 1)
                 {
@@ -165,8 +163,6 @@
                     break;
                 }
             }
-
-            CProLogger.Log(this, $"Combo end with a direction of {AttackDir}.", _playerCtrl.gameObject);
 
             comboOverCallback?.Invoke(new AttackOverEventArgs(CurrAttackDatas, AttackDir));
             _attackCoroutine = null;
