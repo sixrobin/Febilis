@@ -57,9 +57,14 @@
                     ValidatedTypes.Add(validationType);
         }
 
-        private void OnDisplayTutorialsValueChanged(bool currentvalue)
+        private void OnDisplayTutorialsValueChanged(bool currentValue)
         {
-            _text.enabled = currentvalue;
+            _text.enabled = currentValue;
+        }
+        
+        private void OnInputSaveDone(RSLib.Framework.InputSystem.InputManager.SaveDoneEventArgs args)
+        {
+            Localize();
         }
         
         public void Display(bool show)
@@ -205,6 +210,7 @@
         private void Start()
         {
             Localizer.LanguageChanged += Localize;
+            RSLib.Framework.InputSystem.InputManager.SaveDone += OnInputSaveDone;
             Manager.SettingsManager.DisplayTutorials.ValueChanged += OnDisplayTutorialsValueChanged;
             
             StartCoroutine(Init());
@@ -213,6 +219,7 @@
         private void OnDestroy()
         {
             Localizer.LanguageChanged -= Localize;
+            RSLib.Framework.InputSystem.InputManager.SaveDone -= OnInputSaveDone;
             Manager.SettingsManager.DisplayTutorials.ValueChanged -= OnDisplayTutorialsValueChanged;
         }
     }
