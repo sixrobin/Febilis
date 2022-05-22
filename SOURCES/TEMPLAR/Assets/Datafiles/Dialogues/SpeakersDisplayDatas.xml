@@ -6,7 +6,7 @@
    </SpeakerDisplayDatas>
 
    <SpeakerDisplayDatas Id="NPC01">
-      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
+      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
    <SpeakerDisplayDatas Id="Godric">
@@ -14,11 +14,11 @@
    </SpeakerDisplayDatas>
 
    <SpeakerDisplayDatas Id="Meric">
-      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SpeakerDisplayDatas>
 
    <SpeakerDisplayDatas Id="Peregrin">
-      <PortraitAnchor>TOP_LEFT</PortraitAnchor>
+      <PortraitAnchor>TOP_RIGHT</PortraitAnchor>
    </SpeakerDisplayDatas>
    
    <SpeakerDisplayDatas Id="OfferingStone">

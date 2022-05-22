@@ -149,6 +149,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7453fb0a0b438e64082266f3921b9e39, type: 3}
   - {fileID: 21300000, guid: 0eeeebd0985f9834eadd0983c18c5674, type: 3}
   - {fileID: 21300000, guid: f2feb039aa20fc844912a592363d6569, type: 3}
+  - {fileID: 21300000, guid: 9b70ca04f4b93724cac3e50738810dbc, type: 3}
   _defaultPortrait: {fileID: 21300000, guid: 002536c19f1a7f342ab02816e429606c, type: 3}
   portraitsAssetsRootPath: Assets/Textures/UI/Dialogue/Portraits
 --- !u!1 &4206304114665369684
