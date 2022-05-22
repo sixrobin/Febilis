@@ -8,7 +8,7 @@
         private const string SELECTED_TEXT_PREFIX = ">";
 
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _btn = null;
-
+        
         protected ItemContextMenu _contextMenu;
         private string _initBtnText;
 
@@ -46,7 +46,7 @@
             Button.Interactable = ActionAllowed;
 
             Localize();
-            _initBtnText = Button.GetText();
+            _initBtnText = Button.GetText().text;
 
             // Set text according to state ? Like equip/unequip ?
             // Need some virtual method if so.
