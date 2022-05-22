@@ -37,7 +37,7 @@
         private Datas.Dialogue.DialogueDatas _currentDialogue;
 
         private bool _skippedSentenceSequence;
-        private string _currSentenceProgress;
+        private int _currSentenceProgress;
 
         public delegate void DialogueEventHandler(Datas.Dialogue.DialogueDatas dialogueDatas);
         public delegate void DialogueOverEventHandler(DialogueOverEventArgs args);
@@ -176,6 +176,7 @@
                 $"Speaker Id {sentenceData.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
 
             _dialogueView.ClearText();
+            _dialogueView.PrepareSentence(sentenceData.SentenceValueByLanguage[Localizer.Instance.Language]);
 
             bool displayPortraitBox = !_currentDialogue.HidePortraitBox && !sentenceData.HidePortraitBox;
             _dialogueView.SetPortraitDisplay(displayPortraitBox);
@@ -185,7 +186,7 @@
             _dialogueView.Display(true);
 
             _skippedSentenceSequence = false;
-            _currSentenceProgress = string.Empty;
+            _currSentenceProgress = 0;
 
             _speakers[sentenceData.SpeakerId].OnSentenceStart();
 
@@ -209,7 +210,7 @@
 
                 if (_skippedSentenceSequence)
                 {
-                    _dialogueView.DisplaySentenceProgression(sentenceData, sentenceData.SentenceValueByLanguage[Localizer.Instance.Language]);
+                    _dialogueView.DisplaySentenceProgression(sequenceElementsData[i] as Datas.Dialogue.SentenceTextDatas, -1);
                     break;
                 }
             }
@@ -236,14 +237,9 @@
 
         private System.Collections.IEnumerator AppendSentenceTextCoroutine(Datas.Dialogue.SentenceTextDatas textDatas)
         {
-            string initStr = _currSentenceProgress;
-
             int i = 0;
             while (i < textDatas.Value.Length)
             {
-                int substringLength = Mathf.Min(_dialogueView.LettersPerTick, textDatas.Value.Length - i);
-                _currSentenceProgress += textDatas.Value.Substring(i, substringLength);
-
                 if (!textDatas.Container.Skippable)
                 {
                     yield return RSLib.Yield.SharedYields.WaitForSeconds(_debugFastDialogues ? _dialogueView.TickInterval / 3f : _dialogueView.TickInterval);
@@ -255,8 +251,7 @@
                         CheckSkipInput,
                         () =>
                         {
-                            _currSentenceProgress = initStr + textDatas.Value;
-                            _dialogueView.DisplaySentenceProgression(textDatas.Container, _currSentenceProgress);
+                            _dialogueView.DisplaySentenceProgression(textDatas, -1);
                             MarkSentenceAsSkipped();
                         });
 
@@ -264,7 +259,8 @@
                         yield break;
                 }
 
-                _dialogueView.DisplaySentenceProgression(textDatas.Container, _currSentenceProgress);
+                _currSentenceProgress += Mathf.Min(_dialogueView.LettersPerTick, textDatas.Value.Length - i);
+                _dialogueView.DisplaySentenceProgression(textDatas, _currSentenceProgress);
                 i += _dialogueView.LettersPerTick;
             }
         }

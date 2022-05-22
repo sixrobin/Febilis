@@ -6,6 +6,9 @@
     [DisallowMultipleComponent]
     public class DialogueView : MonoBehaviour
     {
+        private const string ALPHA_TAG_OPEN = "<color=#00000000>";
+        private const string ALPHA_TAG_CLOSE = "</color>";
+        
         [SerializeField] private Canvas _canvas = null;
         [SerializeField] private UnityEngine.UI.CanvasScaler _canvasScaler = null;
         [SerializeField] private RectTransform _portraitBox = null;
@@ -15,8 +18,8 @@
 
         [Header("TEXT TYPING")]
         [SerializeField] private string _speakerSentenceFormat = "{0}: {1}";
-        [SerializeField] private int _lettersPerTick = 3; // Overridable in xml ?
-        [SerializeField] private float _tickInterval = 0.1f; // Overridable in xml ?
+        [SerializeField] private int _lettersPerTick = 3;
+        [SerializeField] private float _tickInterval = 0.1f;
 
         [Header("SKIP INPUT")]
         [SerializeField] private RectTransform _skipInputFeedback = null;
@@ -32,12 +35,11 @@
         private float _skipInputInitY;
 
         private float _textBoxInitWidth;
-
+        private string _currSentence;
+        
         public int LettersPerTick => _lettersPerTick;
         public float TickInterval => _tickInterval;
         public float SkipInputShowDelay => _skipInputShowDelay;
-
-        public string CurrDisplayedText => _text.text;
 
         public void Display(bool show)
         {
@@ -68,11 +70,42 @@
             _text.text = string.Empty;
         }
 
-        public void DisplaySentenceProgression(Datas.Dialogue.SentenceDatas sentenceData, string text)
+        public void PrepareSentence(string text)
         {
-            _text.text = sentenceData.HideSpeakerName
-                         ? text
-                         : string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceData), text);
+            _currSentence = text;
+            _text.text = ALPHA_TAG_OPEN + _currSentence + ALPHA_TAG_CLOSE;
+        }
+
+        private string[] SplitSentence(string sentence, int firstChunkLength)
+        {
+            string[] splitSentence = new string[2];
+
+            for (int i = 0; i < firstChunkLength; ++i)
+                splitSentence[0] += sentence[i];
+
+            for (int i = firstChunkLength; i < sentence.Length; ++i)
+                splitSentence[1] += sentence[i];
+
+            return splitSentence;
+        }
+        
+        public void DisplaySentenceProgression(Datas.Dialogue.SentenceTextDatas sentenceTextData, int progression)
+        {
+            string displaySentence;
+            
+            if (progression == -1)
+            {
+                displaySentence = _currSentence;
+            }
+            else
+            {
+                string[] splitSentence = SplitSentence(_currSentence, progression);
+                displaySentence = splitSentence[0] + ALPHA_TAG_OPEN + splitSentence[1] + ALPHA_TAG_CLOSE;
+            }
+
+            _text.text = sentenceTextData.Container.HideSpeakerName
+                         ? displaySentence
+                         : string.Format(_speakerSentenceFormat, Database.DialogueDatabase.GetSpeakerDisplayName(sentenceTextData.Container), displaySentence);
             
             RSLib.Audio.AudioManager.PlaySound(_characterTypedClipProvider);
         }
