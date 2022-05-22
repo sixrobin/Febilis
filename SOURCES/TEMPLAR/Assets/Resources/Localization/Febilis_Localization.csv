@@ -147,7 +147,7 @@ Sentence_Godric_SellGodsEmblem_01,"It's precious, but I'll need money, so I can 
 Sentence_Godric_LoopingSentence_00,"If only I could see you again, Jeanne...","Si seulement je pouvais te revoir, Jeanne..."
 ,,
 Sentence_NPC01_Greeting_00,"Hello, stranger...","Bonjour, étranger..."
-Sentence_NPC01_Greeting_01,Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're from the pale militia. Long time I didn't see this armor.,Fascinant.[pause=0.5].[pause=0.5].[pause=0.5] vous êtes de la Milice Pâle. Je n'avais pas vu cette armure depuis longtemps.
+Sentence_NPC01_Greeting_01,Interesting.[pause=0.5].[pause=0.5].[pause=0.5] you're an elite soldier for sure. Long time I didn't see this armor.,Fascinant.[pause=0.5].[pause=0.5].[pause=0.5] vous êtes un soldat d'élite. Je n'avais pas vu cette armure depuis longtemps.
 Sentence_NPC01_Greeting_02,I suppose you're heading to the village to inspect all this crazy mess.,Je suppose que vous vous dirigez vers le village pour enquête sur tout ça.
 Sentence_NPC01_Greeting_03,"Quick advice, even with your grade, stay low and mind your own business.","Un conseil, malgré votre rang, mêlez-vous de vos affaires."
 Sentence_NPC01_Greeting_04,Those are some strange times we're in...,Nous vivons des temps étranges.
@@ -219,5 +219,5 @@ KeyCode_RightAlt,R Alt,Alt D
 KeyCode_LeftAlt,L Alt,Alt
 KeyCode_AltGr,Alt Gr,Alt Gr
 KeyCode_Mouse0,Left click,Clic gauche
-KeyCode_Mouse1,Right click,Clic droite
+KeyCode_Mouse1,Right click,Clic droit
 KeyCode_Mouse2,Wheel click,Clic molette

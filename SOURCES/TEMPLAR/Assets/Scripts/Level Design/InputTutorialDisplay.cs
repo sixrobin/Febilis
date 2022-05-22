@@ -194,9 +194,10 @@
             if (!string.IsNullOrEmpty(_actionId))
             {
                 System.Collections.Generic.Dictionary<string, RSLib.Framework.InputSystem.InputMapDatas.KeyBinding> inputMapCopy = RSLib.Framework.InputSystem.InputManager.GetMapCopy();
+                
                 _text.text = inputMapCopy.TryGetValue(_actionId, out RSLib.Framework.InputSystem.InputMapDatas.KeyBinding binding)
-                    ? string.Format(Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}"), binding.KeyCodes.btn)
-                    : Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
+                             ? string.Format(Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}"), Localizer.Get($"{Localization.KeyCode.KEYCODE_PREFIX}{binding.KeyCodes.btn}"))
+                             : Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
             }
             else
             {
