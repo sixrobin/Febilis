@@ -208,6 +208,9 @@
 
         private void ResetEnemy()
         {
+            if (IsBossUnit)
+                return;
+            
             EnemyHealthController enemyHealthCtrl = (EnemyHealthController)HealthCtrl;
             enemyHealthCtrl.ResetController();
             AttackCtrl.CancelAttack();
