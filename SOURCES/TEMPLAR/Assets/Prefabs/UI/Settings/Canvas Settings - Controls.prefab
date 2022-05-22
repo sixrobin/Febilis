@@ -1419,8 +1419,11 @@ MonoBehaviour:
   - {fileID: 4148220418506472260}
   - {fileID: 5154147895631510886}
   _assignKeyScreen: {fileID: 6116691028023894464}
-  _assignedKeyTextColor: {fileID: 11400000, guid: cfd1cb39e539fa3418da16cde63857fc,
-    type: 2}
+  _assignedKeyTextColors:
+  - Zone: {fileID: 11400000, guid: e1c3bc3111e1a1f44881db4cae2f9a91, type: 2}
+    DataColor: {fileID: 11400000, guid: bdf399a9b0f1fac428c8ea74a2c74380, type: 2}
+  - Zone: {fileID: 11400000, guid: e55f5a84d8f5a2344926a27f735fbb9b, type: 2}
+    DataColor: {fileID: 11400000, guid: 2dde8dc5b030d5b43913137cdae54818, type: 2}
   _resetBindingsBtn: {fileID: 5528907049974080884}
   _saveBindingsBtn: {fileID: 4691567029799052511}
 --- !u!114 &2868698398864596510

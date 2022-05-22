@@ -7,13 +7,6 @@
     [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
     public class UITextHandler : MonoBehaviour, RSLib.Framework.GUI.IUIVisibleEventListener
     {
-        [System.Serializable]
-        private struct ColorByZone
-        {
-            public Flags.ZoneIdentifier Zone;
-            public RSLib.DataColor DataColor;
-        }
-        
         [SerializeField] private ColorByZone[] _colorsByZone = null;
 
         private TMPro.TextMeshProUGUI _text;
@@ -44,7 +37,6 @@
                 _defaultColor = _text.color;
             
             Flags.ZoneIdentifier currentZone = Manager.BoardsManager.CurrentBoard != null ? Manager.BoardsManager.CurrentBoard.BoardIdentifier.ContainingZoneIdentifier : null;
-            
             _text.color = currentZone != null
                           ? _colorsByZone.FirstOrDefault(o => o.Zone == currentZone).DataColor.Color
                           : _defaultColor.Value;

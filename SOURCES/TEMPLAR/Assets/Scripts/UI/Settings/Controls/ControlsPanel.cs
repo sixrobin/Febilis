@@ -30,7 +30,7 @@
         [SerializeField] private ScrollbarToScrollViewNavigationHandler _scrollbarToScrollViewNavigationHandler = null;
         [SerializeField] private KeyBindingPanel[] _bindingPanels = null;
         [SerializeField] private GameObject _assignKeyScreen = null;
-        [SerializeField] private RSLib.DataColor _assignedKeyTextColor = null;
+        [SerializeField] private ColorByZone[] _assignedKeyTextColors = null;
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _resetBindingsBtn = null;
         [SerializeField] private RSLib.Framework.GUI.EnhancedButton _saveBindingsBtn = null;
 
@@ -249,7 +249,13 @@
 
             string assignKeyTextFormat = Localizer.Get(alt ? Localization.Settings.CONTROLS_ASSIGN_ALT_BUTTON_FORMAT : Localization.Settings.CONTROLS_ASSIGN_BUTTON_FORMAT);
             string localizedActionId = Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{bindingPanel.ActionId}");
-            _assignKeyText.text = string.Format(assignKeyTextFormat, $"<color=#{_assignedKeyTextColor.HexCode}>{localizedActionId}</color>");
+            
+            Flags.ZoneIdentifier currentZone = Manager.BoardsManager.CurrentBoard != null ? Manager.BoardsManager.CurrentBoard.BoardIdentifier.ContainingZoneIdentifier : null;
+            Color assignKeyColor = currentZone != null
+                                   ? _assignedKeyTextColors.FirstOrDefault(o => o.Zone == currentZone).DataColor.Color
+                                   : _assignKeyText.color;
+            
+            _assignKeyText.text = string.Format(assignKeyTextFormat, $"<color=#{assignKeyColor.ToHexRGB()}>{localizedActionId}</color>");
             
             InputManager.AssignKey(_editedMap, _currentlyAssignedPanel.ActionId, alt, OnKeyAssigned);
         }
