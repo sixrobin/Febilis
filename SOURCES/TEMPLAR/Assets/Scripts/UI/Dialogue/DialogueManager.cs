@@ -4,7 +4,7 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public class DialogueManager : RSLib.Framework.ConsoleProSingleton<DialogueManager>
+    public class DialogueManager : RSLib.Framework.SingletonConsolePro<DialogueManager>
     {
         public class DialogueOverEventArgs : System.EventArgs
         {

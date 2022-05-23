@@ -1,6 +1,6 @@
 ﻿namespace Templar.Manager
 {
-    public class FreezeFrameManager : RSLib.Framework.ConsoleProSingleton<FreezeFrameManager>
+    public class FreezeFrameManager : RSLib.Framework.SingletonConsolePro<FreezeFrameManager>
     {
         private System.Collections.IEnumerator _freezeFrameCoroutine;
 

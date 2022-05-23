@@ -5,7 +5,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public class SaveManager : RSLib.Framework.ConsoleProSingleton<SaveManager>
+    public class SaveManager : RSLib.Framework.SingletonConsolePro<SaveManager>
     {
         public class SaveVersionUnknownException : System.Exception
         {

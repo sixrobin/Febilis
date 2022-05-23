@@ -10,7 +10,7 @@
     /// Manages the loot spawn but has nothing to do with the actual currency count and management.
     /// Can be used to spawn loot, split loot between different prefabs (like coins, gems, etc.).
     /// </summary>
-    public partial class LootManager : RSLib.Framework.ConsoleProSingleton<LootManager>
+    public partial class LootManager : RSLib.Framework.SingletonConsolePro<LootManager>
     {
         public struct WorldLootItem
         {
@@ -154,7 +154,7 @@
         }
     }
 
-    public partial class LootManager : RSLib.Framework.ConsoleProSingleton<LootManager>
+    public partial class LootManager : RSLib.Framework.SingletonConsolePro<LootManager>
     {
         public static XElement Save()
         {

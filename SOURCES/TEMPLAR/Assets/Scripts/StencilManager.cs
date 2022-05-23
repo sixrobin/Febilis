@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class StencilManager : RSLib.Framework.ConsoleProSingleton<StencilManager>
+    public class StencilManager : RSLib.Framework.SingletonConsolePro<StencilManager>
     {
         [SerializeField] private GameObject _unitStencilPrefab = null;
         [SerializeField] private GameObject _cache = null;

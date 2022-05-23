@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    public class DebugManager : RSLib.Framework.ConsoleProSingleton<DebugManager>
+    public class DebugManager : RSLib.Framework.SingletonConsolePro<DebugManager>
     {
         [SerializeField] private bool _assertsRaiseExceptions = false;
 

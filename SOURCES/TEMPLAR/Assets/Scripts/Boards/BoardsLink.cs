@@ -28,7 +28,7 @@
 
         [Header("DEBUG")]
         [SerializeField] private SpriteRenderer _dbgVisualizer = null;
-        [SerializeField] private RSLib.DataColor _dbgColor = null;
+        [SerializeField] private RSLib.Data.Color _dbgColor = null;
 
         [System.Obsolete("Not technically obsolete, but should only be used in editor/debug classes. Use GetTarget method instead.")]
         public Templar.Tools.OptionalBoardsLink TargetBoardsLink => _targetBoardsLink;
@@ -195,7 +195,7 @@
             if (!TargetBoardsLink.Enabled || TargetBoardsLink.Value == null)
                 return;
 
-            Gizmos.color = Manager.BoardsManager.DebugColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.color = Manager.BoardsManager.DebugColor ?? RSLib.Data.Color.Default;
             Gizmos.DrawLine(TargetBoardsLink.Value.transform.position, transform.position);
             Gizmos.DrawWireSphere(transform.position, 0.2f);
 #pragma warning restore CS0618
@@ -206,7 +206,7 @@
             if (OverrideRespawnPos == null)
                 return;
 
-            Gizmos.color = Manager.BoardsManager.DebugColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.color = Manager.BoardsManager.DebugColor ?? RSLib.Data.Color.Default;
             Gizmos.DrawLine(OverrideRespawnPos.position, transform.position);
         }
 
@@ -222,7 +222,7 @@
                     _platformsToReset[i].Platform.DrawWaypointsStartGizmos(
                         _platformsToReset[i].WaypointIndex,
                         _platformsToReset[i].Percentage,
-                        _dbgColor?.Color ?? RSLib.DataColor.Default);
+                        _dbgColor ?? RSLib.Data.Color.Default);
                 }
             }
         }

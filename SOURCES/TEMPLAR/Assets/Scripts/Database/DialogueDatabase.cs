@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    public class DialogueDatabase : RSLib.Framework.ConsoleProSingleton<DialogueDatabase>, IDatabase
+    public class DialogueDatabase : RSLib.Framework.SingletonConsolePro<DialogueDatabase>, IDatabase
     {
         public const string PORTRAIT_PREFIX = "Dialogue-Portrait_";
 

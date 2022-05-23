@@ -5,7 +5,7 @@
     using UnityEditor;
 #endif
 
-    public class GameManager : RSLib.Framework.ConsoleProSingleton<GameManager>
+    public class GameManager : RSLib.Framework.SingletonConsolePro<GameManager>
     {
         [Header("REFS")]
         [SerializeField] private Unit.Player.PlayerController _playerCtrl = null;

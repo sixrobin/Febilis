@@ -38,7 +38,7 @@
             
             Flags.ZoneIdentifier currentZone = Manager.BoardsManager.CurrentBoard != null ? Manager.BoardsManager.CurrentBoard.BoardIdentifier.ContainingZoneIdentifier : null;
             _text.color = currentZone != null
-                          ? _colorsByZone.FirstOrDefault(o => o.Zone == currentZone).DataColor.Color
+                          ? _colorsByZone.FirstOrDefault(o => o.Zone == currentZone).DataColor
                           : _defaultColor.Value;
         }
 

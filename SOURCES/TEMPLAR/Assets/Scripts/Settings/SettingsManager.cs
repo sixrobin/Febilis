@@ -3,7 +3,7 @@
     using System.Xml;
     using System.Xml.Linq;
 
-    public class SettingsManager : RSLib.Framework.ConsoleProSingleton<SettingsManager>
+    public class SettingsManager : RSLib.Framework.SingletonConsolePro<SettingsManager>
     {
         public static Settings.AxisDeadZone AxisDeadZone { get; private set; }
         public static Settings.ConstrainCursor ConstrainCursor { get; private set; }

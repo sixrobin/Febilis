@@ -8,7 +8,7 @@
     using UnityEditor;
 #endif
 
-    public class ItemDatabase : RSLib.Framework.ConsoleProSingleton<ItemDatabase>, IDatabase
+    public class ItemDatabase : RSLib.Framework.SingletonConsolePro<ItemDatabase>, IDatabase
     {
         public const string ITEM_PREFIX = "Item_";
         public const string ITEM_TYPE_PREFIX = "ItemType_";

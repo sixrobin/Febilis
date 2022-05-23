@@ -18,7 +18,7 @@
         [SerializeField] private Vector2 _respawnOffset = Vector2.zero;
         
         [Header("DEBUG COLOR")]
-        [SerializeField] private RSLib.DataColor _debugColor = null;
+        [SerializeField] private RSLib.Data.Color _debugColor = null;
 
         private delegate void BeforeCheckpointChangeEventHandler(string currId, string nextId);
         private static BeforeCheckpointChangeEventHandler BeforeCheckpointChange;
@@ -104,7 +104,7 @@
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = _debugColor.Color;
+            Gizmos.color = _debugColor;
             Gizmos.DrawWireSphere(RespawnPos, 0.2f);
         }
     }

@@ -15,14 +15,14 @@
         [SerializeField] private Flags.BoardIdentifier _boardIdentifier = null;
         
         [Header("REFS")]
-        [SerializeField] private RSLib.DataColor _backgroundColor = null;
+        [SerializeField] private RSLib.Data.Color _backgroundColor = null;
         [SerializeField] private BoardsLink[] _boardsLinks = null;
         [SerializeField] private GameObject[] _disableWhenNotCurrentBoard = null;
 
         public delegate void BoardEventHandler(Board board);
         public static event BoardEventHandler BoardEntered;
 
-        public Color BackgroundColor => _backgroundColor?.Color ?? Color.grey;
+        public Color BackgroundColor => _backgroundColor ?? Color.grey;
 
         public Flags.IIdentifier Identifier => _boardIdentifier;
         public Flags.BoardIdentifier BoardIdentifier => Identifier as Templar.Flags.BoardIdentifier;

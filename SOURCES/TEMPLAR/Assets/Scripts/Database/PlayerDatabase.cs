@@ -6,7 +6,7 @@
     using UnityEditor;
 #endif
 
-    public class PlayerDatabase : RSLib.Framework.ConsoleProSingleton<PlayerDatabase>, IDatabase
+    public class PlayerDatabase : RSLib.Framework.SingletonConsolePro<PlayerDatabase>, IDatabase
     {
         [SerializeField] private AnimationClip[] _animationClips = null;
 

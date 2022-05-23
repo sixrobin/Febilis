@@ -7,7 +7,7 @@
     using UnityEditor;
 #endif
 
-    public class EnemyDatabase : RSLib.Framework.ConsoleProSingleton<EnemyDatabase>, IDatabase
+    public class EnemyDatabase : RSLib.Framework.SingletonConsolePro<EnemyDatabase>, IDatabase
     {
         [SerializeField] private TextAsset[] _enemiesDatas = null;
         [SerializeField] private AnimationClip[] _animationClips = null;

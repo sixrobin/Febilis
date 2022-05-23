@@ -59,10 +59,10 @@
         [SerializeField] private RSLib.Framework.OptionalFloat _movementTriggerDelay = new RSLib.Framework.OptionalFloat(0f, false);
 
         [Header("DEBUG")]
-        [SerializeField] private RSLib.DataColor _dbgColor = null;
-        [SerializeField] private RSLib.DataColor _raycastsColor = null;
+        [SerializeField] private RSLib.Data.Color _dbgColor = null;
+        [SerializeField] private RSLib.Data.Color _raycastsColor = null;
         [SerializeField] private bool _verbose = false;
-        [SerializeField] private RSLib.DataColor _dbgResetDatasColor = null;
+        [SerializeField] private RSLib.Data.Color _dbgResetDatasColor = null;
         [SerializeField] public PlatformResetDatas _dbgResetDatas = new PlatformResetDatas();
 
         private RaycastsController _raycastsCtrl;
@@ -203,7 +203,7 @@
                         ? Physics2D.RaycastAll(rayOrigin, Vector2.right * signX, length, _passengersMask)
                         : (new RaycastHit2D[1] { Physics2D.Raycast(rayOrigin, Vector2.right * signX, length, _passengersMask) });
 
-                    Debug.DrawLine(rayOrigin, rayOrigin + length * signX * Vector2.right, _raycastsColor?.Color ?? RSLib.DataColor.Default);
+                    Debug.DrawLine(rayOrigin, rayOrigin + length * signX * Vector2.right, _raycastsColor ?? RSLib.Data.Color.Default);
 
                     for (int j = hits.Length - 1; j >= 0; --j)
                     {
@@ -313,7 +313,7 @@
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.color = _dbgColor ?? RSLib.Data.Color.Default;
 
             if (_movementTrigger.Enabled && _movementTrigger.Value != null)
                 Gizmos.DrawLine(transform.position, _movementTrigger.Value.transform.position);
@@ -322,13 +322,13 @@
             {
                 DrawWaypointsStartGizmos(_initFromIndex.Enabled ? _initFromIndex.Value : 0,
                     _initPercentage.Enabled ? _initPercentage.Value : 0f,
-                    _dbgColor?.Color ?? RSLib.DataColor.Default);
+                    _dbgColor ?? RSLib.Data.Color.Default);
             }
 
             DrawWaypointsStartGizmos(
                 _dbgResetDatas.WaypointIndex,
                 _dbgResetDatas.Percentage,
-                _dbgResetDatasColor?.Color ?? _dbgColor?.Color ?? RSLib.DataColor.Default);
+                _dbgResetDatasColor ?? _dbgColor ?? RSLib.Data.Color.Default);
         }
 
         public void DrawWaypointsStartGizmos(int fromIndex, float percentage, Color? color = null)
@@ -336,7 +336,7 @@
             if (Application.isPlaying)
                 return;
 
-            Gizmos.color = color ?? RSLib.DataColor.Default;
+            Gizmos.color = color ?? RSLib.Data.Color.Default;
 
             Vector3 initPointPos = _waypoints.GetLocalWaypointAt(fromIndex);
             if (percentage != 0f)

@@ -10,7 +10,7 @@
         [SerializeField] private bool _cyclic = false;
 
         [Header("DEBUG")]
-        [SerializeField] private RSLib.DataColor _dbgColor = null;
+        [SerializeField] private RSLib.Data.Color _dbgColor = null;
         [SerializeField] private float _waypointsGizmosRadius = 0.3f;
 
         private Vector3[] _globalWayPositions;
@@ -59,7 +59,7 @@
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = _dbgColor?.Color ?? RSLib.DataColor.Default;
+            Gizmos.color = _dbgColor ?? RSLib.Data.Color.Default;
 
             if (_wayPositions != null)
             {

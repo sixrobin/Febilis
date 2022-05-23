@@ -1,6 +1,6 @@
 ﻿namespace Templar.Manager
 {
-    public class MainMenuManager : RSLib.Framework.ConsoleProSingleton<MainMenuManager>
+    public class MainMenuManager : RSLib.Framework.SingletonConsolePro<MainMenuManager>
     {
         public static void NewGame()
         {

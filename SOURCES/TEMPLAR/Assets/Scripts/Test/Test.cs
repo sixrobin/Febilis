@@ -7,11 +7,18 @@
 
     public class Test : MonoBehaviour
     {
-        public RSLib.Audio.ClipProvider[] clips;
+        public RSLib.Data.Float DataFloat;
+        public float f;
         
         private void Start()
         {
-            RSLib.Audio.AudioManager.PlaySounds(clips);
+            DataFloat.ValueChanged += OnValueChanged;
+            f += DataFloat;
+        }
+
+        private void OnValueChanged(RSLib.Data.Float.ValueChangedEventArgs args)
+        {
+            Debug.LogError(args.New);
         }
 
         private void Update()

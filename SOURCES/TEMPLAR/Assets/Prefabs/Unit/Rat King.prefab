@@ -269,6 +269,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 78c997279a1b9d243828512ccd348449,
         type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _chargeClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: 8435fc15788694743bce90a8620f1a31,
+        type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _chargeAnticipationClipProvider
+      value: 
+      objectReference: {fileID: 11400000, guid: c501eb84e002cf24db1641ce12c27578,
+        type: 2}
+    - target: {fileID: 7435713418959382855, guid: 0b40e387cdcb6354bbcad91559735688,
+        type: 3}
+      propertyPath: _chargeAnticipationClipDelay
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7629123961653350815, guid: 0b40e387cdcb6354bbcad91559735688,
         type: 3}
       propertyPath: m_Controller

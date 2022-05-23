@@ -3,7 +3,7 @@
     using UnityEngine;
     using UnityEngine.EventSystems;
 
-    public class UINavigationManager : RSLib.Framework.ConsoleProSingleton<UINavigationManager>
+    public class UINavigationManager : RSLib.Framework.SingletonConsolePro<UINavigationManager>
     {
         private const string INPUT_BACK = "UICancel";
 

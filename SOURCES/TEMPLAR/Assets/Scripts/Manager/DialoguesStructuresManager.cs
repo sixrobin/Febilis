@@ -4,7 +4,7 @@
     using System.Xml.Linq;
     using RSLib.Extensions;
 
-    public partial class DialoguesStructuresManager : RSLib.Framework.ConsoleProSingleton<DialoguesStructuresManager>
+    public partial class DialoguesStructuresManager : RSLib.Framework.SingletonConsolePro<DialoguesStructuresManager>
     {
         private class DialoguesStructureData
         {
@@ -80,7 +80,7 @@
         }
     }
 
-    public partial class DialoguesStructuresManager : RSLib.Framework.ConsoleProSingleton<DialoguesStructuresManager>
+    public partial class DialoguesStructuresManager : RSLib.Framework.SingletonConsolePro<DialoguesStructuresManager>
     {
         public static void Load(XElement dialoguesStructuresElement)
         {

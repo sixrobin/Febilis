@@ -252,7 +252,7 @@
             
             Flags.ZoneIdentifier currentZone = Manager.BoardsManager.CurrentBoard != null ? Manager.BoardsManager.CurrentBoard.BoardIdentifier.ContainingZoneIdentifier : null;
             Color assignKeyColor = currentZone != null
-                                   ? _assignedKeyTextColors.FirstOrDefault(o => o.Zone == currentZone).DataColor.Color
+                                   ? _assignedKeyTextColors.FirstOrDefault(o => o.Zone == currentZone).DataColor
                                    : _assignKeyText.color;
             
             _assignKeyText.text = string.Format(assignKeyTextFormat, $"<color=#{assignKeyColor.ToHexRGB()}>{localizedActionId}</color>");

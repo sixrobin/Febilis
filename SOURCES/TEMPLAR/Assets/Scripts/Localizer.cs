@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class Localizer : RSLib.Framework.ConsoleProSingleton<Localizer>
+    public class Localizer : RSLib.Framework.SingletonConsolePro<Localizer>
     {
         [UnityEngine.SerializeField] private UnityEngine.TextAsset _localizationCsv = null;
 
@@ -128,7 +128,7 @@
         /// <param name="csvFile">CSV localization file.</param>
         private static void LoadCSV(UnityEngine.TextAsset csvFile)
         {
-            string[,] grid = CSVReader.SplitCSVGrid(csvFile.text);
+            string[,] grid = RSLib.Framework.CSVReader.SplitCSVGrid(csvFile.text);
             
             // Initialize languages.
             Instance._entries = new Dictionary<string, Dictionary<string, string>>();

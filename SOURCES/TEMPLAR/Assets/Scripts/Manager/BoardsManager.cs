@@ -6,19 +6,19 @@
     using UnityEditor;
 #endif
 
-    public class BoardsManager : RSLib.Framework.ConsoleProSingleton<BoardsManager>
+    public class BoardsManager : RSLib.Framework.SingletonConsolePro<BoardsManager>
     {
         [Header("ALL SCENE BOARDS")]
         [SerializeField] private Boards.BoardsLink[] _boardsLinks = null;
 
         [Header("DEBUG")]
-        [SerializeField] private RSLib.DataColor _debugColor = null;
+        [SerializeField] private RSLib.Data.Color _debugColor = null;
 
         private static bool s_init;
 
         public static Boards.Board CurrentBoard { get; private set; }
 
-        public static RSLib.DataColor DebugColor => Instance._debugColor;
+        public static RSLib.Data.Color DebugColor => Instance._debugColor;
 
         /// <summary>
         /// Tries to get the BoardsLinks the given ScenesPassage leads to.

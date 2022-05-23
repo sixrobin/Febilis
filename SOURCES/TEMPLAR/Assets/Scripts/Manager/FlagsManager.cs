@@ -3,7 +3,7 @@
     using RSLib.Extensions;
     using System.Xml.Linq;
 
-    public partial class FlagsManager : RSLib.Framework.ConsoleProSingleton<FlagsManager>
+    public partial class FlagsManager : RSLib.Framework.SingletonConsolePro<FlagsManager>
     {
         private static System.Collections.Generic.Dictionary<System.Type, Flags.FlagsList> s_flags;
         private static bool s_init;
@@ -72,7 +72,7 @@
         }
     }
 
-    public partial class FlagsManager : RSLib.Framework.ConsoleProSingleton<FlagsManager>
+    public partial class FlagsManager : RSLib.Framework.SingletonConsolePro<FlagsManager>
     {
         public static void Load(XElement flagsElement)
         {

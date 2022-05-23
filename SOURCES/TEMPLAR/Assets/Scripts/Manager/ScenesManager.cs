@@ -3,7 +3,7 @@
     using UnityEngine;
     using UnityEngine.SceneManagement;
 
-    public class ScenesManager : RSLib.Framework.ConsoleProSingleton<ScenesManager>
+    public class ScenesManager : RSLib.Framework.SingletonConsolePro<ScenesManager>
     {
         [SerializeField] private RSLib.Framework.SceneField _mainMenuScene = null;
         [SerializeField] private RSLib.Framework.SceneField _levelScene = null;

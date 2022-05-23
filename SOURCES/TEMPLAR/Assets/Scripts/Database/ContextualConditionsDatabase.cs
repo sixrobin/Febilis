@@ -3,7 +3,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public class ContextualConditionsDatabase : RSLib.Framework.ConsoleProSingleton<ContextualConditionsDatabase>, IDatabase
+    public class ContextualConditionsDatabase : RSLib.Framework.SingletonConsolePro<ContextualConditionsDatabase>, IDatabase
     {
         [SerializeField] private TextAsset _contextualConditionsDatas = null;
 

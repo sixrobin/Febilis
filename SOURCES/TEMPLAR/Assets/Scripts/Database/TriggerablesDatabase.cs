@@ -3,7 +3,7 @@
     using System.Xml.Linq;
     using UnityEngine;
 
-    public class TriggerablesDatabase : RSLib.Framework.ConsoleProSingleton<TriggerablesDatabase>, IDatabase
+    public class TriggerablesDatabase : RSLib.Framework.SingletonConsolePro<TriggerablesDatabase>, IDatabase
     {
         [SerializeField] private TextAsset _triggerablesDatas = null;
 

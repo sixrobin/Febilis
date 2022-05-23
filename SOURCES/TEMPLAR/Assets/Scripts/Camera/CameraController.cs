@@ -14,7 +14,7 @@
 
         [Header("DEBUG")]
         [SerializeField] private bool _debugOnSelectedOnly = true;
-        [SerializeField] private RSLib.DataColor _debugColor = null;
+        [SerializeField] private RSLib.Data.Color _debugColor = null;
         [SerializeField] private Boards.OptionalBoardBounds _initBounds = new Boards.OptionalBoardBounds(null, false);
 #if UNITY_EDITOR
 #pragma warning disable CS0414
@@ -291,7 +291,7 @@
             if (_debugOnSelectedOnly)
                 return;
 
-            _focusArea?.DrawArea(_debugColor.Color);
+            _focusArea?.DrawArea(_debugColor);
         }
 
         private void OnDrawGizmosSelected()
@@ -299,7 +299,7 @@
             if (!_debugOnSelectedOnly)
                 return;
 
-            _focusArea?.DrawArea(_debugColor.Color);
+            _focusArea?.DrawArea(_debugColor);
         }
 
 #if UNITY_EDITOR

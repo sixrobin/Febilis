@@ -19,6 +19,12 @@
         [Header("DEAD FADE")]
         [SerializeField] private float _deadFadeDelay = 1f;
 
+        [Header("CHARGE")]
+        [SerializeField] private RSLib.Audio.ClipProvider _chargeClipProvider = null;
+        [SerializeField, Min(0f)] private float _chargeClipDelay = 0f;
+        [SerializeField] private RSLib.Audio.ClipProvider _chargeAnticipationClipProvider = null;
+        [SerializeField, Min(0f)] private float _chargeAnticipationClipDelay = 0f;
+
         [Header("ROAR")]
         [SerializeField, Range(0f, 1f)] private float _roarTrauma = 0.1f;
         [SerializeField, Min(0f)] private float _roarMaxDuration = 1f;
@@ -54,11 +60,13 @@
         public void PlayChargeAnimation()
         {
             _animator.SetTrigger(CHARGE);
+            RSLib.Audio.AudioManager.PlaySound(_chargeClipProvider, _chargeClipDelay);
         }
 
         public void PlayChargeAnticipationAnimation()
         {
             _animator.SetTrigger(CHARGE_ANTICIPATION);
+            RSLib.Audio.AudioManager.PlaySound(_chargeAnticipationClipProvider, _chargeAnticipationClipDelay);
         }
 
         public void PlayChargeCollisionAnimation()

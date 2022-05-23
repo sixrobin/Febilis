@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [DisallowMultipleComponent]
-    public class RampFadeManager : RSLib.Framework.ConsoleProSingleton<RampFadeManager>
+    public class RampFadeManager : RSLib.Framework.SingletonConsolePro<RampFadeManager>
     {
         [SerializeField] private bool _timeScaleDependent = false;
         [SerializeField] private Database.RampFadesDatabase _rampFadesDatabase = null;

@@ -3,7 +3,7 @@
     using System.Linq;
     using UnityEngine;
 
-    public class PaletteManager : RSLib.Framework.ConsoleProSingleton<PaletteManager>
+    public class PaletteManager : RSLib.Framework.SingletonConsolePro<PaletteManager>
     {
         [System.Serializable]
         private class ZoneColorData

@@ -3,7 +3,7 @@
     using RSLib.Extensions;
     using UnityEngine;
 
-    public class BoardsTransitionManager : RSLib.Framework.ConsoleProSingleton<BoardsTransitionManager>
+    public class BoardsTransitionManager : RSLib.Framework.SingletonConsolePro<BoardsTransitionManager>
     {
         [Header("TRANSITION VIEW")]
         [SerializeField] private Datas.RampFadeDatas _fadeInDatas = null;

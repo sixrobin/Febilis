@@ -3,7 +3,7 @@
     using SceneLoadingDatasStorage;
     using System.Linq;
 
-    public class SceneLoadingDatasStorageManager : RSLib.Framework.ConsoleProSingleton<SceneLoadingDatasStorageManager>
+    public class SceneLoadingDatasStorageManager : RSLib.Framework.SingletonConsolePro<SceneLoadingDatasStorageManager>
     {
         private SceneLoadDatasContainer? _sceneLoadDatasContainer = null;
 

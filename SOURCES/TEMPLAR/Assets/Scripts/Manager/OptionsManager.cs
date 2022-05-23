@@ -3,7 +3,7 @@
     using Templar.Datas;
     using UnityEngine;
 
-    public class OptionsManager : RSLib.Framework.ConsoleProSingleton<OptionsManager>
+    public class OptionsManager : RSLib.Framework.SingletonConsolePro<OptionsManager>
     {
         private const string MENU_INPUT = "Menu";
         

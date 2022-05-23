@@ -4,6 +4,6 @@
     public struct ColorByZone
     {
         public Flags.ZoneIdentifier Zone;
-        public RSLib.DataColor DataColor;
+        public RSLib.Data.Color DataColor;
     }
 }
