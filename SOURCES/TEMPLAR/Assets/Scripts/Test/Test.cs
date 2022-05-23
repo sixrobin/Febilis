@@ -7,22 +7,16 @@
 
     public class Test : MonoBehaviour
     {
-        public RSLib.Data.Float DataFloat;
-        public float f;
-        
+        public RSLib.Framework.Events.GameEvent GameEvent;
+
         private void Start()
         {
-            DataFloat.ValueChanged += OnValueChanged;
-            f += DataFloat;
+            GameEvent.Raise();
         }
 
-        private void OnValueChanged(RSLib.Data.Float.ValueChangedEventArgs args)
+        public void PrintCoucou()
         {
-            Debug.LogError(args.New);
-        }
-
-        private void Update()
-        {
+            Debug.LogError("Coucou");
         }
     }
 }

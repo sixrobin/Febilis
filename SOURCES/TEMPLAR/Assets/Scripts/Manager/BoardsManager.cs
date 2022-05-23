@@ -92,6 +92,15 @@
             Init();
         }
 
+        private void Update()
+        {
+            if (CurrentBoard != null)
+            {
+                RSLib.Debug.ValuesDebugger.DebugValue("currentBoardId", () => CurrentBoard.Identifier.Id);
+                RSLib.Debug.ValuesDebugger.DebugValue("currentZoneId", () => CurrentBoard.BoardIdentifier.ContainingZoneIdentifier.Id);
+            }
+        }
+
         private void OnDestroy()
         {
             s_init = false;
