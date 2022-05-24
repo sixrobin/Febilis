@@ -61,7 +61,7 @@
 
         public virtual void Localize()
         {
-            _title.text = Localizer.Get(_titleLocalizationKey);
+            _title.text = RSLib.Localization.Localizer.Get(_titleLocalizationKey);
         }
 
 #if UNITY_EDITOR

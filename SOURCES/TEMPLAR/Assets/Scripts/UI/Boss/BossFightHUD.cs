@@ -64,7 +64,7 @@
         private System.Collections.IEnumerator DisplayBossHUDCoroutine()
         {
             for (int i = _bossNameTexts.Length - 1; i >= 0; --i)
-                _bossNameTexts[i].text = Localizer.Get($"{Localization.Boss.BOSS_NAME_PREFIX}{_currBossFight.Identifier.Id}");
+                _bossNameTexts[i].text = RSLib.Localization.Localizer.Get($"{Localization.Boss.BOSS_NAME_PREFIX}{_currBossFight.Identifier.Id}");
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_currBossFight.BossIntroDatas.BossNameAppearanceDelay);
             

@@ -182,9 +182,9 @@
 
         private void Localize()
         {
-            _title.text = Localizer.Get(Localization.Settings.GAME_TITLE);
-            _resetSettingsBtn.SetText(Localizer.Get(Localization.Settings.GAME_RESET));
-            _saveSettingsBtn.SetText(Localizer.Get(Localization.Settings.GAME_SAVE));
+            _title.text = RSLib.Localization.Localizer.Get(Localization.Settings.GAME_TITLE);
+            _resetSettingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.GAME_RESET));
+            _saveSettingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.GAME_SAVE));
 
             for (int i = _settings.Length - 1; i >= 0; --i)
                 _settings[i].Localize();

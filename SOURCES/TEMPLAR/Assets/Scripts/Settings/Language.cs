@@ -24,7 +24,7 @@
             set
             {
                 base.Value = value;
-                Localizer.SetCurrentLanguage(base.Value.StringValue);
+                RSLib.Localization.Localizer.SetCurrentLanguage(base.Value.StringValue);
             }
         }
 
@@ -34,9 +34,9 @@
             {
                 if (_options == null)
                 {
-                    _options = new StringOption[Localizer.Instance.Languages.Length];
-                    for (int i = 0; i < Localizer.Instance.Languages.Length; ++i)
-                        _options[i] = new StringOption(Localizer.Instance.Languages[i], i == 0);
+                    _options = new StringOption[RSLib.Localization.Localizer.Instance.Languages.Length];
+                    for (int i = 0; i < RSLib.Localization.Localizer.Instance.Languages.Length; ++i)
+                        _options[i] = new StringOption(RSLib.Localization.Localizer.Instance.Languages[i], i == 0);
                 }
 
                 return _options;

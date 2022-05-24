@@ -116,9 +116,9 @@
         
         private void Localize()
         {
-            _title.text = Localizer.Get(Localization.Settings.AUDIO);
-            _resetSettingsBtn.SetText(Localizer.Get(Localization.Settings.AUDIO_RESET));
-            _saveSettingsBtn.SetText(Localizer.Get(Localization.Settings.AUDIO_SAVE));
+            _title.text = RSLib.Localization.Localizer.Get(Localization.Settings.AUDIO);
+            _resetSettingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.AUDIO_RESET));
+            _saveSettingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.AUDIO_SAVE));
             
             VolumeSlider[] enabledSliders = _sliders.Where(o => o.gameObject.activeSelf).ToArray();
             for (int i = 0; i < enabledSliders.Length; ++i)

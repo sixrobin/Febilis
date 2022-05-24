@@ -198,18 +198,18 @@
                 System.Collections.Generic.Dictionary<string, RSLib.Framework.InputSystem.InputMapDatas.KeyBinding> inputMapCopy = RSLib.Framework.InputSystem.InputManager.GetMapCopy();
                 
                 _text.text = inputMapCopy.TryGetValue(_actionId, out RSLib.Framework.InputSystem.InputMapDatas.KeyBinding binding)
-                             ? string.Format(Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}"), Localizer.Get($"{Localization.KeyCode.KEYCODE_PREFIX}{binding.KeyCodes.btn}"))
-                             : Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
+                             ? string.Format(RSLib.Localization.Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}"), RSLib.Localization.Localizer.Get($"{Localization.KeyCode.KEYCODE_PREFIX}{binding.KeyCodes.btn}"))
+                             : RSLib.Localization.Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
             }
             else
             {
-                _text.text = Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
+                _text.text = RSLib.Localization.Localizer.Get($"{Localization.InputTutorial.PREFIX}{_localizationSuffix}");
             }
         }
 
         private void Start()
         {
-            Localizer.LanguageChanged += Localize;
+            RSLib.Localization.Localizer.LanguageChanged += Localize;
             RSLib.Framework.InputSystem.InputManager.SaveDone += OnInputSaveDone;
             Manager.SettingsManager.DisplayTutorials.ValueChanged += OnDisplayTutorialsValueChanged;
             
@@ -218,7 +218,7 @@
 
         private void OnDestroy()
         {
-            Localizer.LanguageChanged -= Localize;
+            RSLib.Localization.Localizer.LanguageChanged -= Localize;
             RSLib.Framework.InputSystem.InputManager.SaveDone -= OnInputSaveDone;
             Manager.SettingsManager.DisplayTutorials.ValueChanged -= OnDisplayTutorialsValueChanged;
         }

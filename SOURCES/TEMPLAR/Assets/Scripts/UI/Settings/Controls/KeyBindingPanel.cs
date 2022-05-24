@@ -59,7 +59,7 @@
 
         public void Localize()
         {
-            _actionName.text = Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{ActionId}");
+            _actionName.text = RSLib.Localization.Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{ActionId}");
 
             LocalizeKeyCode(BaseBtnButton, _btns.btn);
             LocalizeKeyCode(AltBtnButton, _btns.altBtn);
@@ -67,7 +67,7 @@
 
         private void LocalizeKeyCode(KeyBindingButton button, KeyCode keycode)
         {
-            if (Localizer.TryGet($"{Localization.KeyCode.KEYCODE_PREFIX}{keycode}", out string localizedKeyCode))
+            if (RSLib.Localization.Localizer.TryGet($"{Localization.KeyCode.KEYCODE_PREFIX}{keycode}", out string localizedKeyCode))
                 button.SetText(localizedKeyCode);
             else
                 button.SetText(keycode != KeyCode.None ? KeyCodeSymbols.GetSymbol(keycode) : string.Empty);

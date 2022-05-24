@@ -85,16 +85,16 @@
 
         private void Localize()
         {
-            string textFormat = Localizer.Get(string.IsNullOrEmpty(_sellItemData.CustomLocalizationId)
+            string textFormat = RSLib.Localization.Localizer.Get(string.IsNullOrEmpty(_sellItemData.CustomLocalizationId)
                                               ? Localization.Dialogue.SELL_ITEM_ASK_FORMAT_DEFAULT
                                               : $"{Localization.Dialogue.SELL_ITEM_ASK_FORMAT}{_sellItemData.CustomLocalizationId}");
 
-            string localizedItemName = Localizer.Get($"{Localization.Item.NAME_PREFIX}{_sellItemData.ItemId}");
+            string localizedItemName = RSLib.Localization.Localizer.Get($"{Localization.Item.NAME_PREFIX}{_sellItemData.ItemId}");
             
             _sellItemText.text = string.Format(textFormat, _sellItemData.Quantity, localizedItemName, _sellItemData.Price);
             
-            _confirmBtn.SetText(Localizer.Get(Localization.Dialogue.SELL_ITEM_CONFIRM));
-            _cancelBtn.SetText(Localizer.Get(Localization.Dialogue.SELL_ITEM_CANCEL));
+            _confirmBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Dialogue.SELL_ITEM_CONFIRM));
+            _cancelBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Dialogue.SELL_ITEM_CANCEL));
         }
         
         protected override void Awake()

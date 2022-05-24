@@ -176,7 +176,7 @@
                 $"Speaker Id {sentenceData.SpeakerId} is not known by DialogueManager. Known speakers are {string.Join(",", _speakers.Keys)}.");
 
             _dialogueView.ClearText();
-            _dialogueView.PrepareSentence(sentenceData.SentenceValueByLanguage[Localizer.Instance.Language]);
+            _dialogueView.PrepareSentence(sentenceData.SentenceValueByLanguage[RSLib.Localization.Localizer.Instance.Language]);
 
             bool displayPortraitBox = !_currentDialogue.HidePortraitBox && !sentenceData.HidePortraitBox;
             _dialogueView.SetPortraitDisplay(displayPortraitBox);
@@ -190,7 +190,7 @@
 
             _speakers[sentenceData.SpeakerId].OnSentenceStart();
 
-            Datas.Dialogue.SentenceSequenceElementDatas[] sequenceElementsData = sentenceData.SequenceElementsDatasByLanguage[Localizer.Instance.Language];
+            Datas.Dialogue.SentenceSequenceElementDatas[] sequenceElementsData = sentenceData.SequenceElementsDatasByLanguage[RSLib.Localization.Localizer.Instance.Language];
             
             for (int i = 0; i < sequenceElementsData.Length; ++i)
             {

@@ -41,12 +41,12 @@
             if (_initialized)
                 return;
 
-            _languageToggles = new LanguageToggle[Localizer.Instance.Languages.Length];
+            _languageToggles = new LanguageToggle[RSLib.Localization.Localizer.Instance.Languages.Length];
             
             for (int i = 0; i < _languageToggles.Length; ++i)
             {
                 LanguageToggle languageToggle = Instantiate(_languageTogglePrefab, _languageTogglesContainer);
-                languageToggle.Init(Localizer.Instance.Languages[i]);
+                languageToggle.Init(RSLib.Localization.Localizer.Instance.Languages[i]);
                 _languageToggles[i] = languageToggle;
 
                 languageToggle.ValueChanged += OnLanguageToggleValueChanged;
@@ -110,8 +110,8 @@
         
         private void Localize()
         {
-            _title.text = Localizer.Get(Localization.Settings.LANGUAGE);
-            _saveSettingsBtn.SetText(Localizer.Get(Localization.Settings.LANGUAGE_SAVE));
+            _title.text = RSLib.Localization.Localizer.Get(Localization.Settings.LANGUAGE);
+            _saveSettingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.LANGUAGE_SAVE));
         }
 
         protected override void OnDestroy()

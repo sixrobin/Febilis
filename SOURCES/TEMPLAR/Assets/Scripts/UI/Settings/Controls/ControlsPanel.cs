@@ -247,8 +247,8 @@
             _currentlyAssignedPanel = bindingPanel;
             _assignKeyScreen.SetActive(true);
 
-            string assignKeyTextFormat = Localizer.Get(alt ? Localization.Settings.CONTROLS_ASSIGN_ALT_BUTTON_FORMAT : Localization.Settings.CONTROLS_ASSIGN_BUTTON_FORMAT);
-            string localizedActionId = Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{bindingPanel.ActionId}");
+            string assignKeyTextFormat = RSLib.Localization.Localizer.Get(alt ? Localization.Settings.CONTROLS_ASSIGN_ALT_BUTTON_FORMAT : Localization.Settings.CONTROLS_ASSIGN_BUTTON_FORMAT);
+            string localizedActionId = RSLib.Localization.Localizer.Get($"{Localization.Settings.CONTROLS_ACTION_NAME_PREFIX}{bindingPanel.ActionId}");
             
             Flags.ZoneIdentifier currentZone = Manager.BoardsManager.CurrentBoard != null ? Manager.BoardsManager.CurrentBoard.BoardIdentifier.ContainingZoneIdentifier : null;
             Color assignKeyColor = currentZone != null
@@ -288,15 +288,15 @@
 
         private void Localize()
         {
-            _title.text = Localizer.Get(Localization.Settings.CONTROLS);
-            _actionTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ACTION_TITLE);
-            _buttonsTitle.text = Localizer.Get(Localization.Settings.CONTROLS_BUTTONS_TITLE);
-            _buttonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_BUTTON_TITLE);
-            _altButtonTitle.text = Localizer.Get(Localization.Settings.CONTROLS_ALT_BUTTON_TITLE);
-            _cancelAssignKeyText.text = Localizer.Get(Localization.Settings.CONTROLS_CANCEL_ASSIGN);
+            _title.text = RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS);
+            _actionTitle.text = RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_ACTION_TITLE);
+            _buttonsTitle.text = RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_BUTTONS_TITLE);
+            _buttonTitle.text = RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_BUTTON_TITLE);
+            _altButtonTitle.text = RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_ALT_BUTTON_TITLE);
+            _cancelAssignKeyText.text = RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_CANCEL_ASSIGN);
             
-            _resetBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_RESET));
-            _saveBindingsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS_SAVE));
+            _resetBindingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_RESET));
+            _saveBindingsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS_SAVE));
 
             for (int i = 0; i < _bindingPanels.Length; ++i)
                 if (!string.IsNullOrEmpty(_bindingPanels[i].ActionId))

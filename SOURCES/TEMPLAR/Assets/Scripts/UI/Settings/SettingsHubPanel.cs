@@ -71,11 +71,11 @@
 
         private void Localize()
         {
-            ControlsBtn.SetText(Localizer.Get(Localization.Settings.CONTROLS));
-            GameBtn.SetText(Localizer.Get(Localization.Settings.GAME));
-            AudioBtn.SetText(Localizer.Get(Localization.Settings.AUDIO));
-            LanguageBtn.SetText(Localizer.Get(Localization.Settings.LANGUAGE));
-            QuitGameBtn.SetText(Localizer.Get(Localization.Game.QUIT));
+            ControlsBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.CONTROLS));
+            GameBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.GAME));
+            AudioBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.AUDIO));
+            LanguageBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Settings.LANGUAGE));
+            QuitGameBtn.SetText(RSLib.Localization.Localizer.Get(Localization.Game.QUIT));
         }
         
         protected override void Start()

@@ -61,7 +61,7 @@
         public static string GetSpeakerDisplayName(Datas.Dialogue.SentenceDatas sentenceDatas)
         {
             return string.IsNullOrEmpty(sentenceDatas.OverrideDisplayName)
-                   ? Localizer.Get($"{Localization.Dialogue.SPEAKER_NAME_PREFIX}{sentenceDatas.SpeakerId}")
+                   ? RSLib.Localization.Localizer.Get($"{Localization.Dialogue.SPEAKER_NAME_PREFIX}{sentenceDatas.SpeakerId}")
                    : sentenceDatas.OverrideDisplayName;
         }
 

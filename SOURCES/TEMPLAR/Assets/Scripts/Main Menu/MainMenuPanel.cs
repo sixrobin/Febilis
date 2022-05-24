@@ -205,10 +205,10 @@
 
         private void Localize()
         {
-            _continueBtn.Button.SetText(Localizer.Get(Localization.Menu.CONTINUE));
-            _newGameBtn.Button.SetText(Localizer.Get(Localization.Menu.NEW_GAME));
-            _settingsBtn.Button.SetText(Localizer.Get(Localization.Menu.SETTINGS));
-            _quitBtn.Button.SetText(Localizer.Get(Localization.Menu.QUIT));
+            _continueBtn.Button.SetText(RSLib.Localization.Localizer.Get(Localization.Menu.CONTINUE));
+            _newGameBtn.Button.SetText(RSLib.Localization.Localizer.Get(Localization.Menu.NEW_GAME));
+            _settingsBtn.Button.SetText(RSLib.Localization.Localizer.Get(Localization.Menu.SETTINGS));
+            _quitBtn.Button.SetText(RSLib.Localization.Localizer.Get(Localization.Menu.QUIT));
         }
 
         private System.Collections.IEnumerator FadeBlackMaskCoroutine()
@@ -287,7 +287,7 @@
         private System.Collections.IEnumerator PressAnyKeyCoroutine()
         {
             bool anyKeyDown = false;
-            _pressAnyKeyText.text = Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
+            _pressAnyKeyText.text = RSLib.Localization.Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
             
             while (true)
             {

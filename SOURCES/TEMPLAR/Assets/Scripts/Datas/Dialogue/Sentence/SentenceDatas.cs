@@ -62,13 +62,13 @@
             SequenceElementsDatasByLanguage = new System.Collections.Generic.Dictionary<string, SentenceSequenceElementDatas[]>();
             SentenceValueByLanguage = new System.Collections.Generic.Dictionary<string, string>();
             
-            for (int i = Localizer.Instance.Languages.Length - 1; i >= 0; --i)
-                SequenceElementsDatasByLanguage.Add(Localizer.Instance.Languages[i], ParseSentenceSequenceForLanguage(Localizer.Instance.Languages[i]));
+            for (int i = RSLib.Localization.Localizer.Instance.Languages.Length - 1; i >= 0; --i)
+                SequenceElementsDatasByLanguage.Add(RSLib.Localization.Localizer.Instance.Languages[i], ParseSentenceSequenceForLanguage(RSLib.Localization.Localizer.Instance.Languages[i]));
         }
 
         private SentenceSequenceElementDatas[] ParseSentenceSequenceForLanguage(string languageName)
         {
-            if (!Localizer.TryGet($"{Localization.Dialogue.SENTENCE_PREFIX}{Id}", languageName, out string rawValue))
+            if (!RSLib.Localization.Localizer.TryGet($"{Localization.Dialogue.SENTENCE_PREFIX}{Id}", languageName, out string rawValue))
             {
                 CProLogger.LogWarning(this, $"Could not find raw value for sentence {Id}.");
                 rawValue = Id;

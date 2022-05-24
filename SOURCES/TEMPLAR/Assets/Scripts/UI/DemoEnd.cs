@@ -61,12 +61,12 @@
             _logoRectTransform.anchoredPosition = _logoRectTransform.anchoredPosition.WithY(_logoTargetY);
 
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_textAppearenceDelay);
-            _demoEndText.text = Localizer.Get(Localization.Menu.DEMO_END_THANKS);
+            _demoEndText.text = RSLib.Localization.Localizer.Get(Localization.Menu.DEMO_END_THANKS);
             _demoEndText.enabled = true;
             RSLib.Audio.AudioManager.PlaySound(_demoEndTextAppearClipProvider);
             
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_pressAnyKeyAppearenceDelay);
-            _pressAnyKeyText.text = Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
+            _pressAnyKeyText.text = RSLib.Localization.Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
             _pressAnyKeyText.enabled = true;
 
             yield return PressAnyKeyCoroutine();
@@ -100,7 +100,7 @@
         private System.Collections.IEnumerator PressAnyKeyCoroutine()
         {
             bool anyKeyDown = false;
-            _pressAnyKeyText.text = Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
+            _pressAnyKeyText.text = RSLib.Localization.Localizer.Get(Localization.Menu.PRESS_ANY_KEY);
             
             while (true)
             {

@@ -170,9 +170,9 @@
             if (slot.Item == null)
                 return;
 
-            _itemName.text = $"{Localizer.Get($"{Localization.Item.NAME_PREFIX}{slot.Item.Datas.Id}")} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
-            _itemDesc.text = Localizer.Get($"{Localization.Item.DESCRIPTION_PREFIX}{slot.Item.Datas.Id}");
-            _itemType.text = Localizer.Get($"{Localization.Item.TYPE_PREFIX}{slot.Item.Datas.Type}");
+            _itemName.text = $"{RSLib.Localization.Localizer.Get($"{Localization.Item.NAME_PREFIX}{slot.Item.Datas.Id}")} {(slot.Quantity > 1 ? $"({slot.Quantity})" : string.Empty)}";
+            _itemDesc.text = RSLib.Localization.Localizer.Get($"{Localization.Item.DESCRIPTION_PREFIX}{slot.Item.Datas.Id}");
+            _itemType.text = RSLib.Localization.Localizer.Get($"{Localization.Item.TYPE_PREFIX}{slot.Item.Datas.Type}");
             
             _itemTypeIcon.enabled = true;
             _itemTypeIcon.sprite = Database.ItemDatabase.GetItemTypeSprite(slot.Item);
@@ -185,8 +185,8 @@
             if (IsContextMenuDisplayed)
                 return;
 
-            _itemName.text = Localizer.Get(Localization.Item.EMPTY_SLOT_NAME);
-            _itemDesc.text = Localizer.Get(Localization.Item.EMPTY_SLOT_DESCRIPTION);
+            _itemName.text = RSLib.Localization.Localizer.Get(Localization.Item.EMPTY_SLOT_NAME);
+            _itemDesc.text = RSLib.Localization.Localizer.Get(Localization.Item.EMPTY_SLOT_DESCRIPTION);
             _itemType.text = string.Empty;
             _itemTypeIcon.enabled = false;
         }

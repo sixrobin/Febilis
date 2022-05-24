@@ -60,7 +60,7 @@
 
         public void Localize()
         {
-            _sliderText.text = Localizer.Get($"{Localization.Settings.VOLUME_PREFIX}{_mixerParameterName}");
+            _sliderText.text = RSLib.Localization.Localizer.Get($"{Localization.Settings.VOLUME_PREFIX}{_mixerParameterName}");
         }
         
         private void OnValueChanged(float value)

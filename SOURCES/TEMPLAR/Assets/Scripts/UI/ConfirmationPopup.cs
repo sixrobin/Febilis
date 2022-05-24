@@ -47,9 +47,9 @@
             _confirmCallback = confirmCallback.Invoke;
             _cancelCallback = cancelCallback.Invoke;
 
-            _text.text = Localizer.Get(textsData.TextKey);
-            _confirmBtn.SetText(Localizer.Get(textsData.ConfirmTextKey));
-            _cancelBtn.SetText(Localizer.Get(textsData.CancelTextKey));
+            _text.text = RSLib.Localization.Localizer.Get(textsData.TextKey);
+            _confirmBtn.SetText(RSLib.Localization.Localizer.Get(textsData.ConfirmTextKey));
+            _cancelBtn.SetText(RSLib.Localization.Localizer.Get(textsData.CancelTextKey));
         }
 
         private void InvokeConfirmCallback()

@@ -39,8 +39,8 @@
 
             _continueCallback = continueCallback.Invoke;
 
-            _text.text = Localizer.Get(textsData.TextKey);
-            _continueBtn.SetText(Localizer.Get(textsData.ContinueTextKey));
+            _text.text = RSLib.Localization.Localizer.Get(textsData.TextKey);
+            _continueBtn.SetText(RSLib.Localization.Localizer.Get(textsData.ContinueTextKey));
         }
 
         private void InvokeContinueCallback()

@@ -30,7 +30,7 @@
         {
             LanguageName = languageName;
             _title.text = LanguageName;
-            Toggle.isOn = LanguageName == Localizer.Instance.Language;
+            Toggle.isOn = LanguageName == RSLib.Localization.Localizer.Instance.Language;
             
             Toggle.onValueChanged.AddListener(OnValueChanged);
         }

@@ -39,7 +39,7 @@
 
             if (StringRangeSetting.Value.HasCustomDisplay)
                 text = StringRangeSetting.Value.CustomDisplay;
-            else if (Localizer.TryGet($"{Localization.Settings.SCREEN_MODE_PREFIX}{StringRangeSetting.Value.StringValue}", out string localizedText))
+            else if (RSLib.Localization.Localizer.TryGet($"{Localization.Settings.SCREEN_MODE_PREFIX}{StringRangeSetting.Value.StringValue}", out string localizedText))
                 text = localizedText;
             else
                 text = StringRangeSetting.Value.StringValue;

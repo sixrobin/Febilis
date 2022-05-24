@@ -16,7 +16,7 @@
         
         public override void Localize()
         {
-            Button.SetText(Localizer.Get(Localization.Item.ACTION_MOVE));
+            Button.SetText(RSLib.Localization.Localizer.Get(Localization.Item.ACTION_MOVE));
         }
     }
 }
