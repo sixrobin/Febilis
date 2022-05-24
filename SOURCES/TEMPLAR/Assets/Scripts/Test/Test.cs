@@ -7,16 +7,16 @@
 
     public class Test : MonoBehaviour
     {
-        public RSLib.Framework.Events.GameEvent GameEvent;
-
-        private void Start()
+        public RSLib.ImageEffects.ColorFlashScriptable data;
+        
+        private void Update()
         {
-            GameEvent.Raise();
-        }
-
-        public void PrintCoucou()
-        {
-            Debug.LogError("Coucou");
+            if (Input.GetMouseButtonDown(0))
+            {
+                RSLib.ImageEffects.ColorFlash.Flash(data,
+                                                    inCallback: () => Debug.Log("A"),
+                                                    outCallback: () => Debug.Log("B"));
+            }
         }
     }
 }
