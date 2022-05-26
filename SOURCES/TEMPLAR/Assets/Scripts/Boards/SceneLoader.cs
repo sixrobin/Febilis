@@ -10,9 +10,15 @@
     {
         [SerializeField] private RSLib.Framework.SceneField _scene = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private bool _muteMusic = false;
+        [SerializeField] private float _muteMusicDuration = 0.5f;
+        [SerializeField] private RSLib.Maths.Curve _muteMusicCurve = RSLib.Maths.Curve.InOutSine;
+        
         void IBoardTransitionHandler.OnBoardsTransitionBegan()
         {
-            // No callback is needed, this class only implements the interface so that it can be converted.
+            if (_muteMusic)
+                Templar.Manager.MusicManager.StopMusic(_muteMusicDuration, _muteMusicCurve);
         }
 
         void IBoardTransitionHandler.OnBoardsTransitionOver()

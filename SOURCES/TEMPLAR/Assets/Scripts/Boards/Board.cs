@@ -21,9 +21,9 @@
 
         [Header("AUDIO")]
         [SerializeField] private bool _muteMusicOnEnter = false;
-        [SerializeField] private float _muteMusicDuration = 0.5f;
-        [SerializeField] private RSLib.Maths.Curve _muteMusicCurve = RSLib.Maths.Curve.InOutSine;
-        
+        [SerializeField] private float _muteMusicOnEnterDuration = 0.5f;
+        [SerializeField] private RSLib.Maths.Curve _muteMusicOnEnterCurve = RSLib.Maths.Curve.InOutSine;
+
         public delegate void BoardEventHandler(Board board);
         public static event BoardEventHandler BoardEntered;
 
@@ -47,7 +47,7 @@
             Manager.FlagsManager.Register(this);
             
             if (_muteMusicOnEnter)
-                Manager.MusicManager.StopMusic(_muteMusicDuration, _muteMusicCurve);
+                Manager.MusicManager.StopMusic(_muteMusicOnEnterDuration, _muteMusicOnEnterCurve);
             else
                 Manager.MusicManager.PlayLevelMusic(); // If player comes from a muted board, it will play music back again, else do nothing.
         }
@@ -56,7 +56,7 @@
         {
             ToggleBoardObjects(false);
         }
-
+        
         private void ToggleBoardObjects(bool state)
         {
             for (int i = _disableWhenNotCurrentBoard.Length - 1; i >= 0; --i)

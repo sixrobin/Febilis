@@ -49,6 +49,8 @@
                                          Instance._backToMenuFadeInDatas,
                                          (0f, 1f),
                                          (fadeIn) => ScenesManager.LoadScene(ScenesManager.MainMenuScene));
+                    
+                    MusicManager.StopMusic(1f, RSLib.Maths.Curve.InOutSine);
                 },
                 () =>
                 {

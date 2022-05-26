@@ -14,7 +14,8 @@
         [SerializeField] private float _logoMoveDuration = 2f;
         [SerializeField] private Curve _logoMoveCurve = Curve.InOutQuart;
         [SerializeField] private RSLib.Audio.ClipProvider _logoAppearClipProvider = null;
-        
+        [SerializeField] private bool _playMainTheme = true;
+
         [Header("TEXT")]
         [SerializeField] private float _textAppearenceDelay = 1f;
         [SerializeField] private TMPro.TextMeshProUGUI _demoEndText = null;
@@ -47,7 +48,10 @@
         {
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_logoAppearenceDelay);
             _logoRectTransform.gameObject.SetActive(true);
+            
             RSLib.Audio.AudioManager.PlaySound(_logoAppearClipProvider);
+            if (_playMainTheme)
+                Manager.MusicManager.PlayMainTheme();
             
             yield return RSLib.Yield.SharedYields.WaitForSeconds(_logoMoveDelay);
 
