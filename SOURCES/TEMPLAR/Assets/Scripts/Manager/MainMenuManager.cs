@@ -1,5 +1,7 @@
 ﻿namespace Templar.Manager
 {
+    using UnityEngine;
+    
     public class MainMenuManager : RSLib.Framework.SingletonConsolePro<MainMenuManager>
     {
         public static void NewGame()

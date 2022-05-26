@@ -71,10 +71,7 @@
         private System.Collections.IEnumerator SpawnPlayerCoroutine()
         {
             if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
-            {
                 RampFadeManager.SetRampOffset(CameraCtrl.GrayscaleRamp, -1f);
-                // [TODO] Hide player HUD.
-            }
 
             yield return RSLib.Yield.SharedYields.WaitForEndOfFrame; // Wait for other objects initializations.
 
@@ -92,6 +89,9 @@
                 if (initBoard != null)
                     initBoard.OnBoardEntered();
             }
+            
+            if (!BoardsManager.CurrentBoard.MuteMusicOnEnter)
+                MusicManager.PlayLevelMusic();
 
             if (_fadeOnRespawn && CameraCtrl.GrayscaleRamp.enabled)
                 RampFadeManager.Fade(CameraCtrl.GrayscaleRamp, "OutBase", (0.1f, 0f), (fadeIn) => _playerCtrl.AllowInputs(true));

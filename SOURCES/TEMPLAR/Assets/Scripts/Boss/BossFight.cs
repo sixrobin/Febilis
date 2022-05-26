@@ -40,6 +40,9 @@
         [SerializeField, Min(0f)] private float _fightWonFreezeFrameDelay = 0f;
         [SerializeField, Min(0f)] private float _fightWonFreezeFrameDuration = 1f;
 
+        [Header("AUDIO")]
+        [SerializeField] private RSLib.Audio.ClipProvider _bossMusicClipProvider = null;
+        
         [Header("DEBUG")]
         [SerializeField] private bool _skipIntroCutscene = false;
         
@@ -53,6 +56,8 @@
 
         public Unit.Enemy.EnemyController[] FightBosses => _fightBosses;
         public Datas.BossIntroDatas BossIntroDatas => _bossIntroDatas;
+        
+        public RSLib.Audio.ClipProvider BossMusicClipProvider => _bossMusicClipProvider;
 
         public Flags.IIdentifier Identifier => _bossIdentifier;
 
@@ -70,17 +75,22 @@
 
         public void TriggerFight()
         {
-            void ForcePlayerDetection()
+            void TriggerBossUnits()
             {
-                if (_forcePlayerDetection)
-                    for (int i = FightBosses.Length - 1; i >= 0; --i)
-                        FightBosses[i].ForcePlayerDetection();
+                if (!_forcePlayerDetection)
+                    return;
+                
+                for (int i = FightBosses.Length - 1; i >= 0; --i)
+                    FightBosses[i].ForcePlayerDetection();
+                
+                Manager.MusicManager.PlayBossMusic(this);
             }
             
             CProLogger.Log(this, $"Triggering boss fight {Identifier.Id}.", gameObject);
 
+            Manager.MusicManager.StopMusic();
+            
             _bossesToKillLeft = FightBosses.Length;
-
             for (int i = FightBosses.Length - 1; i >= 0; --i)
             {
                 FightBosses[i].HealthCtrl.UnitKilled += OnBossKilled;
@@ -94,13 +104,13 @@
                 Manager.GameManager.PlayerCtrl.RollCtrl.Interrupt();
                 Manager.GameManager.PlayerCtrl.AttackCtrl.CancelAttack();
 
-                StartCoroutine(FocusCameraOnBossCoroutine(ForcePlayerDetection));
+                StartCoroutine(FocusCameraOnBossCoroutine(TriggerBossUnits));
                 if (_bossIntroDatas.DisallowInputs)
                     StartCoroutine(DisallowInputsCoroutine());
             }
             else
             {
-                ForcePlayerDetection();
+                TriggerBossUnits();
             }
             
             BossFightStarted?.Invoke(new BossFightEventArgs(this));
@@ -127,6 +137,8 @@
                                                            _fightWonFreezeFrameDuration,
                                                            overrideCurrFreeze: true,
                                                            callback: StencilManager.HideStencils);
+            
+            Manager.MusicManager.StopMusic();
         }
 
         public void OnFightLost()

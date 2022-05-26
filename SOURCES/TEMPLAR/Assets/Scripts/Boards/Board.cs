@@ -19,10 +19,16 @@
         [SerializeField] private BoardsLink[] _boardsLinks = null;
         [SerializeField] private GameObject[] _disableWhenNotCurrentBoard = null;
 
+        [Header("AUDIO")]
+        [SerializeField] private bool _muteMusicOnEnter = false;
+        [SerializeField] private float _muteMusicDuration = 0.5f;
+        [SerializeField] private RSLib.Maths.Curve _muteMusicCurve = RSLib.Maths.Curve.InOutSine;
+        
         public delegate void BoardEventHandler(Board board);
         public static event BoardEventHandler BoardEntered;
 
         public Color BackgroundColor => _backgroundColor ?? Color.grey;
+        public bool MuteMusicOnEnter => _muteMusicOnEnter;
 
         public Flags.IIdentifier Identifier => _boardIdentifier;
         public Flags.BoardIdentifier BoardIdentifier => Identifier as Templar.Flags.BoardIdentifier;
@@ -39,6 +45,11 @@
 
             BoardEntered?.Invoke(this);
             Manager.FlagsManager.Register(this);
+            
+            if (_muteMusicOnEnter)
+                Manager.MusicManager.StopMusic(_muteMusicDuration, _muteMusicCurve);
+            else
+                Manager.MusicManager.PlayLevelMusic(); // If player comes from a muted board, it will play music back again, else do nothing.
         }
         
         public void OnBoardExit()

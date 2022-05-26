@@ -368,6 +368,8 @@ MonoBehaviour:
   _vignette: {fileID: 0}
   _pressAnyKey: {fileID: 3063924694064399166}
   _pressAnyKeyText: {fileID: 3063924695440163941}
+  _pressAnyKeyBlinkSpeed: 0.5
+  _pressAnyKeyPostDelay: 1
   _btnsContainer: {fileID: 3063924694425808447}
   _continueBtn: {fileID: 1661627971101151565}
   _newGameBtn: {fileID: 8634516518482777122}
@@ -384,8 +386,9 @@ MonoBehaviour:
   _blackMaskTargetScale: 3.5
   _blackMaskAlphaFadeDuration: 1
   _blackMaskFadeCurve: 27
-  _pressAnyKeyBlinkSpeed: 0.5
-  _pressAnyKeyPostDelay: 1
+  _musicDelay: 1.8
+  _musicOutDuration: 2
+  _musicOutCurve: 28
 --- !u!1 &3063924695254653652
 GameObject:
   m_ObjectHideFlags: 0

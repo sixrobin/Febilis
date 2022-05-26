@@ -70,7 +70,7 @@
         {
             if (!RSLib.Localization.Localizer.TryGet($"{Localization.Dialogue.SENTENCE_PREFIX}{Id}", languageName, out string rawValue))
             {
-                CProLogger.LogWarning(this, $"Could not find raw value for sentence {Id}.");
+                CProLogger.LogWarning(this, $"Could not find raw value for sentence {Id} in language {languageName}.");
                 rawValue = Id;
             }
 

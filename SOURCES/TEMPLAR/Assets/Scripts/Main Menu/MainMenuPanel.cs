@@ -3,6 +3,7 @@
     using RSLib.Extensions;
     using RSLib.Maths;
     using System.Linq;
+    using RSLib.Yield;
     using UnityEngine;
 
     public class MainMenuPanel : UI.UIPanel
@@ -37,6 +38,11 @@
         [SerializeField] private float _blackMaskTargetScale = 4f;
         [SerializeField] private float _blackMaskAlphaFadeDuration = 1f;
         [SerializeField] private Curve _blackMaskFadeCurve = Curve.Linear;
+        
+        [Header("AUDIO")]
+        [SerializeField] private float _musicDelay = 1f;
+        [SerializeField] private float _musicOutDuration = 1f;
+        [SerializeField] private RSLib.Maths.Curve _musicOutCurve = RSLib.Maths.Curve.InOutSine;
         
         private MainMenuButton[] _allBtns;
         private MainMenuButton _lastSelectedBtn;
@@ -93,6 +99,7 @@
             DisplayButtons(false);
             DisplayTitle(false);
 
+            Manager.MusicManager.StopMusic(_musicOutDuration, _musicOutCurve);
             GlobalFadeOutInCoroutine(Manager.MainMenuManager.NewGame);
         }
 
@@ -102,6 +109,7 @@
             DisplayButtons(false);
             DisplayTitle(false);
 
+            Manager.MusicManager.StopMusic(_musicOutDuration, _musicOutCurve);
             GlobalFadeOutInCoroutine(Manager.MainMenuManager.LoadSavedGame);
         }
 
@@ -336,6 +344,8 @@
         {
             SetupInitViewState();
 
+            this.DoAfter(_musicDelay, Manager.MusicManager.PlayMainTheme);
+            
             StartCoroutine(FadeBlackMaskCoroutine());
             StartCoroutine(FadeTitleColorCoroutine());
             StartCoroutine(FadeTitleAlphaCoroutine());
