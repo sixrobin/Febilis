@@ -1,22 +1,38 @@
 ﻿namespace Templar
 {
     using System.Collections.Generic;
-    using RSLib.Extensions;
+    using RSLib.Yield;
     using UnityEngine;
     using System.Linq;
 
     public class Test : MonoBehaviour
     {
-        public RSLib.ImageEffects.ColorFlashScriptable data;
-        
-        private void Update()
+        private System.Collections.IEnumerator Start()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                RSLib.ImageEffects.ColorFlash.Flash(data,
-                                                    inCallback: () => Debug.Log("A"),
-                                                    outCallback: () => Debug.Log("B"));
-            }
+            RSLib.Yield.CustomCoroutine a = this.RunCustomCoroutine(FirstCoroutine(), _ => CoroutineCallback());
+            RSLib.Yield.CustomCoroutine b = this.RunCustomCoroutine(SecondCoroutine());
+
+            while (!a.IsDone && !b.IsDone)
+                yield return null;
+            
+            Debug.Log("A or B done.");
+        }
+
+        void CoroutineCallback()
+        {
+            Debug.Log("Callback");
+        }
+        
+        System.Collections.IEnumerator FirstCoroutine()
+        {
+            yield return new WaitForSeconds(1f);
+            Debug.Log("A");
+        }
+        
+        System.Collections.IEnumerator SecondCoroutine()
+        {
+            yield return new WaitForSeconds(3f);
+            Debug.Log("B");
         }
     }
 }
