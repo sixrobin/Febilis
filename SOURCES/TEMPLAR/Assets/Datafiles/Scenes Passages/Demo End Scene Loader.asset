@@ -15,3 +15,6 @@ MonoBehaviour:
   _scene:
     _sceneAsset: {fileID: 102900000, guid: 74f82fedddfad0649a19be6b08cf5415, type: 3}
     _sceneName: Demo End
+  _muteMusic: 1
+  _muteMusicDuration: 1.5
+  _muteMusicCurve: 30

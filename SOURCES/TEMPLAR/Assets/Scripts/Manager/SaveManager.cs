@@ -230,6 +230,8 @@
                 new byte[] { 0x5e, 0x67, 0x6c, 0xe3, 0xbf, 0x54, 0xb2, 0x45, 0xbc, 0xcc, 0x9e, 0x2d, 0xc8, 0xa0, 0xab, 0xca }
             );
 
+            Instance.Log($"Save version: {_saveVersion} (minimum: {_saveMinimumVersion}).");
+            
             RSLib.Debug.Console.DebugConsole.OverrideCommand("SaveGame", "Tries to save game progression.", () => TrySave());
             RSLib.Debug.Console.DebugConsole.OverrideCommand<bool>("SaveGame", "Tries to save game progression, specifying encryption state.", encryptSave => TrySave(encryptSave));
             RSLib.Debug.Console.DebugConsole.OverrideCommand("LoadGame", "Tries to load game progression.", () => TryLoad());
