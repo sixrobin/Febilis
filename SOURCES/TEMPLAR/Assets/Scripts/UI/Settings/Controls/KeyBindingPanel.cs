@@ -70,7 +70,7 @@
             if (RSLib.Localization.Localizer.TryGet($"{Localization.KeyCode.KEYCODE_PREFIX}{keycode}", out string localizedKeyCode))
                 button.SetText(localizedKeyCode);
             else
-                button.SetText(keycode != KeyCode.None ? KeyCodeSymbols.GetSymbol(keycode) : string.Empty);
+                button.SetText(keycode != KeyCode.None ? RSLib.KeyCodeSymbols.GetSymbol(keycode) : string.Empty);
         }
         
         public void Show()
