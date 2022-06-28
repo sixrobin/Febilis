@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "New Player Input Datas", menuName = "Datas/Player/Input")]
-    public class PlayerInputDatas : ValuesValidatedEventScriptableObject
+    public class PlayerInputDatas : RSLib.Framework.Events.ValuesValidatedEventScriptableObject
     {
         [Header("INPUT")]
 

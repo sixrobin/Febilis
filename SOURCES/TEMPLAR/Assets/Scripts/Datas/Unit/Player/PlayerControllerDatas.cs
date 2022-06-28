@@ -6,7 +6,7 @@
     [UnityEditor.CanEditMultipleObjects]
 #endif
     [CreateAssetMenu(fileName = "New Player Controller Datas", menuName = "Datas/Player/Controller")]
-    public class PlayerControllerDatas : ValuesValidatedEventScriptableObject
+    public class PlayerControllerDatas : RSLib.Framework.Events.ValuesValidatedEventScriptableObject
     {
         [Header("INPUT")]
         [SerializeField] private PlayerInputDatas _playerInputDatas = null;

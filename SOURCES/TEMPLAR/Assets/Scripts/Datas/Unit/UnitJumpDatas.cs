@@ -3,7 +3,7 @@
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "New Player Jump Datas", menuName = "Datas/Player/Jump")]
-    public class UnitJumpDatas : ValuesValidatedEventScriptableObject
+    public class UnitJumpDatas : RSLib.Framework.Events.ValuesValidatedEventScriptableObject
     {
         [Header("JUMP")]
         [Tooltip("Height reached by the controller's pivot when at his jump maximum apex (input kept down for a long time).")]
