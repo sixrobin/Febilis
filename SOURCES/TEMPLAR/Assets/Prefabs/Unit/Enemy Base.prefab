@@ -5118,6 +5118,7 @@ MonoBehaviour:
   _enemyView: {fileID: 7435713418959382855}
   _id: 
   _behaviourUpdateRate: 0.5
+  _lootDropDelay: 0
   _currBehaviourName:
     _value: 
   _currActionName:
@@ -5131,7 +5132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7056691178450352317}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f664beb2babf6714dac2117618bfbbc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c8f501f2e388db45b154398059bbe9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _above: 0
@@ -5288,10 +5289,21 @@ MonoBehaviour:
   _animator: {fileID: 7629123961653350815}
   _spriteBlink: {fileID: 1317545449090868740}
   _stunStars: {fileID: 2951466320324280937}
+  _deathFreezeFrameDuration: 0.1
   _aocTemplate: {fileID: 0}
+  _attackClipProvider: {fileID: 0}
   _footstepClipProvider: {fileID: 0}
   _hurtClipProvider: {fileID: 11400000, guid: 68b3ea0610aa48b4188c6250e947b6a3, type: 2}
+  _stunClipProvider: {fileID: 0}
   _deathClipProvider: {fileID: 11400000, guid: afcee7252a785c946bd933b5ea8eb747, type: 2}
+  _deadFadeDelay: 1
+  _chargeClipProvider: {fileID: 0}
+  _chargeClipDelay: 0
+  _chargeAnticipationClipProvider: {fileID: 0}
+  _chargeAnticipationClipDelay: 0
+  _roarTrauma: 0.1
+  _roarMaxDuration: 1
+  _roarClipProvider: {fileID: 0}
 --- !u!114 &1317545449090868740
 MonoBehaviour:
   m_ObjectHideFlags: 0

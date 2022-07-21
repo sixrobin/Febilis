@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2190109274073617121}
   - component: {fileID: 2190109274073617120}
   m_Layer: 8
-  m_Name: Platform Effector Base
+  m_Name: Platform Effector Base - Environment Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2190109274073617151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e4433e1823ae5b4786b0d0e37d4ad10, type: 3}
+  m_Script: {fileID: 11500000, guid: 121ddc38a520da748b998c5c8fdec301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _blockDown: 0

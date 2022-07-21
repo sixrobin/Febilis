@@ -17,6 +17,6 @@ MonoBehaviour:
   _volumeMultiplier: 0.3
   _pitchOffset: 0
   _clipPlayDatas:
-    _clip: {fileID: 8300000, guid: 7e7fbf247c99a05459bb3dd70b078199, type: 3}
+    _clip: {fileID: 8300000, guid: 8103cd7a6d84d66498a8ec4de83c733d, type: 3}
     _volumeRandomRange: {x: 1, y: 1}
     _pitchVariation: 0
