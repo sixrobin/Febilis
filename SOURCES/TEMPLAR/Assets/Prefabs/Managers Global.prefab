@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 0
+  _verbose: 1
   _overrideLogPrefix:
     _value: 
     _enabled: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 0
+  _verbose: 1
   _overrideLogPrefix:
     _value: 
     _enabled: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 0
+  _verbose: 1
   _overrideLogPrefix:
     _value: 
     _enabled: 0
@@ -580,8 +580,8 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _encryptSave: 1
-  _saveVersion: 0
-  _saveMinimumVersion: 0
+  _saveVersion: 1
+  _saveMinimumVersion: 1
   _disableLoading: 0
 --- !u!1 &2702642799318388489
 GameObject:
@@ -632,7 +632,9 @@ MonoBehaviour:
     _value: 
     _enabled: 0
   _mainTheme: {fileID: 11400000, guid: 13a2b85539102c84998cf07f8b01ac1b, type: 2}
+  _mainThemeTransitionsDatas: {fileID: 0}
   _levelMusic: {fileID: 11400000, guid: 98859351b22b515418e7e10bafa66717, type: 2}
+  _levelMusicTransitionsDatas: {fileID: 0}
 --- !u!1 &4121798489719438041
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroy: 0
-  _verbose: 0
+  _verbose: 1
   _defaultMapDatas: {fileID: 11400000, guid: edc90de95f7cb8f4f9eaf7084a2a48bd, type: 2}
   _disableMapLoading: 0
   _autoLoadOnStart: 0
