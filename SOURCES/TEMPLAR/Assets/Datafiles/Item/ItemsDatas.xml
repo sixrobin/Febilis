@@ -94,6 +94,14 @@
       </Actions>
    </ItemDatas>
 
+   <ItemDatas Id="Priest_Notes">
+      <Type>BOOK</Type>
+      <Actions>
+         <Drop/>
+         <Move/>
+      </Actions>
+   </ItemDatas>
+   
    <ItemDatas Id="Letter_Prisoner">
       <Type>BOOK</Type>
       <Actions>
