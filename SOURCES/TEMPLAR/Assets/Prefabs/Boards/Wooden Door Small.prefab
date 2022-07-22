@@ -78,7 +78,11 @@ MonoBehaviour:
   _targetScenePassage:
     _value: {fileID: 0}
     _enabled: 0
+  _targetScene:
+    _value: {fileID: 0}
+    _enabled: 0
   _containingBounds: {fileID: 0}
+  _platformsToReset: []
   _exitDir: 5
   _overrideRespawnPos:
     _value: {fileID: 0}
@@ -92,11 +96,16 @@ MonoBehaviour:
   _overrideFadeInDelayDur:
     _value: 0.3
     _enabled: 1
+  _overrideFadeDatas:
+    _value: {fileID: 0}
+    _enabled: 0
   _dbgVisualizer: {fileID: 0}
+  _dbgColor: {fileID: 0}
   _collider: {fileID: 4021704600292865942}
   _spriteRenderer: {fileID: 4021704601334316529}
   _highlight: {fileID: 4021704600935610631}
   _interactedSprite: {fileID: 21300000, guid: 668004edfe240ab418d89489a0b6155c, type: 3}
+  _interactedClipProvider: {fileID: 0}
 --- !u!1 &4021704600935610631
 GameObject:
   m_ObjectHideFlags: 0
