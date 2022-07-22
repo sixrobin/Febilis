@@ -149,6 +149,17 @@
             ScreenSize = new Settings.ScreenSize();
             ShakeAmount = new Settings.ShakeAmount();
             TargetFrameRate = new Settings.TargetFrameRate();
+            
+            InitAudioSettings();
+        }
+
+        private static void InitAudioSettings()
+        {
+            RSLib.Audio.AudioManager.SetMixerVolumePercentage("MasterVolume", 1f);
+            RSLib.Audio.AudioManager.SetMixerVolumePercentage("MusicVolume", 0.4f);
+            RSLib.Audio.AudioManager.SetMixerVolumePercentage("SFXVolume", 1f);
+            RSLib.Audio.AudioManager.SetMixerVolumePercentage("FootstepsVolume", 1f);
+            RSLib.Audio.AudioManager.SetMixerVolumePercentage("UIVolume", 1f);
         }
 
         public static void LoadInputs()

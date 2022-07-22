@@ -148,11 +148,8 @@
                 UI.Dialogue.DialogueManager.Instance.DialogueOver -= OnDialogueOver;
             }
 
-            if (StencilManager.Exists())
-            {
-                StencilManager.StencilShown -= OnStencilShown;
-                StencilManager.StencilHidden -= OnStencilHidden;
-            }
+            StencilManager.StencilShown -= OnStencilShown;
+            StencilManager.StencilHidden -= OnStencilHidden;
         }
     }
 }

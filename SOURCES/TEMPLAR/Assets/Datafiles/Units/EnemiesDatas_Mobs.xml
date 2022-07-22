@@ -27,7 +27,7 @@
                </Attack>
                <Attack Id="skeleton_atk_base">
                   <Conditions>
-                     <MaxHeightOffset Offset="1"/>
+                     <MaxHeightOffset Offset="1.5"/>
                      <PlayerAlive/>
                      <PlayerInRange Range="2.5"/>
                   </Conditions>
