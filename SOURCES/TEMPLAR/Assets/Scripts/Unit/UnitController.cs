@@ -10,7 +10,9 @@
         [SerializeField] private Attack.AttackHitboxesContainer _attackHitboxesContainer = null;
         [SerializeField] private UnitHealthController _healthCtrl = null;
         [SerializeField] private LayerMask _collisionMask = 0;
+#pragma warning disable CS0414
         [SerializeField] private RSLib.Framework.DisabledString _debugCollisionsState = new RSLib.Framework.DisabledString();
+#pragma warning restore CS0414
 
         public BoxCollider2D BoxCollider2D => _boxCollider2D;
         public Attack.AttackHitboxesContainer AttackHitboxesContainer => _attackHitboxesContainer;
