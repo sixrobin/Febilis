@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DialoguesDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DialoguesDatas.xsd">
+
+   <DialogueDatas Id="LennyStatue">
+      <Sequence>
+         <Sentence Id="LennyStatue_00"/>
+         <Sentence Id="LennyStatue_01"/>
+      </Sequence>
+   </DialogueDatas>
+
+   <SentenceDatas Id="LennyStatue_00">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Unskippable/>
+   </SentenceDatas>
+
+   <SentenceDatas Id="LennyStatue_01">
+      <Speaker Id="Templar">
+         <HideSpeakerName/>
+      </Speaker>
+      <Unskippable/>
+   </SentenceDatas>
+   
+</DialoguesDatas>

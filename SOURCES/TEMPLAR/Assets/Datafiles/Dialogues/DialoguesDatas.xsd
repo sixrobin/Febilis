@@ -7,7 +7,7 @@
       <xs:complexType>
          <xs:sequence>
             <xs:element name="DialogueDatas" type="DialogueDatas" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="SentenceDatas"  type="SentenceDatas" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="SentenceDatas" type="SentenceDatas" minOccurs="0" maxOccurs="unbounded"/>
          </xs:sequence>
       </xs:complexType>
    </xs:element>
@@ -68,6 +68,7 @@
             </xs:complexType>
          </xs:element>
          <xs:element name="OverridePortraitAnchor" type="PortraitAnchor" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="Unskippable" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attribute name="Id" type="xs:token" use="required"/>
    </xs:complexType>
