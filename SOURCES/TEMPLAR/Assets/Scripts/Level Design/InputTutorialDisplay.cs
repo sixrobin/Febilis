@@ -77,6 +77,11 @@
 
             gameObject.SetActive(show);
         }
+
+        private void Display()
+        {
+            Display(true);
+        }
         
         private void RaiseValidationEvent(ValidationType validationType)
         {
@@ -119,7 +124,7 @@
                 
                 case DisplayType.ITEM_PICKUP:
                     Display(false);
-                    UI.ItemPickupPanel.PickupPanelDisplayed += () => { Display(true); };
+                    UI.ItemPickupPanel.PickupPanelDisplayed += Display;
                     break;
             }
             
@@ -218,6 +223,13 @@
 
         private void OnDestroy()
         {
+            switch (_displayType)
+            {
+                case DisplayType.ITEM_PICKUP:
+                    UI.ItemPickupPanel.PickupPanelDisplayed -= Display;
+                    break;
+            }
+            
             RSLib.Localization.Localizer.LanguageChanged -= Localize;
             RSLib.Framework.InputSystem.InputManager.SaveDone -= OnInputSaveDone;
             Manager.SettingsManager.DisplayTutorials.ValueChanged -= OnDisplayTutorialsValueChanged;
