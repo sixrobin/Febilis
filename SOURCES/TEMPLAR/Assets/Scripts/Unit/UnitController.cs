@@ -130,6 +130,9 @@
             yield return RSLib.Yield.SharedYields.WaitForSeconds(delay);
             yield return new WaitUntil(conditionalDelay);
 
+            if (HealthCtrl.HealthSystem.IsDead)
+                yield break;
+            
             UnitView.PlayStunAnimation(CurrDir);
 
             IsStunned = true;

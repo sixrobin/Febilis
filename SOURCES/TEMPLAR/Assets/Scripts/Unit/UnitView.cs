@@ -46,14 +46,12 @@
 
         public SpriteRenderer Renderer => _spriteRenderer;
 
-#region ANIMATION EVENTS
-
+        #region ANIMATION EVENTS
         public void OnFootstep()
         {
             RSLib.Audio.AudioManager.PlaySound(_footstepClipProvider);
         }
-
-#endregion // ANIMATION EVENTS
+        #endregion // ANIMATION EVENTS
         
         public bool GetSpriteRendererFlipX()
         {

@@ -34,7 +34,7 @@
 
         public override float DeadFadeDelay => _deadFadeDelay;
 
-#region ANIMATION EVENTS
+        #region ANIMATION EVENTS
         public void OnRoarStart()
         {
             StartCoroutine(RoarCoroutine(_roarMaxDuration));
@@ -44,7 +44,7 @@
         {
             StopAllCoroutines();
         }
-#endregion // ANIMATION EVENTS
+        #endregion // ANIMATION EVENTS
         
         public void Init(string enemyId)
         {
