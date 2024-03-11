@@ -1,0 +1,374 @@
+﻿namespace RSLib.Extensions
+{
+    using UnityEngine;
+
+    public static class KeyCodeExtensions
+    {
+        /// <summary>
+        /// Is the KeyCode a mouse key.
+        /// </summary>
+        /// <param name="keyCode">KeyCode to evaluate.</param>
+        /// <returns>True if KeyCode is a mouse key, else false.</returns>
+        public static bool IsMouse(this KeyCode keyCode)
+        {
+            switch (keyCode)
+            {
+                case KeyCode.Mouse0:
+                case KeyCode.Mouse1:
+                case KeyCode.Mouse2:
+                case KeyCode.Mouse3:
+                case KeyCode.Mouse4:
+                case KeyCode.Mouse5:
+                case KeyCode.Mouse6:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Is the KeyCode a keyboard key.
+        /// </summary>
+        /// <param name="keyCode">KeyCode to evaluate.</param>
+        /// <returns>True if KeyCode is a keyboard key, else false.</returns>
+        public static bool IsKeyboard(this KeyCode keyCode)
+        {
+            switch (keyCode)
+            {
+                case KeyCode.Backspace:
+                case KeyCode.Delete:
+                case KeyCode.Tab:
+                case KeyCode.Clear:
+                case KeyCode.Return:
+                case KeyCode.Pause:
+                case KeyCode.Escape:
+                case KeyCode.Space:
+                case KeyCode.Keypad0:
+                case KeyCode.Keypad1:
+                case KeyCode.Keypad2:
+                case KeyCode.Keypad3:
+                case KeyCode.Keypad4:
+                case KeyCode.Keypad5:
+                case KeyCode.Keypad6:
+                case KeyCode.Keypad7:
+                case KeyCode.Keypad8:
+                case KeyCode.Keypad9:
+                case KeyCode.KeypadPeriod:
+                case KeyCode.KeypadDivide:
+                case KeyCode.KeypadMultiply:
+                case KeyCode.KeypadMinus:
+                case KeyCode.KeypadPlus:
+                case KeyCode.KeypadEnter:
+                case KeyCode.KeypadEquals:
+                case KeyCode.UpArrow:
+                case KeyCode.DownArrow:
+                case KeyCode.RightArrow:
+                case KeyCode.LeftArrow:
+                case KeyCode.Insert:
+                case KeyCode.Home:
+                case KeyCode.End:
+                case KeyCode.PageUp:
+                case KeyCode.PageDown:
+                case KeyCode.F1:
+                case KeyCode.F2:
+                case KeyCode.F3:
+                case KeyCode.F4:
+                case KeyCode.F5:
+                case KeyCode.F6:
+                case KeyCode.F7:
+                case KeyCode.F8:
+                case KeyCode.F9:
+                case KeyCode.F10:
+                case KeyCode.F11:
+                case KeyCode.F12:
+                case KeyCode.F13:
+                case KeyCode.F14:
+                case KeyCode.F15:
+                case KeyCode.Alpha0:
+                case KeyCode.Alpha1:
+                case KeyCode.Alpha2:
+                case KeyCode.Alpha3:
+                case KeyCode.Alpha4:
+                case KeyCode.Alpha5:
+                case KeyCode.Alpha6:
+                case KeyCode.Alpha7:
+                case KeyCode.Alpha8:
+                case KeyCode.Alpha9:
+                case KeyCode.Exclaim:
+                case KeyCode.DoubleQuote:
+                case KeyCode.Hash:
+                case KeyCode.Dollar:
+                case KeyCode.Percent:
+                case KeyCode.Ampersand:
+                case KeyCode.Quote:
+                case KeyCode.LeftParen:
+                case KeyCode.RightParen:
+                case KeyCode.Asterisk:
+                case KeyCode.Plus:
+                case KeyCode.Comma:
+                case KeyCode.Minus:
+                case KeyCode.Period:
+                case KeyCode.Slash:
+                case KeyCode.Colon:
+                case KeyCode.Semicolon:
+                case KeyCode.Less:
+                case KeyCode.Equals:
+                case KeyCode.Greater:
+                case KeyCode.Question:
+                case KeyCode.At:
+                case KeyCode.LeftBracket:
+                case KeyCode.Backslash:
+                case KeyCode.RightBracket:
+                case KeyCode.Caret:
+                case KeyCode.Underscore:
+                case KeyCode.BackQuote:
+                case KeyCode.A:
+                case KeyCode.B:
+                case KeyCode.C:
+                case KeyCode.D:
+                case KeyCode.E:
+                case KeyCode.F:
+                case KeyCode.G:
+                case KeyCode.H:
+                case KeyCode.I:
+                case KeyCode.J:
+                case KeyCode.K:
+                case KeyCode.L:
+                case KeyCode.M:
+                case KeyCode.N:
+                case KeyCode.O:
+                case KeyCode.P:
+                case KeyCode.Q:
+                case KeyCode.R:
+                case KeyCode.S:
+                case KeyCode.T:
+                case KeyCode.U:
+                case KeyCode.V:
+                case KeyCode.W:
+                case KeyCode.X:
+                case KeyCode.Y:
+                case KeyCode.Z:
+                case KeyCode.LeftCurlyBracket:
+                case KeyCode.Pipe:
+                case KeyCode.RightCurlyBracket:
+                case KeyCode.Tilde:
+                case KeyCode.Numlock:
+                case KeyCode.CapsLock:
+                case KeyCode.ScrollLock:
+                case KeyCode.RightShift:
+                case KeyCode.LeftShift:
+                case KeyCode.RightControl:
+                case KeyCode.LeftControl:
+                case KeyCode.RightAlt:
+                case KeyCode.LeftAlt:
+                case KeyCode.LeftCommand:
+                case KeyCode.LeftWindows:
+                case KeyCode.RightCommand:
+                case KeyCode.RightWindows:
+                case KeyCode.AltGr:
+                case KeyCode.Help:
+                case KeyCode.Print:
+                case KeyCode.SysReq:
+                case KeyCode.Break:
+                case KeyCode.Menu:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Is the KeyCode a controller key.
+        /// </summary>
+        /// <param name="keyCode">KeyCode to evaluate.</param>
+        /// <returns>True if KeyCode is a controller key, else false.</returns>
+        public static bool IsController(this KeyCode keyCode)
+        {
+            switch (keyCode)
+            {
+                case KeyCode.JoystickButton0:
+                case KeyCode.JoystickButton1:
+                case KeyCode.JoystickButton2:
+                case KeyCode.JoystickButton3:
+                case KeyCode.JoystickButton4:
+                case KeyCode.JoystickButton5:
+                case KeyCode.JoystickButton6:
+                case KeyCode.JoystickButton7:
+                case KeyCode.JoystickButton8:
+                case KeyCode.JoystickButton9:
+                case KeyCode.JoystickButton10:
+                case KeyCode.JoystickButton11:
+                case KeyCode.JoystickButton12:
+                case KeyCode.JoystickButton13:
+                case KeyCode.JoystickButton14:
+                case KeyCode.JoystickButton15:
+                case KeyCode.JoystickButton16:
+                case KeyCode.JoystickButton17:
+                case KeyCode.JoystickButton18:
+                case KeyCode.JoystickButton19:
+                case KeyCode.Joystick1Button0:
+                case KeyCode.Joystick1Button1:
+                case KeyCode.Joystick1Button2:
+                case KeyCode.Joystick1Button3:
+                case KeyCode.Joystick1Button4:
+                case KeyCode.Joystick1Button5:
+                case KeyCode.Joystick1Button6:
+                case KeyCode.Joystick1Button7:
+                case KeyCode.Joystick1Button8:
+                case KeyCode.Joystick1Button9:
+                case KeyCode.Joystick1Button10:
+                case KeyCode.Joystick1Button11:
+                case KeyCode.Joystick1Button12:
+                case KeyCode.Joystick1Button13:
+                case KeyCode.Joystick1Button14:
+                case KeyCode.Joystick1Button15:
+                case KeyCode.Joystick1Button16:
+                case KeyCode.Joystick1Button17:
+                case KeyCode.Joystick1Button18:
+                case KeyCode.Joystick1Button19:
+                case KeyCode.Joystick2Button0:
+                case KeyCode.Joystick2Button1:
+                case KeyCode.Joystick2Button2:
+                case KeyCode.Joystick2Button3:
+                case KeyCode.Joystick2Button4:
+                case KeyCode.Joystick2Button5:
+                case KeyCode.Joystick2Button6:
+                case KeyCode.Joystick2Button7:
+                case KeyCode.Joystick2Button8:
+                case KeyCode.Joystick2Button9:
+                case KeyCode.Joystick2Button10:
+                case KeyCode.Joystick2Button12:
+                case KeyCode.Joystick2Button13:
+                case KeyCode.Joystick2Button14:
+                case KeyCode.Joystick2Button15:
+                case KeyCode.Joystick2Button16:
+                case KeyCode.Joystick2Button17:
+                case KeyCode.Joystick2Button18:
+                case KeyCode.Joystick2Button19:
+                case KeyCode.Joystick3Button0:
+                case KeyCode.Joystick3Button1:
+                case KeyCode.Joystick3Button2:
+                case KeyCode.Joystick3Button3:
+                case KeyCode.Joystick3Button4:
+                case KeyCode.Joystick3Button5:
+                case KeyCode.Joystick3Button6:
+                case KeyCode.Joystick3Button7:
+                case KeyCode.Joystick3Button8:
+                case KeyCode.Joystick3Button9:
+                case KeyCode.Joystick3Button10:
+                case KeyCode.Joystick3Button11:
+                case KeyCode.Joystick3Button12:
+                case KeyCode.Joystick3Button13:
+                case KeyCode.Joystick3Button14:
+                case KeyCode.Joystick3Button15:
+                case KeyCode.Joystick3Button16:
+                case KeyCode.Joystick3Button17:
+                case KeyCode.Joystick3Button18:
+                case KeyCode.Joystick3Button19:
+                case KeyCode.Joystick4Button0:
+                case KeyCode.Joystick4Button1:
+                case KeyCode.Joystick4Button2:
+                case KeyCode.Joystick4Button3:
+                case KeyCode.Joystick4Button4:
+                case KeyCode.Joystick4Button5:
+                case KeyCode.Joystick4Button6:
+                case KeyCode.Joystick4Button7:
+                case KeyCode.Joystick4Button8:
+                case KeyCode.Joystick4Button9:
+                case KeyCode.Joystick4Button10:
+                case KeyCode.Joystick4Button11:
+                case KeyCode.Joystick4Button12:
+                case KeyCode.Joystick4Button13:
+                case KeyCode.Joystick4Button14:
+                case KeyCode.Joystick4Button15:
+                case KeyCode.Joystick4Button16:
+                case KeyCode.Joystick4Button17:
+                case KeyCode.Joystick4Button18:
+                case KeyCode.Joystick4Button19:
+                case KeyCode.Joystick5Button0:
+                case KeyCode.Joystick5Button1:
+                case KeyCode.Joystick5Button2:
+                case KeyCode.Joystick5Button3:
+                case KeyCode.Joystick5Button4:
+                case KeyCode.Joystick5Button5:
+                case KeyCode.Joystick5Button6:
+                case KeyCode.Joystick5Button7:
+                case KeyCode.Joystick5Button8:
+                case KeyCode.Joystick5Button9:
+                case KeyCode.Joystick5Button10:
+                case KeyCode.Joystick5Button11:
+                case KeyCode.Joystick5Button12:
+                case KeyCode.Joystick5Button13:
+                case KeyCode.Joystick5Button14:
+                case KeyCode.Joystick5Button15:
+                case KeyCode.Joystick5Button16:
+                case KeyCode.Joystick5Button17:
+                case KeyCode.Joystick5Button18:
+                case KeyCode.Joystick5Button19:
+                case KeyCode.Joystick6Button0:
+                case KeyCode.Joystick6Button1:
+                case KeyCode.Joystick6Button2:
+                case KeyCode.Joystick6Button3:
+                case KeyCode.Joystick6Button4:
+                case KeyCode.Joystick6Button5:
+                case KeyCode.Joystick6Button6:
+                case KeyCode.Joystick6Button7:
+                case KeyCode.Joystick6Button8:
+                case KeyCode.Joystick6Button9:
+                case KeyCode.Joystick6Button10:
+                case KeyCode.Joystick6Button11:
+                case KeyCode.Joystick6Button12:
+                case KeyCode.Joystick6Button13:
+                case KeyCode.Joystick6Button14:
+                case KeyCode.Joystick6Button15:
+                case KeyCode.Joystick6Button16:
+                case KeyCode.Joystick6Button17:
+                case KeyCode.Joystick6Button18:
+                case KeyCode.Joystick6Button19:
+                case KeyCode.Joystick7Button0:
+                case KeyCode.Joystick7Button1:
+                case KeyCode.Joystick7Button2:
+                case KeyCode.Joystick7Button3:
+                case KeyCode.Joystick7Button4:
+                case KeyCode.Joystick7Button5:
+                case KeyCode.Joystick7Button6:
+                case KeyCode.Joystick7Button7:
+                case KeyCode.Joystick7Button8:
+                case KeyCode.Joystick7Button9:
+                case KeyCode.Joystick7Button10:
+                case KeyCode.Joystick7Button11:
+                case KeyCode.Joystick7Button12:
+                case KeyCode.Joystick7Button13:
+                case KeyCode.Joystick7Button14:
+                case KeyCode.Joystick7Button15:
+                case KeyCode.Joystick7Button16:
+                case KeyCode.Joystick7Button17:
+                case KeyCode.Joystick7Button18:
+                case KeyCode.Joystick7Button19:
+                case KeyCode.Joystick8Button0:
+                case KeyCode.Joystick8Button1:
+                case KeyCode.Joystick8Button2:
+                case KeyCode.Joystick8Button3:
+                case KeyCode.Joystick8Button4:
+                case KeyCode.Joystick8Button5:
+                case KeyCode.Joystick8Button6:
+                case KeyCode.Joystick8Button7:
+                case KeyCode.Joystick8Button8:
+                case KeyCode.Joystick8Button9:
+                case KeyCode.Joystick8Button10:
+                case KeyCode.Joystick8Button11:
+                case KeyCode.Joystick8Button12:
+                case KeyCode.Joystick8Button13:
+                case KeyCode.Joystick8Button14:
+                case KeyCode.Joystick8Button15:
+                case KeyCode.Joystick8Button16:
+                case KeyCode.Joystick8Button17:
+                case KeyCode.Joystick8Button18:
+                case KeyCode.Joystick8Button19:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+}
