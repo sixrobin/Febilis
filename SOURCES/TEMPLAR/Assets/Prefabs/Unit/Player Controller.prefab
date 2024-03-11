@@ -599,6 +599,7 @@ MonoBehaviour:
   _idleBreakSecInterval: 6
   _breaksBeforeSleep: 2
   _sleepFeedback: {fileID: 1141313425224219380}
+  _healTrauma: 0.15
   _deathStencilDuration: 0.2
   _landClipProvider: {fileID: 11400000, guid: e0a5268b8908e684599efa0cee6b2406, type: 2}
   _softLandClipProvider: {fileID: 11400000, guid: 99efeb5476f1b1f4897de41a3876f51b,
@@ -627,6 +628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _blinkShader: {fileID: 4800000, guid: 7693dc454b48e6348b86762b43262cac, type: 3}
   _useSharedMaterial: 0
+  _timeScaleDependent: 0
   _color: {r: 1, g: 1, b: 1, a: 1}
   _colorFadeDur: 0
   _coloredDur: 0.1

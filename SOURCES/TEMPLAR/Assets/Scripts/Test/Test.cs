@@ -8,12 +8,10 @@
 
     public class Test : MonoBehaviour
     {
-        [Range(0,1)]
-        public float t = 0.5f;
-        
-        private void Update()
+        private void Start()
         {
-            transform.SetPositionX(Vector2.right.LerpUnclamped(t, RSLib.Maths.Curve.OutBack));
+            transform.name = "Oui (Clone)";
+            gameObject.RemoveCloneFromName();
         }
     }
 }

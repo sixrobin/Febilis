@@ -1,6 +1,0 @@
-Les tableaux sont cools, même si j'avoue les trouver très courts (j'imagine aussi que je connais le jeu donc je rush un peu comme un débile, et que même pour les premiers y aura du tuto/de la narration donc ça va rallonger le truc).
-La transition 4B -> 3A est un peu bizarre, je pense qu'il faudrait coller un peu plus le bound de la caméra.
-Null ref sur le Board 4 qui ne référence pas le link 4C.
-	- Est-ce qu'on veut un truc automatisé qui récupère les links à l'Awake ? Techniquement plus coûteux mais pas la mort non plus et ça empêche des soucis du genre.
-Je pense que quand c'est possible, il faudrait peindre le décor comme s'il n'y avait pas de tableaux, histoire de s'assurer que les transitions ne dépassent pas et révèlent un décor qui s'arrête. Si les camera bounds sont bien setup ça ne devrait pas arriver, mais c'est toujours une sécurité de plus ?
-Le lien 1B est déclenchable sans tomber ce qui est je pense un peu chelou étant donné que la transition est très clairement vers le bas.
